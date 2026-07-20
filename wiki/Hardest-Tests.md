@@ -1,10 +1,34 @@
 # Hardest Tests — Capability Map and Evidence Protocol
 
+![Sovereign entry — evaluation identity starts at the public wallet gate](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hardest-tests-identity-gate.png)
+
+![MEASURED vs BASELINE evidence labels](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/banner-measured-vs-baseline.png)
+
 Large benchmark names are not capabilities by themselves. This page identifies
 what each hard evaluation actually exercises, the upstream path to run it, and
 the evidence required before any Affine.Earth result may be called **MEASURED**.
 
-![Sovereign entry provenance: an evaluation identity begins with the public wallet flow](https://raw.githubusercontent.com/gaiaftcl-sudo/affine.earth.public/main/wiki/assets/signup-01-language-game-landing.png)
+### Live product gallery
+
+| Caption | Image |
+|:---|:---|
+| Identity gate (New wallet / consent) | ![gate](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hardest-tests-identity-gate.png) |
+| Returning tab | ![returning](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/sovereign-entry-returning.png) |
+| Live healthz JSON | ![healthz](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/healthz-json-live.png) |
+
+### Walkthrough — identity surface before any hard-suite claim
+
+<p>
+<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hero-language-game.png">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.webm" type="video/webm">
+</video>
+</p>
+
+![Animated walkthrough — Sovereign entry tabs then live healthz JSON](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-healthz.gif)
+
+> **MP4 / WebM:** [https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4) · also mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media) in the public repo.
+
 
 ## Read the status label first
 

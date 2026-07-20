@@ -1,9 +1,35 @@
 # Capabilities — What You Can Do with This Rig
 
+![Live language-game surface](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/capabilities-language-game.png)
+
+![MEASURED vs BASELINE](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/banner-measured-vs-baseline.png)
+
 This page is an operational map of features implemented in
 `llm-llvm-benchmark-suite`. It distinguishes a command that can run locally
 from an outcome that still requires a live model endpoint or an upstream
 harness result.
+
+### Product screenshots
+
+| Caption | Image |
+|:---|:---|
+| Language-game / Franklin chat under Sovereign entry | ![lg](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/capabilities-language-game.png) |
+| New wallet path | ![nw](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/sovereign-entry-new-wallet.png) |
+| Live healthz | ![hz](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/healthz-json-live.png) |
+
+### Capability tour — public UI + health observation
+
+<p>
+<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hero-language-game.png">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.webm" type="video/webm">
+</video>
+</p>
+
+![Animated walkthrough — Sovereign entry tabs then live healthz JSON](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-healthz.gif)
+
+> **MP4 / WebM:** [https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4) · also mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media) in the public repo.
+
 
 ## Gate — Affine.Earth account (live third-party path)
 

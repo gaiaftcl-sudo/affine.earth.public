@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="220" viewBox="0 0 1600 220">
+  <rect width="1600" height="220" fill="#0f1419"/>
+  <text x="800" y="40" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#94a3b8">Evidence-first validation pipeline</text>
+  <!-- boxes -->
+  <rect x="40" y="70" rx="10" width="200" height="90" fill="#134e4a"/>
+  <text x="140" y="125" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#fff">Identity</text>
+  <rect x="280" y="70" rx="10" width="200" height="90" fill="#115e59"/>
+  <text x="380" y="115" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#fff">Endpoint</text>
+  <text x="380" y="140" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#99f6e4">JSON check</text>
+  <rect x="520" y="70" rx="10" width="200" height="90" fill="#0f766e"/>
+  <text x="620" y="115" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#fff">Pinned</text>
+  <text x="620" y="140" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#99f6e4">benchmark</text>
+  <rect x="760" y="70" rx="10" width="200" height="90" fill="#0d9488"/>
+  <text x="860" y="115" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#fff">Recorded</text>
+  <text x="860" y="140" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#ccfbf1">execution</text>
+  <rect x="1000" y="70" rx="10" width="200" height="90" fill="#14b8a6"/>
+  <text x="1100" y="115" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#042f2e">Upstream</text>
+  <text x="1100" y="140" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#042f2e">scoring</text>
+  <rect x="1240" y="70" rx="10" width="320" height="90" fill="#2dd4bf"/>
+  <text x="1400" y="115" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="18" fill="#042f2e">Artifact bundle</text>
+  <text x="1400" y="140" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#042f2e">+ SHA-256</text>
+  <!-- arrows -->
+  <g stroke="#64748b" stroke-width="3" fill="#64748b">
+    <polygon points="250,115 275,105 275,125"/>
+    <polygon points="490,115 515,105 515,125"/>
+    <polygon points="730,115 755,105 755,125"/>
+    <polygon points="970,115 995,105 995,125"/>
+    <polygon points="1210,115 1235,105 1235,125"/>
+  </g>
+  <text x="800" y="200" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="16" fill="#64748b">No synthetic score JSON — upstream evaluator supplies the metric</text>
+</svg>

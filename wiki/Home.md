@@ -1,5 +1,9 @@
 # Affine.Earth Public Benchmark Wiki
 
+![Affine.Earth language-game — live Sovereign entry](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hero-language-game.png)
+
+![MEASURED vs BASELINE — evidence labels, not invented scores](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/banner-measured-vs-baseline.png)
+
 **Public repository:** [`gaiaftcl-sudo/affine.earth.public`](https://github.com/gaiaftcl-sudo/affine.earth.public)  
 **This wiki:** [`gaiaftcl-sudo/affine.earth.public/wiki`](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki)  
 **Harness package:** `llm-llvm-benchmark-suite/`  
@@ -8,6 +12,30 @@
 
 ---
 
+## Visual tour (live UI + health)
+
+| Surface | Screenshot |
+|:---|:---|
+| Language-game / Sovereign entry | ![Language-game hero](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hero-language-game.png) |
+| New wallet tab | ![New wallet](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/sovereign-entry-new-wallet.png) |
+| Live healthz JSON | ![healthz](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/healthz-json-live.png) |
+| Local terminal receipt | ![terminal](https://raw.githubusercontent.com/gaiaftcl-sudo/affine.earth.public/main/wiki/assets/affine_benchmark_terminal.jpg) |
+
+### 30-second demo — signup gate + healthz
+
+<p>
+<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hero-language-game.png">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.webm" type="video/webm">
+</video>
+</p>
+
+![Animated walkthrough — Sovereign entry tabs then live healthz JSON](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-healthz.gif)
+
+> **MP4 / WebM:** [https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4) · also mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media) in the public repo.
+
+
+---
 ## What this project is
 
 The **Affine.Earth Public Benchmark Testing Suite** (`llm-llvm-benchmark-suite`) is a Python package for evaluating:
@@ -58,13 +86,16 @@ tool-mediated task completion. Start with:
   validation model across reasoning, abstraction, software construction, tool
   use, and deterministic execution.
 
-![Sovereign entry is the provenance boundary for public testing](https://raw.githubusercontent.com/gaiaftcl-sudo/affine.earth.public/main/wiki/assets/signup-05-new-wallet-consent-actions.png)
+### Gallery — identity gate and receipts
 
----
+| Caption | Image |
+|:---|:---|
+| Sovereign entry (New wallet + consent) | ![Sovereign entry](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/sovereign-entry-new-wallet.png) |
+| Optional domain capabilities | ![Optional domain](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/sovereign-entry-optional-domain.png) |
+| Live healthz (pretty-printed from HTTP 200 JSON) | ![healthz](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/healthz-json-live.png) |
+| Local Clang / pytest terminal receipt | ![terminal](https://raw.githubusercontent.com/gaiaftcl-sudo/affine.earth.public/main/wiki/assets/affine_benchmark_terminal.jpg) |
 
-## Live terminal evidence
-
-![Live Benchmark Terminal Execution Receipt](https://raw.githubusercontent.com/gaiaftcl-sudo/affine.earth.public/main/wiki/assets/affine_benchmark_terminal.jpg)
+![Evidence labels](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/banner-measured-vs-baseline.png)
 
 ---
 

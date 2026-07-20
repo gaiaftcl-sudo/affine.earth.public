@@ -22,6 +22,22 @@ UI lead text (static HTML): *“No username. No password. Keys stay in this brow
 
 ## Screenshots (live UI)
 
+![Hero — language-game with Sovereign entry](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hero-language-game.png)
+
+### Signup walkthrough (Returning ↔ New wallet ↔ healthz)
+
+<p>
+<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hero-language-game.png">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.webm" type="video/webm">
+</video>
+</p>
+
+![Animated walkthrough — Sovereign entry tabs then live healthz JSON](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-healthz.gif)
+
+> **MP4 / WebM:** [https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4) · also mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media) in the public repo.
+
+
 ![Root redirects to language-game with Sovereign entry (Returning tab)](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-02-returning-tab.png)
 
 ![New wallet tab — sovereign node initialization + consent](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-03-new-wallet-tab.png)
@@ -29,6 +45,12 @@ UI lead text (static HTML): *“No username. No password. Keys stay in this brow
 ![New wallet — optional domain expanded](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-04-new-wallet-optional-domain.png)
 
 ![New wallet — consent checkbox and Create wallet + QFOT actions](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-05-new-wallet-consent-actions.png)
+
+![New wallet (retake)](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/sovereign-entry-new-wallet.png)
+
+![Optional domain (retake)](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/sovereign-entry-optional-domain.png)
+
+![Live healthz JSON](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/healthz-json-live.png)
 
 Same files also live in the main repo at `wiki/assets/signup-*.png` (mirror:
 `https://raw.githubusercontent.com/gaiaftcl-sudo/affine.earth.public/main/wiki/assets/…`

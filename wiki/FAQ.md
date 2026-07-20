@@ -1,5 +1,9 @@
 # FAQ / Q&A
 
+![Affine.Earth live language-game](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hero-language-game.png)
+
+Short demo GIF: ![demo](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-healthz.gif) — see [Create Account / Signup](Create-Account-Signup) and [Home](Home).
+
 Detailed questions and answers about the Affine.Earth public benchmark suite and this wiki.
 
 ---
