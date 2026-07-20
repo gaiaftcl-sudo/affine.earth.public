@@ -1,5 +1,5 @@
 # 100.0% Affine.Earth OS Substrate vs. Frontier LLMs Leaderboard
-**Date:** 2026-07-20 17:11:18 UTC  
+**Date:** 2026-07-20 17:29:08 UTC  
 **Substrate Accuracy:** **100.0% (Kernel & Topological Invariance)**  
 **Exposed 1.5% Delta Origin:** Meatspace GoDaddy DNS PUT Rate-Limit (HTTP 429), NOT Substrate Kernel  
 
