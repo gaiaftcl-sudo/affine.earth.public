@@ -128,24 +128,28 @@ scores. Suite IDs live in
 
 ```bash
 cp configs/third-party-harnesses.env.example .env.third-party-harnesses
-# Edit endpoint + model (+ HF_TOKEN for HLE, ARC_AGI_CONFIG for ARC-AGI).
+# Edit endpoint + model (+ HF_TOKEN for HLE, ARC_AGI_CONFIG, checkouts).
 
-./bin/run-open-agi-harnesses.sh --harness gpqa          # lm-eval gpqa_diamond_zeroshot
-./bin/run-open-agi-harnesses.sh --harness hle           # centerforaisafety/hle (gated HF)
-./bin/run-open-agi-harnesses.sh --harness arc-agi       # ARC Prize arc-agi-benchmarking
-./bin/run-open-agi-harnesses.sh --harness gaia          # Inspect AI inspect_evals/gaia
-./bin/run-open-agi-harnesses.sh --harness swe-bench     # exit 3 — NEEDS_UPSTREAM
-./bin/run-open-agi-harnesses.sh --harness livecodebench # exit 3 — NEEDS_UPSTREAM
+./bin/run-open-agi-harnesses.sh --harness lm-eval-hard  # GPQA + BBH + MMLU-Pro
+./bin/run-open-agi-harnesses.sh --harness hle           # centerforaisafety/hle
+./bin/run-open-agi-harnesses.sh --harness arc-agi-2     # ARC-AGI-2 evaluation tasks
+./bin/run-open-agi-harnesses.sh --harness gaia          # Inspect AI
+./bin/run-open-agi-harnesses.sh --harness inspect-gpqa
+./bin/run-open-agi-harnesses.sh --harness livecodebench # needs LiveCodeBench checkout
+export SWE_BENCH_PREDICTIONS_PATH=/path/to/predictions.jsonl
+./bin/run-open-agi-harnesses.sh --harness swe-bench     # official scorer only
+./bin/run-open-agi-harnesses.sh --harness frontiermath  # exit 3 — NEEDS_UPSTREAM
 ```
 
 | Suite ID | Harness | Status |
 |:---|:---|:---|
-| `open_agi_gpqa` | `gpqa` | RUNNABLE_WRAPPER (`lm-eval==0.4.7`) |
-| `open_agi_hle` | `hle` | RUNNABLE_WRAPPER (HF gated `cais/hle`) |
-| `open_agi_arc_agi` | `arc-agi` | RUNNABLE_WRAPPER (ARC Prize checkout) |
-| `open_agi_gaia` | `gaia` | RUNNABLE_WRAPPER (Inspect + Docker) |
-| `open_agi_swe_bench` | `swe-bench` | NEEDS_UPSTREAM (exit 3) |
-| `open_agi_livecodebench` | `livecodebench` | NEEDS_UPSTREAM (exit 3) |
+| `open_agi_gpqa` / `bbh` / `mmlu_pro` / `lm_eval_hard` | `gpqa`… | RUNNABLE_WRAPPER (`lm-eval==0.4.7`) |
+| `open_agi_hle` | `hle` | RUNNABLE_WRAPPER (HF `cais/hle`) |
+| `open_agi_arc_agi` / `open_agi_arc_agi_2` | `arc-agi` / `arc-agi-2` | RUNNABLE_WRAPPER |
+| `open_agi_gaia` / `inspect_gpqa` / `inspect` | Inspect keys | RUNNABLE_WRAPPER |
+| `open_agi_livecodebench` | `livecodebench` | RUNNABLE_WRAPPER (checkout + `lcb_runner`) |
+| `open_agi_swe_bench` | `swe-bench` | RUNNABLE_WRAPPER (needs real predictions JSONL) |
+| `open_agi_frontiermath` | `frontiermath` | NEEDS_UPSTREAM (exit 3) |
 
 Full pins, dataset access, and blockers:
 [docs/OPEN_AGI_FRAMEWORKS.md](docs/OPEN_AGI_FRAMEWORKS.md) ·

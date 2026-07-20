@@ -187,21 +187,22 @@ Tests cover: `pass_at_k`, LLVM metrics, reporter, HumanEval/LLVM fork adapters, 
 
 | Field | Value |
 |:---|:---|
-| **Status** | **RUNNABLE** wrappers for `gpqa` / `hle` / `arc-agi` / `gaia`; **NEEDS_UPSTREAM** for `swe-bench` / `livecodebench` (exit 3) |
-| **Command** | `./bin/run-open-agi-harnesses.sh --harness gpqa\|hle\|arc-agi\|gaia\|swe-bench\|livecodebench` |
+| **Status** | **RUNNABLE** wrappers for lm-eval hard tasks, HLE, ARC-AGI/-2, Inspect, LiveCodeBench, SWE-bench scorer; **NEEDS_UPSTREAM** for FrontierMath (exit 3) |
+| **Command** | `./bin/run-open-agi-harnesses.sh --harness lm-eval-hard\|hle\|arc-agi-2\|gaia\|inspect-gpqa\|livecodebench\|swe-bench\|frontiermath` |
 | **Config** | `configs/open-agi-harnesses.yaml` (suite IDs `open_agi_*`), `docs/OPEN_AGI_FRAMEWORKS.md` |
 | **What it does** | Invokes real upstream CLIs only; preflights JSON `/models` where applicable; **never** writes heredoc scores |
 | **Artifacts** | `reports/third_party/open_agi/` when a run succeeds |
-| **Blockers** | Same Affine `/v1` HTML SPA; HLE needs gated HF `cais/hle` + checkout; ARC needs ARC Prize checkout + `ARC_AGI_CONFIG`; GAIA needs Inspect + Docker; SWE-bench/LiveCodeBench intentionally exit 3 |
+| **Blockers** | Affine `/v1` HTML SPA; HLE gated HF; ARC needs checkout + config; LiveCodeBench needs `lcb_runner`; SWE-bench needs real predictions JSONL + Docker; FrontierMath exit 3 |
 
 | Suite ID | Harness | Status |
 |:---|:---|:---|
-| `open_agi_gpqa` | `gpqa` | RUNNABLE_WRAPPER (`lm-eval` task `gpqa_diamond_zeroshot`) |
-| `open_agi_hle` | `hle` | RUNNABLE_WRAPPER ([centerforaisafety/hle](https://github.com/centerforaisafety/hle)) |
-| `open_agi_arc_agi` | `arc-agi` | RUNNABLE_WRAPPER ([arc-agi-benchmarking](https://github.com/arcprize/arc-agi-benchmarking)) |
-| `open_agi_gaia` | `gaia` | RUNNABLE_WRAPPER (Inspect AI `inspect_evals/gaia`) |
-| `open_agi_swe_bench` | `swe-bench` | **NEEDS_UPSTREAM** |
-| `open_agi_livecodebench` | `livecodebench` | **NEEDS_UPSTREAM** |
+| `open_agi_gpqa` / `bbh` / `mmlu_pro` / `lm_eval_hard` | lm-eval keys | RUNNABLE_WRAPPER |
+| `open_agi_hle` | `hle` | RUNNABLE_WRAPPER |
+| `open_agi_arc_agi` / `arc_agi_2` | `arc-agi` / `arc-agi-2` | RUNNABLE_WRAPPER |
+| `open_agi_gaia` / `inspect_gpqa` / `inspect` | Inspect keys | RUNNABLE_WRAPPER |
+| `open_agi_livecodebench` | `livecodebench` | RUNNABLE_WRAPPER |
+| `open_agi_swe_bench` | `swe-bench` | RUNNABLE_WRAPPER (predictions required) |
+| `open_agi_frontiermath` | `frontiermath` | **NEEDS_UPSTREAM** |
 
 ---
 

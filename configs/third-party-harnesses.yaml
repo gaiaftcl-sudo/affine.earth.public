@@ -74,8 +74,21 @@ harnesses:
     suite_id: open_agi_gpqa
     via: lm_evaluation_harness
     package_pin: lm-eval==0.4.7
-    tasks: [gpqa_diamond_zeroshot]
-    output: reports/third_party/open_agi/gpqa
+    tasks: [gpqa_diamond_cot_zeroshot]
+    open_agi_registry: configs/open-agi-harnesses.yaml
+  open_agi_bbh_via_lm_eval:
+    wrapper_name: bbh
+    suite_id: open_agi_bbh
+    tasks: [bbh_cot_fewshot]
+    open_agi_registry: configs/open-agi-harnesses.yaml
+  open_agi_mmlu_pro_via_lm_eval:
+    wrapper_name: mmlu-pro
+    suite_id: open_agi_mmlu_pro
+    tasks: [mmlu_pro]
+    open_agi_registry: configs/open-agi-harnesses.yaml
+  open_agi_lm_eval_hard:
+    wrapper_name: lm-eval-hard
+    suite_id: open_agi_lm_eval_hard
     open_agi_registry: configs/open-agi-harnesses.yaml
   open_agi_hle:
     wrapper_name: hle
@@ -87,18 +100,33 @@ harnesses:
     suite_id: open_agi_arc_agi
     upstream: https://github.com/arcprize/arc-agi-benchmarking
     open_agi_registry: configs/open-agi-harnesses.yaml
+  open_agi_arc_agi_2:
+    wrapper_name: arc-agi-2
+    suite_id: open_agi_arc_agi_2
+    upstream_data: https://github.com/arcprize/ARC-AGI-2
+    open_agi_registry: configs/open-agi-harnesses.yaml
   open_agi_gaia:
     wrapper_name: gaia
     suite_id: open_agi_gaia
     upstream_evals: https://github.com/UKGovernmentBEIS/inspect_evals
     open_agi_registry: configs/open-agi-harnesses.yaml
-  open_agi_swe_bench:
-    wrapper_name: swe-bench
-    suite_id: open_agi_swe_bench
-    status: NEEDS_UPSTREAM
+  open_agi_inspect_gpqa:
+    wrapper_name: inspect-gpqa
+    suite_id: open_agi_inspect_gpqa
     open_agi_registry: configs/open-agi-harnesses.yaml
   open_agi_livecodebench:
     wrapper_name: livecodebench
     suite_id: open_agi_livecodebench
+    status: RUNNABLE_WRAPPER
+    open_agi_registry: configs/open-agi-harnesses.yaml
+  open_agi_swe_bench:
+    wrapper_name: swe-bench
+    suite_id: open_agi_swe_bench
+    status: RUNNABLE_WRAPPER
+    notes: requires SWE_BENCH_PREDICTIONS_PATH
+    open_agi_registry: configs/open-agi-harnesses.yaml
+  open_agi_frontiermath:
+    wrapper_name: frontiermath
+    suite_id: open_agi_frontiermath
     status: NEEDS_UPSTREAM
     open_agi_registry: configs/open-agi-harnesses.yaml

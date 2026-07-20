@@ -152,12 +152,15 @@ pointers (SWE-bench / LiveCodeBench), use the open-AGI launcher and registry:
 | `docs/OPEN_AGI_FRAMEWORKS.md` | framework map, dataset access, blockers |
 
 ```bash
-./bin/run-open-agi-harnesses.sh --harness gpqa
+./bin/run-open-agi-harnesses.sh --harness lm-eval-hard   # GPQA + BBH + MMLU-Pro
 ./bin/run-open-agi-harnesses.sh --harness hle
-./bin/run-open-agi-harnesses.sh --harness arc-agi
+./bin/run-open-agi-harnesses.sh --harness arc-agi-2
 ./bin/run-open-agi-harnesses.sh --harness gaia
-./bin/run-open-agi-harnesses.sh --harness swe-bench      # exit 3 NEEDS_UPSTREAM
-./bin/run-open-agi-harnesses.sh --harness livecodebench  # exit 3 NEEDS_UPSTREAM
+./bin/run-open-agi-harnesses.sh --harness inspect-gpqa
+./bin/run-open-agi-harnesses.sh --harness livecodebench  # real lcb_runner CLI
+export SWE_BENCH_PREDICTIONS_PATH=/path/to/predictions.jsonl
+./bin/run-open-agi-harnesses.sh --harness swe-bench      # official scorer
+./bin/run-open-agi-harnesses.sh --harness frontiermath   # exit 3 NEEDS_UPSTREAM
 ```
 
 Same fail-loud rules: no heredoc scores, JSON `/models` preflight where the

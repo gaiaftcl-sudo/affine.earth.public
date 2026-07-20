@@ -1,7 +1,7 @@
 # Hardest / open-AGI suite registry for Affine.Earth outsider validation.
 # Status legend matches docs/BENCHMARK_INVENTORY.md:
 #   RUNNABLE_WRAPPER — launcher invokes upstream CLI when deps+endpoint exist
-#   NEEDS_UPSTREAM   — no honest in-repo runner yet; wrapper fails loudly
+#   NEEDS_UPSTREAM   — no honest public runner; wrapper fails loudly (exit 3)
 # Never invent scores. Never write heredoc result JSON.
 version: 1
 related_docs:
@@ -33,68 +33,94 @@ suites:
     status: RUNNABLE_WRAPPER
     upstream: https://github.com/centerforaisafety/hle
     dataset: https://huggingface.co/datasets/cais/hle
-    dataset_access: gated — accept terms on Hugging Face; set HF_TOKEN
-    notes: >-
-      Official scripts under hle_eval/. Requires HF gated dataset access.
-      Uses openai-python (OPENAI_BASE_URL / OPENAI_API_KEY).
+    dataset_access: >-
+      Hugging Face cais/hle — follow dataset terms / non-redistribution notice;
+      set HF_TOKEN when the hub requires auth
+    notes: Official hle_eval scripts; openai-python client; judge step optional.
   open_agi_arc_agi:
     harness_key: arc-agi
-    display_name: "ARC-AGI / ARC Prize eval"
+    display_name: "ARC-AGI (ARC Prize benchmarking)"
     status: RUNNABLE_WRAPPER
     upstream: https://github.com/arcprize/arc-agi-benchmarking
     data_sources:
       arc_agi_1: https://github.com/fchollet/ARC-AGI
       arc_agi_2: https://github.com/arcprize/ARC-AGI-2
+  open_agi_arc_agi_2:
+    harness_key: arc-agi-2
+    display_name: "ARC-AGI-2 public evaluation tasks"
+    status: RUNNABLE_WRAPPER
+    upstream_data: https://github.com/arcprize/ARC-AGI-2
+    upstream_eval: https://github.com/arcprize/arc-agi-benchmarking
     notes: >-
-      Upstream CLI: uv run main.py / cli/run_all.py + scoring.py.
-      Requires a models.yml config name (ARC_AGI_CONFIG) and task data_dir.
+      Requires ARC-AGI-2 checkout (data/evaluation) plus ARC Prize benchmarking
+      CLI + ARC_AGI_CONFIG. Sample tasks alone are not ARC-AGI-2.
   open_agi_gpqa:
     harness_key: gpqa
-    display_name: "GPQA (via EleutherAI lm-eval)"
+    display_name: "GPQA Diamond (lm-eval)"
     status: RUNNABLE_WRAPPER
-    upstream: https://github.com/EleutherAI/lm-evaluation-harness
     package_pin: lm-eval==0.4.7
-    default_tasks: [gpqa_diamond_zeroshot]
-    notes: >-
-      Task ids confirmed in lm-eval (gpqa_*_zeroshot / cot variants).
-      Same OpenAI-compatible preflight as official lm-eval harness.
+    default_tasks: [gpqa_diamond_cot_zeroshot]
+  open_agi_bbh:
+    harness_key: bbh
+    display_name: "BIG-Bench Hard (lm-eval)"
+    status: RUNNABLE_WRAPPER
+    package_pin: lm-eval==0.4.7
+    default_tasks: [bbh_cot_fewshot]
+  open_agi_mmlu_pro:
+    harness_key: mmlu-pro
+    display_name: "MMLU-Pro (lm-eval)"
+    status: RUNNABLE_WRAPPER
+    package_pin: lm-eval==0.4.7
+    default_tasks: [mmlu_pro]
+  open_agi_lm_eval_hard:
+    harness_key: lm-eval-hard
+    display_name: "lm-eval hard bundle (GPQA + BBH + MMLU-Pro)"
+    status: RUNNABLE_WRAPPER
+    package_pin: lm-eval==0.4.7
+    default_tasks: [gpqa_diamond_cot_zeroshot, bbh_cot_fewshot, mmlu_pro]
   open_agi_gaia:
     harness_key: gaia
-    display_name: "GAIA (Inspect AI / Inspect Evals)"
+    display_name: "GAIA (Inspect AI)"
     status: RUNNABLE_WRAPPER
-    upstream_framework: https://github.com/UKGovernmentBEIS/inspect_ai
-    upstream_evals: https://github.com/UKGovernmentBEIS/inspect_evals
     default_task: inspect_evals/gaia
-    notes: >-
-      Requires `inspect` CLI + inspect_evals. GAIA tool tasks typically need
-      Docker Engine. Dataset access may require HF acceptance.
-  open_agi_swe_bench:
-    harness_key: swe-bench
-    display_name: "SWE-bench"
-    status: NEEDS_UPSTREAM
-    upstream: https://github.com/SWE-bench/SWE-bench
-    notes: >-
-      No honest Affine OpenAI-compatible thin wrapper lands here yet.
-      Wrapper exits NEEDS_UPSTREAM (code 3). Do not invent Pass rates.
+  open_agi_inspect_gpqa:
+    harness_key: inspect-gpqa
+    display_name: "GPQA Diamond (Inspect AI)"
+    status: RUNNABLE_WRAPPER
+    default_task: inspect_evals/gpqa_diamond
+  open_agi_inspect:
+    harness_key: inspect
+    display_name: "Inspect AI (generic task via INSPECT_TASK)"
+    status: RUNNABLE_WRAPPER
+    notes: Set INSPECT_TASK (e.g. inspect_evals/gaia_level1).
   open_agi_livecodebench:
     harness_key: livecodebench
     display_name: "LiveCodeBench"
-    status: NEEDS_UPSTREAM
+    status: RUNNABLE_WRAPPER
     upstream: https://github.com/LiveCodeBench/LiveCodeBench
     notes: >-
-      No honest Affine OpenAI-compatible thin wrapper lands here yet.
-      Wrapper exits NEEDS_UPSTREAM (code 3). Do not invent Pass rates.
+      Invokes python -m lcb_runner.runner.main after checkout/install.
+      Requires OpenAI-compatible endpoint; pin LCB_RELEASE_VERSION.
+  open_agi_swe_bench:
+    harness_key: swe-bench
+    display_name: "SWE-bench Verified (official harness)"
+    status: RUNNABLE_WRAPPER
+    upstream: https://github.com/SWE-bench/SWE-bench
+    notes: >-
+      Scorer-only path: requires real predictions JSONL (or gold) then
+      python -m swebench.harness.run_evaluation. Does not invent patches.
+  open_agi_frontiermath:
+    harness_key: frontiermath
+    display_name: "FrontierMath"
+    status: NEEDS_UPSTREAM
+    upstream: https://epoch.ai/frontiermath
+    notes: >-
+      No public full-suite runner. Wrapper exits 3. Contact Epoch for access.
 harnesses:
   hle:
     wrapper_name: hle
     suite_id: open_agi_hle
     checkout_dir: harnesses/hle
-    install: |
-      git clone --depth 1 https://github.com/centerforaisafety/hle.git harnesses/hle
-      python3 -m venv .venv/hle
-      . .venv/hle/bin/activate
-      python -m pip install --upgrade pip
-      python -m pip install -r harnesses/hle/requirements.txt
     prediction_script: hle_eval/run_model_predictions.py
     judge_script: hle_eval/run_judge_results.py
     dataset_default: cais/hle
@@ -103,40 +129,70 @@ harnesses:
     wrapper_name: arc-agi
     suite_id: open_agi_arc_agi
     checkout_dir: harnesses/arc-agi-benchmarking
-    install: |
-      git clone --depth 1 https://github.com/arcprize/arc-agi-benchmarking.git \
-        harnesses/arc-agi-benchmarking
-      # Prefer upstream uv sync inside the checkout; see docs/OPEN_AGI_FRAMEWORKS.md
-    entrypoint_batch: cli/run_all.py
-    scoring_entrypoint: src/arc_agi_benchmarking/scoring/scoring.py
     output: reports/third_party/open_agi/arc_agi
+  arc_agi_2:
+    wrapper_name: arc-agi-2
+    suite_id: open_agi_arc_agi_2
+    data_checkout_dir: harnesses/ARC-AGI-2
+    eval_checkout_dir: harnesses/arc-agi-benchmarking
+    default_data_subdir: data/evaluation
+    output: reports/third_party/open_agi/arc_agi_2
   gpqa:
     wrapper_name: gpqa
     suite_id: open_agi_gpqa
-    via: lm_evaluation_harness
     package_pin: lm-eval==0.4.7
-    cli: lm_eval
-    api_model: local-chat-completions
-    tasks: [gpqa_diamond_zeroshot]
+    tasks: [gpqa_diamond_cot_zeroshot]
     output: reports/third_party/open_agi/gpqa
+  bbh:
+    wrapper_name: bbh
+    suite_id: open_agi_bbh
+    package_pin: lm-eval==0.4.7
+    tasks: [bbh_cot_fewshot]
+    output: reports/third_party/open_agi/bbh
+  mmlu_pro:
+    wrapper_name: mmlu-pro
+    suite_id: open_agi_mmlu_pro
+    package_pin: lm-eval==0.4.7
+    tasks: [mmlu_pro]
+    output: reports/third_party/open_agi/mmlu_pro
+  lm_eval_hard:
+    wrapper_name: lm-eval-hard
+    suite_id: open_agi_lm_eval_hard
+    package_pin: lm-eval==0.4.7
+    tasks: [gpqa_diamond_cot_zeroshot, bbh_cot_fewshot, mmlu_pro]
+    output: reports/third_party/open_agi/lm_eval_hard
   gaia:
     wrapper_name: gaia
     suite_id: open_agi_gaia
-    install: |
-      python3 -m venv .venv/inspect-gaia
-      . .venv/inspect-gaia/bin/activate
-      python -m pip install --upgrade pip
-      python -m pip install "inspect-ai" "inspect-evals"
     cli: inspect
     default_eval: inspect_evals/gaia
     output: reports/third_party/open_agi/gaia
-  swe_bench:
-    wrapper_name: swe-bench
-    suite_id: open_agi_swe_bench
-    status: NEEDS_UPSTREAM
-    upstream: https://github.com/SWE-bench/SWE-bench
+  inspect_gpqa:
+    wrapper_name: inspect-gpqa
+    suite_id: open_agi_inspect_gpqa
+    cli: inspect
+    default_eval: inspect_evals/gpqa_diamond
+    output: reports/third_party/open_agi/inspect_gpqa
+  inspect:
+    wrapper_name: inspect
+    suite_id: open_agi_inspect
+    cli: inspect
+    output: reports/third_party/open_agi/inspect
   livecodebench:
     wrapper_name: livecodebench
     suite_id: open_agi_livecodebench
+    checkout_dir: harnesses/LiveCodeBench
+    entrypoint: lcb_runner.runner.main
+    default_release: release_v6
+    output: reports/third_party/open_agi/livecodebench
+  swe_bench:
+    wrapper_name: swe-bench
+    suite_id: open_agi_swe_bench
+    entrypoint: swebench.harness.run_evaluation
+    default_dataset: SWE-bench/SWE-bench_Verified
+    output: reports/third_party/open_agi/swe_bench
+  frontiermath:
+    wrapper_name: frontiermath
+    suite_id: open_agi_frontiermath
     status: NEEDS_UPSTREAM
-    upstream: https://github.com/LiveCodeBench/LiveCodeBench
+    upstream: https://epoch.ai/frontiermath
