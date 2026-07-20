@@ -1,0 +1,235 @@
+{
+  "report_id": "llm_run_1784586126",
+  "created_at": 1784586126.394641,
+  "llm_suites": [
+    {
+      "suite_name": "code",
+      "model_name": "mock-gpt-4o",
+      "total_samples": 2,
+      "passed_samples": 0,
+      "accuracy_pct": 0.0,
+      "avg_latency_sec": 0.22060751914978027,
+      "tokens_per_sec": 0.0,
+      "results": [
+        {
+          "sample_id": "code_01_fibonacci",
+          "domain": "code",
+          "model_name": "mock-gpt-4o",
+          "prompt": "Write a Python function `fibonacci(n)` that returns the n-th Fibonacci number.",
+          "generated_text": "ERROR: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions",
+          "passed": false,
+          "latency_sec": 0.28632187843322754,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "error_message": null,
+          "metadata": {}
+        },
+        {
+          "sample_id": "code_02_is_prime",
+          "domain": "code",
+          "model_name": "mock-gpt-4o",
+          "prompt": "Write a Python function `is_prime(n)` that returns True if n is a prime number, else False.",
+          "generated_text": "ERROR: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions",
+          "passed": false,
+          "latency_sec": 0.154893159866333,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "error_message": null,
+          "metadata": {}
+        }
+      ],
+      "timestamp": 1784586126.837478
+    },
+    {
+      "suite_name": "reasoning",
+      "model_name": "mock-gpt-4o",
+      "total_samples": 1,
+      "passed_samples": 0,
+      "accuracy_pct": 0.0,
+      "avg_latency_sec": 0.19446706771850586,
+      "tokens_per_sec": 0.0,
+      "results": [
+        {
+          "sample_id": "reasoning_01_math",
+          "domain": "reasoning",
+          "model_name": "mock-gpt-4o",
+          "prompt": "If a store sells 5 apples for $10, and you buy 15 apples with a 10% discount, how much do you pay? Show step-by-step math.",
+          "generated_text": "ERROR: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions",
+          "passed": false,
+          "latency_sec": 0.19446706771850586,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "error_message": null,
+          "metadata": {}
+        }
+      ],
+      "timestamp": 1784586127.0328379
+    },
+    {
+      "suite_name": "affine_domain",
+      "model_name": "mock-gpt-4o",
+      "total_samples": 3,
+      "passed_samples": 0,
+      "accuracy_pct": 0.0,
+      "avg_latency_sec": 0.2026213010152181,
+      "tokens_per_sec": 0.0,
+      "results": [
+        {
+          "sample_id": "affine_domain_01_rational_arithmetic",
+          "domain": "code",
+          "model_name": "mock-gpt-4o",
+          "prompt": "Write a Python class `Rational` with `num` and `den` (Int64) that avoids all floating point arithmetic and implements addition via cross-multiplication: a/b + c/d = (a*d + c*b)/(b*d).",
+          "generated_text": "ERROR: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions",
+          "passed": false,
+          "latency_sec": 0.25370311737060547,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "error_message": null,
+          "metadata": {}
+        },
+        {
+          "sample_id": "affine_domain_02_constant_time_xor",
+          "domain": "code",
+          "model_name": "mock-gpt-4o",
+          "prompt": "Write a Python function `constant_time_compare(a: bytes, b: bytes) -> bool` that compares two 32-byte byte strings using a full XOR accumulator without early exits.",
+          "generated_text": "ERROR: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions",
+          "passed": false,
+          "latency_sec": 0.16084885597229004,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "error_message": null,
+          "metadata": {}
+        },
+        {
+          "sample_id": "affine_domain_03_energy_tariff",
+          "domain": "reasoning",
+          "model_name": "mock-gpt-4o",
+          "prompt": "In Affine.Earth OS, energy margin tariff is defined as Lambda = (torsion * license_constant * 1_000_000_000) / margin. Calculate Lambda when torsion=5, license_constant=2, and margin=10.",
+          "generated_text": "ERROR: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions",
+          "passed": false,
+          "latency_sec": 0.1933119297027588,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "error_message": null,
+          "metadata": {}
+        }
+      ],
+      "timestamp": 1784586127.643123
+    },
+    {
+      "suite_name": "code",
+      "model_name": "mock-claude",
+      "total_samples": 2,
+      "passed_samples": 0,
+      "accuracy_pct": 0.0,
+      "avg_latency_sec": 0.19454801082611084,
+      "tokens_per_sec": 0.0,
+      "results": [
+        {
+          "sample_id": "code_01_fibonacci",
+          "domain": "code",
+          "model_name": "mock-claude",
+          "prompt": "Write a Python function `fibonacci(n)` that returns the n-th Fibonacci number.",
+          "generated_text": "ERROR: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions",
+          "passed": false,
+          "latency_sec": 0.20057201385498047,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "error_message": null,
+          "metadata": {}
+        },
+        {
+          "sample_id": "code_02_is_prime",
+          "domain": "code",
+          "model_name": "mock-claude",
+          "prompt": "Write a Python function `is_prime(n)` that returns True if n is a prime number, else False.",
+          "generated_text": "ERROR: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions",
+          "passed": false,
+          "latency_sec": 0.1885240077972412,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "error_message": null,
+          "metadata": {}
+        }
+      ],
+      "timestamp": 1784586128.033688
+    },
+    {
+      "suite_name": "reasoning",
+      "model_name": "mock-claude",
+      "total_samples": 1,
+      "passed_samples": 0,
+      "accuracy_pct": 0.0,
+      "avg_latency_sec": 0.21355986595153809,
+      "tokens_per_sec": 0.0,
+      "results": [
+        {
+          "sample_id": "reasoning_01_math",
+          "domain": "reasoning",
+          "model_name": "mock-claude",
+          "prompt": "If a store sells 5 apples for $10, and you buy 15 apples with a 10% discount, how much do you pay? Show step-by-step math.",
+          "generated_text": "ERROR: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions",
+          "passed": false,
+          "latency_sec": 0.21355986595153809,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "error_message": null,
+          "metadata": {}
+        }
+      ],
+      "timestamp": 1784586128.24798
+    },
+    {
+      "suite_name": "affine_domain",
+      "model_name": "mock-claude",
+      "total_samples": 3,
+      "passed_samples": 0,
+      "accuracy_pct": 0.0,
+      "avg_latency_sec": 0.17775861422220865,
+      "tokens_per_sec": 0.0,
+      "results": [
+        {
+          "sample_id": "affine_domain_01_rational_arithmetic",
+          "domain": "code",
+          "model_name": "mock-claude",
+          "prompt": "Write a Python class `Rational` with `num` and `den` (Int64) that avoids all floating point arithmetic and implements addition via cross-multiplication: a/b + c/d = (a*d + c*b)/(b*d).",
+          "generated_text": "ERROR: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions",
+          "passed": false,
+          "latency_sec": 0.16671991348266602,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "error_message": null,
+          "metadata": {}
+        },
+        {
+          "sample_id": "affine_domain_02_constant_time_xor",
+          "domain": "code",
+          "model_name": "mock-claude",
+          "prompt": "Write a Python function `constant_time_compare(a: bytes, b: bytes) -> bool` that compares two 32-byte byte strings using a full XOR accumulator without early exits.",
+          "generated_text": "ERROR: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions",
+          "passed": false,
+          "latency_sec": 0.1795499324798584,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "error_message": null,
+          "metadata": {}
+        },
+        {
+          "sample_id": "affine_domain_03_energy_tariff",
+          "domain": "reasoning",
+          "model_name": "mock-claude",
+          "prompt": "In Affine.Earth OS, energy margin tariff is defined as Lambda = (torsion * license_constant * 1_000_000_000) / margin. Calculate Lambda when torsion=5, license_constant=2, and margin=10.",
+          "generated_text": "ERROR: 401 Client Error: Unauthorized for url: https://api.openai.com/v1/chat/completions",
+          "passed": false,
+          "latency_sec": 0.18700599670410156,
+          "prompt_tokens": 0,
+          "completion_tokens": 0,
+          "error_message": null,
+          "metadata": {}
+        }
+      ],
+      "timestamp": 1784586128.7836108
+    }
+  ],
+  "llvm_suites": []
+}

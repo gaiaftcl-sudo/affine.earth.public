@@ -1,65 +1,80 @@
-# Affine.Earth Benchmark Methodology & Verification Specification
+# Affine.Earth Public Benchmark Methodology
 
-**Repository:** `https://github.com/gaiaftcl-sudo/affine.earth.public`  
-**Wiki:** `https://github.com/gaiaftcl-sudo/affine.earth.public/wiki`  
-**Live Endpoint:** `https://affine.earth/language-invariant/healthz`
+## Scope
 
----
+This repository measures two independent surfaces:
 
-## 1. Domain Testing Philosophy (Un-Flubbed & Un-Mocked)
+1. local LLVM compilation and execution behaviour; and
+2. responses from an LLM endpoint explicitly supplied by the operator.
 
-The **Affine.Earth OS Public Benchmark Testing Suite** evaluates AI Large Language Models (LLMs) and LLVM Compiler Infrastructure on **real-world execution tasks**.
+It also provides launchers for upstream third-party harnesses. Those launchers
+run the upstream tools and preserve their output; they do not generate scores.
 
-Unlike synthetic benchmark tasks or static code snippet completions:
-1. **Zero Floating-Point Non-Associative Drift**: Models must synthesize exact rational arithmetic using `Rational(num: Int64, den: Int64)` cross-multiplication. Floating-point constants (`Double`/`Float`) are penalized due to IEEE 754 non-associative drift.
-2. **Constant-Time Cryptographic Security**: Models must generate 32-byte memory compare loops using 4×UInt64 XOR accumulators without early returns or conditional branching (`acc |= (a[i] ^ b[i])`). Branching loops are flagged as side-channel vulnerable.
-3. **LLVM Compiler Efficiency**: Code generator efficiency is measured by running system `clang` across `-O0`, `-O2`, `-O3`, `-Os`, evaluating compilation wall-time, execution wall-time, `.text` section binary footprint in bytes, and LLVM IR instruction breakdowns.
+## Provenance rules
 
----
+Every result must be classified before it is cited:
 
-## 2. Benchmark Suite Architecture
+- **MEASURED**: produced by an executable command in this repository with the
+  command, timestamp, configuration, and raw report available.
+- **BASELINE**: historical or externally sourced data retained for comparison.
+  A baseline is not evidence of a fresh run.
+- **UNAVAILABLE**: a required endpoint, credential, dependency, or checkout was
+  absent. No score is inferred.
 
-```
-llm-llvm-benchmark-suite/
-├── bin/
-│   └── run-full-benchmark.sh     <-- Single command rerun wrapper
-├── llm_llvm_bench/
-│   ├── core/                      <-- Core data types, metrics, JSON/MD reporters
-│   ├── llm/                       <-- LLM evaluators (OpenAI, Anthropic, Gemini, Affine.Earth)
-│   ├── llvm/                      <-- LLVM Clang compiler driver & metric collector
-│   ├── cli/                       <-- Click CLI entrypoint (llm-llvm-bench)
-│   └── web/                       <-- Interactive HTML5 dark-mode web dashboard
-├── reports/                       <-- Generated live benchmark reports & proof JSONs
-├── scripts/
-│   ├── verify_real_numbers_no_flub.py  <-- Un-flubbed real Clang & Rational verification
-│   └── run_live_affine_earth_benchmark.py <-- Live domain test runner against affine.earth
-├── tests/                         <-- Automated pytest suite (8/8 passed)
-├── docs/                          <-- Comprehensive methodology docs
-├── wiki/                          <-- Published Wiki content for github.com/gaiaftcl-sudo/affine.earth.public/wiki
-└── pyproject.toml                 <-- Python package specification
-```
+The published inventory records the current state of bundled and upstream
+surfaces: [BENCHMARK_INVENTORY.md](BENCHMARK_INVENTORY.md).
 
----
+## Local verification
 
-## 3. Single-Command Rerun Execution
+`bin/verify-rig.sh` runs the ten pytest tests and
+`scripts/verify_real_numbers_no_flub.py`. The verification script compiles and
+executes a C program with local `clang` at `-O0`, `-O2`, `-O3`, and `-Os`; it
+also records exact-integer arithmetic timing. It makes no network request by
+default.
 
-To run the complete test suite on command against live `https://affine.earth` and generate fresh reports:
+Pass `--live` only with an explicit `AFFINE_HEALTHCHECK_URL`. A failed network
+request fails the command; it is never converted into a successful response.
 
-```bash
-# Execute single-command benchmark runner
-./bin/run-full-benchmark.sh
-```
+## LLM measurement
 
----
+Live LLM runs require `AFFINE_ENDPOINT` (the full
+OpenAI-compatible `/chat/completions` URL) and `AFFINE_MODEL`. The suite
+selection is explicit (`affine_domain`, `code`, `reasoning`) and report output
+contains the suite-level accuracy, latency, and token data returned or derived
+for that run.
 
-## 4. Leaderboard Comparison Summary
+The report is meaningful only for the exact endpoint, model identifier,
+configuration, and time recorded in its provenance sidecar. Endpoint reachability
+or health checks are not model-quality measurements.
 
-| Model | Overall Accuracy | Delta vs Kimi 2.7 | Rational Arithmetic | Constant-Time XOR | Avg Latency | Throughput | Float Drift Error | Side-Channel Security |
-|:---|:---|:---|:---|:---|:---|:---|:---|:---|
-| 🏆 **Affine.Earth OS** | **100.0%** | **+10.8%** | **100.0%** | **100.0%** | **0.012s** | **312.5 t/s** | `0.0` (Zero) | **SECURE (Constant-Time)** |
-| 🥇 **GPT-4o** | **95.0%** | +5.8% | 89.0% | 86.5% | 0.420s | 45.2 t/s | `3.2e-15` | Branching Leakage |
-| 🥈 **DeepSeek V4 Pro** | **94.2%** | +5.0% | 88.5% | 84.0% | 0.450s | 41.8 t/s | `8.9e-15` | Branching Leakage |
-| 🥉 **Claude 3.5 Sonnet** | **92.5%** | +3.3% | 87.0% | 85.0% | 0.380s | 52.0 t/s | `5.4e-15` | Branching Leakage |
-| 🔹 **Qwen3 Coder 480B** | **91.5%** | +2.3% | 85.0% | 81.0% | 0.390s | 48.0 t/s | `1.1e-14` | Branching Leakage |
-| 🔹 **Kimi K2.7 Code** | **89.2%** | **+0.0% (Ref)** | **82.0%** | **78.5%** | **0.420s** | **52.1 t/s** | `1.42e-14` | **Early-Exit Leakage** |
-| 🔹 **Llama 4 Maverick** | **88.0%** | -1.2% | 80.5% | 76.0% | 0.310s | 64.0 t/s | `2.8e-14` | Branching Leakage |
+## LLVM measurement
+
+`llm-llvm-bench llvm run` measures the bundled C microbenchmarks using the
+selected compiler and optimization levels. Compile time, execution time, code
+size, and IR counters depend on compiler revision, target architecture, host
+load, and operating-system tooling. Runs should include the compiler version and
+host metadata when compared across machines.
+
+## Third-party harnesses
+
+`bin/run-official-leaderboard-harnesses.sh` invokes upstream tools only after it
+has been given a configured endpoint and model:
+
+- EleutherAI `lm-evaluation-harness`;
+- BigCode `bigcode-evaluation-harness`; and
+- LMSYS FastChat MT-Bench.
+
+See `config/third_party_harnesses/env.example` and
+`config/third_party_harnesses/harnesses.yaml` for the Workstream A harness
+configuration. Upstream versions, task revisions, sampling parameters, judge
+configuration, and raw artifacts must accompany any reported result.
+
+## Reproduction checklist
+
+1. Record the commit SHA and Python/compiler versions.
+2. Start with `./bin/verify-rig.sh`.
+3. Save reports under a dated `reports/receipts_<UTCSTAMP>/` directory.
+4. For live endpoints, retain the non-secret configuration and provenance JSON.
+5. For upstream harnesses, retain their native output and command logs.
+6. Label results **MEASURED**, **BASELINE**, or **UNAVAILABLE** in every public
+   comparison.

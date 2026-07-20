@@ -22,9 +22,9 @@ def llm():
     pass
 
 @llm.command(name="run")
-@click.option("--models", default="mock", help="Comma-separated model names or configs")
-@click.option("--provider", default="mock", help="Provider type: mock, openai, anthropic, ollama")
-@click.option("--suites", default="code,reasoning,tool_use", help="Comma-separated suite names: code,reasoning,tool_use")
+@click.option("--models", required=True, help="Comma-separated model identifiers")
+@click.option("--provider", default="openai", help="Provider type: openai, anthropic, affine_earth")
+@click.option("--suites", default="affine_domain,code,reasoning", help="Comma-separated suite names: affine_domain,code,reasoning")
 @click.option("--endpoint", default=None, help="Custom REST API endpoint URL")
 @click.option("--api-key", default=None, help="API key for provider")
 @click.option("--out", default="reports/llm_benchmark.json", help="Output JSON path")
@@ -47,7 +47,10 @@ def llm_run(models, provider, suites, endpoint, api_key, out):
         runner = LLMRunner(cfg)
 
         for s_name in suite_list:
-            samples = get_suite(s_name)
+            try:
+                samples = get_suite(s_name)
+            except ValueError as exc:
+                raise click.UsageError(str(exc)) from exc
             click.echo(f"  -> Running model '{model_name}' on suite '{s_name}' ({len(samples)} samples)...")
             res = runner.run_suite(s_name, samples)
             report.llm_suites.append(res)

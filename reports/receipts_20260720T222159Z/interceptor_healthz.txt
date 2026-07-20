@@ -1,0 +1,2 @@
+{"status":"ok","substrate":"UUM-8D","gate":"S4"}
+HTTP 200

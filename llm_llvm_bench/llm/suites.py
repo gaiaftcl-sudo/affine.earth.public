@@ -75,4 +75,8 @@ LIST_OF_SUITES = {
 }
 
 def get_suite(suite_name: str) -> List[LLMTestSample]:
-    return LIST_OF_SUITES.get(suite_name.lower(), AFFINE_EARTH_DOMAIN_SUITE)
+    normalized = suite_name.lower()
+    if normalized not in LIST_OF_SUITES:
+        available = ", ".join(sorted(LIST_OF_SUITES))
+        raise ValueError(f"Unknown suite '{suite_name}'. Available suites: {available}.")
+    return LIST_OF_SUITES[normalized]

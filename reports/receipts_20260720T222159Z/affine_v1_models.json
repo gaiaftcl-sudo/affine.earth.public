@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-visual-parity="0">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Franklin — Public Flourishing Intelligence. A Socratic peer that metabolizes shape, not generative probability." />
+  <!-- Chrome geolocation: declare policy on document (Caddy also sets Permissions-Policy). -->
+  <meta http-equiv="Permissions-Policy" content="geolocation=(self)" />
+  <title>Franklin — Public Flourishing</title>
+  <link rel="stylesheet" href="/language-game/ui.css" />
+  <script src="/language-game/scf.js"></script>
+  <script src="/language-game/linguistic-membrane.js"></script>
+  <link rel="describedby" href="/language-game/locale-projection-manifest.json" />
+  <!-- Locale projection: Concept_ID store + Semantic Projection Matrix. First non-English parity locale: ar. -->
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="topbar">
+      <div class="brand-row">
+        <span class="brand">Franklin</span>
+        <span class="brand-sub">Public Flourishing · figuring things out</span>
+      </div>
+      <div class="topbar-actions">
+        <label class="locale-label" for="localeSelect" id="localeLabel">Language</label>
+        <select id="localeSelect" class="locale-select" aria-label="Language" size="1">
+          <!-- Filled from SovereignLinguisticMembrane.SUPPORTED / LOCALE_META on boot -->
+        </select>
+        <button type="button" class="ghost-btn" id="gamesBtn" title="All language games — catalog ingest · project · context">Games</button>
+        <button type="button" class="ghost-btn" id="umcBtn" title="Universal Manifold Controller — Goal-Directed Long Play">UMC</button>
+        <button type="button" class="ghost-btn" id="realityBtn" title="GaiaFTCL.Reality — domain mode on UMC fabric">Reality</button>
+        <button type="button" class="ghost-btn" id="sandboxBtn" title="Topological Sandbox — coding/gaming morph layer">Sandbox</button>
+        <button type="button" class="ghost-btn" id="docsBtn" title="Sovereign node docs">Docs</button>
+        <button type="button" class="ghost-btn" id="profileBtn" title="Wallet + location profile">Profile</button>
+        <button type="button" class="ghost-btn story-toggle" id="storyToggle" aria-pressed="false" title="Eclipse &amp; shear research story">Research story</button>
+        <button type="button" class="ghost-btn" id="newChatBtn" title="New chat (this tab only)">New chat</button>
+      </div>
+    </header>
+
+    <div class="login-gate" id="loginGate" hidden>
+      <div class="login-card" id="loginCard" role="dialog" aria-labelledby="loginTitle" dir="ltr">
+        <div class="login-locale-row">
+          <label class="locale-label" for="loginLocaleSelect" id="loginLocaleLabel">Language</label>
+          <select id="loginLocaleSelect" class="locale-select" aria-label="Language" size="1">
+            <!-- Filled from SovereignLinguisticMembrane.SUPPORTED / LOCALE_META on boot -->
+          </select>
+        </div>
+        <h2 id="loginTitle">Sovereign entry</h2>
+        <p class="login-lead" id="loginLead">No username. No password. Keys stay in this browser. QFOT payback routes by topological impact — not a custody claim.</p>
+
+        <div class="login-tabs" role="tablist">
+          <button type="button" class="login-tab is-active" id="tabReturning" role="tab" aria-selected="true">Returning</button>
+          <button type="button" class="login-tab" id="tabNewUser" role="tab" aria-selected="false">New wallet</button>
+        </div>
+
+        <div id="loginReturningPanel">
+          <label class="login-label" for="loginAddress" id="loginAddressLabel">BTC receive address</label>
+          <input id="loginAddress" type="text" autocomplete="off" spellcheck="false" placeholder="bc1… or 1… / 3…" />
+        </div>
+
+        <div id="loginNewPanel" hidden>
+          <div class="onboard-docs" id="onboardDocsMount" aria-label="Sovereign node initialization"></div>
+          <label class="login-consent">
+            <input type="checkbox" id="loginConsent" />
+            <span id="loginConsentText">I agree to create a new Bitcoin mainnet wallet in this browser (zero BTC on-chain) and receive genesis QFOT <strong>100.0</strong> (<code>100/1</code>). I will export my private key now — failure means irreversible loss of session, BTC, and QFOT on this identity.</span>
+          </label>
+          <p class="login-hint" id="loginNewHint">Edge wallet = BIP-84-equivalent P2WPKH · genesis QFOT 100/1 · UUM-8D watching all</p>
+          <details class="login-optional-domain" id="loginOptionalDomain">
+            <summary id="loginRoleLabel">Optional capabilities — domain / aviation (not required)</summary>
+            <select id="loginAviationRole" class="login-select" aria-label="Optional aviation role — leave General if unsure">
+              <option value="" selected>General (default) · genesis 100/1 — no domain required</option>
+              <option value="aviation_traveler">Traveler — genesis 50/1</option>
+              <option value="aviation_pilot">Pilot — genesis 1000/1</option>
+              <option value="aviation_atc">ATC — genesis 50000/1</option>
+              <option value="aviation_land_crew">Land Crew — genesis 200/1</option>
+              <option value="aviation_terrestrial_weather">Terrestrial Weather — genesis 500/1</option>
+              <option value="aviation_solar_space_weather">Solar / Space Weather — genesis 500/1</option>
+            </select>
+            <p class="login-hint" id="loginRoleHint">Optional. Leave General unless you need an aviation capability. Consent + Create wallet works with no domain selected.</p>
+          </details>
+        </div>
+
+        <div class="login-loc-row">
+          <div>
+            <label class="login-label" for="loginLat" id="loginLatLabel">Latitude (optional)</label>
+            <input id="loginLat" type="text" autocomplete="off" inputmode="decimal" placeholder="optional — blank OK" />
+          </div>
+          <div>
+            <label class="login-label" for="loginLon" id="loginLonLabel">Longitude (optional)</label>
+            <input id="loginLon" type="text" autocomplete="off" inputmode="decimal" placeholder="optional — blank OK" />
+          </div>
+        </div>
+        <div class="login-actions">
+          <button type="button" class="ghost-btn" id="loginGeoBtn">Use my location (optional)</button>
+          <button type="button" class="send-btn login-submit" id="loginSubmit">Sign in</button>
+          <button type="button" class="send-btn login-submit" id="loginCreateBtn" hidden>Create wallet + QFOT</button>
+        </div>
+        <p class="login-status" id="loginStatus" hidden></p>
+        <p class="login-hint" id="loginFooterHint">Location is optional — Create wallet works if geolocation is denied. Domain roles are optional capabilities. BTC starts at zero sats.</p>
+      </div>
+    </div>
+
+    <aside class="profile-drawer" id="profileDrawer" hidden aria-hidden="true">
+      <div class="profile-head">
+        <h2 id="profileTitle">Profile</h2>
+        <button type="button" class="ghost-btn" id="profileClose">Close</button>
+      </div>
+      <p class="login-hint" id="profilePegHint">1 QFOT = 0.10 EUR · peg 1/10 · wire num/den</p>
+      <dl class="profile-dl" id="profileBody"></dl>
+      <div class="profile-domain" id="profileDomainUsage"></div>
+      <div class="profile-game-use" id="profileGameUse"></div>
+      <div class="profile-spends" id="profileTokenSpends"></div>
+      <section class="profile-wallet-ops" id="profileWalletOps" aria-label="QFOT payments">
+        <h3 id="profilePayTitle">Pay / send QFOT</h3>
+        <label class="login-label" for="payToAddress" id="payToLabel">To receive address</label>
+        <input id="payToAddress" type="text" autocomplete="off" spellcheck="false" placeholder="bc1…" />
+        <label class="login-label" for="payAmount" id="payAmountLabel">Amount (num/den)</label>
+        <input id="payAmount" type="text" autocomplete="off" spellcheck="false" placeholder="10/1" />
+        <p class="login-hint" id="payEurHint">EUR at peg shown after amount</p>
+        <div class="profile-wallet-actions">
+          <button type="button" class="send-btn" id="payQfotBtn">Pay QFOT</button>
+          <button type="button" class="ghost-btn" id="payoutQfotBtn">Payout / withdraw</button>
+        </div>
+        <p class="login-status" id="payStatus" hidden></p>
+      </section>
+      <section class="profile-capture" id="profileCapture" aria-label="Process capture">
+        <h3 id="profileCaptureTitle">Capture / Record process</h3>
+        <p class="login-hint" id="profileCaptureHint">Record the working UI for documentation. Downloads webm locally. Not PROVEN if API unavailable.</p>
+        <div class="profile-wallet-actions">
+          <button type="button" class="send-btn" id="captureStartBtn" title="Record tab/window via getDisplayMedia">Start capture</button>
+          <button type="button" class="ghost-btn" id="captureStopBtn" title="Stop and download webm">Stop capture</button>
+          <button type="button" class="ghost-btn" id="captureSnapshotBtn" title="Download metadata PNG plate">Snapshot PNG</button>
+        </div>
+        <p class="login-status" id="captureStatus" hidden></p>
+      </section>
+      <div class="profile-actions">
+        <button type="button" class="ghost-btn" id="refreshProfileBtn" title="Reload ledger profile">Refresh balance</button>
+        <button type="button" class="ghost-btn" id="exportKeyBtn" title="Export private key hex">Export private key</button>
+        <button type="button" class="ghost-btn" id="claimFlourishBtn" title="Publish geometric flourishing claim">Claim flourishing</button>
+        <button type="button" class="ghost-btn" id="profileSignOut">Sign out (this browser)</button>
+      </div>
+      <p class="login-hint" id="claimFlourishHint" hidden></p>
+    </aside>
+
+    <aside class="docs-drawer" id="docsDrawer" hidden aria-hidden="true">
+      <div class="profile-head">
+        <h2>Docs</h2>
+        <button type="button" class="ghost-btn" id="docsClose">Close</button>
+      </div>
+      <div class="docs-capture-bar" id="docsCaptureBar">
+        <button type="button" class="send-btn" id="docsCaptureStartBtn" title="Record process for documentation">Capture / Record process</button>
+        <button type="button" class="ghost-btn" id="docsCaptureStopBtn">Stop</button>
+        <p class="login-status" id="docsCaptureStatus" hidden></p>
+      </div>
+      <div class="docs-body" id="docsBody"></div>
+    </aside>
+
+    <aside class="sandbox-drawer games-drawer" id="gamesDrawer" hidden aria-hidden="true">
+      <div class="profile-head">
+        <h2>Language games</h2>
+        <button type="button" class="ghost-btn" id="gamesClose">Close</button>
+      </div>
+      <p class="sandbox-lead" id="gamesLead">Every Franklin game has game-specific ingest · projection · context agent. Select to play — no silent shared dump.</p>
+      <p class="login-hint" id="gamesCatalogMeta">GET /language-invariant/games</p>
+      <div class="games-catalog" id="gamesCatalog" role="list" aria-label="Franklin language games"></div>
+      <p class="sandbox-status" id="gamesActiveStatus">active · linguistic_membrane</p>
+
+      <section class="games-panel" id="formalManifoldPanel" aria-label="Formal manifold">
+        <h3>Formal manifold</h3>
+        <p class="login-hint">LogicalAmplitudeTensor — domain + Rational amplitudes + statement. Collapses via FormalManifoldContextAgent.</p>
+        <label class="login-label" for="formalDomain">Domain</label>
+        <select id="formalDomain" class="login-select" aria-label="Formal manifold domain">
+          <option value="coding">coding</option>
+          <option value="cinema">cinema</option>
+          <option value="aviation">aviation</option>
+          <option value="gaming">gaming</option>
+          <option value="formal">formal</option>
+        </select>
+        <label class="login-label" for="formalAmplitudes">Amplitudes (num/den,…)</label>
+        <input id="formalAmplitudes" type="text" autocomplete="off" spellcheck="false" value="3/5,4/5" />
+        <label class="login-label" for="formalStatement">Statement</label>
+        <input id="formalStatement" type="text" autocomplete="off" value="Collapse formal observer" />
+        <div class="sandbox-actions">
+          <button type="button" class="send-btn" id="formalIngestBtn">Ingest · play</button>
+          <button type="button" class="ghost-btn" id="formalProjectBtn">Project</button>
+        </div>
+        <p class="login-status" id="formalStatus" hidden></p>
+      </section>
+
+      <section class="games-panel" id="atcPanel" aria-label="ATC sector flow">
+        <h3>Aviation ATC</h3>
+        <p class="login-hint">Sector / callsign Concept_IDs — not chat dump. Live NOAA/radar feeds remain BLOCKED structure.</p>
+        <label class="login-label" for="atcSector">Sector ID</label>
+        <input id="atcSector" type="text" autocomplete="off" spellcheck="false" value="ZNY" />
+        <label class="login-label" for="atcCallsign">Callsign</label>
+        <input id="atcCallsign" type="text" autocomplete="off" spellcheck="false" value="GAIA1" />
+        <label class="login-label" for="atcClearance">Clearance kind</label>
+        <input id="atcClearance" type="text" autocomplete="off" value="climb_maintain" />
+        <div class="sandbox-actions">
+          <button type="button" class="send-btn" id="atcIngestBtn">Ingest · play ATC</button>
+        </div>
+        <p class="login-status" id="atcStatus" hidden></p>
+      </section>
+    </aside>
+
+    <aside class="sandbox-drawer umc-drawer" id="umcDrawer" hidden aria-hidden="true">
+      <div class="profile-head">
+        <h2>UMC · Director</h2>
+        <button type="button" class="ghost-btn" id="umcClose">Close</button>
+      </div>
+      <p class="sandbox-lead" id="umcLead">Goal-Directed Manifold Controller — GAV Long Play. Cinema / Aviation / Gaming / Coding are domain seeds on one fabric. Chat is not primary.</p>
+      <canvas id="umcManifoldCanvas" class="mirror-manifold-canvas" width="640" height="420" aria-label="UMC Goal Gyroid vs current morph"></canvas>
+      <p class="sandbox-status" id="umcStatus">VORONOI_SHATTER · τ=1/1</p>
+      <p class="login-hint" id="umcMeta">NATS: gaiaftcl.umc.state.&#123;domain&#125;.&#123;session&#125;.&#123;node&#125; · gaiaftcl.agent.state.&gt;</p>
+      <label class="login-label" for="umcDomain">Domain seed</label>
+      <select id="umcDomain" class="login-select" aria-label="UMC domain">
+        <option value="coding">Coding — MCP file/shell/compile</option>
+        <option value="cinema">Cinema — plot/character/lighting</option>
+        <option value="aviation">Aviation — conflict/fuel/regulatory</option>
+        <option value="gaming">Gaming — rule violation / desync</option>
+      </select>
+      <div class="reality-seed-grid">
+        <div>
+          <label class="login-label" for="umcSession">Session</label>
+          <input id="umcSession" type="text" autocomplete="off" spellcheck="false" />
+        </div>
+        <div>
+          <label class="login-label" for="umcNode">Node</label>
+          <input id="umcNode" type="text" autocomplete="off" spellcheck="false" value="apex" />
+        </div>
+      </div>
+      <label class="login-label" for="umcTitle">GoalInvariant title</label>
+      <input id="umcTitle" type="text" autocomplete="off" value="Long Play" />
+      <div class="sandbox-actions">
+        <button type="button" class="send-btn" id="umcStartBtn" title="Start GAV Long Play">Start Long Play</button>
+        <button type="button" class="ghost-btn" id="umcResumeBtn" title="Resume from latest tip">Resume</button>
+        <button type="button" class="ghost-btn" id="umcInterveneBtn" title="Director re-seed on stagnation">Intervene</button>
+      </div>
+      <p class="login-hint">Shatter→Gyroid when τ not &gt; 0. Red pulse = stagnation — Director intervene. Reality / Cinema / Sandbox are domain modes on this kernel.</p>
+    </aside>
+
+    <aside class="sandbox-drawer" id="sandboxDrawer" hidden aria-hidden="true">
+      <div class="profile-head">
+        <h2>Topological Sandbox</h2>
+        <button type="button" class="ghost-btn" id="sandboxClose">Close</button>
+      </div>
+      <p class="sandbox-lead" id="sandboxLead">Mirror Manifold — observe torsion, apply Operator Tensors, stabilize to Gyroid.</p>
+      <canvas id="mirrorManifoldCanvas" class="mirror-manifold-canvas" width="640" height="420" aria-label="Mirror Manifold WebGL"></canvas>
+      <p class="sandbox-status" id="sandboxStatus">VORONOI_SHATTER · τ=1/1</p>
+      <div class="sandbox-actions">
+        <button type="button" class="send-btn" id="sandboxHealBtn" title="Apply Operator Tensor heal">Heal (Operator Tensor)</button>
+        <button type="button" class="ghost-btn" id="sandboxShatterBtn" title="Reseed shatter τ=3/2">Shatter</button>
+      </div>
+    </aside>
+
+    <aside class="sandbox-drawer reality-drawer" id="realityDrawer" hidden aria-hidden="true">
+      <div class="profile-head">
+        <h2>GaiaFTCL.Reality</h2>
+        <button type="button" class="ghost-btn" id="realityClose">Close</button>
+      </div>
+      <p class="sandbox-lead" id="realityLead">Shared Topological Reality Projection — native UUM-8D mode. Tensor sync, not chat overlay.</p>
+      <div class="reality-mode-tabs" role="tablist">
+        <button type="button" class="login-tab is-active" id="realityModeImmersion" role="tab" aria-selected="true">Immersion</button>
+        <button type="button" class="login-tab" id="realityModeCinema" role="tab" aria-selected="false">Cinema</button>
+      </div>
+      <canvas id="realityManifoldCanvas" class="mirror-manifold-canvas" width="640" height="420" aria-label="Reality Mirror Manifold WebGL"></canvas>
+      <p class="sandbox-status" id="realityStatus">VORONOI_SHATTER · τ=1/1</p>
+      <p class="reality-narrative" id="realityNarrative">Torsion dialogue — agreement τ→0 (Gyroid fuse); disagreement = local Shatter.</p>
+
+      <div id="realityImmersionPanel">
+        <label class="login-label" for="realityRoomId">Room / Workspace</label>
+        <input id="realityRoomId" type="text" autocomplete="off" spellcheck="false" value="workspace-default" />
+        <div class="sandbox-actions">
+          <button type="button" class="send-btn" id="realityJoinBtn" title="Presence = Operator Tensor introduction">Join (Presence)</button>
+          <button type="button" class="send-btn" id="realityHealBtn" title="Collaborative Operator Tensor heal">Heal</button>
+          <button type="button" class="ghost-btn" id="realityShatterBtn" title="Disagreement shatter">Shatter</button>
+          <button type="button" class="ghost-btn" id="realityPredictBtn" aria-pressed="false" title="Edge chrome predictive Gyroid">Predictive</button>
+        </div>
+        <p class="login-hint">Spatial bus syncs ManifoldState / MMR roots — not XYZ. NATS: gaiaftcl.reality.manifold.&#123;room&#125;.&#123;node&#125;</p>
+      </div>
+
+      <div id="realityCinemaPanel" hidden>
+        <p class="sandbox-lead">Director’s Console — Manifold Seed → observe → project. No final render; real-time H_start→H_end.</p>
+        <label class="login-label" for="cinemaTitle">Title</label>
+        <input id="cinemaTitle" type="text" autocomplete="off" value="Untitled Manifold" />
+        <div class="reality-seed-grid">
+          <div>
+            <label class="login-label" for="cinemaFilmId">Film ID</label>
+            <input id="cinemaFilmId" type="text" autocomplete="off" spellcheck="false" />
+          </div>
+          <div>
+            <label class="login-label" for="cinemaNodeId">Node</label>
+            <input id="cinemaNodeId" type="text" autocomplete="off" spellcheck="false" value="apex" />
+          </div>
+        </div>
+        <label class="login-label" for="cinemaCharacters">Character basis (names)</label>
+        <input id="cinemaCharacters" type="text" autocomplete="off" value="protagonist,antagonist" />
+        <div class="reality-seed-grid">
+          <div>
+            <label class="login-label" for="cinemaBound">Structural bound</label>
+            <input id="cinemaBound" type="text" inputmode="numeric" value="8" />
+          </div>
+          <div>
+            <label class="login-label" for="cinemaHStart">H_start</label>
+            <input id="cinemaHStart" type="text" inputmode="numeric" value="100" />
+          </div>
+          <div>
+            <label class="login-label" for="cinemaHEnd">H_end</label>
+            <input id="cinemaHEnd" type="text" inputmode="numeric" value="107" />
+          </div>
+        </div>
+        <div class="reality-seed-grid">
+          <div>
+            <label class="login-label" for="cinemaGravNum">Gravity num/den</label>
+            <div class="reality-rational-row">
+              <input id="cinemaGravNum" type="text" inputmode="numeric" value="3" />
+              <span>/</span>
+              <input id="cinemaGravDen" type="text" inputmode="numeric" value="5" />
+            </div>
+          </div>
+          <div>
+            <label class="login-label" for="cinemaIntentNum">Intent num/den</label>
+            <div class="reality-rational-row">
+              <input id="cinemaIntentNum" type="text" inputmode="numeric" value="4" />
+              <span>/</span>
+              <input id="cinemaIntentDen" type="text" inputmode="numeric" value="5" />
+            </div>
+          </div>
+        </div>
+        <p class="cinema-film-meta" id="cinemaFilmMeta"></p>
+        <label class="login-label" for="cinemaBeatScrub" id="cinemaBeatLabel">Beat 0</label>
+        <input id="cinemaBeatScrub" type="range" min="0" max="7" value="0" step="1" />
+        <div class="sandbox-actions">
+          <button type="button" class="send-btn" id="cinemaReobserveBtn" title="Re-observe seed → projection">Re-observe</button>
+          <button type="button" class="ghost-btn" id="cinemaExportBtn" title="Export sealed seed JSON">Export seed JSON</button>
+        </div>
+        <p class="login-hint">Export = sealed seed + invariant roots. Frame strip = geometric projection snapshots only — not photoreal video.</p>
+      </div>
+    </aside>
+
+    <div class="workspace" id="workspace">
+      <div class="chat-column" id="chatColumn">
+        <main class="chat-shell" id="chatShell">
+          <div class="message-list" id="messageList" role="log" aria-live="polite" aria-relevant="additions">
+            <div class="msg assistant" data-role="assistant">
+              <div class="avatar" aria-hidden="true">F</div>
+              <div class="bubble">
+                <p>Hi, I'm Franklin. What are we figuring out today?</p>
+              </div>
+            </div>
+          </div>
+          <div class="frontier-suggest" id="frontierSuggest" aria-label="Suggested starting points">
+            <button type="button" class="frontier-chip" data-frontier="visual_geometry" data-query="kimi visual spatial" title="Sealed visual-spatial geometry">Visual geometry</button>
+            <button type="button" class="frontier-chip" data-frontier="agentic_decomposition" data-query="agentic moe gate" title="Sealed agentic routing bonds">Agentic decomposition</button>
+          </div>
+        </main>
+
+        <div class="composer-wrap" id="composerWrap">
+          <div class="attach-chips" id="attachChips" hidden></div>
+          <div class="ground-bar" id="groundBar" hidden>
+            <input id="groundC" type="text" autocomplete="off" placeholder="Your clarifying answer…" />
+            <input id="groundD" type="text" autocomplete="off" placeholder="Anything else? (optional)" />
+          </div>
+          <div class="jit-bar" id="jitBar">
+            <input id="liveUrl" type="url" autocomplete="off" placeholder="Drop a link (https://…)" aria-label="Live web URL" />
+            <input id="liveConstraint" type="text" autocomplete="off" placeholder="What should I look for?" aria-label="Constraint" />
+          </div>
+          <div class="status-lock" id="statusLock" hidden>I love that direction. Give me just a second to get up to speed…</div>
+          <form class="composer" id="composer" autocomplete="off">
+            <button type="button" class="icon-btn" id="attachBtn" title="Attach files" aria-label="Attach files">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/>
+              </svg>
+            </button>
+            <textarea
+              id="textInput"
+              rows="1"
+              placeholder="Message Franklin…"
+              enterkeyhint="send"
+              aria-label="Message Franklin"
+            ></textarea>
+            <button type="submit" class="send-btn" id="sendBtn" title="Send (Enter)" aria-label="Send">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+              </svg>
+            </button>
+          </form>
+          <p class="composer-hint">Enter to send · attach a schematic anytime · type flush to start fresh</p>
+        </div>
+      </div>
+
+      <aside class="story-panel" id="storyPanel" hidden aria-hidden="true" aria-label="Research story">
+        <div class="story-panel-head">
+          <div>
+            <p class="story-kicker">Eclipse 2026 · Shear studies</p>
+            <h1 class="story-page-title" id="storyPageTitle">Research story</h1>
+          </div>
+          <button type="button" class="ghost-btn" id="storyClose" title="Close story">Close</button>
+        </div>
+        <div class="story-hero" id="storyHero"></div>
+        <nav class="story-nav" id="storyNav" aria-label="Wiki pages"></nav>
+        <div class="story-body" id="storyBody" tabindex="0"></div>
+      </aside>
+    </div>
+  </div>
+
+  <input id="filePick" type="file" multiple accept="image/*,audio/*,video/*,.mp4,.webm,.mov,.mseed,.miniSEED,.bin,.dat,.txt,.heic,.webp" hidden />
+  <script src="/language-game/game-nats.js"></script>
+  <script src="/language-game/mcp-client.js"></script>
+  <script src="/language-game/edge-btc-wallet.js"></script>
+  <script src="/language-game/wallet-login.js"></script>
+  <script src="/language-game/process-capture.js"></script>
+  <script src="/language-game/docs-panel.js"></script>
+  <script src="/language-game/game-context-registry.js"></script>
+  <script src="/language-game/topological-sandbox.js"></script>
+  <script src="/language-game/gaiaftcl-reality.js"></script>
+  <script src="/language-game/umc-viewport.js"></script>
+  <script src="/language-game/ui.js"></script>
+  <script src="/language-game/press/story.js"></script>
+  <script>
+    (function () {
+      var reg = window.GameContextRegistry;
+      if (reg && reg.loadCatalog) reg.loadCatalog();
+
+      function bindGame(gameId, seed) {
+        if (!reg || !reg.bindMode) return;
+        reg.bindMode(gameId, seed).catch(function () { /* apex may be mid-reload */ });
+        var st = document.getElementById("gamesActiveStatus");
+        if (st) st.textContent = "active · " + gameId;
+        if (reg && reg.setActive) reg.setActive(gameId);
+      }
+
+      function setStatus(el, text, ok) {
+        if (!el) return;
+        el.hidden = false;
+        el.textContent = text;
+        el.dataset.ok = ok ? "1" : "0";
+      }
+
+      var umcBtn = document.getElementById("umcBtn");
+      var umcDrawer = document.getElementById("umcDrawer");
+      var umcClose = document.getElementById("umcClose");
+      var umcMounted = false;
+      function openUMC(preferredDomain) {
+        if (!umcDrawer) return;
+        umcDrawer.hidden = false;
+        umcDrawer.setAttribute("aria-hidden", "false");
+        var domainEl = document.getElementById("umcDomain");
+        if (preferredDomain && domainEl) domainEl.value = preferredDomain;
+        var domain = (domainEl && domainEl.value) || preferredDomain || "coding";
+        bindGame("umc_gav", {
+          node_id: (document.getElementById("umcNode") || {}).value || "apex",
+          session_id: (document.getElementById("umcSession") || {}).value || ("umc-" + Date.now().toString(36)),
+          title: (document.getElementById("umcTitle") || {}).value || "Long Play",
+          domain: domain,
+          amplitudes: ["1/1", "1/1"],
+        });
+        bindGame(domain, {
+          node_id: (document.getElementById("umcNode") || {}).value || "apex",
+          session_id: (document.getElementById("umcSession") || {}).value || ("umc-" + Date.now().toString(36)),
+          title: (document.getElementById("umcTitle") || {}).value || "Long Play",
+          amplitudes: ["1/1", "1/1"],
+        });
+        if (!umcMounted && window.UMCViewport) {
+          window.UMCViewport.mount({
+            torsionWire: "1/1",
+            onCinema: function () {
+              bindGame("cinema", { node_id: "apex", title: "Cinema", film_id: "from-umc" });
+              var rBtn = document.getElementById("realityBtn");
+              if (rBtn) rBtn.click();
+              var cin = document.getElementById("realityModeCinema");
+              if (cin) cin.click();
+            },
+          });
+          umcMounted = true;
+        }
+      }
+      function closeUMC() {
+        if (!umcDrawer) return;
+        umcDrawer.hidden = true;
+        umcDrawer.setAttribute("aria-hidden", "true");
+      }
+      if (umcBtn) umcBtn.addEventListener("click", function () { openUMC(); });
+      if (umcClose) umcClose.addEventListener("click", closeUMC);
+      var umcDomain = document.getElementById("umcDomain");
+      if (umcDomain) {
+        umcDomain.addEventListener("change", function () {
+          bindGame(umcDomain.value, {
+            node_id: (document.getElementById("umcNode") || {}).value || "apex",
+            session_id: (document.getElementById("umcSession") || {}).value || ("umc-" + Date.now().toString(36)),
+            title: (document.getElementById("umcTitle") || {}).value || "Long Play",
+            amplitudes: ["1/1", "1/1"],
+          });
+        });
+      }
+
+      var btn = document.getElementById("sandboxBtn");
+      var drawer = document.getElementById("sandboxDrawer");
+      var close = document.getElementById("sandboxClose");
+      var mounted = false;
+      function openSandbox() {
+        if (!drawer) return;
+        drawer.hidden = false;
+        drawer.setAttribute("aria-hidden", "false");
+        bindGame("topological_sandbox", {
+          node_id: "apex",
+          action: "shatter",
+          torsion_num: 1,
+          torsion_den: 1,
+          amplitudes: ["1/1", "1/1"],
+        });
+        if (!mounted && window.TopologicalSandbox) {
+          window.TopologicalSandbox.mount({ torsionWire: "1/1" });
+          mounted = true;
+        }
+      }
+      function closeSandbox() {
+        if (!drawer) return;
+        drawer.hidden = true;
+        drawer.setAttribute("aria-hidden", "true");
+      }
+      if (btn) btn.addEventListener("click", openSandbox);
+      if (close) close.addEventListener("click", closeSandbox);
+
+      var rBtn = document.getElementById("realityBtn");
+      var rDrawer = document.getElementById("realityDrawer");
+      var rClose = document.getElementById("realityClose");
+      var rMounted = false;
+      function openReality(mode) {
+        if (!rDrawer) return;
+        rDrawer.hidden = false;
+        rDrawer.setAttribute("aria-hidden", "false");
+        if (mode === "cinema") {
+          bindGame("cinema", {
+            node_id: (document.getElementById("cinemaNodeId") || {}).value || "apex",
+            film_id: (document.getElementById("cinemaFilmId") || {}).value || ("film-" + Date.now().toString(36)),
+            title: (document.getElementById("cinemaTitle") || {}).value || "Untitled Manifold",
+            characters: String((document.getElementById("cinemaCharacters") || {}).value || "protagonist,antagonist").split(","),
+            amplitudes: ["1/1", "1/1"],
+          });
+        } else {
+          bindGame("reality", {
+            node_id: "apex",
+            room_id: (document.getElementById("realityRoomId") || {}).value || "workspace-default",
+            amplitudes: ["1/1", "1/1"],
+          });
+          bindGame("torsion_dialogue", {
+            node_id: "apex",
+            room_id: (document.getElementById("realityRoomId") || {}).value || "workspace-default",
+            agreement: 0,
+            amplitudes: ["1/1", "1/1"],
+          });
+        }
+        if (!rMounted && window.GaiaFTCLReality) {
+          window.GaiaFTCLReality.mount({ torsionWire: "1/1", mode: mode || "immersion" });
+          rMounted = true;
+        } else if (window.__gaiaftclReality && mode) {
+          var imm = document.getElementById("realityModeImmersion");
+          var cin = document.getElementById("realityModeCinema");
+          if (mode === "cinema" && cin) cin.click();
+          if (mode === "immersion" && imm) imm.click();
+        }
+      }
+      function closeReality() {
+        if (!rDrawer) return;
+        rDrawer.hidden = true;
+        rDrawer.setAttribute("aria-hidden", "true");
+      }
+      if (rBtn) rBtn.addEventListener("click", function () { openReality("immersion"); });
+      if (rClose) rClose.addEventListener("click", closeReality);
+      var modeCinema = document.getElementById("realityModeCinema");
+      var modeImm = document.getElementById("realityModeImmersion");
+      if (modeCinema) modeCinema.addEventListener("click", function () { openReality("cinema"); });
+      if (modeImm) modeImm.addEventListener("click", function () { openReality("immersion"); });
+
+      var profileBtn = document.getElementById("profileBtn");
+      if (profileBtn) {
+        profileBtn.addEventListener("click", function () {
+          bindGame("wallet_qfot", { node_id: "apex", title: "WalletQFOT", amplitudes: ["3/5", "4/5"] });
+        });
+      }
+
+      // ── Games catalog drawer: select & play every FranklinLanguageGameID ──
+      var gamesBtn = document.getElementById("gamesBtn");
+      var gamesDrawer = document.getElementById("gamesDrawer");
+      var gamesClose = document.getElementById("gamesClose");
+      var gamesCatalog = document.getElementById("gamesCatalog");
+      var gamesMeta = document.getElementById("gamesCatalogMeta");
+
+      var GAME_LABELS = {
+        cinema: "Cinema — Director console",
+        aviation: "Aviation — UMC domain",
+        aviation_atc: "Aviation ATC — sector flow",
+        gaming: "Gaming — UMC domain",
+        coding: "Coding — UMC + MCP",
+        reality: "Reality — immersion",
+        topological_sandbox: "Topological sandbox",
+        formal_manifold: "Formal manifold",
+        wallet_qfot: "Wallet · QFOT",
+        linguistic_membrane: "Linguistic membrane (chat)",
+        umc_gav: "UMC · GAV Long Play",
+        torsion_dialogue: "Torsion dialogue",
+      };
+
+      function playGame(gameId) {
+        var id = String(gameId || "").toLowerCase();
+        switch (id) {
+          case "linguistic_membrane":
+            bindGame("linguistic_membrane", {
+              node_id: "apex",
+              intent: "OPEN_CURVE",
+              amplitudes: ["3/5", "4/5"],
+            });
+            break;
+          case "umc_gav":
+            openUMC("coding");
+            break;
+          case "coding":
+          case "aviation":
+          case "gaming":
+            openUMC(id);
+            break;
+          case "cinema":
+            openReality("cinema");
+            break;
+          case "reality":
+          case "torsion_dialogue":
+            openReality("immersion");
+            if (id === "torsion_dialogue") {
+              bindGame("torsion_dialogue", {
+                node_id: "apex",
+                room_id: (document.getElementById("realityRoomId") || {}).value || "workspace-default",
+                agreement: 0,
+                amplitudes: ["1/1", "1/1"],
+              });
+            }
+            break;
+          case "topological_sandbox":
+            openSandbox();
+            break;
+          case "wallet_qfot":
+            bindGame("wallet_qfot", { node_id: "apex", title: "WalletQFOT", amplitudes: ["3/5", "4/5"] });
+            if (profileBtn) profileBtn.click();
+            break;
+          case "formal_manifold":
+            if (document.getElementById("formalIngestBtn")) {
+              document.getElementById("formalIngestBtn").click();
+            }
+            break;
+          case "aviation_atc":
+            if (document.getElementById("atcIngestBtn")) {
+              document.getElementById("atcIngestBtn").click();
+            }
+            break;
+          default:
+            bindGame(id, { node_id: "apex", title: id, amplitudes: ["1/1", "1/1"] });
+        }
+        highlightActiveGame(id);
+      }
+
+      function highlightActiveGame(gameId) {
+        if (!gamesCatalog) return;
+        var cards = gamesCatalog.querySelectorAll(".game-card");
+        for (var i = 0; i < cards.length; i++) {
+          cards[i].classList.toggle("is-active", cards[i].dataset.gameId === gameId);
+        }
+      }
+
+      function renderGamesCatalog(catalog) {
+        if (!gamesCatalog) return;
+        var games = (catalog && catalog.games) || (reg && reg.listGames && reg.listGames()) || [];
+        if (gamesMeta) {
+          gamesMeta.textContent =
+            "GET /language-invariant/games · count=" +
+            games.length +
+            " · complete=" +
+            (catalog && catalog.complete != null ? catalog.complete : "?") +
+            " · schema=" +
+            ((catalog && catalog.schema) || "fallback");
+        }
+        gamesCatalog.innerHTML = "";
+        games.forEach(function (g) {
+          var gid = g.game_id || g.gameId;
+          var card = document.createElement("button");
+          card.type = "button";
+          card.className = "game-card";
+          card.setAttribute("role", "listitem");
+          card.dataset.gameId = gid;
+          card.title = (g.context_agent || "") + " · " + (g.status || "LIVE");
+          var title = document.createElement("span");
+          title.className = "game-card-title";
+          title.textContent = GAME_LABELS[gid] || gid;
+          var meta = document.createElement("span");
+          meta.className = "game-card-meta";
+          meta.textContent = (g.context_agent || "") + " · " + (g.status || "");
+          card.appendChild(title);
+          card.appendChild(meta);
+          card.addEventListener("click", function () { playGame(gid); });
+          gamesCatalog.appendChild(card);
+        });
+      }
+
+      async function openGames() {
+        if (!gamesDrawer) return;
+        gamesDrawer.hidden = false;
+        gamesDrawer.setAttribute("aria-hidden", "false");
+        var catalog = null;
+        if (reg && reg.loadCatalog) {
+          catalog = await reg.loadCatalog();
+        }
+        renderGamesCatalog(catalog || {});
+        highlightActiveGame((reg && reg.getActive && reg.getActive()) || "linguistic_membrane");
+      }
+      function closeGames() {
+        if (!gamesDrawer) return;
+        gamesDrawer.hidden = true;
+        gamesDrawer.setAttribute("aria-hidden", "true");
+      }
+      if (gamesBtn) gamesBtn.addEventListener("click", openGames);
+      if (gamesClose) gamesClose.addEventListener("click", closeGames);
+
+      var formalIngestBtn = document.getElementById("formalIngestBtn");
+      var formalProjectBtn = document.getElementById("formalProjectBtn");
+      var formalStatus = document.getElementById("formalStatus");
+      function formalPayload() {
+        var amps = String((document.getElementById("formalAmplitudes") || {}).value || "3/5,4/5")
+          .split(",")
+          .map(function (s) { return s.trim(); })
+          .filter(Boolean);
+        return {
+          node_id: "apex",
+          domain: (document.getElementById("formalDomain") || {}).value || "formal",
+          amplitudes: amps.length ? amps : ["3/5", "4/5"],
+          statement: (document.getElementById("formalStatement") || {}).value || "Collapse formal observer",
+          tau_height: 0,
+          title: "formal_manifold",
+        };
+      }
+      if (formalIngestBtn) {
+        formalIngestBtn.addEventListener("click", function () {
+          var payload = formalPayload();
+          bindGame("formal_manifold", payload);
+          setStatus(formalStatus, "ingest formal_manifold · FormalManifoldContextAgent", true);
+          highlightActiveGame("formal_manifold");
+        });
+      }
+      if (formalProjectBtn && reg && reg.project) {
+        formalProjectBtn.addEventListener("click", function () {
+          var locale = (document.documentElement && document.documentElement.lang) || "en";
+          reg.project("formal_manifold", {
+            locale: locale,
+            torsion: "1/1",
+            concept_ids: [],
+            domain: (document.getElementById("formalDomain") || {}).value || "formal",
+          }).then(function (body) {
+            setStatus(
+              formalStatus,
+              body && body.error ? String(body.error) : "project ok · " + ((body && body.context_agent) || "FormalManifoldContextAgent"),
+              !(body && body.error)
+            );
+          });
+        });
+      }
+
+      var atcIngestBtn = document.getElementById("atcIngestBtn");
+      var atcStatus = document.getElementById("atcStatus");
+      if (atcIngestBtn) {
+        atcIngestBtn.addEventListener("click", function () {
+          bindGame("aviation_atc", {
+            node_id: "apex",
+            sector_id: (document.getElementById("atcSector") || {}).value || "ZNY",
+            callsign: (document.getElementById("atcCallsign") || {}).value || "GAIA1",
+            clearance_kind: (document.getElementById("atcClearance") || {}).value || "climb_maintain",
+            amplitudes: ["1/1", "1/1"],
+            title: "aviation_atc",
+          });
+          // Also seed parent aviation domain so UMC fabric stays coherent.
+          bindGame("aviation", {
+            node_id: "apex",
+            role: "aviation_atc",
+            amplitudes: ["1/1", "1/1"],
+            title: "aviation",
+          });
+          setStatus(atcStatus, "ingest aviation_atc · ATCContextAgent", true);
+          highlightActiveGame("aviation_atc");
+        });
+      }
+
+      // Default chat surface = linguistic membrane context agent (not a silent shared dump).
+      bindGame("linguistic_membrane", {
+        node_id: "apex",
+        intent: "OPEN_CURVE",
+        amplitudes: ["3/5", "4/5"],
+      });
+    })();
+  </script>
+</body>
+</html>

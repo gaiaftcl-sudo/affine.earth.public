@@ -1,0 +1,69 @@
+version: 1
+provider:
+  api_style: openai-compatible
+  base_url_env_priority:
+    - AFFINE_HARNESS_ENDPOINT
+    - AFFINE_OPENAI_BASE_URL
+    - OPENAI_BASE_URL
+    - AFFINE_BASE_URL
+  api_key_env_priority:
+    - OPENAI_API_KEY
+    - AFFINE_HARNESS_API_KEY
+  model_env_priority:
+    - AFFINE_HARNESS_MODEL
+    - AFFINE_MODEL
+    - OPENAI_MODEL
+  preflight_path: /models
+  preflight_requires_json: true
+  known_non_json_endpoint_note: >-
+    https://affine.earth/v1 returns an HTML SPA as of 2026-07-20.
+    Use a real OpenAI-compatible /v1 or a local interceptor for wiring only.
+artifacts:
+  root: reports/third_party
+harnesses:
+  lm_evaluation_harness:
+    wrapper_name: lm-eval
+    upstream: https://github.com/EleutherAI/lm-evaluation-harness
+    package_pin: lm-eval==0.4.7
+    install: |
+      python3 -m venv .venv/lm-eval
+      . .venv/lm-eval/bin/activate
+      python -m pip install --upgrade pip
+      python -m pip install "lm-eval==0.4.7"
+    cli: lm_eval
+    api_model: local-chat-completions
+    tasks: [mmlu, gsm8k]
+    output: reports/third_party/lm_eval
+  bigcode_evaluation_harness:
+    wrapper_name: bigcode
+    upstream: https://github.com/bigcode-project/bigcode-evaluation-harness
+    revision: v0.1.0
+    install: |
+      git clone --branch v0.1.0 --depth 1 \
+        https://github.com/bigcode-project/bigcode-evaluation-harness.git \
+        harnesses/bigcode-evaluation-harness
+      python3 -m venv .venv/bigcode
+      . .venv/bigcode/bin/activate
+      python -m pip install --upgrade pip
+      python -m pip install -e harnesses/bigcode-evaluation-harness
+    entrypoint: main.py
+    tasks: [humaneval, mbpp]
+    output: reports/third_party/bigcode/results.json
+    provider_note: >-
+      Upstream v0.1.0 loads a Hugging Face checkpoint/local path, or scores
+      pre-generated completions via --load_generations_path. It has no native
+      OpenAI-compatible generation backend.
+  fastchat_mt_bench:
+    wrapper_name: fastchat
+    upstream: https://github.com/lm-sys/FastChat
+    package_pin: fschat==0.2.36
+    revision_tag: v0.2.36
+    install: |
+      python3 -m venv .venv/fastchat
+      . .venv/fastchat/bin/activate
+      python -m pip install --upgrade pip
+      python -m pip install "fschat==0.2.36"
+    generation_entrypoint: fastchat.llm_judge.gen_api_answer
+    judging_entrypoint: fastchat.llm_judge.gen_judgment
+    bench: mt_bench
+    answer_output: reports/third_party/fastchat/mt-bench-answers.jsonl

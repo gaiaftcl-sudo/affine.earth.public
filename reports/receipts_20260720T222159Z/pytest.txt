@@ -1,0 +1,28 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.9.6, pytest-8.4.2, pluggy-1.6.0 -- /Applications/Xcode-Beta.app/Contents/Developer/usr/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite
+configfile: pyproject.toml
+plugins: asyncio-1.2.0, anyio-4.11.0, playwright-0.6.2, base-url-2.1.0
+asyncio: mode=strict, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 10 items
+
+tests/test_core.py::test_pass_at_k PASSED                                [ 10%]
+tests/test_core.py::test_compute_llvm_metrics PASSED                     [ 20%]
+tests/test_core.py::test_reporter_json_and_markdown PASSED               [ 30%]
+tests/test_forks.py::test_humaneval_adapter PASSED                       [ 40%]
+tests/test_forks.py::test_llvm_testsuite_adapter PASSED                  [ 50%]
+tests/test_llm.py::test_evaluator_code PASSED                            [ 60%]
+tests/test_llm.py::test_evaluator_constant_time_compare PASSED           [ 70%]
+tests/test_llm.py::test_get_suite PASSED                                 [ 80%]
+tests/test_llvm.py::test_llvm_driver PASSED                              [ 90%]
+tests/test_llvm.py::test_llvm_runner PASSED                              [100%]
+
+=============================== warnings summary ===============================
+../../../Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35
+  /Users/richardgillespie/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 10 passed, 1 warning in 0.71s =========================
+PYTEST_EXIT=

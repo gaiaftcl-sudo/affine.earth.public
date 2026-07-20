@@ -12,7 +12,7 @@ cd llm-llvm-benchmark-suite
 ## What the Script Executes:
 
 1. **Step 1: Pytest Unit Test Suite**  
-   Runs `python3 -m pytest tests/ -v` (8/8 passed).
+   Runs `python3 -m pytest tests/ -v` (10/10 passed).
 
 2. **Step 2: Un-Flubbed Real Number Verification**  
    Runs `python3 scripts/verify_real_numbers_no_flub.py`, performing live Clang builds (`-O0`, `-O2`, `-O3`, `-Os`), 10,000 rational additions, and live HTTP endpoint probes.

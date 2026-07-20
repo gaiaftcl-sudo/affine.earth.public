@@ -1,0 +1,44 @@
+{
+  "timestamp": "2026-07-20 22:22:05 UTC",
+  "clang_compilation_real_metrics": {
+    "-O0": {
+      "compile_time_ms": 89.361,
+      "exec_time_ms": 72.935,
+      "text_section_size_bytes": 16384,
+      "total_binary_size_bytes": 33624,
+      "program_output": "PASS=10000"
+    },
+    "-O2": {
+      "compile_time_ms": 102.386,
+      "exec_time_ms": 83.018,
+      "text_section_size_bytes": 16384,
+      "total_binary_size_bytes": 33496,
+      "program_output": "PASS=10000"
+    },
+    "-O3": {
+      "compile_time_ms": 108.839,
+      "exec_time_ms": 73.166,
+      "text_section_size_bytes": 16384,
+      "total_binary_size_bytes": 33496,
+      "program_output": "PASS=10000"
+    },
+    "-Os": {
+      "compile_time_ms": 105.976,
+      "exec_time_ms": 80.467,
+      "text_section_size_bytes": 16384,
+      "total_binary_size_bytes": 33496,
+      "program_output": "PASS=10000"
+    }
+  },
+  "rational_arithmetic_real_metrics": {
+    "iterations": 10000,
+    "elapsed_ms": 42.642,
+    "float_drift": 0.0
+  },
+  "live_probe_metrics": {
+    "status_code": 200,
+    "latency_ms": 169.6,
+    "live": true
+  },
+  "proven_status": "REAL_NUMBERS_VERIFIED_NO_FLUB"
+}

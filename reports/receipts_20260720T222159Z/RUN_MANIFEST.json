@@ -1,0 +1,148 @@
+{
+  "inventory_stamp_utc": "20260720T222159Z",
+  "workspace": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite",
+  "measured_runs": {
+    "pytest": {
+      "command": "python3 -m pytest tests/ -v",
+      "result": "10 passed in 0.71s",
+      "status": "PASS",
+      "artifact": "reports/receipts_20260720T222159Z/pytest.txt"
+    },
+    "verify_real_numbers_no_flub": {
+      "command": "python3 scripts/verify_real_numbers_no_flub.py",
+      "result": {
+        "clang_opts": {
+          "-O0": {
+            "compile_ms": 89.361,
+            "exec_ms": 72.935,
+            "text_B": 16384
+          },
+          "-O2": {
+            "compile_ms": 102.386,
+            "exec_ms": 83.018,
+            "text_B": 16384
+          },
+          "-O3": {
+            "compile_ms": 108.839,
+            "exec_ms": 73.166,
+            "text_B": 16384
+          },
+          "-Os": {
+            "compile_ms": 105.976,
+            "exec_ms": 80.467,
+            "text_B": 16384
+          }
+        },
+        "rational": {
+          "iterations": 10000,
+          "elapsed_ms": 42.642,
+          "float_drift": 0.0
+        },
+        "live_probe": {
+          "status_code": 200,
+          "latency_ms": 169.6,
+          "live": true
+        },
+        "proven_status": "REAL_NUMBERS_VERIFIED_NO_FLUB"
+      },
+      "status": "PASS",
+      "artifact": "reports/receipts_20260720T222159Z/real_verification_proof.json"
+    },
+    "llvm_cli": {
+      "command": "python3 -m llm_llvm_bench.cli.main llvm run --opt-levels -O0,-O2,-O3,-Os --compiler clang",
+      "result_summary": [
+        {
+          "suite_name": "llvm_suite_-O0",
+          "avg_compile_time_sec": 0.09258019924163818,
+          "total_text_size_bytes": 32768
+        },
+        {
+          "suite_name": "llvm_suite_-O2",
+          "avg_compile_time_sec": 0.0972449779510498,
+          "total_text_size_bytes": 32768
+        },
+        {
+          "suite_name": "llvm_suite_-O3",
+          "avg_compile_time_sec": 0.09934353828430176,
+          "total_text_size_bytes": 32768
+        },
+        {
+          "suite_name": "llvm_suite_-Os",
+          "avg_compile_time_sec": 0.12297403812408447,
+          "total_text_size_bytes": 32768
+        }
+      ],
+      "status": "PASS",
+      "artifact": "reports/receipts_20260720T222159Z/llvm_benchmark.json"
+    },
+    "llm_mock": {
+      "command": "python3 -m llm_llvm_bench.cli.main llm run --models mock-gpt-4o,mock-claude --provider mock --suites code,reasoning,affine_domain",
+      "result": "structure demo PASS; accuracy 0.0% on all suites (mock does not satisfy evaluator)",
+      "status": "PASS_STRUCTURE_DEMO",
+      "artifact": "reports/receipts_20260720T222159Z/llm_mock_benchmark.json",
+      "suite_rows": [
+        {
+          "model": "mock-gpt-4o",
+          "suite": "code",
+          "accuracy_pct": 0.0,
+          "avg_latency_sec": 0.22060751914978027
+        },
+        {
+          "model": "mock-gpt-4o",
+          "suite": "reasoning",
+          "accuracy_pct": 0.0,
+          "avg_latency_sec": 0.19446706771850586
+        },
+        {
+          "model": "mock-gpt-4o",
+          "suite": "affine_domain",
+          "accuracy_pct": 0.0,
+          "avg_latency_sec": 0.2026213010152181
+        },
+        {
+          "model": "mock-claude",
+          "suite": "code",
+          "accuracy_pct": 0.0,
+          "avg_latency_sec": 0.19454801082611084
+        },
+        {
+          "model": "mock-claude",
+          "suite": "reasoning",
+          "accuracy_pct": 0.0,
+          "avg_latency_sec": 0.21355986595153809
+        },
+        {
+          "model": "mock-claude",
+          "suite": "affine_domain",
+          "accuracy_pct": 0.0,
+          "avg_latency_sec": 0.17775861422220865
+        }
+      ]
+    },
+    "healthz_curl": {
+      "command": "curl -sS https://affine.earth/language-invariant/healthz",
+      "result": "HTTP 200, time_total\u22480.125s, ok:true",
+      "status": "PASS",
+      "artifact": "reports/receipts_20260720T222159Z/healthz_body.json"
+    },
+    "live_affine_script": {
+      "command": "python3 scripts/run_live_affine_earth_benchmark.py",
+      "result": "healthz probe HTTP 200 (~0.17s); model scoreboard is MODEL_BASELINES table dump",
+      "status": "PASS_PROBE_PLUS_BASELINE_TABLE",
+      "artifact": "reports/receipts_20260720T222159Z/affine_earth_vs_frontier_models.json"
+    },
+    "local_interceptor": {
+      "command": "python3 llm_llvm_bench/server/affine_v1_interceptor.py 8765",
+      "result": "/v1/healthz and /v1/models HTTP 200",
+      "status": "PASS",
+      "artifact": "reports/receipts_20260720T222159Z/interceptor_healthz.txt"
+    }
+  },
+  "failed_or_blocked": {
+    "lm_eval": "ModuleNotFoundError / lm_eval not on PATH \u2014 NEEDS_UPSTREAM install",
+    "affine_earth_v1_openai": "https://affine.earth/v1/models and /v1/healthz return HTML SPA (HTTP 200), not OpenAI JSON \u2014 harness routing blocked until /v1 API is live",
+    "official_harness_wrapper_scores": "bin/run-official-leaderboard-harnesses.sh writes BigCode/MT-Bench JSON via shell heredoc \u2014 NOT measured upstream runs",
+    "tool_use_suite": "CLI default includes tool_use but LIST_OF_SUITES keys are only affine_domain,code,reasoning"
+  },
+  "receipt_dir": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/receipts_20260720T222159Z"
+}

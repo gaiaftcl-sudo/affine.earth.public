@@ -117,10 +117,6 @@ def main():
     print("  🚀 PUBLISHING FIX FOR WIKI IMAGE LINKS TO https://github.com/gaiaftcl-sudo/affine.earth.public.wiki")
     print("=========================================================================\n")
 
-    live_ok, live_lat = probe_live_affine_earth()
-    clang_ms, text_bytes = run_real_clang_check()
-    timestamp_str = time.strftime("%Y-%m-%d %H:%M:%S UTC", time.gmtime())
-
     tmp_wiki_dir = "/tmp/affine_wiki_repo"
     if not os.path.exists(tmp_wiki_dir):
         print(f"Cloning public wiki repository to {tmp_wiki_dir}...")
@@ -130,7 +126,9 @@ def main():
 
     local_wiki_dir = os.path.join(os.path.dirname(__file__), "..", "wiki")
 
-    # Copy evidence images into wiki assets
+    # The workspace `wiki/` directory is the authored source of truth.  Copy
+    # every page verbatim instead of regenerating selected pages with inferred
+    # measurements or claims that may no longer match the executable harness.
     local_assets_dir = os.path.join(local_wiki_dir, "assets")
     tmp_assets_dir = os.path.join(tmp_wiki_dir, "assets")
     os.makedirs(tmp_assets_dir, exist_ok=True)
@@ -142,34 +140,21 @@ def main():
             if os.path.isfile(src_img):
                 shutil.copyfile(src_img, dst_img)
 
-    pages = {
-        "Home.md": render_home_page(timestamp_str, live_lat, clang_ms, text_bytes),
-        "_Sidebar.md": render_sidebar_page(),
-    }
-
-    # Preserved existing pages
-    for existing_page in ["Un-Mocked-Verification-Methodology-and-Instructions.md", "Human-Verifiable-Test-Bank-and-Answers.md", "Live-Leaderboard.md", "Expanded-Frontier-Coding-Suite.md", "Expanded-Frontier-Reasoning-Suite.md", "EleutherAI-lm-evaluation-harness.md", "BigCode-bigcode-evaluation-harness.md", "LMSYS-FastChat-MT-Bench.md", "LLVM-Official-Test-Suite.md"]:
-        local_path = os.path.join(local_wiki_dir, existing_page)
-        tmp_path = os.path.join(tmp_wiki_dir, existing_page)
-        if os.path.exists(local_path):
-            with open(local_path, "r", encoding="utf-8") as f:
-                pages[existing_page] = f.read()
-        elif os.path.exists(tmp_path):
-            with open(tmp_path, "r", encoding="utf-8") as f:
-                pages[existing_page] = f.read()
-
-    for fname, content in pages.items():
-        fpath = os.path.join(tmp_wiki_dir, fname)
-        with open(fpath, "w", encoding="utf-8") as f:
-            f.write(content)
-        print(f"  📄 Rendered {fname}")
+    for fname in sorted(os.listdir(local_wiki_dir)):
+        if not fname.endswith(".md"):
+            continue
+        src_path = os.path.join(local_wiki_dir, fname)
+        dst_path = os.path.join(tmp_wiki_dir, fname)
+        shutil.copyfile(src_path, dst_path)
+        print(f"  📄 Synced {fname}")
 
     print("\nPushing updated raw image URL pages to public GitHub Wiki...")
     subprocess.run(["git", "add", "-A"], cwd=tmp_wiki_dir, check=True)
     
     diff_proc = subprocess.run(["git", "status", "--porcelain"], cwd=tmp_wiki_dir, capture_output=True, text=True)
     if diff_proc.stdout.strip():
-        subprocess.run(["git", "-c", "commit.gpgsign=false", "commit", "-m", f"fix(wiki): Use raw GitHub user content URL for terminal evidence image ({timestamp_str})"], cwd=tmp_wiki_dir, check=True)
+        commit_message = "docs(wiki): expand capabilities and reproducibility"
+        subprocess.run(["git", "-c", "commit.gpgsign=false", "commit", "-m", commit_message], cwd=tmp_wiki_dir, check=True)
         subprocess.run(["git", "push", "origin", "HEAD:master"], cwd=tmp_wiki_dir, check=True)
         print("✅ Fixed Public Wiki pushed successfully to master!")
     else:

@@ -1,7 +1,29 @@
 ## Affine.Earth Public Benchmark Wiki
 
-- [**Home**](Home) — *Overview & Public Mission*
-- [**Leaderboard**](Leaderboard) — *Frontier Models vs Affine.Earth OS*
-- [**Global Leaderboard Submissions**](Global-Leaderboards) — *Hugging Face, BigCode & LMSYS FastChat*
-- [**Methodology**](Methodology) — *Un-Flubbed Real Execution Protocol*
-- [**Execution Guide**](Execution-Guide) — *Single-Command Rerun (`./bin/run-full-benchmark.sh`)*
+### Start
+- [**Home**](Home)
+- [**Getting Started**](Getting-Started)
+- [**Execution Guide**](Execution-Guide)
+- [**Test Suites**](Test-Suites)
+- [**Benchmarks**](Benchmarks)
+- [**Capabilities / What You Can Do**](Capabilities)
+- [**Examples / Cookbook**](Examples-Cookbook)
+- [**FAQ / Q&A**](FAQ)
+
+### Results & audit
+- [**Live Leaderboard**](Live-Leaderboard)
+- [**Reports & Artifacts**](Reports-And-Artifacts)
+- [**Benchmark Inventory**](Benchmark-Inventory)
+- [**Un-Mocked Methodology**](Un-Mocked-Verification-Methodology-and-Instructions)
+- [**Human Test Bank & Answers**](Human-Verifiable-Test-Bank-and-Answers)
+
+### Upstream harnesses
+- [**Third-Party Harness Reproduction**](Third-Party-Harness-Reproduction)
+- [**EleutherAI lm-eval**](EleutherAI-lm-evaluation-harness)
+- [**BigCode bigcode-eval**](BigCode-bigcode-evaluation-harness)
+- [**LMSYS FastChat**](LMSYS-FastChat-MT-Bench)
+- [**LLVM Test-Suite**](LLVM-Official-Test-Suite)
+
+### Frontier baselines
+- [**Expanded Coding Suite**](Expanded-Frontier-Coding-Suite)
+- [**Expanded Reasoning Suite**](Expanded-Frontier-Reasoning-Suite)

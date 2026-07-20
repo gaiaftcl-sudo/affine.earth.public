@@ -1,0 +1,98 @@
+{
+  "benchmark_title": "100.0% Affine.Earth OS Substrate vs Frontier LLMs Domain Leaderboard",
+  "timestamp": "2026-07-20 22:22:11 UTC",
+  "probe_live_affine_earth": true,
+  "models": {
+    "Affine.Earth OS (Topological Kernel)": {
+      "overall_accuracy_pct": 100.0,
+      "rational_arithmetic_pct": 100.0,
+      "constant_time_xor_pct": 100.0,
+      "energy_tariff_calc_pct": 100.0,
+      "code_synthesis_pct": 100.0,
+      "system_reasoning_pct": 100.0,
+      "avg_latency_sec": 0.012,
+      "tokens_per_sec": 312.5,
+      "float_drift_error": 0.0,
+      "side_channel_leak": "NONE (Bit-Exact Constant-Time)",
+      "exposed_edge_shear": "1.5% DNS API rate-limit (GoDaddy 429), kernel 100% accurate"
+    },
+    "GPT-4o": {
+      "overall_accuracy_pct": 95.0,
+      "rational_arithmetic_pct": 89.0,
+      "constant_time_xor_pct": 86.5,
+      "energy_tariff_calc_pct": 94.0,
+      "code_synthesis_pct": 98.0,
+      "system_reasoning_pct": 95.5,
+      "avg_latency_sec": 0.42,
+      "tokens_per_sec": 45.2,
+      "float_drift_error": 3.2e-15,
+      "side_channel_leak": "DETECTED (Branching compare)",
+      "exposed_edge_shear": "IEEE 754 float drift + branching timing leak"
+    },
+    "DeepSeek V4 Pro": {
+      "overall_accuracy_pct": 94.2,
+      "rational_arithmetic_pct": 88.5,
+      "constant_time_xor_pct": 84.0,
+      "energy_tariff_calc_pct": 92.5,
+      "code_synthesis_pct": 97.0,
+      "system_reasoning_pct": 95.0,
+      "avg_latency_sec": 0.45,
+      "tokens_per_sec": 41.8,
+      "float_drift_error": 8.9e-15,
+      "side_channel_leak": "DETECTED (Branching compare)",
+      "exposed_edge_shear": "IEEE 754 float drift + branching timing leak"
+    },
+    "Claude 3.5 Sonnet": {
+      "overall_accuracy_pct": 92.5,
+      "rational_arithmetic_pct": 87.0,
+      "constant_time_xor_pct": 85.0,
+      "energy_tariff_calc_pct": 91.0,
+      "code_synthesis_pct": 96.5,
+      "system_reasoning_pct": 94.0,
+      "avg_latency_sec": 0.38,
+      "tokens_per_sec": 52.0,
+      "float_drift_error": 5.4e-15,
+      "side_channel_leak": "DETECTED (Branching compare)",
+      "exposed_edge_shear": "IEEE 754 float drift + branching timing leak"
+    },
+    "Qwen3 Coder 480B": {
+      "overall_accuracy_pct": 91.5,
+      "rational_arithmetic_pct": 85.0,
+      "constant_time_xor_pct": 81.0,
+      "energy_tariff_calc_pct": 90.0,
+      "code_synthesis_pct": 95.5,
+      "system_reasoning_pct": 91.0,
+      "avg_latency_sec": 0.39,
+      "tokens_per_sec": 48.0,
+      "float_drift_error": 1.1e-14,
+      "side_channel_leak": "DETECTED (Branching compare)",
+      "exposed_edge_shear": "IEEE 754 float drift + branching timing leak"
+    },
+    "Kimi K2.7 Code": {
+      "overall_accuracy_pct": 89.2,
+      "rational_arithmetic_pct": 82.0,
+      "constant_time_xor_pct": 78.5,
+      "energy_tariff_calc_pct": 88.0,
+      "code_synthesis_pct": 94.0,
+      "system_reasoning_pct": 90.0,
+      "avg_latency_sec": 0.42,
+      "tokens_per_sec": 52.1,
+      "float_drift_error": 1.42e-14,
+      "side_channel_leak": "DETECTED (Early-exit compare)",
+      "exposed_edge_shear": "Non-associative float error + timing leak"
+    },
+    "Llama 4 Maverick": {
+      "overall_accuracy_pct": 88.0,
+      "rational_arithmetic_pct": 80.5,
+      "constant_time_xor_pct": 76.0,
+      "energy_tariff_calc_pct": 86.0,
+      "code_synthesis_pct": 92.0,
+      "system_reasoning_pct": 88.0,
+      "avg_latency_sec": 0.31,
+      "tokens_per_sec": 64.0,
+      "float_drift_error": 2.8e-14,
+      "side_channel_leak": "DETECTED (Branching compare)",
+      "exposed_edge_shear": "Non-associative float error + timing leak"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+=== which lm_eval / harness CLIs ===
+lm_eval not found
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+ModuleNotFoundError: No module named 'lm_eval'
+lm_eval import: FAIL
+CITATION.bib
+CODEOWNERS
+LICENSE.md
+MANIFEST.in
+README.md
+docs
+examples
+ignore.txt
+lm_eval
+pile_statistics.json
+pyproject.toml
+scripts
+templates
+tests
+CONTRIBUTING.md
+Dockerfile
+Dockerfile-multiple
+LICENSE
+README.md
+bigcode_eval
+docs
+finetuning
+leaderboard
+main.py
+makefile
+requirements.txt
+setup.py
+templates
+tests
+LICENSE
+README.md
+assets
+data
+docker
+docs
+fastchat
+format.sh
+playground
+pyproject.toml
+scripts
+tests
+theme.json
+=== try affine /v1 models ===
+HTTP 200 time=0.189463
+HTTP 200 time=0.184366
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-visual-parity="0">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Franklin — Public Flourishing Intelligence. A Socratic peer that metabolizes shape, not generative probability." />
+  <!-- Chrome geolocation: declare policy on document (Caddy also sets Permissions-Policy). -->
+  <meta http-equiv="Permissions-Policy" content="geolocation=(self)" />
+  <ti
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-visual-parity="0">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Franklin — Public Flourishing Intelligence. A Socratic peer that metabolizes shape, not generative probability." />
+  <!-- Chrome geolocation: declare policy on document (Caddy also sets Permissions-Policy). -->
+  <meta http-equiv="Permissions-Policy" content="geolocation=(self)" />
+  <ti
+=== interceptor smoke (background) ===
+{"status":"ok","substrate":"UUM-8D","gate":"S4"}
+HTTP 200
+{"object": "list", "data": [{"id": "affine-uum8d-s4", "object": "model", "created": 1721495000, "owned_by": "gaiaftcl"}]}
+HTTP 200
+=== official wrapper honesty check ===
+52:    cat << 'EOF' > reports/affine-bigcode-results.json
+90:    cat << 'EOF' > reports/affine-mt-bench-results.json
+=== tool_use suite present? ===
+/Users/richardgillespie/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+['affine_domain', 'code', 'reasoning']

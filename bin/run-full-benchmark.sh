@@ -4,37 +4,28 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$SCRIPT_DIR"
 
-echo "========================================================================="
-echo "  🚀 RUNNING FULL AFFINE.EARTH LLM & LLVM BENCHMARK TEST SUITE"
-echo "  Timestamp: $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-echo "========================================================================="
-echo ""
+live=0
+if [[ "${1:-}" == "--live" ]]; then
+  live=1
+elif [[ $# -ne 0 ]]; then
+  echo "Usage: $0 [--live]" >&2
+  exit 2
+fi
 
-echo "-------------------------------------------------------------------------"
-echo "STEP 1: Running Automated Pytest Unit Tests..."
-echo "-------------------------------------------------------------------------"
-python3 -m pytest tests/ -v
+mkdir -p reports
+./bin/verify-rig.sh
 
-echo ""
-echo "-------------------------------------------------------------------------"
-echo "STEP 2: Running Un-Flubbed Real Number Verification (Clang + Rational)..."
-echo "-------------------------------------------------------------------------"
-python3 scripts/verify_real_numbers_no_flub.py
+compiler="${AFFINE_LLVM_COMPILER:-clang}"
+opt_levels="${AFFINE_LLVM_OPT_LEVELS:--O0,-O2,-O3,-Os}"
+python3 -m llm_llvm_bench.cli.main llvm run \
+  --compiler "$compiler" \
+  --opt-levels "$opt_levels" \
+  --out reports/llvm_benchmark.json
 
-echo ""
-echo "-------------------------------------------------------------------------"
-echo "STEP 3: Executing LLVM Clang Compiler Optimization Suite..."
-echo "-------------------------------------------------------------------------"
-python3 -m llm_llvm_bench.cli.main llvm run --opt-levels -O0,-O2,-O3,-Os --compiler clang --out reports/llvm_benchmark_live.json
+if [[ "$live" -eq 1 ]]; then
+  : "${AFFINE_ENDPOINT:?Set AFFINE_ENDPOINT (see configs/affine-earth.env.example).}"
+  : "${AFFINE_MODEL:?Set AFFINE_MODEL (see configs/affine-earth.env.example).}"
+  python3 scripts/run_live_affine_earth_benchmark.py --out reports/llm_benchmark.json
+fi
 
-echo ""
-echo "-------------------------------------------------------------------------"
-echo "STEP 4: Executing Domain Benchmark against Live https://affine.earth..."
-echo "-------------------------------------------------------------------------"
-python3 scripts/run_live_affine_earth_benchmark.py
-
-echo ""
-echo "========================================================================="
-echo "  ✅ FULL BENCHMARK SUITE COMPLETE!"
-echo "  Reports generated in: $SCRIPT_DIR/reports/"
-echo "========================================================================="
+echo "Completed MEASURED local benchmark run. Reports: $SCRIPT_DIR/reports/"

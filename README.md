@@ -1,89 +1,141 @@
-# LLM & LLVM Benchmark Testing Suite (`llm-llvm-benchmark-suite`)
+# Affine.Earth Public Benchmark Rig
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](pyproject.toml)
-[![Tests: 8 Passed](https://img.shields.io/badge/tests-8%20passed-green.svg)](tests/)
+[![Tests: 10](https://img.shields.io/badge/tests-10-green.svg)](tests/)
 
-A unified, production-grade, standalone real-world domain testing suite for evaluating **AI Large Language Models (LLMs)** and **LLVM Compiler Infrastructures**. Completely decoupled from external OS frameworks.
+An installable, reproducible rig for measuring LLM API behaviour and local LLVM
+compiler behaviour. It produces local JSON and Markdown reports; it does not
+ship precomputed scores as new measurements.
 
----
+## What this repository runs
 
-## 🎯 Architecture Overview
+- **Unit and verification checks**: Python tests plus real local `clang` compile
+  and execution measurements.
+- **LLM suites**: the bundled `affine_domain`, `code`, and `reasoning` samples
+  against an explicitly configured provider endpoint.
+- **LLVM suite**: local `clang` measurements at `-O0`, `-O2`, `-O3`, and `-Os`.
+- **Third-party harnesses**: installed upstream `lm-evaluation-harness`,
+  BigCode evaluation harness, and FastChat. Their outputs remain in
+  `reports/third_party/`.
 
-```
-                          llm-llvm-benchmark-suite/
-                                     │
-           ┌─────────────────────────┴─────────────────────────┐
-           ▼                                                   ▼
- 🤖 LLM Evaluation Harness                          ⚙️ LLVM Compiler Harness
- ├── Real-World Code Domain (Python, C, Swift)     ├── Opt Levels (-O0, -O2, -O3, -Os, -Oz)
- ├── Complex Logic & Reasoning (CoT, Math)          ├── Architecture Target (AArch64, x86_64)
- ├── Tool Use & API Schema Extraction               ├── Exec Wall-Time & Compile Time
- ├── Long-Context Retrieval (Needle/Haystack)       ├── .text Section Code Size Analysis
- └── Multi-Provider (OpenAI, Claude, Ollama, Mock)  └── LLVM IR Instruction Breakdown
-                                     │
-                                     ▼
-                   📊 Unified Reporting & Web Dashboard
-                   ├── JSON / Markdown Comparison Reports
-                   └── Interactive Dark-Mode Web Server (http://127.0.0.1:8888)
-```
+## Install
 
----
-
-## 🚀 Quickstart
-
-### 1. Installation
+Requirements: Python 3.9+, `clang` on `PATH`, and `size` (or an equivalent
+platform tool accepted by your local LLVM installation).
 
 ```bash
-cd llm-llvm-benchmark-suite
-pip install -e .
+git clone https://github.com/gaiaftcl-sudo/affine.earth.public.git
+cd affine.earth.public
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -e ".[dev]"
 ```
 
-### 2. Run LLM Benchmarks
-
-Run evaluations across coding, reasoning, and tool-use domain suites:
+For optional upstream harness clients (pinned extras + BigCode checkout):
 
 ```bash
-# Run with Mock Provider (offline debug mode)
-llm-llvm-bench llm run --models mock-gpt-4o,mock-claude --provider mock --suites code,reasoning,tool_use
-
-# Run with OpenAI or OpenAI-compatible API (vLLM / LM Studio / Ollama / DeepSeek)
-export OPENAI_API_KEY="your-api-key"
-llm-llvm-bench llm run --models gpt-4o,gpt-4o-mini --provider openai --suites code,reasoning
+python -m pip install -e ".[dev,harnesses]"   # lm-eval==0.4.7, fschat==0.2.36
+git clone --branch v0.1.0 --depth 1 \
+  https://github.com/bigcode-project/bigcode-evaluation-harness.git \
+  harnesses/bigcode-evaluation-harness
+python -m pip install -e harnesses/bigcode-evaluation-harness
 ```
 
-### 3. Run LLVM Compiler Performance Benchmarks
+Exact pins, env aliases, and outsider run commands:
+[docs/THIRD_PARTY_HARNESSES.md](docs/THIRD_PARTY_HARNESSES.md) ·
+[configs/third-party-harnesses.yaml](configs/third-party-harnesses.yaml).
 
-Benchmark local `clang` compilation wall-time, execution speed, `.text` section binary footprint, and LLVM IR instruction metrics:
+**Endpoint note:** `https://affine.earth/v1` currently returns an HTML SPA, not
+OpenAI JSON. Point `OPENAI_BASE_URL` / `AFFINE_HARNESS_ENDPOINT` at a real
+OpenAI-compatible `/v1` (or a local interceptor for wiring only).
+
+## Configure an LLM endpoint
+
+Configuration is environment based so secrets never enter reports or git:
 
 ```bash
-llm-llvm-bench llvm run --opt-levels -O0,-O2,-O3,-Os --compiler clang
+cp configs/affine-earth.env.example .env.affine-earth
+cp configs/providers.env.example .env.providers
+cp configs/suites.env.example .env.suites
+$EDITOR .env.affine-earth .env.providers .env.suites
+set -a
+source .env.affine-earth
+source .env.providers
+source .env.suites
+set +a
 ```
 
-### 4. Launch Interactive Web Dashboard
+Set `AFFINE_ENDPOINT` to the OpenAI-compatible `/chat/completions` URL, choose
+`AFFINE_MODEL`, and provide `OPENAI_API_KEY` only when the endpoint requires
+one. No live LLM request is made unless you pass `--live`.
 
-Launch the built-in dark-mode web application for visual charts, leaderboards, and side-by-side metric comparisons:
+## Commands
 
 ```bash
-llm-llvm-bench serve --port 8888
+# Local checks only: pytest + real clang/rational verification.
+./bin/verify-rig.sh
+
+# Full local rig: verification + LLVM measurement.
+./bin/run-full-benchmark.sh
+
+# Full rig plus configured live LLM suite.
+./bin/run-full-benchmark.sh --live
+
+# Run the bundled LLM suites directly.
+llm-llvm-bench llm run \
+  --models "$AFFINE_MODEL" \
+  --provider openai \
+  --endpoint "$AFFINE_ENDPOINT" \
+  --suites "$AFFINE_SUITES" \
+  --out reports/llm_benchmark.json
+
+# LLVM only.
+llm-llvm-bench llvm run --compiler clang --opt-levels -O0,-O2,-O3,-Os
+
+# Upstream harnesses (fail loudly if CLI/checkout/JSON /models is missing).
+cp configs/third-party-harnesses.env.example .env.third-party-harnesses
+# Edit endpoint + model; do not leave https://affine.earth/v1 until it returns JSON.
+./bin/run-official-leaderboard-harnesses.sh --harness lm-eval
+./bin/run-official-leaderboard-harnesses.sh --harness bigcode
+./bin/run-official-leaderboard-harnesses.sh --harness fastchat
 ```
 
-Open `http://127.0.0.1:8888` in your browser.
+`bin/run-official-leaderboard-harnesses.sh` never invents scores and never
+writes heredoc receipts. It sources `.env.third-party-harnesses` when present,
+preflights `GET $BASE/models` for JSON, invokes the upstream CLI, or exits with
+install pins from `configs/third-party-harnesses.yaml`.
 
----
+## Reports and provenance
 
-## 🧪 Testing Suite
+Generated reports are ignored by git under `reports/`. Each run should retain:
 
-Run the automated test suite (`pytest`):
+- command line and configuration values that are safe to disclose,
+- timestamp, tool versions, task/suite selection, and raw upstream artifacts,
+- endpoint and model identifiers, and
+- an explicit provenance label:
+  - **MEASURED**: created by this run from a reachable endpoint or local tool;
+  - **BASELINE**: an externally cited historical result, not a new result from
+    this repository.
 
-```bash
-pytest tests/
+Do not compare, publish, or submit a score without the corresponding raw
+artifact and exact command. See [docs/METHODOLOGY.md](docs/METHODOLOGY.md).
+
+## Layout
+
+```text
+bin/        reproducible entrypoints
+configs/    copyable environment templates
+docs/       methodology and reproduction notes
+llm_llvm_bench/
+  llm/      provider clients and bundled suites
+  llvm/     local compiler benchmark runner
+scripts/    verification and live-report helpers
+tests/      10 pytest tests
 ```
 
-Expected output: `8 passed in 0.99s`.
+## Contributing and license
 
----
-
-## 📄 License
-
-MIT License. See [LICENSE](LICENSE) for details.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) for reproducible change and report
+requirements. Released under the [MIT License](LICENSE).

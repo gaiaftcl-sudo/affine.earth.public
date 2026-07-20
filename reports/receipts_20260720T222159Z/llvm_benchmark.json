@@ -1,0 +1,211 @@
+{
+  "report_id": "llvm_run_1784586125",
+  "created_at": 1784586125.622967,
+  "llm_suites": [],
+  "llvm_suites": [
+    {
+      "suite_name": "llvm_suite_-O0",
+      "compiler_name": "clang--O0",
+      "opt_level": "-O0",
+      "total_samples": 2,
+      "compiled_samples": 2,
+      "avg_compile_time_sec": 0.09258019924163818,
+      "avg_execution_time_sec": 0.08863365650177002,
+      "total_text_size_bytes": 32768,
+      "results": [
+        {
+          "sample_id": "llvm_micro_matrix_mul",
+          "domain": "microbench",
+          "compiler_name": "clang--O0",
+          "opt_level": "-O0",
+          "compile_success": true,
+          "compile_time_sec": 0.09836030006408691,
+          "execution_time_sec": 0.10165023803710938,
+          "text_section_size_bytes": 16384,
+          "total_binary_size_bytes": 33544,
+          "ir_instruction_count": {
+            "loads": 34,
+            "stores": 18,
+            "calls": 3,
+            "vector_ops": 0,
+            "branches": 20
+          },
+          "error_message": null
+        },
+        {
+          "sample_id": "llvm_codesize_sort",
+          "domain": "codesize",
+          "compiler_name": "clang--O0",
+          "opt_level": "-O0",
+          "compile_success": true,
+          "compile_time_sec": 0.08680009841918945,
+          "execution_time_sec": 0.07561707496643066,
+          "text_section_size_bytes": 16384,
+          "total_binary_size_bytes": 33560,
+          "ir_instruction_count": {
+            "loads": 25,
+            "stores": 11,
+            "calls": 2,
+            "vector_ops": 0,
+            "branches": 10
+          },
+          "error_message": null
+        }
+      ],
+      "timestamp": 1784586126.124023
+    },
+    {
+      "suite_name": "llvm_suite_-O2",
+      "compiler_name": "clang--O2",
+      "opt_level": "-O2",
+      "total_samples": 2,
+      "compiled_samples": 2,
+      "avg_compile_time_sec": 0.0972449779510498,
+      "avg_execution_time_sec": 0.07119894027709961,
+      "total_text_size_bytes": 32768,
+      "results": [
+        {
+          "sample_id": "llvm_micro_matrix_mul",
+          "domain": "microbench",
+          "compiler_name": "clang--O2",
+          "opt_level": "-O2",
+          "compile_success": true,
+          "compile_time_sec": 0.1042931079864502,
+          "execution_time_sec": 0.05626988410949707,
+          "text_section_size_bytes": 16384,
+          "total_binary_size_bytes": 33544,
+          "ir_instruction_count": {
+            "loads": 5,
+            "stores": 11,
+            "calls": 3,
+            "vector_ops": 63,
+            "branches": 15
+          },
+          "error_message": null
+        },
+        {
+          "sample_id": "llvm_codesize_sort",
+          "domain": "codesize",
+          "compiler_name": "clang--O2",
+          "opt_level": "-O2",
+          "compile_success": true,
+          "compile_time_sec": 0.09019684791564941,
+          "execution_time_sec": 0.08612799644470215,
+          "text_section_size_bytes": 16384,
+          "total_binary_size_bytes": 16888,
+          "ir_instruction_count": {
+            "loads": 2,
+            "stores": 2,
+            "calls": 0,
+            "vector_ops": 0,
+            "branches": 7
+          },
+          "error_message": null
+        }
+      ],
+      "timestamp": 1784586126.600214
+    },
+    {
+      "suite_name": "llvm_suite_-O3",
+      "compiler_name": "clang--O3",
+      "opt_level": "-O3",
+      "total_samples": 2,
+      "compiled_samples": 2,
+      "avg_compile_time_sec": 0.09934353828430176,
+      "avg_execution_time_sec": 0.06445801258087158,
+      "total_text_size_bytes": 32768,
+      "results": [
+        {
+          "sample_id": "llvm_micro_matrix_mul",
+          "domain": "microbench",
+          "compiler_name": "clang--O3",
+          "opt_level": "-O3",
+          "compile_success": true,
+          "compile_time_sec": 0.1055290699005127,
+          "execution_time_sec": 0.05395007133483887,
+          "text_section_size_bytes": 16384,
+          "total_binary_size_bytes": 33544,
+          "ir_instruction_count": {
+            "loads": 5,
+            "stores": 11,
+            "calls": 3,
+            "vector_ops": 63,
+            "branches": 15
+          },
+          "error_message": null
+        },
+        {
+          "sample_id": "llvm_codesize_sort",
+          "domain": "codesize",
+          "compiler_name": "clang--O3",
+          "opt_level": "-O3",
+          "compile_success": true,
+          "compile_time_sec": 0.09315800666809082,
+          "execution_time_sec": 0.0749659538269043,
+          "text_section_size_bytes": 16384,
+          "total_binary_size_bytes": 16888,
+          "ir_instruction_count": {
+            "loads": 2,
+            "stores": 2,
+            "calls": 0,
+            "vector_ops": 0,
+            "branches": 7
+          },
+          "error_message": null
+        }
+      ],
+      "timestamp": 1784586127.080819
+    },
+    {
+      "suite_name": "llvm_suite_-Os",
+      "compiler_name": "clang--Os",
+      "opt_level": "-Os",
+      "total_samples": 2,
+      "compiled_samples": 2,
+      "avg_compile_time_sec": 0.12297403812408447,
+      "avg_execution_time_sec": 0.08663797378540039,
+      "total_text_size_bytes": 32768,
+      "results": [
+        {
+          "sample_id": "llvm_micro_matrix_mul",
+          "domain": "microbench",
+          "compiler_name": "clang--Os",
+          "opt_level": "-Os",
+          "compile_success": true,
+          "compile_time_sec": 0.10304808616638184,
+          "execution_time_sec": 0.09230399131774902,
+          "text_section_size_bytes": 16384,
+          "total_binary_size_bytes": 33544,
+          "ir_instruction_count": {
+            "loads": 5,
+            "stores": 5,
+            "calls": 3,
+            "vector_ops": 21,
+            "branches": 15
+          },
+          "error_message": null
+        },
+        {
+          "sample_id": "llvm_codesize_sort",
+          "domain": "codesize",
+          "compiler_name": "clang--Os",
+          "opt_level": "-Os",
+          "compile_success": true,
+          "compile_time_sec": 0.1428999900817871,
+          "execution_time_sec": 0.08097195625305176,
+          "text_section_size_bytes": 16384,
+          "total_binary_size_bytes": 33560,
+          "ir_instruction_count": {
+            "loads": 4,
+            "stores": 4,
+            "calls": 3,
+            "vector_ops": 0,
+            "branches": 13
+          },
+          "error_message": null
+        }
+      ],
+      "timestamp": 1784586127.6513531
+    }
+  ]
+}
