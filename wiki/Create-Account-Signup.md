@@ -185,18 +185,24 @@ Asserts consent checkbox, **Use my location** control, Create wallet + QFOT, Gam
 
 ---
 
-## FoT measured 2026-07-20 (updated evening)
+## FoT measured 2026-07-20 (updated evening) — FIXED
+
+**Status: FIXED** (GaiaFTCL SHA `cf3cd8249`, deployed to 9 cells). Earlier the same day the Python language-inject sidecar returned **HTTP 404** on `POST …/economics-onboard`, so Create wallet opened the app while Profile could show **BLOCKED / 0/1**. That route is restored; do not treat the old 404 / BLOCKED UI reading as current.
 
 | Observation | Result |
 |:---|:---|
-| Correct UI path (consent → location → Create) | **App opens** (~8s); Franklin chat + Docs + `bc1…` profile |
-| `POST https://affine.earth/language-invariant/economics-onboard` | **HTTP 200** · `PROVEN_ECONOMICS_ONBOARD` · `genesis_credited: 100/1` (fixed: route was missing on Python language-inject sidecar; Swift serve already had the handler) |
+| Correct UI path (consent → location → Create) | **App opens** (~2–8s); Franklin chat + Docs + `bc1…` profile |
+| Profile after create (UI E2E re-verify) | **BALANCE STATUS: PROVEN** · **QFOT BALANCE: 100/1** · **GENESIS QFOT: 100/1** (not BLOCKED / 0/1) — [screenshot](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-07-profile-qfot-proven.png) |
+| `POST https://affine.earth/language-invariant/economics-onboard` | **HTTP 200** · `PROVEN_ECONOMICS_ONBOARD` · `genesis_credited: 100/1` (fix SHA `cf3cd8249`; route was missing on Python language-inject sidecar; Swift serve already had the handler) |
 | Empty-body / no-consent probe | **HTTP 200** · `REFUSED` / `BLOCKED_ONBOARD_CONSENT` (not 404) |
 | `GET …/qfot-balance?address=…` after onboard | **PROVEN** · `qfot_balance_canonical: 100/1` |
+| Games → Linguistic membrane | `#messageList` reachable (LIVE catalog) |
 | Email / password / captcha | **Absent** |
 | `GET /language-invariant/games` | **HTTP 200** · 12 LIVE games |
 | `GET /language-invariant/healthz` | **HTTP 200** · includes `economics_onboard: true` |
 | `GET /v1/models` with Bearer probe | **HTTP 200** but **`text/html`** (SPA), not OpenAI models JSON |
+
+**Historical note:** Pre-fix FoT same day recorded `economics-onboard` **HTTP 404** → genesis credit absent → Profile **BLOCKED / 0/1**. Post-fix + UI re-verify: **PROVEN / 100/1**.
 
 **Implication:** Third parties **can** complete Sovereign entry, receive genesis QFOT on the language.sqlite hash index, and use in-app Games / Linguistic membrane Q&A. Do **not** claim public OpenAI-compatible `/v1` scoring until `/v1` returns JSON.
 

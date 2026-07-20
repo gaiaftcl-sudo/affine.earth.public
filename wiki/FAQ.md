@@ -46,7 +46,9 @@ Then open **Games** → **Linguistic membrane (chat)** to see test Q&A in the UI
 
 ### Q. Does Create wallet always credit genesis QFOT on the mesh?
 
-**A.** FoT (2026-07-20 evening): `POST /language-invariant/economics-onboard` is **live** on the language-inject sidecar (was HTTP 404 earlier the same day). Measured: `status: PROVEN_ECONOMICS_ONBOARD`, `genesis_credited: 100/1`, `GET …/qfot-balance?address=…` returns **PROVEN** `100/1` after onboard. Create wallet + QFOT still opens the app; Profile balance should track the hash-index after a successful onboard response.
+**A.** **FIXED** (GaiaFTCL SHA `cf3cd8249`, 9-cell deploy). FoT + UI E2E re-verify (2026-07-20 evening): `POST /language-invariant/economics-onboard` is **live** on the language-inject sidecar. Measured: `status: PROVEN_ECONOMICS_ONBOARD`, `genesis_credited: 100/1`, `GET …/qfot-balance?address=…` returns **PROVEN** `100/1`. After Create wallet + QFOT, Profile shows **BALANCE STATUS: PROVEN** and **QFOT BALANCE: 100/1** (not BLOCKED / 0/1).
+
+**Historical note:** Earlier the same day the sidecar returned **HTTP 404** on `economics-onboard`, so the app could open while genesis credit failed (Profile **BLOCKED / 0/1**). That is no longer current.
 
 ### Q. What Python version is required?
 

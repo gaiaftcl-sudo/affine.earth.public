@@ -130,7 +130,7 @@ Healthz checks liveness only. The signup script asserts the Sovereign entry HTML
 markers (login gate, New wallet, **consent**, **Use my location**, Create wallet + QFOT)
 plus Games / messageList Q&A route markers without creating an account. Neither
 check proves `/v1` chat-completions JSON is available or that genesis QFOT is
-ledger-proven (`economics-onboard` measured HTTP 200 / genesis `100/1` on 2026-07-20 evening after sidecar fix).
+ledger-proven (`economics-onboard` measured HTTP 200 / genesis `100/1` on 2026-07-20 evening after sidecar fix SHA `cf3cd8249`; Profile UI E2E: **PROVEN / 100/1**).
 
 ### 6. Run the local dashboard
 
