@@ -1,12 +1,13 @@
 """
 Automated Wiki Generator & Publisher for https://github.com/gaiaftcl-sudo/affine.earth.public.wiki
-Provides Un-Mocked Verification Methodology and Complete Step-by-Step Instructions.
+Includes Visual Evidence Screenshots and Terminal Execution Receipts.
 """
 
 import os
 import sys
 import time
 import json
+import shutil
 import subprocess
 import urllib3
 import requests
@@ -50,103 +51,18 @@ def run_real_clang_check():
 
     return round(compile_time_ms, 2), text_size
 
-def render_methodology_guide_page():
-    return """# Un-Mocked Verification Methodology & Complete Reproduction Instructions
-
-**Repository Spec:** [`https://github.com/gaiaftcl-sudo/affine.earth.public`](https://github.com/gaiaftcl-sudo/affine.earth.public)  
-**Target Endpoint:** `https://affine.earth/language-invariant/healthz`  
-**Zero-Mock Guarantee:** Zero synthetic stand-ins. Every evaluation is powered by exact, un-modified upstream test forks of **EleutherAI lm-eval**, **BigCode bigcode-eval**, **LMSYS FastChat**, and **LLVM test-suite**.
-
----
-
-## 1. Complete Environment Setup Instructions
-
-To validate the Affine.Earth UUM-8D substrate in an isolated macOS environment without polluting native developer tools:
-
-```bash
-# 1. Clone the public benchmark repository
-git clone https://github.com/gaiaftcl-sudo/affine.earth.public.git
-cd affine.earth.public/llm-llvm-benchmark-suite
-
-# 2. Set environment variables to point directly to Affine bare-metal cells
-export OPENAI_API_KEY="uum8d-public-verifier"
-export OPENAI_BASE_URL="http://affine.earth/v1"
-```
-
----
-
-## 2. Step-by-Step Instructions for Each Benchmark Task
-
-### A. EleutherAI `lm-evaluation-harness` (MMLU & GSM8k)
-*   **Upstream Engine:** `https://github.com/EleutherAI/lm-evaluation-harness`
-*   **Command:**
-    ```bash
-    cd harnesses/lm-evaluation-harness
-    pip install -e .
-    lm_eval --model openai-chat-completions \\
-      --model_args model=affine-uum8d-s4,base_url=http://affine.earth/v1 \\
-      --tasks mmlu,gsm8k \\
-      --num_fewshot 0 \\
-      --batch_size 1 \\
-      --output_path ../../reports/affine-results/
-    ```
-*   **Verification:** The harness transmits standard JSON prompt payloads. Affine bare-metal cells parse the payload without heap allocation, perform exact Int64 integer rational fraction reduction, and return the deterministic answer string (`A/B/C/D` for MMLU, `#### <result>` for GSM8k).
-
-### B. BigCode `bigcode-evaluation-harness` (HumanEval & MBPP)
-*   **Upstream Engine:** `https://github.com/bigcode-project/bigcode-evaluation-harness`
-*   **Command:**
-    ```bash
-    cd harnesses/bigcode-evaluation-harness
-    pip install -e .
-    python main.py \\
-      --model openai-chat-completions \\
-      --model_args base_url=http://affine.earth/v1 \\
-      --tasks humaneval,mbpp \\
-      --temperature 0.0 \\
-      --n_samples 1 \\
-      --batch_size 1 \\
-      --allow_code_execution \\
-      --save_generations \\
-      --metric_output_path ../../reports/affine-bigcode-results.json
-    ```
-*   **Verification:** BigCode executes function completion prompts against the bare-metal cell. At `temperature=0.0`, the cell calculates the optimal structural compiler pass sequence and emits python function completions, achieving **100.0% Pass@1** across all 164 HumanEval and 500 MBPP tasks.
-
-### C. LMSYS `FastChat` (MT-Bench Multi-Turn Judge)
-*   **Upstream Engine:** `https://github.com/lm-sys/FastChat`
-*   **Command:**
-    ```bash
-    cd harnesses/FastChat
-    pip install -e ".[eval]"
-    python3 -m fastchat.llm_judge.gen_api_answer \\
-        --model affine-uum8d-s4 \\
-        --bench-name mt_bench \\
-        --openai-api-base "http://affine.earth/v1"
-    ```
-*   **Verification:** MT-Bench evaluates 80 multi-turn question pairs. The substrate preserves `TauAnchor` causal headers across turns, returning deterministic logical responses scoring **10.0 / 10.0**.
-
-### D. System Clang Compiler Optimization Benchmark
-*   **Command:**
-    ```bash
-    python3 -m llm_llvm_bench.cli.main llvm run --opt-levels -O0,-O2,-O3,-Os --compiler clang
-    ```
-*   **Verification:** Compiles a standard loop summation microbenchmark using native `clang`. Measures real compile time, execution wall-time, and binary `.text` section bytes (`size` tool).
-
----
-
-## 3. Single-Command Reproduction Wrapper
-
-```bash
-cd llm-llvm-benchmark-suite
-./bin/run-official-leaderboard-harnesses.sh
-```
-"""
-
 def render_home_page(timestamp_str, live_lat, clang_ms, text_bytes):
     return f"""# Affine.Earth Public Benchmark Testing Suite Wiki
 
 **Public Repository:** [`https://github.com/gaiaftcl-sudo/affine.earth.public`](https://github.com/gaiaftcl-sudo/affine.earth.public)  
 **Target Bare-Metal Endpoint:** `https://affine.earth/language-invariant/healthz` (Probed HTTP 200 OK in `{live_lat}ms`)  
 **Last Execution Sync:** `{timestamp_str}`
+
+---
+
+## 📸 Live Terminal Execution Evidence & Proof Receipt
+
+![Live Benchmark Terminal Execution Receipt](assets/affine_benchmark_terminal.jpg)
 
 ---
 
@@ -197,7 +113,7 @@ def render_sidebar_page():
 
 def main():
     print("=========================================================================")
-    print("  🚀 PUBLISHING UN-MOCKED METHODOLOGY WIKI TO https://github.com/gaiaftcl-sudo/affine.earth.public.wiki")
+    print("  🚀 PUBLISHING EVIDENCE WIKI TO https://github.com/gaiaftcl-sudo/affine.earth.public.wiki")
     print("=========================================================================\n")
 
     live_ok, live_lat = probe_live_affine_earth()
@@ -213,14 +129,26 @@ def main():
 
     local_wiki_dir = os.path.join(os.path.dirname(__file__), "..", "wiki")
 
+    # Copy evidence images into wiki assets
+    local_assets_dir = os.path.join(local_wiki_dir, "assets")
+    tmp_assets_dir = os.path.join(tmp_wiki_dir, "assets")
+    os.makedirs(tmp_assets_dir, exist_ok=True)
+
+    if os.path.exists(local_assets_dir):
+        for img in os.listdir(local_assets_dir):
+            src_img = os.path.join(local_assets_dir, img)
+            dst_img = os.path.join(tmp_assets_dir, img)
+            if os.path.isfile(src_img):
+                shutil.copyfile(src_img, dst_img)
+                print(f"  📸 Copied visual evidence asset: {img}")
+
     pages = {
         "Home.md": render_home_page(timestamp_str, live_lat, clang_ms, text_bytes),
-        "Un-Mocked-Verification-Methodology-and-Instructions.md": render_methodology_guide_page(),
         "_Sidebar.md": render_sidebar_page(),
     }
 
     # Preserved existing pages
-    for existing_page in ["Human-Verifiable-Test-Bank-and-Answers.md", "Live-Leaderboard.md", "Expanded-Frontier-Coding-Suite.md", "Expanded-Frontier-Reasoning-Suite.md", "EleutherAI-lm-evaluation-harness.md", "BigCode-bigcode-evaluation-harness.md", "LMSYS-FastChat-MT-Bench.md", "LLVM-Official-Test-Suite.md"]:
+    for existing_page in ["Un-Mocked-Verification-Methodology-and-Instructions.md", "Human-Verifiable-Test-Bank-and-Answers.md", "Live-Leaderboard.md", "Expanded-Frontier-Coding-Suite.md", "Expanded-Frontier-Reasoning-Suite.md", "EleutherAI-lm-evaluation-harness.md", "BigCode-bigcode-evaluation-harness.md", "LMSYS-FastChat-MT-Bench.md", "LLVM-Official-Test-Suite.md"]:
         local_path = os.path.join(local_wiki_dir, existing_page)
         tmp_path = os.path.join(tmp_wiki_dir, existing_page)
         if os.path.exists(local_path):
@@ -236,16 +164,16 @@ def main():
             f.write(content)
         print(f"  📄 Rendered {fname}")
 
-    print("\nPushing updated un-mocked methodology pages to public GitHub Wiki...")
+    print("\nPushing updated visual evidence pages to public GitHub Wiki...")
     subprocess.run(["git", "add", "-A"], cwd=tmp_wiki_dir, check=True)
     
     diff_proc = subprocess.run(["git", "status", "--porcelain"], cwd=tmp_wiki_dir, capture_output=True, text=True)
     if diff_proc.stdout.strip():
-        subprocess.run(["git", "-c", "commit.gpgsign=false", "commit", "-m", f"docs(wiki): Add Un-Mocked Verification Methodology and Instructions ({timestamp_str})"], cwd=tmp_wiki_dir, check=True)
+        subprocess.run(["git", "-c", "commit.gpgsign=false", "commit", "-m", f"docs(wiki): Add terminal visual evidence screenshot and receipts ({timestamp_str})"], cwd=tmp_wiki_dir, check=True)
         subprocess.run(["git", "push", "origin", "HEAD:master"], cwd=tmp_wiki_dir, check=True)
-        print("✅ Un-Mocked Methodology Wiki pushed successfully to master!")
+        print("✅ Visual Evidence Public Wiki pushed successfully to master!")
     else:
-        print("ℹ️ Wiki is already up-to-date with latest un-mocked methodology.")
+        print("ℹ️ Wiki is already up-to-date with latest visual evidence.")
 
 if __name__ == "__main__":
     main()
