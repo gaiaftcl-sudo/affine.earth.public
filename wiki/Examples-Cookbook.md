@@ -6,21 +6,49 @@ Assume your shell is inside `llm-llvm-benchmark-suite/` after `pip install -e .`
 
 ---
 
-## 0a. UI path before CLI — signup → Games Q&A
+## 0a. UI path before CLI — all Games tests + live answers
 
-Do this in a browser **before** claiming a live Affine session from the command line:
+Do this in a browser **before** claiming a live Affine session from the command line.
+
+### Demo (primary)
+
+<p>
+<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-07-games-catalog.png">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.webm" type="video/webm">
+</video>
+</p>
+
+![UI all-tests GIF](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif)
+
+[affine-earth-demo-ui-all-tests.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4) · [demo-ui-all-tests.gif](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif)
+
+### Click path (measured 2026-07-20)
 
 1. Open `https://affine.earth` → **New wallet**
-2. Check **consent** → **Use my location** → **Create wallet + QFOT**
-3. Wait until the app opens (Franklin chat: “SOVEREIGN NODE INITIALIZATION complete…”)
-4. **Games** → **Linguistic membrane (chat)** — questions in the chat stream; answers via composer + clarifying fields
-5. Export private key from Docs / Profile (offline only)
+2. Check **consent** → **Use my location** → **Create wallet + QFOT** → wait until app opens
+3. **Games** (`#gamesBtn`) → catalog loads `GET /language-invariant/games` (**12 LIVE**)
+4. Click each game card and exercise its surface (see table below)
+5. For chat suites: type in **Message Franklin…**, then fill **Your clarifying answer…** when the ground bar appears
+6. Export private key from Docs / Profile (offline only — never commit)
 
-![App opened](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-05-app-opened.png)
+| Game card (UI label) | Click path | Live answer FoT (2026-07-20) |
+|:---|:---|:---|
+| Linguistic membrane (chat) | Games → card → `#messageList` + composer | **Live reply** (Socratic + clarifying bar) |
+| Formal manifold | Games → card → Ingest · play (+ Project) → rebound chat Q | **Live reply** after membrane rebound |
+| Coding — UMC + MCP | Games → card → UMC drawer → rebound chat Q | **Live reply** after membrane rebound |
+| Cinema — Director console | Games → card → Reality/cinema surface | Surface play (no chat prompt) |
+| Aviation — UMC domain | Games → card → UMC aviation | Surface play |
+| Aviation ATC — sector flow | Games → card → ATC Ingest | Surface play |
+| Gaming — UMC domain | Games → card → UMC gaming | Surface play |
+| Reality — immersion | Games → card → Reality drawer | Surface play |
+| Topological sandbox | Games → card → Sandbox | Surface play |
+| Wallet · QFOT | Games → card → Profile | Profile **PROVEN / 100/1** |
+| UMC · GAV Long Play | Games → card → UMC Director | Surface play |
+| Torsion dialogue | Games → card → Reality + bind → chat Q | **Live reply** |
+| Docs | `#docsBtn` | Docs drawer opened |
 
-![Q&A verify UI](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-07-qa-answer-verify.png)
-
-Demo: [affine-earth-demo-signup-app-qa.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4) · GIF [demo-signup-app-qa.gif](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-app-qa.gif)
+> **FoT:** Franklin’s live UI replies in this demo are Socratic membrane turns (“design gap” / clarifying), **not** unit-test pass rates. Do **not** claim HumanEval / MBPP 100% from the chat demo. CLI scores stay in package receipts.
 
 Signup surface smoke (no wallet create):
 

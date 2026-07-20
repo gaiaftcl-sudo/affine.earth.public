@@ -12,17 +12,33 @@
 
 ---
 
-## Visual tour (live UI — signup → app → Q&A)
+## Visual tour (live UI — all Games tests + answers)
 
-| Surface | Screenshot |
+### Demo — UI all-tests battery (primary)
+
+Onboard → **all 12 LIVE Games** → Franklin live replies in `#messageList` (Socratic clarifying turns). Measured 2026-07-20 against `https://affine.earth`.
+
+<p>
+<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-07-games-catalog.png">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.webm" type="video/webm">
+</video>
+</p>
+
+![Animated — UI all Games + live answers](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif)
+
+> **MP4 / WebM / GIF:** [affine-earth-demo-ui-all-tests.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4) · [webm](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.webm) · [demo-ui-all-tests.gif](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif) · mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media).  
+> **FoT:** live UI answers are Socratic membrane turns — **not** CLI harness scores. Do **not** claim HumanEval 100% from this chat demo. Click paths: [Human-Verifiable Test Bank](Human-Verifiable-Test-Bank-and-Answers) · [Hardest Tests — UI section](Hardest-Tests).
+
+| Chapter still | Surface |
 |:---|:---|
-| New wallet + consent + location | ![consent/location](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-04-use-my-location.png) |
-| App opened after Create wallet + QFOT | ![app open](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-05-app-opened.png) |
-| Games catalog / Linguistic membrane Q&A | ![games](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-06-games-catalog-qa.png) |
-| Chat question + clarifying answer UI | ![qa](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-07-qa-answer-verify.png) |
-| Live healthz JSON (liveness only) | ![healthz](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/healthz-json-live.png) |
+| ![catalog](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-07-games-catalog.png) | Games catalog (12 LIVE) |
+| ![lm](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-10-linguistic_membrane-answer.png) | Linguistic membrane — live reply + clarifying bar |
+| ![fm](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-11-formal_manifold-answer.png) | Formal manifold → live Q&A |
+| ![code](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-12-coding-answer.png) | Coding — UMC + MCP → live Q&A |
+| ![wallet](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-19-wallet_qfot-profile.png) | Wallet · QFOT Profile (PROVEN 100/1) |
 
-### Demo — correct signup → app → UI Q&A
+### Shorter clip — signup → app → one Q&A
 
 <p>
 <video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-05-app-opened.png">
@@ -32,9 +48,6 @@
 </p>
 
 ![Animated walkthrough — consent → location → Create wallet → app → Games / Q&A](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-app-qa.gif)
-
-> **MP4 / WebM:** [https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4) · also mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media) in the public repo.  
-> Supersedes `affine-earth-demo-signup-healthz.*` / `demo-signup-healthz.gif`.
 
 
 ---

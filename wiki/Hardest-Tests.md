@@ -29,6 +29,30 @@ the evidence required before any Affine.Earth result may be called **MEASURED**.
 
 > **MP4 / WebM:** [https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4) · also mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media) in the public repo.
 
+## UI section — all Games tests (live product, not CLI harness)
+
+Before treating any hard suite as **MEASURED** against Affine, exercise the in-product Games battery. This is **UI FoT**, not HumanEval / HLE / SWE-bench scores.
+
+<p>
+<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-07-games-catalog.png">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.webm" type="video/webm">
+</video>
+</p>
+
+![UI all-tests GIF](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif)
+
+| UI suite | How to open | Status in 2026-07-20 all-tests demo |
+|:---|:---|:---|
+| Linguistic membrane (chat) | Games → Linguistic membrane | Live Franklin reply in `#messageList` (Socratic) |
+| Formal manifold | Games → Formal manifold → Ingest | Live Q&A after membrane rebound |
+| Coding — UMC + MCP | Games → Coding | Live Q&A after membrane rebound |
+| Cinema / Aviation / ATC / Gaming / Reality / Sandbox / UMC | Games → each card | Surface play (ingest / drawer) — FoT |
+| Wallet · QFOT | Games → Wallet · QFOT → Profile | **PROVEN / 100/1** |
+| Torsion dialogue | Games → Torsion dialogue | Live Franklin reply |
+| Docs | Docs button | Drawer inventory |
+
+> **FoT:** Do **not** promote this demo as HumanEval / LiveCodeBench / HLE pass rates. Those remain **RUNNABLE** / **BASELINE_TABLE_ONLY** until archived harness receipts exist. See [Human-Verifiable Test Bank](Human-Verifiable-Test-Bank-and-Answers) for CLI ground truth vs UI clarifying turns.
 
 ## Read the status label first
 

@@ -7,19 +7,20 @@ This guide gets you from zero to a verified local run of the Affine.Earth public
 **Repository:** [`https://github.com/gaiaftcl-sudo/affine.earth.public`](https://github.com/gaiaftcl-sudo/affine.earth.public)  
 **Package directory:** `llm-llvm-benchmark-suite/`
 
-### First look — correct signup → app → UI Q&A
+### First look — UI all-tests battery (all Games + live answers)
 
 <p>
-<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-05-app-opened.png">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4" type="video/mp4">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.webm" type="video/webm">
+<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-07-games-catalog.png">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.webm" type="video/webm">
 </video>
 </p>
 
-![Animated walkthrough — consent → location → Create wallet → app → Games / Q&A](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-app-qa.gif)
+![UI all-tests GIF](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif)
 
-> **MP4 / WebM:** [https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4) · also mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media) in the public repo.  
-> Supersedes the old `demo-signup-healthz` / `affine-earth-demo-signup-healthz.*` clip.
+> **Primary demo:** [affine-earth-demo-ui-all-tests.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4) · [GIF](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif) · mirrored in [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media).  
+> Shorter signup-only clip remains: [affine-earth-demo-signup-app-qa.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4).  
+> **FoT:** live Franklin replies ≠ CLI harness scores (do not claim HumanEval 100% from chat).
 
 ---
 ## 0. Create an Affine.Earth account in the UI (do this before CLI harnesses)
@@ -36,7 +37,7 @@ Affine.Earth uses **Sovereign entry** (BTC edge wallet), not email/password. Ful
 2. **New wallet** → check **consent** → **Use my location** → **Create wallet + QFOT**
 3. Wait until the **app opens** (gate closes; Franklin chat + Docs; Profile shows `bc1…`)
 4. **Export private key** offline (Docs / Profile) — never commit keys
-5. See **test Q&A in the UI**: **Games** → **Linguistic membrane (chat)** (also Formal manifold / Coding). Questions appear in `#messageList`; answers / clarifying verify fields sit under the chat; composer is “Message Franklin…”
+5. Run the **UI test battery**: **Games** → open each catalog card (12 LIVE). Chat Q&A: Linguistic membrane, Formal manifold (after ingest), Coding, Torsion dialogue — `#messageList` + “Your clarifying answer…” / “Message Franklin…”. Profile → Wallet · QFOT for genesis balance. Docs drawer for node docs.
 6. Only then run CLI harnesses / smoke: `python3 scripts/check_affine_signup_surface.py`
 
 Local-only Clang / pytest / mock-provider work does not require an Affine account.
