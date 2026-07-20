@@ -31,7 +31,7 @@ As of 2026-07-20:
 - `https://affine.earth/language-invariant/healthz` returns HTTP 200 (liveness).
 - Signup UI (Sovereign entry) is reachable at `/language-game/` (see Gate 0).
 - `https://affine.earth/v1` returns an HTML SPA, **not** OpenAI-compatible JSON.
-- `POST /language-invariant/economics-onboard` returned HTTP 404 on an empty-body probe (document; do not treat as successful registration).
+- `POST /language-invariant/economics-onboard` is live (HTTP 200). Empty-body / no-consent probe returns `REFUSED` / `BLOCKED_ONBOARD_CONSENT`. Successful onboard credits genesis `100/1` on the hash index; verify with `GET …/qfot-balance?address=…`.
 
 Harnesses that call `/v1/models` or `/v1/chat/completions` must target a base
 URL that answers `GET …/models` with JSON. The launcher preflights that and

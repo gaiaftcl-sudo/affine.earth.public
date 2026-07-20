@@ -181,23 +181,24 @@ Asserts consent checkbox, **Use my location** control, Create wallet + QFOT, Gam
 | Consent + location + Create wallet | Creates a real browser mainnet edge wallet / identity |
 | Private key export & backup | Security-sensitive |
 | Returning Sign in with a live address | Requires an address the operator controls |
-| Proven genesis QFOT ledger credit | Depends on `POST …/economics-onboard` (see blockers) |
+| Proven genesis QFOT ledger credit | **Live** after `POST …/economics-onboard` (see FoT table) |
 
 ---
 
-## Blockers measured 2026-07-20 (FoT)
+## FoT measured 2026-07-20 (updated evening)
 
 | Observation | Result |
 |:---|:---|
 | Correct UI path (consent → location → Create) | **App opens** (~8s); Franklin chat + Docs + `bc1…` profile |
-| `POST https://affine.earth/language-invariant/economics-onboard` | **HTTP 404** `Not Found` (empty-body probe and live create both hit 404) |
-| Profile QFOT balance after create | UI says genesis `100/1` credited; Profile drawer measured **BALANCE STATUS: BLOCKED** / `0/1` (server credit not proven while onboard 404s) |
+| `POST https://affine.earth/language-invariant/economics-onboard` | **HTTP 200** · `PROVEN_ECONOMICS_ONBOARD` · `genesis_credited: 100/1` (fixed: route was missing on Python language-inject sidecar; Swift serve already had the handler) |
+| Empty-body / no-consent probe | **HTTP 200** · `REFUSED` / `BLOCKED_ONBOARD_CONSENT` (not 404) |
+| `GET …/qfot-balance?address=…` after onboard | **PROVEN** · `qfot_balance_canonical: 100/1` |
 | Email / password / captcha | **Absent** |
 | `GET /language-invariant/games` | **HTTP 200** · 12 LIVE games |
-| `GET /language-invariant/healthz` | **HTTP 200** JSON `ok: true` |
+| `GET /language-invariant/healthz` | **HTTP 200** · includes `economics_onboard: true` |
 | `GET /v1/models` with Bearer probe | **HTTP 200** but **`text/html`** (SPA), not OpenAI models JSON |
 
-**Implication:** Third parties **can** complete Sovereign entry and use in-app Games / Linguistic membrane Q&A. Do **not** claim proven mesh genesis QFOT or public OpenAI-compatible `/v1` scoring until onboard returns non-404 and `/v1` returns JSON.
+**Implication:** Third parties **can** complete Sovereign entry, receive genesis QFOT on the language.sqlite hash index, and use in-app Games / Linguistic membrane Q&A. Do **not** claim public OpenAI-compatible `/v1` scoring until `/v1` returns JSON.
 
 ---
 
