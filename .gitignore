@@ -1,41 +1,23 @@
-# Python
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
 
-# Virtualenv
-venv/
-env/
-ENV/
-.venv/
-
-# Testing & Coverage
+# Pytest / coverage
 .pytest_cache/
 .coverage
 htmlcov/
 
-# Benchmark artifacts
-results/
+# Environments
+.venv/
+env/
+venv/
+ENV/
+
+# Reports output
 reports/*.json
-reports/*.html
-*.ir
-*.s
-*.o
-*.out
+reports/*.md
+!reports/README.md
+
+# Cloned External Evaluation Harness Submodules
+harnesses/
