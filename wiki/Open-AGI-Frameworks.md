@@ -24,19 +24,32 @@ The workspace now includes `configs/open-agi-harnesses.yaml` and
 `bin/run-open-agi-harnesses.sh`, a thin launcher that preserves upstream
 artifacts and refuses to synthesize score JSON. Its current coverage is:
 
-| Suite | Launcher state | Artifact destination |
-|:---|:---|:---|
-| GPQA Diamond | **RUNNABLE_WRAPPER** through pinned `lm-eval` | `reports/third_party/open_agi/gpqa/` |
-| Humanity's Last Exam | **RUNNABLE_WRAPPER** after gated dataset acceptance and `HF_TOKEN` | `reports/third_party/open_agi/hle/` |
-| ARC-AGI | **RUNNABLE_WRAPPER** once the official checkout, task data, and model config are supplied | `reports/third_party/open_agi/arc_agi/` |
-| GAIA | **RUNNABLE_WRAPPER** through Inspect AI (tool sandbox requirements apply) | `reports/third_party/open_agi/gaia/` |
-| SWE-bench / LiveCodeBench | **NEEDS_UPSTREAM**; the launcher exits non-zero rather than producing a score | no result directory is created as a measurement |
-| FrontierMath | **NEEDS_UPSTREAM_ACCESS**; benchmark access and its official evaluation terms govern execution | only a real official artifact may be labeled measured |
+| Suite | Harness key | Launcher state | Artifact destination |
+|:---|:---|:---|:---|
+| GPQA Diamond | `gpqa` | **RUNNABLE_WRAPPER** (`lm-eval==0.4.7`, `gpqa_diamond_cot_zeroshot`) | `reports/third_party/open_agi/gpqa/` |
+| BIG-Bench Hard | `bbh` | **RUNNABLE_WRAPPER** (`bbh_cot_fewshot`) | `reports/third_party/open_agi/bbh/` |
+| MMLU-Pro | `mmlu-pro` | **RUNNABLE_WRAPPER** (`mmlu_pro`) | `reports/third_party/open_agi/mmlu_pro/` |
+| lm-eval hard bundle | `lm-eval-hard` | **RUNNABLE_WRAPPER** (GPQA + BBH + MMLU-Pro) | `reports/third_party/open_agi/lm_eval_hard/` |
+| Humanity's Last Exam | `hle` | **RUNNABLE_WRAPPER** after gated dataset acceptance and `HF_TOKEN` | `reports/third_party/open_agi/hle/` |
+| ARC-AGI | `arc-agi` | **RUNNABLE_WRAPPER** once checkout, task data, and model config are supplied | `reports/third_party/open_agi/arc_agi/` |
+| ARC-AGI-2 | `arc-agi-2` | **RUNNABLE_WRAPPER**; refuses sample-task substitution | `reports/third_party/open_agi/arc_agi/` |
+| GAIA | `gaia` | **RUNNABLE_WRAPPER** through Inspect AI (tool sandbox requirements apply) | `reports/third_party/open_agi/gaia/` |
+| Inspect GPQA / generic | `inspect-gpqa` / `inspect` | **RUNNABLE_WRAPPER** (`INSPECT_TASK` for generic) | `reports/third_party/open_agi/inspect_*/` |
+| LiveCodeBench | `livecodebench` | **RUNNABLE_WRAPPER** (checkout + real `lcb_runner`) | `reports/third_party/open_agi/livecodebench/` |
+| SWE-bench Verified | `swe-bench` | **RUNNABLE_WRAPPER** when `SWE_BENCH_PREDICTIONS_PATH` points at real predictions JSONL | `reports/third_party/open_agi/swe_bench/` |
+| FrontierMath | `frontiermath` | **NEEDS_UPSTREAM** — launcher exits **3** | no measured result directory |
 
 ```bash
 # Configure a real JSON-capable target, then use a selected upstream wrapper.
 cp configs/third-party-harnesses.env.example .env.third-party-harnesses
-./bin/run-open-agi-harnesses.sh --harness gpqa
+./bin/run-open-agi-harnesses.sh --harness lm-eval-hard
+./bin/run-open-agi-harnesses.sh --harness hle
+./bin/run-open-agi-harnesses.sh --harness arc-agi-2
+./bin/run-open-agi-harnesses.sh --harness gaia
+./bin/run-open-agi-harnesses.sh --harness livecodebench
+export SWE_BENCH_PREDICTIONS_PATH=/path/to/predictions.jsonl
+./bin/run-open-agi-harnesses.sh --harness swe-bench
+./bin/run-open-agi-harnesses.sh --harness frontiermath   # exit 3
 ```
 
 The wrapper is an orchestration and provenance aid. The upstream evaluator
@@ -95,7 +108,7 @@ These distinctions are deliberately preserved:
 | Service liveness and signup surface | **MEASURED** — healthz and public signup-surface checks |
 | Live OpenAI-compatible inference | **PENDING** — must return actual `/v1` JSON before scoring |
 | Upstream coding/reasoning harnesses | **RUNNABLE** — reproduction procedures documented |
-| HLE, GPQA Diamond, FrontierMath, ARC-AGI, SWE-bench, LiveCodeBench, GAIA | **RUNNABLE** or **BASELINE_TABLE_ONLY** — see [Hardest Tests](Hardest-Tests) |
+| HLE, GPQA/BBH/MMLU-Pro, ARC-AGI(-2), SWE-bench, LiveCodeBench, GAIA/Inspect | **RUNNABLE_WRAPPER** — see [Hardest Tests](Hardest-Tests); FrontierMath **NEEDS_UPSTREAM** (exit 3) |
 
 ## Citation rule
 
@@ -138,10 +151,17 @@ scores for these frameworks.
 |:---|:---|:---|:---|
 | `open_agi_hle` | `hle` | **RUNNABLE_WRAPPER** | [centerforaisafety/hle](https://github.com/centerforaisafety/hle) · dataset [cais/hle](https://huggingface.co/datasets/cais/hle) |
 | `open_agi_arc_agi` | `arc-agi` | **RUNNABLE_WRAPPER** | [arcprize/arc-agi-benchmarking](https://github.com/arcprize/arc-agi-benchmarking) |
-| `open_agi_gpqa` | `gpqa` | **RUNNABLE_WRAPPER** | [EleutherAI/lm-evaluation-harness](https://github.com/EleutherAI/lm-evaluation-harness) task `gpqa_diamond_zeroshot` |
-| `open_agi_gaia` | `gaia` | **RUNNABLE_WRAPPER** | [inspect_ai](https://github.com/UKGovernmentBEIS/inspect_ai) + [inspect_evals/gaia](https://github.com/UKGovernmentBEIS/inspect_evals) |
-| `open_agi_swe_bench` | `swe-bench` | **NEEDS_UPSTREAM** | [SWE-bench/SWE-bench](https://github.com/SWE-bench/SWE-bench) — wrapper exits 3 |
-| `open_agi_livecodebench` | `livecodebench` | **NEEDS_UPSTREAM** | [LiveCodeBench/LiveCodeBench](https://github.com/LiveCodeBench/LiveCodeBench) — wrapper exits 3 |
+| `open_agi_arc_agi_2` | `arc-agi-2` | **RUNNABLE_WRAPPER** | [ARC-AGI-2](https://github.com/arcprize/ARC-AGI-2) data + ARC Prize CLI (no sample substitution) |
+| `open_agi_gpqa` | `gpqa` | **RUNNABLE_WRAPPER** | lm-eval `gpqa_diamond_cot_zeroshot` |
+| `open_agi_bbh` | `bbh` | **RUNNABLE_WRAPPER** | lm-eval `bbh_cot_fewshot` |
+| `open_agi_mmlu_pro` | `mmlu-pro` | **RUNNABLE_WRAPPER** | lm-eval `mmlu_pro` |
+| `open_agi_lm_eval_hard` | `lm-eval-hard` | **RUNNABLE_WRAPPER** | lm-eval GPQA+BBH+MMLU-Pro bundle |
+| `open_agi_gaia` | `gaia` | **RUNNABLE_WRAPPER** | Inspect `inspect_evals/gaia` |
+| `open_agi_inspect_gpqa` | `inspect-gpqa` | **RUNNABLE_WRAPPER** | Inspect `inspect_evals/gpqa_diamond` |
+| `open_agi_inspect` | `inspect` | **RUNNABLE_WRAPPER** | Inspect via `INSPECT_TASK` |
+| `open_agi_livecodebench` | `livecodebench` | **RUNNABLE_WRAPPER** | [LiveCodeBench](https://github.com/LiveCodeBench/LiveCodeBench) `lcb_runner.runner.main` |
+| `open_agi_swe_bench` | `swe-bench` | **RUNNABLE_WRAPPER** | [SWE-bench](https://github.com/SWE-bench/SWE-bench) scorer needs real predictions JSONL |
+| `open_agi_frontiermath` | `frontiermath` | **NEEDS_UPSTREAM** | [Epoch FrontierMath](https://epoch.ai/frontiermath) — wrapper exits 3 |
 
 ## Gate 0 — endpoint reality
 
@@ -158,15 +178,17 @@ cp configs/third-party-harnesses.env.example .env.third-party-harnesses
 
 ## Outsider commands
 
-### GPQA (lm-eval)
+### lm-eval hard tasks (GPQA / BBH / MMLU-Pro)
 
 ```bash
 python -m pip install "lm-eval==0.4.7"
-./bin/run-open-agi-harnesses.sh --harness gpqa
-# override: export GPQA_TASKS=gpqa_main_zeroshot
+./bin/run-open-agi-harnesses.sh --harness gpqa          # gpqa_diamond_cot_zeroshot
+./bin/run-open-agi-harnesses.sh --harness bbh           # bbh_cot_fewshot
+./bin/run-open-agi-harnesses.sh --harness mmlu-pro
+./bin/run-open-agi-harnesses.sh --harness lm-eval-hard  # all three
 ```
 
-Artifacts: `reports/third_party/open_agi/gpqa/`.
+Artifacts under `reports/third_party/open_agi/{gpqa,bbh,mmlu_pro,lm_eval_hard}/`.
 
 ### Humanity's Last Exam (HLE)
 
@@ -183,18 +205,21 @@ Dataset: Hugging Face `cais/hle` (accept terms). Site: https://lastexam.ai/
 If the checkout or `HF_TOKEN` is missing, the launcher exits non-zero and does
 **not** invent an accuracy percentage.
 
-### ARC-AGI / ARC Prize
+### ARC-AGI / ARC-AGI-2
 
 ```bash
 git clone --depth 1 https://github.com/arcprize/arc-agi-benchmarking.git \
   harnesses/arc-agi-benchmarking
 (cd harnesses/arc-agi-benchmarking && uv sync)
-# Full task sets (not sample):
-#   git clone https://github.com/fchollet/ARC-AGI.git data/arc-agi   # ARC-AGI-1
-#   git clone https://github.com/arcprize/ARC-AGI-2.git data/arc-agi # ARC-AGI-2
 export ARC_AGI_CONFIG="your-models-yml-config-name"
+
+# ARC-AGI-1 or custom task folder:
 export ARC_AGI_DATA_DIR="/absolute/path/to/tasks"
 ./bin/run-open-agi-harnesses.sh --harness arc-agi
+
+# ARC-AGI-2 public evaluation (refuses sample-task substitution):
+git clone --depth 1 https://github.com/arcprize/ARC-AGI-2.git harnesses/ARC-AGI-2
+./bin/run-open-agi-harnesses.sh --harness arc-agi-2
 ```
 
 Score with upstream `scoring.py` inside the ARC Prize checkout. Submissions
@@ -203,27 +228,49 @@ land under `reports/third_party/open_agi/arc_agi/submissions/` by default.
 ARC-AGI-3 interactive environments ([arc-agi-3-benchmarking](https://github.com/arcprize/arc-agi-3-benchmarking),
 `ARC_API_KEY`) are a separate track — not wrapped here yet.
 
-### GAIA (Inspect AI)
+### Inspect AI (GAIA / GPQA / generic)
 
 ```bash
 python -m pip install "inspect-ai" "inspect-evals"
-# Docker Engine typically required for GAIA tool sandboxes
-./bin/run-open-agi-harnesses.sh --harness gaia
-# optional: export GAIA_TASK=inspect_evals/gaia_level1
+./bin/run-open-agi-harnesses.sh --harness gaia           # Docker typically required
+./bin/run-open-agi-harnesses.sh --harness inspect-gpqa
+export INSPECT_TASK=inspect_evals/gaia_level1
+./bin/run-open-agi-harnesses.sh --harness inspect
 ```
 
-Logs: `reports/third_party/open_agi/gaia/`.
+Logs under `reports/third_party/open_agi/{gaia,inspect_gpqa,inspect}/`.
 
-### SWE-bench / LiveCodeBench (honest NEEDS_UPSTREAM)
+### LiveCodeBench (real CLI)
 
 ```bash
-./bin/run-open-agi-harnesses.sh --harness swe-bench      # exit 3
-./bin/run-open-agi-harnesses.sh --harness livecodebench  # exit 3
+git clone --depth 1 https://github.com/LiveCodeBench/LiveCodeBench.git \
+  harnesses/LiveCodeBench
+python -m pip install -e harnesses/LiveCodeBench
+./bin/run-open-agi-harnesses.sh --harness livecodebench
 ```
 
-These print upstream URLs and refuse to fabricate Pass rates. In-repo
-`EXPANDED_FRONTIER_BASELINES` rows remain **BASELINE_TABLE_ONLY** until a real
-upstream runner is wired.
+Fails loudly if checkout/`lcb_runner` is missing. Does not invent Pass@k.
+
+### SWE-bench Verified (official scorer; real predictions required)
+
+```bash
+python -m pip install swebench   # or editable checkout under harnesses/SWE-bench
+# Agent must already have written predictions JSONL:
+#   {instance_id, model_name_or_path, model_patch}
+export SWE_BENCH_PREDICTIONS_PATH="/absolute/path/predictions.jsonl"
+# or: export SWE_BENCH_PREDICTIONS_PATH=gold   # harness self-check only
+./bin/run-open-agi-harnesses.sh --harness swe-bench
+```
+
+Exits 2 if predictions are missing. Never fabricates patches or resolved-%.
+
+### FrontierMath (honest NEEDS_UPSTREAM)
+
+```bash
+./bin/run-open-agi-harnesses.sh --harness frontiermath   # exit 3
+```
+
+No public full suite. Epoch access / evaluation terms govern any MEASURED claim.
 
 ## Provenance checklist
 

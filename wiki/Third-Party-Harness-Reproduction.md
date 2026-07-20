@@ -49,14 +49,44 @@ Artifacts: `reports/third_party/`.
 
 ## Hardest tests / Open AGI
 
+Thin upstream wrappers via `bin/run-open-agi-harnesses.sh` (no heredoc scores).
+
 ```bash
-./bin/run-open-agi-harnesses.sh --harness gpqa|hle|arc-agi|gaia
-./bin/run-open-agi-harnesses.sh --harness swe-bench      # exit 3 NEEDS_UPSTREAM
-./bin/run-open-agi-harnesses.sh --harness livecodebench  # exit 3 NEEDS_UPSTREAM
+# lm-eval hard tasks
+./bin/run-open-agi-harnesses.sh --harness gpqa          # gpqa_diamond_cot_zeroshot
+./bin/run-open-agi-harnesses.sh --harness bbh           # bbh_cot_fewshot
+./bin/run-open-agi-harnesses.sh --harness mmlu-pro
+./bin/run-open-agi-harnesses.sh --harness lm-eval-hard  # GPQA + BBH + MMLU-Pro
+
+# HLE / ARC / Inspect
+./bin/run-open-agi-harnesses.sh --harness hle
+./bin/run-open-agi-harnesses.sh --harness arc-agi
+./bin/run-open-agi-harnesses.sh --harness arc-agi-2     # no sample-task substitution
+./bin/run-open-agi-harnesses.sh --harness gaia
+./bin/run-open-agi-harnesses.sh --harness inspect-gpqa
+./bin/run-open-agi-harnesses.sh --harness inspect       # set INSPECT_TASK
+
+# Coding (real upstream CLIs)
+./bin/run-open-agi-harnesses.sh --harness livecodebench # needs LiveCodeBench + lcb_runner
+export SWE_BENCH_PREDICTIONS_PATH=/path/to/predictions.jsonl
+./bin/run-open-agi-harnesses.sh --harness swe-bench     # official scorer only
+
+# Honest refusal
+./bin/run-open-agi-harnesses.sh --harness frontiermath  # exit 3 — NEEDS_UPSTREAM
 ```
 
+| Harness key | Status |
+|:---|:---|
+| `gpqa` / `bbh` / `mmlu-pro` / `lm-eval-hard` | **RUNNABLE_WRAPPER** (`lm-eval==0.4.7`) |
+| `hle` | **RUNNABLE_WRAPPER** (HF `cais/hle`) |
+| `arc-agi` / `arc-agi-2` | **RUNNABLE_WRAPPER** (no sample substitution) |
+| `gaia` / `inspect-gpqa` / `inspect` | **RUNNABLE_WRAPPER** (Inspect AI) |
+| `livecodebench` | **RUNNABLE_WRAPPER** (checkout + `lcb_runner`) |
+| `swe-bench` | **RUNNABLE_WRAPPER** (needs `SWE_BENCH_PREDICTIONS_PATH`) |
+| `frontiermath` | **NEEDS_UPSTREAM** (exit 3) |
+
 Registry: [`configs/open-agi-harnesses.yaml`](../configs/open-agi-harnesses.yaml).
-Guide: [`docs/OPEN_AGI_FRAMEWORKS.md`](../docs/OPEN_AGI_FRAMEWORKS.md).
+Guide: [`docs/OPEN_AGI_FRAMEWORKS.md`](../docs/OPEN_AGI_FRAMEWORKS.md) · [Open AGI Frameworks](Open-AGI-Frameworks) · [Hardest Tests](Hardest-Tests).
 
 ## Related
 

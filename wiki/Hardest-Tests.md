@@ -23,13 +23,38 @@ rates. See [Benchmark Inventory](Benchmark-Inventory).
 
 | Suite | What it demands | Affine validation focus | Current status |
 |:---|:---|:---|:---|
-| [Humanity's Last Exam](https://lastexam.ai/) | Expert-level, multimodal and cross-domain questions designed to resist saturation | Evidence retrieval, long-horizon synthesis, answer-format fidelity, provenance | **RUNNABLE** with official release materials; no Affine score archived here |
-| [ARC-AGI](https://arcprize.org/) | Few-example abstraction: infer a latent grid rule and transfer it to unseen inputs | Induction, compositional rule selection, exact output grids | **BASELINE_TABLE_ONLY** in existing comparison tables |
-| [GPQA Diamond](https://arxiv.org/abs/2311.12022) | Graduate-level “Google-proof” questions written by domain experts | Scientific reasoning, calibrated uncertainty, distractor resistance | **RUNNABLE** through an upstream-compatible evaluator; no Affine result bundle archived |
-| [FrontierMath](https://arxiv.org/abs/2411.04872) | Research-level mathematics requiring extended derivations | Formal derivation, exact rational checks, proof/citation separation | **RUNNABLE** only where benchmark access and evaluation terms permit; no Affine score archived |
-| [SWE-bench Verified](https://www.swebench.com/) | Resolve real GitHub issues in real repositories, then pass hidden tests | Repository navigation, patch minimality, test execution, dependency control | **BASELINE_TABLE_ONLY**; full Verified logs are required for MEASURED |
-| [LiveCodeBench](https://livecodebench.github.io/) | Time-split contest coding designed to reduce training-data contamination | Algorithm design, implementation correctness, time-aware evaluation | **BASELINE_TABLE_ONLY**; no run bundle archived |
-| [GAIA](https://huggingface.co/gaia-benchmark) | Tool-using, multi-step real-world tasks with a final verifiable answer | Planning, browsing/tool orchestration, file reasoning, final-answer exactness | **RUNNABLE** when the target exposes the required tool interface; no Affine score archived |
+| [Humanity's Last Exam](https://lastexam.ai/) | Expert-level, multimodal and cross-domain questions designed to resist saturation | Evidence retrieval, long-horizon synthesis, answer-format fidelity, provenance | **RUNNABLE** via `--harness hle`; no Affine score archived here |
+| [ARC-AGI](https://arcprize.org/) / [ARC-AGI-2](https://github.com/arcprize/ARC-AGI-2) | Few-example abstraction: infer a latent grid rule and transfer it to unseen inputs | Induction, compositional rule selection, exact output grids | **RUNNABLE** via `--harness arc-agi` / `arc-agi-2` (no sample-task substitution); no Affine score archived |
+| [GPQA Diamond](https://arxiv.org/abs/2311.12022) | Graduate-level “Google-proof” questions written by domain experts | Scientific reasoning, calibrated uncertainty, distractor resistance | **RUNNABLE** via `--harness gpqa` or `inspect-gpqa`; no Affine result bundle archived |
+| [BIG-Bench Hard](https://github.com/suzgunmirac/BIG-Bench-Hard) / [MMLU-Pro](https://github.com/TIGER-AI-Lab/MMLU-Pro) | Multi-step reasoning and harder 10-choice knowledge suites | Chain-of-thought fidelity, broad-domain regression under lm-eval | **RUNNABLE** via `--harness bbh`, `mmlu-pro`, or `lm-eval-hard`; no Affine score archived |
+| [FrontierMath](https://arxiv.org/abs/2411.04872) | Research-level mathematics requiring extended derivations | Formal derivation, exact rational checks, proof/citation separation | **NEEDS_UPSTREAM** — `--harness frontiermath` exits 3; no public full suite |
+| [SWE-bench Verified](https://www.swebench.com/) | Resolve real GitHub issues in real repositories, then pass hidden tests | Repository navigation, patch minimality, test execution, dependency control | **RUNNABLE** scorer via `--harness swe-bench` when `SWE_BENCH_PREDICTIONS_PATH` is set; no Affine score archived |
+| [LiveCodeBench](https://livecodebench.github.io/) | Time-split contest coding designed to reduce training-data contamination | Algorithm design, implementation correctness, time-aware evaluation | **RUNNABLE** via `--harness livecodebench` (`lcb_runner`); no run bundle archived |
+| [GAIA](https://huggingface.co/gaia-benchmark) | Tool-using, multi-step real-world tasks with a final verifiable answer | Planning, browsing/tool orchestration, file reasoning, final-answer exactness | **RUNNABLE** via `--harness gaia` / `inspect` when the target exposes the required tool interface; no Affine score archived |
+
+## Packaged launcher keys
+
+Use `bin/run-open-agi-harnesses.sh` with the keys below. A launcher completion is
+**not** a MEASURED score — retain upstream artifacts under
+`reports/third_party/open_agi/`.
+
+```bash
+cp configs/third-party-harnesses.env.example .env.third-party-harnesses
+# Edit AFFINE_HARNESS_ENDPOINT + AFFINE_HARNESS_MODEL (+ HF_TOKEN / checkouts).
+
+./bin/run-open-agi-harnesses.sh --harness lm-eval-hard  # GPQA + BBH + MMLU-Pro
+./bin/run-open-agi-harnesses.sh --harness hle
+./bin/run-open-agi-harnesses.sh --harness arc-agi-2     # refuses sample substitution
+./bin/run-open-agi-harnesses.sh --harness gaia
+./bin/run-open-agi-harnesses.sh --harness inspect-gpqa
+./bin/run-open-agi-harnesses.sh --harness livecodebench # real lcb_runner
+export SWE_BENCH_PREDICTIONS_PATH=/path/to/predictions.jsonl
+./bin/run-open-agi-harnesses.sh --harness swe-bench
+./bin/run-open-agi-harnesses.sh --harness frontiermath  # exit 3 — NEEDS_UPSTREAM
+```
+
+Full outsider commands: [Open AGI Frameworks](Open-AGI-Frameworks) ·
+[Third-Party Harness Reproduction](Third-Party-Harness-Reproduction).
 
 ## What “run it” means
 
@@ -90,7 +115,8 @@ artifacts so another party can distinguish a result from a baseline.
 
 | Family | A credible measured result includes |
 |:---|:---|
-| HLE / GPQA / FrontierMath | Official task version, prompt policy, answer file, grader output, model/sampling manifest |
+| HLE / GPQA / BBH / MMLU-Pro | Official task version, prompt policy, answer file, grader output, model/sampling manifest |
+| FrontierMath | Official Epoch evaluation path only; launcher exits 3 (`NEEDS_UPSTREAM`) — samples are not a full-suite score |
 | ARC-AGI | Dataset split/version, exact predicted grids, scorer output, no hidden-test exposure |
 | SWE-bench | Instance list, container/environment provenance, generated patches, evaluator logs, resolved count |
 | LiveCodeBench | Release/date cutoff, task IDs, submissions, execution logs, scorer output |
