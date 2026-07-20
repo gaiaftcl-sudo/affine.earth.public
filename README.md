@@ -47,6 +47,16 @@ Exact pins, env aliases, and outsider run commands:
 [docs/THIRD_PARTY_HARNESSES.md](docs/THIRD_PARTY_HARNESSES.md) ·
 [configs/third-party-harnesses.yaml](configs/third-party-harnesses.yaml).
 
+### Testing for outsiders (account first)
+
+1. **Create Affine.Earth account / session** — wallet-based Sovereign entry on
+   `https://affine.earth` (not email/password). Wiki:
+   [Create Account / Signup](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/Create-Account-Signup).
+2. Smoke the signup UI **without** creating users:
+   `python3 scripts/check_affine_signup_surface.py`
+   (or `AFFINE_LIVE_SMOKE=1 python3 -m pytest tests/test_affine_signup_surface.py -v`).
+3. Only then configure harness env and run upstream tools.
+
 **Endpoint note:** `https://affine.earth/v1` currently returns an HTML SPA, not
 OpenAI JSON. Point `OPENAI_BASE_URL` / `AFFINE_HARNESS_ENDPOINT` at a real
 OpenAI-compatible `/v1` (or a local interceptor for wiring only).

@@ -8,6 +8,17 @@ public third-party score.
 
 Full pins and outsider commands: [`docs/THIRD_PARTY_HARNESSES.md`](../docs/THIRD_PARTY_HARNESSES.md).
 
+## Gate 0 — Create Affine.Earth account / session
+
+**Outsiders start here.** Live Affine claims require a Sovereign entry session first:
+
+1. Follow **[Create Account / Signup](Create-Account-Signup)** (New wallet or Returning).
+2. Export / secure the edge-wallet private key if you created a new wallet.
+3. Smoke the signup UI without creating users: `python3 scripts/check_affine_signup_surface.py`
+4. Confirm `$OPENAI_BASE_URL/models` returns **JSON** (not the Franklin HTML SPA). Measured 2026-07-20: `https://affine.earth/v1/models` was `text/html`.
+
+Skip Gate 0 only for fully local / non-Affine endpoints.
+
 ## Quick start
 
 ```bash
@@ -38,6 +49,8 @@ Artifacts: `reports/third_party/`.
 
 ## Related
 
+- [Create Account / Signup](Create-Account-Signup)
+- [Getting Started](Getting-Started)
 - [EleutherAI lm-evaluation-harness](EleutherAI-lm-evaluation-harness)
 - [BigCode bigcode-evaluation-harness](BigCode-bigcode-evaluation-harness)
 - [LMSYS FastChat MT-Bench](LMSYS-FastChat-MT-Bench)

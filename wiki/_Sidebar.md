@@ -2,6 +2,7 @@
 
 ### Start
 - [**Home**](Home)
+- [**Create Account / Signup**](Create-Account-Signup)
 - [**Getting Started**](Getting-Started)
 - [**Execution Guide**](Execution-Guide)
 - [**Test Suites**](Test-Suites)

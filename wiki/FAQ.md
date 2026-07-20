@@ -19,9 +19,14 @@ Detailed questions and answers about the Affine.Earth public benchmark suite and
 **A.** A live service with at least:
 
 - Health: `https://affine.earth/language-invariant/healthz` (measured HTTP 200)
-- OpenAI-compatible style `/v1` surface documented for harness routing (`http://affine.earth/v1` / `https://affine.earth/v1`)
+- Language-game UI + **Sovereign entry** (wallet-based account): see [Create Account / Signup](Create-Account-Signup)
+- OpenAI-compatible style `/v1` is documented for harness routing, but measured 2026-07-20 `https://affine.earth/v1/models` returned **HTML**, not models JSON
 
-The suite measures and documents that surface; it does not replace reading the live JSON yourself.
+The suite measures and documents that surface; it does not replace reading the live response yourself.
+
+### Q. How do I create a new Affine.Earth user?
+
+**A.** There is no email/password register form. Open `https://affine.earth` → **New wallet** → consent → **Create wallet + QFOT**, then export the private key. Full steps and screenshots: [Create Account / Signup](Create-Account-Signup). This is **step 1** for outsiders before third-party harness claims.
 
 ### Q. What Python version is required?
 
@@ -153,7 +158,7 @@ Wiki tables should cite those or a re-run. See [Benchmarks](Benchmarks).
 
 ### Q. What API key does the public verifier use?
 
-**A.** Docs/scripts use `uum8d-public-verifier` with `OPENAI_BASE_URL` pointing at Affine `/v1` or the local interceptor. Rotate/replace if your deployment requires a different key.
+**A.** Docs/scripts mention `uum8d-public-verifier` with `OPENAI_BASE_URL` pointing at Affine `/v1` or the local interceptor. Signup does **not** mint that key in the UI. On 2026-07-20, Bearer that key against `https://affine.earth/v1/models` still returned the HTML SPA — do not treat it as proven OpenAI API access. Rotate/replace when your deployment actually issues credentials.
 
 ### Q. What is the local interceptor?
 

@@ -12,12 +12,26 @@ Packaging sources of truth:
 | `configs/third-party-harnesses.env.example` | copyable env template |
 | `docs/THIRD_PARTY_HARNESSES.md` | this guide |
 
+## Gate 0 — Affine.Earth account (outsiders)
+
+Before claiming a live Affine.Earth harness run:
+
+1. Create or restore a **Sovereign entry** session (wallet-based; not email/password).
+   Steps + screenshots: wiki
+   [Create Account / Signup](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/Create-Account-Signup)
+   or `wiki/Create-Account-Signup.md`.
+2. Smoke the signup UI without creating users:
+   `python3 scripts/check_affine_signup_surface.py`
+3. Only then point harnesses at a JSON OpenAI-compatible `/v1`.
+
 ## Endpoint reality check
 
 As of 2026-07-20:
 
 - `https://affine.earth/language-invariant/healthz` returns HTTP 200 (liveness).
+- Signup UI (Sovereign entry) is reachable at `/language-game/` (see Gate 0).
 - `https://affine.earth/v1` returns an HTML SPA, **not** OpenAI-compatible JSON.
+- `POST /language-invariant/economics-onboard` returned HTTP 404 on an empty-body probe (document; do not treat as successful registration).
 
 Harnesses that call `/v1/models` or `/v1/chat/completions` must target a base
 URL that answers `GET …/models` with JSON. The launcher preflights that and

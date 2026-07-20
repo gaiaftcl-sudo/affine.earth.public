@@ -7,6 +7,26 @@ This guide gets you from zero to a verified local run of the Affine.Earth public
 
 ---
 
+## 0. Create an Affine.Earth account (required for live third-party runs)
+
+**Outsiders: do this first** before claiming a live Affine session or upstream harness score against Affine.Earth.
+
+Affine.Earth uses **Sovereign entry** (BTC edge wallet), not email/password. Full UI path, screenshots, blockers, and smoke checks:
+
+→ **[Create Account / Signup](Create-Account-Signup)**
+
+Minimum gate:
+
+1. Open `https://affine.earth` → `/language-game/`
+2. **New wallet** → consent → **Create wallet + QFOT** (or **Returning** with an address you control)
+3. **Export private key** and store it offline
+4. Confirm your intended `/v1` (or other) endpoint returns real API JSON before harness scoring — see blockers on the Signup page
+5. Smoke the signup surface without creating users: `python3 scripts/check_affine_signup_surface.py`
+
+Local-only Clang / pytest / mock-provider work does not require an Affine account.
+
+---
+
 ## 1. Prerequisites
 
 | Requirement | Notes |

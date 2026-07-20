@@ -23,6 +23,7 @@ It is a **benchmark and documentation** project. Numbers below that come from lo
 
 ## What you can do today
 
+- **Create an Affine.Earth account** via Sovereign entry (wallet) — see [Create Account / Signup](Create-Account-Signup) (step 1 for outsiders / third-party testing).
 - Run local package tests, exact-rational/Clang verification, and LLVM
   optimization sweeps.
 - Point the LLM runner at an OpenAI-compatible or Anthropic endpoint and retain

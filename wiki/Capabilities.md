@@ -5,6 +5,17 @@ This page is an operational map of features implemented in
 from an outcome that still requires a live model endpoint or an upstream
 harness result.
 
+## Gate — Affine.Earth account (live third-party path)
+
+For any live Affine.Earth session or harness claim against Affine:
+
+1. Complete **[Create Account / Signup](Create-Account-Signup)** (wallet-based Sovereign entry).
+2. Obtain a browser session / exported key backup as documented there.
+3. Point harnesses only at an endpoint that returns OpenAI-compatible JSON.
+4. Optional surface smoke (no fake users): `python3 scripts/check_affine_signup_surface.py`
+
+Local pytest, Clang, and mock-provider wiring do not require an Affine account.
+
 ## Local, runnable capabilities
 
 ### 1. Verify the package and local compiler path
@@ -77,16 +88,18 @@ addition, constant-time XOR comparison, and an energy-tariff answer), two code
 samples, and one reasoning sample. This is a small domain test set, not a
 replacement for a large public benchmark.
 
-### 5. Check public service liveness
+### 5. Check public service liveness and signup surface
 
 ```bash
 curl --fail --show-error --silent \
   https://affine.earth/language-invariant/healthz | python3 -m json.tool
+
+python3 scripts/check_affine_signup_surface.py
 ```
 
-This checks that the public health endpoint responded to this request. It does
-not establish that an OpenAI chat-completions endpoint is reachable, that a
-particular model is deployed, or that any benchmark score was produced.
+Healthz checks liveness only. The signup script asserts the Sovereign entry HTML
+markers (login gate, New wallet, Create wallet + QFOT) without creating an
+account. Neither check proves `/v1` chat-completions JSON is available.
 
 ### 6. Run the local dashboard
 
