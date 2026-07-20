@@ -1,6 +1,6 @@
 """
 Automated Wiki Generator & Publisher for https://github.com/gaiaftcl-sudo/affine.earth.public.wiki
-Includes Visual Evidence Screenshots and Terminal Execution Receipts.
+Fixes GitHub Wiki image link syntax to use raw GitHub repository links (resolves 'Could not find version assets').
 """
 
 import os
@@ -19,6 +19,7 @@ from llm_llvm_bench.forks import EXPANDED_FRONTIER_BASELINES
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 WIKI_REMOTE_URL = "https://github.com/gaiaftcl-sudo/affine.earth.public.wiki.git"
+RAW_IMAGE_URL = "https://raw.githubusercontent.com/gaiaftcl-sudo/affine.earth.public/main/wiki/assets/affine_benchmark_terminal.jpg"
 
 def probe_live_affine_earth():
     url = "https://affine.earth/language-invariant/healthz"
@@ -62,7 +63,7 @@ def render_home_page(timestamp_str, live_lat, clang_ms, text_bytes):
 
 ## 📸 Live Terminal Execution Evidence & Proof Receipt
 
-![Live Benchmark Terminal Execution Receipt](assets/affine_benchmark_terminal.jpg)
+![Live Benchmark Terminal Execution Receipt]({RAW_IMAGE_URL})
 
 ---
 
@@ -113,7 +114,7 @@ def render_sidebar_page():
 
 def main():
     print("=========================================================================")
-    print("  🚀 PUBLISHING EVIDENCE WIKI TO https://github.com/gaiaftcl-sudo/affine.earth.public.wiki")
+    print("  🚀 PUBLISHING FIX FOR WIKI IMAGE LINKS TO https://github.com/gaiaftcl-sudo/affine.earth.public.wiki")
     print("=========================================================================\n")
 
     live_ok, live_lat = probe_live_affine_earth()
@@ -140,7 +141,6 @@ def main():
             dst_img = os.path.join(tmp_assets_dir, img)
             if os.path.isfile(src_img):
                 shutil.copyfile(src_img, dst_img)
-                print(f"  📸 Copied visual evidence asset: {img}")
 
     pages = {
         "Home.md": render_home_page(timestamp_str, live_lat, clang_ms, text_bytes),
@@ -164,16 +164,16 @@ def main():
             f.write(content)
         print(f"  📄 Rendered {fname}")
 
-    print("\nPushing updated visual evidence pages to public GitHub Wiki...")
+    print("\nPushing updated raw image URL pages to public GitHub Wiki...")
     subprocess.run(["git", "add", "-A"], cwd=tmp_wiki_dir, check=True)
     
     diff_proc = subprocess.run(["git", "status", "--porcelain"], cwd=tmp_wiki_dir, capture_output=True, text=True)
     if diff_proc.stdout.strip():
-        subprocess.run(["git", "-c", "commit.gpgsign=false", "commit", "-m", f"docs(wiki): Add terminal visual evidence screenshot and receipts ({timestamp_str})"], cwd=tmp_wiki_dir, check=True)
+        subprocess.run(["git", "-c", "commit.gpgsign=false", "commit", "-m", f"fix(wiki): Use raw GitHub user content URL for terminal evidence image ({timestamp_str})"], cwd=tmp_wiki_dir, check=True)
         subprocess.run(["git", "push", "origin", "HEAD:master"], cwd=tmp_wiki_dir, check=True)
-        print("✅ Visual Evidence Public Wiki pushed successfully to master!")
+        print("✅ Fixed Public Wiki pushed successfully to master!")
     else:
-        print("ℹ️ Wiki is already up-to-date with latest visual evidence.")
+        print("ℹ️ Wiki is already up-to-date with fixed image URLs.")
 
 if __name__ == "__main__":
     main()
