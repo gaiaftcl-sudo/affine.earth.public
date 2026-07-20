@@ -1,0 +1,142 @@
+# Hardest / open-AGI suite registry for Affine.Earth outsider validation.
+# Status legend matches docs/BENCHMARK_INVENTORY.md:
+#   RUNNABLE_WRAPPER — launcher invokes upstream CLI when deps+endpoint exist
+#   NEEDS_UPSTREAM   — no honest in-repo runner yet; wrapper fails loudly
+# Never invent scores. Never write heredoc result JSON.
+version: 1
+related_docs:
+  - docs/OPEN_AGI_FRAMEWORKS.md
+  - docs/THIRD_PARTY_HARNESSES.md
+  - docs/BENCHMARK_INVENTORY.md
+provider:
+  api_style: openai-compatible
+  base_url_env_priority:
+    - AFFINE_HARNESS_ENDPOINT
+    - AFFINE_OPENAI_BASE_URL
+    - OPENAI_BASE_URL
+    - AFFINE_BASE_URL
+  api_key_env_priority:
+    - OPENAI_API_KEY
+    - AFFINE_HARNESS_API_KEY
+  model_env_priority:
+    - AFFINE_HARNESS_MODEL
+    - AFFINE_MODEL
+    - OPENAI_MODEL
+  preflight_path: /models
+  preflight_requires_json: true
+artifacts:
+  root: reports/third_party/open_agi
+suites:
+  open_agi_hle:
+    harness_key: hle
+    display_name: "Humanity's Last Exam (HLE)"
+    status: RUNNABLE_WRAPPER
+    upstream: https://github.com/centerforaisafety/hle
+    dataset: https://huggingface.co/datasets/cais/hle
+    dataset_access: gated — accept terms on Hugging Face; set HF_TOKEN
+    notes: >-
+      Official scripts under hle_eval/. Requires HF gated dataset access.
+      Uses openai-python (OPENAI_BASE_URL / OPENAI_API_KEY).
+  open_agi_arc_agi:
+    harness_key: arc-agi
+    display_name: "ARC-AGI / ARC Prize eval"
+    status: RUNNABLE_WRAPPER
+    upstream: https://github.com/arcprize/arc-agi-benchmarking
+    data_sources:
+      arc_agi_1: https://github.com/fchollet/ARC-AGI
+      arc_agi_2: https://github.com/arcprize/ARC-AGI-2
+    notes: >-
+      Upstream CLI: uv run main.py / cli/run_all.py + scoring.py.
+      Requires a models.yml config name (ARC_AGI_CONFIG) and task data_dir.
+  open_agi_gpqa:
+    harness_key: gpqa
+    display_name: "GPQA (via EleutherAI lm-eval)"
+    status: RUNNABLE_WRAPPER
+    upstream: https://github.com/EleutherAI/lm-evaluation-harness
+    package_pin: lm-eval==0.4.7
+    default_tasks: [gpqa_diamond_zeroshot]
+    notes: >-
+      Task ids confirmed in lm-eval (gpqa_*_zeroshot / cot variants).
+      Same OpenAI-compatible preflight as official lm-eval harness.
+  open_agi_gaia:
+    harness_key: gaia
+    display_name: "GAIA (Inspect AI / Inspect Evals)"
+    status: RUNNABLE_WRAPPER
+    upstream_framework: https://github.com/UKGovernmentBEIS/inspect_ai
+    upstream_evals: https://github.com/UKGovernmentBEIS/inspect_evals
+    default_task: inspect_evals/gaia
+    notes: >-
+      Requires `inspect` CLI + inspect_evals. GAIA tool tasks typically need
+      Docker Engine. Dataset access may require HF acceptance.
+  open_agi_swe_bench:
+    harness_key: swe-bench
+    display_name: "SWE-bench"
+    status: NEEDS_UPSTREAM
+    upstream: https://github.com/SWE-bench/SWE-bench
+    notes: >-
+      No honest Affine OpenAI-compatible thin wrapper lands here yet.
+      Wrapper exits NEEDS_UPSTREAM (code 3). Do not invent Pass rates.
+  open_agi_livecodebench:
+    harness_key: livecodebench
+    display_name: "LiveCodeBench"
+    status: NEEDS_UPSTREAM
+    upstream: https://github.com/LiveCodeBench/LiveCodeBench
+    notes: >-
+      No honest Affine OpenAI-compatible thin wrapper lands here yet.
+      Wrapper exits NEEDS_UPSTREAM (code 3). Do not invent Pass rates.
+harnesses:
+  hle:
+    wrapper_name: hle
+    suite_id: open_agi_hle
+    checkout_dir: harnesses/hle
+    install: |
+      git clone --depth 1 https://github.com/centerforaisafety/hle.git harnesses/hle
+      python3 -m venv .venv/hle
+      . .venv/hle/bin/activate
+      python -m pip install --upgrade pip
+      python -m pip install -r harnesses/hle/requirements.txt
+    prediction_script: hle_eval/run_model_predictions.py
+    judge_script: hle_eval/run_judge_results.py
+    dataset_default: cais/hle
+    output: reports/third_party/open_agi/hle
+  arc_agi:
+    wrapper_name: arc-agi
+    suite_id: open_agi_arc_agi
+    checkout_dir: harnesses/arc-agi-benchmarking
+    install: |
+      git clone --depth 1 https://github.com/arcprize/arc-agi-benchmarking.git \
+        harnesses/arc-agi-benchmarking
+      # Prefer upstream uv sync inside the checkout; see docs/OPEN_AGI_FRAMEWORKS.md
+    entrypoint_batch: cli/run_all.py
+    scoring_entrypoint: src/arc_agi_benchmarking/scoring/scoring.py
+    output: reports/third_party/open_agi/arc_agi
+  gpqa:
+    wrapper_name: gpqa
+    suite_id: open_agi_gpqa
+    via: lm_evaluation_harness
+    package_pin: lm-eval==0.4.7
+    cli: lm_eval
+    api_model: local-chat-completions
+    tasks: [gpqa_diamond_zeroshot]
+    output: reports/third_party/open_agi/gpqa
+  gaia:
+    wrapper_name: gaia
+    suite_id: open_agi_gaia
+    install: |
+      python3 -m venv .venv/inspect-gaia
+      . .venv/inspect-gaia/bin/activate
+      python -m pip install --upgrade pip
+      python -m pip install "inspect-ai" "inspect-evals"
+    cli: inspect
+    default_eval: inspect_evals/gaia
+    output: reports/third_party/open_agi/gaia
+  swe_bench:
+    wrapper_name: swe-bench
+    suite_id: open_agi_swe_bench
+    status: NEEDS_UPSTREAM
+    upstream: https://github.com/SWE-bench/SWE-bench
+  livecodebench:
+    wrapper_name: livecodebench
+    suite_id: open_agi_livecodebench
+    status: NEEDS_UPSTREAM
+    upstream: https://github.com/LiveCodeBench/LiveCodeBench

@@ -9,6 +9,8 @@
 - [**Benchmarks**](Benchmarks)
 - [**Capabilities / What You Can Do**](Capabilities)
 - [**Examples / Cookbook**](Examples-Cookbook)
+- [**Hardest Tests**](Hardest-Tests)
+- [**Open AGI Frameworks**](Open-AGI-Frameworks)
 - [**FAQ / Q&A**](FAQ)
 
 ### Results & audit

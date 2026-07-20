@@ -140,6 +140,29 @@ python -m pip install -e ".[harnesses]"
 This installs the pinned `lm-eval` and `fschat` extras from `pyproject.toml`.
 BigCode still requires the `v0.1.0` git checkout above.
 
+## Hardest tests / Open AGI
+
+For Humanity's Last Exam, ARC-AGI, GPQA, GAIA, and honest NEEDS_UPSTREAM
+pointers (SWE-bench / LiveCodeBench), use the open-AGI launcher and registry:
+
+| File | Role |
+|:---|:---|
+| `configs/open-agi-harnesses.yaml` | suite IDs (`open_agi_*`) + harness keys |
+| `bin/run-open-agi-harnesses.sh` | thin upstream CLI launcher |
+| `docs/OPEN_AGI_FRAMEWORKS.md` | framework map, dataset access, blockers |
+
+```bash
+./bin/run-open-agi-harnesses.sh --harness gpqa
+./bin/run-open-agi-harnesses.sh --harness hle
+./bin/run-open-agi-harnesses.sh --harness arc-agi
+./bin/run-open-agi-harnesses.sh --harness gaia
+./bin/run-open-agi-harnesses.sh --harness swe-bench      # exit 3 NEEDS_UPSTREAM
+./bin/run-open-agi-harnesses.sh --harness livecodebench  # exit 3 NEEDS_UPSTREAM
+```
+
+Same fail-loud rules: no heredoc scores, JSON `/models` preflight where the
+upstream path is OpenAI-compatible.
+
 ## Provenance rule
 
 A score is **MEASURED** only when you retain the upstream artifact, exact

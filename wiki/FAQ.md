@@ -293,6 +293,135 @@ than static values. These are code changes, not documentation changes.
 
 ---
 
+## Hardest tests and AGI validation
+
+### Q. Where is the map of the hardest public evaluations?
+
+**A.** [Hardest Tests](Hardest-Tests) covers Humanity's Last Exam, ARC-AGI,
+GPQA Diamond, FrontierMath, SWE-bench Verified, LiveCodeBench, and GAIA. It
+states what each one exercises and the evidence needed to call a result
+**MEASURED**.
+
+### Q. Does this wiki report an Affine score for Humanity's Last Exam?
+
+**A.** No measured Affine HLE artifact bundle is published here. The page
+documents a **RUNNABLE** evidence path and does not invent a pass rate.
+
+### Q. What makes ARC-AGI different from ordinary question answering?
+
+**A.** ARC-AGI presents a few input/output grids and asks for the output of a
+new grid. The challenge is selecting and transferring a latent transformation,
+not recalling a fact. Existing Affine comparison entries are
+**BASELINE_TABLE_ONLY** until official scorer artifacts are preserved.
+
+### Q. What does GPQA Diamond test?
+
+**A.** It targets graduate-level questions built to resist straightforward web
+lookup. A credible run requires the exact split, model/sampling configuration,
+answer records, and grader output.
+
+### Q. Can FrontierMath be called “proved” by a model answer?
+
+**A.** No. A benchmark answer and a formal mathematical proof are different
+artifacts. Record the official evaluation result; attach a proof-verification
+artifact separately when one exists.
+
+### Q. Why is SWE-bench harder than a unit-test example?
+
+**A.** It requires locating a real issue in a repository, producing a patch in
+the target environment, and passing the benchmark evaluator’s tests. The
+patches, container provenance, and evaluator logs are part of the result.
+
+### Q. What does LiveCodeBench add beyond HumanEval?
+
+**A.** It uses time-aware contest problems intended to reduce training-data
+contamination. Preserve the benchmark release/date cutoff and task IDs with
+the execution logs.
+
+### Q. What does GAIA test?
+
+**A.** GAIA tests multi-step, tool-using tasks whose final answers can be
+checked. A result needs its tool policy and, where permitted, tool traces as
+well as final-answer grading.
+
+### Q. What does “AGI framework” mean on this wiki?
+
+**A.** It is an evidence framework across expert reasoning, abstraction,
+software construction, tool use, and deterministic execution—not a claim that
+one benchmark or one local receipt establishes general intelligence. See
+[Open AGI Frameworks](Open-AGI-Frameworks).
+
+### Q. Can a live health endpoint validate a benchmark run?
+
+**A.** No. Healthz establishes liveness for one HTTP request. A benchmark run
+also needs a model endpoint, model identity, upstream command, raw output, and
+metric artifact.
+
+### Q. Is `/v1` ready to receive a third-party harness today?
+
+**A.** Treat it as ready only after the intended URL returns valid
+OpenAI-compatible `/models` JSON and a real completion response using the
+credential supplied for the run. The recorded 2026-07-20 observation returned
+HTML at `/v1/models`; preserve a fresh probe before claiming readiness.
+
+### Q. Why does account signup matter to benchmark provenance?
+
+**A.** It establishes the public Sovereign entry path used to create an
+evaluation identity. It does not itself issue a benchmark API credential or
+prove model access. Screenshots and steps are on
+[Create Account / Signup](Create-Account-Signup).
+
+### Q. Should I publish a wallet private key with a benchmark artifact?
+
+**A.** No. Preserve a public account/provenance reference where appropriate,
+but never include private keys, session cookies, API keys, or secret endpoint
+credentials in logs, reports, or wiki pages.
+
+### Q. What is the minimum citation for a measured hard-suite result?
+
+**A.** Include suite/version, upstream commit, model identifier, sampling
+settings, exact command, UTC timestamps, metric JSON, raw log path, and
+checksums. State the status label in the sentence or table caption.
+
+### Q. May I cite a baseline table as an Affine benchmark measurement?
+
+**A.** No. Cite it as **BASELINE_TABLE_ONLY**, name the source table, and
+avoid wording that says the repository executed the suite.
+
+### Q. What is a failure result worth retaining?
+
+**A.** Retain transport errors, authentication failures, malformed API
+responses, patches that fail tests, task-level scorer failures, and timeout
+metadata. Failure artifacts identify whether the issue is endpoint readiness,
+harness wiring, or model behavior.
+
+### Q. How do LLVM and rational receipts relate to AGI tests?
+
+**A.** They validate deterministic execution and report provenance for the
+local rig. They do not substitute for HLE, ARC-AGI, GPQA, FrontierMath,
+SWE-bench, LiveCodeBench, or GAIA scores.
+
+### Q. What does the interceptor prove?
+
+**A.** It proves local request/response contract handling. It does not contact
+Affine.Earth or validate a live model; never use it as a source of hard-suite
+metrics.
+
+### Q. How do I reproduce a suite after `/v1` is available?
+
+**A.** Follow [Hardest Tests](Hardest-Tests) for the evidence protocol, then
+use [Third-Party Harness Reproduction](Third-Party-Harness-Reproduction) for
+the upstream setup. Archive the run under `reports/third_party/<suite>/`.
+
+### Q. What changes a suite from RUNNABLE to MEASURED?
+
+**A.** A complete, dated, check-summed bundle produced by the upstream
+evaluator: revision, command, model manifest, raw output, metrics, and
+reproduction environment. A manually typed result table does not change the
+status.
+
+---
+
 ## Quick links
 
 | Need | Page |

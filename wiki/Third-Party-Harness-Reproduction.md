@@ -47,6 +47,17 @@ export BIGCODE_LOCAL_MODEL="your-hf-or-local-checkpoint"
 
 Artifacts: `reports/third_party/`.
 
+## Hardest tests / Open AGI
+
+```bash
+./bin/run-open-agi-harnesses.sh --harness gpqa|hle|arc-agi|gaia
+./bin/run-open-agi-harnesses.sh --harness swe-bench      # exit 3 NEEDS_UPSTREAM
+./bin/run-open-agi-harnesses.sh --harness livecodebench  # exit 3 NEEDS_UPSTREAM
+```
+
+Registry: [`configs/open-agi-harnesses.yaml`](../configs/open-agi-harnesses.yaml).
+Guide: [`docs/OPEN_AGI_FRAMEWORKS.md`](../docs/OPEN_AGI_FRAMEWORKS.md).
+
 ## Related
 
 - [Create Account / Signup](Create-Account-Signup)

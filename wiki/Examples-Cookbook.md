@@ -783,3 +783,96 @@ The bundle should contain the command log, upstream commit, provider model
 identity, output directory, metric JSON, and checksums. Do not replace any of
 those files with manually produced receipt JSON.
 - Prompts/answers → [Human-Verifiable Test Bank](Human-Verifiable-Test-Bank-and-Answers)
+
+---
+
+## 41. Hardest-suite preflight: validate target and create provenance bundle
+
+Run this before any HLE, ARC-AGI, GPQA Diamond, FrontierMath, SWE-bench,
+LiveCodeBench, or GAIA evaluation:
+
+```bash
+export OPENAI_BASE_URL="https://your-compatible-host/v1"
+export OPENAI_API_KEY="..."
+export MODEL_ID="your-model-id"
+export SUITE="gpqa_diamond"  # change for the suite you are running
+export RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)"
+export OUT="reports/third_party/$SUITE/$RUN_ID"
+
+mkdir -p "$OUT"
+git rev-parse HEAD > "$OUT/affine_harness_commit.txt"
+python3 --version > "$OUT/python_version.txt"
+curl --fail --show-error --silent \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  "$OPENAI_BASE_URL/models" | tee "$OUT/provider_models.json"
+printf 'model=%s\nendpoint=%s\nsuite=%s\nstarted=%s\n' \
+  "$MODEL_ID" "$OPENAI_BASE_URL" "$SUITE" "$RUN_ID" > "$OUT/run_manifest.txt"
+```
+
+Do not continue if the endpoint probe returns HTML or another non-model JSON
+payload. That is a readiness failure, not a benchmark score.
+
+---
+
+## 42. SWE-bench Verified evidence recipe
+
+```bash
+export SUITE="swe_bench_verified"
+export RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)"
+export OUT="reports/third_party/$SUITE/$RUN_ID"
+mkdir -p "$OUT"
+
+# Clone/install the official evaluator according to its current documentation.
+# Record its exact revision before invoking the evaluator:
+git -C /path/to/SWE-bench rev-parse HEAD | tee "$OUT/upstream_commit.txt"
+
+# Run the official evaluator with your target adapter; retain all output:
+# <official SWE-bench command for the pinned revision> 2>&1 | tee "$OUT/run.log"
+
+find "$OUT" -type f -print0 | sort -z | xargs -0 shasum -a 256 > "$OUT/SHA256SUMS.txt"
+```
+
+Store generated patches and per-instance evaluator output. Until that bundle
+exists, any comparison cell is **BASELINE_TABLE_ONLY**.
+
+---
+
+## 43. ARC-AGI and reasoning-suite evidence recipe
+
+```bash
+export SUITE="arc_agi"
+export RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)"
+export OUT="reports/third_party/$SUITE/$RUN_ID"
+mkdir -p "$OUT"
+
+# Pin the dataset/evaluator version and retain the exact predictions:
+git -C /path/to/arc-evaluator rev-parse HEAD | tee "$OUT/upstream_commit.txt"
+# <official ARC scorer command> 2>&1 | tee "$OUT/scorer.log"
+
+# Copy or generate: predictions.json, task manifest, and scorer metrics JSON.
+find "$OUT" -type f -print0 | sort -z | xargs -0 shasum -a 256 > "$OUT/SHA256SUMS.txt"
+```
+
+Use the same structure for HLE, GPQA Diamond, and FrontierMath: replace task
+predictions with answer records, preserve the official grader output, and
+retain the model/sampling manifest.
+
+---
+
+## 44. GAIA tool-use evidence recipe
+
+```bash
+export SUITE="gaia"
+export RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)"
+export OUT="reports/third_party/$SUITE/$RUN_ID"
+mkdir -p "$OUT"
+
+# Record the benchmark split, tool policy, final answers, and evaluator output.
+printf 'tool_policy=recorded\n' > "$OUT/tool_policy.txt"
+# <official GAIA evaluation command> 2>&1 | tee "$OUT/run.log"
+find "$OUT" -type f -print0 | sort -z | xargs -0 shasum -a 256 > "$OUT/SHA256SUMS.txt"
+```
+
+If tool traces cannot be published, record why and preserve a reproducible
+policy manifest. See [Open AGI Frameworks](Open-AGI-Frameworks) and
+[Hardest Tests](Hardest-Tests).

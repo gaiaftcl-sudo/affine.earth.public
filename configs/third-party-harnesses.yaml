@@ -67,3 +67,38 @@ harnesses:
     judging_entrypoint: fastchat.llm_judge.gen_judgment
     bench: mt_bench
     answer_output: reports/third_party/fastchat/mt-bench-answers.jsonl
+  # Hardest / open-AGI targets — full registry in configs/open-agi-harnesses.yaml
+  # Launcher: bin/run-open-agi-harnesses.sh
+  open_agi_gpqa_via_lm_eval:
+    wrapper_name: gpqa
+    suite_id: open_agi_gpqa
+    via: lm_evaluation_harness
+    package_pin: lm-eval==0.4.7
+    tasks: [gpqa_diamond_zeroshot]
+    output: reports/third_party/open_agi/gpqa
+    open_agi_registry: configs/open-agi-harnesses.yaml
+  open_agi_hle:
+    wrapper_name: hle
+    suite_id: open_agi_hle
+    upstream: https://github.com/centerforaisafety/hle
+    open_agi_registry: configs/open-agi-harnesses.yaml
+  open_agi_arc_agi:
+    wrapper_name: arc-agi
+    suite_id: open_agi_arc_agi
+    upstream: https://github.com/arcprize/arc-agi-benchmarking
+    open_agi_registry: configs/open-agi-harnesses.yaml
+  open_agi_gaia:
+    wrapper_name: gaia
+    suite_id: open_agi_gaia
+    upstream_evals: https://github.com/UKGovernmentBEIS/inspect_evals
+    open_agi_registry: configs/open-agi-harnesses.yaml
+  open_agi_swe_bench:
+    wrapper_name: swe-bench
+    suite_id: open_agi_swe_bench
+    status: NEEDS_UPSTREAM
+    open_agi_registry: configs/open-agi-harnesses.yaml
+  open_agi_livecodebench:
+    wrapper_name: livecodebench
+    suite_id: open_agi_livecodebench
+    status: NEEDS_UPSTREAM
+    open_agi_registry: configs/open-agi-harnesses.yaml

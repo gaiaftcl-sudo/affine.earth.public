@@ -45,6 +45,23 @@ evaluation evidence. See [FAQ](FAQ) for the complete provenance boundary.
 
 ---
 
+## Capability first: the hardest public tests
+
+Scores only become meaningful when readers can see **what a test exercises**:
+expert reasoning, sparse-rule induction, repository repair, fresh coding, or
+tool-mediated task completion. Start with:
+
+- [**Hardest Tests**](Hardest-Tests) — Humanity's Last Exam, ARC-AGI, GPQA
+  Diamond, FrontierMath, SWE-bench, LiveCodeBench, and GAIA; each marked
+  **MEASURED**, **RUNNABLE**, or **BASELINE_TABLE_ONLY**.
+- [**Open AGI Frameworks**](Open-AGI-Frameworks) — the evidence-first
+  validation model across reasoning, abstraction, software construction, tool
+  use, and deterministic execution.
+
+![Sovereign entry is the provenance boundary for public testing](https://raw.githubusercontent.com/gaiaftcl-sudo/affine.earth.public/main/wiki/assets/signup-05-new-wallet-consent-actions.png)
+
+---
+
 ## Live terminal evidence
 
 ![Live Benchmark Terminal Execution Receipt](https://raw.githubusercontent.com/gaiaftcl-sudo/affine.earth.public/main/wiki/assets/affine_benchmark_terminal.jpg)
@@ -115,6 +132,8 @@ llm-llvm-benchmark-suite/
 | [Capabilities](Capabilities) | Runnable surfaces and evidence boundaries |
 | [Reports & Artifacts](Reports-And-Artifacts) | JSON schemas, inspection, and audit bundles |
 | [Third-Party Harness Reproduction](Third-Party-Harness-Reproduction) | Clone/install/run upstream engines directly |
+| [Hardest Tests](Hardest-Tests) | What the most demanding public suites exercise and how to run them |
+| [Open AGI Frameworks](Open-AGI-Frameworks) | Evidence-first AGI validation narrative |
 | [FAQ / Q&A](FAQ) | Detailed questions and answers |
 
 ### Results & methodology

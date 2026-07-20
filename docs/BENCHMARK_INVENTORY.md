@@ -183,7 +183,29 @@ Tests cover: `pass_at_k`, LLVM metrics, reporter, HumanEval/LLVM fork adapters, 
 
 ---
 
-### 1.13 Local OpenAI-compatible interceptor
+### 1.13 Hardest / Open AGI harness launcher
+
+| Field | Value |
+|:---|:---|
+| **Status** | **RUNNABLE** wrappers for `gpqa` / `hle` / `arc-agi` / `gaia`; **NEEDS_UPSTREAM** for `swe-bench` / `livecodebench` (exit 3) |
+| **Command** | `./bin/run-open-agi-harnesses.sh --harness gpqa\|hle\|arc-agi\|gaia\|swe-bench\|livecodebench` |
+| **Config** | `configs/open-agi-harnesses.yaml` (suite IDs `open_agi_*`), `docs/OPEN_AGI_FRAMEWORKS.md` |
+| **What it does** | Invokes real upstream CLIs only; preflights JSON `/models` where applicable; **never** writes heredoc scores |
+| **Artifacts** | `reports/third_party/open_agi/` when a run succeeds |
+| **Blockers** | Same Affine `/v1` HTML SPA; HLE needs gated HF `cais/hle` + checkout; ARC needs ARC Prize checkout + `ARC_AGI_CONFIG`; GAIA needs Inspect + Docker; SWE-bench/LiveCodeBench intentionally exit 3 |
+
+| Suite ID | Harness | Status |
+|:---|:---|:---|
+| `open_agi_gpqa` | `gpqa` | RUNNABLE_WRAPPER (`lm-eval` task `gpqa_diamond_zeroshot`) |
+| `open_agi_hle` | `hle` | RUNNABLE_WRAPPER ([centerforaisafety/hle](https://github.com/centerforaisafety/hle)) |
+| `open_agi_arc_agi` | `arc-agi` | RUNNABLE_WRAPPER ([arc-agi-benchmarking](https://github.com/arcprize/arc-agi-benchmarking)) |
+| `open_agi_gaia` | `gaia` | RUNNABLE_WRAPPER (Inspect AI `inspect_evals/gaia`) |
+| `open_agi_swe_bench` | `swe-bench` | **NEEDS_UPSTREAM** |
+| `open_agi_livecodebench` | `livecodebench` | **NEEDS_UPSTREAM** |
+
+---
+
+### 1.14 Local OpenAI-compatible interceptor
 
 | Field | Value |
 |:---|:---|
@@ -194,7 +216,7 @@ Tests cover: `pass_at_k`, LLVM metrics, reporter, HumanEval/LLVM fork adapters, 
 
 ---
 
-### 1.14 Fork adapters (in-repo)
+### 1.15 Fork adapters (in-repo)
 
 | Adapter | Status | Command / API | Artifact / result |
 |:---|:---|:---|:---|
@@ -204,7 +226,7 @@ Tests cover: `pass_at_k`, LLVM metrics, reporter, HumanEval/LLVM fork adapters, 
 
 ---
 
-### 1.15 Web dashboard
+### 1.16 Web dashboard
 
 | Field | Value |
 |:---|:---|
@@ -317,6 +339,7 @@ Absolute directory:
 8. **Verify probe failure path** can report `status_code: 200` with `live: false` — honesty bug if network fails.
 9. **Healthz RTT (120–280ms)** is network path; do not equate to claimed kernel latency `0.012s` in baseline tables.
 10. **Wiki/docs claiming MMLU/GSM8k/HumanEval/MT-Bench 100%** need either real harness receipts or clear BASELINE_TABLE_ONLY labels (partially already noted in wiki FAQ/Benchmarks).
+11. **Open-AGI hardest suites** — wrappers land in `bin/run-open-agi-harnesses.sh`; SWE-bench/LiveCodeBench remain NEEDS_UPSTREAM (exit 3); HLE/ARC/GAIA still need checkouts + gated data + JSON `/v1`.
 
 ---
 

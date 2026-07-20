@@ -18,6 +18,9 @@ ship precomputed scores as new measurements.
 - **Third-party harnesses**: installed upstream `lm-evaluation-harness`,
   BigCode evaluation harness, and FastChat. Their outputs remain in
   `reports/third_party/`.
+- **Hardest / open AGI**: thin wrappers for HLE, ARC-AGI, GPQA (lm-eval), and
+  GAIA (Inspect AI), plus honest NEEDS_UPSTREAM exits for SWE-bench and
+  LiveCodeBench. See [docs/OPEN_AGI_FRAMEWORKS.md](docs/OPEN_AGI_FRAMEWORKS.md).
 
 ## Install
 
@@ -117,6 +120,37 @@ writes heredoc receipts. It sources `.env.third-party-harnesses` when present,
 preflights `GET $BASE/models` for JSON, invokes the upstream CLI, or exits with
 install pins from `configs/third-party-harnesses.yaml`.
 
+## Hardest tests / Open AGI
+
+Validate Affine.Earth against harder public frameworks without inventing
+scores. Suite IDs live in
+[configs/open-agi-harnesses.yaml](configs/open-agi-harnesses.yaml).
+
+```bash
+cp configs/third-party-harnesses.env.example .env.third-party-harnesses
+# Edit endpoint + model (+ HF_TOKEN for HLE, ARC_AGI_CONFIG for ARC-AGI).
+
+./bin/run-open-agi-harnesses.sh --harness gpqa          # lm-eval gpqa_diamond_zeroshot
+./bin/run-open-agi-harnesses.sh --harness hle           # centerforaisafety/hle (gated HF)
+./bin/run-open-agi-harnesses.sh --harness arc-agi       # ARC Prize arc-agi-benchmarking
+./bin/run-open-agi-harnesses.sh --harness gaia          # Inspect AI inspect_evals/gaia
+./bin/run-open-agi-harnesses.sh --harness swe-bench     # exit 3 — NEEDS_UPSTREAM
+./bin/run-open-agi-harnesses.sh --harness livecodebench # exit 3 — NEEDS_UPSTREAM
+```
+
+| Suite ID | Harness | Status |
+|:---|:---|:---|
+| `open_agi_gpqa` | `gpqa` | RUNNABLE_WRAPPER (`lm-eval==0.4.7`) |
+| `open_agi_hle` | `hle` | RUNNABLE_WRAPPER (HF gated `cais/hle`) |
+| `open_agi_arc_agi` | `arc-agi` | RUNNABLE_WRAPPER (ARC Prize checkout) |
+| `open_agi_gaia` | `gaia` | RUNNABLE_WRAPPER (Inspect + Docker) |
+| `open_agi_swe_bench` | `swe-bench` | NEEDS_UPSTREAM (exit 3) |
+| `open_agi_livecodebench` | `livecodebench` | NEEDS_UPSTREAM (exit 3) |
+
+Full pins, dataset access, and blockers:
+[docs/OPEN_AGI_FRAMEWORKS.md](docs/OPEN_AGI_FRAMEWORKS.md) ·
+[docs/THIRD_PARTY_HARNESSES.md](docs/THIRD_PARTY_HARNESSES.md).
+
 ## Reports and provenance
 
 Generated reports are ignored by git under `reports/`. Each run should retain:
@@ -135,14 +169,14 @@ artifact and exact command. See [docs/METHODOLOGY.md](docs/METHODOLOGY.md).
 ## Layout
 
 ```text
-bin/        reproducible entrypoints
-configs/    copyable environment templates
-docs/       methodology and reproduction notes
+bin/        reproducible entrypoints (incl. open-AGI / third-party harnesses)
+configs/    copyable environment templates + harness YAML registries
+docs/       methodology, third-party, and open-AGI framework notes
 llm_llvm_bench/
   llm/      provider clients and bundled suites
   llvm/     local compiler benchmark runner
 scripts/    verification and live-report helpers
-tests/      10 pytest tests
+tests/      pytest suite (offline green)
 ```
 
 ## Contributing and license

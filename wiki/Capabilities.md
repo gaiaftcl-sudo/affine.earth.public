@@ -113,6 +113,31 @@ The dashboard and `/api/status` are a local status/demo surface. Its displayed
 tables are static in the current implementation; use the JSON files in
 `reports/` as benchmark evidence.
 
+### 7. Prepare the hardest public suites without inventing a score
+
+The rig can serve as the artifact and endpoint-validation layer for
+Humanity's Last Exam, ARC-AGI, GPQA Diamond, FrontierMath, SWE-bench Verified,
+LiveCodeBench, and GAIA. These suites have different upstream distributions
+and access terms, so the repository does not pretend one command runs them
+all. The stable procedure is:
+
+```bash
+# 1. identify the live target; do not begin a score run against HTML
+curl --fail --show-error --silent \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  "$OPENAI_BASE_URL/models" | tee reports/provider_models.json
+
+# 2. create an immutable evidence directory for the upstream run
+SUITE="swe_bench_verified"
+RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)"
+mkdir -p "reports/third_party/$SUITE/$RUN_ID"
+git rev-parse HEAD > "reports/third_party/$SUITE/$RUN_ID/harness_commit.txt"
+```
+
+Then invoke the official evaluator for the chosen suite, retaining its raw
+stdout/stderr, model outputs or patches where allowed, metric JSON, and
+checksums. Full acceptance criteria: [Hardest Tests](Hardest-Tests).
+
 ## Integration surfaces
 
 | Surface | Implemented use | Evidence to preserve |
@@ -122,6 +147,7 @@ tables are static in the current implementation; use the JSON files in
 | Anthropic Messages API | prompt/response evaluation | model ID and report JSON |
 | Public healthz | liveness probe | raw response and timestamp |
 | EleutherAI / BigCode / FastChat | documented upstream invocation paths | upstream-native artifacts, logs, pinned revision |
+| HLE / ARC-AGI / GPQA / FrontierMath / SWE-bench / LiveCodeBench / GAIA | hard-suite evidence protocol | official scorer output, task/patch records, pinned revision |
 | Local interceptor | HTTP contract development aid | never use its output as a model or harness result |
 
 ## Important boundaries
