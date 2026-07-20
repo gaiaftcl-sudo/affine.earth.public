@@ -2,8 +2,9 @@
 """Smoke-check Affine.Earth signup / Sovereign entry surface (no account creation).
 
 Asserts that the public language-game page is reachable and exposes the
-wallet-based signup markers observed in the live DOM. Does not create wallets,
-sign in, complete consent, or claim auth success.
+wallet-based signup markers observed in the live DOM, including consent,
+Use my location, Create wallet + QFOT, and post-login Q&A route markers.
+Does not create wallets, sign in, complete consent, or claim auth success.
 """
 
 from __future__ import annotations
@@ -19,18 +20,29 @@ from urllib.request import Request, urlopen
 DEFAULT_ROOT = "https://affine.earth"
 DEFAULT_LANGUAGE_GAME = "https://affine.earth/language-game/"
 
-# Markers present in the live HTML served on 2026-07-20.
+# Markers present in the live HTML served on 2026-07-20 (correct signup path).
 REQUIRED_MARKERS = (
     'id="loginGate"',
     'id="tabNewUser"',
     'id="tabReturning"',
     'id="loginCreateBtn"',
     'id="loginConsent"',
+    'id="loginGeoBtn"',
     'id="loginAddress"',
     "Sovereign entry",
     "Create wallet + QFOT",
+    "Use my location",
     "New wallet",
     "Returning",
+)
+
+# Post-login / Q&A surface markers discoverable without secrets.
+QA_ROUTE_MARKERS = (
+    'id="gamesBtn"',
+    'id="gamesCatalog"',
+    'id="messageList"',
+    'id="profileBtn"',
+    'id="exportKeyBtn"',
 )
 
 
@@ -48,6 +60,7 @@ def check_page(url: str, timeout: float) -> Dict[str, Any]:
         status, ctype, body = fetch(url, timeout=timeout)
         latency_ms = round((time.perf_counter() - started) * 1000.0, 2)
         missing = [m for m in REQUIRED_MARKERS if m not in body]
+        qa_missing = [m for m in QA_ROUTE_MARKERS if m not in body]
         return {
             "url": url,
             "ok": status == 200 and not missing,
@@ -57,6 +70,10 @@ def check_page(url: str, timeout: float) -> Dict[str, Any]:
             "missing_markers": missing,
             "marker_count_ok": len(REQUIRED_MARKERS) - len(missing),
             "marker_count_required": len(REQUIRED_MARKERS),
+            "qa_route_markers_ok": len(QA_ROUTE_MARKERS) - len(qa_missing),
+            "qa_route_markers_required": len(QA_ROUTE_MARKERS),
+            "qa_route_missing": qa_missing,
+            "qa_routes_present": not qa_missing,
         }
     except (HTTPError, URLError, TimeoutError, OSError) as exc:
         latency_ms = round((time.perf_counter() - started) * 1000.0, 2)
@@ -67,6 +84,8 @@ def check_page(url: str, timeout: float) -> Dict[str, Any]:
             "content_type": "",
             "latency_ms": latency_ms,
             "missing_markers": list(REQUIRED_MARKERS),
+            "qa_route_missing": list(QA_ROUTE_MARKERS),
+            "qa_routes_present": False,
             "error": str(exc),
         }
 
@@ -127,6 +146,11 @@ def main(argv: List[str] | None = None) -> int:
         default="",
         help="Optional path to write the full probe report JSON.",
     )
+    parser.add_argument(
+        "--require-qa-routes",
+        action="store_true",
+        help="Also fail if Games/messageList/export markers are missing.",
+    )
     args = parser.parse_args(argv)
 
     results = [
@@ -134,16 +158,32 @@ def main(argv: List[str] | None = None) -> int:
         check_page(args.language_game, args.timeout),
     ]
     onboard = probe_onboard_not_create(args.timeout)
+    signup_ok = all(r.get("ok") for r in results)
+    qa_ok = all(r.get("qa_routes_present") for r in results)
     report = {
         "proven_status": "SIGNUP_SURFACE_REACHABLE"
-        if all(r.get("ok") for r in results)
+        if signup_ok
         else "SIGNUP_SURFACE_CHECK_FAILED",
+        "qa_routes_status": "QA_ROUTE_MARKERS_PRESENT"
+        if qa_ok
+        else "QA_ROUTE_MARKERS_MISSING",
         "pages": results,
         "economics_onboard_probe": onboard,
+        "correct_ui_path": [
+            "New wallet (#tabNewUser)",
+            "consent checkbox (#loginConsent)",
+            "Use my location (#loginGeoBtn)",
+            "Create wallet + QFOT (#loginCreateBtn)",
+            "app opens → Games (#gamesBtn) / Linguistic membrane / #messageList Q&A",
+        ],
         "manual_only": [
-            "consent + Create wallet + QFOT (creates edge wallet)",
+            "consent + Use my location + Create wallet + QFOT (creates edge wallet)",
             "Export private key backup",
             "Returning Sign in with a controlled BTC address",
+        ],
+        "superseded_demo": [
+            "affine-earth-demo-signup-healthz.* / demo-signup-healthz.gif",
+            "use affine-earth-demo-signup-app-qa.* / demo-signup-app-qa.gif",
         ],
     }
 
@@ -153,13 +193,20 @@ def main(argv: List[str] | None = None) -> int:
         with open(args.json_out, "w", encoding="utf-8") as fh:
             fh.write(text + "\n")
 
-    if not all(r.get("ok") for r in results):
+    if not signup_ok:
         print(
             "FAIL: signup/login surface markers missing or non-200.",
             file=sys.stderr,
         )
         return 1
-    print("OK: Sovereign entry signup surface reachable (no account created).", file=sys.stderr)
+    if args.require_qa_routes and not qa_ok:
+        print("FAIL: post-login Q&A route markers missing.", file=sys.stderr)
+        return 1
+    print(
+        "OK: Sovereign entry signup surface reachable "
+        "(consent + use-my-location + create-wallet markers; no account created).",
+        file=sys.stderr,
+    )
     return 0
 
 

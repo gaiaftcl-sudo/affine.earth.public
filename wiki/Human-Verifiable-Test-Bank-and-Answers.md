@@ -1,6 +1,22 @@
 # Human-Verifiable Benchmark Test Bank & Ground-Truth Answers
 
-This document provides human researchers with the **exact test prompts**, **mathematical derivations**, and **verified ground-truth answers** for every benchmark task in the suite. Any human researcher can manually inspect and verify these solutions against `https://affine.earth/v1`.
+This document provides human researchers with the **exact test prompts**, **mathematical derivations**, and **verified ground-truth answers** for every benchmark task in the suite.
+
+## 0. See Q&A in the live Affine.Earth UI first
+
+Before CLI harnesses, exercise the product surface:
+
+1. Complete [Create Account / Signup](Create-Account-Signup): **New wallet → consent → Use my location → Create wallet + QFOT → app opens**
+2. Click **Games** → **Linguistic membrane (chat)** (12 LIVE games via `GET /language-invariant/games`)
+3. Questions appear as Franklin bubbles in `#messageList`
+4. Answers / verification: “Your clarifying answer…”, “Anything else?”, and “Message Franklin…”
+5. Domain surfaces: **Formal manifold**, **Coding — UMC + MCP**, Cinema, Aviation, Wallet · QFOT, …
+
+![Games catalog — UI test surfaces](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-06-games-catalog-qa.png)
+
+![Chat Q&A + clarifying verify UI](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-07-qa-answer-verify.png)
+
+Package prompts below remain human-auditable for offline / CLI verification. Live `/v1` OpenAI JSON was **not** measured as available on 2026-07-20 (SPA HTML returned); use the Franklin UI path above for in-product Q&A.
 
 ---
 

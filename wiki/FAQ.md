@@ -2,7 +2,7 @@
 
 ![Affine.Earth live language-game](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hero-language-game.png)
 
-Short demo GIF: ![demo](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-healthz.gif) — see [Create Account / Signup](Create-Account-Signup) and [Home](Home).
+Correct demo GIF (consent → location → create → app → Q&A): ![demo](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-app-qa.gif) — see [Create Account / Signup](Create-Account-Signup) and [Home](Home). Supersedes `demo-signup-healthz.gif`.
 
 Detailed questions and answers about the Affine.Earth public benchmark suite and this wiki.
 
@@ -30,7 +30,23 @@ The suite measures and documents that surface; it does not replace reading the l
 
 ### Q. How do I create a new Affine.Earth user?
 
-**A.** There is no email/password register form. Open `https://affine.earth` → **New wallet** → consent → **Create wallet + QFOT**, then export the private key. Full steps and screenshots: [Create Account / Signup](Create-Account-Signup). This is **step 1** for outsiders before third-party harness claims.
+**A.** There is no email/password register form. Correct UI path:
+
+1. `https://affine.earth` → **New wallet**
+2. Check the **consent** checkbox
+3. **Use my location**
+4. **Create wallet + QFOT** → wait until the **app opens** (~8s measured)
+5. **Export private key** from Docs / Profile
+
+Then open **Games** → **Linguistic membrane (chat)** to see test Q&A in the UI (`#messageList` + clarifying-answer fields). Full steps: [Create Account / Signup](Create-Account-Signup). Do this **before** CLI harness claims.
+
+### Q. Where do test questions and answers appear in the product UI?
+
+**A.** After the app opens: **Games** (`#gamesBtn`) → pick **Linguistic membrane (chat)** (or Formal manifold / Coding). Questions show as Franklin bubbles in `#messageList`; you answer via “Message Franklin…” and the clarifying-answer / “Anything else?” verify fields. Package CLI test banks are separate — see [Human-Verifiable Test Bank](Human-Verifiable-Test-Bank-and-Answers).
+
+### Q. Does Create wallet always credit genesis QFOT on the mesh?
+
+**A.** FoT (2026-07-20): the UI opens and claims genesis `100/1`, but `POST /language-invariant/economics-onboard` returned **HTTP 404**, and Profile balance was measured **BLOCKED / 0/1**. Treat mesh credit as unproven until that endpoint accepts onboard.
 
 ### Q. What Python version is required?
 

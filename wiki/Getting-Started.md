@@ -7,36 +7,37 @@ This guide gets you from zero to a verified local run of the Affine.Earth public
 **Repository:** [`https://github.com/gaiaftcl-sudo/affine.earth.public`](https://github.com/gaiaftcl-sudo/affine.earth.public)  
 **Package directory:** `llm-llvm-benchmark-suite/`
 
-### First look — signup gate then healthz
+### First look — correct signup → app → UI Q&A
 
 <p>
-<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hero-language-game.png">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4" type="video/mp4">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.webm" type="video/webm">
+<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-05-app-opened.png">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.webm" type="video/webm">
 </video>
 </p>
 
-![Animated walkthrough — Sovereign entry tabs then live healthz JSON](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-healthz.gif)
+![Animated walkthrough — consent → location → Create wallet → app → Games / Q&A](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-app-qa.gif)
 
-> **MP4 / WebM:** [https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4) · also mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media) in the public repo.
-
+> **MP4 / WebM:** [https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4) · also mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media) in the public repo.  
+> Supersedes the old `demo-signup-healthz` / `affine-earth-demo-signup-healthz.*` clip.
 
 ---
-## 0. Create an Affine.Earth account (required for live third-party runs)
+## 0. Create an Affine.Earth account in the UI (do this before CLI harnesses)
 
-**Outsiders: do this first** before claiming a live Affine session or upstream harness score against Affine.Earth.
+**Outsiders: UI path first.** Do not start with CLI or healthz JSON.
 
-Affine.Earth uses **Sovereign entry** (BTC edge wallet), not email/password. Full UI path, screenshots, blockers, and smoke checks:
+Affine.Earth uses **Sovereign entry** (BTC edge wallet), not email/password. Full screenshots and blockers:
 
 → **[Create Account / Signup](Create-Account-Signup)**
 
-Minimum gate:
+### Correct UI path (measured 2026-07-20)
 
-1. Open `https://affine.earth` → `/language-game/`
-2. **New wallet** → consent → **Create wallet + QFOT** (or **Returning** with an address you control)
-3. **Export private key** and store it offline
-4. Confirm your intended `/v1` (or other) endpoint returns real API JSON before harness scoring — see blockers on the Signup page
-5. Smoke the signup surface without creating users: `python3 scripts/check_affine_signup_surface.py`
+1. Open `https://affine.earth` → `/language-game/` → Sovereign entry
+2. **New wallet** → check **consent** → **Use my location** → **Create wallet + QFOT**
+3. Wait until the **app opens** (gate closes; Franklin chat + Docs; Profile shows `bc1…`)
+4. **Export private key** offline (Docs / Profile) — never commit keys
+5. See **test Q&A in the UI**: **Games** → **Linguistic membrane (chat)** (also Formal manifold / Coding). Questions appear in `#messageList`; answers / clarifying verify fields sit under the chat; composer is “Message Franklin…”
+6. Only then run CLI harnesses / smoke: `python3 scripts/check_affine_signup_surface.py`
 
 Local-only Clang / pytest / mock-provider work does not require an Affine account.
 

@@ -6,6 +6,30 @@ Assume your shell is inside `llm-llvm-benchmark-suite/` after `pip install -e .`
 
 ---
 
+## 0a. UI path before CLI — signup → Games Q&A
+
+Do this in a browser **before** claiming a live Affine session from the command line:
+
+1. Open `https://affine.earth` → **New wallet**
+2. Check **consent** → **Use my location** → **Create wallet + QFOT**
+3. Wait until the app opens (Franklin chat: “SOVEREIGN NODE INITIALIZATION complete…”)
+4. **Games** → **Linguistic membrane (chat)** — questions in the chat stream; answers via composer + clarifying fields
+5. Export private key from Docs / Profile (offline only)
+
+![App opened](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-05-app-opened.png)
+
+![Q&A verify UI](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-07-qa-answer-verify.png)
+
+Demo: [affine-earth-demo-signup-app-qa.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4) · GIF [demo-signup-app-qa.gif](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-app-qa.gif)
+
+Signup surface smoke (no wallet create):
+
+```bash
+python3 scripts/check_affine_signup_surface.py --require-qa-routes
+```
+
+---
+
 ## 0. One-liners you will use constantly
 
 ```bash

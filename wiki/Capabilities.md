@@ -9,36 +9,39 @@ This page is an operational map of features implemented in
 from an outcome that still requires a live model endpoint or an upstream
 harness result.
 
-### Product screenshots
+### Product screenshots (UI first)
 
 | Caption | Image |
 |:---|:---|
-| Language-game / Franklin chat under Sovereign entry | ![lg](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/capabilities-language-game.png) |
-| New wallet path | ![nw](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/sovereign-entry-new-wallet.png) |
-| Live healthz | ![hz](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/healthz-json-live.png) |
+| Consent + Use my location + Create wallet | ![loc](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-04-use-my-location.png) |
+| App opened — Franklin chat + Docs | ![app](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-05-app-opened.png) |
+| Games catalog (12 LIVE language games) | ![games](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-06-games-catalog-qa.png) |
+| Chat Q&A + clarifying answer / verify fields | ![qa](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-07-qa-answer-verify.png) |
+| Formal manifold game surface | ![fm](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-09-formal-manifold.png) |
 
-### Capability tour — public UI + health observation
+### Capability tour — signup → app → UI Q&A
 
 <p>
-<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hero-language-game.png">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4" type="video/mp4">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.webm" type="video/webm">
+<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-05-app-opened.png">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4" type="video/mp4">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.webm" type="video/webm">
 </video>
 </p>
 
-![Animated walkthrough — Sovereign entry tabs then live healthz JSON](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-healthz.gif)
+![Animated walkthrough — consent → location → Create wallet → app → Games / Q&A](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-app-qa.gif)
 
-> **MP4 / WebM:** [https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-healthz.mp4) · also mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media) in the public repo.
+> **MP4 / WebM:** [https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4) · also mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media) in the public repo.
 
 
 ## Gate — Affine.Earth account (live third-party path)
 
 For any live Affine.Earth session or harness claim against Affine:
 
-1. Complete **[Create Account / Signup](Create-Account-Signup)** (wallet-based Sovereign entry).
-2. Obtain a browser session / exported key backup as documented there.
-3. Point harnesses only at an endpoint that returns OpenAI-compatible JSON.
-4. Optional surface smoke (no fake users): `python3 scripts/check_affine_signup_surface.py`
+1. Complete **[Create Account / Signup](Create-Account-Signup)**: New wallet → consent → **Use my location** → **Create wallet + QFOT** → **app opens**.
+2. In the UI, open **Games** → **Linguistic membrane (chat)** (or Formal manifold / Coding) to see human-verifiable Q&A turns — not only CLI harnesses.
+3. Export / secure the private key from Docs or Profile.
+4. Point harnesses only at an endpoint that returns OpenAI-compatible JSON.
+5. Optional surface smoke (no fake users): `python3 scripts/check_affine_signup_surface.py`
 
 Local pytest, Clang, and mock-provider wiring do not require an Affine account.
 
@@ -124,8 +127,10 @@ python3 scripts/check_affine_signup_surface.py
 ```
 
 Healthz checks liveness only. The signup script asserts the Sovereign entry HTML
-markers (login gate, New wallet, Create wallet + QFOT) without creating an
-account. Neither check proves `/v1` chat-completions JSON is available.
+markers (login gate, New wallet, **consent**, **Use my location**, Create wallet + QFOT)
+plus Games / messageList Q&A route markers without creating an account. Neither
+check proves `/v1` chat-completions JSON is available or that genesis QFOT is
+ledger-proven (`economics-onboard` measured HTTP 404 on 2026-07-20).
 
 ### 6. Run the local dashboard
 
