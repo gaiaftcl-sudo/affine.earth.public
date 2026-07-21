@@ -102,8 +102,10 @@ def main(args):
         predictions = {}
 
     def persist():
-        with open(output_filepath, "w") as f:
+        tmp_path = output_filepath + ".tmp"
+        with open(tmp_path, "w") as f:
             json.dump(predictions, f, indent=4)
+        os.replace(tmp_path, output_filepath)
 
     # Text-only endpoints: seal multimodal as explicit misses up front so the
     # async workers only spend wall time on text questions.
