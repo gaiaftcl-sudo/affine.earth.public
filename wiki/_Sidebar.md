@@ -1,32 +1,25 @@
-## Affine.Earth Public Benchmark Wiki
+## Affine.Earth OS
 
-### Start
+### Story
 - [**Home**](Home)
-- [**Create Account / Signup**](Create-Account-Signup)
-- [**Getting Started**](Getting-Started)
-- [**Execution Guide**](Execution-Guide)
-- [**Test Suites**](Test-Suites)
-- [**Benchmarks**](Benchmarks)
-- [**Capabilities / What You Can Do**](Capabilities)
-- [**Examples / Cookbook**](Examples-Cookbook)
-- [**Hardest Tests**](Hardest-Tests)
-- [**Open AGI Frameworks**](Open-AGI-Frameworks)
-- [**FAQ / Q&A**](FAQ)
+- [**What is Affine.Earth OS**](What-Is-Affine-Earth-OS)
+- [**How we tested**](How-We-Tested)
+- [**In action**](In-Action)
+- [**Results & Scores**](Results-And-Scores)
+- [**AGI agent execution**](AGI-Agent-Execution)
+- [**Create account (once)**](Create-Account-Signup)
 
-### Results & audit
-- [**Live Leaderboard**](Live-Leaderboard)
-- [**Reports & Artifacts**](Reports-And-Artifacts)
-- [**Benchmark Inventory**](Benchmark-Inventory)
-- [**Un-Mocked Methodology**](Un-Mocked-Verification-Methodology-and-Instructions)
-- [**Human Test Bank & Answers**](Human-Verifiable-Test-Bank-and-Answers)
+### Reference
+- [Hardest Tests](Hardest-Tests)
+- [Getting Started](Getting-Started)
+- [FAQ](FAQ)
+- [Reports & Artifacts](Reports-And-Artifacts)
+- [Human Test Bank](Human-Verifiable-Test-Bank-and-Answers)
+- [Live Leaderboard](Live-Leaderboard) *(baseline demoted)*
+- [Upstream frameworks](Upstream-Frameworks)
 
-### Upstream harnesses
-- [**Third-Party Harness Reproduction**](Third-Party-Harness-Reproduction)
-- [**EleutherAI lm-eval**](EleutherAI-lm-evaluation-harness)
-- [**BigCode bigcode-eval**](BigCode-bigcode-evaluation-harness)
-- [**LMSYS FastChat**](LMSYS-FastChat-MT-Bench)
-- [**LLVM Test-Suite**](LLVM-Official-Test-Suite)
-
-### Frontier baselines
-- [**Expanded Coding Suite**](Expanded-Frontier-Coding-Suite)
-- [**Expanded Reasoning Suite**](Expanded-Frontier-Reasoning-Suite)
+### Deprecated / slim
+- [Capabilities → OS page](Capabilities)
+- [Open AGI Frameworks → Agents](Open-AGI-Frameworks)
+- [Examples Cookbook](Examples-Cookbook)
+- [Third-Party Harness Reproduction](Third-Party-Harness-Reproduction)

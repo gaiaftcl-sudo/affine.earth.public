@@ -2,9 +2,10 @@
 
 ![Affine.Earth live language-game](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hero-language-game.png)
 
-Correct demo GIF (consent → location → create → app → Q&A): ![demo](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-app-qa.gif) — see [Create Account / Signup](Create-Account-Signup) and [Home](Home). Supersedes `demo-signup-healthz.gif`.
+**Story spine:** [Home](Home) (UI all-tests hero) · [In action](In-Action) · [Results & Scores](Results-And-Scores) · [AGI agent execution](AGI-Agent-Execution).  
+**Signup / login video once:** [Create account](Create-Account-Signup) (not embedded elsewhere).
 
-Detailed questions and answers about the Affine.Earth public benchmark suite and this wiki.
+Detailed questions and answers about Affine.Earth OS and this public evidence wiki.
 
 ---
 

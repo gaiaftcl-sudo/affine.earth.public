@@ -4,33 +4,10 @@ This document provides human researchers with the **exact test prompts**, **math
 
 ## 0. See Q&A in the live Affine.Earth UI first
 
-Before CLI harnesses, exercise the product surface. Full battery demo (all 12 LIVE Games + live Franklin replies):
+Before CLI harnesses, exercise the product surface.
 
-<p>
-<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-07-games-catalog.png">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4" type="video/mp4">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.webm" type="video/webm">
-</video>
-</p>
-
-![UI all-tests GIF](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif)
-
-> [affine-earth-demo-ui-all-tests.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4) · [demo-ui-all-tests.gif](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif)
-
-### Click path
-
-1. Complete [Create Account / Signup](Create-Account-Signup): **New wallet → consent → Use my location → Create wallet + QFOT → app opens**
-2. **Games** (`#gamesBtn`) → catalog from `GET /language-invariant/games` (**12 LIVE**)
-3. Drive each card (Linguistic membrane, Formal manifold, Coding, Cinema, Aviation, ATC, Gaming, Reality, Sandbox, Wallet · QFOT, UMC · GAV, Torsion dialogue)
-4. Chat suites: questions in `#messageList`; answers via “Message Franklin…” then **Your clarifying answer…** when the ground bar appears
-5. Profile → Wallet · QFOT for genesis balance; **Docs** for node docs
-
-| Still | What it shows |
-|:---|:---|
-| ![catalog](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-07-games-catalog.png) | Games catalog |
-| ![lm](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-10-linguistic_membrane-answer.png) | Linguistic membrane live reply |
-| ![fm](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-11-formal_manifold-answer.png) | Formal → live Q&A |
-| ![code](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-12-coding-answer.png) | Coding → live Q&A |
+- **UI all-tests video + chapter stills:** [In action](In-Action) · [Home](Home)
+- **Create account (once):** [Create-Account-Signup](Create-Account-Signup)
 
 **FoT caption (2026-07-20):** Franklin answered live in the UI with **Socratic / clarifying** turns — not as a unit-test harness. Package prompts below remain human-auditable for offline / CLI verification. Live `/v1` OpenAI JSON was **not** measured as available (SPA HTML returned). **Do not claim HumanEval 100% from the chat demo.**
 

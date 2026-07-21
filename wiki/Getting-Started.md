@@ -7,29 +7,17 @@ This guide gets you from zero to a verified local run of the Affine.Earth public
 **Repository:** [`https://github.com/gaiaftcl-sudo/affine.earth.public`](https://github.com/gaiaftcl-sudo/affine.earth.public)  
 **Package directory:** `llm-llvm-benchmark-suite/`
 
-### First look — UI all-tests battery (all Games + live answers)
-
-<p>
-<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-07-games-catalog.png">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4" type="video/mp4">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.webm" type="video/webm">
-</video>
-</p>
-
-![UI all-tests GIF](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif)
-
-> **Primary demo:** [affine-earth-demo-ui-all-tests.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4) · [GIF](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif) · mirrored in [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media).  
-> Shorter signup-only clip remains: [affine-earth-demo-signup-app-qa.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4).  
-> **FoT:** live Franklin replies ≠ CLI harness scores (do not claim HumanEval 100% from chat).
+**See the product first:** [Home](Home) hero and [In action](In-Action) (UI all-tests video — all 12 Games + live answers).  
+**Signup / login video (once only):** [Create account](Create-Account-Signup).
 
 ---
 ## 0. Create an Affine.Earth account in the UI (do this before CLI harnesses)
 
 **Outsiders: UI path first.** Do not start with CLI or healthz JSON.
 
-Affine.Earth uses **Sovereign entry** (BTC edge wallet), not email/password. Full screenshots and blockers:
+Affine.Earth uses **Sovereign entry** (BTC edge wallet), not email/password:
 
-→ **[Create Account / Signup](Create-Account-Signup)**
+→ **[Create account (once)](Create-Account-Signup)** — only page with the signup walkthrough video.
 
 ### Correct UI path (measured 2026-07-20)
 

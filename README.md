@@ -1,189 +1,87 @@
-# Affine.Earth Public Benchmark Rig
+# Affine.Earth OS — Public Evidence Rig
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](pyproject.toml)
-[![Tests: 10](https://img.shields.io/badge/tests-10-green.svg)](tests/)
+[![Wiki](https://img.shields.io/badge/wiki-story%20spine-informational.svg)](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki)
 
-An installable, reproducible rig for measuring LLM API behaviour and local LLVM
-compiler behaviour. It produces local JSON and Markdown reports; it does not
-ship precomputed scores as new measurements.
+**Affine.Earth OS** is a sovereign wallet operating surface with live language games. This repository is the public **evidence rig**: UI proof, MEASURED local receipts, and agent-executable open AGI harness wrappers — not a sterile command dump, and not invented Pass@k tables.
 
-## What this repository runs
+**Live product:** [https://affine.earth](https://affine.earth) · **Wiki story:** [Home](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/Home)
 
-- **Unit and verification checks**: Python tests plus real local `clang` compile
-  and execution measurements.
-- **LLM suites**: the bundled `affine_domain`, `code`, and `reasoning` samples
-  against an explicitly configured provider endpoint.
-- **LLVM suite**: local `clang` measurements at `-O0`, `-O2`, `-O3`, and `-Os`.
-- **Third-party harnesses**: installed upstream `lm-evaluation-harness`,
-  BigCode evaluation harness, and FastChat. Their outputs remain in
-  `reports/third_party/`.
-- **Hardest / open AGI**: thin wrappers for HLE, ARC-AGI, GPQA (lm-eval), and
-  GAIA (Inspect AI), plus honest NEEDS_UPSTREAM exits for SWE-bench and
-  LiveCodeBench. See [docs/OPEN_AGI_FRAMEWORKS.md](docs/OPEN_AGI_FRAMEWORKS.md).
+---
 
-## Install
+## Proof in action — UI all-tests
 
-Requirements: Python 3.9+, `clang` on `PATH`, and `size` (or an equivalent
-platform tool accepted by your local LLVM installation).
+Onboard → **all 12 LIVE Games** → Franklin answers in the membrane. Captured 2026-07-20 on live Affine.Earth.
+
+![UI all Games + live answers](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif)
+
+| | |
+|:---|:---|
+| **Video** | [mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4) · [webm](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.webm) |
+| **Chapters** | [In action](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/In-Action) |
+| **FoT** | UI membrane turns ≠ CLI harness Pass@k |
+
+Create a wallet once to reproduce: [Create account](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/Create-Account-Signup) (signup video lives **only** on that wiki page).
+
+---
+
+## Story (wiki)
+
+| Chapter | Wiki page |
+|:---|:---|
+| What is Affine.Earth OS | [What-Is-Affine-Earth-OS](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/What-Is-Affine-Earth-OS) |
+| How we tested | [How-We-Tested](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/How-We-Tested) |
+| In action | [In-Action](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/In-Action) |
+| Results & Scores | [Results-And-Scores](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/Results-And-Scores) |
+| AGI agent execution | [AGI-Agent-Execution](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/AGI-Agent-Execution) |
+
+Provenance: **MEASURED** (receipt under `reports/`) · **RUNNABLE** (wrapper exists, no Pass@k archived) · **BASELINE_TABLE_ONLY** (demoted) · **UI FoT** (product demo). Details: [docs/METHODOLOGY.md](docs/METHODOLOGY.md).
+
+---
+
+## What this repo runs
+
+- **UI / product FoT** — documented in the wiki (video + stills).
+- **Local MEASURED** — pytest, exact rationals, Clang opt levels, live healthz probe (`./bin/verify-rig.sh`).
+- **AGI-executable suites** — thin wrappers for HLE, ARC-AGI, GPQA, GAIA, Inspect, lm-eval hard, LiveCodeBench, SWE-bench scorer (`./bin/run-open-agi-harnesses.sh`). Upstream manuals are linked, not re-taught.
+- **Classic harnesses** — lm-eval / BigCode / FastChat via `./bin/run-official-leaderboard-harnesses.sh` when `/models` returns JSON.
+
+---
+
+## Install + local green
 
 ```bash
 git clone https://github.com/gaiaftcl-sudo/affine.earth.public.git
 cd affine.earth.public
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install --upgrade pip
-python -m pip install -e ".[dev]"
-```
-
-For optional upstream harness clients (pinned extras + BigCode checkout):
-
-```bash
-python -m pip install -e ".[dev,harnesses]"   # lm-eval==0.4.7, fschat==0.2.36
-git clone --branch v0.1.0 --depth 1 \
-  https://github.com/bigcode-project/bigcode-evaluation-harness.git \
-  harnesses/bigcode-evaluation-harness
-python -m pip install -e harnesses/bigcode-evaluation-harness
-```
-
-Exact pins, env aliases, and outsider run commands:
-[docs/THIRD_PARTY_HARNESSES.md](docs/THIRD_PARTY_HARNESSES.md) ·
-[configs/third-party-harnesses.yaml](configs/third-party-harnesses.yaml).
-
-### Testing for outsiders (account first)
-
-1. **Create Affine.Earth account / session** — wallet-based Sovereign entry on
-   `https://affine.earth` (not email/password). Wiki:
-   [Create Account / Signup](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/Create-Account-Signup).
-2. Smoke the signup UI **without** creating users:
-   `python3 scripts/check_affine_signup_surface.py`
-   (or `AFFINE_LIVE_SMOKE=1 python3 -m pytest tests/test_affine_signup_surface.py -v`).
-3. Only then configure harness env and run upstream tools.
-
-**Endpoint note:** `https://affine.earth/v1` currently returns an HTML SPA, not
-OpenAI JSON. Point `OPENAI_BASE_URL` / `AFFINE_HARNESS_ENDPOINT` at a real
-OpenAI-compatible `/v1` (or a local interceptor for wiring only).
-
-## Configure an LLM endpoint
-
-Configuration is environment based so secrets never enter reports or git:
-
-```bash
-cp configs/affine-earth.env.example .env.affine-earth
-cp configs/providers.env.example .env.providers
-cp configs/suites.env.example .env.suites
-$EDITOR .env.affine-earth .env.providers .env.suites
-set -a
-source .env.affine-earth
-source .env.providers
-source .env.suites
-set +a
-```
-
-Set `AFFINE_ENDPOINT` to the OpenAI-compatible `/chat/completions` URL, choose
-`AFFINE_MODEL`, and provide `OPENAI_API_KEY` only when the endpoint requires
-one. No live LLM request is made unless you pass `--live`.
-
-## Commands
-
-```bash
-# Local checks only: pytest + real clang/rational verification.
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"
 ./bin/verify-rig.sh
-
-# Full local rig: verification + LLVM measurement.
-./bin/run-full-benchmark.sh
-
-# Full rig plus configured live LLM suite.
-./bin/run-full-benchmark.sh --live
-
-# Run the bundled LLM suites directly.
-llm-llvm-bench llm run \
-  --models "$AFFINE_MODEL" \
-  --provider openai \
-  --endpoint "$AFFINE_ENDPOINT" \
-  --suites "$AFFINE_SUITES" \
-  --out reports/llm_benchmark.json
-
-# LLVM only.
-llm-llvm-bench llvm run --compiler clang --opt-levels -O0,-O2,-O3,-Os
-
-# Upstream harnesses (fail loudly if CLI/checkout/JSON /models is missing).
-cp configs/third-party-harnesses.env.example .env.third-party-harnesses
-# Edit endpoint + model; do not leave https://affine.earth/v1 until it returns JSON.
-./bin/run-official-leaderboard-harnesses.sh --harness lm-eval
-./bin/run-official-leaderboard-harnesses.sh --harness bigcode
-./bin/run-official-leaderboard-harnesses.sh --harness fastchat
 ```
 
-`bin/run-official-leaderboard-harnesses.sh` never invents scores and never
-writes heredoc receipts. It sources `.env.third-party-harnesses` when present,
-preflights `GET $BASE/models` for JSON, invokes the upstream CLI, or exits with
-install pins from `configs/third-party-harnesses.yaml`.
+---
 
-## Hardest tests / Open AGI
-
-Validate Affine.Earth against harder public frameworks without inventing
-scores. Suite IDs live in
-[configs/open-agi-harnesses.yaml](configs/open-agi-harnesses.yaml).
+## AGI agents — short commands
 
 ```bash
 cp configs/third-party-harnesses.env.example .env.third-party-harnesses
-# Edit endpoint + model (+ HF_TOKEN for HLE, ARC_AGI_CONFIG, checkouts).
+# Edit endpoint + model to a JSON OpenAI-compatible /v1.
 
-./bin/run-open-agi-harnesses.sh --harness lm-eval-hard  # GPQA + BBH + MMLU-Pro
-./bin/run-open-agi-harnesses.sh --harness hle           # centerforaisafety/hle
-./bin/run-open-agi-harnesses.sh --harness arc-agi-2     # ARC-AGI-2 evaluation tasks
-./bin/run-open-agi-harnesses.sh --harness gaia          # Inspect AI
+./bin/run-open-agi-harnesses.sh --harness lm-eval-hard
+./bin/run-open-agi-harnesses.sh --harness hle
+./bin/run-open-agi-harnesses.sh --harness arc-agi-2
+./bin/run-open-agi-harnesses.sh --harness gaia
 ./bin/run-open-agi-harnesses.sh --harness inspect-gpqa
-./bin/run-open-agi-harnesses.sh --harness livecodebench # needs LiveCodeBench checkout
-export SWE_BENCH_PREDICTIONS_PATH=/path/to/predictions.jsonl
-./bin/run-open-agi-harnesses.sh --harness swe-bench     # official scorer only
-./bin/run-open-agi-harnesses.sh --harness frontiermath  # exit 3 — NEEDS_UPSTREAM
 ```
 
-| Suite ID | Harness | Status |
-|:---|:---|:---|
-| `open_agi_gpqa` / `bbh` / `mmlu_pro` / `lm_eval_hard` | `gpqa`… | RUNNABLE_WRAPPER (`lm-eval==0.4.7`) |
-| `open_agi_hle` | `hle` | RUNNABLE_WRAPPER (HF `cais/hle`) |
-| `open_agi_arc_agi` / `open_agi_arc_agi_2` | `arc-agi` / `arc-agi-2` | RUNNABLE_WRAPPER |
-| `open_agi_gaia` / `inspect_gpqa` / `inspect` | Inspect keys | RUNNABLE_WRAPPER |
-| `open_agi_livecodebench` | `livecodebench` | RUNNABLE_WRAPPER (checkout + `lcb_runner`) |
-| `open_agi_swe_bench` | `swe-bench` | RUNNABLE_WRAPPER (needs real predictions JSONL) |
-| `open_agi_frontiermath` | `frontiermath` | NEEDS_UPSTREAM (exit 3) |
+Full matrix, status labels, and upstream links: [wiki/AGI-Agent-Execution](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/AGI-Agent-Execution) · [docs/OPEN_AGI_FRAMEWORKS.md](docs/OPEN_AGI_FRAMEWORKS.md).
 
-Full pins, dataset access, and blockers:
-[docs/OPEN_AGI_FRAMEWORKS.md](docs/OPEN_AGI_FRAMEWORKS.md) ·
-[docs/THIRD_PARTY_HARNESSES.md](docs/THIRD_PARTY_HARNESSES.md).
+---
 
-## Reports and provenance
+## Reports
 
-Generated reports are ignored by git under `reports/`. Each run should retain:
+Generated under `reports/` (gitignored). Never publish a score without the artifact path and provenance label. Comparative 100% baseline tables are **BASELINE_TABLE_ONLY** until matching upstream receipts exist.
 
-- command line and configuration values that are safe to disclose,
-- timestamp, tool versions, task/suite selection, and raw upstream artifacts,
-- endpoint and model identifiers, and
-- an explicit provenance label:
-  - **MEASURED**: created by this run from a reachable endpoint or local tool;
-  - **BASELINE**: an externally cited historical result, not a new result from
-    this repository.
+## License
 
-Do not compare, publish, or submit a score without the corresponding raw
-artifact and exact command. See [docs/METHODOLOGY.md](docs/METHODOLOGY.md).
-
-## Layout
-
-```text
-bin/        reproducible entrypoints (incl. open-AGI / third-party harnesses)
-configs/    copyable environment templates + harness YAML registries
-docs/       methodology, third-party, and open-AGI framework notes
-llm_llvm_bench/
-  llm/      provider clients and bundled suites
-  llvm/     local compiler benchmark runner
-scripts/    verification and live-report helpers
-tests/      pytest suite (offline green)
-```
-
-## Contributing and license
-
-Read [CONTRIBUTING.md](CONTRIBUTING.md) for reproducible change and report
-requirements. Released under the [MIT License](LICENSE).
+[MIT](LICENSE) · see [CONTRIBUTING.md](CONTRIBUTING.md).

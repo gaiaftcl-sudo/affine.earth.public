@@ -1,9 +1,14 @@
 # Live Leaderboard & Comparative Scoreboard
 
+**Canonical scores page:** [Results & Scores](Results-And-Scores) (AGI-executable suites front and center).  
+**Proof in action:** [In action](In-Action) · [Home](Home).
+
 **Last wiki sync context:** 2026-07-20  
 **Target health endpoint:** `https://affine.earth/language-invariant/healthz`  
 **Baseline table source code:** `llm_llvm_bench/forks/expanded_frontier_baselines.py`  
 **Measured local receipts:** `reports/real_verification_proof.json`, `reports/llvm_benchmark_live.json`
+
+> **Steward note:** §2–3 below are **BASELINE_TABLE_ONLY**. Affine 100% cells are **not** MEASURED Pass@k from archived upstream harness runs. Prefer §1 MEASURED local receipts + UI FoT.
 
 ---
 

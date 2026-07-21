@@ -8,51 +8,20 @@ Large benchmark names are not capabilities by themselves. This page identifies
 what each hard evaluation actually exercises, the upstream path to run it, and
 the evidence required before any Affine.Earth result may be called **MEASURED**.
 
+Story spine: [Home](Home) → [In action](In-Action) (UI all-tests) → [Results & Scores](Results-And-Scores) → [AGI agent execution](AGI-Agent-Execution).  
+Identity once: [Create account](Create-Account-Signup) (signup video **only** there).
+
 ### Live product gallery
 
 | Caption | Image |
 |:---|:---|
-| Identity gate (New wallet / consent) | ![gate](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/hardest-tests-identity-gate.png) |
-| Returning tab | ![returning](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/sovereign-entry-returning.png) |
+| Games catalog (UI FoT) | ![games](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-07-games-catalog.png) |
+| Linguistic membrane answer | ![lm](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-10-linguistic_membrane-answer.png) |
 | Live healthz JSON | ![healthz](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/healthz-json-live.png) |
 
-### Walkthrough — identity surface before any hard-suite claim
+## UI FoT before hard-suite claims
 
-<p>
-<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/signup-flow-05-app-opened.png">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4" type="video/mp4">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.webm" type="video/webm">
-</video>
-</p>
-
-![Animated walkthrough — consent → location → Create wallet → app → Games / Q&A](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-signup-app-qa.gif)
-
-> **MP4 / WebM:** [https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-signup-app-qa.mp4) · also mirrored at [`docs/media/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/docs/media) in the public repo.
-
-## UI section — all Games tests (live product, not CLI harness)
-
-Before treating any hard suite as **MEASURED** against Affine, exercise the in-product Games battery. This is **UI FoT**, not HumanEval / HLE / SWE-bench scores.
-
-<p>
-<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-07-games-catalog.png">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4" type="video/mp4">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.webm" type="video/webm">
-</video>
-</p>
-
-![UI all-tests GIF](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif)
-
-| UI suite | How to open | Status in 2026-07-20 all-tests demo |
-|:---|:---|:---|
-| Linguistic membrane (chat) | Games → Linguistic membrane | Live Franklin reply in `#messageList` (Socratic) |
-| Formal manifold | Games → Formal manifold → Ingest | Live Q&A after membrane rebound |
-| Coding — UMC + MCP | Games → Coding | Live Q&A after membrane rebound |
-| Cinema / Aviation / ATC / Gaming / Reality / Sandbox / UMC | Games → each card | Surface play (ingest / drawer) — FoT |
-| Wallet · QFOT | Games → Wallet · QFOT → Profile | **PROVEN / 100/1** |
-| Torsion dialogue | Games → Torsion dialogue | Live Franklin reply |
-| Docs | Docs button | Drawer inventory |
-
-> **FoT:** Do **not** promote this demo as HumanEval / LiveCodeBench / HLE pass rates. Those remain **RUNNABLE** / **BASELINE_TABLE_ONLY** until archived harness receipts exist. See [Human-Verifiable Test Bank](Human-Verifiable-Test-Bank-and-Answers) for CLI ground truth vs UI clarifying turns.
+Before treating any hard suite as **MEASURED** against Affine, exercise the in-product Games battery. Full video + chapter stills: **[In action](In-Action)**. That is **UI FoT**, not HumanEval / HLE / SWE-bench Pass@k.
 
 ## Read the status label first
 
@@ -101,8 +70,8 @@ export SWE_BENCH_PREDICTIONS_PATH=/path/to/predictions.jsonl
 ./bin/run-open-agi-harnesses.sh --harness frontiermath  # exit 3 — NEEDS_UPSTREAM
 ```
 
-Full outsider commands: [Open AGI Frameworks](Open-AGI-Frameworks) ·
-[Third-Party Harness Reproduction](Third-Party-Harness-Reproduction).
+Full outsider commands: [AGI agent execution](AGI-Agent-Execution) ·
+[Upstream frameworks](Upstream-Frameworks).
 
 ## What “run it” means
 

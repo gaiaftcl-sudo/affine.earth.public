@@ -1,97 +1,21 @@
-# Third-Party Harness Reproduction
+# Third-Party Harness Reproduction (slim)
 
-Use the packaging launcher. It invokes upstream CLIs only and fails if tools,
-checkouts, or a JSON OpenAI-compatible `/models` response are missing.
+Full tutorials live **upstream**. This page is a short pointer only.
 
-**Do not** use heredoc receipts. **Do not** treat the local interceptor as a
-public third-party score.
-
-Full pins and outsider commands: [`docs/THIRD_PARTY_HARNESSES.md`](../docs/THIRD_PARTY_HARNESSES.md).
-
-## Gate 0 — Create Affine.Earth account / session
-
-**Outsiders start here.** Live Affine claims require a Sovereign entry session first:
-
-1. Follow **[Create Account / Signup](Create-Account-Signup)** (New wallet or Returning).
-2. Export / secure the edge-wallet private key if you created a new wallet.
-3. Smoke the signup UI without creating users: `python3 scripts/check_affine_signup_surface.py`
-4. Confirm `$OPENAI_BASE_URL/models` returns **JSON** (not the Franklin HTML SPA). Measured 2026-07-20: `https://affine.earth/v1/models` was `text/html`.
-
-Skip Gate 0 only for fully local / non-Affine endpoints.
-
-## Quick start
+| Need | Go here |
+|:---|:---|
+| Upstream manuals (links) | [Upstream frameworks](Upstream-Frameworks) |
+| AGI agent commands | [AGI agent execution](AGI-Agent-Execution) |
+| Official leaderboard wrappers | `./bin/run-official-leaderboard-harnesses.sh` |
+| Pins / env | [`docs/THIRD_PARTY_HARNESSES.md`](https://github.com/gaiaftcl-sudo/affine.earth.public/blob/main/docs/THIRD_PARTY_HARNESSES.md) |
+| Identity once | [Create account](Create-Account-Signup) |
 
 ```bash
 cp configs/third-party-harnesses.env.example .env.third-party-harnesses
-$EDITOR .env.third-party-harnesses
-
-# Until https://affine.earth/v1 returns OpenAI JSON, point at a real /v1:
-# export OPENAI_BASE_URL=http://127.0.0.1:8000/v1   # local wiring only
-# or your provider's OpenAI-compatible base URL.
-
-python -m pip install -e ".[harnesses]"   # lm-eval==0.4.7, fschat==0.2.36
+# Point at a JSON OpenAI-compatible /v1 — not HTML SPA.
+python -m pip install -e ".[harnesses]"
 ./bin/run-official-leaderboard-harnesses.sh --harness lm-eval
-./bin/run-official-leaderboard-harnesses.sh --harness fastchat
+./bin/run-open-agi-harnesses.sh --harness lm-eval-hard
 ```
 
-BigCode (`v0.1.0`) needs a local HF checkpoint or existing generations file:
-
-```bash
-git clone --branch v0.1.0 --depth 1 \
-  https://github.com/bigcode-project/bigcode-evaluation-harness.git \
-  harnesses/bigcode-evaluation-harness
-python -m pip install -e harnesses/bigcode-evaluation-harness
-export BIGCODE_LOCAL_MODEL="your-hf-or-local-checkpoint"
-./bin/run-official-leaderboard-harnesses.sh --harness bigcode
-```
-
-Artifacts: `reports/third_party/`.
-
-## Hardest tests / Open AGI
-
-Thin upstream wrappers via `bin/run-open-agi-harnesses.sh` (no heredoc scores).
-
-```bash
-# lm-eval hard tasks
-./bin/run-open-agi-harnesses.sh --harness gpqa          # gpqa_diamond_cot_zeroshot
-./bin/run-open-agi-harnesses.sh --harness bbh           # bbh_cot_fewshot
-./bin/run-open-agi-harnesses.sh --harness mmlu-pro
-./bin/run-open-agi-harnesses.sh --harness lm-eval-hard  # GPQA + BBH + MMLU-Pro
-
-# HLE / ARC / Inspect
-./bin/run-open-agi-harnesses.sh --harness hle
-./bin/run-open-agi-harnesses.sh --harness arc-agi
-./bin/run-open-agi-harnesses.sh --harness arc-agi-2     # no sample-task substitution
-./bin/run-open-agi-harnesses.sh --harness gaia
-./bin/run-open-agi-harnesses.sh --harness inspect-gpqa
-./bin/run-open-agi-harnesses.sh --harness inspect       # set INSPECT_TASK
-
-# Coding (real upstream CLIs)
-./bin/run-open-agi-harnesses.sh --harness livecodebench # needs LiveCodeBench + lcb_runner
-export SWE_BENCH_PREDICTIONS_PATH=/path/to/predictions.jsonl
-./bin/run-open-agi-harnesses.sh --harness swe-bench     # official scorer only
-
-# Honest refusal
-./bin/run-open-agi-harnesses.sh --harness frontiermath  # exit 3 — NEEDS_UPSTREAM
-```
-
-| Harness key | Status |
-|:---|:---|
-| `gpqa` / `bbh` / `mmlu-pro` / `lm-eval-hard` | **RUNNABLE_WRAPPER** (`lm-eval==0.4.7`) |
-| `hle` | **RUNNABLE_WRAPPER** (HF `cais/hle`) |
-| `arc-agi` / `arc-agi-2` | **RUNNABLE_WRAPPER** (no sample substitution) |
-| `gaia` / `inspect-gpqa` / `inspect` | **RUNNABLE_WRAPPER** (Inspect AI) |
-| `livecodebench` | **RUNNABLE_WRAPPER** (checkout + `lcb_runner`) |
-| `swe-bench` | **RUNNABLE_WRAPPER** (needs `SWE_BENCH_PREDICTIONS_PATH`) |
-| `frontiermath` | **NEEDS_UPSTREAM** (exit 3) |
-
-Registry: [`configs/open-agi-harnesses.yaml`](../configs/open-agi-harnesses.yaml).
-Guide: [`docs/OPEN_AGI_FRAMEWORKS.md`](../docs/OPEN_AGI_FRAMEWORKS.md) · [Open AGI Frameworks](Open-AGI-Frameworks) · [Hardest Tests](Hardest-Tests).
-
-## Related
-
-- [Create Account / Signup](Create-Account-Signup)
-- [Getting Started](Getting-Started)
-- [EleutherAI lm-evaluation-harness](EleutherAI-lm-evaluation-harness)
-- [BigCode bigcode-evaluation-harness](BigCode-bigcode-evaluation-harness)
-- [LMSYS FastChat MT-Bench](LMSYS-FastChat-MT-Bench)
+Do not invent scores. Retain upstream artifacts under `reports/third_party/`.

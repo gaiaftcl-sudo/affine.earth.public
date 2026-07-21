@@ -4,6 +4,8 @@
 
 This is **step 1** before harness runs that need a live Affine session. Affine.Earth does **not** use email/password signup. Entry is **wallet-based** (“Sovereign entry”).
 
+> **Media policy:** The signup / login walkthrough video (`affine-earth-demo-signup-app-qa.*` / `demo-signup-app-qa.gif`) appears **only on this page**. Everywhere else links here. For Games all-tests proof, see [Home](Home) and [In action](In-Action).
+
 ---
 
 ## Correct flow (do this — not the old healthz-only clip)

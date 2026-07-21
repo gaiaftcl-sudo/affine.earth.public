@@ -10,18 +10,8 @@ Assume your shell is inside `llm-llvm-benchmark-suite/` after `pip install -e .`
 
 Do this in a browser **before** claiming a live Affine session from the command line.
 
-### Demo (primary)
-
-<p>
-<video controls width="720" poster="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/ui-tests-07-games-catalog.png">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4" type="video/mp4">
-  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.webm" type="video/webm">
-</video>
-</p>
-
-![UI all-tests GIF](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif)
-
-[affine-earth-demo-ui-all-tests.mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/affine-earth-demo-ui-all-tests.mp4) · [demo-ui-all-tests.gif](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/demo-ui-all-tests.gif)
+**Primary demo + chapter stills:** [In action](In-Action) · [Home](Home).  
+**Signup video (once):** [Create account](Create-Account-Signup).
 
 ### Click path (measured 2026-07-20)
 
