@@ -575,6 +575,27 @@ def solve_task(
         receipt["s1_canvas_hole_sprite_fill_meta"] = hole_replay
         return hole_fragment, receipt
 
+    # 1b21) S1 panel-motif nest pack (8698868d).
+    s1nest = _load_module(
+        arc_dir / "s1_panel_motif_nest_pack.py", "s1_panel_motif_nest_pack"
+    )
+    nest_replay = s1nest.train_replay(task)
+    nest_fragment = s1nest.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(nest_replay)
+    if (
+        nest_fragment is not None
+        and nest_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in nest_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_panel_motif_nest_pack"
+        receipt["train_replay"] = nest_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_panel_motif_nest_pack_meta"] = nest_replay
+        return nest_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

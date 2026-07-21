@@ -26,6 +26,7 @@
     "arc2:58f5dbd5",
     "arc2:67e490f4",
     "arc2:7b5033c1",
+    "arc2:8698868d",
     "arc3:agi3-trajectory-gap"
   ],
   "next_apply_loop": [
@@ -38,14 +39,6 @@
       "language_game_class": "S2_palette_rewrite"
     },
     {
-      "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
-      "key": "arc2:8698868d",
-      "last_gate": "pending",
-      "task_id": "8698868d",
-      "track": "arc2",
-      "language_game_class": "S1_dimension_projection"
-    },
-    {
       "action": "Heal unreproduced_productive_delta; do not regress bp35 L1",
       "key": "arc3:ar25",
       "last_gate": "S4_REINJECT",
@@ -53,7 +46,7 @@
       "track": "arc3"
     }
   ],
-  "note": "CLOSED 67e490f4 canvas_hole_sprite_fill (41/172). 21897d95 remains S4_REINJECT under Franklin multi-turn. Next alt: arc2:8698868d. No Kaggle.",
+  "note": "CLOSED 8698868d panel_motif_nest_pack (42/172). Next open: arc2:21897d95 (S4_REINJECT) or arc3:ar25. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T15:30:06.011196+00:00"
+  "recorded_at_utc": "2026-07-21T15:34:22.337011+00:00"
 }

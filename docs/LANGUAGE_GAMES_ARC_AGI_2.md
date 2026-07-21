@@ -186,10 +186,10 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **40/172** exact grids
-(overlay `reports/arc_local_20260721T152639Z/agi2/summary-overlay.json`;
+**MEASURED local** (2026-07-21): evaluation lifts to **42/172** exact grids
+(overlay `reports/arc_local_20260721T153422Z/agi2/summary-overlay.json`;
 train ice-on baseline remains **298/1076**). Lineage includes
-`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 → `s3_terrain_period_bounce` **195c6913** ×2 → `s1_solid_motif_carve` **58f5dbd5** ×1 → `s2_plus_stamp_recolor` **1818057f** ×1 → `s1_path_column_unroll` **7b5033c1** ×1 → `s1_ones_stamp_period_fill` **53fb4810** ×1 = **40/172**.
+`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 → `s3_terrain_period_bounce` **195c6913** ×2 → `s1_solid_motif_carve` **58f5dbd5** ×1 → `s2_plus_stamp_recolor` **1818057f** ×1 → `s1_path_column_unroll` **7b5033c1** ×1 → `s1_ones_stamp_period_fill` **53fb4810** ×1 → `s1_canvas_hole_sprite_fill` **67e490f4** ×1 → `s1_panel_motif_nest_pack` **8698868d** ×1 = **42/172**.
 
 | Owned grammar | Engine | Train replay | Eval |
 | --- | --- | --- | --- |
@@ -219,6 +219,8 @@ train ice-on baseline remains **298/1076**). Lineage includes
 | plus-stamp recolor | `s2_plus_stamp_recolor` | 3/3 on `1818057f` | exact ×1 |
 | path-column unroll | `s1_path_column_unroll` | 2/2 on `7b5033c1` | exact ×1 |
 | ones-stamp period fill | `s1_ones_stamp_period_fill` | 2/2 on `53fb4810` | exact ×1 |
+| canvas-hole sprite fill | `s1_canvas_hole_sprite_fill` | 2/2 on `67e490f4` | exact ×1 |
+| panel-motif nest pack | `s1_panel_motif_nest_pack` | 2/2 on `8698868d` | exact ×1 |
 | ice+DSL residual | `arc-icecuber` hybrid | n/a | +1 prior (`981571dc`) |
 
 **S1 grammar (`hollow_solid_object_pack`):**

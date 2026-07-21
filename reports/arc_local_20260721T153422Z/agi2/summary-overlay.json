@@ -1,0 +1,15 @@
+{
+  "sealed": [
+    {
+      "task_id": "8698868d",
+      "engine": "s1_panel_motif_nest_pack",
+      "train_replay": "2/2",
+      "eval_grids": "1/1"
+    }
+  ],
+  "mastery_eval": "42/172",
+  "mastery_train": "298/1076",
+  "note": "overlay +panel_motif_nest_pack 8698868d; 21897d95 remains S4_REINJECT; train floor 298/1076",
+  "recorded_at_utc": "2026-07-21T15:34:22.337011+00:00",
+  "kaggle_submit": false
+}

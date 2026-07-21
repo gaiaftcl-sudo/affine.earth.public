@@ -12,7 +12,7 @@ Official competition: [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/comp
 | Top-score format study | [Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats) (`a04e483`) |
 | Hard schema validator | `scripts/validate_arc_prize_submission.py` on fixture + official sample + local `submission.json` vs test challenges |
 | Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_20260721T110813Z/` **overall GREEN** |
-| Eval quality (local) | **40/172** exact grids (S1 family + ones-stamp period fill + path-column unroll + plus-stamp recolor + legend motif tally + motif stamp jigsaw + band concentric nest + hollow accent-fill + topology schematic + separator gap-stack + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL) |
+| Eval quality (local) | **42/172** exact grids (S1 family + panel-motif nest pack + canvas-hole sprite fill + ones-stamp period fill + path-column unroll + plus-stamp recolor + legend motif tally + motif stamp jigsaw + band concentric nest + hollow accent-fill + topology schematic + separator gap-stack + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL) |
 | Train quality (local) | **298/1076** exact grids (ice-on receipt); **24/1000** DSL-licensed tasks |
 | Engine | `LOCAL_HYBRID_SOLVER` = marker8 + S1 family (pack/snake/tab/panel/motif/canvas/wall-tree/laser/block-pack/topology/hollow-accent) + CPT + S3 ray-fill/gap-stack + icecuber + DSL |
 | Public probe | publicScore **0.00** = **PROCESS_PROBE** (premature process test) |
@@ -48,12 +48,12 @@ or private affine.earth OS source.
 ## Evidence
 
 - Local schema validation: 240 official test tasks (hard gate green).
-- Offline evaluation set: **40/172** exact grids (marker8 + S1 family + ones-stamp period fill + path-column unroll + plus-stamp recolor + legend motif tally + motif stamp jigsaw + band concentric nest + hollow accent-fill + topology schematic + separator gap-stack + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL).
+- Offline evaluation set: **42/172** exact grids (marker8 + S1 family + panel-motif nest pack + canvas-hole sprite fill + ones-stamp period fill + path-column unroll + plus-stamp recolor + legend motif tally + motif stamp jigsaw + band concentric nest + hollow accent-fill + topology schematic + separator gap-stack + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL).
 - Notebook log: `evidence/arc-prize-2026-agi-2/kernel-output/affine-arc-prize-2026-arc-agi-2.log`
 - Score receipt: `evidence/arc-prize-2026-agi-2/kaggle-submissions.csv` — publicScore `0.00`.
-- Local mastery reports: `reports/arc_local_20260721T131200Z/` (ice-on train **298/1076**) · overlay `reports/arc_local_20260721T152639Z/agi2/summary-overlay.json` (eval **40/172**); submit **LOCKED**.
+- Local mastery reports: `reports/arc_local_20260721T131200Z/` (ice-on train **298/1076**) · overlay `reports/arc_local_20260721T153500Z/agi2/summary-overlay.json` (eval **42/172**); submit **LOCKED**.
 - Contracts: [Top-score formats](Kaggle-ARC-Top-Score-Formats) · [Language Games ARC-AGI-2](Language-Games-ARC-AGI-2).
-- Solver-quality lineage: `db71c28` (1/172) → `marker8_twin31` (2/172) → `s1_dimension_projection` (3/172) → `container_period_tiling` **135a2760** (4/172) → `s3_separator_ray_fill` **1ae2feb7** ×3 (7/172) → `s1_digit_separator_snake` **136b0064** (8/172) → `s1_seven_tab_merge` **20270e3b** ×2 → `s1_panel_odd_one_out` **38007db0** ×2 (12/172) → `s1_marker_frame_motif` **20a9e565** ×2 (14/172) → `s1_fixed_canvas_template` **269e22fb** ×2 → `s1_wall_tree_nested_frames` **13e47133** ×2 (18/172) → `s1_laser_mirror_beams` **142ca369** ×2 (20/172) → `s1_oriented_block_pack` **291dc1e1** ×1 (21/172) → `s1_topology_schematic` **2d0172a1** ×2 (23/172) → `s1_hollow_accent_fill` **3a25b0d8** ×2 (25/172) → `s3_separator_gap_stack` **16b78196** ×1 (26/172) → `band_concentric_nest` **45a5af55** ×1 (27/172) → `s1_panel_motif_projection` **4c7dc4dd** ×2 (29/172) → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 (31/172) → `s3_period_lattice_rewrite` **16de56c4** ×2 (33/172) → `s1_legend_motif_tally` **58490d8a** ×1 (34/172) → `s3_terrain_period_bounce` **195c6913** ×2 (36/172) → `s1_solid_motif_carve` **58f5dbd5** ×1 (37/172) → `s2_plus_stamp_recolor` **1818057f** ×1 (38/172) → `s1_path_column_unroll` **7b5033c1** ×1 (39/172) → `s1_ones_stamp_period_fill` **53fb4810** ×1 (**40/172**).
+- Solver-quality lineage: `db71c28` (1/172) → `marker8_twin31` (2/172) → `s1_dimension_projection` (3/172) → `container_period_tiling` **135a2760** (4/172) → `s3_separator_ray_fill` **1ae2feb7** ×3 (7/172) → `s1_digit_separator_snake` **136b0064** (8/172) → `s1_seven_tab_merge` **20270e3b** ×2 → `s1_panel_odd_one_out` **38007db0** ×2 (12/172) → `s1_marker_frame_motif` **20a9e565** ×2 (14/172) → `s1_fixed_canvas_template` **269e22fb** ×2 → `s1_wall_tree_nested_frames` **13e47133** ×2 (18/172) → `s1_laser_mirror_beams` **142ca369** ×2 (20/172) → `s1_oriented_block_pack` **291dc1e1** ×1 (21/172) → `s1_topology_schematic` **2d0172a1** ×2 (23/172) → `s1_hollow_accent_fill` **3a25b0d8** ×2 (25/172) → `s3_separator_gap_stack` **16b78196** ×1 (26/172) → `band_concentric_nest` **45a5af55** ×1 (27/172) → `s1_panel_motif_projection` **4c7dc4dd** ×2 (29/172) → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 (31/172) → `s3_period_lattice_rewrite` **16de56c4** ×2 (33/172) → `s1_legend_motif_tally` **58490d8a** ×1 (34/172) → `s3_terrain_period_bounce` **195c6913** ×2 (36/172) → `s1_solid_motif_carve` **58f5dbd5** ×1 (37/172) → `s2_plus_stamp_recolor` **1818057f** ×1 (38/172) → `s1_path_column_unroll` **7b5033c1** ×1 (39/172) → `s1_ones_stamp_period_fill` **53fb4810** ×1 (40/172) → `s1_canvas_hole_sprite_fill` **67e490f4** ×1 (41/172) → `s1_panel_motif_nest_pack` **8698868d** ×1 (**42/172**).
 
 ## FoT note — 16b78196 separator gap-stack (2026-07-21)
 
@@ -88,6 +88,15 @@ C4: same-shape rewrite; axis = denser multi-seed lines (rows vs cols); mono seed
 
 
 
+## FoT note — 8698868d panel-motif nest pack (2026-07-21)
+
+C4: two object sizes (panels/motifs); pair by panel bg-cell count = motif 4-conn bg-hole component count; solidify+center-stamp; arrange on panel bbox lattice. Train **2/2**, eval **1/1** via `llm_llvm_bench/arc/s1_panel_motif_nest_pack.py`. No Kaggle.
+
+## FoT note — reinjection state sync 8698868d (2026-07-21)
+
+Hybrid GREEN task `8698868d` sealed **CLOSED** in
+`reports/exam_reinjection/grammar/arc2/`. Mastery **42/172**. Next open
+`21897d95` (S4_REINJECT). No Kaggle submit.
 
 ## FoT note — 67e490f4 canvas-hole sprite fill (2026-07-21)
 
@@ -141,7 +150,7 @@ C4: majority bg; solid filled rects; non-solid C-cells form motif; punch motif i
 ## FoT note — reinjection state sync 58f5dbd5 (2026-07-21)
 
 Hybrid GREEN task `58f5dbd5` sealed **CLOSED** in
-`reports/exam_reinjection/grammar/arc2/`. Mastery **38/172**. Next open
+`reports/exam_reinjection/grammar/arc2/`. Mastery **37/172**. Next open
 `ar25`. No Kaggle submit.
 
 ## FoT note — 195c6913 terrain period-bounce (2026-07-21)
@@ -151,7 +160,7 @@ C4: dual terrain; top-row 2×2 stamps = period P; remaining stamp = M; erase see
 ## FoT note — reinjection state sync 195c6913 (2026-07-21)
 
 Hybrid GREEN task `195c6913` sealed **CLOSED** in
-`reports/exam_reinjection/grammar/arc2/`. Mastery **38/172**. Next open
+`reports/exam_reinjection/grammar/arc2/`. Mastery **37/172**. Next open
 `58f5dbd5`. No Kaggle submit.
 
 ## FoT note — 58490d8a legend motif tally (2026-07-21)

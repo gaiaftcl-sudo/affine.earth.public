@@ -1,0 +1,11 @@
+{
+  "task_id": "8698868d",
+  "status": "CLOSED",
+  "engine": "s1_panel_motif_nest_pack",
+  "train_replay": "2/2",
+  "eval_grids": "1/1",
+  "mastery_eval": "42/172",
+  "grammar_path": "reports/exam_reinjection/grammar/arc2/s1_8698868d_panel_motif_nest_pack.json",
+  "sealed_at_utc": "2026-07-21T15:34:22Z",
+  "kaggle_submit": false
+}
