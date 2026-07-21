@@ -32,7 +32,7 @@ from llm_llvm_bench.arc.franklin_s4_projection import (  # noqa: E402
 )
 from llm_llvm_bench.exam.s4_client import run_s4_projection_turn  # noqa: E402
 
-DATASET_REVISION = "local-synthetic-hle-fixtures-v2"
+DATASET_REVISION = "local-synthetic-hle-fixtures-v3"
 
 FIXTURES: tuple[dict[str, Any], ...] = (
     {
@@ -141,6 +141,134 @@ FIXTURES: tuple[dict[str, Any], ...] = (
         "answer_format": "exact_token",
         "question": "Is 42 an even integer? Answer True or False.",
         "expected": "True",
+        "modality": None,
+    },
+    {
+        "id": "local-percent-of-eighty",
+        "move_type": "percentage_exact",
+        "answer_format": "exact_token",
+        "question": "What is 25 percent of 80? Integer token only.",
+        "expected": "20",
+        "modality": None,
+    },
+    {
+        "id": "local-base-binary-to-dec",
+        "move_type": "base_conversion",
+        "answer_format": "exact_token",
+        "question": "Convert binary 1010 to decimal. Integer token only.",
+        "expected": "10",
+        "modality": None,
+    },
+    {
+        "id": "local-roman-xiv",
+        "move_type": "roman_numeral",
+        "answer_format": "exact_token",
+        "question": "Convert Roman numeral XIV to Arabic digits.",
+        "expected": "14",
+        "modality": None,
+    },
+    {
+        "id": "local-multi-hop-alice-bob",
+        "move_type": "multi_hop_exact",
+        "answer_format": "exact_token",
+        "question": (
+            "Alice has 3 apples. Bob has twice as many as Alice. "
+            "How many apples do they have together? Integer token only."
+        ),
+        "expected": "9",
+        "modality": None,
+    },
+    {
+        "id": "local-code-token-none",
+        "move_type": "code_token_exact",
+        "answer_format": "exact_token",
+        "question": "In Python 3, what is the singleton null object literal token?",
+        "expected": "None",
+        "modality": None,
+    },
+    {
+        "id": "local-inequality-power",
+        "move_type": "inequality_boolean",
+        "answer_format": "exact_token",
+        "question": "Is 2^10 greater than 1000? Answer True or False.",
+        "expected": "True",
+        "modality": None,
+    },
+    {
+        "id": "local-set-cardinality",
+        "move_type": "set_cardinality",
+        "answer_format": "exact_token",
+        "question": "What is the cardinality of the set {a, b, c}? Integer token only.",
+        "expected": "3",
+        "modality": None,
+    },
+    {
+        "id": "local-calendar-feb-nonleap",
+        "move_type": "temporal_exact",
+        "answer_format": "exact_token",
+        "question": "How many days are in February of a non-leap year? Integer token only.",
+        "expected": "28",
+        "modality": None,
+    },
+    {
+        "id": "local-matrix-entries",
+        "move_type": "matrix_shape_exact",
+        "answer_format": "exact_token",
+        "question": "A 2-by-3 matrix has how many entries? Integer token only.",
+        "expected": "6",
+        "modality": None,
+    },
+    {
+        "id": "local-mcq-modus-ponens",
+        "move_type": "logic_mcq",
+        "answer_format": "option_letter",
+        "question": (
+            "If P implies Q, and P is true, what follows? "
+            "A) Q is true B) Q is false C) P is false D) neither"
+        ),
+        "choices": {
+            "A": "Q is true",
+            "B": "Q is false",
+            "C": "P is false",
+            "D": "neither",
+        },
+        "expected": "A",
+        "modality": None,
+    },
+    {
+        "id": "local-s4-two-turn-boiling",
+        "move_type": "s4_multi_turn_exact",
+        "answer_format": "exact_token",
+        "question": (
+            "S1: bind question_id. S2: candidates for water boiling point Celsius "
+            "at 1 atm. S3: standard atmospheric pressure check. S4: emit the "
+            "integer Celsius token only."
+        ),
+        "expected": "100",
+        "modality": None,
+    },
+    {
+        "id": "local-sci-notation-integer",
+        "move_type": "scientific_notation_exact",
+        "answer_format": "exact_token",
+        "question": "Express 3e2 as an integer token.",
+        "expected": "300",
+        "modality": None,
+    },
+    {
+        "id": "local-permutation-three",
+        "move_type": "permutation_exact",
+        "answer_format": "exact_token",
+        "question": "How many permutations of three distinct letters exist? Integer token only.",
+        "expected": "6",
+        "modality": None,
+    },
+    {
+        "id": "local-acronym-html",
+        "move_type": "acronym_exact",
+        "answer_format": "exact_token",
+        "question": "What does HTML stand for? Return the exact four-word expansion with spaces.",
+        "expected": "HyperText Markup Language",
         "modality": None,
     },
 )

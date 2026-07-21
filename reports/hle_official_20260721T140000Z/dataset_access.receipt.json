@@ -1,0 +1,20 @@
+{
+  "kind": "hle_official_load_gate",
+  "recorded_at_utc": "2026-07-21T14:00:29.731987+00:00",
+  "dataset": "cais/hle",
+  "load_ok": false,
+  "n_rows": null,
+  "splits": null,
+  "official_hle_accuracy": null,
+  "official_claim_permitted": false,
+  "hf_token_in_env": false,
+  "huugging_face_hub_token_in_env": false,
+  "hf_cache_token_exists": false,
+  "hf_cli_whoami": "Not logged in",
+  "error_type": "DatasetNotFoundError",
+  "error_text": "Dataset 'cais/hle' is a gated dataset on the Hub. You must be authenticated to access it.",
+  "steward_blocker": "Agree/permissions granted, but no HF auth token is available to this process (env HF_TOKEN absent; ~/.cache/huggingface/token absent; hf auth whoami = Not logged in).",
+  "steward_one_liner": "hf auth login   # or: export HF_TOKEN='hf_\u2026' then: harnesses/hle/hle_eval/.venv/bin/python -c \"from datasets import load_dataset; print(load_dataset('cais/hle'))\"",
+  "keychain_accessed": false,
+  "kaggle_submit": false
+}

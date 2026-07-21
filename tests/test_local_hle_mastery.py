@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from scripts.run_local_hle_mastery import FIXTURES, apply_reinjection_turns
+from scripts.run_local_hle_mastery import FIXTURES, apply_reinjection_turns, DATASET_REVISION
 
 
 def test_local_fixture_set_covers_core_answer_contracts() -> None:
@@ -17,8 +17,28 @@ def test_local_fixture_set_covers_core_answer_contracts() -> None:
         "unit_bearing_exact",
         "short_exact_answer",
         "ordered_exact_sequence",
+        "percentage_exact",
+        "base_conversion",
+        "roman_numeral",
+        "multi_hop_exact",
+        "code_token_exact",
+        "inequality_boolean",
+        "set_cardinality",
+        "temporal_exact",
+        "matrix_shape_exact",
+        "logic_mcq",
+        "s4_multi_turn_exact",
+        "scientific_notation_exact",
+        "permutation_exact",
+        "acronym_exact",
     } <= move_types
-    assert len(FIXTURES) >= 12
+    assert len(FIXTURES) >= 24
+    assert DATASET_REVISION.startswith("local-synthetic-hle-fixtures-v")
+
+
+def test_local_fixture_ids_unique() -> None:
+    ids = [fixture["id"] for fixture in FIXTURES]
+    assert len(ids) == len(set(ids))
 
 
 def test_local_miss_reinjection_replaces_only_verified_answer() -> None:

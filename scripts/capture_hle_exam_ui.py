@@ -41,6 +41,25 @@ GAMES = {
         "A triangle has angles 50, 60, and x degrees. What is x?",
         "chat_or_ingest",
     ),
+    "multi_hop": (
+        "Linguistic membrane",
+        "Multi-hop exact-token drill (S1 bind, S4 emit integer only). "
+        "Alice has 3 apples. Bob has twice as many as Alice. "
+        "How many apples do they have together?",
+        "chat",
+    ),
+    "percentage": (
+        "Formal manifold",
+        "Percentage exact-token drill: What is 25 percent of 80? "
+        "Return the integer token only.",
+        "ingest",
+    ),
+    "s4_boiling": (
+        "Coding — UMC + MCP",
+        "S4 multi-turn drill: bind identity, list candidates, verify 1 atm, "
+        "emit water boiling point Celsius as integer token only.",
+        "chat_or_ingest",
+    ),
 }
 
 

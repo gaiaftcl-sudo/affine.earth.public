@@ -141,6 +141,20 @@ export OPENAI_API_KEY="uum8d-hle-verifier"
 | Set-membership MCQ | option letter only |
 | Formula exact | integer / reduced-form token |
 | Boolean (yes/no) | literal `True` or `False` token |
+| Percentage exact | integer token |
+| Base conversion | integer token |
+| Roman numeral | Arabic digit token |
+| Multi-hop exact | integer token after chained facts |
+| Code token | language literal token |
+| Inequality boolean | `True` / `False` |
+| Set cardinality | integer token |
+| Temporal exact | integer day count |
+| Matrix shape | integer entry count |
+| Logic MCQ | option letter |
+| S4 multi-turn exact | integer after S1–S4 framing |
+| Scientific notation | integer token |
+| Permutation exact | integer token |
+| Acronym exact | exact expansion phrase |
 
 Receipts land in `reports/hle_local_<UTC>/` (example:
 `reports/hle_local_20260721T104720Z/`):
@@ -155,27 +169,44 @@ Receipts land in `reports/hle_local_<UTC>/` (example:
 
 Measured continuous local drill on loopback `qwen/qwen3.6-35b-a3b`
 (`reports/hle_local_continuous_20260721T133500Z/receipt.json`, fixture set v2,
-12 items):
+12 items) was GREEN after reinjection. Fixture grammar expanded to **v3 (≥24
+items)** covering percentage, base conversion, Roman, multi-hop, code token,
+inequality, set cardinality, temporal, matrix shape, logic MCQ, S4 multi-turn,
+scientific notation, permutation, and acronym contracts.
 
-| Metric | Value | Official? |
+Latest measured v3 receipt path (when present):
+`reports/hle_local_continuous_v3_*/receipt.json`.
+
+| Metric | Prior v2 | Official? |
 | --- | --- | --- |
-| `initial_local_fixture_match_ratio` | 8/12 = 0.667 | no |
-| `local_fixture_match_ratio_after_reinjection` | **12/12 = 1.0** | no |
+| after-reinjection local ratio | 12/12 = 1.0 | no |
 | `official_hle_accuracy` | `null` | — |
 | `hf_token_status` | `absent` | — |
 | `official_claim_permitted` | `false` | — |
 
-Local drills are GREEN after Franklin miss→C4 reinjection. This is **not** CAIS
-Accuracy.
+Local drills remaining GREEN is **not** CAIS Accuracy.
 
 ### Official gate (2026-07-21)
 
-`HF_TOKEN` is **absent** in the process environment (probed via `printenv` /
-process env only; no Keychain). Official `cais/hle` smoke+judge remains blocked.
-Gate-open receipt:
-`reports/exam_reinjection/grammar/hle/hle-official-gate-open.json`.
-Until the token appears, local fixture grammar and miss-reinjection continue;
-`official_hle_accuracy` stays null.
+Dataset Agree/permissions on [`cais/hle`](https://huggingface.co/datasets/cais/hle)
+were granted, but this host process still cannot authenticate:
+
+- `printenv HF_TOKEN` / `HUGGING_FACE_HUB_TOKEN` → absent
+- `~/.cache/huggingface/token` → **does not exist**
+- `hf auth whoami` → `Not logged in`
+- `load_dataset("cais/hle")` → `DatasetNotFoundError: Dataset 'cais/hle' is a gated dataset on the Hub. You must be authenticated to access it.`
+
+Receipt: `reports/hle_official_20260721T140000Z/dataset_access.receipt.json`.
+`official_hle_accuracy` remains **null**. No Keychain access attempted.
+
+**Steward one-liner (process env only):**
+
+```bash
+hf auth login
+# or: export HF_TOKEN='hf_…'
+harnesses/hle/hle_eval/.venv/bin/python -c "from datasets import load_dataset; ds=load_dataset('cais/hle'); print({k:len(ds[k]) for k in ds})"
+HLE_RUN_JUDGE=1 ./bin/run-open-agi-harnesses.sh --harness hle
+```
 
 Hard rules:
 
