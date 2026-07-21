@@ -706,8 +706,11 @@ def main() -> int:
         fresh = load_learned_experiences(
             state_dir, track=TRACK_ARC2, exclude_task_id=tid, limit=args.experience_limit
         )
+        # skip-llm: keep the CLOSED shortlist small — full 80-engine import
+        # per task stalls the residue sweep (peer: don't thrash; stay moving).
+        rank_n = 16 if args.skip_llm else min(80, len(fresh) or 80)
         ranked = rank_experiences(
-            challenges[tid], fresh, eval_ch, limit=min(80, len(fresh) or 80)
+            challenges[tid], fresh, eval_ch, limit=rank_n
         )
         result = solve_one(
             session,
