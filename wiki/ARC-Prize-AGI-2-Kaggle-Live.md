@@ -11,9 +11,9 @@ Official competition: [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/comp
 | Language-game doctrine | [Language-Games-ARC-AGI-2](Language-Games-ARC-AGI-2) · hub [Exam Invariants](Language-Games-Exam-Invariants) (`f983986`) |
 | Top-score format study | [Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats) (`a04e483`) |
 | Hard schema validator | `scripts/validate_arc_prize_submission.py` on fixture + official sample + local `submission.json` vs test challenges |
-| Local harness | `bin/run-arc-local-mastery.sh` → **overall GREEN** (schema/hard gates) |
-| Eval quality (local) | **0/172** exact grids on evaluation solutions (transform baseline) |
-| Train licensed | **13/1000** tasks with training-consistent hypotheses; **12/1076** grids |
+| Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_20260721T105500Z/` **overall GREEN** (format validators; pending local solver-quality commit) |
+| Eval quality (local) | **0/172** exact grids — **mastery gap remains** (format≠mastery) |
+| Train licensed | **20/1000** tasks with training-consistent hypotheses; **19/1076** grids |
 | Public probe | publicScore **0.00** = **PROCESS_PROBE** (premature process test) |
 | LB contrast | Top public ~**65.83** — format≠mastery |
 
@@ -50,7 +50,24 @@ or private affine.earth OS source.
 - Offline evaluation set: 0/172 exact grids for this initial transformation baseline.
 - Notebook log: `evidence/arc-prize-2026-agi-2/kernel-output/affine-arc-prize-2026-arc-agi-2.log`
 - Score receipt: `evidence/arc-prize-2026-agi-2/kaggle-submissions.csv` — publicScore `0.00`.
-- Local mastery report: `reports/arc_local_*/summary.json` (validators GREEN; quality RED).
+- Local mastery report: `reports/arc_local_20260721T105200Z/summary.json` — format validators **GREEN**; eval **0/172** mastery gap; submit **LOCKED**.
+- Contracts: [Top-score formats](Kaggle-ARC-Top-Score-Formats) · [Language Games ARC-AGI-2](Language-Games-ARC-AGI-2).
+- Main hard-gate commit: `0af6775`.
+
+## 2026-07-21 local quality pass
+
+The local replay-gated DSL now composes a geometry operation with a learned
+color permutation, derives uniform scale/tile/reduce operations from training
+dimensions, selects color or foreground connected-component crops, and tests
+four gravity directions. Every candidate must reproduce every demonstration
+before it can populate either answer slot.
+
+This lifted the labeled training receipt from **12/1076** exact grids to
+**19/1076** and licensed tasks from **13** to **20**. The held-out evaluation
+receipt remains **0/172**; the requested eval lift was not observed, so quality
+is recorded as **0/172**, not represented as a mastery win. The top-score JSON
+and parquet validators stayed GREEN throughout. No new ARC exam UI surface
+appeared, so the existing UI receipts remain current.
 
 ## Path forward
 

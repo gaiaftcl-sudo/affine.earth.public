@@ -102,3 +102,21 @@ Cited: official `sample_submission.json` (240 tasks); NVARC baseline
 [live record](ARC-Prize-AGI-2-Kaggle-Live) scores **0.00** with a schema-valid
 file — format correctness, not LB mastery (nvbanana **65.83**). Local check:
 `python3 scripts/validate_arc_prize_submission.py …/submission.json`.
+
+## 10. Local replay-gated rule inventory
+
+The local solver implements small executable rule families, not output
+placeholders:
+
+- dihedral geometry followed by a training-fitted color permutation;
+- uniform cell scaling, periodic tiling, and modal reduction where all
+  demonstrations agree on output dimensions;
+- color-specific and foreground-component crop/extraction;
+- directional gravity as a same-shape object-motion operation.
+
+For each task, the trace records the entire candidate family, the candidates
+that replay all demonstrations, and the two emitted grids. The training receipt
+has moved from **12/1076** to **19/1076** exact grids, while the labeled
+evaluation receipt remains **0/172**. This is a measured training lift only;
+the evaluation quality target has not yet moved. Schema validation remains a
+hard gate and Kaggle submission remains blocked.
