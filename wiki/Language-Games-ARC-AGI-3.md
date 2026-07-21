@@ -81,6 +81,14 @@ action/trace/terminal validation, parquet validation, and a preflight receipt
 are green.** A pending Kaggle result has no public score until Kaggle returns
 one.
 
+The ARC local preflight also follows the
+[ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator): macOS permission
+checks, VideoToolbox capture, task-bound Cursor injection, per-episode
+nine-cell reduction, extracted JSON validation, and a recorded `SIGINT` stop.
+The audit validates local evidence and the native `submission.parquet`
+contract. `configs/NO_KAGGLE_SUBMIT.lock` remains in place until an explicit
+steward-authorized submit; an audit GREEN result is not authorization.
+
 ## 9. Format from top scores
 
 Typed artifact after the language-game state change (full detail:

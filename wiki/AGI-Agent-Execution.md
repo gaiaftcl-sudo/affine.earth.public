@@ -30,6 +30,13 @@ Local green (no AGI Pass@k):
 ./bin/verify-rig.sh
 ```
 
+ARC UI examination is a separate local evidence gate:
+[ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). It records
+permission-bound VideoToolbox capture, Cursor injection, nine-cell reduction,
+JSON extraction, and artifact validation. It must be GREEN before an ARC
+Kaggle submission is considered. Keep `configs/NO_KAGGLE_SUBMIT.lock` in
+place; a local audit never supplies `ALLOW_KAGGLE_SUBMIT=1`.
+
 ---
 
 ## Run open AGI harnesses

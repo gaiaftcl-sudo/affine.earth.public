@@ -75,11 +75,29 @@ understanding drift.
 - **Coding:** writes and validates the official `attempt_1` / `attempt_2`
   artifact.
 
+## 7.1 Production exam path: local UI audit
+
+The production path is [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator):
+one local Cursor turn and one raw `task_<ID>.mp4` video audit per task. It
+injects the full task state, performs a real configured local bridge call when
+available, takes the UI clipboard as the primary answer path, and validates
+each task-scoped attempt pair before local serialization. The complete
+protocol and macOS Accessibility / Screen Recording requirement are in
+[`docs/ARC_UI_AUDIT_ORCHESTRATOR.md`](../docs/ARC_UI_AUDIT_ORCHESTRATOR.md).
+This remains local-only with `NO_KAGGLE_SUBMIT.lock` present.
+
 ## 8. Public-submission gate
 
 **No public ARC-AGI-2 submission until schema validation, candidate replay,
 serialization validation, and a saved preflight receipt are green.** Local
 results remain local until Kaggle issues a score receipt.
+
+The required ARC local preflight is documented in
+[ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). It binds each official
+task to VideoToolbox capture, Cursor prompt-injection provenance, a nine-cell
+reduction, extracted result JSON, a clean `SIGINT` capture stop, and
+`submission.json` validation. `configs/NO_KAGGLE_SUBMIT.lock` stays present:
+audit GREEN comes before, and never itself authorizes, any Kaggle submit.
 
 ## 9. Format from top scores
 

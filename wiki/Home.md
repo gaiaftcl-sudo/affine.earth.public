@@ -41,6 +41,7 @@ Onboard → **all 12 LIVE Games** → Franklin replies in `#messageList` (Socrat
 | 4b. ARC Prize live | [ARC Prize Kaggle Live](ARC-Prize-Kaggle-Live) | Format validators **GREEN**; probe **0.12** (ref 54875048); submit **LOCKED**; report `reports/arc_local_20260721T105900Z/` (`7ab6e05`) |
 | 4c. ARC-AGI-2 Kaggle live | [ARC-AGI-2 live record](ARC-Prize-AGI-2-Kaggle-Live) | Format validators **GREEN**; train **22/1076** (was 19); eval **0/172** (mastery gap); probe **0.00**; submit **LOCKED**; same report |
 | 4d. Exam game contract | [Language Games — Exam Invariants](Language-Games-Exam-Invariants) | Pre-submission hub: context, answer artifacts, drift checks, and public-submission gate |
+| 4d+. UI audit protocol | [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator) | macOS permission preflight → VideoToolbox capture → Cursor injection → nine-cell reduction → artifact validation; local GREEN before any submit |
 | 4e. ARC-AGI-2 game | [Language Games — ARC-AGI-2](Language-Games-ARC-AGI-2) | Demonstrations → two exact-grid attempts |
 | 4f. ARC-AGI-3 game | [Language Games — ARC-AGI-3](Language-Games-ARC-AGI-3) | Agent observation → legal action trajectory → parquet |
 | 4f+. Top-score formats | [Kaggle ARC top-score formats](Kaggle-ARC-Top-Score-Formats) | Exact JSON/parquet; FoT 0.00≠~65 / 0.12≠~1.86 |

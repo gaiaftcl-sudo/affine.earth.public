@@ -68,11 +68,35 @@ move.
 | Formal | Bind identity, state type, legal transitions, and acceptance criteria |
 | Coding | Run official adapters/harnesses, validate artifacts, retain receipts |
 
+## Production local audit path
+
+[ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator) is the production ARC
+path: every task owns a complete context injection, local UI audit MP4, strict
+typed artifact, and receipt. It preserves the six shared invariants at the
+actual Cursor interaction boundary. The bridge is an actual configured local
+HTTP call or an explicit `AWAITING_CELL_BRIDGE` receipt; it never manufactures
+an answer. `configs/NO_KAGGLE_SUBMIT.lock` remains mandatory.
+
 ## Hard gate
 
 **No public Kaggle or HLE submission occurs until the relevant local validators
 are green and a preflight receipt exists.** Green local checks establish
 readiness only. Public scores require the corresponding Kaggle or CAIS receipt.
+
+## ARC UI audit gate
+
+For ARC tracks, the local preflight includes the
+[ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator): macOS permissions,
+VideoToolbox capture, task-bound Cursor prompt injection, nine-cell reduction,
+JSON extraction, clean `SIGINT` capture stop, and track-native artifact
+validation. The final audit receipt must be GREEN **before any Kaggle
+submission**.
+
+`configs/NO_KAGGLE_SUBMIT.lock` remains present while that audit runs. The
+audit cannot remove the lock, turn a local receipt into a public result, or
+replace explicit steward authorization. Earlier **0.00** / **0.12** Kaggle
+process probes established artifact delivery only; they do not satisfy this
+current local-audit gate.
 
 ## Format from top scores
 

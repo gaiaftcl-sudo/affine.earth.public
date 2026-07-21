@@ -15,6 +15,7 @@
 - [**Kaggle ARC top-score formats**](Kaggle-ARC-Top-Score-Formats)
 - [**Exam language-game invariants**](Language-Games-Exam-Invariants)
   - [ARC-AGI-2 language game](Language-Games-ARC-AGI-2)
+  - [ARC UI audit orchestrator](ARC-UI-Audit-Orchestrator)
   - [ARC-AGI-3 language game](Language-Games-ARC-AGI-3)
   - [HLE language game](Language-Games-HLE)
 - [**AGI agent execution**](AGI-Agent-Execution)
