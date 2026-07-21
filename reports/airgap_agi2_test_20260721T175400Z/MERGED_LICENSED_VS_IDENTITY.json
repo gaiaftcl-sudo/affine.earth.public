@@ -1,9 +1,9 @@
 {
   "kind": "agi2_merged_licensed_receipt",
-  "licensed_grids": 87,
-  "identity_grids": 172,
+  "licensed_grids": 90,
+  "identity_grids": 169,
   "total_grids": 259,
-  "licensed_pct": 33.59,
+  "licensed_pct": 34.75,
   "tasks": 240,
   "identity_fill_tasks": 0,
   "identity_task_ids": [
@@ -144,7 +144,6 @@
     "3bd67248",
     "3bdb4ada",
     "3befdf3e",
-    "3cd86f4f",
     "3d31c5b3",
     "3d588dc9",
     "3d6c6e23",
@@ -230,7 +229,7 @@
     "1990f7a8": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "06df4c85": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "070dd51e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "09629e4f": "reports/airgap_agi2_zoom_grammar_shard/submission.json",
+    "09629e4f": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "0a1d4ef5": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "103eff5b": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "15113be4": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -385,7 +384,7 @@
     "3bdb4ada": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "3befdf3e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "3c9b0459": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "3cd86f4f": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
+    "3cd86f4f": "reports/airgap_agi2_zoom_engine_mine/submission.partial.json",
     "3d31c5b3": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "3d588dc9": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "3d6c6e23": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -406,5 +405,5 @@
     "4290ef0e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "42918530": "reports/airgap_agi2_test_20260721T175400Z/submission.json"
   },
-  "submission_sha256": "3d7aae5a95a1bcb60fb4cc85932dbb9a58fd9e62cc565191ed38adfa4ea5f9d8"
+  "submission_sha256": "3ba0d6e2a6d005a2769a787d0b14afea3a31bac3ccb76eeb7f200614ba0ef69f"
 }

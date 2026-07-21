@@ -1,1 +1,8 @@
-{}
+{
+  "3cd86f4f": {
+    "ok": true,
+    "engine": "s1_diag_left_pad_expand",
+    "licensed_grids": 3,
+    "train_replay": "3/3"
+  }
+}
