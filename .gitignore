@@ -20,6 +20,7 @@ reports/*.md
 reports/third_party/
 reports/upstream/
 !reports/README.md
+data/arc-prize-2026/
 
 # Cloned External Evaluation Harness Submodules
 harnesses/
