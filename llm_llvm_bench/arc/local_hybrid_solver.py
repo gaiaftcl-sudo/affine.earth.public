@@ -638,6 +638,27 @@ def solve_task(
         receipt["s1_sep_row_extent_sort_meta"] = ext_replay
         return ext_fragment, receipt
 
+    # 1b24) S1 frame-chamber staircase (89565ca0).
+    s1ch = _load_module(
+        arc_dir / "s1_frame_chamber_staircase.py", "s1_frame_chamber_staircase"
+    )
+    ch_replay = s1ch.train_replay(task)
+    ch_fragment = s1ch.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(ch_replay)
+    if (
+        ch_fragment is not None
+        and ch_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in ch_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_frame_chamber_staircase"
+        receipt["train_replay"] = ch_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_frame_chamber_staircase_meta"] = ch_replay
+        return ch_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

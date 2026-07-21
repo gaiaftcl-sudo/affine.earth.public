@@ -1,0 +1,23 @@
+{
+  "task_id": "89565ca0",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S1_dimension_projection",
+  "engine": "s1_frame_chamber_staircase",
+  "primary_transform": "frame_chamber_staircase",
+  "status": "CLOSED",
+  "train_replay": "3/3",
+  "eval_grids": "1/1",
+  "c4": {
+    "S1": "marker = color with most 4-connected components (scatter)",
+    "S2": "each remaining non-bg color is a rectangular frame/cage object",
+    "S3": "chamber count = enclosed open regions in object bbox after closing outer border, object+touching-marker walls, seal near-full divider lines (thr=0.7), drop size-1 pockets",
+    "S4": "W=max chambers; sort by (chambers, color); row = color*chambers + marker*(W-chambers)",
+    "C4": "exact staircase projection; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s1_frame_chamber_staircase.py",
+  "mastery_eval": "45/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T16:00:32Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T160032Z/agi2/summary-overlay.json"
+}

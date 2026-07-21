@@ -1,0 +1,15 @@
+{
+  "sealed": [
+    {
+      "task_id": "89565ca0",
+      "engine": "s1_frame_chamber_staircase",
+      "train_replay": "3/3",
+      "eval_grids": "1/1"
+    }
+  ],
+  "mastery_eval": "45/172",
+  "mastery_train": "298/1076",
+  "note": "overlay +frame_chamber_staircase 89565ca0; 21897d95 remains S4_REINJECT; train floor 298/1076",
+  "recorded_at_utc": "2026-07-21T16:00:32Z",
+  "kaggle_submit": false
+}
