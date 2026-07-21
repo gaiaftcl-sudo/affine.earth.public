@@ -37,7 +37,7 @@ Onboard → **all 12 LIVE Games** → Franklin replies in `#messageList` (Socrat
 | 2. Method | [How we tested](How-We-Tested) | MEASURED vs BASELINE, evidence pipeline, receipt paths |
 | 3. Demo | [In action](In-Action) | Full all-tests embed + chapter stills (Games suites live-answered) |
 | 4. Scores | [Results & Scores](Results-And-Scores) | What we ran, with provenance — AGI-executable suites front and center |
-| 4a. HLE live record | [Humanity’s Last Exam](Humanitys-Last-Exam-Live) | Local drills **3/3**; official harness **RUNNING** (`686/2500` preds, `acc=null`, `reports/hle_official_20260721T143509Z/`); UI `exam-ui-hle-*` embedded |
+| 4a. HLE live record | [Humanity’s Last Exam](Humanitys-Last-Exam-Live) | Local drills **3/3**; official harness **RUNNING** (`690/2500` preds, `acc=null`, `reports/hle_official_20260721T143509Z/`); UI `exam-ui-hle-*` embedded |
 | 4b. ARC Prize live | [ARC Prize Kaggle Live](ARC-Prize-Kaggle-Live) | Format validators **GREEN**; probe **0.12** (ref 54875048); submit **LOCKED**; AGI-3 local suite **WIN** bp35 9/9 · ar25 8/8 · ls20 7/7 (`reports/arc_local_20260721T171426Z/`) |
 | 4c. ARC-AGI-2 Kaggle live | [ARC-AGI-2 live record](ARC-Prize-AGI-2-Kaggle-Live) | Format validators **GREEN**; labeled eval **172/172** (independent verify `6d3a705`); reinjection **120/120 CLOSED**; probe **0.00**; submit **LOCKED**; land `21b2924`; tip `b21978c`; `docs/ARC_LOCAL_100_SUBMIT_READY.md` |
 | 4d. Exam game contract | [Language Games — Exam Invariants](Language-Games-Exam-Invariants) | Pre-submission hub: context, answer artifacts, drift checks, and public-submission gate |
