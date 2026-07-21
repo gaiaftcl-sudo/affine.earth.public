@@ -1,0 +1,18 @@
+{
+  "task_id": "3618c87e",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "engine": "s2_drop_into_floor_row",
+  "module": "llm_llvm_bench/arc/s2_drop_into_floor_row.py",
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "3/3",
+    "engine": "s2_drop_into_floor_row",
+    "detail": "train_replay_perfect"
+  },
+  "c4_invariant": "s2_drop_into_floor_row",
+  "sealed_at_utc": "2026-07-21T21:19:23.561182+00:00"
+}

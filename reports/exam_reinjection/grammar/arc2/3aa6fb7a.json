@@ -1,0 +1,18 @@
+{
+  "task_id": "3aa6fb7a",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "engine": "s2_corner_fill_2x2",
+  "module": "llm_llvm_bench/arc/s2_corner_fill_2x2.py",
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "2/2",
+    "engine": "s2_corner_fill_2x2",
+    "detail": "train_replay_perfect"
+  },
+  "c4_invariant": "s2_corner_fill_2x2",
+  "sealed_at_utc": "2026-07-21T21:19:23.573516+00:00"
+}

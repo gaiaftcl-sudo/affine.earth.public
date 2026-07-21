@@ -1,0 +1,18 @@
+{
+  "task_id": "25d8a9c8",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "engine": "s2_mono_row_recolor",
+  "module": "llm_llvm_bench/arc/s2_mono_row_recolor.py",
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "4/4",
+    "engine": "s2_mono_row_recolor",
+    "detail": "train_replay_perfect"
+  },
+  "c4_invariant": "s2_mono_row_recolor",
+  "sealed_at_utc": "2026-07-21T21:19:22.954866+00:00"
+}
