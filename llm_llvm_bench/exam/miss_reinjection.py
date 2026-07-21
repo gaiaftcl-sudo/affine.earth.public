@@ -53,8 +53,8 @@ TRACK_HLE = "hle"
 DEFAULT_BASE_URL = "http://127.0.0.1:8080/v1"
 DEFAULT_FALLBACK_BASE_URL = "http://127.0.0.1:1234/v1"
 DEFAULT_TIMEOUT_SECONDS = 300
-DEFAULT_MAX_TOKENS = 1024
-EVIDENCE_CHAR_BUDGET = 1800
+DEFAULT_MAX_TOKENS = 2048
+EVIDENCE_CHAR_BUDGET = 900
 
 REPAIR_JSON_SCHEMA: Dict[str, Any] = S4_RESPONSE_JSON_SCHEMA
 
@@ -410,6 +410,85 @@ def _repair_score(obj: Dict[str, Any]) -> int:
     return s4_response_score(obj)
 
 
+def _try_close_truncated_json(text: str) -> Optional[Dict[str, Any]]:
+    """Best-effort close of length-truncated JSON objects from thinking models."""
+    text = (text or "").strip()
+    if not text or "{" not in text:
+        return None
+    start = text.find("{")
+    blob = text[start:]
+    # Drop a trailing incomplete string value.
+    if blob.count('"') % 2 == 1:
+        blob = blob.rsplit('"', 1)[0]
+    # Drop trailing comma / colon debris.
+    blob = re.sub(r"[,:\s]+$", "", blob)
+    opens = blob.count("{") - blob.count("}")
+    opens_list = blob.count("[") - blob.count("]")
+    blob = blob + ("]" * max(0, opens_list)) + ("}" * max(0, opens))
+    try:
+        parsed = json.loads(blob)
+    except json.JSONDecodeError:
+        return None
+    return parsed if isinstance(parsed, dict) else None
+
+
+def salvage_s4_from_text(text: str, miss: MissRecord) -> Optional[Dict[str, Any]]:
+    """Recover LOCKED|REINJECT fields from truncated Franklin output."""
+    text = _strip_markdown_fences(text or "")
+    if not text:
+        return None
+    closed = _try_close_truncated_json(text)
+    if closed is not None:
+        normalized = normalize_s4_response(closed, track=miss.track, task_id=miss.task_id)
+        if normalized is not None:
+            return normalized
+    status_match = re.search(r'"status"\s*:\s*"(LOCKED|REINJECT)"', text, re.I)
+    validator_match = re.search(r'"validator"\s*:\s*"([^"]+)"', text)
+    candidate_match = re.search(
+        r'"typed_candidate"\s*:\s*("([^"\\]|\\.)*"|\{[^{}]*\}|\[[^\[\]]*\])',
+        text,
+    )
+    c4_match = re.search(r'"c4_invariant"\s*:\s*"([^"]+)"', text)
+    if not (status_match or candidate_match or c4_match or validator_match):
+        return None
+    typed: Any = ""
+    if candidate_match:
+        raw_cand = candidate_match.group(1)
+        try:
+            typed = json.loads(raw_cand)
+        except json.JSONDecodeError:
+            typed = raw_cand.strip('"')
+    elif c4_match:
+        typed = c4_match.group(1)
+    status = (status_match.group(1).upper() if status_match else S4_STATUS_REINJECT)
+    if not str(typed).strip():
+        status = S4_STATUS_REINJECT
+        typed = "truncated_response_incomplete_candidate"
+    return normalize_s4_response(
+        {
+            "task_id": miss.task_id,
+            "track": miss.track,
+            "s1": "salvaged_from_truncated_franklin",
+            "s2": "salvaged_from_truncated_franklin",
+            "s3": "salvaged_from_truncated_franklin",
+            "typed_candidate": typed,
+            "validator": (
+                validator_match.group(1)
+                if validator_match
+                else default_validator_for_track(miss.track)
+            ),
+            "status": status,
+            "unresolved_alternatives": ["truncated_output"],
+            "grammar_update": "salvage_truncated_s4_json",
+            "repair_kind": "grammar",
+            "research_note": "Franklin response truncated; salvaged S4 fields",
+            "closure_ready": status == S4_STATUS_LOCKED,
+        },
+        track=miss.track,
+        task_id=miss.task_id,
+    )
+
+
 def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
     """Parse Franklin repair JSON from content, reasoning, fences, or nested prose."""
     text = _strip_markdown_fences(text or "")
@@ -431,6 +510,10 @@ def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
             continue
         if isinstance(parsed, dict):
             candidates.append(parsed)
+    if not candidates:
+        closed = _try_close_truncated_json(text)
+        if closed is not None:
+            candidates.append(closed)
     if not candidates:
         return None
     candidates.sort(key=_repair_score, reverse=True)
@@ -470,9 +553,16 @@ def apply_local_s4_validator(miss: MissRecord, repair: Dict[str, Any]) -> Dict[s
             or miss.evidence.get("answer")
             or miss.evidence.get("corrected_c4")
         )
-        if expected is not None and candidate_text:
-            accepted = candidate_text.strip().lower() == str(expected).strip().lower()
+        compare_text = candidate_text
+        if isinstance(candidate, dict) and candidate.get("answer") is not None:
+            compare_text = str(candidate.get("answer")).strip()
+        if expected is not None and compare_text:
+            accepted = compare_text.strip().lower() == str(expected).strip().lower()
             detail = "exact_token_match" if accepted else "exact_token_mismatch"
+            if accepted:
+                repair["typed_candidate"] = compare_text
+                repair["c4_invariant"] = compare_text
+                candidate_text = compare_text
         elif candidate_text and status == S4_STATUS_LOCKED:
             # Format presence only when fixture expected is absent from the miss.
             accepted = True
@@ -696,16 +786,25 @@ def franklin_chat(
         message = payload["choices"][0]["message"]
         content = str(message.get("content") or "")
         reasoning = str(message.get("reasoning_content") or "")
+        combined = f"{content}\n{reasoning}".strip()
         raw_parsed = (
             extract_json_object(content)
             or extract_json_object(reasoning)
-            or extract_json_object(f"{content}\n{reasoning}")
+            or extract_json_object(combined)
         )
         parsed = (
             normalize_repair_payload(raw_parsed, miss)
-            if miss is not None
+            if miss is not None and raw_parsed is not None
             else raw_parsed
         )
+        if parsed is None and miss is not None:
+            parsed = salvage_s4_from_text(combined, miss)
+            if parsed is not None and raw_parsed is None:
+                raw_parsed = {
+                    "salvaged": True,
+                    "s4_status": parsed.get("s4_status"),
+                    "typed_candidate": parsed.get("typed_candidate"),
+                }
         return {
             "ok": parsed is not None,
             "error": None if parsed is not None else "PARSE_FAIL",

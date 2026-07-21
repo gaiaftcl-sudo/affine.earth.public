@@ -30,11 +30,17 @@ to one C4, within an **Aristotelian closure budget of 29 turns** per task.
    - ARC-AGI-2: latest `reports/arc_local_*/agi2/failure-case-analyses.json`
    - ARC-AGI-3: `agi3/summary.json` trajectory gap + episode traces
    - HLE: latest `reports/hle_local_*/receipt.json` mismatches (and official-gate open marker)
-2. **Open a Franklin turn** with UUM-8D baseline + miss evidence (`s_state=incomplete`)
-3. **Ask for S1–S4 repair + C4 lock** (typed JSON)
-4. **Apply / record** grammar update under `reports/exam_reinjection/grammar/`
-5. **Re-run local mastery** for affected tasks (`--mastery affected|full|none`)
-6. **Log turn count** toward 29-turn Aristotelian closure in `turns.jsonl`
+2. **Open a Franklin turn** with UUM-8D baseline +
+   [S⁴ projection protocol](FRANKLIN_S4_PROJECTION_LANGUAGE_GAME.md)
+   `WRAPPER_EVIDENCE` (`s_state=incomplete`)
+3. **Parse typed S4** with `status ∈ {LOCKED, REINJECT}`, named `validator`, and
+   `unresolved_alternatives` (shared module
+   `llm_llvm_bench.arc.franklin_s4_projection`; client
+   `llm_llvm_bench.exam.s4_client`)
+4. **Run the named local validator**; demote false `LOCKED` → `REINJECT`
+5. **Apply / record** grammar update under `reports/exam_reinjection/grammar/`
+6. **Re-run local mastery** for affected tasks (`--mastery affected|full|none`)
+7. **Log turn count** toward 29-turn Aristotelian closure in `turns.jsonl`
 
 Hard gate: `configs/NO_KAGGLE_SUBMIT.lock` must be present. This loop has **no**
 submit path.

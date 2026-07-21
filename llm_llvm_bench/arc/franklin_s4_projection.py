@@ -336,12 +336,15 @@ def build_miss_wrapper_evidence(
 def exam_s4_user_prompt(evidence_turn: Mapping[str, Any], miss_evidence_json: str) -> str:
     """User content that forces the LOCKED|REINJECT JSON shape."""
     return (
-        "WRAPPER_EVIDENCE follows. Reply with ONE JSON object only — no markdown "
-        "fences, no prose outside JSON.\n"
+        "WRAPPER_EVIDENCE follows. Reply with ONE compact JSON object only — no "
+        "markdown fences, no prose outside JSON, no chain-of-thought in fields.\n"
         "Required top-level keys: task_id, track, s1, s2, s3, s4, grammar_update, "
         "repair_kind, research_note, closure_ready.\n"
+        "s1,s2,s3 MUST be short strings (≤160 chars each), not essays.\n"
         "s4 MUST be an object with keys: typed_candidate, validator, status, "
-        "unresolved_alternatives.\n"
+        "unresolved_alternatives (≤3 short strings).\n"
+        "typed_candidate MUST be a short rule string or small grid — never dump "
+        "full 29×29 grids into JSON.\n"
         "status MUST be exactly LOCKED or REINJECT.\n"
         "closure_ready is true only when status is LOCKED.\n"
         f"wrapper_evidence={json.dumps(evidence_turn, sort_keys=True)}\n"

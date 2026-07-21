@@ -1,0 +1,216 @@
+{
+  "ok": true,
+  "error": null,
+  "track": "arc2",
+  "task_id": "136b0064",
+  "s4_status": "REINJECT",
+  "typed_candidate": {
+    "grid": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        6,
+        0
+      ]
+    ],
+    "shape": [
+      19,
+      7
+    ]
+  },
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "validator": "demonstration_replay",
+    "ran": true,
+    "accepted": false,
+    "detail": "franklin_reinject_with_candidate",
+    "status": "REINJECT"
+  },
+  "unresolved_alternatives": [
+    "Shift non-zero pixels to left edge",
+    "Crop to 7-wide bounding box of non-zero pixels",
+    "Shift non-zero pixels to right edge"
+  ],
+  "c4_invariant": "{\"grid\": [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6, 0]], \"shape\": [19, 7]}",
+  "closure_ready": false,
+  "repair": {
+    "task_id": "136b0064",
+    "track": "arc2",
+    "s1": "{\"evidence_keys\": [\"attempt_1_exact\", \"attempt_1_preview\", \"attempt_1_shape\", \"attempt_2_exact\", \"expected_preview\", \"expected_shape\", \"test_index\", \"train_pairs\"], \"ingestion\": \"miss_receipt\", \"s_state\": \"incomplete\", \"task_id\": \"136b0064\", \"track\": \"arc2\"}",
+    "s2": "{\"drift_kind\": \"understanding drift\", \"prior_turns\": 2, \"rule_candidates\": \"1. Crop to 7-wide bounding box of non-zero pixels. 2. Shift non-zero pixels to left edge. 3. Preserve relative vertical positions. 4. Fill empty space with 0.\"}",
+    "s3": "{\"discriminator\": \"demonstration_replay\", \"next_probe\": \"emit one typed candidate the named validator can accept or reject\"}",
+    "s4": "{\"status\": \"REINJECT\", \"typed_candidate\": {\"grid\": [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6, 0]], \"shape\": [19, 7]}, \"unresolved_alternatives\": [\"Shift non-zero pixels to left edge\", \"Crop to 7-wide bounding box of non-zero pixels\", \"Shift non-zero pixels to right edge\"], \"validator\": \"demonstration_replay\", \"validator_result\": {\"accepted\": false, \"detail\": \"franklin_reinject_with_candidate\", \"ran\": true, \"status\": \"REINJECT\", \"validator\": \"demonstration_replay\"}}",
+    "s4_status": "REINJECT",
+    "typed_candidate": {
+      "grid": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          6,
+          0
+        ]
+      ],
+      "shape": [
+        19,
+        7
+      ]
+    },
+    "validator": "demonstration_replay",
+    "unresolved_alternatives": [
+      "Shift non-zero pixels to left edge",
+      "Crop to 7-wide bounding box of non-zero pixels",
+      "Shift non-zero pixels to right edge"
+    ],
+    "validator_result": {
+      "validator": "demonstration_replay",
+      "ran": true,
+      "accepted": false,
+      "detail": "franklin_reinject_with_candidate",
+      "status": "REINJECT"
+    },
+    "c4_invariant": "{\"grid\": [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6, 0]], \"shape\": [19, 7]}",
+    "grammar_update": "The task requires cropping the input grid to a 7-column width, specifically the bounding box of non-zero pixels, and shifting the content to the left edge while preserving vertical alignment.",
+    "repair_kind": "solver_hint",
+    "research_note": "The expected output shows a 7-column grid. The input grid is 19x15. The non-zero pixels in the input are concentrated in a 7-column wide region. The expected output is a left-aligned crop of this region. The previous attempt failed to shift the pixels to the left edge.",
+    "closure_ready": false
+  },
+  "endpoint": "http://127.0.0.1:8080/v1",
+  "model": "qwen/qwen3.6-35b-a3b",
+  "elapsed_ms": 60222.53,
+  "fallback_used": false,
+  "protocol": "franklin_s4_projection",
+  "locked": false,
+  "reinject": true
+}

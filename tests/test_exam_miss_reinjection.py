@@ -7,12 +7,18 @@ from pathlib import Path
 
 import pytest
 
+from llm_llvm_bench.arc.franklin_s4_projection import (
+    S4_STATUS_LOCKED,
+    S4_STATUS_REINJECT,
+    normalize_s4_response,
+)
 from llm_llvm_bench.exam.miss_reinjection import (
     ARISTOTELIAN_CLOSURE_TURNS,
     TRACK_ARC2,
     TRACK_HLE,
     MissRecord,
     acquire_writer_lock,
+    apply_local_s4_validator,
     extract_json_object,
     load_fail_receipts,
     normalize_repair_payload,
@@ -65,14 +71,15 @@ def test_extract_json_object_from_reasoning_prose() -> None:
         "Thinking...\n"
         "Here is the payload:\n"
         '```json\n{"task_id":"135a2760","track":"arc2","s1":"obj","s2":"rel",'
-        '"s3":"xform","s4":"accept","c4_invariant":"shape_lock",'
+        '"s3":"xform","s4":{"typed_candidate":"shape_lock","validator":"demonstration_replay",'
+        '"status":"REINJECT","unresolved_alternatives":[]},'
         '"grammar_update":"fix","repair_kind":"grammar",'
         '"research_note":"n","closure_ready":false}\n```\n'
         "done"
     )
     parsed = extract_json_object(prose)
     assert parsed is not None
-    assert parsed["c4_invariant"] == "shape_lock"
+    assert parsed["s4"]["status"] == "REINJECT"
     assert parsed["s1"] == "obj"
 
 
@@ -80,32 +87,110 @@ def test_extract_json_object_prefers_repair_shaped_nested() -> None:
     text = (
         '{"meta":{"ok":true},"noise":1,'
         '"repair":{"task_id":"t1","track":"arc2","s1":"a","s2":"b","s3":"c",'
-        '"s4":"d","c4_invariant":"LOCK","grammar_update":"g",'
-        '"repair_kind":"grammar","research_note":"r","closure_ready":true}}'
+        '"s4":{"typed_candidate":"LOCK","validator":"demonstration_replay",'
+        '"status":"LOCKED","unresolved_alternatives":[]},'
+        '"grammar_update":"g","repair_kind":"grammar","research_note":"r",'
+        '"closure_ready":true}}'
     )
     raw = extract_json_object(text)
     miss = MissRecord(track="arc2", task_id="t1", evidence={}, source_path="x")
     normalized = normalize_repair_payload(raw, miss)
     assert normalized is not None
+    assert normalized["s4_status"] == S4_STATUS_LOCKED
     assert normalized["c4_invariant"] == "LOCK"
     assert normalized["closure_ready"] is True
 
 
-def test_normalize_accepts_c4_alias_and_rejects_dry_run() -> None:
+def test_normalize_accepts_protocol_and_rejects_dry_run() -> None:
     miss = MissRecord(track="arc2", task_id="x", evidence={}, source_path="x")
     ok = normalize_repair_payload(
-        {"S1": "o", "S2": "r", "S3": "t", "S4": "b", "C4": "live_lock", "grammar": "g"},
+        {
+            "S1": "o",
+            "S2": "r",
+            "S3": "t",
+            "typed_candidate": "live_lock",
+            "validator": "demonstration_replay",
+            "status": "LOCKED",
+            "unresolved_alternatives": [],
+            "grammar": "g",
+        },
         miss,
     )
     assert ok is not None
+    assert ok["s4_status"] == S4_STATUS_LOCKED
     assert ok["c4_invariant"] == "live_lock"
+    assert ok["validator"] == "demonstration_replay"
     assert ok["grammar_update"] == "g"
     assert (
         normalize_repair_payload(
-            {"s1": "DRY_RUN", "c4_invariant": "DRY_RUN", "grammar_update": "x"}, miss
+            {"s1": "DRY_RUN", "typed_candidate": "DRY_RUN", "status": "REINJECT"},
+            miss,
         )
         is None
     )
+
+
+def test_normalize_legacy_c4_alias_maps_to_reinject() -> None:
+    miss = MissRecord(track="arc2", task_id="x", evidence={}, source_path="x")
+    ok = normalize_s4_response(
+        {"S1": "o", "S2": "r", "S3": "t", "S4": "b", "C4": "live_lock", "grammar": "g"},
+        track="arc2",
+        task_id="x",
+    )
+    assert ok is not None
+    assert ok["s4_status"] == S4_STATUS_REINJECT
+    assert ok["c4_invariant"] == "live_lock"
+
+
+def test_apply_local_validator_demotes_empty_locked() -> None:
+    miss = MissRecord(track="arc2", task_id="t", evidence={}, source_path="x")
+    repair = {
+        "s4_status": S4_STATUS_LOCKED,
+        "typed_candidate": "",
+        "validator": "demonstration_replay",
+        "unresolved_alternatives": ["a"],
+        "c4_invariant": "",
+    }
+    out = apply_local_s4_validator(miss, repair)
+    assert out["s4_status"] == S4_STATUS_REINJECT
+    assert out["validator_result"]["ran"] is True
+    assert out["validator_result"]["accepted"] is False
+
+
+def test_apply_local_validator_locks_hle_exact_match() -> None:
+    miss = MissRecord(
+        track="hle",
+        task_id="q",
+        evidence={"expected": "B"},
+        source_path="x",
+    )
+    repair = {
+        "s4_status": S4_STATUS_LOCKED,
+        "typed_candidate": "B",
+        "validator": "exact_format_check",
+        "unresolved_alternatives": [],
+        "c4_invariant": "B",
+    }
+    out = apply_local_s4_validator(miss, repair)
+    assert out["s4_status"] == S4_STATUS_LOCKED
+    assert out["validator_result"]["accepted"] is True
+    assert out["closure_ready"] is True
+
+
+def test_salvage_truncated_s4_json() -> None:
+    from llm_llvm_bench.exam.miss_reinjection import salvage_s4_from_text
+
+    miss = MissRecord(track="arc2", task_id="135a2760", evidence={}, source_path="x")
+    truncated = (
+        '{"task_id":"135a2760","track":"arc2","s1":"a","s2":"b","s3":"c",'
+        '"s4":{"typed_candidate":"horiz_reflect","validator":"demonstration_replay",'
+        '"status":"REINJECT","unresolved_alternatives":["Horiz'
+    )
+    salvaged = salvage_s4_from_text(truncated, miss)
+    assert salvaged is not None
+    assert salvaged["s4_status"] == S4_STATUS_REINJECT
+    assert salvaged["typed_candidate"] == "horiz_reflect"
+    assert salvaged["validator"] == "demonstration_replay"
 
 
 def test_dry_run_refused_when_live_lock_held(tmp_path: Path) -> None:

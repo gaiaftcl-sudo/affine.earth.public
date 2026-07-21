@@ -10,8 +10,8 @@ usage() {
   cat <<'EOF'
 Usage: bin/run-exam-reinjection-loop.sh [options]
 
-Loads local fail receipts (ARC-2/3, HLE), opens a Franklin turn with the
-UUM-8D baseline + miss evidence, asks for S1–S4 repair + C4 lock, records
+Loads local fail receipts (ARC-2/3, HLE), opens a Franklin S¹–S⁴ projection
+turn (WRAPPER_EVIDENCE → typed S4 LOCKED|REINJECT + named validator), records
 grammar updates, re-runs local mastery for affected tasks, and logs turn
 count toward 29-turn Aristotelian closure.
 

@@ -22,10 +22,11 @@ Requires `configs/NO_KAGGLE_SUBMIT.lock`.
 ## Cycle
 
 1. Load local fail receipts (ARC-2 failure cases, ARC-3 trajectory gap, HLE misses)
-2. Franklin turn: UUM-8D + miss evidence → S1–S4 + C4 JSON
-3. Record grammar under `reports/exam_reinjection/grammar/`
-4. Re-test affected tasks via hybrid solver / HLE mastery / AGI-3 schema gate
-5. Log turns in `reports/exam_reinjection/turns.jsonl` toward closure
+2. Franklin turn: UUM-8D + [S⁴ projection protocol](Franklin-S4-Projection-Language-Game) `WRAPPER_EVIDENCE` → typed S4 `LOCKED|REINJECT` JSON
+3. Local named validator fills `validator_result`; false `LOCKED` demotes to `REINJECT`
+4. Record grammar under `reports/exam_reinjection/grammar/`
+5. Re-test affected tasks via hybrid solver / HLE mastery / AGI-3 schema gate
+6. Log turns in `reports/exam_reinjection/turns.jsonl` toward closure
 
 ## Keep running
 

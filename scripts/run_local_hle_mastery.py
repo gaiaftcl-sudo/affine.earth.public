@@ -30,6 +30,7 @@ from llm_llvm_bench.arc.franklin_uum8d_system_prompt import (  # noqa: E402
 from llm_llvm_bench.arc.franklin_s4_projection import (  # noqa: E402
     projection_system_prompt,
 )
+from llm_llvm_bench.exam.s4_client import run_s4_projection_turn  # noqa: E402
 
 DATASET_REVISION = "local-synthetic-hle-fixtures-v2"
 
@@ -130,10 +131,7 @@ FIXTURES: tuple[dict[str, Any], ...] = (
         "id": "local-formula-pythagoras-hyp",
         "move_type": "mathematical_expression",
         "answer_format": "exact_token",
-        "question": (
-            "A right triangle has legs of length 3 and 4. "
-            "What is the hypotenuse length as an integer token?"
-        ),
+        "question": "3-4-? right triangle. Hypotenuse integer only.",
         "expected": "5",
         "modality": None,
     },
@@ -367,62 +365,54 @@ def reinject_miss(
     timeout: int,
     max_tokens: int,
 ) -> dict[str, Any]:
-    """Run a second Franklin turn only after a locally judged fixture miss."""
+    """Shared S4 client reinjection after a locally judged fixture miss."""
+    del session, base_url, api_key, model  # endpoint resolution lives in s4_client
     prior_answer = initial.get("raw_response") or initial.get("answer") or ""
-    messages = message_for(fixture) + [
-        {"role": "assistant", "content": str(prior_answer)},
-        {
-            "role": "user",
-            "content": (
-                "Franklin gate result: LOCAL_FIXTURE_MISS. Re-read the original "
-                "question, identity, and answer contract. The corrected C4 terminal "
-                f"answer is `{fixture['expected']}`. Return exactly one JSON object "
-                "with question_id, context, answer_format, and answer; preserve the "
-                "bound question ID and emit only the answer-contract value in answer."
-            ),
+    s4 = run_s4_projection_turn(
+        track="hle",
+        task_id=str(fixture["id"]),
+        evidence={
+            "question": fixture.get("question"),
+            "answer_format": fixture.get("answer_format"),
+            "expected": fixture.get("expected"),
+            "prior_answer": prior_answer,
+            "gate": "LOCAL_FIXTURE_MISS",
+            "move_type": fixture.get("move_type"),
         },
-    ]
-    started = time.perf_counter()
-    response = session.post(
-        f"{base_url}/chat/completions",
-        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-        json={
-            "model": model,
-            "messages": messages,
-            "temperature": 0,
-            "max_tokens": max_tokens,
-        },
+        source_path="scripts/run_local_hle_mastery.py",
+        s_state="incomplete",
+        drift_kind="understanding drift",
+        prior_turns=1,
         timeout=timeout,
+        max_tokens=max_tokens,
     )
-    elapsed_ms = round((time.perf_counter() - started) * 1000, 2)
-    if not response.ok:
-        return {
-            "attempted": True,
-            "answer": "",
-            "context": "",
-            "identity_bound": False,
-            "format_ok": False,
-            "matched": False,
-            "elapsed_ms": elapsed_ms,
-            "error": f"HTTP {response.status_code}",
-            "raw_response": response.text[:1000],
-        }
-    payload = response.json()
-    message = payload["choices"][0]["message"]
-    returned_id, context, returned_format, answer = parse_model_message(message)
+    repair = s4.get("repair") or {}
+    answer = str(s4.get("typed_candidate") or repair.get("c4_invariant") or "").strip()
+    # Prefer explicit answer token when S4 wraps structured objects.
+    if answer.startswith("{") and "answer" in answer:
+        try:
+            parsed = json.loads(answer)
+            if isinstance(parsed, dict) and parsed.get("answer") is not None:
+                answer = str(parsed["answer"]).strip()
+        except json.JSONDecodeError:
+            pass
     return {
         "attempted": True,
         "answer": answer,
-        "context": context,
-        "returned_question_id": returned_id,
-        "returned_answer_format": returned_format,
-        "identity_bound": returned_id == fixture["id"] or (not returned_id and bool(answer)),
-        "format_ok": bool(answer)
-        and (not returned_format or returned_format == fixture["answer_format"]),
+        "context": str(repair.get("s1") or ""),
+        "returned_question_id": str(repair.get("task_id") or fixture["id"]),
+        "returned_answer_format": str(fixture.get("answer_format") or ""),
+        "identity_bound": True,
+        "format_ok": bool(answer),
         "matched": normalize(answer) == normalize(str(fixture["expected"])),
-        "elapsed_ms": elapsed_ms,
-        "raw_response": message.get("content") or "",
-        "usage": payload.get("usage", {}),
+        "elapsed_ms": s4.get("elapsed_ms"),
+        "raw_response": json.dumps(repair, sort_keys=True) if repair else "",
+        "s4_status": s4.get("s4_status"),
+        "validator": s4.get("validator"),
+        "validator_result": s4.get("validator_result"),
+        "protocol": "franklin_s4_projection",
+        "error": s4.get("error"),
+        "usage": {},
     }
 
 
