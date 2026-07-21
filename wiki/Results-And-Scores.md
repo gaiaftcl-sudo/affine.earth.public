@@ -10,7 +10,7 @@ Agents run these via `bin/run-open-agi-harnesses.sh`. Deep harness manuals live 
 
 | Suite | Harness key | Affine status (this wiki) | What “score” would require |
 |:---|:---|:---|:---|
-| Humanity's Last Exam | `hle` | **MEASURED BLOCKER** — evaluator/loopback verified; no score | [Live record](Humanitys-Last-Exam-Live): missing local HF authorization stopped the official runner before predictions; `reports/hle_live_20260721T102039Z/` |
+| Humanity's Last Exam | `hle` | **MEASURED STEWARD GATE** — loopback up; Hub user `rpg67` OAuth found; `cais/hle` parquet still 403 until terms accepted | [Live record](Humanitys-Last-Exam-Live): `reports/hle_live_20260721T102858Z/` (+ prior `reports/hle_live_20260721T102039Z/`) |
 | ARC Prize 2026 ARC-AGI-3 (Kaggle) | `bin/run-arc-prize-kaggle.sh` | **MEASURED BLOCKER** — CLI auth OK; `userHasEntered=false` | [Live record](ARC-Prize-Kaggle-Live): accept rules at competition URL, then download / submit; no score until platform returns one |
 | ARC-AGI / ARC-AGI-2 | `arc-agi` / `arc-agi-2` | **RUNNABLE** — no sample-task substitution | Checkout + task data + official scorer output |
 | GPQA Diamond | `gpqa` / `inspect-gpqa` | **RUNNABLE** | lm-eval or Inspect artifact bundle |

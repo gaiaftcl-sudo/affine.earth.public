@@ -57,7 +57,7 @@ Artifacts land under `reports/third_party/open_agi/<suite>/`. A green launcher e
 | Key | State |
 |:---|:---|
 | `lm-eval-hard`, `gpqa`, `bbh`, `mmlu-pro` | RUNNABLE_WRAPPER (`lm-eval==0.4.7`) |
-| `hle` | MEASURED_BLOCKER — [CAIS + loopback record](Humanitys-Last-Exam-Live); local HF authorization required |
+| `hle` | MEASURED_STEWARD_GATE — [CAIS + loopback record](Humanitys-Last-Exam-Live); accept `cais/hle` terms + classic `HF_TOKEN` required |
 | `arc-agi`, `arc-agi-2` | RUNNABLE_WRAPPER |
 | ARC Prize Kaggle (`run-arc-prize-kaggle.sh`) | MEASURED_BLOCKER — [rules gate](ARC-Prize-Kaggle-Live); `userHasEntered` must be true |
 | `gaia`, `inspect`, `inspect-gpqa` | RUNNABLE_WRAPPER (Inspect) |

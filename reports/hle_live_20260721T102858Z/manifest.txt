@@ -1,0 +1,16 @@
+run_id=hle_live_20260721T102858Z
+hf_user=rpg67
+hf_auth_kind=oauth_from_cursor_mcp_safe_storage
+hf_auth_env=session_only_tmp_env
+whoami_http=200
+dataset_meta_gated=auto
+dataset_tree_http=200
+parquet_resolve_http=403
+ask_access_http=401
+ask_access_error=Invalid username or password (oauth token rejected by web ask-access)
+proxy_models_http=200
+proxy_model=qwen/qwen3.6-35b-a3b
+predictions=none
+accuracy=none
+calibration=none
+blocker=cais/hle_gated_terms_not_accepted_for_rpg67
