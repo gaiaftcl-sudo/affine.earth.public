@@ -1,14 +1,21 @@
 {
-  "licensed": "70/259",
-  "licensed_pct": 27.03,
-  "identity": 189,
-  "submission_sha256": "5de8c6b6d18b75913301338dc6786f453297950c65dcbd94bb542917f817ee9b",
-  "last_lifts": [
-    "00576224 s1_period_tile_colflip_rowblock 2/2",
-    "009d5c81 s2_marker_sprite_recolor 5/5"
+  "licensed": "76/259",
+  "licensed_pct": 29.34,
+  "identity": 183,
+  "submission_sha256": "7d5c597d9aa8859edf69a0498b5e618476a0fbd9b16b3cd203c8dc6d6c37e360",
+  "new_closes_this_turn": [
+    "05269061\u2192s1_diagonal_mod3_period_fill (3/3)",
+    "05f2a901\u2192s2_slide_touch_blocker (3/3)",
+    "0a938d79\u2192s1_seed_period_stripe_fill (4/4)",
+    "11852cab\u2192s2_bbox_fourfold_mirror_complete (3/3)",
+    "0ca9ddb6\u2192s2_seed_neighborhood_stamp (3/3)",
+    "4258a5f9\u2192s2_seed_neighborhood_stamp (2/2)"
   ],
-  "demonstration_replay_close_rate": "2/2 jordan_open priors CLOSED via zoom engines (100% of named open pair)",
+  "prior_closes": [
+    "00576224\u2192s1_period_tile_colflip_rowblock",
+    "009d5c81\u2192s2_marker_sprite_recolor"
+  ],
   "no_submit": true,
   "hle_left_alive": true,
-  "recorded_at_utc": "2026-07-21T19:59:04.930196+00:00"
+  "recorded_at_utc": "2026-07-21T20:13:53.575187+00:00"
 }

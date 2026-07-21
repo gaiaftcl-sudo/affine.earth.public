@@ -326,6 +326,8 @@ def try_ranked_closed_engines(
     zoom_stems = {
         "zoom_out_expand": [
             "s1_period_tile_colflip_rowblock",
+            "s1_period_tile_dihedral2",
+            "s1_nw_wrap_mark_period_tile",
             "container_period_tiling",
             "s1_ones_stamp_period_fill",
             "s1_panel_scale_project",
@@ -342,6 +344,11 @@ def try_ranked_closed_engines(
         ],
         "same_canvas_rewrite": [
             "s2_marker_sprite_recolor",
+            "s1_diagonal_mod3_period_fill",
+            "s1_seed_period_stripe_fill",
+            "s2_slide_touch_blocker",
+            "s2_bbox_fourfold_mirror_complete",
+            "s2_seed_neighborhood_stamp",
             "s2_color_gate_rewrite",
             "s2_component_recolor",
             "s2_dual_palette_rewrite",
@@ -574,15 +581,19 @@ def solve_one(
                         "temperature": 0.1,
                         "max_tokens": max_tokens,
                         "messages": messages,
+                        "chat_template_kwargs": {"enable_thinking": False},
                     },
                     timeout=timeout,
                 )
                 resp.raise_for_status()
                 payload = resp.json()
                 msg = payload["choices"][0]["message"]
-                return str(
-                    msg.get("content") or msg.get("reasoning_content") or ""
-                ).strip()
+                # Never treat reasoning/thinking as the answer — it is prose and
+                # burns max_tokens before '{' is emitted (demo_replay stays 0/N).
+                content = str(msg.get("content") or "").strip()
+                if content:
+                    return content
+                return ""
             finally:
                 fcntl.flock(lockf.fileno(), fcntl.LOCK_UN)
 

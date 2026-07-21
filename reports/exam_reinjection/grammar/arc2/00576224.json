@@ -1,0 +1,24 @@
+{
+  "task_id": "00576224",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 2,
+  "test": 1,
+  "engine": "s1_period_tile_colflip_rowblock",
+  "module": "llm_llvm_bench/arc/s1_period_tile_colflip_rowblock.py",
+  "observations": [
+    "Zoom grammar engine s1_period_tile_colflip_rowblock",
+    "Train demonstration_replay 2/2"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "2/2",
+    "engine": "s1_period_tile_colflip_rowblock"
+  },
+  "c4_invariant": "s1_period_tile_colflip_rowblock",
+  "sealed_at_utc": "2026-07-21T20:10:13.930207+00:00"
+}

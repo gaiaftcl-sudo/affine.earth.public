@@ -1,0 +1,17 @@
+{
+  "recorded_at_utc": "2026-07-21T20:13:48.557493+00:00",
+  "verdict": "not_validator_shear",
+  "root_cause": "LLM emitted reasoning prose for 6/6 turns (parse_ok=false); train_replay never ran. Local zoom engines (e.g. s1_period_tile_colflip_rowblock) close N/N when tried.",
+  "evidence": {
+    "00576224_llm": "jordan_open_after_turns turns=6 all parse_ok=false raw starts The user wants...",
+    "00576224_local": "zoom_engine_experience replay 2/2 licensed=1"
+  },
+  "closes_via_zoom_engine": 8,
+  "licensed_after_merge": "76/259",
+  "fix_shipped": [
+    "JSON-first system+UNPARSED skeleton @3289d6d",
+    "TURN heartbeats @85e70ca",
+    "local zoom engines before LLM"
+  ],
+  "next": "Keep Franklin conc=1 on residue; prefer local engine path; disable thinking on :8080 posts if still prose"
+}
