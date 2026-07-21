@@ -92,9 +92,14 @@ nohup ./bin/run-exam-reinjection-loop.sh --daemon --interval-seconds 30 \
 
 Endpoint env (same family as HLE local mastery):
 
-- `EXAM_REINJECT_BASE_URL` / `OPENAI_BASE_URL` / `HLE_LOCAL_BASE_URL`
+- `EXAM_REINJECT_BASE_URL` / `OPENAI_BASE_URL` / `HLE_LOCAL_BASE_URL` (default `http://127.0.0.1:8080/v1`)
+- `EXAM_REINJECT_FALLBACK_BASE_URL` (default `http://127.0.0.1:1234/v1` — used on primary read-timeout)
 - `EXAM_REINJECT_MODEL` / `OPENAI_MODEL`
+- `EXAM_REINJECT_TIMEOUT` (default 300s) / `EXAM_REINJECT_MAX_TOKENS` (default 1024)
+- `EXAM_REINJECT_LIVE=1` — forbids `--dry-run` while a live daemon holds `daemon.lock`
 - `OPENAI_API_KEY`
+
+Template: `reports/exam_reinjection/env.local.example`
 
 ## Closure semantics
 

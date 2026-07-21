@@ -32,10 +32,57 @@ TURNS_FILENAME = "turns.jsonl"
 GRAMMAR_FILENAME = "grammar_updates.jsonl"
 MISS_QUEUE_FILENAME = "miss_queue.jsonl"
 CYCLE_SUMMARY_FILENAME = "latest_cycle.json"
+DAEMON_LOCK_FILENAME = "daemon.lock"
+RAW_RESPONSE_FILENAME = "last_franklin_raw.json"
 
 TRACK_ARC2 = "arc2"
 TRACK_ARC3 = "arc3"
 TRACK_HLE = "hle"
+
+DEFAULT_BASE_URL = "http://127.0.0.1:8080/v1"
+DEFAULT_FALLBACK_BASE_URL = "http://127.0.0.1:1234/v1"
+DEFAULT_TIMEOUT_SECONDS = 300
+DEFAULT_MAX_TOKENS = 1024
+EVIDENCE_CHAR_BUDGET = 1800
+
+REPAIR_REQUIRED_KEYS = (
+    "task_id",
+    "track",
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "c4_invariant",
+    "grammar_update",
+    "repair_kind",
+    "research_note",
+    "closure_ready",
+)
+
+REPAIR_JSON_SCHEMA: Dict[str, Any] = {
+    "name": "exam_s1_s4_c4_repair",
+    "schema": {
+        "type": "object",
+        "additionalProperties": True,
+        "properties": {
+            "task_id": {"type": "string"},
+            "track": {"type": "string"},
+            "s1": {"type": "string"},
+            "s2": {"type": "string"},
+            "s3": {"type": "string"},
+            "s4": {"type": "string"},
+            "c4_invariant": {"type": "string"},
+            "grammar_update": {"type": "string"},
+            "repair_kind": {
+                "type": "string",
+                "enum": ["grammar", "solver_hint", "context", "action_theory"],
+            },
+            "research_note": {"type": "string"},
+            "closure_ready": {"type": "boolean"},
+        },
+        "required": list(REPAIR_REQUIRED_KEYS),
+    },
+}
 
 
 @dataclass
@@ -342,53 +389,195 @@ def load_fail_receipts(
     return out
 
 
-def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
+def _strip_markdown_fences(text: str) -> str:
     text = (text or "").strip()
+    if not text.startswith("```"):
+        return text
+    lines = text.splitlines()
+    if lines and lines[0].startswith("```"):
+        lines = lines[1:]
+    if lines and lines[-1].strip() == "```":
+        lines = lines[:-1]
+    return "\n".join(lines).strip()
+
+
+def _iter_balanced_json_objects(text: str) -> List[str]:
+    """Yield JSON object substrings via brace balancing (handles nested objects)."""
+    out: List[str] = []
+    in_string = False
+    escape = False
+    depth = 0
+    start = -1
+    for idx, ch in enumerate(text):
+        if in_string:
+            if escape:
+                escape = False
+            elif ch == "\\":
+                escape = True
+            elif ch == '"':
+                in_string = False
+            continue
+        if ch == '"':
+            in_string = True
+            continue
+        if ch == "{":
+            if depth == 0:
+                start = idx
+            depth += 1
+        elif ch == "}" and depth > 0:
+            depth -= 1
+            if depth == 0 and start >= 0:
+                out.append(text[start : idx + 1])
+                start = -1
+    return out
+
+
+def _repair_score(obj: Dict[str, Any]) -> int:
+    keys = {str(k).lower() for k in obj}
+    score = 0
+    for key in ("s1", "s2", "s3", "s4", "c4_invariant", "grammar_update", "repair_kind"):
+        if key in keys:
+            score += 2
+    for key in ("c4", "invariant", "grammar", "closure_ready", "task_id", "track"):
+        if key in keys:
+            score += 1
+    return score
+
+
+def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
+    """Parse Franklin repair JSON from content, reasoning, fences, or nested prose."""
+    text = _strip_markdown_fences(text or "")
     if not text:
         return None
+    candidates: List[Dict[str, Any]] = []
     try:
         parsed = json.loads(text)
         if isinstance(parsed, dict):
-            return parsed
+            candidates.append(parsed)
+        elif isinstance(parsed, list):
+            candidates.extend(item for item in parsed if isinstance(item, dict))
     except json.JSONDecodeError:
         pass
-    match = re.search(r"\{[\s\S]*\}", text)
-    if not match:
+    for blob in _iter_balanced_json_objects(text):
+        try:
+            parsed = json.loads(blob)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(parsed, dict):
+            candidates.append(parsed)
+    if not candidates:
         return None
-    try:
-        parsed = json.loads(match.group(0))
-    except json.JSONDecodeError:
+    candidates.sort(key=_repair_score, reverse=True)
+    return candidates[0]
+
+
+def normalize_repair_payload(
+    parsed: Optional[Dict[str, Any]], miss: MissRecord
+) -> Optional[Dict[str, Any]]:
+    """Accept Franklin alias shapes and coerce into the canonical S1–S4 + C4 schema."""
+    if not isinstance(parsed, dict):
         return None
-    return parsed if isinstance(parsed, dict) else None
+    # Nested envelopes Franklin sometimes emits under UUM-8D prompts.
+    for nest_key in ("repair", "result", "payload", "json", "data", "answer"):
+        nested = parsed.get(nest_key)
+        if isinstance(nested, dict) and _repair_score(nested) >= _repair_score(parsed):
+            parsed = nested
+            break
+
+    def pick(*names: str) -> Any:
+        lower_map = {str(k).lower(): v for k, v in parsed.items()}
+        for name in names:
+            if name.lower() in lower_map and lower_map[name.lower()] not in (None, ""):
+                return lower_map[name.lower()]
+        return None
+
+    s1 = pick("s1", "S1", "objects", "symbols")
+    s2 = pick("s2", "S2", "relations")
+    s3 = pick("s3", "S3", "transforms", "actions", "legal_transforms")
+    s4 = pick("s4", "S4", "acceptance", "acceptance_boundary", "boundary")
+    c4 = pick("c4_invariant", "c4", "C4", "invariant", "c4_lock", "terminal")
+    grammar = pick("grammar_update", "grammar", "update", "repair")
+    repair_kind = pick("repair_kind", "kind") or "grammar"
+    note = pick("research_note", "note", "rationale") or ""
+    closure = pick("closure_ready", "ready", "closed")
+    if isinstance(closure, str):
+        closure = closure.strip().lower() in {"1", "true", "yes", "ready"}
+    elif closure is None:
+        closure = False
+    else:
+        closure = bool(closure)
+
+    # Stringify structured fields Franklin may emit as objects/lists.
+    def as_text(value: Any) -> str:
+        if value is None:
+            return ""
+        if isinstance(value, (dict, list)):
+            return json.dumps(value, sort_keys=True)
+        return str(value)
+
+    repair = {
+        "task_id": as_text(pick("task_id", "id") or miss.task_id),
+        "track": as_text(pick("track") or miss.track),
+        "s1": as_text(s1),
+        "s2": as_text(s2),
+        "s3": as_text(s3),
+        "s4": as_text(s4),
+        "c4_invariant": as_text(c4),
+        "grammar_update": as_text(grammar),
+        "repair_kind": as_text(repair_kind),
+        "research_note": as_text(note),
+        "closure_ready": bool(closure),
+    }
+    if repair["c4_invariant"] == "DRY_RUN" or repair["s1"] == "DRY_RUN":
+        return None
+    if not (repair["s1"] or repair["c4_invariant"] or repair["grammar_update"]):
+        return None
+    return repair
+
+
+def _truncate_evidence(evidence: Dict[str, Any], budget: int = EVIDENCE_CHAR_BUDGET) -> str:
+    raw = json.dumps(evidence, sort_keys=True)
+    if len(raw) <= budget:
+        return raw
+    return raw[: budget - 20] + "...<truncated>"
 
 
 def build_franklin_messages(miss: MissRecord, prior_turns: int) -> List[Dict[str, str]]:
+    """Compact UUM-8D reinjection prompt — machine-parseable S1–S4 + C4 JSON only."""
+    # Keep doctrine, drop the multi-KB essay so thinking models finish JSON in-budget.
     baseline = franklin_uum8d_game_comprehension_system_prompt()
+    digest = baseline
+    marker = "**3. Ingestion to Jordan Bond"
+    idx = digest.find(marker)
+    if idx > 0:
+        digest = digest[:idx].rstrip()
+    if len(digest) > 1200:
+        digest = digest[:1200].rstrip() + "\n[UUM-8D digest truncated for reinjection latency]"
+
     system = (
-        f"{baseline}\n\n"
+        f"{digest}\n\n"
         "---\n"
-        "You are in a two-way language game with the local exam wrapper.\n"
-        "A prior attempt MISSED. That means the S-state (S1–S4) is incomplete — "
-        "not that compute failed.\n"
-        "Repair the game grammar so C1–C4 collapses to a SINGLE C4 projection "
-        "(the only true answer).\n"
-        f"Aristotelian closure budget: turn {prior_turns + 1} of "
-        f"{ARISTOTELIAN_CLOSURE_TURNS}.\n"
-        "Return exactly one JSON object with keys:\n"
+        "EXAM REINJECTION CONTRACT (machine-parseable):\n"
+        "Miss ⇒ incomplete S-state, not compute failure.\n"
+        "Lock S1–S4 then one C4 projection (only true answer).\n"
+        f"Aristotelian turn {prior_turns + 1}/{ARISTOTELIAN_CLOSURE_TURNS}.\n"
+        "Respond with ONE JSON object ONLY in the assistant content field.\n"
+        "No markdown fences. No prose before/after JSON. No empty content.\n"
+        "Required keys (exact spelling):\n"
         "task_id, track, s1, s2, s3, s4, c4_invariant, grammar_update, "
         "repair_kind, research_note, closure_ready.\n"
         "repair_kind ∈ {grammar, solver_hint, context, action_theory}.\n"
-        "Do not guess grids or answers without locking C4. No Kaggle submit."
+        "closure_ready is boolean. Values are short strings.\n"
+        "Do not guess grids without locking C4. No Kaggle submit."
     )
     user = (
-        f"track: {miss.track}\n"
-        f"task_id: {miss.task_id}\n"
-        f"s_state: {miss.s_state}\n"
-        f"drift_kind: {miss.drift_kind}\n"
-        f"source: {miss.source_path}\n"
-        f"miss_evidence:\n{json.dumps(miss.evidence, indent=2, sort_keys=True)}\n"
-        "Set S1 (objects/symbols), S2 (relations), S3 (legal transforms/actions), "
-        "S4 (acceptance boundary). Then lock C4."
+        f"track={miss.track}\n"
+        f"task_id={miss.task_id}\n"
+        f"s_state={miss.s_state}\n"
+        f"drift_kind={miss.drift_kind}\n"
+        f"source={miss.source_path}\n"
+        f"miss_evidence={_truncate_evidence(miss.evidence)}\n"
+        "Emit the JSON object now."
     )
     return [
         {"role": "system", "content": system},
@@ -396,101 +585,247 @@ def build_franklin_messages(miss: MissRecord, prior_turns: int) -> List[Dict[str
     ]
 
 
-def franklin_chat(
-    messages: List[Dict[str, str]],
-    *,
-    timeout: int,
-    max_tokens: int,
-) -> Dict[str, Any]:
-    base_url = env_first(
-        "EXAM_REINJECT_BASE_URL",
-        "HLE_LOCAL_BASE_URL",
-        "OPENAI_BASE_URL",
-        "AFFINE_HARNESS_ENDPOINT",
-        default="http://127.0.0.1:8080/v1",
-    )
-    api_key = env_first(
-        "OPENAI_API_KEY", "AFFINE_HARNESS_API_KEY", default="uum8d-exam-reinject"
-    )
+def _resolve_chat_model(session: requests.Session, base_url: str, api_key: str, timeout: int) -> Optional[str]:
     model = env_first(
         "EXAM_REINJECT_MODEL", "HLE_LOCAL_MODEL", "OPENAI_MODEL", "AFFINE_HARNESS_MODEL"
     )
-    assert base_url is not None and api_key is not None
-    session = requests.Session()
-    if not model:
+    if model:
+        return model
+    try:
         models_response = session.get(
             f"{base_url.rstrip('/')}/models",
             headers={"Authorization": f"Bearer {api_key}", "Accept": "application/json"},
             timeout=min(timeout, 15),
         )
-        if models_response.ok:
-            model_ids = [
-                item.get("id") for item in models_response.json().get("data", [])
-            ]
-            model = next(
-                (item for item in model_ids if item and "embed" not in item), None
-            )
-    if not model:
-        return {
-            "ok": False,
-            "error": "NO_CHAT_MODEL",
-            "content": "",
-            "parsed": None,
-            "endpoint": base_url.rstrip("/"),
-            "model": None,
-        }
+    except requests.RequestException:
+        return None
+    if not models_response.ok:
+        return None
+    model_ids = [item.get("id") for item in models_response.json().get("data", [])]
+    return next((item for item in model_ids if item and "embed" not in str(item)), None)
+
+
+def _post_chat_completion(
+    session: requests.Session,
+    *,
+    base_url: str,
+    api_key: str,
+    model: str,
+    messages: List[Dict[str, str]],
+    timeout: int,
+    max_tokens: int,
+) -> requests.Response:
+    body: Dict[str, Any] = {
+        "model": model,
+        "messages": messages,
+        "temperature": 0,
+        "max_tokens": max_tokens,
+        "response_format": {
+            "type": "json_schema",
+            "json_schema": REPAIR_JSON_SCHEMA,
+        },
+    }
+    return session.post(
+        f"{base_url.rstrip('/')}/chat/completions",
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        json=body,
+        timeout=timeout,
+    )
+
+
+def franklin_chat(
+    messages: List[Dict[str, str]],
+    *,
+    timeout: int,
+    max_tokens: int,
+    miss: Optional[MissRecord] = None,
+) -> Dict[str, Any]:
+    primary = env_first(
+        "EXAM_REINJECT_BASE_URL",
+        "HLE_LOCAL_BASE_URL",
+        "OPENAI_BASE_URL",
+        "AFFINE_HARNESS_ENDPOINT",
+        default=DEFAULT_BASE_URL,
+    )
+    fallback = env_first(
+        "EXAM_REINJECT_FALLBACK_BASE_URL",
+        default=DEFAULT_FALLBACK_BASE_URL,
+    )
+    api_key = env_first(
+        "OPENAI_API_KEY", "AFFINE_HARNESS_API_KEY", default="uum8d-exam-reinject"
+    )
+    assert primary is not None and api_key is not None
+    endpoints = [primary.rstrip("/")]
+    if fallback and fallback.rstrip("/") not in endpoints:
+        endpoints.append(fallback.rstrip("/"))
+
+    session = requests.Session()
+    last_error = "NO_ENDPOINT"
     started = time.perf_counter()
-    try:
-        response = session.post(
-            f"{base_url.rstrip('/')}/chat/completions",
-            headers={
-                "Authorization": f"Bearer {api_key}",
-                "Content-Type": "application/json",
-            },
-            json={
-                "model": model,
-                "messages": messages,
-                "temperature": 0,
-                "max_tokens": max_tokens,
-            },
-            timeout=timeout,
+    for endpoint in endpoints:
+        model = _resolve_chat_model(session, endpoint, api_key, timeout)
+        if not model:
+            last_error = "NO_CHAT_MODEL"
+            continue
+        try:
+            response = _post_chat_completion(
+                session,
+                base_url=endpoint,
+                api_key=api_key,
+                model=model,
+                messages=messages,
+                timeout=timeout,
+                max_tokens=max_tokens,
+            )
+        except requests.Timeout as exc:
+            last_error = f"TRANSPORT_TIMEOUT:{exc}"
+            # Stall on primary → try fallback endpoint.
+            continue
+        except requests.RequestException as exc:
+            last_error = f"TRANSPORT:{exc}"
+            continue
+
+        elapsed_ms = round((time.perf_counter() - started) * 1000, 2)
+        if not response.ok:
+            # json_schema unsupported → retry once without response_format.
+            if response.status_code == 400 and "response_format" in (response.text or ""):
+                try:
+                    response = session.post(
+                        f"{endpoint}/chat/completions",
+                        headers={
+                            "Authorization": f"Bearer {api_key}",
+                            "Content-Type": "application/json",
+                        },
+                        json={
+                            "model": model,
+                            "messages": messages,
+                            "temperature": 0,
+                            "max_tokens": max_tokens,
+                        },
+                        timeout=timeout,
+                    )
+                except requests.RequestException as exc:
+                    last_error = f"TRANSPORT:{exc}"
+                    continue
+            if not response.ok:
+                last_error = f"HTTP_{response.status_code}"
+                continue
+
+        payload = response.json()
+        message = payload["choices"][0]["message"]
+        content = str(message.get("content") or "")
+        reasoning = str(message.get("reasoning_content") or "")
+        raw_parsed = (
+            extract_json_object(content)
+            or extract_json_object(reasoning)
+            or extract_json_object(f"{content}\n{reasoning}")
         )
-    except requests.RequestException as exc:
+        parsed = (
+            normalize_repair_payload(raw_parsed, miss)
+            if miss is not None
+            else raw_parsed
+        )
         return {
-            "ok": False,
-            "error": f"TRANSPORT:{exc}",
-            "content": "",
-            "parsed": None,
-            "endpoint": base_url.rstrip("/"),
-            "model": model,
-            "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
-        }
-    elapsed_ms = round((time.perf_counter() - started) * 1000, 2)
-    if not response.ok:
-        return {
-            "ok": False,
-            "error": f"HTTP_{response.status_code}",
-            "content": response.text[:2000],
-            "parsed": None,
-            "endpoint": base_url.rstrip("/"),
+            "ok": parsed is not None,
+            "error": None if parsed is not None else "PARSE_FAIL",
+            "content": content,
+            "reasoning_content": reasoning,
+            "content_preview": (content or reasoning)[:2000],
+            "parsed": parsed,
+            "raw_parsed": raw_parsed,
+            "endpoint": endpoint,
             "model": model,
             "elapsed_ms": elapsed_ms,
+            "usage": payload.get("usage", {}),
+            "fallback_used": endpoint != endpoints[0],
         }
-    payload = response.json()
-    message = payload["choices"][0]["message"]
-    content = str(message.get("content") or "")
-    reasoning = str(message.get("reasoning_content") or "")
-    parsed = extract_json_object(content) or extract_json_object(reasoning)
+
     return {
-        "ok": parsed is not None,
-        "error": None if parsed is not None else "PARSE_FAIL",
-        "content": content or reasoning,
-        "parsed": parsed,
-        "endpoint": base_url.rstrip("/"),
-        "model": model,
-        "elapsed_ms": elapsed_ms,
-        "usage": payload.get("usage", {}),
+        "ok": False,
+        "error": last_error,
+        "content": "",
+        "reasoning_content": "",
+        "content_preview": "",
+        "parsed": None,
+        "endpoint": endpoints[0] if endpoints else None,
+        "model": None,
+        "elapsed_ms": round((time.perf_counter() - started) * 1000, 2),
     }
+
+
+def _pid_alive(pid: int) -> bool:
+    if pid <= 0:
+        return False
+    try:
+        os.kill(pid, 0)
+    except OSError:
+        return False
+    return True
+
+
+def acquire_writer_lock(state_dir: Path, *, dry_run: bool) -> Path:
+    """Exclusive writer lock — live daemon must never share state with --dry-run."""
+    state_dir.mkdir(parents=True, exist_ok=True)
+    lock_path = state_dir / DAEMON_LOCK_FILENAME
+    if lock_path.is_file():
+        try:
+            existing = json.loads(lock_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            existing = {}
+        other_pid = int(existing.get("pid") or 0)
+        other_dry = bool(existing.get("dry_run"))
+        if other_pid and _pid_alive(other_pid):
+            if other_pid != os.getpid():
+                if dry_run and not other_dry:
+                    raise RuntimeError(
+                        f"Refuse --dry-run: live writer pid={other_pid} holds {lock_path}"
+                    )
+                if (not dry_run) and other_dry:
+                    raise RuntimeError(
+                        f"Refuse live cycle: dry-run writer pid={other_pid} holds {lock_path}. "
+                        f"Stop it first (kill {other_pid})."
+                    )
+                if not dry_run and not other_dry:
+                    raise RuntimeError(
+                        f"Refuse live cycle: another live writer pid={other_pid} holds {lock_path}"
+                    )
+                if dry_run and other_dry:
+                    raise RuntimeError(
+                        f"Refuse --dry-run: another dry-run writer pid={other_pid} holds {lock_path}"
+                    )
+            elif bool(dry_run) != other_dry:
+                raise RuntimeError(
+                    f"Refuse --dry-run: live writer pid={other_pid} holds {lock_path}"
+                    if dry_run
+                    else f"Refuse live cycle: dry-run lock held by pid={other_pid}"
+                )
+    write_json(
+        lock_path,
+        {
+            "pid": os.getpid(),
+            "dry_run": bool(dry_run),
+            "acquired_at_utc": utc_now(),
+        },
+    )
+    return lock_path
+
+
+def release_writer_lock(state_dir: Path) -> None:
+    lock_path = state_dir / DAEMON_LOCK_FILENAME
+    if not lock_path.is_file():
+        return
+    try:
+        existing = json.loads(lock_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        existing = {}
+    if int(existing.get("pid") or 0) in {0, os.getpid()}:
+        try:
+            lock_path.unlink()
+        except OSError:
+            pass
 
 
 def record_grammar_update(
@@ -757,11 +1092,35 @@ def process_miss(
             "repair_kind": "grammar",
             "closure_ready": False,
         }
-        frank = {"ok": True, "parsed": repair, "error": None, "dry_run": True}
+        frank = {
+            "ok": True,
+            "parsed": repair,
+            "error": None,
+            "dry_run": True,
+            "endpoint": None,
+            "model": None,
+        }
     else:
         messages = build_franklin_messages(miss, prior)
-        frank = franklin_chat(messages, timeout=timeout, max_tokens=max_tokens)
+        frank = franklin_chat(
+            messages, timeout=timeout, max_tokens=max_tokens, miss=miss
+        )
         repair = frank.get("parsed") or {}
+        write_json(
+            state_dir / RAW_RESPONSE_FILENAME,
+            {
+                "recorded_at_utc": utc_now(),
+                "track": miss.track,
+                "task_id": miss.task_id,
+                "ok": bool(frank.get("ok")),
+                "error": frank.get("error"),
+                "endpoint": frank.get("endpoint"),
+                "model": frank.get("model"),
+                "fallback_used": frank.get("fallback_used"),
+                "content_preview": frank.get("content_preview"),
+                "parsed": repair or None,
+            },
+        )
 
     turn_index = prior + 1
     state.total_franklin_turns += 1
@@ -783,6 +1142,8 @@ def process_miss(
             "endpoint": frank.get("endpoint"),
             "model": frank.get("model"),
             "elapsed_ms": frank.get("elapsed_ms"),
+            "fallback_used": frank.get("fallback_used"),
+            "dry_run": bool(dry_run),
             "s1": repair.get("s1"),
             "s2": repair.get("s2"),
             "s3": repair.get("s3"),
@@ -796,12 +1157,26 @@ def process_miss(
     )
 
     grammar_path = None
-    if repair.get("s1") or repair.get("c4_invariant") or repair.get("grammar_update"):
+    live_c4 = ""
+    if dry_run:
         grammar_path = record_grammar_update(state_dir, miss, repair, turn_index)
-        task["last_c4"] = str(repair.get("c4_invariant") or "")
+        task["last_c4"] = "DRY_RUN"
         task["last_grammar_sha"] = str(grammar_path)
+        live_c4 = "DRY_RUN"
+    elif repair.get("s1") or repair.get("c4_invariant") or repair.get("grammar_update"):
+        grammar_path = record_grammar_update(state_dir, miss, repair, turn_index)
+        live_c4 = str(repair.get("c4_invariant") or "")
+        task["last_c4"] = live_c4
+        task["last_grammar_sha"] = str(grammar_path)
+    else:
+        # Live attempt failed — clear stale DRY_RUN so health checks see real gates.
+        if task.get("last_c4") == "DRY_RUN":
+            task["last_c4"] = ""
+        live_c4 = str(task.get("last_c4") or "")
 
     gate = "FRANKLIN_OK" if frank.get("ok") else f"FRANKLIN_{frank.get('error') or 'FAIL'}"
+    if frank.get("fallback_used") and frank.get("ok"):
+        gate = "FRANKLIN_OK_FALLBACK"
     task["last_gate"] = gate
     append_jsonl(
         state_dir / TURNS_FILENAME,
@@ -815,6 +1190,7 @@ def process_miss(
             "gate_verdict": gate,
             "closure_ready": bool(repair.get("closure_ready")),
             "grammar_path": str(grammar_path) if grammar_path else None,
+            "dry_run": bool(dry_run),
         },
     )
     return {
@@ -824,9 +1200,10 @@ def process_miss(
         "turn_count": turn_index,
         "gate": gate,
         "grammar_path": str(grammar_path) if grammar_path else None,
-        "c4_invariant": repair.get("c4_invariant"),
+        "c4_invariant": live_c4 or repair.get("c4_invariant"),
         "franklin_ok": bool(frank.get("ok")),
         "error": frank.get("error"),
+        "dry_run": bool(dry_run),
     }
 
 
@@ -861,86 +1238,114 @@ def run_reinjection_cycle(
     tracks: Sequence[str] = (TRACK_ARC2, TRACK_ARC3, TRACK_HLE),
     per_track_limit: int = 4,
     mastery_mode: str = "affected",
-    timeout: int = 180,
-    max_tokens: int = 2048,
+    timeout: int = DEFAULT_TIMEOUT_SECONDS,
+    max_tokens: int = DEFAULT_MAX_TOKENS,
     dry_run: bool = False,
 ) -> Dict[str, Any]:
     assert_no_kaggle_submit(root)
+    # Hard kill mixed writers: env EXAM_REINJECT_LIVE=1 forbids dry_run stamps.
+    if dry_run and os.environ.get("EXAM_REINJECT_LIVE") == "1":
+        raise RuntimeError("EXAM_REINJECT_LIVE=1 forbids --dry-run (mixed-writer cancer)")
     state_dir = state_dir or (root / "reports" / "exam_reinjection")
     state_dir.mkdir(parents=True, exist_ok=True)
-    state = load_state(state_dir)
-    misses = load_fail_receipts(root, tracks=tracks, per_track_limit=per_track_limit)
+    acquire_writer_lock(state_dir, dry_run=dry_run)
+    try:
+        state = load_state(state_dir)
+        misses = load_fail_receipts(root, tracks=tracks, per_track_limit=per_track_limit)
 
-    # Prefer non-closed, non-dead-end tasks; rotate DEAD_END after logging.
-    actionable: List[MissRecord] = []
-    for miss in misses:
-        task = _task_state(state, miss)
-        if task.get("status") == "CLOSED":
-            continue
-        actionable.append(miss)
+        # Prefer non-closed, non-dead-end tasks; rotate DEAD_END after logging.
+        actionable: List[MissRecord] = []
+        for miss in misses:
+            task = _task_state(state, miss)
+            if task.get("status") == "CLOSED":
+                continue
+            actionable.append(miss)
 
-    cycle_rows: List[Dict[str, Any]] = []
-    for miss in actionable:
-        row = process_miss(
-            root,
-            state_dir,
-            state,
-            miss,
-            timeout=timeout,
-            max_tokens=max_tokens,
-            dry_run=dry_run,
+        cycle_rows: List[Dict[str, Any]] = []
+        for miss in actionable:
+            row = process_miss(
+                root,
+                state_dir,
+                state,
+                miss,
+                timeout=timeout,
+                max_tokens=max_tokens,
+                dry_run=dry_run,
+            )
+            cycle_rows.append(row)
+
+        mastery = run_mastery_for_misses(root, actionable, mode=mastery_mode)
+        for miss in actionable:
+            verdict = apply_gate_after_mastery(state, miss, mastery)
+            append_jsonl(
+                state_dir / TURNS_FILENAME,
+                {
+                    "recorded_at_utc": utc_now(),
+                    "track": miss.track,
+                    "task_id": miss.task_id,
+                    "turn_index": int((_task_state(state, miss).get("turn_count") or 0)),
+                    "turn_kind": "MASTERY",
+                    "actor_role": "gate",
+                    "gate_verdict": verdict,
+                },
+            )
+
+        state.cycles += 1
+        state.last_cycle_at = utc_now()
+        save_state(state_dir, state)
+
+        # Invariant: live cycles never stamp dry_run=True.
+        stamped_dry_run = bool(dry_run)
+        if not stamped_dry_run and any(row.get("dry_run") for row in cycle_rows):
+            raise RuntimeError("live cycle produced dry_run row — refuse stamp")
+
+        summary = {
+            "kind": "exam_miss_reinjection_cycle",
+            "recorded_at_utc": state.last_cycle_at,
+            "cycle": state.cycles,
+            "aristotelian_closure_turns": state.aristotelian_closure_turns,
+            "total_franklin_turns": state.total_franklin_turns,
+            "misses_loaded": len(misses),
+            "misses_actioned": len(actionable),
+            "tracks": list(tracks),
+            "mastery_mode": mastery_mode,
+            "kaggle_submit": False,
+            "no_kaggle_submit_lock": True,
+            "dry_run": stamped_dry_run,
+            "writer_pid": os.getpid(),
+            "timeout": timeout,
+            "max_tokens": max_tokens,
+            "base_url": env_first(
+                "EXAM_REINJECT_BASE_URL",
+                "HLE_LOCAL_BASE_URL",
+                "OPENAI_BASE_URL",
+                default=DEFAULT_BASE_URL,
+            ),
+            "fallback_base_url": env_first(
+                "EXAM_REINJECT_FALLBACK_BASE_URL", default=DEFAULT_FALLBACK_BASE_URL
+            ),
+            "rows": cycle_rows,
+            "mastery": mastery,
+            "open_tasks": sum(
+                1 for t in state.tasks.values() if t.get("status") in {"OPEN", "HEALING"}
+            ),
+            "closed_tasks": sum(
+                1 for t in state.tasks.values() if t.get("status") == "CLOSED"
+            ),
+            "dead_end_tasks": sum(
+                1 for t in state.tasks.values() if t.get("status") == "DEAD_END"
+            ),
+            "state_dir": _rel(root, state_dir),
+        }
+        write_json(state_dir / CYCLE_SUMMARY_FILENAME, summary)
+        write_json(
+            state_dir
+            / f"cycle_{state.cycles:05d}_{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}.json",
+            summary,
         )
-        cycle_rows.append(row)
-
-    mastery = run_mastery_for_misses(root, actionable, mode=mastery_mode)
-    for miss in actionable:
-        verdict = apply_gate_after_mastery(state, miss, mastery)
-        append_jsonl(
-            state_dir / TURNS_FILENAME,
-            {
-                "recorded_at_utc": utc_now(),
-                "track": miss.track,
-                "task_id": miss.task_id,
-                "turn_index": int((_task_state(state, miss).get("turn_count") or 0)),
-                "turn_kind": "MASTERY",
-                "actor_role": "gate",
-                "gate_verdict": verdict,
-            },
-        )
-
-    state.cycles += 1
-    state.last_cycle_at = utc_now()
-    save_state(state_dir, state)
-
-    summary = {
-        "kind": "exam_miss_reinjection_cycle",
-        "recorded_at_utc": state.last_cycle_at,
-        "cycle": state.cycles,
-        "aristotelian_closure_turns": state.aristotelian_closure_turns,
-        "total_franklin_turns": state.total_franklin_turns,
-        "misses_loaded": len(misses),
-        "misses_actioned": len(actionable),
-        "tracks": list(tracks),
-        "mastery_mode": mastery_mode,
-        "kaggle_submit": False,
-        "no_kaggle_submit_lock": True,
-        "dry_run": dry_run,
-        "rows": cycle_rows,
-        "mastery": mastery,
-        "open_tasks": sum(
-            1 for t in state.tasks.values() if t.get("status") in {"OPEN", "HEALING"}
-        ),
-        "closed_tasks": sum(
-            1 for t in state.tasks.values() if t.get("status") == "CLOSED"
-        ),
-        "dead_end_tasks": sum(
-            1 for t in state.tasks.values() if t.get("status") == "DEAD_END"
-        ),
-        "state_dir": _rel(root, state_dir),
-    }
-    write_json(state_dir / CYCLE_SUMMARY_FILENAME, summary)
-    write_json(
-        state_dir / f"cycle_{state.cycles:05d}_{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}.json",
-        summary,
-    )
-    return summary
+        return summary
+    finally:
+        # Live daemon holds the lock across cycles (EXAM_REINJECT_HOLD_LOCK=1).
+        # Dry-run and one-shot live cycles release when done.
+        if dry_run or os.environ.get("EXAM_REINJECT_HOLD_LOCK") != "1":
+            release_writer_lock(state_dir)

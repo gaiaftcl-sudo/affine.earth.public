@@ -63,8 +63,16 @@ def main() -> int:
         default="affected",
         help="Re-run local mastery after Franklin repair (never Kaggle)",
     )
-    parser.add_argument("--timeout", type=int, default=180)
-    parser.add_argument("--max-tokens", type=int, default=2048)
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        default=int(__import__("os").environ.get("EXAM_REINJECT_TIMEOUT", "300")),
+    )
+    parser.add_argument(
+        "--max-tokens",
+        type=int,
+        default=int(__import__("os").environ.get("EXAM_REINJECT_MAX_TOKENS", "1024")),
+    )
     parser.add_argument(
         "--dry-run",
         action="store_true",
@@ -96,10 +104,17 @@ def main() -> int:
 
     if args.daemon and args.once:
         raise SystemExit("Choose either --daemon or --once, not both")
+    if args.dry_run and __import__("os").environ.get("EXAM_REINJECT_LIVE") == "1":
+        raise SystemExit("EXAM_REINJECT_LIVE=1 forbids --dry-run")
     once = args.once or not args.daemon
     tracks = parse_tracks(args.tracks)
     root = args.root.resolve()
     cycles = 0
+
+    # Daemon holds exclusive writer lock across cycles so dry-run cannot clobber.
+    if args.daemon and not args.dry_run:
+        __import__("os").environ["EXAM_REINJECT_HOLD_LOCK"] = "1"
+        __import__("os").environ.setdefault("EXAM_REINJECT_LIVE", "1")
 
     while True:
         summary = run_reinjection_cycle(
@@ -113,12 +128,15 @@ def main() -> int:
             dry_run=args.dry_run,
         )
         cycles += 1
+        if summary.get("dry_run") and not args.dry_run:
+            raise SystemExit("BUG: live argv stamped dry_run=True — abort")
         print(json.dumps(summary, indent=2, sort_keys=True))
         print(
             f"Cycle {summary['cycle']}: actioned={summary['misses_actioned']} "
             f"open={summary['open_tasks']} closed={summary['closed_tasks']} "
             f"dead_end={summary['dead_end_tasks']} "
             f"franklin_turns={summary['total_franklin_turns']} "
+            f"dry_run={summary.get('dry_run')} "
             f"(Aristotelian budget {summary['aristotelian_closure_turns']})"
         )
         if once:

@@ -29,8 +29,13 @@ Options (passed through to scripts/exam_miss_reinjection_loop.py):
 
 Environment:
   EXAM_REINJECT_BASE_URL / OPENAI_BASE_URL / HLE_LOCAL_BASE_URL
+  EXAM_REINJECT_FALLBACK_BASE_URL   (default http://127.0.0.1:1234/v1 on primary stall)
   EXAM_REINJECT_MODEL / OPENAI_MODEL / HLE_LOCAL_MODEL
+  EXAM_REINJECT_TIMEOUT (default 300) / EXAM_REINJECT_MAX_TOKENS (default 1024)
+  EXAM_REINJECT_LIVE=1              (forbids --dry-run mixed writers)
   OPENAI_API_KEY / AFFINE_HARNESS_API_KEY
+
+See reports/exam_reinjection/env.local.example
 
 Does NOT call Kaggle. Blocked by configs/NO_KAGGLE_SUBMIT.lock.
 EOF
