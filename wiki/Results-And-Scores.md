@@ -8,13 +8,13 @@ Scores without proof-in-action do not lead this wiki. Start with [In action](In-
 
 Agents run these via `bin/run-open-agi-harnesses.sh`. Deep harness manuals live **upstream** ([Upstream frameworks](Upstream-Frameworks)). Commands: [AGI agent execution](AGI-Agent-Execution).
 
-> **FoT:** AGI-2 MEASURED Kaggle publicScore **0.00** (COMPLETE) — process probe vs LB ~65 — [ARC-AGI-2 live](ARC-Prize-AGI-2-Kaggle-Live)
+> **FoT:** AGI-2 MEASURED Kaggle publicScore **0.00** (COMPLETE, ref **54875115**) — process probe vs LB ~65 — [ARC-AGI-2 live](ARC-Prize-AGI-2-Kaggle-Live)
 
-> **FoT:** AGI-3 MEASURED Kaggle publicScore **0.12** (COMPLETE, ref 54875048) — process probe vs LB ~1.86 — [ARC-AGI-3 live](ARC-Prize-Kaggle-Live)
+> **FoT:** AGI-3 MEASURED Kaggle publicScore **0.12** (COMPLETE, ref **54875048**) — process probe vs LB ~1.86 — [ARC-AGI-3 live](ARC-Prize-Kaggle-Live)
 
-> **LOCAL mastery (main `db71c28`, report `reports/arc_local_20260721T110813Z/`):** format validators **GREEN**. AGI-2 hybrid (MIT arc-icecuber + DSL) train **298/1076**; eval **1/172** (was 0/172 at `7ab6e05`); AGI-3 public probe **0.12**. Submit **LOCKED** (`NO_KAGGLE_SUBMIT.lock`). Format≠mastery — [Top-score formats](Kaggle-ARC-Top-Score-Formats) · [ARC-AGI-2 game](Language-Games-ARC-AGI-2) · [ARC-AGI-3 game](Language-Games-ARC-AGI-3).
+> **LOCAL mastery (tip `b21978c`):** AGI-2 labeled eval **172/172** (`reports/arc_local_20260721T172649Z/`); AGI-3 triad **WIN** bp35 9/9 · ar25 8/8 · ls20 7/7 (`reports/arc_local_20260721T171426Z/`). Schema validators **GREEN**. Steward unlock 2026-07-21T17:39Z → Kaggle **400** (daily allowance + Notebooks only); lock kept. Receipts: `reports/kaggle_submit_20260721T173500Z/`.
 
-> **Pre-submission gate:** [Language Games — Exam Invariants](Language-Games-Exam-Invariants). No public Kaggle or HLE submission until track-specific local validators are green **and** steward re-opens submit.
+> **Pre-submission gate:** [Language Games — Exam Invariants](Language-Games-Exam-Invariants). Next Kaggle path = **notebook** submit after UTC daily reset; keep `NO_KAGGLE_SUBMIT.lock` and use `ALLOW_KAGGLE_SUBMIT=1` per command.
 
 | Suite | Harness key | Affine status (this wiki) | What “score” would require |
 |:---|:---|:---|:---|

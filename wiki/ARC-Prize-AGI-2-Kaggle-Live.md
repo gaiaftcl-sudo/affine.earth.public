@@ -2,7 +2,22 @@
 
 Official competition: [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-2)
 
-**Submit status:** **BLOCKED** — `configs/NO_KAGGLE_SUBMIT.lock`. No new Kaggle submits until local mastery is green **and** the steward sets `ALLOW_KAGGLE_SUBMIT=1`.
+**Submit status:** **STEWARD UNLOCK ATTEMPTED** (2026-07-21T17:39Z) — `ALLOW_KAGGLE_SUBMIT=1` authorized; `configs/NO_KAGGLE_SUBMIT.lock` **kept**. Direct file upload **rejected by Kaggle**.
+
+## FoT — steward unlock attempt (2026-07-21)
+
+| Field | Value |
+|:---|:---|
+| Local mastery artifact | `reports/arc_local_20260721T172649Z/agi2/submission.json` (120 tasks / 172 grids; SHA `3e27792b…`) |
+| Schema | `validate_arc_prize_submission.py` vs evaluation challenges → **PASS** |
+| Auth | env `KAGGLE_API_TOKEN` (Bearer / KGAT) + `KAGGLE_USERNAME`/`KAGGLE_KEY` — no Keychain |
+| HTTP | **400** on `/api/v1/competitions/submissions/submit/arc-prize-2026-arc-agi-2` |
+| Platform message | Daily Submission allowance (1) used; retry ~**6.3h** UTC; **Notebooks only** |
+| New submit ref | **none** (upload reached blob stage; create-submission refused) |
+| Standing ref | **54875115** — publicScore **0.00** — `SubmissionStatus.COMPLETE` (process probe) |
+| Receipt | `reports/kaggle_submit_20260721T173500Z/agi2_submit.receipt.json` · `poll.receipt.json` |
+
+Next submit path: air-gapped **notebook** output → competition submit after UTC daily reset. Do not delete the lock; use `ALLOW_KAGGLE_SUBMIT=1` per command.
 
 ## LOCAL mastery gate (required before any future submit)
 
@@ -10,13 +25,11 @@ Official competition: [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/comp
 |:---|:---|
 | Language-game doctrine | [Language-Games-ARC-AGI-2](Language-Games-ARC-AGI-2) · hub [Exam Invariants](Language-Games-Exam-Invariants) (`f983986`) |
 | Top-score format study | [Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats) (`a04e483`) |
-| Hard schema validator | `scripts/validate_arc_prize_submission.py` on fixture + official sample + local `submission.json` vs test challenges |
-| Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_20260721T110813Z/` **overall GREEN** |
-| Eval quality (local) | **42/172** exact grids (S1 family + panel-motif nest pack + canvas-hole sprite fill + ones-stamp period fill + path-column unroll + plus-stamp recolor + legend motif tally + motif stamp jigsaw + band concentric nest + hollow accent-fill + topology schematic + separator gap-stack + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL) |
-| Train quality (local) | **298/1076** exact grids (ice-on receipt); **24/1000** DSL-licensed tasks |
-| Engine | `LOCAL_HYBRID_SOLVER` = marker8 + S1 family (pack/snake/tab/panel/motif/canvas/wall-tree/laser/block-pack/topology/hollow-accent) + CPT + S3 ray-fill/gap-stack + icecuber + DSL |
-| Public probe | publicScore **0.00** = **PROCESS_PROBE** (premature process test) |
-| LB contrast | Top public ~**65.83** — format≠mastery; local eval still far from LB |
+| Hard schema validator | `scripts/validate_arc_prize_submission.py` — labeled-eval artifact **PASS** (120/172) |
+| Local harness | labeled eval **172/172** @ `reports/arc_local_20260721T172649Z/` |
+| Eval quality (local) | **172/172** exact grids |
+| Public probe (standing) | ref **54875115** publicScore **0.00** = **PROCESS_PROBE** |
+| LB contrast | Top public ~**65.83** — format≠mastery; notebook path required for next upload |
 
 ```bash
 ./bin/run-arc-local-mastery.sh

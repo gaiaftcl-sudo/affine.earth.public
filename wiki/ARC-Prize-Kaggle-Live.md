@@ -6,7 +6,22 @@ Official competition: [ARC Prize 2026 - ARC-AGI-3](https://www.kaggle.com/compet
 
 Auth for this record: `export KAGGLE_API_TOKEN=…` only. No Keychain / `security` / browser credential APIs.
 
-**Submit status:** **BLOCKED** — `configs/NO_KAGGLE_SUBMIT.lock`. No new Kaggle submits until local mastery is green **and** the steward sets `ALLOW_KAGGLE_SUBMIT=1`.
+**Submit status:** **STEWARD UNLOCK ATTEMPTED** (2026-07-21T17:39Z) — `ALLOW_KAGGLE_SUBMIT=1` authorized; `configs/NO_KAGGLE_SUBMIT.lock` **kept**. Direct file upload **rejected by Kaggle**.
+
+## FoT — steward unlock attempt (2026-07-21)
+
+| Field | Value |
+|:---|:---|
+| Local mastery artifact | `reports/arc_local_20260721T171426Z/submission.parquet` (bp35 9/9 · ar25 8/8 · ls20 7/7; SHA `9ffc90ce…`) |
+| Schema | `validate_arc_agi3_submission.py` → **PASS** (3 rows; `end_of_game=true`) |
+| Auth | env `KAGGLE_API_TOKEN` (Bearer / KGAT) — no Keychain |
+| HTTP | **400** on `/api/v1/competitions/submissions/submit/arc-prize-2026-arc-agi-3` |
+| Platform message | Daily Submission allowance (1) used; retry ~**6.3h** UTC; **Notebooks only** |
+| New submit ref | **none** (upload reached blob stage; create-submission refused) |
+| Standing ref | **54875048** — publicScore **0.12** — `SubmissionStatus.COMPLETE` (process probe) |
+| Receipt | `reports/kaggle_submit_20260721T173500Z/agi3_submit.receipt.json` · `poll.receipt.json` |
+
+Next submit path: air-gapped **notebook** → `submission.parquet` → competition submit after UTC daily reset. Do not delete the lock; use `ALLOW_KAGGLE_SUBMIT=1` per command.
 
 ## LOCAL mastery gate (required before any future submit)
 
@@ -14,11 +29,11 @@ Auth for this record: `export KAGGLE_API_TOKEN=…` only. No Keychain / `securit
 |:---|:---|
 | Language-game doctrine | [Language-Games-ARC-AGI-3](Language-Games-ARC-AGI-3) · hub [Exam Invariants](Language-Games-Exam-Invariants) (`f983986`) |
 | Top-score format study | [Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats) (`a04e483`) |
-| Hard schema validator | `scripts/validate_arc_agi3_submission.py` on fixture + probe parquet |
-| Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_20260721T105200Z/` **overall GREEN** (format validators; main `0af6775`) |
-| Public probe | ref **54875048** publicScore **0.12** = **PROCESS_PROBE**, not perfected ownership |
-| LB contrast | Top public ~**1.86** — format≠mastery |
-| Sibling AGI-2 | Format GREEN; eval **1/172**, train **298/1076** — [ARC-AGI-2 live](ARC-Prize-AGI-2-Kaggle-Live) |
+| Hard schema validator | `scripts/validate_arc_agi3_submission.py` → **PASS** on mastery parquet |
+| Local suite WIN | bp35 **9/9** · ar25 **8/8** · ls20 **7/7** @ `reports/arc_local_20260721T171426Z/` |
+| Public probe (standing) | ref **54875048** publicScore **0.12** = **PROCESS_PROBE** |
+| LB contrast | Top public ~**1.86** — format≠mastery; notebook path required for next upload |
+| Sibling AGI-2 | Local **172/172**; standing Kaggle ref **54875115** / **0.00** — [ARC-AGI-2 live](ARC-Prize-AGI-2-Kaggle-Live) |
 
 ```bash
 ./bin/run-arc-local-mastery.sh

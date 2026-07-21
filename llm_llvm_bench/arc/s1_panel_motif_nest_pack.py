@@ -91,14 +91,16 @@ def _hole_components(full: Grid, bg: int) -> int:
     return count
 
 
-def _nest(panel: Grid, motif: Grid, bg: int, panel_color: int) -> Grid:
+def _nest(panel: Grid, motif: Grid, bg: int, panel_color: int) -> Optional[Grid]:
     out = [list(row) for row in panel]
     height, width = len(out), len(out[0])
+    mh, mw = len(motif), len(motif[0])
+    if mh > height or mw > width:
+        return None
     for r in range(height):
         for c in range(width):
             if out[r][c] == bg:
                 out[r][c] = panel_color
-    mh, mw = len(motif), len(motif[0])
     r0 = (height - mh) // 2
     c0 = (width - mw) // 2
     for i in range(mh):
@@ -160,7 +162,10 @@ def panel_motif_nest_pack(grid: Grid) -> Optional[Grid]:
         exact.sort(key=lambda c: (c["bbox"][0], c["bbox"][2]))
         motif = exact[0]
         used.add(id(motif))
-        tiles.append(_nest(panel["full"], motif["full"], bg, int(panel["col"])))
+        nested = _nest(panel["full"], motif["full"], bg, int(panel["col"]))
+        if nested is None:
+            return None
+        tiles.append(nested)
     return _arrange(panels, tiles)
 
 

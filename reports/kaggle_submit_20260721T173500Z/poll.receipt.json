@@ -1,0 +1,54 @@
+{
+  "polled_at": "2026-07-21T17:39:18Z",
+  "submit_attempt": {
+    "agi2": {
+      "track": "agi2",
+      "competition": "arc-prize-2026-arc-agi-2",
+      "file": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/arc_local_20260721T172649Z/agi2/submission.json",
+      "status": "ERROR",
+      "error_type": "HTTPError",
+      "error": "400 Client Error: Bad Request for url: https://www.kaggle.com/api/v1/competitions/submissions/submit/arc-prize-2026-arc-agi-2",
+      "submitted_at": "2026-07-21T17:39:04Z",
+      "http_status": 400,
+      "http_body": "{\"code\":400,\"message\":\"Submission not allowed:  Your team has used its daily Submission allowance (1) today, please try again tomorrow UTC (6.3 hours from now). This competition only accepts Submissions from Notebooks.\"}"
+    },
+    "agi3": {
+      "track": "agi3",
+      "competition": "arc-prize-2026-arc-agi-3",
+      "file": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/arc_local_20260721T171426Z/submission.parquet",
+      "status": "ERROR",
+      "error_type": "HTTPError",
+      "error": "400 Client Error: Bad Request for url: https://www.kaggle.com/api/v1/competitions/submissions/submit/arc-prize-2026-arc-agi-3",
+      "submitted_at": "2026-07-21T17:39:05Z",
+      "http_status": 400,
+      "http_body": "{\"code\":400,\"message\":\"Submission not allowed:  Your team has used its daily Submission allowance (1) today, please try again tomorrow UTC (6.3 hours from now). This competition only accepts Submissions from Notebooks.\"}"
+    }
+  },
+  "latest_submissions": {
+    "arc-prize-2026-arc-agi-2": [
+      {
+        "ref": 54875115,
+        "date": "2026-07-21 10:32:48",
+        "description": "ARC-AGI-2 air-gapped public transformation baseline v1",
+        "fileName": "submission.json",
+        "publicScore": "0.00",
+        "privateScore": null,
+        "status": "SubmissionStatus.COMPLETE",
+        "errorDescription": null
+      }
+    ],
+    "arc-prize-2026-arc-agi-3": [
+      {
+        "ref": 54875048,
+        "date": "2026-07-21 10:29:44.353000",
+        "description": "public-test AGI-3 starter baseline v1 air-gapped",
+        "fileName": "submission.parquet",
+        "publicScore": "0.12",
+        "privateScore": null,
+        "status": "SubmissionStatus.COMPLETE",
+        "errorDescription": null
+      }
+    ]
+  },
+  "blocker": "Kaggle 400: daily allowance (1) used; competitions only accept Submissions from Notebooks. Retry after ~6.3h UTC via notebook path."
+}

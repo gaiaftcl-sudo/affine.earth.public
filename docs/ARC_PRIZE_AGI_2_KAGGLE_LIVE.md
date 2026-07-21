@@ -2,7 +2,23 @@
 
 Official competition: [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-2)
 
-**Submit status:** **BLOCKED** — `configs/NO_KAGGLE_SUBMIT.lock`. No new Kaggle submits until local mastery is green **and** the steward sets `ALLOW_KAGGLE_SUBMIT=1`.
+**Submit status:** **STEWARD UNLOCK ATTEMPTED** (2026-07-21T17:39Z) — `ALLOW_KAGGLE_SUBMIT=1` authorized; `configs/NO_KAGGLE_SUBMIT.lock` **kept**. Direct file upload **rejected by Kaggle**.
+
+## FoT — steward unlock attempt (2026-07-21)
+
+| Field | Value |
+|:---|:---|
+| Local mastery artifact | `reports/arc_local_20260721T172649Z/agi2/submission.json` (120 tasks / 172 grids; SHA `3e27792b…`) |
+| Schema | `validate_arc_prize_submission.py` vs evaluation challenges → **PASS** |
+| Auth | env `KAGGLE_API_TOKEN` (Bearer / KGAT) + `KAGGLE_USERNAME`/`KAGGLE_KEY` — no Keychain |
+| HTTP | **400** on `/api/v1/competitions/submissions/submit/arc-prize-2026-arc-agi-2` |
+| Platform message | Daily Submission allowance (1) used; retry ~**6.3h** UTC; **Notebooks only** |
+| New submit ref | **none** (upload reached blob stage; create-submission refused) |
+| Standing ref | **54875115** — publicScore **0.00** — `SubmissionStatus.COMPLETE` (process probe) |
+| Receipt | `reports/kaggle_submit_20260721T173500Z/agi2_submit.receipt.json` · `poll.receipt.json` |
+
+Next submit path: air-gapped **notebook** output → competition submit after UTC daily reset. Do not delete the lock; use `ALLOW_KAGGLE_SUBMIT=1` per command.
+
 
 ## LOCAL mastery gate (required before any future submit)
 

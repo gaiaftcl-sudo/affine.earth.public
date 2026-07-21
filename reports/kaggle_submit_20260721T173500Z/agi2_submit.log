@@ -1,0 +1,11 @@
+{
+  "track": "agi2",
+  "competition": "arc-prize-2026-arc-agi-2",
+  "file": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/arc_local_20260721T172649Z/agi2/submission.json",
+  "status": "ERROR",
+  "error_type": "HTTPError",
+  "error": "400 Client Error: Bad Request for url: https://www.kaggle.com/api/v1/competitions/submissions/submit/arc-prize-2026-arc-agi-2",
+  "submitted_at": "2026-07-21T17:39:04Z",
+  "http_status": 400,
+  "http_body": "{\"code\":400,\"message\":\"Submission not allowed:  Your team has used its daily Submission allowance (1) today, please try again tomorrow UTC (6.3 hours from now). This competition only accepts Submissions from Notebooks.\"}"
+}

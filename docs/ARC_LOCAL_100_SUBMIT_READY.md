@@ -30,10 +30,12 @@ Agents must not remove the lock file. Env override only when steward orders it.
 
 | Role | SHA |
 | --- | --- |
-| Tip (this seal) | `7097a0e` |
+| Tip (this seal) | `b21978c` (post-update commit lands next) |
+| AGI-2 independent verify receipt | `6d3a705` (`reports/arc_local_20260721T172649Z/VERIFY_RECEIPT.json`) |
 | AGI-2 land (172/172 COMPLETE) | `21b2924` |
 | Reinjection CLOSED 120/120 + bp35 9/9 | `95d7b89` |
 | AGI-3 independent triad re-verify | `41f190d` |
+| AGI-3 FoT + steward unlock one-liner | `6d3a705` |
 
 ## Steward unlock (env override only — do not delete the lock)
 
@@ -64,8 +66,15 @@ ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh \
 
 Without `ALLOW_KAGGLE_SUBMIT=1`, `bin/kaggle-submit-guard.sh` exits 99.
 
+## Steward unlock attempt (2026-07-21T17:39Z)
+
+`ALLOW_KAGGLE_SUBMIT=1` authorized; lock **kept**. Both tracks uploaded blob then got Kaggle **400**:
+daily Submission allowance (1) exhausted (~6.3h UTC) **and** competitions accept **Notebooks only**.
+No new refs. Standing: AGI-2 **54875115** / **0.00**; AGI-3 **54875048** / **0.12**.
+Receipts: `reports/kaggle_submit_20260721T173500Z/`.
+
 ## HLE (orthogonal; not a submit gate)
 
 Official harness **still running**: `reports/hle_official_20260721T143509Z/`
-— live preds **671/2500** (`harnesses/hle/hle_eval/hle_qwen3.6-35b-a3b.json`); `acc=null` until judge finishes.
+— live preds **686/2500** (`harnesses/hle/hle_eval/hle_qwen3.6-35b-a3b.json`); `acc=null` until judge finishes.
 Accuracy written only when preds finish and `official_hle_accuracy.receipt.json` appears.
