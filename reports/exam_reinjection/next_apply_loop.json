@@ -1,14 +1,6 @@
 {
-  "closed_task": "arc2:135a2760",
+  "closed_task": "arc2:136b0064",
   "next_apply_loop": [
-    {
-      "action": "Acquire live C4 via Franklin S4 (LOCKED|REINJECT), then deterministic solver + train replay",
-      "key": "arc2:136b0064",
-      "last_c4": "",
-      "last_gate": "CLEARED_STALE_DRY_RUN",
-      "task_id": "136b0064",
-      "track": "arc2"
-    },
     {
       "action": "Acquire live C4 / action theory via Franklin S4; environment_step validator; no fake GREEN",
       "key": "arc3:agi3-trajectory-gap",
@@ -16,8 +8,19 @@
       "last_gate": "CLEARED_STALE_DRY_RUN",
       "task_id": "agi3-trajectory-gap",
       "track": "arc3"
+    },
+    {
+      "action": "Parallel C4 acquisition from miss queue while arc3 trajectory gap heals",
+      "key": "arc2:13e47133",
+      "last_c4": "",
+      "last_gate": "pending",
+      "task_id": "13e47133",
+      "track": "arc2"
     }
   ],
-  "note": "Only 135a2760 had live C4; remaining HEALING tasks need Franklin live C4 before apply-loop.",
-  "recorded_at_utc": "2026-07-21T13:43:47.004024+00:00"
+  "note": "136b0064 CLOSED via s1_digit_separator_snake (9070588). Next needs live C4 acquisition.",
+  "prior_closed": [
+    "arc2:135a2760"
+  ],
+  "recorded_at_utc": "2026-07-21T13:51:54.548029+00:00"
 }

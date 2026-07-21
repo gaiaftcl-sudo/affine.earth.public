@@ -1,20 +1,20 @@
 {
-  "c4_invariant": "{\"grid\": [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6, 0]], \"shape\": [19, 7]}",
+  "c4_invariant": "{\"grid\": [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 6]], \"shape\": [8, 7]}",
   "closure_ready": false,
-  "grammar_update": "The task requires cropping the input grid to a 7-column width, specifically the bounding box of non-zero pixels, and shifting the content to the left edge while preserving vertical alignment.",
+  "grammar_update": "The output grid is a cropped, shifted version of the input. The input contains a 2x2 block of 1s and a single 6. The output contains the 2x2 block of 1s and the 6, but shifted. The 6 moves from (7, 5) to (7, 6). The 2x2 block moves from (4, 1)-(5, 2) to (4, 1)-(5, 2). Wait, the 2x2 block is at (4,1), (4,2), (5,1), (5,2). In the output, it's at (4,1), (4,2), (5,1), (5,2). So the 2x2 block didn't move. The 6 moved from (7,5) to (7,6). This is a shift right by 1 for the 6 only? Or maybe the whole grid is shifted right by 1, but the 2x2 block is anchored? No, the 2x2 block is at the same position. The 6 is at (7,5) in input, and (7,6) in output. This is a shift right by 1 for the 6. But why? Maybe the 6 is moving towards the right edge? Or maybe it's a reflection? Let's look at the train pairs. They all have resized outputs. The output shape is always 7 columns. The input shapes vary. The output is a 7-column wide crop of the input, but shifted. The 2x2 block is at column 1-2. The 6 is at column 5. In the output, the 2x2 block is at column 1-2, and the 6 is at column 6. So the 6 moved right by 1. This is a very specific transformation. Maybe the 6 is moving to the rightmost possible position? Or maybe it's a shift of the entire right side of the grid? Let's assume the rule is: crop the input to 7 columns, and shift any single pixels to the right by 1. But the 2x2 block didn't shift. So maybe only single pixels shift? Or maybe the 6 is moving to the right edge of the 7-column crop? The 7-column crop ends at column 6. The 6 is at column 6. So it moved to the right edge. This is a plausible rule: crop to 7 columns, and move single pixels to the right edge of the crop. But the 2x2 block is not a single pixel, so it doesn't move. This fits the evidence. Let's test this rule on the next turn. For now, I will emit this candidate.",
   "protocol": "franklin_s4_projection",
-  "recorded_at_utc": "2026-07-21T13:50:41.303270+00:00",
-  "repair_kind": "solver_hint",
-  "research_note": "The expected output shows a 7-column grid. The input grid is 19x15. The non-zero pixels in the input are concentrated in a 7-column wide region. The expected output is a left-aligned crop of this region. The previous attempt failed to shift the pixels to the left edge.",
+  "recorded_at_utc": "2026-07-21T13:52:09.930565+00:00",
+  "repair_kind": "context",
+  "research_note": "The transformation involves cropping the input to a 7-column width and shifting isolated pixels (like the 6) to the rightmost column of the crop, while leaving multi-pixel structures (like the 2x2 block) in place. This explains the shift of the 6 from column 5 to 6 in the 7-column output.",
   "s1": "{\"evidence_keys\": [\"attempt_1_exact\", \"attempt_1_preview\", \"attempt_1_shape\", \"attempt_2_exact\", \"expected_preview\", \"expected_shape\", \"test_index\", \"train_pairs\"], \"ingestion\": \"miss_receipt\", \"s_state\": \"incomplete\", \"task_id\": \"136b0064\", \"track\": \"arc2\"}",
-  "s2": "{\"drift_kind\": \"understanding drift\", \"prior_turns\": 2, \"rule_candidates\": \"1. Crop to 7-wide bounding box of non-zero pixels. 2. Shift non-zero pixels to left edge. 3. Preserve relative vertical positions. 4. Fill empty space with 0.\"}",
+  "s2": "{\"drift_kind\": \"understanding drift\", \"prior_turns\": 3, \"rule_candidates\": \"enumerate every demonstration-consistent candidate\"}",
   "s3": "{\"discriminator\": \"demonstration_replay\", \"next_probe\": \"emit one typed candidate the named validator can accept or reject\"}",
-  "s4": "{\"status\": \"REINJECT\", \"typed_candidate\": {\"grid\": [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6, 0]], \"shape\": [19, 7]}, \"unresolved_alternatives\": [\"Shift non-zero pixels to left edge\", \"Crop to 7-wide bounding box of non-zero pixels\", \"Shift non-zero pixels to right edge\"], \"validator\": \"demonstration_replay\", \"validator_result\": {\"accepted\": false, \"detail\": \"franklin_reinject_with_candidate\", \"ran\": true, \"status\": \"REINJECT\", \"validator\": \"demonstration_replay\"}}",
+  "s4": "{\"status\": \"REINJECT\", \"typed_candidate\": {\"grid\": [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 6]], \"shape\": [8, 7]}, \"unresolved_alternatives\": [\"shift right by 1\", \"shift down by 1\", \"mirror horizontally\"], \"validator\": \"demonstration_replay\", \"validator_result\": {\"accepted\": false, \"detail\": \"franklin_reinject_with_candidate\", \"ran\": true, \"status\": \"REINJECT\", \"validator\": \"demonstration_replay\"}}",
   "s4_status": "REINJECT",
   "source_miss": "reports/arc_local_20260721T133000Z/agi2/failure-case-analyses.json",
   "task_id": "136b0064",
   "track": "arc2",
-  "turn_index": 3,
+  "turn_index": 4,
   "typed_candidate": {
     "grid": [
       [
@@ -86,19 +86,19 @@
         0,
         0,
         0,
-        6,
-        0
+        0,
+        6
       ]
     ],
     "shape": [
-      19,
+      8,
       7
     ]
   },
   "unresolved_alternatives": [
-    "Shift non-zero pixels to left edge",
-    "Crop to 7-wide bounding box of non-zero pixels",
-    "Shift non-zero pixels to right edge"
+    "shift right by 1",
+    "shift down by 1",
+    "mirror horizontally"
   ],
   "validator": "demonstration_replay",
   "validator_result": {

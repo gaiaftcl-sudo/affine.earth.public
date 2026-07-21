@@ -1,0 +1,16 @@
+{
+  "corrected_c4": "Digit-separator snake pack: drop sep+right strip to 7-wide canvas; read left-column digit colors top\u2192bottom then right-column digits; emit typed glyphs (1:w3, 2:w2, 3:w4, 6:h2) chained by ports (1\u2192right edge; 2/3/6\u2192left/sole; next seats 1/6 on port, 2/3 right-aligned to port); marker 5 row/col preserved from right strip.",
+  "engine": "s1_digit_separator_snake",
+  "eval_tick": true,
+  "franklin_reinject": "vertical slice of input (rightmost/leftmost/middle 7 columns) \u2014 rejected by demonstration_replay",
+  "kaggle_submit": "LOCKED",
+  "labeled_eval": "1/1",
+  "mastery_eval_exact_grids": "8/172",
+  "recorded_at_utc": "2026-07-21T13:51:54.548029+00:00",
+  "s4_status": "LOCKED",
+  "solver_sha": "9070588",
+  "task_id": "136b0064",
+  "track": "arc2",
+  "train_replay": "3/3",
+  "ui_capture": "reports/arc_ui_audit_s1_20260721T134500Z/136b0064_input.ppm"
+}

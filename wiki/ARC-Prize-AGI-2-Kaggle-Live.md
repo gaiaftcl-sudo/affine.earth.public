@@ -66,6 +66,14 @@ S3 `separator_ray_fill` closed: train **3/3**, labeled eval **3/3** via
 content-side motifs ray-fill empty side; leftward phase = reversed rightward
 buffer. No Kaggle submit.
 
+## FoT note — 136b0064 digit-separator snake (2026-07-21)
+
+Franklin slice candidates (7-col vertical crop) **REINJECT**’d — fail train
+replay. Correct C4 locked: port-chained digit glyph snake on a 7-wide canvas
+(`s1_digit_separator_snake`, solver SHA `9070588`). Train **3/3**, labeled eval
+**1/1**; mastery **8/172**. UI capture:
+`reports/arc_ui_audit_s1_20260721T134500Z/136b0064_input.ppm`. No Kaggle submit.
+
 ## 2026-07-21 local quality pass
 
 The local replay-gated DSL now composes a geometry operation with a learned
@@ -105,7 +113,7 @@ Receipt: `reports/arc_local_20260721T110813Z/` — overall **GREEN**.
 
 | Metric | Value |
 | --- | --- |
-| Eval exact | **7/172** (`981571dc` ice + `0934a4d8` marker8 + `2ba387bc` S1 pack + `135a2760` CPT + `1ae2feb7` S3×3) |
+| Eval exact | **8/172** (`981571dc` ice + `0934a4d8` marker8 + `2ba387bc` S1 pack + `135a2760` CPT + `1ae2feb7` S3×3 + `136b0064` snake) |
 | Train exact | **298/1076** (icecuber 296 + DSL unique) |
 | Failure analyses | full miss taxonomy with S1/S2/S3 classes |
 | Submit | **LOCKED** — no Kaggle submit |
