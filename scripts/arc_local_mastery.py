@@ -114,6 +114,18 @@ def load_s3_period_lattice_rewrite(root: Path) -> Any:
     return module
 
 
+def load_s1_legend_motif_tally(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s1_legend_motif_tally.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s1_legend_motif_tally", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s1_legend_motif_tally solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def load_s1_digit_separator_snake(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s1_digit_separator_snake.py"
     spec = importlib.util.spec_from_file_location("arc_s1_digit_separator_snake", path)
@@ -243,6 +255,18 @@ def load_s1_motif_stamp_jigsaw(root: Path) -> Any:
     )
     if spec is None or spec.loader is None:
         raise RuntimeError(f"Cannot load s1_motif_stamp_jigsaw solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s1_zero_panel_motif_count(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s1_zero_panel_motif_count.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s1_zero_panel_motif_count", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s1_zero_panel_motif_count solver at {path}")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -672,9 +696,11 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s3_gap = load_s3_separator_gap_stack(root)
     s1_panel_motif = load_s1_panel_motif_projection(root)
     s1_jigsaw = load_s1_motif_stamp_jigsaw(root)
+    s1_zeropanel = load_s1_zero_panel_motif_count(root)
     cpt_proj = load_container_period_tiling(root)
     s3_ray = load_s3_separator_ray_fill(root)
     s3_lattice = load_s3_period_lattice_rewrite(root)
+    s1_legend = load_s1_legend_motif_tally(root)
     ice_depth = int(os.environ.get("ARC_ICECUBER_DEPTH", "2"))
     ice_workers = int(os.environ.get("ARC_ICECUBER_WORKERS", "6"))
     ice_train = os.environ.get("ARC_ICECUBER_TRAIN", "1") == "1"
@@ -753,9 +779,11 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s3_gap_hits = 0
     s1_panel_motif_hits = 0
     s1_jigsaw_hits = 0
+    s1_zeropanel_hits = 0
     cpt_hits = 0
     s3_hits = 0
     s3_lattice_hits = 0
+    s1_legend_hits = 0
     for task_id in sorted(eval_challenges):
         hybrid_attempts = marker8.solve_task(eval_challenges[task_id])
         if hybrid_attempts is not None:
@@ -817,6 +845,10 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             if hybrid_attempts is not None:
                 s1_jigsaw_hits += 1
         if hybrid_attempts is None:
+            hybrid_attempts = s1_zeropanel.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s1_zeropanel_hits += 1
+        if hybrid_attempts is None:
             hybrid_attempts = cpt_proj.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 cpt_hits += 1
@@ -828,6 +860,10 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             hybrid_attempts = s3_lattice.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 s3_lattice_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s1_legend.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s1_legend_hits += 1
         merged = []
         for index, _case in enumerate(eval_challenges[task_id]["test"]):
             expected = eval_solutions[task_id][index]
@@ -990,9 +1026,11 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s3_separator_gap_stack_licensed_tasks": s3_gap_hits,
             "s1_panel_motif_projection_licensed_tasks": s1_panel_motif_hits,
             "s1_motif_stamp_jigsaw_licensed_tasks": s1_jigsaw_hits,
+            "s1_zero_panel_motif_count_licensed_tasks": s1_zeropanel_hits,
             "container_period_tiling_licensed_tasks": cpt_hits,
             "s3_separator_ray_fill_licensed_tasks": s3_hits,
             "s3_period_lattice_rewrite_licensed_tasks": s3_lattice_hits,
+            "s1_legend_motif_tally_licensed_tasks": s1_legend_hits,
             "engine": "LOCAL_HYBRID_SOLVER_marker8_s1family_cpt_s3ray_icecuber_dsl",
         },
         "training": {

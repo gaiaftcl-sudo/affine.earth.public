@@ -186,10 +186,10 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **33/172** exact grids
-(overlay `reports/arc_local_20260721T150306Z/agi2/summary-overlay.json`;
+**MEASURED local** (2026-07-21): evaluation lifts to **34/172** exact grids
+(overlay `reports/arc_local_20260721T150629Z/agi2/summary-overlay.json`;
 train ice-on baseline remains **298/1076**). Lineage includes
-`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 = **33/172**.
+`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 = **34/172**.
 
 | Owned grammar | Engine | Train replay | Eval |
 | --- | --- | --- | --- |
@@ -206,12 +206,14 @@ train ice-on baseline remains **298/1076**). Lineage includes
 | oriented block pack | `s1_oriented_block_pack` | 4/4 on `291dc1e1` | exact ×1 |
 | panel motif projection | `s1_panel_motif_projection` | 2/2 on `4c7dc4dd` | exact ×2 |
 | motif stamp jigsaw | `s1_motif_stamp_jigsaw` | 2/2 on `4e34c42c` | exact ×2 |
+| zero-panel motif-count | `s1_zero_panel_motif_count` | 3/3 on `58490d8a` | exact ×1 |
 | topology schematic | `s1_topology_schematic` | 4/4 on `2d0172a1` | exact ×2 |
 | hollow accent-fill | `s1_hollow_accent_fill` | 2/2 on `3a25b0d8` | exact ×2 |
 | container period tiling | `container_period_tiling` | 2/2 on `135a2760` | exact |
 | separator ray-fill | `s3_separator_ray_fill` | 3/3 on `1ae2feb7` | exact ×3 |
 | separator gap-stack | `s3_separator_gap_stack` | 2/2 on `16b78196` | exact ×1 |
 | period lattice rewrite | `s3_period_lattice_rewrite` | 3/3 on `16de56c4` | exact ×2 |
+| legend motif tally | `s1_legend_motif_tally` | 3/3 on `58490d8a` | exact ×1 |
 | ice+DSL residual | `arc-icecuber` hybrid | n/a | +1 prior (`981571dc`) |
 
 **S1 grammar (`hollow_solid_object_pack`):**
@@ -281,3 +283,20 @@ Remaining S1/S3 tasks queued at
 - **S3:** mono → full gcd lattice; pattern+singleton on-lattice → recolor `[min,max]`; else extend pattern + keep singleton.
 - **S4:** lines with <2 seeds unchanged.
 - **C4:** exact rewrite; train-replay gated (`3/3`, eval `2/2`).
+
+**S1 grammar (`legend_motif_tally` / `58490d8a`):**
+
+- **S1:** majority color = main bg; largest mostly-zero panel = legend crop.
+- **S2:** legend markers = unique nonzero colors on that crop.
+- **S3:** for each marker color, count 8-connected components in main (legend masked to bg).
+- **S4:** emit legend-shaped zeros; place `count` copies at `marker_col + 2k` on the marker row.
+- **C4:** exact tally crop; train-replay gated (`3/3`, eval `1/1`).
+
+
+**S1 grammar (`zero_panel_motif_count` / `58490d8a`):**
+
+- **S1:** majority wall; output canvas = bbox of all 0-cells.
+- **S2:** panel markers = nonzero non-wall cells in that bbox.
+- **S3:** for marker color C, count 8-connected outside C-motifs; paint C at `col+2k` for `k=0..count-1`.
+- **S4:** other panel cells stay 0.
+- **C4:** exact panel; train-replay gated (`3/3`, eval `1/1`).

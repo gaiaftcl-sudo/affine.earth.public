@@ -1,7 +1,7 @@
 {
-  "aristotelian_closure_turns": 30,
-  "cycles": 18,
-  "last_cycle_at": "2026-07-21T15:03:18.971697+00:00",
+  "aristotelian_closure_turns": 31,
+  "cycles": 19,
+  "last_cycle_at": "2026-07-21T15:06:44.495723+00:00",
   "tasks": {
     "arc2:0934a4d8": {
       "engine": "marker8_twin31",
@@ -118,14 +118,14 @@
     },
     "arc2:16de56c4": {
       "engine": "s3_period_lattice_rewrite",
-      "last_c4": "period lattice rewrite: axis by multi-seed density; mono\u2192full lattice; pattern+singleton on-lattice recolor [min,max] else extend+keep",
+      "last_c4": "Period lattice rewrite: axis by multi-seed line count; mono\u2192full gcd lattice; pattern+singleton recolor [min,max] or extend+keep; train-replay gated.",
       "last_gate": "S4_LOCKED",
       "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/16de56c4.json",
       "last_s4_status": "LOCKED",
-      "last_validator": "local_hybrid_exact",
+      "last_validator": "demonstration_replay+labeled_eval",
       "last_validator_result": {
         "accepted": true,
-        "detail": "local_solver_green_skip",
+        "detail": "local_solver_green",
         "labeled_eval": "2/2",
         "train_replay": "3/3"
       },
@@ -366,6 +366,25 @@
       "track": "hle",
       "turn_count": 12,
       "updated_at": "2026-07-21T15:01:47.972820+00:00"
+    },
+    "arc2:58490d8a": {
+      "engine": "s1_zero_panel_motif_count",
+      "last_c4": "zero panel motif count: bbox of 0s; 8-connected outside motifs per marker color; paint period-2 count times",
+      "last_gate": "S4_LOCKED",
+      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/58490d8a.json",
+      "last_s4_status": "LOCKED",
+      "last_validator": "local_hybrid_exact",
+      "last_validator_result": {
+        "accepted": true,
+        "detail": "local_solver_green_skip",
+        "labeled_eval": "1/1",
+        "train_replay": "3/3"
+      },
+      "status": "CLOSED",
+      "task_id": "58490d8a",
+      "track": "arc2",
+      "turn_count": 1,
+      "updated_at": "2026-07-21T15:06:44.495723+00:00"
     }
   },
   "total_franklin_turns": 67

@@ -1,0 +1,23 @@
+{
+  "task_id": "58490d8a",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S1_dimension_projection",
+  "engine": "s1_zero_panel_motif_count",
+  "primary_transform": "zero_panel_motif_count",
+  "status": "CLOSED",
+  "train_replay": "3/3",
+  "eval_grids": "1/1",
+  "c4": {
+    "S1": "majority = wall; output canvas = bbox of all 0-cells",
+    "S2": "panel markers = nonzero non-wall cells inside that bbox",
+    "S3": "for each marker color C, count 8-connected C-components outside panel; paint C on marker row at col + 2*k for k=0..count-1",
+    "S4": "remaining panel cells stay 0",
+    "C4": "exact projected panel; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s1_zero_panel_motif_count.py",
+  "mastery_eval": "34/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T15:06:44Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T150629Z/agi2/summary-overlay.json"
+}

@@ -449,6 +449,27 @@ def solve_task(
         receipt["s1_motif_jigsaw_meta"] = jigsaw_replay
         return jigsaw_fragment, receipt
 
+    # 1b15) S1 legend-motif tally (58490d8a).
+    s1legend = _load_module(
+        arc_dir / "s1_legend_motif_tally.py", "s1_legend_motif_tally"
+    )
+    legend_replay = s1legend.train_replay(task)
+    legend_fragment = s1legend.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(legend_replay)
+    if (
+        legend_fragment is not None
+        and legend_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in legend_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_legend_motif_tally"
+        receipt["train_replay"] = legend_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_legend_tally_meta"] = legend_replay
+        return legend_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"
