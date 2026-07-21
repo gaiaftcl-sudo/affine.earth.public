@@ -1,0 +1,20 @@
+{
+  "3af2c5a8": {
+    "ok": true,
+    "engine": "s1_period_tile_dihedral2",
+    "licensed_grids": 1,
+    "train_replay": "3/3"
+  },
+  "310f3251": {
+    "ok": true,
+    "engine": "s1_nw_wrap_mark_period_tile",
+    "licensed_grids": 1,
+    "train_replay": "5/5"
+  },
+  "3979b1a8": {
+    "ok": true,
+    "engine": "s1_plus_sig_quad_expand",
+    "licensed_grids": 1,
+    "train_replay": "2/2"
+  }
+}

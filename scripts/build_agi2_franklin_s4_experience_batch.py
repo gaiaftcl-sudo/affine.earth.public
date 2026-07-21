@@ -328,6 +328,7 @@ def try_ranked_closed_engines(
             "s1_period_tile_colflip_rowblock",
             "s1_period_tile_dihedral2",
             "s1_nw_wrap_mark_period_tile",
+            "s1_plus_sig_quad_expand",
             "container_period_tiling",
             "s1_ones_stamp_period_fill",
             "s1_panel_scale_project",
