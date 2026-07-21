@@ -470,6 +470,27 @@ def solve_task(
         receipt["s1_legend_tally_meta"] = legend_replay
         return legend_fragment, receipt
 
+    # 1b16) S1 solid-motif carve (58f5dbd5).
+    s1carve = _load_module(
+        arc_dir / "s1_solid_motif_carve.py", "s1_solid_motif_carve"
+    )
+    carve_replay = s1carve.train_replay(task)
+    carve_fragment = s1carve.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(carve_replay)
+    if (
+        carve_fragment is not None
+        and carve_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in carve_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_solid_motif_carve"
+        receipt["train_replay"] = carve_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_solid_motif_carve_meta"] = carve_replay
+        return carve_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

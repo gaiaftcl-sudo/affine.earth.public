@@ -1,0 +1,11 @@
+{
+  "task_id": "58f5dbd5",
+  "status": "CLOSED",
+  "engine": "s1_solid_motif_carve",
+  "train_replay": "3/3",
+  "eval_grids": "1/1",
+  "mastery_eval": "37/172",
+  "grammar_path": "reports/exam_reinjection/grammar/arc2/s1_58f5dbd5_solid_motif_carve.json",
+  "sealed_at_utc": "2026-07-21T15:17:00Z",
+  "kaggle_submit": false
+}

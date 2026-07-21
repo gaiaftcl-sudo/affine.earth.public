@@ -1,0 +1,23 @@
+{
+  "task_id": "58f5dbd5",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S1_dimension_projection",
+  "engine": "s1_solid_motif_carve",
+  "primary_transform": "solid_motif_carve",
+  "status": "CLOSED",
+  "train_replay": "3/3",
+  "eval_grids": "1/1",
+  "c4": {
+    "S1": "majority color = background; filled rectangles (h,w≥4) are solids",
+    "S2": "for each solid color C, non-solid C cells form a motif mask (bbox)",
+    "S3": "motif size = (solid_h-2)×(solid_w-2); punch motif-present cells in solid interior to bg (invert stamp)",
+    "S4": "output = crop covering all solids expanded by one bg frame cell",
+    "C4": "exact packed carve; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s1_solid_motif_carve.py",
+  "mastery_eval": "37/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T15:17:00Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T151700Z/agi2/summary-overlay.json"
+}

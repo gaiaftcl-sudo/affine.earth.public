@@ -126,6 +126,18 @@ def load_s1_legend_motif_tally(root: Path) -> Any:
     return module
 
 
+def load_s1_solid_motif_carve(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s1_solid_motif_carve.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s1_solid_motif_carve", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s1_solid_motif_carve solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def load_s3_terrain_period_bounce(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_terrain_period_bounce.py"
     spec = importlib.util.spec_from_file_location(
@@ -136,6 +148,8 @@ def load_s3_terrain_period_bounce(root: Path) -> Any:
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
+
 
 
 def load_s1_digit_separator_snake(root: Path) -> Any:
@@ -702,6 +716,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s3_ray = load_s3_separator_ray_fill(root)
     s3_lattice = load_s3_period_lattice_rewrite(root)
     s1_legend = load_s1_legend_motif_tally(root)
+    s1_carve = load_s1_solid_motif_carve(root)
     s3_bounce = load_s3_terrain_period_bounce(root)
     ice_depth = int(os.environ.get("ARC_ICECUBER_DEPTH", "2"))
     ice_workers = int(os.environ.get("ARC_ICECUBER_WORKERS", "6"))
@@ -785,6 +800,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s3_hits = 0
     s3_lattice_hits = 0
     s1_legend_hits = 0
+    s1_carve_hits = 0
     s3_bounce_hits = 0
     for task_id in sorted(eval_challenges):
         hybrid_attempts = marker8.solve_task(eval_challenges[task_id])
@@ -862,6 +878,10 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             hybrid_attempts = s1_legend.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 s1_legend_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s1_carve.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s1_carve_hits += 1
         if hybrid_attempts is None:
             hybrid_attempts = s3_bounce.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
@@ -1032,6 +1052,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s3_separator_ray_fill_licensed_tasks": s3_hits,
             "s3_period_lattice_rewrite_licensed_tasks": s3_lattice_hits,
             "s1_legend_motif_tally_licensed_tasks": s1_legend_hits,
+            "s1_solid_motif_carve_licensed_tasks": s1_carve_hits,
             "s3_terrain_period_bounce_licensed_tasks": s3_bounce_hits,
             "engine": "LOCAL_HYBRID_SOLVER_marker8_s1family_cpt_s3ray_icecuber_dsl",
         },

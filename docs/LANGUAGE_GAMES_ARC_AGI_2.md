@@ -186,10 +186,10 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **36/172** exact grids
+**MEASURED local** (2026-07-21): evaluation lifts to **37/172** exact grids
 (overlay `reports/arc_local_20260721T150629Z/agi2/summary-overlay.json`;
 train ice-on baseline remains **298/1076**). Lineage includes
-`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 → `s3_terrain_period_bounce` **195c6913** ×2 = **36/172**.
+`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 → `s3_terrain_period_bounce` **195c6913** ×2 → `s1_solid_motif_carve` **58f5dbd5** ×1 = **37/172**.
 
 | Owned grammar | Engine | Train replay | Eval |
 | --- | --- | --- | --- |
@@ -215,6 +215,7 @@ train ice-on baseline remains **298/1076**). Lineage includes
 | period lattice rewrite | `s3_period_lattice_rewrite` | 3/3 on `16de56c4` | exact ×2 |
 | legend motif tally | `s1_legend_motif_tally` | 3/3 on `58490d8a` | exact ×1 |
 | terrain period-bounce | `s3_terrain_period_bounce` | 3/3 on `195c6913` | exact ×2 |
+| solid-motif carve | `s1_solid_motif_carve` | 3/3 on `58f5dbd5` | exact ×1 |
 | ice+DSL residual | `arc-icecuber` hybrid | n/a | +1 prior (`981571dc`) |
 
 **S1 grammar (`hollow_solid_object_pack`):**
@@ -301,3 +302,12 @@ Remaining S1/S3 tasks queued at
 - **S3:** for marker color C, count 8-connected outside C-motifs; paint C at `col+2k` for `k=0..count-1`.
 - **S4:** other panel cells stay 0.
 - **C4:** exact panel; train-replay gated (`3/3`, eval `1/1`).
+
+**S1 grammar (`solid_motif_carve` / `58f5dbd5`):**
+
+- **S1:** majority color = background; filled rectangles (h,w ≥ 4) are solids.
+- **S2:** for each solid color C, non-solid C cells form a motif mask (bbox).
+- **S3:** motif size `(solid_h-2)×(solid_w-2)`; punch motif-present cells in the solid interior to background.
+- **S4:** output = crop covering all solids expanded by one bg frame cell.
+- **C4:** exact pack; train-replay gated (`3/3`, eval `1/1`).
+

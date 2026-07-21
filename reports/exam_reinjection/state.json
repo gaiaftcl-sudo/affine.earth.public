@@ -399,6 +399,17 @@
       "task_id": "195c6913",
       "track": "arc2",
       "updated_at": "2026-07-21T15:14:00Z"
+    },
+    "arc2:58f5dbd5": {
+      "status": "CLOSED",
+      "last_gate": "CLOSED",
+      "engine": "s1_solid_motif_carve",
+      "train_replay": "3/3",
+      "eval_grids": "1/1",
+      "mastery_eval": "37/172",
+      "overlay": "reports/arc_local_20260721T151600Z/agi2/summary-overlay.json",
+      "kaggle_submit": false,
+      "sealed_at_utc": "2026-07-21T15:16:00Z"
     }
   },
   "total_franklin_turns": 67

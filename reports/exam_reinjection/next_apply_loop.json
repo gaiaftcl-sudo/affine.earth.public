@@ -21,17 +21,10 @@
     "arc2:4c7dc4dd",
     "arc2:4e34c42c",
     "arc2:58490d8a",
+    "arc2:58f5dbd5",
     "arc3:agi3-trajectory-gap"
   ],
   "next_apply_loop": [
-    {
-      "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
-      "key": "arc2:58f5dbd5",
-      "last_gate": "pending",
-      "task_id": "58f5dbd5",
-      "track": "arc2",
-      "language_game_class": "S1_dimension_projection"
-    },
     {
       "action": "Heal unreproduced_productive_delta; do not regress bp35 L1",
       "key": "arc3:ar25",
@@ -40,7 +33,7 @@
       "track": "arc3"
     }
   ],
-  "note": "Reinjection CLOSED sealed for 195c6913 terrain_period_bounce. Mastery 36/172. Next open: arc2:58f5dbd5. No Kaggle.",
+  "note": "Reinjection CLOSED sealed for 58f5dbd5 solid_motif_carve. Mastery 37/172. Next open: arc3:ar25. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T15:14:50.381755+00:00"
+  "recorded_at_utc": "2026-07-21T15:18:27.843283+00:00"
 }
