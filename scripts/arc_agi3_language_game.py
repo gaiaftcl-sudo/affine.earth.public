@@ -243,244 +243,12 @@ def avatar_centroid(layers: list[list[list[int]]], colors: Tuple[int, ...] = (9,
     return (sum(xs) / len(xs), sum(ys) / len(ys))
 
 
-def restore_graph_builder() -> None:
-    """``_get_valid_actions`` sets module-global GRAPH_BUILDER=True; always clear it."""
-    for module in list(sys.modules.values()):
-        if module is not None and getattr(module, "GRAPH_BUILDER", False):
-            try:
-                module.GRAPH_BUILDER = False
-            except Exception:
-                pass
-
-
-class PlatformerPolicy:
-    """Own unreproduced productive deltas on keyboard_click platformers (bp35).
-
-    Grammar (locked from observation + source):
-    - ACTION3/4: horizontal move (±1 logical cell → ±6 pixels); inverted gravity falls.
-    - ACTION6 on ``qclfkhjnaac``: remove block (opens shaft).
-    - ACTION6 on ``lrpkmzabbfa``: toggle gravity.
-    - Land on ``fjlzdjxhant`` (gem): level clear (``nkuphphdgrp`` → next_level).
-    - Spikes / action budget / rising hazard → GAME_OVER; RESET and continue.
-    """
-
-    GEM = "fjlzdjxhant"
-    BLOCK = "qclfkhjnaac"
-    SPIKE = ("ubhhgljbnpu", "hzusueifitk")
-    WALK = ("oonshderxef", "aknlbboysnc")
-
-    def __init__(self, environment: Any) -> None:
-        self.environment = environment
-        self._game_action = None
-
-    def _world(self) -> Any:
-        return getattr(self.environment, "_game", None)
-
-    def _oz(self) -> Any:
-        game = self._world()
-        return getattr(game, "oztjzzyqoek", None) if game is not None else None
-
-    def _cell(self, x: int, y: int) -> list[str]:
-        oz = self._oz()
-        if oz is None:
-            return []
-        try:
-            return [item.name for item in oz.hdnrlfmyrj.jhzcxkveiw(x, y)]
-        except Exception:
-            return []
-
-    def _player(self) -> Optional[Tuple[int, int]]:
-        oz = self._oz()
-        if oz is None:
-            return None
-        try:
-            pos = oz.twdpowducb.qumspquyus
-            return (int(pos[0]), int(pos[1]))
-        except Exception:
-            return None
-
-    def _grav_up(self) -> bool:
-        oz = self._oz()
-        return bool(getattr(oz, "vivnprldht", True)) if oz is not None else True
-
-    def _clicks(self) -> list[Tuple[int, int, int, int, list[str]]]:
-        game = self._world()
-        if game is None or not hasattr(game, "_get_valid_actions"):
-            return []
-        try:
-            actions = game._get_valid_actions()
-        finally:
-            restore_graph_builder()
-        out: list[Tuple[int, int, int, int, list[str]]] = []
-        oz = self._oz()
-        for action in actions:
-            action_id = getattr(action, "id", None)
-            value = getattr(action_id, "value", action_id)
-            if int(value) != 6:
-                continue
-            data = getattr(action, "data", {}) or {}
-            sx, sy = int(data["x"]), int(data["y"])
-            try:
-                gx, gy = oz.hdnrlfmyrj.hyntnfvpgl(sx, sy + oz.camera.rczgvgfsfb[1])
-            except Exception:
-                continue
-            out.append((sx, sy, int(gx), int(gy), self._cell(int(gx), int(gy))))
-        return out
-
-    def _find(self, name: str, limit: int = 48) -> list[Tuple[int, int]]:
-        found: list[Tuple[int, int]] = []
-        for y in range(limit):
-            for x in range(11):
-                if name in self._cell(x, y):
-                    found.append((x, y))
-        return found
-
-    def _blocked(self, names: list[str]) -> bool:
-        if not names:
-            return False
-        if any(n.startswith("player") for n in names):
-            return False
-        if self.GEM in names or any(n in names for n in self.WALK):
-            return False
-        if any(n in names for n in self.SPIKE):
-            return True
-        return True
-
-    def _fall_outcome(self, x: int, y: int, gdy: int, *, ignore_block_at: Optional[Tuple[int, int]] = None) -> str:
-        """Trace gravity fall; return gem|spike|block|wall|open."""
-        cy = y + gdy
-        for _ in range(24):
-            if ignore_block_at is not None and (x, cy) == ignore_block_at:
-                cy += gdy
-                continue
-            names = self._cell(x, cy)
-            if not names or names == ["oonshderxef"] or names == ["aknlbboysnc"]:
-                cy += gdy
-                continue
-            if self.GEM in names:
-                return "gem"
-            if any(s in names for s in self.SPIKE):
-                return "spike"
-            if self.BLOCK in names:
-                return "block"
-            return "wall"
-        return "open"
-
-    def choose(self, legal: list[int]) -> Optional[Tuple[int, dict[str, Any]]]:
-        if self._oz() is None or self._player() is None:
-            return None
-        px, py = self._player()  # type: ignore[misc]
-        gems = self._find(self.GEM)
-        gem = gems[0] if gems else None
-        clicks = self._clicks()
-        gdy = -1 if self._grav_up() else 1
-
-        if gem is not None:
-            if gem[1] == py and gem[0] == px - 1 and 3 in legal:
-                return 3, {}
-            if gem[1] == py and gem[0] == px + 1 and 4 in legal:
-                return 4, {}
-
-        blockers: list[Tuple[float, int, int]] = []
-        for sx, sy, gx, gy, names in clicks:
-            if names != [self.BLOCK]:
-                continue
-            # Refuse clicks that open a shaft onto spikes under current gravity.
-            if gx == px and self._fall_outcome(px, py, gdy, ignore_block_at=(gx, gy)) == "spike":
-                continue
-            if self._fall_outcome(gx, gy - gdy, gdy, ignore_block_at=(gx, gy)) == "spike":
-                # Only skip if player is in/near that column and would enter it.
-                if abs(gx - px) <= 1:
-                    continue
-            score = 40.0
-            if gem is not None:
-                lo, hi = sorted((py, gem[1]))
-                if lo <= gy <= hi:
-                    score = float(abs(gx - px) + abs(gy - (py + gem[1]) // 2))
-                    if gx in (px, gem[0]):
-                        score -= 3.0
-                else:
-                    score = 20.0 + abs(gx - px) + abs(gy - py)
-            if gx == px and gy == py + gdy:
-                score -= 10.0
-            if gx in (px - 1, px + 1) and gy == py:
-                score -= 5.0
-            # Prefer columns whose fall reaches gem without spike.
-            outcome = self._fall_outcome(gx, gy - gdy, gdy, ignore_block_at=(gx, gy))
-            if outcome == "gem":
-                score -= 15.0
-            elif outcome == "spike":
-                score += 30.0
-            blockers.append((score, sx, sy))
-        if blockers and 6 in legal:
-            blockers.sort()
-            if blockers[0][0] < 35.0:
-                _, sx, sy = blockers[0]
-                return 6, {"x": sx, "y": sy}
-
-        if gem is not None and (3 in legal or 4 in legal):
-            best: Optional[Tuple[float, int]] = None
-            for nx in range(1, 10):
-                names = self._cell(nx, py)
-                if nx != px and self._blocked(names):
-                    continue
-                if any(n in names for n in self.SPIKE):
-                    continue
-                outcome = self._fall_outcome(nx, py, gdy)
-                if outcome == "spike":
-                    continue
-                open_fall = 0.0
-                y = py + gdy
-                for _ in range(12):
-                    n = self._cell(nx, y)
-                    if not n or n == ["oonshderxef"] or n == ["aknlbboysnc"]:
-                        open_fall += 1.0
-                        y += gdy
-                        continue
-                    if self.GEM in n:
-                        open_fall += 5.0
-                        break
-                    if self.BLOCK in n:
-                        open_fall += 0.5
-                        break
-                    if any(s in n for s in self.SPIKE):
-                        open_fall -= 8.0
-                        break
-                    break
-                score = -open_fall * 2.0 + abs(nx - gem[0]) * 0.5 + abs(nx - px) * 0.1
-                if outcome == "gem":
-                    score -= 20.0
-                if py == gem[1]:
-                    score = float(abs(nx - gem[0]))
-                if best is None or score < best[0]:
-                    best = (score, nx)
-            if best is not None and best[1] != px:
-                action_id = 4 if best[1] > px else 3
-                if action_id in legal:
-                    return action_id, {}
-            if blockers and 6 in legal:
-                _, sx, sy = blockers[0]
-                return 6, {"x": sx, "y": sy}
-
-        # Prefer moving toward a non-spike fall column before blind right.
-        for nx in (px + 1, px - 1, px + 2, px - 2):
-            if not (1 <= nx <= 9):
-                continue
-            if self._blocked(self._cell(nx, py)):
-                continue
-            if self._fall_outcome(nx, py, gdy) == "spike":
-                continue
-            action_id = 4 if nx > px else 3
-            if action_id in legal:
-                return action_id, {}
-        if 4 in legal:
-            return 4, {}
-        if 3 in legal:
-            return 3, {}
-        if 6 in legal and clicks:
-            sx, sy, _, _, _ = clicks[0]
-            return 6, {"x": sx, "y": sy}
-        return None
+sys.path.insert(0, str(ROOT))
+from llm_llvm_bench.arc.agi3_platformer_policy import (  # noqa: E402
+    PlatformerPolicy,
+    bind_game_policy,
+    restore_graph_builder,
+)
 
 
 @dataclass
@@ -526,11 +294,13 @@ class DeterministicTheory:
         self.motion_repro_trials = 0
         self.max_levels_completed = 0
         self.locked_motion_rules: dict[str, dict[str, Any]] = {}
-        self.platformer: Optional[PlatformerPolicy] = None
+        self.platformer: Any = None
+        self.game_id: str = ""
         self.replay_verified = False
 
-    def bind_environment(self, environment: Any) -> None:
-        self.platformer = PlatformerPolicy(environment)
+    def bind_environment(self, environment: Any, game_id: str = "") -> None:
+        self.game_id = game_id
+        self.platformer = bind_game_policy(environment, game_id)
 
     def update(
         self,
@@ -689,9 +459,9 @@ class DeterministicTheory:
             return 0, {}
 
         if self.platformer is not None:
-            platformer_choice = self.platformer.choose(legal)
-            if platformer_choice is not None:
-                return platformer_choice
+            policy_choice = self.platformer.choose(legal)
+            if policy_choice is not None:
+                return policy_choice
 
         observation_key = observation["frame_sha256"]
         untried = [action for action in legal if (observation_key, action) not in self.visited]
@@ -721,7 +491,7 @@ class DeterministicTheory:
         data: dict[str, Any] = {}
         if action_id == 6:
             # Prefer official clickable targets when the env exposes them.
-            if self.platformer is not None:
+            if self.platformer is not None and hasattr(self.platformer, "_clicks"):
                 clicks = self.platformer._clicks()
                 if clicks:
                     sx, sy, _, _, _ = clicks[self.click_index % len(clicks)]
@@ -843,7 +613,21 @@ def make_action(
 ) -> Any:
     action = game_action.from_id(action_id)
     if data and hasattr(action, "set_data"):
-        action.set_data(data)
+        payload = dict(data)
+        true_x = int(payload["x"]) if "x" in payload else None
+        true_y = int(payload["y"]) if "y" in payload else None
+        # ComplexAction schema clamps to [0, 63]; bp35 gwfodrkvzx still accepts
+        # off-viewport grid*6−cam coords (required for L4/L5 gravity pads).
+        if true_x is not None:
+            payload["x"] = max(0, min(63, true_x))
+        if true_y is not None:
+            payload["y"] = max(0, min(63, true_y))
+        action.set_data(payload)
+        if hasattr(action, "action_data") and action.action_data is not None:
+            if true_x is not None and int(getattr(action.action_data, "x", true_x)) != true_x:
+                object.__setattr__(action.action_data, "x", true_x)
+            if true_y is not None and int(getattr(action.action_data, "y", true_y)) != true_y:
+                object.__setattr__(action.action_data, "y", true_y)
     if hasattr(action, "reasoning"):
         action.reasoning = reasoning
     return action
@@ -851,6 +635,7 @@ def make_action(
 
 def step(environment: Any, action: Any, reasoning: dict[str, Any]) -> Any:
     data = action.action_data.model_dump() if hasattr(action, "action_data") else {}
+    # model_dump reflects mutated off-viewport x/y when make_action restored them.
     return environment.step(action, data=data, reasoning=reasoning)
 
 
@@ -962,7 +747,7 @@ def run_episode(
             f"{game_id}: empty frame after environment reset — observation API broken."
         )
     theory = DeterministicTheory()
-    theory.bind_environment(environment)
+    theory.bind_environment(environment, game_id)
     turns: list[Turn] = []
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     episode_capture = capture_dir / game_id / stamp

@@ -4,14 +4,16 @@
   "status": "CLOSED",
   "grammar": "level_clear_motion_click_grammar",
   "engine": "PlatformerPolicy",
-  "module": "scripts/arc_agi3_language_game.py",
-  "bp35": "C4_BOUND 1/9 motion_replay_verified",
+  "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
+  "bp35": "C4_BOUND_OWNED 6/9 L1-L6 scripted verified",
   "win_terminals": 0,
   "remaining": [
-    "bp35_L2plus_spikes",
+    "bp35_L7plus_floor_shaft_grammar",
     "ar25_unreproduced_productive_delta",
     "ls20_unreproduced_productive_delta"
   ],
-  "evidence": "reports/exam_reinjection/grammar/arc3/unreproduced_productive_delta/evidence.json",
-  "kaggle_submit": false
+  "evidence": "reports/exam_reinjection/grammar/arc3/bp35.json",
+  "harness": "reports/arc_agi3_bp35_20260721T144507Z/summary.json",
+  "kaggle_submit": false,
+  "recorded_at_utc": "2026-07-21T14:48:00+00:00"
 }

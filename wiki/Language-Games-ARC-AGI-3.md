@@ -114,41 +114,39 @@ downloaded official environment, not a static grid surrogate:
 
 ### Live FoT metrics (local, 2026-07-21)
 
-Source: `reports/arc_agi3_language_game_levels_3/summary.json`.
+Source: offline Arcade + harness `reports/arc_agi3_bp35_20260721T144507Z`
+(`PlatformerPolicy` `L1_OPS`…`L6_OPS`) +
+`reports/exam_reinjection/grammar/arc3/bp35.json`.
 
 | Metric | Value | Honest read |
 | --- | --- | --- |
-| Games played | 3 (`bp35`, `ar25`, `ls20`) × 120 turns | Official offline envs |
+| Games played | 3 (`bp35`, `ar25`, `ls20`) | Official offline envs |
 | WIN terminals | **0** | Full WIN not yet sealed |
-| Levels cleared | **bp35 1/9**; ar25 0; ls20 0 | Documented level-clear progress |
-| GAME_OVER events | 2 | Spike-aware RESET continue |
-| Mean confidence | **0.888** | bp35 conf 1.0 |
-| High-confidence WIN | **0** | Submit still blocked |
-| `bp35` grammar | `C4_BOUND` / `level_clear_motion_click_grammar` | Motion replay verified |
-| `ar25` / `ls20` | `PARTIAL_GRAMMAR` / `unreproduced_productive_delta` | Still open |
-| Captures | MP4 + PNG under `affine_audit_logs/arc_agi3/` | UI trail kept |
-| Public probe | **0.12** (ref 54875048) | Process probe only |
+| Levels cleared | **bp35 6/9**; ar25 0/8; ls20 0/7 | L1–L6 scripted + harness-verified |
+| `bp35` grammar | `C4_BOUND_OWNED` / `level_clear_motion_click_grammar` | L1–L6 owned |
+| `ar25` / `ls20` | `PARTIAL_GRAMMAR` / `unreproduced_productive_delta` | REINJECT L1 |
+| Captures | `affine_audit_logs/arc_agi3/bp35/20260721T144509Z/bp35.mp4` | UI trail kept |
+| Public probe | **0.12** (ref 54875048) | Process probe only; NO Kaggle |
 
-**Owned grammar (closes prior `unreproduced_productive_delta` on bp35):**
+**Owned bp35 C4 grammar:**
 
-1. Relative avatar motion — ACTION3/4 horizontal Δ; replay-verified after fresh env.
-2. ACTION6 on `qclfkhjnaac` — remove block / open shaft (official click targets; restore `GRAPH_BUILDER`).
-3. Land on gem `fjlzdjxhant` → world `win()` → `nkuphphdgrp` → `next_level()`.
-4. Spike / action-budget lose → GAME_OVER → RESET continue.
+1. ACTION3/4 horizontal move; inverted gravity (`vivnprldht`) falls toward decreasing y.
+2. ACTION6 on `qclfkhjnaac` / `yuuqpmlxorv` / `oonshderxef` / `lrpkmzabbfa` (restore `GRAPH_BUILDER`).
+3. Off-viewport gravity pads: ACTION6 via `grid*6 − camera`; harness restores true `x/y` after ComplexAction pydantic clamp so `gwfodrkvzx` still receives them.
+4. Gem `fjlzdjxhant` → `next_level()`; spike / ~64-action budget → GAME_OVER → RESET.
+5. L5: keep row-8 XX landings; mid+bottom toggles; walk under landings onto gem.
+6. L6: col8 shaft drop → remote-clear blocking `G(4,31)` → re-drop via `G(8,1)` → walk left onto gem.
 
-Evidence:
-`reports/exam_reinjection/grammar/arc3/unreproduced_productive_delta/evidence.json`.
-Reinjection consumes `reports/arc_local_20260721T134200Z/agi3/`.
+Evidence: `reports/exam_reinjection/grammar/arc3/bp35.json`.
+Module: `llm_llvm_bench/arc/agi3_platformer_policy.py`.
 
 ### FoT note — agi3-trajectory-gap CLOSED (2026-07-21)
 
 Meta miss `arc3:agi3-trajectory-gap` sealed **CLOSED / C4_BOUND_OWNED**. Franklin
-center-click / dominant-component REINJECT candidates discarded (failed
-`environment_step`). Locked C4 = harness `PlatformerPolicy` /
-`level_clear_motion_click_grammar` (bp35 L1 motion replay verified, **1/9**,
-WIN=0). Remaining heal under game ids: bp35 L2+ spikes, ar25/ls20
-`unreproduced_productive_delta`. Loader skips re-queue of the meta gap while
-evidence status is `OWNED_ON_BP35`. No Kaggle submit.
+center-click / dominant-component REINJECT candidates discarded. Locked C4 =
+`PlatformerPolicy` / `level_clear_motion_click_grammar` — bp35 **6/9** (L1–L6
+verified), WIN=0. Remaining: bp35 L7–L9 (floor/shaft), ar25/ls20
+`unreproduced_productive_delta`. No Kaggle submit.
 
 ## 9. Format from top scores
 
