@@ -1,0 +1,22 @@
+{
+  "brief_id": "jordan-loop-bound-experience-pull-20260721",
+  "kind": "exam_projection_invariant",
+  "status": "WIRED",
+  "recorded_at_utc": "2026-07-21T18:45:00Z",
+  "constraint": "PULL_LEARNED_EXPERIENCES_EVERY_PLAY + JORDAN_LOOP_BOUND_CLOSED_FOR_LOCKED",
+  "fracture": "Aristotelian shear: LOCKED claimed from candidate presence; Jordan Bond truncated from reinjection digest; CLOSED seals not pulled into new plays",
+  "ast_scope": [
+    "llm_llvm_bench/exam/miss_reinjection.py",
+    "llm_llvm_bench/arc/franklin_s4_projection.py",
+    "llm_llvm_bench/exam/s4_client.py"
+  ],
+  "wired": {
+    "load_learned_experiences": "llm_llvm_bench/exam/miss_reinjection.py",
+    "jordan_loop_bound_closed": "llm_llvm_bench/arc/franklin_s4_projection.py",
+    "apply_local_s4_validator_demotes_open_bound": true,
+    "build_franklin_messages_keeps_jordan_bond": true,
+    "s4_client_defaults_state_dir": "reports/exam_reinjection"
+  },
+  "kaggle_submit": false,
+  "note": "Local 172/172 labeled mastery ≠ platform 259 licensed. Incomplete projection is not done."
+}

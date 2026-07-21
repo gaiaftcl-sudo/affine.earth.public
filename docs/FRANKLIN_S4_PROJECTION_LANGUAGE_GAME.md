@@ -15,7 +15,9 @@ an unresolved answer is known.
   citation, or consistency check capable of removing candidates.
 - **S4 — verified projection:** retain the typed candidate, validator, result,
   and alternatives. `LOCKED` is permitted only after the named task-native
-  validator accepts it; otherwise emit `REINJECT`.
+  validator accepts it **and** the Jordan loop bound is closed (zero remainder
+  against C4); otherwise emit `REINJECT`. Every play must pull prior CLOSED
+  language-game experiences before proposing.
 
 ## Track mapping
 
@@ -65,8 +67,10 @@ The live Franklin dialogue identified four operational blockers:
    citation, or consistency test that rules out candidates. For ARC-AGI-3 this
    is an environment action, not an invented state transition.
 4. **S4 — verified projection:** the candidate is locked only after the
-   correct task-native check accepts it. A response, model confidence, or
-   local transport success does not establish exact-match correctness.
+   correct task-native check accepts it **and** the Jordan loop bound closes
+   (zero remainder against C4). A response, model confidence, candidate
+   presence, or local transport success does not establish exact-match
+   correctness. Pull prior CLOSED experiences every play.
 
 ## Track contracts
 

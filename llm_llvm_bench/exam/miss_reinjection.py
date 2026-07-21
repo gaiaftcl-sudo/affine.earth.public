@@ -29,6 +29,7 @@ from llm_llvm_bench.arc.franklin_s4_projection import (
     build_miss_wrapper_evidence,
     default_validator_for_track,
     exam_s4_user_prompt,
+    jordan_loop_bound_closed,
     normalize_s4_response,
     projection_system_prompt,
     s4_response_score,
@@ -787,8 +788,113 @@ def _truncate_evidence(evidence: Dict[str, Any], budget: int = EVIDENCE_CHAR_BUD
     return raw[: budget - 20] + "...<truncated>"
 
 
+LEARNED_EXPERIENCE_LIMIT = 8
+
+
+def load_learned_experiences(
+    state_dir: Path,
+    *,
+    track: str,
+    exclude_task_id: str = "",
+    limit: int = LEARNED_EXPERIENCE_LIMIT,
+) -> List[Dict[str, Any]]:
+    """Pull prior CLOSED / LOCKED language-game seals for the next play.
+
+    Sources: grammar/<track>/*.json seals and state.json CLOSED rows.
+    Every projection path must call this before Franklin proposes.
+    """
+    experiences: List[Dict[str, Any]] = []
+    seen: set[str] = set()
+
+    def _push(row: Dict[str, Any]) -> None:
+        tid = str(row.get("task_id") or "")
+        if not tid or tid == exclude_task_id or tid in seen:
+            return
+        seen.add(tid)
+        experiences.append(row)
+
+    grammar_dir = state_dir / "grammar" / track
+    if grammar_dir.is_dir():
+        seals = sorted(
+            grammar_dir.glob("*.json"),
+            key=lambda p: p.stat().st_mtime,
+            reverse=True,
+        )
+        for path in seals:
+            try:
+                payload = json.loads(path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            status = str(payload.get("status") or payload.get("s4_status") or "")
+            vr = payload.get("validator_result") or {}
+            accepted = bool(isinstance(vr, dict) and vr.get("accepted"))
+            locked = status.upper() in {"CLOSED", "LOCKED", "HEALED"} or accepted
+            if not locked:
+                continue
+            c4 = str(payload.get("c4_invariant") or payload.get("typed_candidate") or "")
+            _push(
+                {
+                    "task_id": str(payload.get("task_id") or path.stem),
+                    "track": track,
+                    "status": "CLOSED" if status.upper() in {"CLOSED", "HEALED"} else status,
+                    "c4_invariant": c4[:240],
+                    "grammar_update": str(payload.get("grammar_update") or "")[:160],
+                    "validator": str(payload.get("validator") or ""),
+                    "validator_result": vr if isinstance(vr, dict) else {},
+                    "engine": str(
+                        (vr or {}).get("engine")
+                        if isinstance(vr, dict)
+                        else payload.get("engine")
+                        or ""
+                    ),
+                    "source": f"grammar/{track}/{path.name}",
+                }
+            )
+            if len(experiences) >= limit:
+                return experiences[:limit]
+
+    state_path = state_dir / STATE_FILENAME
+    if state_path.is_file():
+        try:
+            state_raw = json.loads(state_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            state_raw = {}
+        for key, task in (state_raw.get("tasks") or {}).items():
+            if not isinstance(task, dict):
+                continue
+            if str(task.get("track") or "") != track:
+                continue
+            if str(task.get("status") or "") not in {"CLOSED", "HEALED"}:
+                continue
+            tid = str(task.get("task_id") or key.split(":", 1)[-1])
+            _push(
+                {
+                    "task_id": tid,
+                    "track": track,
+                    "status": "CLOSED",
+                    "c4_invariant": str(task.get("last_c4") or "")[:240],
+                    "grammar_update": "",
+                    "validator": str(task.get("last_validator") or ""),
+                    "validator_result": task.get("last_validator_result")
+                    if isinstance(task.get("last_validator_result"), dict)
+                    else {},
+                    "engine": str(task.get("engine") or ""),
+                    "source": "state.json",
+                    "last_gate": str(task.get("last_gate") or ""),
+                }
+            )
+            if len(experiences) >= limit:
+                break
+
+    return experiences[:limit]
+
+
 def apply_local_s4_validator(miss: MissRecord, repair: Dict[str, Any]) -> Dict[str, Any]:
-    """Run the named local/track-native check; demote false LOCKED → REINJECT."""
+    """Run the named local/track-native check; demote false LOCKED → REINJECT.
+
+    Jordan loop bound: LOCKED requires zero remainder against C4 via the named
+    validator. Candidate presence alone is Aristotelian shear — demote.
+    """
     status = str(repair.get("s4_status") or S4_STATUS_REINJECT)
     validator = str(repair.get("validator") or default_validator_for_track(miss.track))
     candidate = repair.get("typed_candidate")
@@ -799,6 +905,9 @@ def apply_local_s4_validator(miss: MissRecord, repair: Dict[str, Any]) -> Dict[s
     )
     detail = "candidate_present" if candidate_text else "empty_candidate"
     accepted = False
+    incoming_vr = repair.get("validator_result")
+    if not isinstance(incoming_vr, dict):
+        incoming_vr = {}
 
     if miss.track == TRACK_HLE:
         expected = (
@@ -816,44 +925,82 @@ def apply_local_s4_validator(miss: MissRecord, repair: Dict[str, Any]) -> Dict[s
                 repair["typed_candidate"] = compare_text
                 repair["c4_invariant"] = compare_text
                 candidate_text = compare_text
+                incoming_vr = {
+                    **incoming_vr,
+                    "accepted": True,
+                    "detail": "exact_token_match",
+                }
         elif candidate_text and status == S4_STATUS_LOCKED:
-            # Format presence only when fixture expected is absent from the miss.
-            accepted = True
-            detail = "format_presence_pending_mastery"
+            # Format presence without fixture expected cannot close Jordan bound.
+            accepted = False
+            detail = "jordan_loop_bound_open:format_presence_without_expected"
     elif miss.track == TRACK_ARC2:
-        if candidate_text and status == S4_STATUS_LOCKED:
+        # Preserve replay evidence Franklin/mastery already sealed into validator_result.
+        bound_probe = jordan_loop_bound_closed(
+            TRACK_ARC2, incoming_vr, accepted=bool(incoming_vr.get("accepted"))
+        )
+        if bound_probe["closed"]:
             accepted = True
-            detail = "typed_grid_or_rule_pending_mastery"
+            detail = str(incoming_vr.get("detail") or bound_probe["reason"])
         elif candidate_text:
             accepted = False
-            detail = "franklin_reinject_with_candidate"
+            detail = "jordan_loop_bound_open:pending_demonstration_replay"
+        else:
+            accepted = False
+            detail = "empty_candidate"
     elif miss.track == TRACK_ARC3:
-        if candidate_text and status == S4_STATUS_LOCKED:
+        bound_probe = jordan_loop_bound_closed(
+            TRACK_ARC3, incoming_vr, accepted=bool(incoming_vr.get("accepted"))
+        )
+        if bound_probe["closed"]:
             accepted = True
-            detail = "legal_action_pending_environment_step"
+            detail = str(incoming_vr.get("detail") or bound_probe["reason"])
         elif candidate_text:
             accepted = False
-            detail = "franklin_reinject_with_action"
+            detail = "jordan_loop_bound_open:pending_environment_step"
+        else:
+            accepted = False
+            detail = "empty_candidate"
 
-    if status == S4_STATUS_LOCKED and not accepted:
-        status = S4_STATUS_REINJECT
-        repair["closure_ready"] = False
-        detail = f"demoted_locked:{detail}"
-    elif status == S4_STATUS_LOCKED and accepted:
-        repair["closure_ready"] = True
-    else:
-        repair["closure_ready"] = False
-        status = S4_STATUS_REINJECT
-
-    repair["s4_status"] = status
-    repair["validator"] = validator
-    repair["validator_result"] = {
+    validator_result: Dict[str, Any] = {
+        **incoming_vr,
         "validator": validator,
         "ran": True,
-        "accepted": bool(accepted and status == S4_STATUS_LOCKED),
         "detail": detail,
         "status": status,
     }
+    bound = jordan_loop_bound_closed(
+        miss.track, validator_result, accepted=accepted
+    )
+    validator_result["jordan_loop_bound"] = bound
+    validator_result["accepted"] = bool(accepted and bound["closed"])
+
+    if status == S4_STATUS_LOCKED and not bound["closed"]:
+        status = S4_STATUS_REINJECT
+        repair["closure_ready"] = False
+        detail = f"demoted_locked:{bound['reason']}"
+        validator_result["detail"] = detail
+        validator_result["accepted"] = False
+        validator_result["status"] = status
+        validator_result["jordan_loop_bound"] = {
+            **bound,
+            "closed": False,
+            "remainder_open": True,
+            "reason": bound["reason"],
+        }
+    elif status == S4_STATUS_LOCKED and bound["closed"]:
+        repair["closure_ready"] = True
+        validator_result["status"] = status
+    else:
+        repair["closure_ready"] = False
+        status = S4_STATUS_REINJECT
+        validator_result["status"] = status
+        validator_result["accepted"] = False
+
+    repair["s4_status"] = status
+    repair["validator"] = validator
+    repair["validator_result"] = validator_result
+    repair["jordan_loop_bound"] = validator_result["jordan_loop_bound"]
     repair["s4"] = json.dumps(
         {
             "typed_candidate": candidate if candidate is not None else "",
@@ -861,32 +1008,66 @@ def apply_local_s4_validator(miss: MissRecord, repair: Dict[str, Any]) -> Dict[s
             "status": status,
             "unresolved_alternatives": repair.get("unresolved_alternatives") or [],
             "validator_result": repair["validator_result"],
+            "jordan_loop_bound": repair["jordan_loop_bound"],
         },
         sort_keys=True,
     )
-    if candidate_text:
+    if candidate_text and status == S4_STATUS_LOCKED:
         repair["c4_invariant"] = candidate_text
+    elif candidate_text and status == S4_STATUS_REINJECT:
+        repair["c4_invariant"] = f"REINJECT:{candidate_text}"[:500]
     elif status == S4_STATUS_REINJECT:
         repair["c4_invariant"] = f"REINJECT:{detail}"
     return repair
 
 
-def build_franklin_messages(miss: MissRecord, prior_turns: int) -> List[Dict[str, str]]:
-    """Protocol-aligned prompt: WRAPPER_EVIDENCE → typed S4 LOCKED|REINJECT JSON."""
+def build_franklin_messages(
+    miss: MissRecord,
+    prior_turns: int,
+    *,
+    state_dir: Optional[Path] = None,
+    learned_experiences: Optional[Sequence[Mapping[str, Any]]] = None,
+) -> List[Dict[str, str]]:
+    """Protocol-aligned prompt: WRAPPER_EVIDENCE → typed S4 LOCKED|REINJECT JSON.
+
+    Always pulls learned CLOSED experiences when state_dir is provided.
+    Keeps the Jordan Bond pipeline in the system digest (not truncated away).
+    """
     baseline = franklin_uum8d_game_comprehension_system_prompt()
-    digest = baseline
-    marker = "**3. Ingestion to Jordan Bond"
-    idx = digest.find(marker)
-    if idx > 0:
-        digest = digest[:idx].rstrip()
-    if len(digest) > 1200:
-        digest = digest[:1200].rstrip() + "\n[UUM-8D digest truncated for reinjection latency]"
+    # Keep Phase III/IV Jordan Bond; trim only length, never strip the bound.
+    digest = baseline.strip()
+    if len(digest) > 2200:
+        # Prefer keeping the Jordan Bond section at the end of the digest.
+        marker = "**3. Ingestion to Jordan Bond"
+        idx = digest.find(marker)
+        if idx > 0:
+            head = digest[:idx].rstrip()
+            jordan = digest[idx:].rstrip()
+            head_budget = max(400, 2200 - len(jordan) - 80)
+            if len(head) > head_budget:
+                head = head[:head_budget].rstrip() + "\n[UUM-8D head truncated]"
+            digest = f"{head}\n\n{jordan}"
+        else:
+            digest = digest[:2200].rstrip() + "\n[UUM-8D digest truncated]"
+
+    experiences: List[Dict[str, Any]]
+    if learned_experiences is not None:
+        experiences = [dict(item) for item in learned_experiences]
+    elif state_dir is not None:
+        experiences = load_learned_experiences(
+            state_dir, track=miss.track, exclude_task_id=miss.task_id
+        )
+    else:
+        experiences = []
 
     system = projection_system_prompt(
         f"{digest}\n\n"
         "---\n"
         "EXAM REINJECTION = Franklin S¹–S⁴ projection language game.\n"
         f"Aristotelian turn {prior_turns + 1}/{ARISTOTELIAN_CLOSURE_TURNS}.\n"
+        f"LEARNED_EXPERIENCES_LOADED={len(experiences)} — reuse sealed grammar/"
+        "engines before inventing a new candidate.\n"
+        "JORDAN_LOOP_BOUND: LOCKED only when named validator yields zero remainder.\n"
         "Respond with ONE JSON object ONLY in the assistant content field.\n"
         "s4.status ∈ {LOCKED, REINJECT}. No Kaggle submit."
     )
@@ -898,8 +1079,18 @@ def build_franklin_messages(miss: MissRecord, prior_turns: int) -> List[Dict[str
         evidence=miss.evidence,
         prior_turns=prior_turns,
         prior_gate={"turn": prior_turns, "source": miss.source_path},
+        learned_experiences=experiences,
     )
     user = exam_s4_user_prompt(evidence_turn, _truncate_evidence(miss.evidence))
+    if experiences:
+        exp_blob = json.dumps(experiences, sort_keys=True)
+        if len(exp_blob) > 1800:
+            exp_blob = exp_blob[:1780] + "...]"
+        user = (
+            f"{user}\n"
+            "LEARNED_CLOSED_EXPERIENCES (pull every play — reuse before inventing):\n"
+            f"{exp_blob}\n"
+        )
     return [
         {"role": "system", "content": system},
         {"role": "user", "content": user},
@@ -1450,7 +1641,7 @@ def process_miss(
             "model": None,
         }
     else:
-        messages = build_franklin_messages(miss, prior)
+        messages = build_franklin_messages(miss, prior, state_dir=state_dir)
         frank = franklin_chat(
             messages, timeout=timeout, max_tokens=max_tokens, miss=miss
         )
@@ -1588,6 +1779,10 @@ def apply_gate_after_mastery(
     state: LoopState, miss: MissRecord, mastery: Dict[str, Any]
 ) -> str:
     task = _task_state(state, miss)
+    # Do not Aristotelian-reset a DEAD_END back to HEALING — that shears the
+    # 29-turn bound and burns cycles without pulling new grammar.
+    if str(task.get("status") or "") == "DEAD_END":
+        return "ARISTOTELIAN_DEAD_END"
     track_result = (mastery.get("tracks") or {}).get(miss.track)
     closed = False
     accepted_engine = ""

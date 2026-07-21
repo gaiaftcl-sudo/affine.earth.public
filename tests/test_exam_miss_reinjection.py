@@ -12,6 +12,7 @@ from llm_llvm_bench.arc.franklin_s4_projection import (
     S4_STATUS_REINJECT,
     normalize_s4_response,
 )
+from llm_llvm_bench.arc.franklin_s4_projection import jordan_loop_bound_closed
 from llm_llvm_bench.exam.miss_reinjection import (
     ARISTOTELIAN_CLOSURE_TURNS,
     TRACK_ARC2,
@@ -22,9 +23,11 @@ from llm_llvm_bench.exam.miss_reinjection import (
     _agi3_trajectory_gap_owned,
     acquire_writer_lock,
     apply_local_s4_validator,
+    build_franklin_messages,
     discover_owned_hybrid_green,
     extract_json_object,
     load_fail_receipts,
+    load_learned_experiences,
     normalize_repair_payload,
     run_reinjection_cycle,
     sync_local_solver_green,
@@ -160,6 +163,82 @@ def test_apply_local_validator_demotes_empty_locked() -> None:
     assert out["s4_status"] == S4_STATUS_REINJECT
     assert out["validator_result"]["ran"] is True
     assert out["validator_result"]["accepted"] is False
+
+
+def test_arc2_candidate_presence_does_not_close_jordan_bound() -> None:
+    """Aristotelian shear: typed candidate alone must not claim LOCKED."""
+    miss = MissRecord(track="arc2", task_id="t", evidence={}, source_path="x")
+    repair = {
+        "s4_status": S4_STATUS_LOCKED,
+        "typed_candidate": "period_tiling_rule",
+        "validator": "demonstration_replay",
+        "unresolved_alternatives": [],
+        "c4_invariant": "period_tiling_rule",
+    }
+    out = apply_local_s4_validator(miss, repair)
+    assert out["s4_status"] == S4_STATUS_REINJECT
+    assert out["jordan_loop_bound"]["closed"] is False
+    assert "jordan_loop_bound_open" in out["jordan_loop_bound"]["reason"]
+
+
+def test_arc2_train_replay_closes_jordan_bound() -> None:
+    miss = MissRecord(track="arc2", task_id="t", evidence={}, source_path="x")
+    repair = {
+        "s4_status": S4_STATUS_LOCKED,
+        "typed_candidate": "period_tiling_rule",
+        "validator": "demonstration_replay",
+        "unresolved_alternatives": [],
+        "validator_result": {
+            "accepted": True,
+            "train_replay": "2/2",
+            "labeled_eval": "1/1",
+            "detail": "train_replay_2_2_eval_1_1",
+        },
+    }
+    out = apply_local_s4_validator(miss, repair)
+    assert out["s4_status"] == S4_STATUS_LOCKED
+    assert out["jordan_loop_bound"]["closed"] is True
+    assert out["closure_ready"] is True
+
+
+def test_load_learned_experiences_pulls_closed_seals() -> None:
+    exps = load_learned_experiences(
+        ROOT / "reports" / "exam_reinjection",
+        track="arc2",
+        exclude_task_id="__none__",
+        limit=4,
+    )
+    assert exps, "CLOSED grammar seals must exist for experience pull"
+    assert all(e.get("task_id") for e in exps)
+    assert all(e.get("status") in {"CLOSED", "LOCKED", "HEALED"} or e.get("validator_result") for e in exps)
+
+
+def test_build_franklin_messages_keeps_jordan_and_experiences() -> None:
+    miss = MissRecord(
+        track="arc2",
+        task_id="open_task_xyz",
+        evidence={"note": "incomplete"},
+        source_path="x",
+    )
+    messages = build_franklin_messages(
+        miss, 0, state_dir=ROOT / "reports" / "exam_reinjection"
+    )
+    system = messages[0]["content"]
+    user = messages[1]["content"]
+    assert "Jordan Bond" in system or "JORDAN" in system
+    assert "LEARNED_EXPERIENCES_LOADED=" in system
+    assert "LEARNED_CLOSED_EXPERIENCES" in user or "learned_experiences" in user
+
+
+def test_jordan_loop_bound_helper_arc2() -> None:
+    open_b = jordan_loop_bound_closed("arc2", {"accepted": False}, accepted=False)
+    assert open_b["closed"] is False
+    closed_b = jordan_loop_bound_closed(
+        "arc2",
+        {"accepted": True, "train_replay": "3/3"},
+        accepted=True,
+    )
+    assert closed_b["closed"] is True
 
 
 def test_apply_local_validator_locks_hle_exact_match() -> None:

@@ -24,6 +24,16 @@ A miss is not a compute failure. It is an **incomplete S-state**:
 Franklin + the local wrapper play a two-way language game until C1–C4 collapse
 to one C4, within an **Aristotelian closure budget of 29 turns** per task.
 
+**Jordan loop bound (hard):** `LOCKED` is permitted only when the named
+validator yields zero remainder against C4 (demonstration replay / environment
+step / exact token). Candidate presence alone is shear — demoted to `REINJECT`.
+Implemented in `jordan_loop_bound_closed` + `apply_local_s4_validator`.
+
+**Learned experience pull (hard):** every Franklin play loads prior CLOSED /
+LOCKED seals from `reports/exam_reinjection/grammar/<track>/` and
+`state.json` via `load_learned_experiences` before proposing. Incomplete
+projection is not done — reuse sealed grammar/engines first.
+
 ## Loop steps (every cycle)
 
 1. **Sync local hybrid GREEN, then load open fail receipts**
@@ -31,17 +41,18 @@ to one C4, within an **Aristotelian closure budget of 29 turns** per task.
    - ARC-AGI-2: latest `failure-case-analyses.json` (skip GREEN) + S1/S3 `arc_agi2_*_miss_queue.jsonl` open tails
    - ARC-AGI-3: `agi3/summary.json` trajectory gap + episode traces
    - HLE: latest `reports/hle_local_*/receipt.json` mismatches (and official-gate open marker)
-2. **Open a Franklin turn** with UUM-8D baseline +
+2. **Pull learned CLOSED experiences** for the track (`load_learned_experiences`)
+3. **Open a Franklin turn** with UUM-8D baseline (Jordan Bond kept) +
    [S⁴ projection protocol](FRANKLIN_S4_PROJECTION_LANGUAGE_GAME.md)
-   `WRAPPER_EVIDENCE` (`s_state=incomplete`)
-3. **Parse typed S4** with `status ∈ {LOCKED, REINJECT}`, named `validator`, and
+   `WRAPPER_EVIDENCE` (`s_state=incomplete` + `learned_experiences`)
+4. **Parse typed S4** with `status ∈ {LOCKED, REINJECT}`, named `validator`, and
    `unresolved_alternatives` (shared module
    `llm_llvm_bench.arc.franklin_s4_projection`; client
    `llm_llvm_bench.exam.s4_client`)
-4. **Run the named local validator**; demote false `LOCKED` → `REINJECT`
-5. **Apply / record** grammar update under `reports/exam_reinjection/grammar/`
-6. **Re-run local mastery** for affected tasks (`--mastery affected|full|none`)
-7. **Log turn count** toward 29-turn Aristotelian closure in `turns.jsonl`
+5. **Run the named local validator + Jordan loop bound**; demote false `LOCKED` → `REINJECT`
+6. **Apply / record** grammar update under `reports/exam_reinjection/grammar/`
+7. **Re-run local mastery** for affected tasks (`--mastery affected|full|none`)
+8. **Log turn count** toward 29-turn Aristotelian closure in `turns.jsonl`
 
 Hard gate: `configs/NO_KAGGLE_SUBMIT.lock` must be present. This loop has **no**
 submit path.

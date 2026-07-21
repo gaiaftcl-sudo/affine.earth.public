@@ -6,7 +6,8 @@ wrapper evidence → typed S4 → local validator → LOCKED | REINJECT.
 
 from __future__ import annotations
 
-from typing import Any, Dict, Mapping, Optional
+from pathlib import Path
+from typing import Any, Dict, Mapping, Optional, Sequence
 
 from llm_llvm_bench.arc.franklin_s4_projection import (
     S4_STATUS_LOCKED,
@@ -32,6 +33,8 @@ def run_s4_projection_turn(
     prior_turns: int = 0,
     timeout: int = 300,
     max_tokens: int = 1024,
+    state_dir: Optional[Path] = None,
+    learned_experiences: Optional[Sequence[Mapping[str, Any]]] = None,
 ) -> Dict[str, Any]:
     """One live Franklin S4 turn for a stuck task. Never dry-run. Never Kaggle."""
     miss = MissRecord(
@@ -42,7 +45,15 @@ def run_s4_projection_turn(
         s_state=s_state,
         drift_kind=drift_kind,
     )
-    messages = build_franklin_messages(miss, prior_turns)
+    if state_dir is None:
+        # Default: pull CLOSED seals from the permanent reinjection state.
+        state_dir = Path(__file__).resolve().parents[2] / "reports" / "exam_reinjection"
+    messages = build_franklin_messages(
+        miss,
+        prior_turns,
+        state_dir=state_dir,
+        learned_experiences=learned_experiences,
+    )
     frank = franklin_chat(messages, timeout=timeout, max_tokens=max_tokens, miss=miss)
     repair = frank.get("parsed")
     if isinstance(repair, dict):
@@ -61,11 +72,13 @@ def run_s4_projection_turn(
         if repair
         else default_validator_for_track(track),
         "validator_result": (repair or {}).get("validator_result") if repair else {},
+        "jordan_loop_bound": (repair or {}).get("jordan_loop_bound") if repair else {},
         "unresolved_alternatives": (repair or {}).get("unresolved_alternatives")
         if repair
         else [],
         "c4_invariant": (repair or {}).get("c4_invariant") if repair else "",
         "closure_ready": bool((repair or {}).get("closure_ready")) if repair else False,
+        "learned_experiences_pulled": True,
         "repair": repair,
         "endpoint": frank.get("endpoint"),
         "model": frank.get("model"),

@@ -21,11 +21,15 @@ import requests
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from llm_llvm_bench.arc.franklin_s4_projection import (  # noqa: E402
+    jordan_loop_bound_closed,
     projection_system_prompt,
     wrapper_evidence,
 )
 from llm_llvm_bench.arc.franklin_uum8d_system_prompt import (  # noqa: E402
     franklin_uum8d_game_comprehension_system_prompt,
+)
+from llm_llvm_bench.exam.miss_reinjection import (  # noqa: E402
+    load_learned_experiences,
 )
 
 Grid = List[List[int]]
@@ -130,6 +134,26 @@ def extract_test_preds(
     return out
 
 
+def _zoom_move(task: Dict[str, Any]) -> str:
+    """Usual puzzle move: zoom in/out from train shape shear."""
+    zooms = []
+    for ex in task["train"]:
+        ih, iw = len(ex["input"]), len(ex["input"][0])
+        oh, ow = len(ex["output"]), len(ex["output"][0])
+        if oh * ow < ih * iw:
+            zooms.append("zoom_in_crop")
+        elif oh * ow > ih * iw:
+            zooms.append("zoom_out_expand")
+        elif (oh, ow) == (ih, iw):
+            zooms.append("same_canvas_rewrite")
+        else:
+            zooms.append("reshape")
+    if not zooms:
+        return "same_canvas_rewrite"
+    # majority hint
+    return max(set(zooms), key=zooms.count)
+
+
 def solve_one(
     session: requests.Session,
     base: str,
@@ -139,6 +163,7 @@ def solve_one(
     task: Dict[str, Any],
     max_turns: int,
     timeout: int,
+    learned_experiences: List[Dict[str, Any]],
 ) -> Dict[str, Any]:
     train_pack = []
     for i, ex in enumerate(task["train"]):
@@ -160,13 +185,27 @@ def solve_one(
                 "input": grid_str(case["input"]),
             }
         )
+    zoom = _zoom_move(task)
+    # Compact experience cards for the prompt (engines + invariants, not full grids)
+    experience_cards = [
+        {
+            "task_id": e.get("task_id"),
+            "engine": e.get("engine"),
+            "status": e.get("status"),
+            "c4_invariant": str(e.get("c4_invariant") or "")[:180],
+            "grammar_update": str(e.get("grammar_update") or "")[:120],
+        }
+        for e in learned_experiences[:8]
+    ]
     system = (
         projection_system_prompt(franklin_uum8d_game_comprehension_system_prompt())
         + f"""
 You are solving ARC-AGI-2 Kaggle TEST task {tid}.
+Jordan loop bound: LOCKED only after demonstration_replay perfect on ALL trains.
+Pull LEARNED_CLOSED_EXPERIENCES before inventing a new rule. Usual move: {zoom}.
 CRITICAL: Reply with ONE JSON object only. No markdown. No <think>.
 Required keys:
-  task_id, train_predictions, test_predictions
+  task_id, train_predictions, test_predictions, reused_experience_task_id
 train_predictions: list of digit-string grids (newline rows) matching EVERY train output exactly.
 test_predictions: list of {{attempt_1, attempt_2}} digit-string grids for each test input.
 attempt_1 MUST differ from the test input when a real rule is found.
@@ -177,13 +216,44 @@ Keep JSON under 3500 characters.
     evidence = wrapper_evidence(
         track="arc2",
         item_id=tid,
-        answer_contract="typed_output_grid",
-        s1={"task_id": tid, "train": train_pack, "test": test_pack},
-        s2={"candidates": ["geometry rewrite", "color map", "object transform"]},
-        s3={"next_check": "demonstration_replay all trains then emit test_predictions"},
-        prior_gate={"result": "S4_REINJECT"},
+        answer_contract="typed_output_grid; LOCKED only after demonstration_replay (Jordan loop closed)",
+        s1={
+            "task_id": tid,
+            "train": train_pack,
+            "test": test_pack,
+            "zoom_move": zoom,
+            "learned_experience_count": len(experience_cards),
+        },
+        s2={
+            "candidates": ["geometry rewrite", "color map", "object transform", zoom],
+            "learned_experiences": experience_cards,
+        },
+        s3={
+            "next_check": "demonstration_replay all trains then emit test_predictions",
+            "jordan_loop_bound": "LOCKED forbidden until zero remainder against C4",
+            "validator": "demonstration_replay",
+        },
+        prior_gate={"result": "S4_REINJECT", "jordan_loop_bound_open": True},
     )
-    messages.append({"role": "user", "content": json.dumps(evidence, sort_keys=True)})
+    evidence["learned_experiences"] = experience_cards
+    evidence["invariant"] = "pull_learned_experiences_every_play"
+    messages.append(
+        {
+            "role": "user",
+            "content": json.dumps(
+                {
+                    "WRAPPER_EVIDENCE": evidence,
+                    "LEARNED_CLOSED_EXPERIENCES": experience_cards,
+                    "instruction": (
+                        "Reuse a closed experience engine/invariant if it fits; "
+                        "else invent via zoom move. Close Jordan loop via "
+                        "perfect train replay before emitting test_predictions."
+                    ),
+                },
+                sort_keys=True,
+            ),
+        }
+    )
     last_replay: Dict[str, Any] = {"perfect": False}
     preds = None
     for turn in range(max_turns):
@@ -214,6 +284,7 @@ Keep JSON under 3500 characters.
                 "ok": False,
                 "error": str(exc),
                 "turns": turn,
+                "experiences_pulled": len(experience_cards),
             }
         messages.append({"role": "assistant", "content": answer})
         parsed = extract_json(answer)
@@ -225,13 +296,25 @@ Keep JSON under 3500 characters.
                         {
                             "gate": "UNPARSED",
                             "instruction": "Reply with ONE JSON object only.",
+                            "LEARNED_CLOSED_EXPERIENCES": experience_cards,
                         }
                     ),
                 }
             )
             continue
         last_replay = train_replay_ok(parsed, task)
-        if last_replay.get("perfect"):
+        perfect = bool(last_replay.get("perfect"))
+        ratio = f"{last_replay.get('passed', 0)}/{last_replay.get('total', 0)}"
+        bound = jordan_loop_bound_closed(
+            "arc2",
+            {
+                "accepted": perfect,
+                "train_replay": ratio,
+                "detail": "train_replay_perfect" if perfect else "train_replay_miss",
+            },
+            accepted=perfect,
+        )
+        if perfect and bound.get("closed"):
             preds = extract_test_preds(parsed, task)
             if preds is not None:
                 return {
@@ -240,6 +323,10 @@ Keep JSON under 3500 characters.
                     "predictions": preds,
                     "turns": turn + 1,
                     "replay": last_replay,
+                    "jordan_loop_bound": bound,
+                    "experiences_pulled": len(experience_cards),
+                    "reused_experience_task_id": parsed.get("reused_experience_task_id"),
+                    "zoom_move": zoom,
                 }
         messages.append(
             {
@@ -248,10 +335,13 @@ Keep JSON under 3500 characters.
                     {
                         "gate": "S4_REINJECT",
                         "replay": last_replay,
+                        "jordan_loop_bound": bound,
+                        "LEARNED_CLOSED_EXPERIENCES": experience_cards,
+                        "zoom_move": zoom,
                         "instruction": (
-                            "Prior C4 failed demonstration_replay or missing "
-                            "test_predictions. Revise. train_predictions must "
-                            "match demos exactly; then emit test_predictions."
+                            "Jordan loop still open or missing test_predictions. "
+                            "Pull a CLOSED experience, apply zoom move, revise. "
+                            "train_predictions must match demos exactly."
                         ),
                     }
                 ),
@@ -262,6 +352,8 @@ Keep JSON under 3500 characters.
         "ok": False,
         "turns": max_turns,
         "replay": last_replay,
+        "experiences_pulled": len(experience_cards),
+        "zoom_move": zoom,
     }
 
 
@@ -301,11 +393,20 @@ def main() -> int:
     session = requests.Session()
     t0 = time.time()
     pending = [t for t in ids if t not in submission]
+    state_dir = root / "reports" / "exam_reinjection"
     print(
-        f"START franklin_s4 pending={len(pending)} model={model} base={base}",
+        f"START franklin_s4 pending={len(pending)} model={model} base={base} "
+        f"experience_state={state_dir}",
         flush=True,
     )
     for n, tid in enumerate(pending, 1):
+        # Every play pulls learned CLOSED / LOCKED experiences (Jordan invariant).
+        experiences = load_learned_experiences(
+            state_dir,
+            track="arc2",
+            exclude_task_id=tid,
+            limit=8,
+        )
         result = solve_one(
             session,
             base,
@@ -315,6 +416,7 @@ def main() -> int:
             challenges[tid],
             args.max_turns,
             args.timeout,
+            experiences,
         )
         receipts[tid] = {
             k: v for k, v in result.items() if k != "predictions"
