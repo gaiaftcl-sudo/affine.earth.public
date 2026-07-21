@@ -1,7 +1,7 @@
 {
-  "aristotelian_closure_turns": 29,
-  "cycles": 13,
-  "last_cycle_at": "2026-07-21T14:34:50.784226+00:00",
+  "aristotelian_closure_turns": 30,
+  "cycles": 17,
+  "last_cycle_at": "2026-07-21T14:59:28.876118+00:00",
   "tasks": {
     "arc2:0934a4d8": {
       "engine": "marker8_twin31",
@@ -19,7 +19,7 @@
       "task_id": "0934a4d8",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:29:27.107732+00:00"
+      "updated_at": "2026-07-21T14:53:17.541490+00:00"
     },
     "arc2:135a2760": {
       "engine": "container_period_tiling",
@@ -38,7 +38,7 @@
       "task_id": "135a2760",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T14:29:27.107767+00:00"
+      "updated_at": "2026-07-21T14:53:17.541518+00:00"
     },
     "arc2:136b0064": {
       "engine": "s1_digit_separator_snake",
@@ -57,7 +57,7 @@
       "task_id": "136b0064",
       "track": "arc2",
       "turn_count": 4,
-      "updated_at": "2026-07-21T14:29:27.107783+00:00"
+      "updated_at": "2026-07-21T14:53:17.541533+00:00"
     },
     "arc2:13e47133": {
       "engine": "s1_wall_tree_nested_frames",
@@ -76,7 +76,7 @@
       "task_id": "13e47133",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T14:29:27.107812+00:00"
+      "updated_at": "2026-07-21T14:53:17.541559+00:00"
     },
     "arc2:142ca369": {
       "engine": "s1_laser_mirror_beams",
@@ -95,7 +95,7 @@
       "task_id": "142ca369",
       "track": "arc2",
       "turn_count": 2,
-      "updated_at": "2026-07-21T14:29:27.107826+00:00"
+      "updated_at": "2026-07-21T14:53:17.541572+00:00"
     },
     "arc2:16b78196": {
       "engine": "s3_separator_gap_stack",
@@ -132,8 +132,8 @@
       "status": "HEALING",
       "task_id": "16de56c4",
       "track": "arc2",
-      "turn_count": 4,
-      "updated_at": "2026-07-21T14:34:50.782692+00:00"
+      "turn_count": 7,
+      "updated_at": "2026-07-21T14:56:14.609675+00:00"
     },
     "arc2:1ae2feb7": {
       "engine": "s3_separator_ray_fill",
@@ -151,7 +151,7 @@
       "task_id": "1ae2feb7",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:29:27.107774+00:00"
+      "updated_at": "2026-07-21T14:53:17.541526+00:00"
     },
     "arc2:20270e3b": {
       "engine": "s1_seven_tab_merge",
@@ -169,7 +169,7 @@
       "task_id": "20270e3b",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:29:27.107790+00:00"
+      "updated_at": "2026-07-21T14:53:17.541540+00:00"
     },
     "arc2:20a9e565": {
       "engine": "s1_marker_frame_motif",
@@ -187,7 +187,7 @@
       "task_id": "20a9e565",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:29:27.107805+00:00"
+      "updated_at": "2026-07-21T14:53:17.541553+00:00"
     },
     "arc2:269e22fb": {
       "engine": "s1_fixed_canvas_template",
@@ -206,7 +206,7 @@
       "task_id": "269e22fb",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:29:27.107819+00:00"
+      "updated_at": "2026-07-21T14:53:17.541566+00:00"
     },
     "arc2:291dc1e1": {
       "engine": "s1_oriented_block_pack",
@@ -224,7 +224,7 @@
       "task_id": "291dc1e1",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:29:27.107833+00:00"
+      "updated_at": "2026-07-21T14:53:17.541578+00:00"
     },
     "arc2:2ba387bc": {
       "engine": "s1_dimension_projection",
@@ -242,7 +242,7 @@
       "task_id": "2ba387bc",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:29:27.107758+00:00"
+      "updated_at": "2026-07-21T14:53:17.541510+00:00"
     },
     "arc2:38007db0": {
       "engine": "s1_panel_odd_one_out",
@@ -260,11 +260,11 @@
       "task_id": "38007db0",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:29:27.107797+00:00"
+      "updated_at": "2026-07-21T14:53:17.541546+00:00"
     },
     "arc3:agi3-trajectory-gap": {
       "last_c4": "REINJECT:{\"action\": \"click\", \"effect\": \"clear_component\", \"target\": \"center_of_connected_component\"}",
-      "last_gate": "S4_REINJECT",
+      "last_gate": "FRANKLIN_PARSE_FAIL",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/agi3-trajectory-gap.json",
       "last_s4_status": "REINJECT",
       "last_validator": "environment_step",
@@ -278,8 +278,8 @@
       "status": "HEALING",
       "task_id": "agi3-trajectory-gap",
       "track": "arc3",
-      "turn_count": 9,
-      "updated_at": "2026-07-21T14:34:50.782948+00:00"
+      "turn_count": 12,
+      "updated_at": "2026-07-21T14:56:14.609803+00:00"
     },
     "arc3:ar25": {
       "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"target\": \"empty_cell\", \"value\": \"background_color\"}",
@@ -311,7 +311,7 @@
       "updated_at": "2026-07-21T13:15:58.166509+00:00"
     },
     "arc3:bp35": {
-      "last_c4": "REINJECT:{\"action_sequence\": [\"ACTION1: Move Right\", \"ACTION2: Move Down\", \"ACTION3: Click\", \"ACTION4: Move Left\", \"ACTION5: Move Up\", \"ACTION6: Click\", \"ACTION7: Move Right\"]}",
+      "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"target\": \"0,0\"}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/bp35.json",
       "last_s4_status": "REINJECT",
@@ -326,8 +326,8 @@
       "status": "HEALING",
       "task_id": "bp35",
       "track": "arc3",
-      "turn_count": 8,
-      "updated_at": "2026-07-21T14:34:50.783169+00:00"
+      "turn_count": 11,
+      "updated_at": "2026-07-21T14:56:14.609912+00:00"
     },
     "arc3:ls20": {
       "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"grid\": \"background_fill_connected_components\"}",
@@ -349,7 +349,7 @@
       "updated_at": "2026-07-21T13:55:39.224291+00:00"
     },
     "hle:hle-official-gate-open": {
-      "last_c4": "REINJECT:{\"s1\": \"awaiting_official\", \"s2\": \"enumerate every demonstration-consistent candidate\", \"s3\": \"emit one typed candidate the named validator can accept or reject\", \"s4\": {\"status\": \"REINJECT\", \"typed_candidate\": \"REINJECT\", \"unresolved_alternatives\": [\"LOCKED\"], \"validator\": \"exact_format_check\"}, \"task_id\": \"hle-official-gate-open\", \"track\": \"hle\"}",
+      "last_c4": "REINJECT:{\"status\": \"REINJECT\", \"unresolved_alternatives\": [\"Candidate 1: Output 'LOCKED'\", \"Candidate 2: Output 'REINJECT'\"], \"validator\": \"exact_format_check\"}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/hle/hle-official-gate-open.json",
       "last_s4_status": "REINJECT",
@@ -364,38 +364,19 @@
       "status": "HEALING",
       "task_id": "hle-official-gate-open",
       "track": "hle",
-      "turn_count": 8,
-      "updated_at": "2026-07-21T14:34:50.783345+00:00"
-    },
-    "arc2:45a5af55": {
-      "engine": "s1_dimension_projection",
-      "last_c4": "Band concentric nest: full-width uniform row bands nest as concentric square frames; last band fills center; size=2*sum(t[:-1])+t[-1]; train-replay gated.",
-      "last_gate": "S4_LOCKED",
-      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/45a5af55.json",
-      "last_s4_status": "LOCKED",
-      "last_validator": "demonstration_replay+labeled_eval",
-      "last_validator_result": {
-        "accepted": true,
-        "detail": "local_solver_green",
-        "labeled_eval": "1/1",
-        "train_replay": "2/2"
-      },
-      "status": "CLOSED",
-      "task_id": "45a5af55",
-      "track": "arc2",
-      "turn_count": 1,
-      "updated_at": "2026-07-21T14:38:06.798201+00:00"
+      "turn_count": 11,
+      "updated_at": "2026-07-21T14:56:14.610005+00:00"
     },
     "arc2:4c7dc4dd": {
       "engine": "s1_panel_motif_projection",
-      "last_c4": "Panel motif projection: 4 equal hollow frames; recolor densest bichrome via template, else connect singleton anchor\u2192ink, else XOR mono panels with rarest color; train-replay gated.",
+      "last_c4": "four equal hollow frames; recolor densest bichrome via template / connect anchor / XOR mono",
       "last_gate": "S4_LOCKED",
       "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/4c7dc4dd.json",
       "last_s4_status": "LOCKED",
-      "last_validator": "demonstration_replay+labeled_eval",
+      "last_validator": "local_hybrid_exact",
       "last_validator_result": {
         "accepted": true,
-        "detail": "local_solver_green",
+        "detail": "local_solver_green_skip",
         "labeled_eval": "2/2",
         "train_replay": "2/2"
       },
@@ -403,8 +384,27 @@
       "task_id": "4c7dc4dd",
       "track": "arc2",
       "turn_count": 1,
-      "updated_at": "2026-07-21T14:45:13.767818+00:00"
+      "updated_at": "2026-07-21T14:59:28.876118+00:00"
+    },
+    "arc2:4e34c42c": {
+      "engine": "s1_motif_stamp_jigsaw",
+      "last_c4": "motif stamp jigsaw: filter sub-stamps; assemble by min_ov=3 overlap; max overlap then min bbox",
+      "last_gate": "S4_LOCKED",
+      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/4e34c42c.json",
+      "last_s4_status": "LOCKED",
+      "last_validator": "local_hybrid_exact",
+      "last_validator_result": {
+        "accepted": true,
+        "detail": "local_solver_green_skip",
+        "labeled_eval": "2/2",
+        "train_replay": "2/2"
+      },
+      "status": "CLOSED",
+      "task_id": "4e34c42c",
+      "track": "arc2",
+      "turn_count": 1,
+      "updated_at": "2026-07-21T14:59:28.876118+00:00"
     }
   },
-  "total_franklin_turns": 51
+  "total_franklin_turns": 63
 }

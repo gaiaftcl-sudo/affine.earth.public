@@ -186,10 +186,10 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **29/172** exact grids
-(overlay `reports/arc_local_20260721T141241Z/agi2/summary-overlay.json`;
-train ice-on baseline remains **298/1076**). Lineage: 14/172 → **+2**
-`269e22fb` fixed-canvas → **+2** `13e47133` wall-tree → **+2** `142ca369` laser-mirror → **+1** `291dc1e1` oriented block pack = **29/172**.
+**MEASURED local** (2026-07-21): evaluation lifts to **31/172** exact grids
+(overlay `reports/arc_local_20260721T145910Z/agi2/summary-overlay.json`;
+train ice-on baseline remains **298/1076**). Lineage includes
+`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 = **31/172**.
 
 | Owned grammar | Engine | Train replay | Eval |
 | --- | --- | --- | --- |
@@ -205,6 +205,7 @@ train ice-on baseline remains **298/1076**). Lineage: 14/172 → **+2**
 | laser-mirror beams | `s1_laser_mirror_beams` | 3/3 on `142ca369` | exact ×2 |
 | oriented block pack | `s1_oriented_block_pack` | 4/4 on `291dc1e1` | exact ×1 |
 | panel motif projection | `s1_panel_motif_projection` | 2/2 on `4c7dc4dd` | exact ×2 |
+| motif stamp jigsaw | `s1_motif_stamp_jigsaw` | 2/2 on `4e34c42c` | exact ×2 |
 | topology schematic | `s1_topology_schematic` | 4/4 on `2d0172a1` | exact ×2 |
 | hollow accent-fill | `s1_hollow_accent_fill` | 2/2 on `3a25b0d8` | exact ×2 |
 | container period tiling | `container_period_tiling` | 2/2 on `135a2760` | exact |
@@ -219,6 +220,15 @@ train ice-on baseline remains **298/1076**). Lineage: 14/172 → **+2**
 - **S3:** each partition sorted by source row; packed two columns wide.
 - **S4:** left = hollow, right = solid.
 - **C4:** exact packed grid; licensed only when every training pair replays.
+
+
+**S1 grammar (`motif_stamp_jigsaw` / `4e34c42c`):**
+
+- **S1:** majority color = background; remaining cells form 4-connected stamps.
+- **S2:** drop stamps that are exact subarrays of a larger stamp bbox crop.
+- **S3:** assemble by consistent 2D overlap offsets (`min_ov=3`); maximize total overlap, then minimize bbox area.
+- **S4:** output collage with background fill in unpainted cells.
+- **C4:** exact collage; train-replay gated (`2/2`, eval `2/2`).
 
 **S1 grammar (`band_concentric_nest` / `45a5af55`):**
 

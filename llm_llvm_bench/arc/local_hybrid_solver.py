@@ -428,6 +428,27 @@ def solve_task(
         receipt["s1_panel_motif_meta"] = panel_replay
         return panel_fragment, receipt
 
+    # 1b14) S1 motif-stamp jigsaw (4e34c42c).
+    s1jigsaw = _load_module(
+        arc_dir / "s1_motif_stamp_jigsaw.py", "s1_motif_stamp_jigsaw"
+    )
+    jigsaw_replay = s1jigsaw.train_replay(task)
+    jigsaw_fragment = s1jigsaw.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(jigsaw_replay)
+    if (
+        jigsaw_fragment is not None
+        and jigsaw_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in jigsaw_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_motif_stamp_jigsaw"
+        receipt["train_replay"] = jigsaw_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_motif_jigsaw_meta"] = jigsaw_replay
+        return jigsaw_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

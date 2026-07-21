@@ -1,0 +1,23 @@
+{
+  "task_id": "4e34c42c",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S1_dimension_projection",
+  "engine": "s1_motif_stamp_jigsaw",
+  "primary_transform": "motif_stamp_jigsaw",
+  "status": "CLOSED",
+  "train_replay": "2/2",
+  "eval_grids": "2/2",
+  "c4": {
+    "S1": "majority color = canvas background; remaining cells form 4-connected stamps",
+    "S2": "drop stamps that are exact subarrays of a larger stamp bbox crop",
+    "S3": "assemble by consistent 2D overlap offsets (min_ov=3); max total overlap then min bbox area",
+    "S4": "output = assembled collage with background fill",
+    "C4": "exact collage; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s1_motif_stamp_jigsaw.py",
+  "mastery_eval": "31/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T14:59:28Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T145910Z/agi2/summary-overlay.json"
+}
