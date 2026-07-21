@@ -1,0 +1,15 @@
+{
+  "eval_exact": "40/172",
+  "eval_pass": 40,
+  "eval_total": 172,
+  "base": "reports/arc_local_20260721T152214Z/agi2/local-evaluation-submission.json",
+  "owned_hits": [
+    {
+      "task_id": "53fb4810",
+      "engine": "s1_ones_stamp_period_fill",
+      "grids": 1
+    }
+  ],
+  "note": "overlay +ones_stamp_period_fill 53fb4810; 21897d95 honest REINJECT; train floor 298/1076",
+  "sealed_at_utc": "2026-07-21T15:26:39Z"
+}

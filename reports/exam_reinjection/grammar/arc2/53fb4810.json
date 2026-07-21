@@ -1,0 +1,11 @@
+{
+  "task_id": "53fb4810",
+  "status": "CLOSED",
+  "engine": "s1_ones_stamp_period_fill",
+  "train_replay": "2/2",
+  "eval_grids": "1/1",
+  "mastery_eval": "40/172",
+  "grammar_path": "reports/exam_reinjection/grammar/arc2/s1_53fb4810_ones_stamp_period_fill.json",
+  "sealed_at_utc": "2026-07-21T15:26:39Z",
+  "kaggle_submit": false
+}

@@ -533,6 +533,27 @@ def solve_task(
         receipt["s1_path_column_unroll_meta"] = path_replay
         return path_fragment, receipt
 
+    # 1b19) S1 ones-stamp period fill (53fb4810).
+    s1ones = _load_module(
+        arc_dir / "s1_ones_stamp_period_fill.py", "s1_ones_stamp_period_fill"
+    )
+    ones_replay = s1ones.train_replay(task)
+    ones_fragment = s1ones.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(ones_replay)
+    if (
+        ones_fragment is not None
+        and ones_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in ones_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_ones_stamp_period_fill"
+        receipt["train_replay"] = ones_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_ones_stamp_period_fill_meta"] = ones_replay
+        return ones_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

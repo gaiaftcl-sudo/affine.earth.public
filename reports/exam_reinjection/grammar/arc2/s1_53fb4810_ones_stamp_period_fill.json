@@ -1,0 +1,23 @@
+{
+  "task_id": "53fb4810",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S1_dimension_projection",
+  "engine": "s1_ones_stamp_period_fill",
+  "primary_transform": "ones_stamp_period_fill",
+  "status": "CLOSED",
+  "train_replay": "2/2",
+  "eval_grids": "1/1",
+  "c4": {
+    "S1": "majority = background; color-1 components are anchors",
+    "S2": "contiguous non-bg stamp tile sits on one side of each anchor",
+    "S3": "stamp rows/cols define a period tile",
+    "S4": "fill opposite side of stamp from ones by tiling period into non-1 cells",
+    "C4": "exact period fill; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s1_ones_stamp_period_fill.py",
+  "mastery_eval": "40/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T15:26:39Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T152639Z/agi2/summary-overlay.json"
+}
