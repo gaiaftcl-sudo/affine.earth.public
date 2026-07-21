@@ -505,14 +505,16 @@ def solve_one(
         max_tokens = max(max_tokens, 1600)
 
     system = (
-        "ARC-AGI-2 test solver. Reply ONE JSON object only. No markdown. No <think>.\n"
+        "ARC-AGI-2 test solver.\n"
+        "CRITICAL: Your entire reply is ONE JSON object. First char '{'. Last char '}'. "
+        "No prose, no markdown, no <think>, no 'The user wants'.\n"
         f"task_id={tid}. zoom_move={zoom}.\n"
-        "Jordan bound: status LOCKED forbidden until train_predictions == ALL train outputs.\n"
-        "Required keys: task_id, train_predictions, test_predictions, reused_engine, zoom_move.\n"
-        "train_predictions: list of digit-string grids (newline-separated rows), "
-        f"exact shapes {out_shapes}.\n"
+        "Jordan: LOCKED only when train_predictions == ALL train outputs exactly.\n"
+        "Keys: task_id, train_predictions, test_predictions, reused_engine, zoom_move.\n"
+        "train_predictions: digit-string grids (newline rows), "
+        f"exact shapes {out_shapes} — copy train demo OUTPUTS.\n"
         "test_predictions: [{attempt_1, attempt_2}, ...]; attempt_1 MUST ≠ test input.\n"
-        "Reuse LEARNED_CLOSED_EXPERIENCES (same zoom family) before inventing.\n"
+        "Reuse LEARNED_CLOSED_EXPERIENCES (same zoom) before inventing.\n"
     )
     user = json.dumps(
         {
@@ -644,6 +646,17 @@ def solve_one(
                     "raw_head": answer[:240],
                 }
             )
+            train_exact = [grid_str(ex["output"]) for ex in task["train"]]
+            skeleton = {
+                "task_id": tid,
+                "zoom_move": zoom,
+                "train_predictions": train_exact,
+                "test_predictions": [
+                    {"attempt_1": "<digit-string grid ≠ test input>", "attempt_2": "<same or alt>"}
+                    for _ in task["test"]
+                ],
+                "reused_engine": None,
+            }
             messages.append(
                 {
                     "role": "user",
@@ -651,9 +664,13 @@ def solve_one(
                         {
                             "gate": "UNPARSED",
                             "instruction": (
-                                "ONE JSON object only. Keys: train_predictions "
-                                f"(shapes {out_shapes}), test_predictions."
+                                "STOP prose. Reply with ONE JSON object only — "
+                                "first character MUST be '{'. "
+                                "Copy train_outputs_exact into train_predictions verbatim "
+                                f"(shapes {out_shapes}), then fill test_predictions via {zoom}."
                             ),
+                            "train_outputs_exact": train_exact,
+                            "JSON_SKELETON": skeleton,
                         }
                     ),
                 }
