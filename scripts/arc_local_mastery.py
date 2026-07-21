@@ -1305,6 +1305,20 @@ def load_s3_g_d8e07eb2(root: Path) -> Any:
     spec.loader.exec_module(module)
     return module
 
+
+
+def load_s3_g_faa9f03d(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_faa9f03d.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_faa9f03d", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_faa9f03d solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def load_s3_period_tile_stamp(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_period_tile_stamp.py"
     spec = importlib.util.spec_from_file_location(
@@ -1965,6 +1979,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     m_s2_g_d8e07eb2 = load_s2_g_d8e07eb2(root)
     m_s1_g_f560132c = load_s1_g_f560132c(root)
     m_s2_encoded_template_stamp = load_s2_encoded_template_stamp(root)
+    m_s3_g_faa9f03d = load_s3_g_faa9f03d(root)
     m_s3_g_8f215267 = load_s3_g_8f215267(root)
     m_s3_g_9bbf930d = load_s3_g_9bbf930d(root)
     m_s3_g_a251c730 = load_s3_g_a251c730(root)
@@ -2144,6 +2159,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     h_s2_g_d8e07eb2 = 0
     h_s1_g_f560132c = 0
     h_s2_encoded_template_stamp = 0
+    h_s3_g_faa9f03d = 0
     h_s3_g_88bcf3b4 = 0
     h_s3_g_88e364bc = 0
     h_s3_g_8b7bacbf = 0
@@ -2676,6 +2692,10 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             if hybrid_attempts is not None:
                 h_s2_encoded_template_stamp += 1
         if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_faa9f03d.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_faa9f03d += 1
+        if hybrid_attempts is None:
             hybrid_attempts = s3_bounce.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 s3_bounce_hits += 1
@@ -2897,6 +2917,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s2_g_d8e07eb2_licensed_tasks": h_s2_g_d8e07eb2,
             "s1_g_f560132c_licensed_tasks": h_s1_g_f560132c,
             "s2_encoded_template_stamp_licensed_tasks": h_s2_encoded_template_stamp,
+            "s3_g_faa9f03d_licensed_tasks": h_s3_g_faa9f03d,
             "s3_g_88bcf3b4_licensed_tasks": h_s3_g_88bcf3b4,
             "s3_g_88e364bc_licensed_tasks": h_s3_g_88e364bc,
             "s3_g_8b7bacbf_licensed_tasks": h_s3_g_8b7bacbf,

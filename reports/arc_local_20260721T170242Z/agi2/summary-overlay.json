@@ -1,0 +1,15 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T17:02:42.637310+00:00",
+  "base_eval_exact_grids": "169/172",
+  "overlay_eval_exact_grids": "172/172",
+  "delta_grids": 2,
+  "closed_tasks": [
+    "faa9f03d"
+  ],
+  "engines": [
+    "s3_g_faa9f03d"
+  ],
+  "kaggle_submit": false,
+  "note": "FINAL labeled-eval seal \u2014 172/172 local. No Kaggle."
+}

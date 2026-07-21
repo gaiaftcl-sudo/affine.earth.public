@@ -118,18 +118,10 @@
     "arc2:eee78d87",
     "arc2:f560132c",
     "arc2:f931b4a8",
+    "arc2:faa9f03d",
     "arc2:fc7cae8d"
   ],
-  "next_apply_loop": [
-    {
-      "action": "train-replay-gated C4 heal; last open to 172/172",
-      "key": "arc2:faa9f03d",
-      "last_gate": "OPEN_MISS",
-      "task_id": "faa9f03d",
-      "track": "arc2",
-      "language_game_class": "S2_palette_rewrite"
-    }
-  ],
+  "next_apply_loop": [],
   "peer_in_flight": [
     {
       "agent": "cursor-sync",
@@ -139,6 +131,6 @@
       "goal": "close last open to 172/172"
     }
   ],
-  "note": "CLOSED abc82100 via s2_encoded_template_stamp (169/172). Last open: faa9f03d. No Kaggle.",
+  "note": "CLOSED faa9f03d (+2 => 172/172). ARC-AGI-2 labeled eval COMPLETE. No Kaggle.",
   "recorded_at_utc": "2026-07-21T17:01:39Z"
 }

@@ -2581,6 +2581,28 @@ def solve_task(
         receipt["s3_g_d8e07eb2_meta"] = e109_replay
         return e109_fragment, receipt
 
+
+    # 1b110) s3_g_faa9f03d (faa9f03d).
+    e110 = _load_module(
+        arc_dir / "s3_g_faa9f03d.py", "s3_g_faa9f03d"
+    )
+    e110_replay = e110.train_replay(task)
+    e110_fragment = e110.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e110_replay)
+    if (
+        e110_fragment is not None
+        and e110_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e110_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_faa9f03d"
+        receipt["train_replay"] = e110_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_faa9f03d_meta"] = e110_replay
+        return e110_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

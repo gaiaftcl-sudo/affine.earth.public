@@ -186,7 +186,7 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **168/172** exact grids
+**MEASURED local** (2026-07-21): evaluation lifts to **172/172** exact grids
 (overlay `reports/arc_local_20260721T164410Z/agi2/summary-overlay.json`;
 train ice-on baseline remains **298/1076**). Lineage includes
 `s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 → `s3_terrain_period_bounce` **195c6913** ×2 → `s1_solid_motif_carve` **58f5dbd5** ×1 → `s2_plus_stamp_recolor` **1818057f** ×1 → `s1_path_column_unroll` **7b5033c1** ×1 → `s1_ones_stamp_period_fill` **53fb4810** ×1 → `s1_canvas_hole_sprite_fill` **67e490f4** ×1 → `s1_panel_motif_nest_pack` **8698868d** ×1 → `s1_separator_block_unroll` **78332cb0** ×2 → `s1_sep_row_extent_sort` **31f7f899** ×1 → `s1_frame_chamber_staircase` **89565ca0** ×1 → `s1_header_bracket_fill` **97d7923e** ×1 → `s2_arrow_room_recolor` **21897d95** ×2 → `s2_marker_stripe_lattice` **221dfab4** ×2 = **52/172**.
@@ -436,4 +436,7 @@ Train **2/2**, eval **2/2** via `s1_g_f560132c`. Mastery **169/172**. No Kaggle.
 ## FoT note — d8e07eb2 closed → 168/172 (2026-07-21)
 
 Closed `d8e07eb2` (+2) via train-replay-gated `s3_g_d8e07eb2` (complete_row selector recolor). Remaining OPEN: abc82100, faa9f03d. No Kaggle until 172/172.
+## FoT note — 172/172 COMPLETE (2026-07-21)
+
+Closed final open `faa9f03d` (+2) via train-replay-gated `s3_g_faa9f03d` (octotetrahedral transform). Offline evaluation set **172/172**. No Kaggle.
 
