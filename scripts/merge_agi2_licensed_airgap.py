@@ -68,6 +68,8 @@ def main() -> int:
     for pattern in (
         "airgap_agi2_shard_*",
         "airgap_agi2_wave*_shard_*",
+        "airgap_agi2_franklin*_shard_*",
+        "airgap_agi2_franklin_s4*",
         "airgap_agi2_shards_*/shard_*",
     ):
         for d in sorted((root / "reports").glob(pattern)):

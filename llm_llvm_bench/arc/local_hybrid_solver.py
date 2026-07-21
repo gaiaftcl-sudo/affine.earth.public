@@ -72,11 +72,24 @@ def _dsl_train_replay(solver: Any, train: List[Dict[str, Any]]) -> Dict[str, Any
     }
 
 
+def _icecuber_depth() -> int:
+    """ARC_ICECUBER_DEPTH env (default 2). Depth 3 is the hard-residue orthogonal."""
+    import os
+
+    raw = os.environ.get("ARC_ICECUBER_DEPTH", "2").strip()
+    try:
+        depth = int(raw)
+    except ValueError:
+        depth = 2
+    return max(1, min(depth, 4))
+
+
 def _icecuber_train_replay(
     adapter: Any, repo_root: Path, task_id: str, task: Dict[str, Any]
 ) -> Tuple[Optional[List[Dict[str, Grid]]], Dict[str, Any]]:
     """Icecuber only when every training demonstration is exact-matched."""
     train = task["train"]
+    depth = _icecuber_depth()
     if not train:
         return None, {"engine": "arc-icecuber", "ok": False, "train_replay": "0/0"}
     pseudo = {
@@ -88,7 +101,7 @@ def _icecuber_train_replay(
     solutions = {task_id: [ex["output"] for ex in train]}
     try:
         result = adapter.solve_challenge_set(
-            repo_root, pseudo, solutions, depth=2, workers=1
+            repo_root, pseudo, solutions, depth=depth, workers=1
         )
     except Exception as exc:
         return None, {
@@ -96,6 +109,7 @@ def _icecuber_train_replay(
             "ok": False,
             "train_replay": f"0/{len(train)}",
             "error": str(exc),
+            "depth": depth,
         }
     preds = result["predictions"][task_id]
     hits = 0
@@ -110,10 +124,11 @@ def _icecuber_train_replay(
         "train_replay_pass": hits,
         "train_replay_total": len(train),
         "verdicts": result.get("verdicts"),
+        "depth": depth,
     }
     if hits != len(train):
         return None, meta
-    real = adapter.predictions_for_task(repo_root, task_id, task, depth=2)
+    real = adapter.predictions_for_task(repo_root, task_id, task, depth=depth)
     return real, meta
 
 
