@@ -355,6 +355,7 @@ def try_ranked_closed_engines(
             "s2_enclosed_hole_fill_by_area",
             "s2_marker_recolor_by_hole_count",
             "s2_three_point_star_path",
+            "s2_sep_panel_marker_map",
             "s2_color_gate_rewrite",
             "s2_component_recolor",
             "s2_dual_palette_rewrite",

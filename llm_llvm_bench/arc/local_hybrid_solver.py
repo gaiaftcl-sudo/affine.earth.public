@@ -2700,6 +2700,55 @@ def solve_task(
         receipt["s3_bounce_meta"] = bounce_replay
         return bounce_fragment, receipt
 
+    # 1z) Dynamic mastery-grammar sweep — any s*/marker* module with
+    # train_replay + submission_fragment not already tried above (catches
+    # newly landed labeled-eval packs without hybrid rewiring).
+    tried_engines = {
+        e.get("engine")
+        for e in receipt["engines_tried"]
+        if isinstance(e, dict) and e.get("engine")
+    }
+    for mod_path in sorted(arc_dir.glob("s*.py")) + sorted(arc_dir.glob("marker*.py")):
+        stem = mod_path.stem
+        if stem in tried_engines or stem.startswith("s3_g_") and stem in tried_engines:
+            continue
+        # Skip if this exact file was already loaded by name earlier.
+        if any(
+            isinstance(e, dict) and e.get("engine") == stem
+            for e in receipt["engines_tried"]
+        ):
+            continue
+        try:
+            mod = _load_module(mod_path, f"dyn_{stem}")
+            if not hasattr(mod, "train_replay") or not hasattr(mod, "submission_fragment"):
+                continue
+            replay = mod.train_replay(task)
+            if not isinstance(replay, dict):
+                continue
+            if "engine" not in replay:
+                replay = dict(replay)
+                replay["engine"] = stem
+            receipt["engines_tried"].append(replay)
+            if not replay.get("perfect"):
+                continue
+            fragment = mod.submission_fragment(task_id, task)
+            if (
+                fragment is not None
+                and all(
+                    _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+                    for p in fragment[task_id]
+                )
+            ):
+                receipt["accepted_engine"] = stem
+                receipt["train_replay"] = replay.get("train_replay")
+                receipt["ok"] = True
+                receipt["dynamic_grammar"] = stem
+                return fragment, receipt
+        except Exception as exc:
+            receipt["engines_tried"].append(
+                {"engine": stem, "ok": False, "error": str(exc)}
+            )
+
     # 2) Replay-gated DSL (db71c28 lineage).
     dsl_path = repo_root / "kaggle/arc-prize-2026-agi-2/arc_agi_2_kaggle.py"
     try:

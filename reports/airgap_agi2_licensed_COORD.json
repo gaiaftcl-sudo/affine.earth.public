@@ -1,20 +1,14 @@
 {
-  "licensed": "86/259",
-  "licensed_pct": 33.2,
-  "identity": 173,
-  "submission_sha256": "312b859e213ed55a64ed752e4052323387a75121066b374ab50872c03344890e",
+  "licensed": "87/259",
+  "licensed_pct": 33.59,
+  "identity": 172,
+  "submission_sha256": "3d7aae5a95a1bcb60fb4cc85932dbb9a58fd9e62cc565191ed38adfa4ea5f9d8",
   "new_closes_this_turn": [
-    "070dd51e\u2192s2_same_color_axis_link (2/2)",
-    "22168020\u2192s2_same_color_axis_link (3/3)",
-    "00dbd492\u2192s2_enclosed_hole_fill_by_area (4/4)",
-    "0a2355a6\u2192s2_marker_recolor_by_hole_count (4/4)",
-    "37d3e8b2\u2192s2_marker_recolor_by_hole_count (3/3)",
-    "0e671a1a\u2192s2_three_point_star_path (4/4)"
+    "09629e4f\u2192s2_sep_panel_marker_map (4/4)"
   ],
-  "sync_base": "57e22dd",
-  "sync_base_licensed": "79/259",
+  "commit_base": "387add7",
   "no_submit": true,
   "hle_left_alive": true,
   "exp_left_alive": true,
-  "recorded_at_utc": "2026-07-21T20:52:52.956520+00:00"
+  "recorded_at_utc": "2026-07-21T21:04:13.448030+00:00"
 }

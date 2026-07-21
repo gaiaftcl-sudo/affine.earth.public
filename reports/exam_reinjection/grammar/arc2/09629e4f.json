@@ -1,0 +1,18 @@
+{
+  "task_id": "09629e4f",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "engine": "s2_sep_panel_marker_map",
+  "module": "llm_llvm_bench/arc/s2_sep_panel_marker_map.py",
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "4/4",
+    "engine": "s2_sep_panel_marker_map",
+    "detail": "train_replay_perfect"
+  },
+  "c4_invariant": "s2_sep_panel_marker_map",
+  "sealed_at_utc": "2026-07-21T21:03:13.716373+00:00"
+}
