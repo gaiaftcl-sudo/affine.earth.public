@@ -1,7 +1,7 @@
 {
   "aristotelian_closure_turns": 31,
-  "cycles": 22,
-  "last_cycle_at": "2026-07-21T15:26:39.836651+00:00",
+  "cycles": 23,
+  "last_cycle_at": "2026-07-21T15:30:06.011196+00:00",
   "tasks": {
     "arc2:0934a4d8": {
       "engine": "marker8_twin31",
@@ -19,7 +19,7 @@
       "task_id": "0934a4d8",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T15:24:39.469943+00:00"
+      "updated_at": "2026-07-21T15:26:56.851947+00:00"
     },
     "arc2:135a2760": {
       "engine": "container_period_tiling",
@@ -38,7 +38,7 @@
       "task_id": "135a2760",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T15:24:39.469974+00:00"
+      "updated_at": "2026-07-21T15:26:56.851983+00:00"
     },
     "arc2:136b0064": {
       "engine": "s1_digit_separator_snake",
@@ -57,7 +57,7 @@
       "task_id": "136b0064",
       "track": "arc2",
       "turn_count": 4,
-      "updated_at": "2026-07-21T15:24:39.469986+00:00"
+      "updated_at": "2026-07-21T15:26:56.852000+00:00"
     },
     "arc2:13e47133": {
       "engine": "s1_wall_tree_nested_frames",
@@ -76,7 +76,7 @@
       "task_id": "13e47133",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T15:24:39.470005+00:00"
+      "updated_at": "2026-07-21T15:26:56.852029+00:00"
     },
     "arc2:142ca369": {
       "engine": "s1_laser_mirror_beams",
@@ -95,7 +95,7 @@
       "task_id": "142ca369",
       "track": "arc2",
       "turn_count": 2,
-      "updated_at": "2026-07-21T15:24:39.470014+00:00"
+      "updated_at": "2026-07-21T15:26:56.852043+00:00"
     },
     "arc2:16b78196": {
       "engine": "s3_separator_gap_stack",
@@ -165,7 +165,7 @@
       "task_id": "1ae2feb7",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T15:24:39.469980+00:00"
+      "updated_at": "2026-07-21T15:26:56.851992+00:00"
     },
     "arc2:20270e3b": {
       "engine": "s1_seven_tab_merge",
@@ -183,7 +183,7 @@
       "task_id": "20270e3b",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T15:24:39.469991+00:00"
+      "updated_at": "2026-07-21T15:26:56.852007+00:00"
     },
     "arc2:20a9e565": {
       "engine": "s1_marker_frame_motif",
@@ -201,7 +201,25 @@
       "task_id": "20a9e565",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T15:24:39.470000+00:00"
+      "updated_at": "2026-07-21T15:26:56.852022+00:00"
+    },
+    "arc2:21897d95": {
+      "grammar_path": "reports/exam_reinjection/grammar/arc2/s2_21897d95_reinject.json",
+      "kaggle_submit": false,
+      "last_gate": "S4_REINJECT",
+      "last_validator": "franklin_s4_projection",
+      "last_validator_result": {
+        "accepted": false,
+        "detail": "franklin_s4_reinject_pending_c4",
+        "labeled_eval": "0/2",
+        "train_replay": null
+      },
+      "mastery_eval": "41/172",
+      "note": "Oriented 1-digit stamps observed; no train-exact C4 this cycle. Parallel CLOSED 53fb4810.",
+      "status": "REINJECT",
+      "task_id": "21897d95",
+      "track": "arc2",
+      "updated_at": "2026-07-21T15:30:00Z"
     },
     "arc2:269e22fb": {
       "engine": "s1_fixed_canvas_template",
@@ -220,7 +238,7 @@
       "task_id": "269e22fb",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T15:24:39.470010+00:00"
+      "updated_at": "2026-07-21T15:26:56.852036+00:00"
     },
     "arc2:291dc1e1": {
       "engine": "s1_oriented_block_pack",
@@ -238,7 +256,7 @@
       "task_id": "291dc1e1",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T15:24:39.470018+00:00"
+      "updated_at": "2026-07-21T15:26:56.852049+00:00"
     },
     "arc2:2ba387bc": {
       "engine": "s1_dimension_projection",
@@ -256,7 +274,7 @@
       "task_id": "2ba387bc",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T15:24:39.469967+00:00"
+      "updated_at": "2026-07-21T15:26:56.851973+00:00"
     },
     "arc2:38007db0": {
       "engine": "s1_panel_odd_one_out",
@@ -274,7 +292,21 @@
       "task_id": "38007db0",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T15:24:39.469996+00:00"
+      "updated_at": "2026-07-21T15:26:56.852015+00:00"
+    },
+    "arc2:53fb4810": {
+      "engine": "s1_ones_stamp_period_fill",
+      "eval_grids": "1/1",
+      "kaggle_submit": false,
+      "last_gate": "CLOSED",
+      "mastery_eval": "40/172",
+      "overlay": "reports/arc_local_20260721T152639Z/agi2/summary-overlay.json",
+      "sealed_at_utc": "2026-07-21T15:26:39Z",
+      "status": "CLOSED",
+      "task_id": "53fb4810",
+      "track": "arc2",
+      "train_replay": "2/2",
+      "updated_at": "2026-07-21T15:26:39Z"
     },
     "arc2:58490d8a": {
       "engine": "s1_zero_panel_motif_count",
@@ -322,11 +354,11 @@
       "status": "HEALING",
       "task_id": "agi3-trajectory-gap",
       "track": "arc3",
-      "turn_count": 16,
-      "updated_at": "2026-07-21T15:26:11.780422+00:00"
+      "turn_count": 17,
+      "updated_at": "2026-07-21T15:28:20.371781+00:00"
     },
     "arc3:ar25": {
-      "last_c4": "REINJECT:{\"action\": \"clear_level\", \"params\": {}}",
+      "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"target\": \"target_color\", \"vector\": \"down\"}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/ar25.json",
       "last_s4_status": "REINJECT",
@@ -341,8 +373,8 @@
       "status": "HEALING",
       "task_id": "ar25",
       "track": "arc3",
-      "turn_count": 4,
-      "updated_at": "2026-07-21T15:26:11.780828+00:00"
+      "turn_count": 5,
+      "updated_at": "2026-07-21T15:28:20.371883+00:00"
     },
     "arc3:ar25-0c556536": {
       "last_c4": "",
@@ -393,7 +425,7 @@
       "updated_at": "2026-07-21T13:55:39.224291+00:00"
     },
     "hle:hle-official-gate-open": {
-      "last_c4": "REINJECT:{\"status\": \"REINJECT\", \"typed_candidate\": \"Awaiting official CAIS judge validation for exact_format_check.\", \"unresolved_alternatives\": [\"Candidate 1: 'LOCKED'\", \"Candidate 2: 'REINJECT'\"], \"validator\": \"exact_format_check\"}",
+      "last_c4": "REINJECT:{}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/hle/hle-official-gate-open.json",
       "last_s4_status": "REINJECT",
@@ -408,41 +440,23 @@
       "status": "HEALING",
       "task_id": "hle-official-gate-open",
       "track": "hle",
-      "turn_count": 15,
-      "updated_at": "2026-07-21T15:26:11.781157+00:00"
+      "turn_count": 16,
+      "updated_at": "2026-07-21T15:28:20.371976+00:00"
     },
-    "arc2:53fb4810": {
+    "arc2:67e490f4": {
       "status": "CLOSED",
       "last_gate": "CLOSED",
-      "engine": "s1_ones_stamp_period_fill",
+      "engine": "s1_canvas_hole_sprite_fill",
       "train_replay": "2/2",
       "eval_grids": "1/1",
-      "mastery_eval": "40/172",
-      "overlay": "reports/arc_local_20260721T152639Z/agi2/summary-overlay.json",
+      "mastery_eval": "41/172",
+      "overlay": "reports/arc_local_20260721T153005Z/agi2/summary-overlay.json",
       "kaggle_submit": false,
-      "sealed_at_utc": "2026-07-21T15:26:39Z",
-      "task_id": "53fb4810",
+      "sealed_at_utc": "2026-07-21T15:30:05Z",
+      "task_id": "67e490f4",
       "track": "arc2",
-      "updated_at": "2026-07-21T15:26:39Z"
-    },
-    "arc2:21897d95": {
-      "status": "REINJECT",
-      "last_gate": "S4_REINJECT",
-      "last_validator": "franklin_s4_projection",
-      "last_validator_result": {
-        "accepted": false,
-        "detail": "franklin_s4_reinject_pending_c4",
-        "train_replay": null,
-        "labeled_eval": "0/2"
-      },
-      "grammar_path": "reports/exam_reinjection/grammar/arc2/s2_21897d95_reinject.json",
-      "mastery_eval": "40/172",
-      "kaggle_submit": false,
-      "task_id": "21897d95",
-      "track": "arc2",
-      "updated_at": "2026-07-21T15:26:39Z",
-      "note": "Oriented 1-digit stamps observed; no train-exact C4 this cycle. Parallel CLOSED 53fb4810."
+      "updated_at": "2026-07-21T15:30:05Z"
     }
   },
-  "total_franklin_turns": 76
+  "total_franklin_turns": 79
 }

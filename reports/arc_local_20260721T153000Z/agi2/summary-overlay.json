@@ -1,0 +1,15 @@
+{
+  "eval_exact": "41/172",
+  "eval_pass": 41,
+  "eval_total": 172,
+  "base": "reports/arc_local_20260721T152639Z/agi2/local-evaluation-submission.json",
+  "owned_hits": [
+    {
+      "task_id": "67e490f4",
+      "engine": "s1_canvas_hole_sprite_fill",
+      "grids": 1
+    }
+  ],
+  "note": "overlay +canvas_hole_sprite_fill 67e490f4; 21897d95 remains S4_REINJECT; train floor unchanged",
+  "sealed_at_utc": "2026-07-21T15:30:00Z"
+}

@@ -554,6 +554,27 @@ def solve_task(
         receipt["s1_ones_stamp_period_fill_meta"] = ones_replay
         return ones_fragment, receipt
 
+    # 1b20) S1 canvas-hole sprite fill (67e490f4).
+    s1hole = _load_module(
+        arc_dir / "s1_canvas_hole_sprite_fill.py", "s1_canvas_hole_sprite_fill"
+    )
+    hole_replay = s1hole.train_replay(task)
+    hole_fragment = s1hole.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(hole_replay)
+    if (
+        hole_fragment is not None
+        and hole_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in hole_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_canvas_hole_sprite_fill"
+        receipt["train_replay"] = hole_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_canvas_hole_sprite_fill_meta"] = hole_replay
+        return hole_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

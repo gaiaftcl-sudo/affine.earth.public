@@ -24,12 +24,13 @@
     "arc2:53fb4810",
     "arc2:58490d8a",
     "arc2:58f5dbd5",
+    "arc2:67e490f4",
     "arc2:7b5033c1",
     "arc3:agi3-trajectory-gap"
   ],
   "next_apply_loop": [
     {
-      "action": "Franklin S4 REINJECT \u2192 lock C4 \u2192 train-replay exact \u2192 labeled eval \u2192 seal CLOSED",
+      "action": "Franklin S4 REINJECT \u226429 turns \u2192 LOCKED train-exact C4 or Aristotelian dead-end pack",
       "key": "arc2:21897d95",
       "last_gate": "S4_REINJECT",
       "task_id": "21897d95",
@@ -38,9 +39,9 @@
     },
     {
       "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
-      "key": "arc2:67e490f4",
+      "key": "arc2:8698868d",
       "last_gate": "pending",
-      "task_id": "67e490f4",
+      "task_id": "8698868d",
       "track": "arc2",
       "language_game_class": "S1_dimension_projection"
     },
@@ -52,7 +53,7 @@
       "track": "arc3"
     }
   ],
-  "note": "CLOSED 53fb4810 ones_stamp_period_fill (40/172). Honest REINJECT documented for 21897d95. Next open: arc2:21897d95 (S4_REINJECT) or arc2:67e490f4. No Kaggle.",
+  "note": "CLOSED 67e490f4 canvas_hole_sprite_fill (41/172). 21897d95 remains S4_REINJECT under Franklin multi-turn. Next alt: arc2:8698868d. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T15:26:39.836651+00:00"
+  "recorded_at_utc": "2026-07-21T15:30:06.011196+00:00"
 }

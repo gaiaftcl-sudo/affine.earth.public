@@ -89,6 +89,16 @@ C4: same-shape rewrite; axis = denser multi-seed lines (rows vs cols); mono seed
 
 
 
+## FoT note — 67e490f4 canvas-hole sprite fill (2026-07-21)
+
+C4: majority bg; largest non-bg component = canvas crop; holes filled by majority sprite color per mask class (rotation+mirror). Train **2/2**, eval **1/1** via `llm_llvm_bench/arc/s1_canvas_hole_sprite_fill.py`. No Kaggle.
+
+## FoT note — reinjection state sync 67e490f4 (2026-07-21)
+
+Hybrid GREEN task `67e490f4` sealed **CLOSED** in
+`reports/exam_reinjection/grammar/arc2/`. Mastery **41/172**. Next open
+`21897d95` (S4_REINJECT). No Kaggle submit.
+
 ## FoT note — 53fb4810 ones-stamp period fill (2026-07-21)
 
 C4: majority bg; color-1 anchors; contiguous non-bg stamp on one side; tile that period on the opposite side of the stamp into non-1 cells. Train **2/2**, eval **1/1** via `llm_llvm_bench/arc/s1_ones_stamp_period_fill.py`. No Kaggle.

@@ -314,3 +314,11 @@ Remaining S1/S3 tasks queued at
 - **S4:** output = crop covering all solids expanded by one bg frame cell.
 - **C4:** exact pack; train-replay gated (`3/3`, eval `1/1`).
 
+**S1 grammar (`canvas_hole_sprite_fill` / `67e490f4`):**
+
+- **S1:** majority color = background; largest non-bg component = canvas.
+- **S2:** output crop = canvas bbox; canvas cells kept; bg cells are holes.
+- **S3:** non-canvas sprites vote by mask class (4-rotations × mirrors).
+- **S4:** each hole fills with the majority sprite color for that mask class.
+- **C4:** exact filled crop; train-replay gated (`2/2`, eval `1/1`).
+

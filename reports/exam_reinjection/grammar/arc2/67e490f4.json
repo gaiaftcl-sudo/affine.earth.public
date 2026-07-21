@@ -1,0 +1,11 @@
+{
+  "task_id": "67e490f4",
+  "status": "CLOSED",
+  "engine": "s1_canvas_hole_sprite_fill",
+  "train_replay": "2/2",
+  "eval_grids": "1/1",
+  "mastery_eval": "41/172",
+  "grammar_path": "reports/exam_reinjection/grammar/arc2/s1_67e490f4_canvas_hole_sprite_fill.json",
+  "sealed_at_utc": "2026-07-21T15:30:05Z",
+  "kaggle_submit": false
+}
