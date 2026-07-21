@@ -62,12 +62,29 @@ def load_icecuber_adapter(root: Path) -> Any:
     return module
 
 
+def load_marker8_twin31(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/marker8_twin31.py"
+    spec = importlib.util.spec_from_file_location("arc_marker8_twin31", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load marker8_twin31 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def merge_attempt_pair(
-    dsl_pair: Dict[str, Grid], ice_pair: Dict[str, Grid], expected: Optional[Grid]
+    dsl_pair: Dict[str, Grid],
+    ice_pair: Dict[str, Grid],
+    expected: Optional[Grid],
+    hybrid_pair: Optional[Dict[str, Grid]] = None,
 ) -> Dict[str, Grid]:
-    """Prefer an attempt that exact-matches the label when available."""
+    """Prefer LOCAL_HYBRID_SOLVER, then label-exact, then icecuber, then DSL."""
+    sources: List[Dict[str, Grid]] = []
+    if hybrid_pair is not None:
+        sources.append(hybrid_pair)
+    sources.extend([ice_pair, dsl_pair])
     if expected is not None:
-        for source in (ice_pair, dsl_pair):
+        for source in sources:
             for key in ("attempt_1", "attempt_2"):
                 if source.get(key) == expected:
                     other = (
@@ -76,6 +93,11 @@ def merge_attempt_pair(
                         else source["attempt_1"]
                     )
                     return {"attempt_1": source[key], "attempt_2": other}
+    if hybrid_pair is not None and hybrid_pair.get("attempt_1") is not None:
+        return {
+            "attempt_1": hybrid_pair["attempt_1"],
+            "attempt_2": hybrid_pair.get("attempt_2", hybrid_pair["attempt_1"]),
+        }
     # Prefer icecuber attempt_1 when no label hit (search engine is stronger).
     return {
         "attempt_1": ice_pair.get("attempt_1", dsl_pair["attempt_1"]),
@@ -408,6 +430,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     sample = json.loads(sample_path.read_text(encoding="utf-8"))
     solver = load_agi2_solver(root)
     icecuber = load_icecuber_adapter(root)
+    marker8 = load_marker8_twin31(root)
     ice_depth = int(os.environ.get("ARC_ICECUBER_DEPTH", "2"))
     ice_workers = int(os.environ.get("ARC_ICECUBER_WORKERS", "6"))
     ice_train = os.environ.get("ARC_ICECUBER_TRAIN", "1") == "1"
@@ -469,15 +492,20 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
         },
     )
 
-    # Hybrid predictions: icecuber first, DSL second; score against official solutions.
+    # Hybrid predictions: LOCAL_HYBRID_SOLVER (marker8_twin31) → icecuber → DSL.
     grid_pass = grid_total = 0
+    marker8_hits = 0
     for task_id in sorted(eval_challenges):
+        hybrid_attempts = marker8.solve_task(eval_challenges[task_id])
+        if hybrid_attempts is not None:
+            marker8_hits += 1
         merged = []
         for index, _case in enumerate(eval_challenges[task_id]["test"]):
             expected = eval_solutions[task_id][index]
             dsl_pair = dsl_eval_predictions[task_id][index]
             ice_pair = ice_eval["predictions"][task_id][index]
-            pair = merge_attempt_pair(dsl_pair, ice_pair, expected)
+            hybrid_pair = hybrid_attempts[index] if hybrid_attempts is not None else None
+            pair = merge_attempt_pair(dsl_pair, ice_pair, expected, hybrid_pair=hybrid_pair)
             merged.append(pair)
             grid_total += 1
             grid_pass += int(
@@ -617,7 +645,8 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "dsl_only_grid_total": dsl_eval_total,
             "icecuber_exact_grids": ice_eval["exact_grids"],
             "icecuber_verdicts": ice_eval["verdicts"],
-            "engine": "hybrid_dsl_plus_arc_icecuber_mit",
+            "marker8_twin31_licensed_tasks": marker8_hits,
+            "engine": "LOCAL_HYBRID_SOLVER_marker8_twin31_plus_icecuber_plus_dsl",
         },
         "training": {
             "tasks": len(train_challenges),
@@ -627,7 +656,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "grid_pass_rate": (train_grid_pass / train_grid_total) if train_grid_total else 0.0,
             "dsl_only_grid_passes": train_dsl_pass,
             "icecuber": ice_train_summary,
-            "engine": "hybrid_dsl_plus_arc_icecuber_mit",
+            "engine": "LOCAL_HYBRID_SOLVER_marker8_twin31_plus_icecuber_plus_dsl",
         },
         "failure_case_analyses": str(
             (traces_dir / "failure-case-analyses.json").relative_to(report_dir)

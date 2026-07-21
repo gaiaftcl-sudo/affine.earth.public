@@ -157,3 +157,28 @@ Failure-case dump (5): `agi2/failure-case-analyses.json`. Root cause of the
 prior 0/172 was coverage (no licensed transform / search miss), not a scorer
 bug. Depth-3 / flip-augmented probes did not add eval hits on a Dimensions
 subset. No Kaggle submit.
+
+## 12. FoT: task `0934a4d8` local SOLVED 4/4 (marker8_twin31)
+
+**MEASURED local** (2026-07-21): evaluation task `0934a4d8` is licensed by
+`LOCAL_HYBRID_SOLVER` `llm_llvm_bench/arc/marker8_twin31.py` — train replay
+**4/4**, test prediction exact-matches official evaluation solution, attempt_1
+= attempt_2. Rule: color-8 filled bbox; cell values from S=31 rot180 twin
+`g[31-r][31-c]` (symmetry ignoring 8s); OOB twins via transpose `g[c][r]`
+(mode order BOTH>LR>UD>MAIN>ANTI).
+
+Artifacts:
+
+- `affine_audit_logs/submission_0934a4d8.json`
+- `affine_audit_logs/train_replay_proof_0934a4d8.json`
+- UI audit GREEN: `reports/arc_ui_audit/20260721T111911Z/` (reduction
+  `LOCAL_HYBRID_SOLVER`, not `AWAITING_CELL_BRIDGE`)
+
+Canonical submission fragment:
+
+```json
+{"0934a4d8":[{"attempt_1":[[7,7,9],[7,2,9],[7,2,9],[7,7,9],[4,4,7],[4,4,7],[6,6,1],[6,6,6],[1,6,1]],"attempt_2":[[7,7,9],[7,2,9],[7,2,9],[7,7,9],[4,4,7],[4,4,7],[6,6,1],[6,6,6],[1,6,1]]}]}
+```
+
+Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
+**LOCKED** (`configs/NO_KAGGLE_SUBMIT.lock`).

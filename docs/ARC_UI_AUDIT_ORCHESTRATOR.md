@@ -47,9 +47,18 @@ Without these, AppleScript + AVFoundation/ffmpeg fail silently:
 ## Nine-cell reduction
 
 Calls a configured real HTTP bridge (`--bridge-url`, `ARC_AUDIT_BRIDGE_URL`, or
-`OPENAI_BASE_URL`). If none is configured, writes
-`reductions/<task_id>.json` with `AWAITING_CELL_BRIDGE` for each of the nine
-cell IDs. No fabricated cell physics.
+`OPENAI_BASE_URL`) when present (`path_label=LIVE_CELL_BRIDGE`).
+
+When the cell bridge is unavailable, the orchestrator runs
+`LOCAL_HYBRID_SOLVER` (FoT label distinct from live cells):
+
+1. `marker8_twin31` / 8-marker twin-S readout (covers `0934a4d8`)
+2. replay-gated DSL (`kaggle/arc-prize-2026-agi-2/arc_agi_2_kaggle.py`, db71c28 lineage)
+3. MIT arc-icecuber only when it exact-replays every training demonstration
+
+Train-replay must be perfect (`N/N`) before `attempt_1` / `attempt_2` are
+accepted. `[[0]]` and unvalidated guesses are refused. Icecuber alone fails
+`0934a4d8`; the 8-marker path is required for that task.
 
 ## Evidence layout
 

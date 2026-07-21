@@ -209,6 +209,27 @@ train **298/1076** at `reports/arc_local_20260721T110813Z/` — see
 [ARC-AGI-2 live](ARC-Prize-AGI-2-Kaggle-Live). Schema validators **GREEN**;
 audit GREEN does not authorize Kaggle submit.
 
+## FoT: `0934a4d8` LOCAL_HYBRID_SOLVER GREEN
+
+Task `0934a4d8` is locally **SOLVED** (train replay **4/4**) by durable rule
+engine `llm_llvm_bench/arc/marker8_twin31.py`, hooked as
+`LOCAL_HYBRID_SOLVER` in this orchestrator and in
+`scripts/arc_local_mastery.py`.
+
+Measured audit run `reports/arc_ui_audit/20260721T111911Z/`:
+
+| Field | Value |
+| --- | --- |
+| Receipt | **GREEN** |
+| Reduction | `LOCAL_HYBRID_SOLVER` / `complete: true` (not `AWAITING_CELL_BRIDGE`) |
+| Artifact source | `LOCAL_HYBRID_SOLVER` |
+| Train replay | **4/4** |
+| Official eval solution match | **true** |
+| Submit | **LOCKED** |
+
+Canonical JSON and language-game write-up:
+[Language Games — ARC-AGI-2](Language-Games-ARC-AGI-2) §12.
+
 ## Related doctrine
 
 - [Language Games — Exam Invariants](Language-Games-Exam-Invariants)

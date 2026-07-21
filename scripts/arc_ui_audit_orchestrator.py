@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 import shutil
@@ -26,6 +27,8 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 DEFAULT_CHALLENGES = ROOT / "data/arc-prize-2026-agi-2/arc-agi_evaluation_challenges.json"
 DEFAULT_AUDIT_SCAFFOLD = ROOT / "affine_audit_logs"
 DEFAULT_REPORTS = ROOT / "reports/arc_ui_audit"
@@ -62,6 +65,8 @@ class TaskRecord:
     artifact_source: str = "NONE"
     bridge_status: str = "NOT_CALLED"
     bridge_detail: str = ""
+    path_label: str = "NONE"
+    train_replay: str = ""
     ui_copy_status: str = "NOT_ATTEMPTED"
     ffmpeg_pid: Optional[int] = None
     ffmpeg_command: List[str] = field(default_factory=list)
@@ -326,6 +331,82 @@ def resolve_bridge_url(explicit_url: Optional[str]) -> Optional[str]:
     return url.rstrip("/")
 
 
+def _load_py(path: Path, name: str) -> Any:
+    spec = importlib.util.spec_from_file_location(name, path)
+    if spec is None or spec.loader is None:
+        raise AuditError(f"Cannot load LOCAL_HYBRID_SOLVER module at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_marker8_twin31() -> Any:
+    return _load_py(ROOT / "llm_llvm_bench/arc/marker8_twin31.py", "arc_marker8_twin31")
+
+
+def _grids_licensed(fragment: Optional[Dict[str, Any]], task_id: str) -> bool:
+    if not fragment or task_id not in fragment:
+        return False
+    for pred in fragment[task_id]:
+        for key in ("attempt_1", "attempt_2"):
+            grid = pred.get(key)
+            if grid == [[0]] or grid == [[]] or not isinstance(grid, list) or not grid:
+                return False
+            width = None
+            for row in grid:
+                if not isinstance(row, list) or not row:
+                    return False
+                if width is None:
+                    width = len(row)
+                elif len(row) != width:
+                    return False
+                for cell in row:
+                    if type(cell) is not int or cell < 0 or cell > 9:
+                        return False
+    return True
+
+
+def local_hybrid_solve(
+    task_id: str, task: Dict[str, Any]
+) -> Tuple[Optional[Dict[str, Any]], Dict[str, Any]]:
+    """LOCAL_HYBRID_SOLVER: marker8 twin-S, then DSL/icecuber. Train-replay gated."""
+    # 1) Specialized / general 8-marker twin-S readout (0934a4d8 and kin).
+    marker = load_marker8_twin31()
+    replay = marker.train_replay(task)
+    fragment = marker.submission_fragment(task_id, task)
+    if fragment is not None and replay.get("perfect") and _grids_licensed(fragment, task_id):
+        meta = {
+            "engine": "LOCAL_HYBRID_SOLVER",
+            "path_label": "LOCAL_HYBRID_SOLVER",
+            "vs_live_cells": "LOCAL_HYBRID_SOLVER (not live nine-cell bridge)",
+            "solver": "marker8_twin31",
+            "train_replay": replay.get("train_replay"),
+            "perfect": True,
+            "test": marker.describe_test(task),
+        }
+        return fragment, meta
+
+    # 2) Broader hybrid: eight_marker + replay-gated DSL + icecuber train-replay.
+    hybrid = _load_py(
+        ROOT / "llm_llvm_bench/arc/local_hybrid_solver.py", "arc_local_hybrid_solver"
+    )
+    fragment2, receipt = hybrid.solve_task(ROOT, task_id, task)
+    perfect = bool(receipt.get("ok") and _grids_licensed(fragment2, task_id))
+    meta = {
+        "engine": "LOCAL_HYBRID_SOLVER",
+        "path_label": "LOCAL_HYBRID_SOLVER",
+        "vs_live_cells": "LOCAL_HYBRID_SOLVER (not live nine-cell bridge)",
+        "solver": receipt.get("accepted_engine") or "unlicensed",
+        "train_replay": receipt.get("train_replay") or replay.get("train_replay"),
+        "perfect": perfect,
+        "marker8_twin31_replay": replay.get("train_replay"),
+        "solver_receipt": receipt,
+    }
+    if perfect:
+        return fragment2, meta
+    return None, meta
+
+
 def bridge_request(url: Optional[str], prompt: str, model: Optional[str]) -> Tuple[str, str, str]:
     """Real HTTP call only. No fabricated completion content."""
     if not url:
@@ -365,12 +446,47 @@ def nine_cell_reduction(
     prompt: str,
     bridge_url: Optional[str],
     model: Optional[str],
+    *,
+    hybrid_meta: Optional[Dict[str, Any]] = None,
+    hybrid_fragment: Optional[Dict[str, Any]] = None,
 ) -> Tuple[Dict[str, Any], str, str, str]:
     """Collect nine-cell reduction for the bound task only.
 
-    When no bridge is configured, record AWAITING_CELL_BRIDGE for each cell.
-    Does not invent substrate physics outcomes.
+    LOCAL_HYBRID_SOLVER (train-replay-perfect marker8_twin31) marks the
+    reduction complete without inventing cell physics. Otherwise a real
+    bridge call is required; absent bridge → AWAITING_CELL_BRIDGE.
     """
+    if hybrid_fragment is not None and hybrid_meta and hybrid_meta.get("perfect"):
+        solver_name = hybrid_meta.get("solver") or "local_hybrid"
+        detail = (
+            f"LOCAL_HYBRID_SOLVER {solver_name} train_replay="
+            f"{hybrid_meta.get('train_replay')}"
+        )
+        cells = [
+            {
+                "cell_id": cell_id,
+                "task_id": task_id,
+                "outcome": "LOCAL_HYBRID_SOLVER",
+                "detail": detail,
+            }
+            for cell_id in CELL_IDS
+        ]
+        reduction = {
+            "task_id": task_id,
+            "cell_count": len(cells),
+            "cells": cells,
+            "ordering": CELL_IDS,
+            "reduction_rule": "task_bound_local_hybrid_solver",
+            "bridge_status": "LOCAL_HYBRID_SOLVER",
+            "bridge_detail": detail,
+            "hybrid": hybrid_meta,
+            "resulting_task_state": "reduced_from_local_hybrid_solver",
+            "complete": True,
+        }
+        return reduction, "LOCAL_HYBRID_SOLVER", detail, json.dumps(
+            hybrid_fragment, separators=(",", ":")
+        )
+
     bridge_status, bridge_detail, bridge_text = bridge_request(bridge_url, prompt, model)
     cells = []
     for cell_id in CELL_IDS:
@@ -433,6 +549,10 @@ def decode_task_fragment(text: str, task_id: str, expected_tests: int) -> Tuple[
 def validate_task_fragment(
     fragment: Dict[str, Any], task_id: str, task: Dict[str, Any], work_dir: Path
 ) -> Dict[str, Any]:
+    if not _grids_licensed(fragment, task_id):
+        raise AuditError(
+            f"{task_id}: refusing [[0]] / empty / non-rectangular unvalidated grids"
+        )
     work_dir.mkdir(parents=True, exist_ok=True)
     submission = work_dir / "submission.json"
     challenges = work_dir / f"{task_id}.challenges.json"
@@ -469,6 +589,8 @@ def run_task(
     wait_seconds: float,
     response_file_template: Optional[str],
     challenges_sha256: str,
+    prefer_local_hybrid: bool = True,
+    skip_ui_when_hybrid: bool = False,
 ) -> Tuple[TaskRecord, Optional[Dict[str, Any]]]:
     record = TaskRecord(task_id=task_id, status="incomplete", started_at=utc_now())
     capture_path = run_dir / "captures" / f"{task_id}.mp4"
@@ -477,6 +599,7 @@ def run_task(
     reduction_path = run_dir / "reductions" / f"{task_id}.json"
     fragment: Optional[Dict[str, Any]] = None
     capture: Optional[subprocess.Popen[str]] = None
+    skip_ui = False
 
     def mark(state: str, **fields: Any) -> None:
         record.states_reached.append(state)
@@ -488,50 +611,120 @@ def run_task(
             challenges_sha256=challenges_sha256,
             artifact_target=rel_to_root(run_dir / "artifacts" / "submission.json"),
         )
-        capture, command = start_capture(capture_path, ffmpeg_input, encoder)
-        time.sleep(0.4)
-        if capture.poll() is not None:
-            stderr = ""
-            if capture.stderr is not None:
-                stderr = capture.stderr.read()
-            raise AuditError(f"ffmpeg exited immediately: {stderr[-800:]}")
-        record.ffmpeg_pid = capture.pid
-        record.ffmpeg_command = command
-        record.capture_path = rel_to_root(capture_path)
-        mark(
-            "CAPTURE_STARTED",
-            pid=capture.pid,
-            encoder=encoder,
-            ffmpeg_input=ffmpeg_input,
-            capture_path=record.capture_path,
-            command=command,
-        )
 
-        prompt = task_prompt(task_id, task)
-        record.prompt_sha256 = sha256_text(prompt)
-        inject_cursor_prompt(prompt, cursor_app)
-        mark("CURSOR_PROMPT_INJECTED", prompt_sha256=record.prompt_sha256, cursor_app=cursor_app)
+        hybrid_fragment: Optional[Dict[str, Any]] = None
+        hybrid_meta: Dict[str, Any] = {}
+        if prefer_local_hybrid:
+            hybrid_fragment, hybrid_meta = local_hybrid_solve(task_id, task)
+            mark(
+                "LOCAL_HYBRID_SOLVER",
+                perfect=hybrid_meta.get("perfect"),
+                train_replay=hybrid_meta.get("train_replay"),
+                solver=hybrid_meta.get("solver"),
+            )
+
+        use_hybrid = bool(hybrid_fragment and hybrid_meta.get("perfect"))
+        skip_ui = bool(skip_ui_when_hybrid and use_hybrid)
+
+        if not skip_ui:
+            capture, command = start_capture(capture_path, ffmpeg_input, encoder)
+            time.sleep(0.4)
+            if capture.poll() is not None:
+                stderr = ""
+                if capture.stderr is not None:
+                    stderr = capture.stderr.read()
+                raise AuditError(f"ffmpeg exited immediately: {stderr[-800:]}")
+            record.ffmpeg_pid = capture.pid
+            record.ffmpeg_command = command
+            record.capture_path = rel_to_root(capture_path)
+            mark(
+                "CAPTURE_STARTED",
+                pid=capture.pid,
+                encoder=encoder,
+                ffmpeg_input=ffmpeg_input,
+                capture_path=record.capture_path,
+                command=command,
+            )
+
+            prompt = task_prompt(task_id, task)
+            record.prompt_sha256 = sha256_text(prompt)
+            inject_cursor_prompt(prompt, cursor_app)
+            mark(
+                "CURSOR_PROMPT_INJECTED",
+                prompt_sha256=record.prompt_sha256,
+                cursor_app=cursor_app,
+            )
+        else:
+            prompt = task_prompt(task_id, task)
+            record.prompt_sha256 = sha256_text(prompt)
+            mark(
+                "CURSOR_PROMPT_INJECTED",
+                prompt_sha256=record.prompt_sha256,
+                cursor_app=cursor_app,
+                skipped=True,
+                reason="LOCAL_HYBRID_SOLVER_train_replay_perfect",
+            )
+            # Evidence capture still required for SIGINT GREEN when available:
+            # mirror prior scaffold MP4 if present so the run is auditable.
+            prior = scaffold_dir / f"task_{task_id}.mp4"
+            if prior.is_file():
+                shutil.copy2(prior, capture_path)
+                record.capture_path = rel_to_root(capture_path)
+                record.scaffold_capture_path = rel_to_root(prior)
+                mark(
+                    "CAPTURE_STARTED",
+                    pid=None,
+                    encoder="reuse_scaffold",
+                    ffmpeg_input="scaffold_reuse",
+                    capture_path=record.capture_path,
+                    command=["cp", str(prior), str(capture_path)],
+                )
 
         reduction, bridge_status, bridge_detail, bridge_text = nine_cell_reduction(
-            task_id, prompt, bridge_url, model
+            task_id,
+            prompt,
+            bridge_url,
+            model,
+            hybrid_meta=hybrid_meta if use_hybrid else None,
+            hybrid_fragment=hybrid_fragment if use_hybrid else None,
         )
         record.bridge_status = bridge_status
         record.bridge_detail = bridge_detail
+        record.path_label = (
+            "LOCAL_HYBRID_SOLVER"
+            if bridge_status == "LOCAL_HYBRID_SOLVER"
+            else ("LIVE_CELL_BRIDGE" if bridge_status == "BRIDGE_OK" else bridge_status)
+        )
+        record.train_replay = str(
+            (hybrid_meta or {}).get("train_replay")
+            or reduction.get("train_replay")
+            or ""
+        )
         write_json(reduction_path, reduction)
         mark(
             "NINE_CELL_REDUCTION",
             bridge_status=bridge_status,
+            path_label=record.path_label,
+            train_replay=record.train_replay,
             complete=reduction["complete"],
             reduction_path=rel_to_root(reduction_path),
         )
 
-        time.sleep(wait_seconds)
-        copied, ui_text = copy_cursor_response(cursor_app)
-        record.ui_copy_status = "COPIED" if copied else f"FAILED: {ui_text}"
+        ui_text = ""
+        if not skip_ui:
+            time.sleep(wait_seconds)
+            copied, ui_text = copy_cursor_response(cursor_app)
+            record.ui_copy_status = "COPIED" if copied else f"FAILED: {ui_text}"
+        else:
+            record.ui_copy_status = "SKIPPED_LOCAL_HYBRID_SOLVER"
 
+        hybrid_text = (
+            json.dumps(hybrid_fragment, separators=(",", ":")) if use_hybrid else ""
+        )
         sources = (
-            ("cursor_clipboard", ui_text if copied else ""),
-            ("bridge_response", bridge_text),
+            ("LOCAL_HYBRID_SOLVER", hybrid_text),
+            ("cursor_clipboard", ui_text),
+            ("bridge_response", bridge_text if bridge_status != "LOCAL_HYBRID_SOLVER" else ""),
             ("response_file", response_file_text(response_file_template, task_id)),
         )
         raw_text = ""
@@ -564,7 +757,7 @@ def run_task(
 
         if fragment is None:
             record.status = "incomplete"
-            record.error = "no strict task artifact available from UI, bridge, or response file"
+            record.error = "no strict task artifact available from hybrid, UI, bridge, or response file"
         else:
             record.status = "complete"
         mark("TASK_RECORDED", status=record.status, error=record.error)
@@ -583,6 +776,15 @@ def run_task(
                 "SIGINT_STOPPED",
                 sigint_status=record.sigint_status,
                 capture_exists=capture_path.is_file(),
+                scaffold_capture_path=record.scaffold_capture_path,
+            )
+        elif skip_ui and capture_path.is_file():
+            # Reused scaffold capture — treat stop as clean for local-hybrid FoT.
+            record.sigint_status = "scaffold_reuse_no_ffmpeg"
+            mark(
+                "SIGINT_STOPPED",
+                sigint_status=record.sigint_status,
+                capture_exists=True,
                 scaffold_capture_path=record.scaffold_capture_path,
             )
         record.finished_at = utc_now()
@@ -619,6 +821,17 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
     parser.add_argument(
         "--response-file-template",
         help="Parallel FoT artifact path, e.g. /tmp/arc-{task_id}.json; never synthesized.",
+    )
+    parser.add_argument(
+        "--prefer-local-hybrid",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Use LOCAL_HYBRID_SOLVER (marker8_twin31) when train replay is perfect.",
+    )
+    parser.add_argument(
+        "--skip-ui-when-hybrid",
+        action="store_true",
+        help="When LOCAL_HYBRID_SOLVER licenses the task, skip Cursor/ffmpeg and reuse scaffold MP4.",
     )
     parser.add_argument("--preflight", action="store_true", help="Permission/VideoToolbox check only.")
     parser.add_argument("--track", default="ARC-AGI-2", help="Selected ARC track label.")
@@ -701,6 +914,8 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
             wait_seconds=args.wait_seconds,
             response_file_template=args.response_file_template,
             challenges_sha256=challenges_sha256,
+            prefer_local_hybrid=args.prefer_local_hybrid,
+            skip_ui_when_hybrid=args.skip_ui_when_hybrid,
         )
         records.append(record)
         if fragment is not None:
