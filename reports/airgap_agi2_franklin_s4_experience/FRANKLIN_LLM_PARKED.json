@@ -1,8 +1,14 @@
 {
   "status": "conc=1",
   "mode": "unparked_serialize_flock_timeout_480",
+  "pid": 21649,
   "jordan_focus": "pending_demonstration_replay via train_outputs_exact reinject",
+  "cooperate_peers": [
+    "airgap 24e73bf6",
+    "rules 8a049c7a"
+  ],
+  "killed_anything": false,
   "hle_left_alive": true,
   "no_submit": true,
-  "recorded_at_utc": "2026-07-21T19:23:50.957653+00:00"
+  "recorded_at_utc": "2026-07-21T19:28:18.896100+00:00"
 }
