@@ -1,0 +1,18 @@
+{
+  "kind": "live_franklin_s4_projection_language_game",
+  "recorded_at_utc": "2026-07-21T13:37:16.313800+00:00",
+  "endpoint": "http://127.0.0.1:8080/v1",
+  "model": "qwen/qwen3.6-35b-a3b",
+  "endpoint_models": [
+    "qwen/qwen3.6-35b-a3b",
+    "text-embedding-nomic-embed-text-v1.5"
+  ],
+  "turn_count": 2,
+  "turn_limit": 2,
+  "transcript": "affine_audit_logs/franklin_s4_20260721T133500Z/transcript.jsonl",
+  "official_benchmark_score": null,
+  "notes": [
+    "Live model dialogue/protocol capture, not an ARC or HLE evaluation.",
+    "LOCKED requires the named task-native validator."
+  ]
+}
