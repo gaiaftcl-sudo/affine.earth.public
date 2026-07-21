@@ -1,5 +1,7 @@
 # Kaggle ARC — notebooks-only submit (air-gap)
 
+
+**Live licensed fill:** `33/259` (12.74%) · identity `226` · merge `reports/airgap_agi2_test_20260721T175400Z/` · NOT submit-ready until ≥95%+.
 Direct `kaggle competitions submit` for both ARC Prize 2026 tracks returns
 **HTTP 400**: daily allowance (1) **and** **Notebooks only**.
 
@@ -39,17 +41,25 @@ python3 scripts/build_arc_airgap_kaggle_notebooks.py --root . \
 
 ### CRITICAL — AGI-2 licensed fill (not shape)
 
-| Metric | Meaning | Gate |
-| --- | --- | --- |
-| Shape | 240 tasks · 259 grids · two attempts | schema validator PASS |
-| Licensed `N/259` | grids where `attempt_1 ≠ test input` (non-identity) | **must be 259/259** before claiming 100% |
-| Current platform | measure via `bin/prepare-kaggle-notebook-submit.sh` | **NOT 100%** until peer hybrid closes |
+| Metric | Meaning | Gate | MEASURED |
+| --- | --- | --- | --- |
+| Shape | 240 tasks · 259 grids · two attempts | schema validator PASS | ✅ 259/259 shape |
+| Licensed `N/259` | grids where `attempt_1 ≠ test input` | **must be 259/259** before claiming 100% | ❌ **6/259** |
+| Identity fill | `attempt_1 == test input` | **FAIL for 100% claim** | ❌ 253/259 |
 
-Do **not** read “240/259” as a score. That string is shape (tasks/grids). Peer
-`scripts/build_agi2_test_submission_hybrid.py` is closing licensed fill to
-**259/259**. Rebuild airgap notebooks after hybrid lands:
+Do **not** read “240/259” as a score. That string is shape (tasks/grids).
+**Identity fill = FAIL for any 100% claim.** Current airgap platform payload
+SHA `36582555…` / tip pack `8776e73` era `d4ec97f7…` both measure **6/259 licensed**.
+
+Drive licensed coverage (no submit):
 
 ```bash
+# parallel hybrid with ice timeout (writes receipts.licensed_grids)
+ARC_ICECUBER_TIMEOUT_S=45 python3 -u scripts/build_agi2_test_submission_hybrid.py \
+  --root . --out-dir reports/airgap_agi2_test_$(date -u +%Y%m%dT%H%M%SZ) \
+  --workers 4 --ice-timeout 45
+
+# rebuild airgap notebooks ONLY after licensed → 259/259
 python3 scripts/build_arc_airgap_kaggle_notebooks.py --root . \
   --agi2-platform-json reports/airgap_agi2_test_*/submission.json
 ```

@@ -1,5 +1,7 @@
 # Kaggle ARC — notebooks-only submit (air-gap)
 
+
+**Live licensed fill:** `33/259` (12.74%) · identity `226` · merge `reports/airgap_agi2_test_20260721T175400Z/` · NOT submit-ready until ≥95%+.
 Direct `competitions submit` → **HTTP 400**: daily allowance (1) + **Notebooks only**.
 
 Standing probes: AGI-2 **54875115** / **0.00** · AGI-3 **54875048** / **0.12**.
@@ -13,10 +15,11 @@ Standing probes: AGI-2 **54875115** / **0.00** · AGI-3 **54875048** / **0.12**.
 
 Internet **OFF**. Embeds verified FoT artifacts; writes `/kaggle/working/submission.json|parquet`.
 
-**AGI-2 gate:** platform shape = 240 tasks / 259 grids (schema). Licensed fill =
-**N/259** (non-identity grids). **Do not claim 100% until 259/259.** Peer hybrid
-in flight; tip airgap pack `8776e73` / `b16c8b1`. Measure:
-`bin/prepare-kaggle-notebook-submit.sh --dry-run-only`.
+**AGI-2 gate:** shape ✅ 240 tasks / 259 grids. Licensed fill (`attempt_1 ≠ test
+input`) = **6/259** — identity on 253 grids = **FAIL for 100%**. Do not claim
+100% until **259/259 licensed**. Hybrid parallel fill in
+`reports/airgap_agi2_test_20260721T175400Z/`. Tip pack `8776e73` / HEAD
+`a322fdd`. **No submit.**
 
 ## Quota wait window
 
