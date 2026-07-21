@@ -1,0 +1,209 @@
+{
+  "arc_agi_2": {
+    "counts": {
+      "evaluation_tasks": 120,
+      "expected_test_tasks": 240,
+      "sample_tasks": 240,
+      "task_count_ok": true,
+      "test_tasks": 240,
+      "training_tasks": 1000
+    },
+    "doctrine_sha": "f983986",
+    "drift_kinds": {
+      "understanding drift": 120
+    },
+    "evaluation": {
+      "grid_pass_rate": 0.0,
+      "grid_passes": 0,
+      "grid_total": 172,
+      "licensed_tasks": 0,
+      "local_gate_task_passes": 0,
+      "tasks": 120
+    },
+    "format_study_sha": "a04e483",
+    "hard_gates": {
+      "fixture_top_score_schema": {
+        "command": [
+          "python3.12",
+          "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/scripts/validate_arc_prize_submission.py",
+          "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/fixtures/kaggle_arc_format/submission.json"
+        ],
+        "ok": true,
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Validated /Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/fixtures/kaggle_arc_format/submission.json: 2 tasks, 3 test inputs, two attempts each (top-score / sample_submission contract)."
+      },
+      "local_test_submission_vs_challenges": {
+        "command": [
+          "python3.12",
+          "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/scripts/validate_arc_prize_submission.py",
+          "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/arc_local_20260721T105900Z/agi2/submission.json",
+          "--challenges",
+          "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/data/arc-prize-2026-agi-2/arc-agi_test_challenges.json"
+        ],
+        "ok": true,
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Validated /Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/arc_local_20260721T105900Z/agi2/submission.json: 240 tasks, 259 test inputs, two attempts each (top-score / sample_submission contract)."
+      },
+      "sample_submission_vs_challenges": {
+        "command": [
+          "python3.12",
+          "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/scripts/validate_arc_prize_submission.py",
+          "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/arc_local_20260721T105900Z/agi2/official_sample/submission.json",
+          "--challenges",
+          "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/data/arc-prize-2026-agi-2/arc-agi_test_challenges.json"
+        ],
+        "ok": true,
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Validated /Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/arc_local_20260721T105900Z/agi2/official_sample/submission.json: 240 tasks, 259 test inputs, two attempts each (top-score / sample_submission contract)."
+      }
+    },
+    "leaderboard_contrast": {
+      "meaning": "format\u2260mastery \u2014 schema green does not close the LB gap",
+      "our_publicScore": 0.0,
+      "top_public_lb_approx": 65.83
+    },
+    "local_submission": "agi2/local-evaluation-submission.json",
+    "note": "Local GREEN requires top-score schema hard gates (validate_arc_prize_submission.py on fixture, sample, and local test submission.json). Held-out grid_pass_rate is local quality. publicScore 0.00 remains a process probe vs LB ~65.",
+    "official_labels": "evaluation_solutions + training_solutions",
+    "public_probe": {
+      "label": "PROCESS_PROBE",
+      "note": "publicScore 0.00 is a premature process probe; local green required before re-submit.",
+      "publicScore": 0.0,
+      "submission_ref": "accepted_v1_complete"
+    },
+    "sample_schema": {
+      "error_count": 0,
+      "errors": [],
+      "schema_valid": true,
+      "tasks": 240,
+      "test_inputs": 259
+    },
+    "serialization": {
+      "error_count": 0,
+      "errors": [],
+      "schema_valid": true,
+      "tasks": 120,
+      "test_inputs": 172
+    },
+    "status": "GREEN",
+    "submission_blocked": true,
+    "task_trace": "agi2/task-language-games.jsonl",
+    "test_artifact": {
+      "licensed_tasks": 6,
+      "path": "agi2/submission.json",
+      "task_trace": "agi2/test-task-language-games.jsonl",
+      "tasks": 240
+    },
+    "track": "ARC-AGI-2",
+    "training": {
+      "grid_pass_rate": 0.020446096654275093,
+      "grid_passes": 22,
+      "grid_total": 1076,
+      "licensed_tasks": 24,
+      "tasks": 1000
+    },
+    "validators": {
+      "evaluation_serialization_valid": true,
+      "identity_preserved": true,
+      "official_data_present": true,
+      "sample_schema_valid": true,
+      "task_count_ok": true,
+      "top_score_hard_gates": true
+    }
+  },
+  "arc_agi_3": {
+    "doctrine_sha": "f983986",
+    "environment_games": 25,
+    "format_study_sha": "a04e483",
+    "hard_gates": {
+      "fixture_top_score_schema": {
+        "command": [
+          "python3",
+          "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/scripts/validate_arc_agi3_submission.py",
+          "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/fixtures/kaggle_arc_format/submission.parquet"
+        ],
+        "ok": true,
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Validated /Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/fixtures/kaggle_arc_format/submission.parquet: 1 rows, columns=['row_id', 'game_id', 'end_of_game', 'score'], dtypes=['object', 'object', 'bool', 'int64']."
+      },
+      "local_probe_parquet": {
+        "command": [
+          "python3",
+          "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/scripts/validate_arc_agi3_submission.py",
+          "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/evidence/arc-prize-2026/kernel-output/submission.parquet"
+        ],
+        "ok": true,
+        "returncode": 0,
+        "stderr": "",
+        "stdout": "Validated /Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/evidence/arc-prize-2026/kernel-output/submission.parquet: 1 rows, columns=['row_id', 'game_id', 'end_of_game', 'score'], dtypes=['object', 'object', 'bool', 'int64']."
+      }
+    },
+    "leaderboard_contrast": {
+      "meaning": "format\u2260mastery \u2014 columns accepted; policy gap remains",
+      "our_publicScore": 0.12,
+      "submission_ref": "54875048",
+      "top_public_lb_approx": 1.86
+    },
+    "local_vs_public": {
+      "gap_note": "Close the gap from publicScore 0.12 (vs LB ~1.86) via local trajectory validators and licensed agent policy before steward re-opens submit.",
+      "local_status": "GREEN",
+      "publicScore": 0.12,
+      "public_label": "PROCESS_PROBE"
+    },
+    "metadata_files": 25,
+    "official_data": "downloaded Kaggle environment files",
+    "parquet": {
+      "available": true,
+      "drift_note": "Top-score parquet hard gate (validate_arc_agi3_submission.py) passed on probe artifact. publicScore 0.12 is a process probe vs LB ~1.86 \u2014 format\u2260mastery.",
+      "hard_gate_stdout": "Validated /Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/evidence/arc-prize-2026/kernel-output/submission.parquet: 1 rows, columns=['row_id', 'game_id', 'end_of_game', 'score'], dtypes=['object', 'object', 'bool', 'int64'].",
+      "schema_valid": true
+    },
+    "public_probe": {
+      "label": "PROCESS_PROBE",
+      "note": "publicScore 0.12 is a measured starter process probe, not perfected ownership.",
+      "publicScore": 0.12,
+      "submission_ref": "54875048"
+    },
+    "python_environments_parsed": 25,
+    "python_note": "schema_validator_python=python3; parse_python=python3.12",
+    "status": "GREEN",
+    "submission_blocked": true,
+    "task_trace": "agi3/episode-language-games.jsonl",
+    "track": "ARC-AGI-3",
+    "trajectory_replay": "NOT_RUN: no recorded agent trajectory is present locally; environment assets + top-score parquet schema validated.",
+    "validators": {
+      "environment_games_present": true,
+      "metadata_files_ok": true,
+      "parquet_schema_valid": true,
+      "python_environments_parsed": true,
+      "top_score_hard_gates": true,
+      "verify_local_evidence_present": true
+    }
+  },
+  "doctrine_sha": "f983986",
+  "format_study_sha": "a04e483",
+  "generated_at": "2026-07-21T10:56:30.760948+00:00",
+  "mode": "LOCAL_ONLY",
+  "no_kaggle_submit_lock": true,
+  "overall_status": "GREEN",
+  "path_forward": "Top-score schema hard gates green \u2192 improve licensed transforms / agent trajectories (close 0.00\u2192~65 and 0.12\u2192~1.86) \u2192 steward sets ALLOW_KAGGLE_SUBMIT=1 \u2192 submit. Format\u2260mastery.",
+  "public_probes": {
+    "arc_agi_2": {
+      "label": "PROCESS_PROBE",
+      "note": "publicScore 0.00 is a premature process probe; local green required before re-submit.",
+      "publicScore": 0.0,
+      "submission_ref": "accepted_v1_complete"
+    },
+    "arc_agi_3": {
+      "label": "PROCESS_PROBE",
+      "note": "publicScore 0.12 is a measured starter process probe, not perfected ownership.",
+      "publicScore": 0.12,
+      "submission_ref": "54875048"
+    }
+  },
+  "submission_blocked": true
+}

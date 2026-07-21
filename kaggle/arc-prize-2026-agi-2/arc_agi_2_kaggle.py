@@ -112,6 +112,22 @@ def crop_component(grid, color, select_largest):
     ]
 
 
+def isolate_color_component(grid, color, select_largest):
+    """Extract one same-color object into its bounding box."""
+    components = color_components(grid, color)
+    if not components:
+        return [list(row) for row in grid]
+    component = sorted(components, key=len, reverse=select_largest)[0]
+    rows, columns = zip(*component)
+    top, bottom = min(rows), max(rows)
+    left, right = min(columns), max(columns)
+    bg = background(grid)
+    return [
+        [color if (row, column) in component else bg for column in range(left, right + 1)]
+        for row in range(top, bottom + 1)
+    ]
+
+
 def foreground_components(grid):
     bg = background(grid)
     height, width = len(grid), len(grid[0])
@@ -245,6 +261,70 @@ def tile(grid, row_factor, column_factor):
     ]
 
 
+def remove_uniform_color_lines(grid, color, remove_rows, remove_columns):
+    """Remove separator rows and columns composed entirely of one color."""
+    result = [list(row) for row in grid]
+    if remove_rows:
+        result = [row for row in result if any(cell != color for cell in row)]
+    if remove_columns and result:
+        retained = [
+            column
+            for column in range(len(result[0]))
+            if any(row[column] != color for row in result)
+        ]
+        result = [[row[column] for column in retained] for row in result]
+    return result or [list(row) for row in grid]
+
+
+def reflect_horizontal_from_left(grid):
+    """Complete each row from its left half by reflection."""
+    width = len(grid[0])
+    midpoint = (width + 1) // 2
+    return [row[:midpoint] + row[: width // 2][::-1] for row in grid]
+
+
+def reflect_horizontal_from_right(grid):
+    """Complete each row from its right half by reflection."""
+    width = len(grid[0])
+    midpoint = width // 2
+    return [row[midpoint:][::-1] + row[midpoint:] for row in grid]
+
+
+def reflect_vertical_from_top(grid):
+    """Complete the grid from its top half by reflection."""
+    height = len(grid)
+    midpoint = (height + 1) // 2
+    return grid[:midpoint] + grid[: height // 2][::-1]
+
+
+def reflect_vertical_from_bottom(grid):
+    """Complete the grid from its bottom half by reflection."""
+    height = len(grid)
+    midpoint = height // 2
+    return grid[midpoint:][::-1] + grid[midpoint:]
+
+
+def fill_symmetric_background(grid, axis):
+    """Mirror non-background cells across an axis without erasing evidence."""
+    bg = background(grid)
+    height, width = len(grid), len(grid[0])
+    result = [list(row) for row in grid]
+    for row in range(height):
+        for column in range(width):
+            mirror = (
+                (row, width - 1 - column)
+                if axis == "horizontal"
+                else (height - 1 - row, column)
+            )
+            source = grid[row][column]
+            target = grid[mirror[0]][mirror[1]]
+            if source != bg and target == bg:
+                result[mirror[0]][mirror[1]] = source
+            elif target != bg and source == bg:
+                result[row][column] = target
+    return result
+
+
 def fitted_recolor(train, geometric_transform):
     """Learn a color permutation after a shape-preserving geometric rule."""
     mapping = {}
@@ -278,6 +358,18 @@ def named_candidates(train):
         ("gravity_down", lambda grid: gravity(grid, "down")),
         ("gravity_left", lambda grid: gravity(grid, "left")),
         ("gravity_right", lambda grid: gravity(grid, "right")),
+        ("reflect_horizontal_from_left", reflect_horizontal_from_left),
+        ("reflect_horizontal_from_right", reflect_horizontal_from_right),
+        ("reflect_vertical_from_top", reflect_vertical_from_top),
+        ("reflect_vertical_from_bottom", reflect_vertical_from_bottom),
+        (
+            "fill_horizontal_symmetric_background",
+            lambda grid: fill_symmetric_background(grid, "horizontal"),
+        ),
+        (
+            "fill_vertical_symmetric_background",
+            lambda grid: fill_symmetric_background(grid, "vertical"),
+        ),
     ]
     candidates = list(transforms)
 
@@ -303,6 +395,41 @@ def named_candidates(train):
                 lambda grid, selected=color: crop_component(grid, selected, False),
             )
         )
+        candidates.append(
+            (
+                f"isolate_largest_component_{color}",
+                lambda grid, selected=color:
+                isolate_color_component(grid, selected, True),
+            )
+        )
+        candidates.append(
+            (
+                f"isolate_smallest_component_{color}",
+                lambda grid, selected=color:
+                isolate_color_component(grid, selected, False),
+            )
+        )
+        candidates.append(
+            (
+                f"remove_{color}_uniform_rows",
+                lambda grid, selected=color:
+                remove_uniform_color_lines(grid, selected, True, False),
+            )
+        )
+        candidates.append(
+            (
+                f"remove_{color}_uniform_columns",
+                lambda grid, selected=color:
+                remove_uniform_color_lines(grid, selected, False, True),
+            )
+        )
+        candidates.append(
+            (
+                f"remove_{color}_uniform_lines",
+                lambda grid, selected=color:
+                remove_uniform_color_lines(grid, selected, True, True),
+            )
+        )
     for selection, label in ((True, "largest"), (False, "smallest")):
         candidates.append(
             (
@@ -319,10 +446,11 @@ def named_candidates(train):
             )
         )
 
-    # Public ARC baselines rely on a small, replay-gated DSL.  The useful
-    # extension here is composition: geometry establishes correspondence and
-    # the fitted color permutation then applies at that correspondence.
-    for name, geometric_transform in transforms:
+    # Public ARC baselines rely on a small, replay-gated DSL.  Extend the
+    # correspondence stage to object selection and separator removal before
+    # fitting a color permutation.  This permits crop → recolor and
+    # object-isolation → recolor without relaxing exact replay.
+    for name, geometric_transform in list(candidates):
         color_mapping = fitted_recolor(train, geometric_transform)
         if color_mapping is not None:
             candidates.append(

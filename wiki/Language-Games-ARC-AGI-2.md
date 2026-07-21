@@ -111,12 +111,15 @@ placeholders:
 - dihedral geometry followed by a training-fitted color permutation;
 - uniform cell scaling, periodic tiling, and modal reduction where all
   demonstrations agree on output dimensions;
-- color-specific and foreground-component crop/extraction;
+- color-specific and foreground-component crop/extraction, including isolated
+  same-color objects;
+- separator-row/column removal, reflection, and symmetry completion;
 - directional gravity as a same-shape object-motion operation.
 
 For each task, the trace records the entire candidate family, the candidates
 that replay all demonstrations, and the two emitted grids. The training receipt
-has moved from **12/1076** to **19/1076** exact grids, while the labeled
+has moved from **12/1076** to **22/1076** exact grids, while the labeled
 evaluation receipt remains **0/172**. This is a measured training lift only;
 the evaluation quality target has not yet moved. Schema validation remains a
-hard gate and Kaggle submission remains blocked.
+hard gate and Kaggle submission remains blocked. Receipt:
+`reports/arc_local_20260721T105900Z/`.

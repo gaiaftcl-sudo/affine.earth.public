@@ -11,9 +11,9 @@ Official competition: [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/comp
 | Language-game doctrine | [Language-Games-ARC-AGI-2](Language-Games-ARC-AGI-2) · hub [Exam Invariants](Language-Games-Exam-Invariants) (`f983986`) |
 | Top-score format study | [Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats) (`a04e483`) |
 | Hard schema validator | `scripts/validate_arc_prize_submission.py` on fixture + official sample + local `submission.json` vs test challenges |
-| Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_20260721T105500Z/` **overall GREEN** (format validators; pending local solver-quality commit) |
+| Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_20260721T105900Z/` **overall GREEN** (format validators; local working tree) |
 | Eval quality (local) | **0/172** exact grids — **mastery gap remains** (format≠mastery) |
-| Train licensed | **20/1000** tasks with training-consistent hypotheses; **19/1076** grids |
+| Train licensed | **24/1000** tasks with training-consistent hypotheses; **22/1076** grids |
 | Public probe | publicScore **0.00** = **PROCESS_PROBE** (premature process test) |
 | LB contrast | Top public ~**65.83** — format≠mastery |
 
@@ -50,9 +50,9 @@ or private affine.earth OS source.
 - Offline evaluation set: 0/172 exact grids for this initial transformation baseline.
 - Notebook log: `evidence/arc-prize-2026-agi-2/kernel-output/affine-arc-prize-2026-arc-agi-2.log`
 - Score receipt: `evidence/arc-prize-2026-agi-2/kaggle-submissions.csv` — publicScore `0.00`.
-- Local mastery report: `reports/arc_local_20260721T105200Z/summary.json` — format validators **GREEN**; eval **0/172** mastery gap; submit **LOCKED**.
+- Local mastery report: `reports/arc_local_20260721T105900Z/summary.json` — format validators **GREEN**; train **22/1076**; eval **0/172** mastery gap; submit **LOCKED**.
 - Contracts: [Top-score formats](Kaggle-ARC-Top-Score-Formats) · [Language Games ARC-AGI-2](Language-Games-ARC-AGI-2).
-- Main hard-gate commit: `0af6775`.
+- Main solver-quality commit: `26a9758` (train lift 12→19/1076; eval still 0/172).
 
 ## 2026-07-21 local quality pass
 
@@ -68,6 +68,18 @@ receipt remains **0/172**; the requested eval lift was not observed, so quality
 is recorded as **0/172**, not represented as a mastery win. The top-score JSON
 and parquet validators stayed GREEN throughout. No new ARC exam UI surface
 appeared, so the existing UI receipts remain current.
+
+## 2026-07-21 held-out structural pass
+
+The replay-gated DSL now also tests separator-line removal, left/right and
+top/bottom reflection, background-preserving symmetry completion, and isolated
+single-color components. Color fitting now composes after these object
+selection rules as well as after geometry.
+
+This increased the training receipt to **22/1076** exact grids and **24/1000**
+licensed tasks. It did **not** license an evaluation task: evaluation remains
+**0/172**, and all 120 evaluation tasks fall through the exact-replay gate.
+Report: `reports/arc_local_20260721T105900Z/`.
 
 ## Path forward
 
