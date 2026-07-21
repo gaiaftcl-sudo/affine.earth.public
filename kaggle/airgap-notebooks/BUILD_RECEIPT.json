@@ -1,12 +1,12 @@
 {
-  "built_at_utc": "2026-07-21T22:22:01.105516+00:00",
+  "built_at_utc": "2026-07-21T22:33:40.427153+00:00",
   "agi2": {
     "track": "arc-agi-2",
-    "built_at_utc": "2026-07-21T22:21:58.798365+00:00",
+    "built_at_utc": "2026-07-21T22:33:37.537104+00:00",
     "enable_internet": false,
     "platform_submission": {
       "path": "payload/submission.json",
-      "sha256": "9703def03c22ba0433c826d6a632877d8fc519b36c7c6066c717958d169defd4",
+      "sha256": "dc210d8bd2cb323244bc72b26cedc700bb4a7106857901dfaaca29743b4a000c",
       "tasks": 240,
       "grids": 259
     },
@@ -27,7 +27,7 @@
   },
   "agi3": {
     "track": "arc-agi-3",
-    "built_at_utc": "2026-07-21T22:22:01.104795+00:00",
+    "built_at_utc": "2026-07-21T22:33:40.276935+00:00",
     "enable_internet": false,
     "fot_suite_mastery": {
       "path": "payload/submission.parquet",

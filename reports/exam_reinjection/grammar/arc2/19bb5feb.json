@@ -1,0 +1,24 @@
+{
+  "task_id": "19bb5feb",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 1,
+  "engine": "s1_twobytwo_block_pack",
+  "module": "llm_llvm_bench/arc/s1_twobytwo_block_pack.py",
+  "observations": [
+    "Zoom grammar engine s1_twobytwo_block_pack",
+    "Train demonstration_replay 3/3"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "3/3",
+    "engine": "s1_twobytwo_block_pack"
+  },
+  "c4_invariant": "s1_twobytwo_block_pack",
+  "sealed_at_utc": "2026-07-21T22:33:41.229822+00:00"
+}

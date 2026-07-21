@@ -1,0 +1,24 @@
+{
+  "task_id": "3de23699",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 4,
+  "test": 1,
+  "engine": "s1_corner_marker_interior_recolor",
+  "module": "llm_llvm_bench/arc/s1_corner_marker_interior_recolor.py",
+  "observations": [
+    "Zoom grammar engine s1_corner_marker_interior_recolor",
+    "Train demonstration_replay 4/4"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "4/4",
+    "engine": "s1_corner_marker_interior_recolor"
+  },
+  "c4_invariant": "s1_corner_marker_interior_recolor",
+  "sealed_at_utc": "2026-07-21T22:32:57.411644+00:00"
+}
