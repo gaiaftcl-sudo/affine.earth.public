@@ -28,13 +28,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from llm_llvm_bench.arc.franklin_s4_projection import (  # noqa: E402
-    exam_s4_user_prompt,
     jordan_loop_bound_closed,
-    projection_system_prompt,
-    build_miss_wrapper_evidence,
-)
-from llm_llvm_bench.arc.franklin_uum8d_system_prompt import (  # noqa: E402
-    franklin_uum8d_game_comprehension_system_prompt,
 )
 from llm_llvm_bench.exam.miss_reinjection import (  # noqa: E402
     TRACK_ARC2,
@@ -206,9 +200,102 @@ def rank_experiences(
     return [ex for _, ex in scored[:limit]]
 
 
+def _zoom_move(task: Dict[str, Any]) -> str:
+    zooms = []
+    for ex in task["train"]:
+        ih, iw = len(ex["input"]), len(ex["input"][0])
+        oh, ow = len(ex["output"]), len(ex["output"][0])
+        area_in, area_out = ih * iw, oh * ow
+        if area_out < area_in:
+            zooms.append("zoom_in_crop")
+        elif area_out > area_in:
+            zooms.append("zoom_out_expand")
+        else:
+            zooms.append("same_canvas_rewrite")
+    return max(set(zooms), key=zooms.count) if zooms else "same_canvas_rewrite"
+
+
+def try_ranked_closed_engines(
+    root: Path,
+    tid: str,
+    task: Dict[str, Any],
+    experiences: Sequence[Dict[str, Any]],
+) -> Optional[Dict[str, Any]]:
+    """Apply CLOSED experience engines locally before LLM (no blank-slate invent)."""
+    import importlib.util
+
+    arc = root / "llm_llvm_bench" / "arc"
+    seen: set[str] = set()
+    for ex in experiences:
+        eng = str(ex.get("engine") or "").strip()
+        if not eng or eng in seen or eng in {"None", "?", "null"}:
+            continue
+        seen.add(eng)
+        path = arc / f"{eng}.py"
+        if not path.is_file():
+            continue
+        try:
+            spec = importlib.util.spec_from_file_location(f"exp_{eng}", path)
+            if spec is None or spec.loader is None:
+                continue
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            if not hasattr(mod, "train_replay") or not hasattr(mod, "submission_fragment"):
+                continue
+            if hasattr(mod, "applies"):
+                try:
+                    if not mod.applies(task):
+                        continue
+                except Exception:
+                    pass
+            replay = mod.train_replay(task)
+            if not (isinstance(replay, dict) and replay.get("perfect")):
+                continue
+            frag = mod.submission_fragment(tid, task)
+            if not frag or tid not in frag:
+                continue
+            preds = frag[tid]
+            if len(preds) != len(task["test"]):
+                continue
+            licensed = sum(
+                1
+                for i, p in enumerate(preds)
+                if isinstance(p.get("attempt_1"), list)
+                and p["attempt_1"] != task["test"][i]["input"]
+            )
+            if licensed <= 0:
+                continue
+            vr = {
+                "accepted": True,
+                "train_replay": f"{len(task['train'])}/{len(task['train'])}",
+                "detail": "train_replay_perfect",
+            }
+            bound = jordan_loop_bound_closed(TRACK_ARC2, vr, accepted=True)
+            if not bound.get("closed"):
+                continue
+            return {
+                "task_id": tid,
+                "ok": True,
+                "predictions": preds,
+                "licensed_grids": licensed,
+                "turns": 0,
+                "path": "closed_engine_experience",
+                "engine": eng,
+                "experience_task_id": ex.get("task_id"),
+                "validator_result": vr,
+                "jordan_loop_bound": bound,
+                "learned_experiences_pulled": len(experiences),
+                "zoom_move": _zoom_move(task),
+            }
+        except Exception:
+            continue
+    return None
+
+
 def solve_one(
     session: requests.Session,
     *,
+    root: Path,
     base: str,
     key: str,
     model: str,
@@ -218,6 +305,12 @@ def solve_one(
     max_turns: int,
     timeout: int,
 ) -> Dict[str, Any]:
+    # Path A: ranked CLOSED engines from learned experiences (no LLM invent)
+    local = try_ranked_closed_engines(root, tid, task, experiences)
+    if local is not None:
+        return local
+
+    zoom = _zoom_move(task)
     train_pack = [
         {
             "i": i,
@@ -238,56 +331,33 @@ def solve_one(
     ]
     # Compact experience digest for prompt (engines + c4 snippets)
     exp_digest = []
-    for ex in experiences[:8]:
+    for ex in experiences[:6]:
         exp_digest.append(
             {
                 "task_id": ex.get("task_id"),
                 "engine": ex.get("engine"),
-                "status": ex.get("status"),
-                "c4": str(ex.get("c4_invariant") or "")[:160],
-                "grammar_update": str(ex.get("grammar_update") or "")[:120],
-                "train_replay": (ex.get("validator_result") or {}).get("train_replay"),
+                "c4": str(ex.get("c4_invariant") or "")[:120],
             }
         )
 
     system = (
-        projection_system_prompt(franklin_uum8d_game_comprehension_system_prompt())
-        + f"""
-Platform ARC-AGI-2 TEST task {tid}. Pull LEARNED_CLOSED_EXPERIENCES before inventing.
-Jordan loop: LOCKED only after demonstration_replay zero remainder (all train outputs match).
-Reply with ONE JSON object only. Required keys:
-  task_id, track, s1, s2, s3, s4, train_predictions, test_predictions,
-  grammar_update, closure_ready
-train_predictions: list of digit-string grids matching EVERY train output exactly.
-test_predictions: list of {{attempt_1, attempt_2}} digit-string grids (attempt_1 ≠ test input).
-s4.status is LOCKED only if train_predictions perfect; else REINJECT.
-Reuse engines/c4 from learned experiences when they fit the demos.
-"""
+        "ARC-AGI-2 test solver. Reply ONE JSON only. No markdown.\n"
+        f"task_id={tid}. zoom_move={zoom}.\n"
+        "Jordan: LOCKED only when train_predictions match ALL train outputs.\n"
+        "Keys: task_id, train_predictions, test_predictions, reused_engine.\n"
+        "train_predictions: digit-string grids (newline rows) = every train output.\n"
+        "test_predictions: [{attempt_1, attempt_2}, ...] ; attempt_1 ≠ test input.\n"
+        "Reuse LEARNED_CLOSED_EXPERIENCES engines/c4 before inventing.\n"
     )
-    evidence = {
-        "task_id": tid,
-        "track": "arc2",
-        "train": train_pack,
-        "test": test_pack,
-        "LEARNED_CLOSED_EXPERIENCES": exp_digest,
-        "platform": "kaggle_test_identity_residue",
-    }
-    wrapper = build_miss_wrapper_evidence(
-        track=TRACK_ARC2,
-        task_id=tid,
-        s_state="incomplete",
-        drift_kind="platform_identity_unlicensed",
-        evidence=evidence,
-        prior_turns=0,
-        learned_experiences=experiences[:10],
-    )
-    user = exam_s4_user_prompt(wrapper, json.dumps(evidence, sort_keys=True)[:6000])
-    # Append explicit train/test pack (exam_s4_user_prompt truncates miss evidence)
-    user += (
-        "\nAlso include train_predictions and test_predictions keys as specified.\n"
-        f"train_demos={json.dumps(train_pack)}\n"
-        f"test_inputs={json.dumps(test_pack)}\n"
-        f"LEARNED_CLOSED_EXPERIENCES={json.dumps(exp_digest)}\n"
+    user = json.dumps(
+        {
+            "train_demos": train_pack,
+            "test_inputs": test_pack,
+            "LEARNED_CLOSED_EXPERIENCES": exp_digest,
+            "zoom_move": zoom,
+            "instruction": "Close Jordan loop via perfect train replay, then emit tests.",
+        },
+        sort_keys=True,
     )
     messages = [
         {"role": "system", "content": system},
@@ -295,6 +365,7 @@ Reuse engines/c4 from learned experiences when they fit the demos.
     ]
 
     last_vr: Dict[str, Any] = {"accepted": False}
+    timeouts = 0
     for turn in range(max_turns):
         try:
             resp = session.post(
@@ -305,8 +376,8 @@ Reuse engines/c4 from learned experiences when they fit the demos.
                 },
                 json={
                     "model": model,
-                    "temperature": 0.15,
-                    "max_tokens": 2400,
+                    "temperature": 0.1,
+                    "max_tokens": 1600,
                     "messages": messages,
                 },
                 timeout=timeout,
@@ -318,12 +389,31 @@ Reuse engines/c4 from learned experiences when they fit the demos.
                 msg.get("content") or msg.get("reasoning_content") or ""
             ).strip()
         except Exception as exc:  # noqa: BLE001
+            timeouts += 1
+            # Retry within the same task — do not abort Jordan play on first timeout
+            if timeouts <= 2 and turn + 1 < max_turns:
+                messages.append(
+                    {
+                        "role": "user",
+                        "content": json.dumps(
+                            {
+                                "gate": "TIMEOUT_RETRY",
+                                "error": str(exc)[:160],
+                                "instruction": "Retry: emit compact JSON only.",
+                            }
+                        ),
+                    }
+                )
+                continue
             return {
                 "task_id": tid,
                 "ok": False,
                 "error": str(exc),
                 "turns": turn,
+                "timeouts": timeouts,
                 "learned_experiences_pulled": len(experiences),
+                "zoom_move": zoom,
+                "path": "llm_timeout",
             }
         messages.append({"role": "assistant", "content": answer})
         parsed = extract_json(answer)
@@ -465,26 +555,34 @@ def main() -> int:
         receipts = (
             json.loads(receipt_path.read_text()) if receipt_path.is_file() else {}
         )
-        print(f"RESUME done={len(submission)}/{len(ids)}", flush=True)
+        print(f"RESUME stored={len(submission)}/{len(ids)}", flush=True)
 
     session = requests.Session()
-    pending = [t for t in ids if t not in submission]
+    # Re-play timeout / error receipts — they never reached Jordan
+    pending = []
+    for t in ids:
+        if t in submission:
+            continue
+        prev = receipts.get(t) or {}
+        err = str(prev.get("error") or "")
+        if prev.get("ok") is False and ("timed out" in err or prev.get("path") == "llm_timeout"):
+            receipts.pop(t, None)
+        pending.append(t)
     print(
-        f"START franklin_s4_experience pending={len(pending)} model={model}",
+        f"START franklin_s4_experience pending={len(pending)} model={model} "
+        f"timeout={args.timeout}s",
         flush=True,
     )
     t0 = time.time()
     for n, tid in enumerate(pending, 1):
-        ranked = rank_experiences(
-            challenges[tid], all_exp, eval_ch, limit=10
-        )
         # Always refresh global pull + ranked for this play
         fresh = load_learned_experiences(
             state_dir, track=TRACK_ARC2, exclude_task_id=tid, limit=args.experience_limit
         )
-        ranked = rank_experiences(challenges[tid], fresh, eval_ch, limit=10)
+        ranked = rank_experiences(challenges[tid], fresh, eval_ch, limit=12)
         result = solve_one(
             session,
+            root=root,
             base=base,
             key=key,
             model=model,
@@ -511,6 +609,7 @@ def main() -> int:
             f"progress {n}/{len(pending)} stored={len(submission)} "
             f"licensed_grids={lic} ok={result.get('ok')} "
             f"bound={(result.get('jordan_loop_bound') or {}).get('closed')} "
+            f"path={result.get('path') or result.get('engine') or 'llm'} "
             f"exp_pulled={result.get('learned_experiences_pulled')} "
             f"elapsed={time.time()-t0:.0f}s tid={tid}",
             flush=True,
