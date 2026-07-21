@@ -1,0 +1,11 @@
+{
+  "task_id": "97d7923e",
+  "status": "CLOSED",
+  "engine": "s1_header_bracket_fill",
+  "train_replay": "3/3",
+  "eval_grids": "1/1",
+  "mastery_eval": "46/172",
+  "grammar_path": "reports/exam_reinjection/grammar/arc2/s1_97d7923e_header_bracket_fill.json",
+  "sealed_at_utc": "2026-07-21T16:06:52Z",
+  "kaggle_submit": false
+}

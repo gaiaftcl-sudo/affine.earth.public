@@ -659,6 +659,27 @@ def solve_task(
         receipt["s1_frame_chamber_staircase_meta"] = ch_replay
         return ch_fragment, receipt
 
+    # 1b25) S1 header-bracket fill (97d7923e).
+    s1hb = _load_module(
+        arc_dir / "s1_header_bracket_fill.py", "s1_header_bracket_fill"
+    )
+    hb_replay = s1hb.train_replay(task)
+    hb_fragment = s1hb.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(hb_replay)
+    if (
+        hb_fragment is not None
+        and hb_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in hb_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_header_bracket_fill"
+        receipt["train_replay"] = hb_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_header_bracket_fill_meta"] = hb_replay
+        return hb_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

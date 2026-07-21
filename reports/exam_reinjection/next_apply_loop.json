@@ -30,6 +30,7 @@
     "arc2:7b5033c1",
     "arc2:8698868d",
     "arc2:89565ca0",
+    "arc2:97d7923e",
     "arc3:agi3-trajectory-gap"
   ],
   "next_apply_loop": [
@@ -40,17 +41,9 @@
       "task_id": "21897d95",
       "track": "arc2",
       "language_game_class": "S2_palette_rewrite"
-    },
-    {
-      "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
-      "key": "arc2:97d7923e",
-      "last_gate": "pending",
-      "task_id": "97d7923e",
-      "track": "arc2",
-      "language_game_class": "S1_dimension_projection"
     }
   ],
-  "note": "CLOSED 89565ca0 (45/172). Next 21897d95 S4_REINJECT then 97d7923e. No Kaggle.",
+  "note": "CLOSED 97d7923e (46/172). 21897d95 S4_REINJECT (Franklin :1234 JSON). No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T16:00:32Z"
+  "recorded_at_utc": "2026-07-21T16:06:52Z"
 }

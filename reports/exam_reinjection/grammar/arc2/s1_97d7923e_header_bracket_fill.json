@@ -1,0 +1,23 @@
+{
+  "task_id": "97d7923e",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S1_dimension_projection",
+  "engine": "s1_header_bracket_fill",
+  "primary_transform": "header_bracket_fill",
+  "status": "CLOSED",
+  "train_replay": "3/3",
+  "eval_grids": "1/1",
+  "c4": {
+    "S1": "same-shape rewrite",
+    "S2": "row-0 nonzero colors = frame legend left-to-right",
+    "S3": "F\u2013C+\u2013F vertical brackets with mid cells touching only 0/C/F",
+    "S4": "per legend F: same-col bracket else reachable pool (sole\u2192rightmost, first\u2192leftmost, last\u2192rightmost, mid\u2192nearest)",
+    "C4": "recolor mid C to F; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s1_header_bracket_fill.py",
+  "mastery_eval": "46/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T16:06:52Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T160500Z/agi2/summary-overlay.json"
+}
