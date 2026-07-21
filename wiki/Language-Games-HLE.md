@@ -199,6 +199,14 @@ were granted, but this host process still cannot authenticate:
 Receipt: `reports/hle_official_20260721T140000Z/dataset_access.receipt.json`.
 `official_hle_accuracy` remains **null**. No Keychain access attempted.
 
+
+Re-run auth wait (polls env + `~/.cache/huggingface/token`, never prints secrets):
+
+```bash
+./bin/watch-hle-hf-auth.sh
+# notes: docs/HLE_AUTH_WAIT.md
+```
+
 **Steward one-liner (process env only):**
 
 ```bash

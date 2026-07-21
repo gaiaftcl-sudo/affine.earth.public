@@ -1,0 +1,8 @@
+{
+  "kind": "hle_auth_wait_pointer",
+  "docs": "docs/HLE_AUTH_WAIT.md",
+  "watch_script": "bin/watch-hle-hf-auth.sh",
+  "auth_appeared": false,
+  "official_hle_accuracy": null,
+  "recorded_at_utc": "2026-07-21T14:12:39.159340+00:00"
+}

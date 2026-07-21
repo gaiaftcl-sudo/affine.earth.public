@@ -32,7 +32,7 @@ from llm_llvm_bench.arc.franklin_s4_projection import (  # noqa: E402
 )
 from llm_llvm_bench.exam.s4_client import run_s4_projection_turn  # noqa: E402
 
-DATASET_REVISION = "local-synthetic-hle-fixtures-v3"
+DATASET_REVISION = "local-synthetic-hle-fixtures-v4"
 
 FIXTURES: tuple[dict[str, Any], ...] = (
     {
@@ -269,6 +269,54 @@ FIXTURES: tuple[dict[str, Any], ...] = (
         "answer_format": "exact_token",
         "question": "What does HTML stand for? Return the exact four-word expansion with spaces.",
         "expected": "HyperText Markup Language",
+        "modality": None,
+    },
+    {
+        "id": "local-gcd-exact",
+        "move_type": "number_theory_exact",
+        "answer_format": "exact_token",
+        "question": "What is gcd(48, 18)? Integer token only.",
+        "expected": "6",
+        "modality": None,
+    },
+    {
+        "id": "local-lcm-exact",
+        "move_type": "number_theory_exact",
+        "answer_format": "exact_token",
+        "question": "What is lcm(4, 6)? Integer token only.",
+        "expected": "12",
+        "modality": None,
+    },
+    {
+        "id": "local-mean-exact",
+        "move_type": "statistics_exact",
+        "answer_format": "exact_token",
+        "question": "Arithmetic mean of 2, 4, 6? Integer token only.",
+        "expected": "4",
+        "modality": None,
+    },
+    {
+        "id": "local-median-exact",
+        "move_type": "statistics_exact",
+        "answer_format": "exact_token",
+        "question": "Median of 1, 3, 9? Integer token only.",
+        "expected": "3",
+        "modality": None,
+    },
+    {
+        "id": "local-string-reverse",
+        "move_type": "string_transform_exact",
+        "answer_format": "exact_token",
+        "question": "Reverse the string abc. Exact token only.",
+        "expected": "cba",
+        "modality": None,
+    },
+    {
+        "id": "local-hex-to-dec",
+        "move_type": "base_conversion",
+        "answer_format": "exact_token",
+        "question": "Convert hexadecimal FF to decimal. Integer token only.",
+        "expected": "255",
         "modality": None,
     },
 )

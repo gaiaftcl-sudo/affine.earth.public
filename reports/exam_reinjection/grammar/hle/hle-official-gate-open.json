@@ -1,15 +1,24 @@
 {
   "track": "hle",
   "task_id": "hle-official-gate-open",
-  "gate": "HF_AUTH_TOKEN_MISSING",
+  "gate": "HF_AUTH_TOKEN_MISSING_AFTER_10MIN_POLL",
   "official_dataset": "cais/hle",
   "official_claim_permitted": false,
   "official_hle_accuracy": null,
   "load_ok": false,
   "hf_cache_token_exists": false,
   "hf_token_in_env": false,
+  "poll_seconds": 600,
+  "poll_interval_seconds": 30,
+  "watch_script": "bin/watch-hle-hf-auth.sh",
+  "wait_note": "docs/HLE_AUTH_WAIT.md",
   "error": "Dataset 'cais/hle' is a gated dataset on the Hub. You must be authenticated to access it.",
-  "next_action": "Steward: hf auth login OR export HF_TOKEN=hf_\u2026 into this shell, then re-dispatch official smoke\u2192judge.",
-  "recorded_at_utc": "2026-07-21T14:00:29.750594+00:00",
+  "steward_commands": [
+    "hf auth login",
+    "export HF_TOKEN='hf_\u2026'",
+    "harnesses/hle/hle_eval/.venv/bin/python -c \"from datasets import load_dataset; ds=load_dataset('cais/hle'); print({k:len(ds[k]) for k in ds})\"",
+    "HLE_RUN_JUDGE=1 ./bin/run-open-agi-harnesses.sh --harness hle"
+  ],
+  "recorded_at_utc": "2026-07-21T14:12:32.520871+00:00",
   "keychain_accessed": false
 }
