@@ -186,10 +186,10 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **14/172** exact grids
-(overlay receipt `reports/arc_local_20260721T140521Z/agi2/summary-overlay.json`;
-train ice-on baseline remains **298/1076**). Lineage: 12/172 → **+2** `20a9e565`
-marker-frame motif = **14/172**.
+**MEASURED local** (2026-07-21): evaluation lifts to **18/172** exact grids
+(overlay `reports/arc_local_20260721T140811Z/agi2/summary-overlay.json`;
+train ice-on baseline remains **298/1076**). Lineage: 14/172 → **+2**
+`269e22fb` fixed-canvas → **+2** `13e47133` wall-tree = **18/172**.
 
 | Owned grammar | Engine | Train replay | Eval |
 | --- | --- | --- | --- |
@@ -199,6 +199,8 @@ marker-frame motif = **14/172**.
 | seven-tab merge | `s1_seven_tab_merge` | 4/4 on `20270e3b` | exact ×2 |
 | panel odd-one-out | `s1_panel_odd_one_out` | 2/2 on `38007db0` | exact ×2 |
 | marker-frame motif | `s1_marker_frame_motif` | 3/3 on `20a9e565` | exact ×2 |
+| fixed-canvas template | `s1_fixed_canvas_template` | 5/5 on `269e22fb` | exact ×2 |
+| wall-tree nested frames | `s1_wall_tree_nested_frames` | 3/3 on `13e47133` | exact ×2 |
 | container period tiling | `container_period_tiling` | 2/2 on `135a2760` | exact |
 | separator ray-fill | `s3_separator_ray_fill` | 3/3 on `1ae2feb7` | exact ×3 |
 | ice+DSL residual | `arc-icecuber` hybrid | n/a | +1 prior (`981571dc`) |
@@ -217,6 +219,20 @@ marker-frame motif = **14/172**.
 - **S2:** left panels = paired 3×3 digits; sequence = left-column then right-column.
 - **C4:** typed port attachment snake (1→right port; 2/3/6→left/sole; seat 1/6 on
   port, 2/3 right-aligned on port). Train **3/3**.
+
+**S1 grammar (`wall_tree_nested_frames` / `13e47133`):**
+
+- **S1:** majority color = room fill background; full-height/width uniform non-bg
+  separator = wall tree that partitions rooms.
+- **S2:** each 4-connected non-wall component is a room (may be C-shaped).
+- **S3:** room depth = Chebyshev distance from the 8-neighbor boundary.
+- **S4:** non-bg seeds at depth `d` set `period[d]`; missing depth-0 seed injects bg;
+  contiguous period from 0 cycles for deeper rings.
+- **C4:** walls preserved; every room cell colored by `period[depth % len]`;
+  train-replay gated. Train **3/3**, labeled eval **2/2**.
+
+Franklin REINJECT root cause: typed candidates reused truncated `expected_preview`
+(8×12) / shape confusion vs 30×30 inputs — rejected by `demonstration_replay`.
 
 **S3 grammar (`separator_ray_fill` / `1ae2feb7`):**
 
