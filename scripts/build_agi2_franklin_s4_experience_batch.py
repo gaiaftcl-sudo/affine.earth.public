@@ -358,6 +358,8 @@ def try_ranked_closed_engines(
             "s2_three_point_star_path",
             "s2_sep_panel_marker_map",
             "s2_drop_into_floor_row",
+            "s2_marker_paint_block_edge",
+            "s2_sep_majority_bottom_mark",
             "s2_mono_row_recolor",
             "s2_corner_fill_2x2",
             "s2_color_gate_rewrite",

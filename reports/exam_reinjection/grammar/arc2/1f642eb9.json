@@ -1,0 +1,18 @@
+{
+  "task_id": "1f642eb9",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "engine": "s2_marker_paint_block_edge",
+  "module": "llm_llvm_bench/arc/s2_marker_paint_block_edge.py",
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "3/3",
+    "engine": "s2_marker_paint_block_edge",
+    "detail": "train_replay_perfect"
+  },
+  "c4_invariant": "s2_marker_paint_block_edge",
+  "sealed_at_utc": "2026-07-21T21:26:56.568303+00:00"
+}
