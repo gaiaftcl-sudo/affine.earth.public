@@ -30,7 +30,7 @@ Agents must not remove the lock file. Env override only when steward orders it.
 
 | Role | SHA |
 | --- | --- |
-| Tip (this seal) | `2435920` |
+| Tip (this seal) | `29b6918` |
 | AGI-2 land (172/172 COMPLETE) | `21b2924` |
 | Reinjection CLOSED 120/120 + bp35 9/9 | `95d7b89` |
 | AGI-3 independent triad re-verify | `41f190d` |
