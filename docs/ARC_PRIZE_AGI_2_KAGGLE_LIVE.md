@@ -129,6 +129,15 @@ C4 sealed: tip-triomino length-5 rays. Train **3/3**, eval **1/1** via
 `llm_llvm_bench/arc/s3_triomino_tip_ray.py`. Overlay **76/172**. Next
 `3dc255db` / `446ef5d2`. No Kaggle.
 
+## FoT note — batch 4a21e3da / 4c3d4a41 / 4c416de3 (2026-07-21)
+
+Three train+test-exact engines sealed (+5 grids). Overlay **84/172**. Next
+`5545f144`. No Kaggle.
+
+- `s2_palette_partition_recolor` **4a21e3da** train 3/3 eval 2/2
+- `s3_lattice_seed_grow` **4c3d4a41** train 2/2 eval 2/2
+- `s3_template_marker_expand` **4c416de3** train 3/3 eval 1/1
+
 ## FoT note — 35ab12c3 primary hull shift (2026-07-21)
 
 C4: multi-cell colors form primary hulls; singleton colors shift a copy of the

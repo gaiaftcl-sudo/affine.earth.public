@@ -404,3 +404,11 @@ Mastery **75/172**. Jumped `409aa875` + `3dc255db` (train-only). No Kaggle.
 ## FoT: 409aa875 triomino tip-ray (2026-07-21)
 
 C4: size-3 tip triominoes fire length-5 rays; multi-ray→1, bg→9, occupied→recolor component 9. Train **3/3**, eval **1/1** via `llm_llvm_bench/arc/s3_triomino_tip_ray.py`. Mastery **76/172**. Next `3dc255db` / `446ef5d2`. No Kaggle.
+
+## FoT: batch — `4a21e3da` / `4c3d4a41` / `4c416de3` (2026-07-21)
+
+- `s2_palette_partition_recolor` **4a21e3da** 3/3 + 2/2
+- `s3_lattice_seed_grow` **4c3d4a41** 2/2 + 2/2
+- `s3_template_marker_expand` **4c416de3** 3/3 + 1/1
+
+Mastery **84/172**. Next `5545f144`. No Kaggle.

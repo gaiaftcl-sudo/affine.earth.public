@@ -390,6 +390,26 @@ def load_s1_strip_stack_project(root: Path) -> Any:
     return module
 
 
+def load_s3_axis_reflect_paint(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_axis_reflect_paint.py"
+    spec = importlib.util.spec_from_file_location("arc_s3_axis_reflect_paint", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_axis_reflect_paint solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_keycol_row_extend(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_keycol_row_extend.py"
+    spec = importlib.util.spec_from_file_location("arc_s3_keycol_row_extend", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_keycol_row_extend solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def load_s3_contact_grow_fill(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_contact_grow_fill.py"
     spec = importlib.util.spec_from_file_location(
@@ -533,6 +553,247 @@ def load_s2_tagged_shape_border_pack(root: Path) -> Any:
     spec.loader.exec_module(module)
     return module
 
+
+
+
+def load_s2_palette_partition_recolor(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_palette_partition_recolor.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_palette_partition_recolor", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_palette_partition_recolor solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_lattice_seed_grow(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_lattice_seed_grow.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_lattice_seed_grow", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_lattice_seed_grow solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_template_marker_expand(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_template_marker_expand.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_template_marker_expand", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_template_marker_expand solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_object_gravity_stack(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_object_gravity_stack.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_object_gravity_stack", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_object_gravity_stack solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s2_dual_palette_rewrite(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_dual_palette_rewrite.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_dual_palette_rewrite", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_dual_palette_rewrite solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_corridor_fill(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_corridor_fill.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_corridor_fill", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_corridor_fill solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_sprite_align_compose(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_sprite_align_compose.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_sprite_align_compose", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_sprite_align_compose solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s2_marker_gate_recolor(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_marker_gate_recolor.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_marker_gate_recolor", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_marker_gate_recolor solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_period_motif_tile(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_period_motif_tile.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_period_motif_tile", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_period_motif_tile solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s2_symmetric_recolor(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_symmetric_recolor.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_symmetric_recolor", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_symmetric_recolor solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_path_connect_fill(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_path_connect_fill.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_path_connect_fill", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_path_connect_fill solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_complex_spatial_rewrite(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_complex_spatial_rewrite.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_complex_spatial_rewrite", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_complex_spatial_rewrite solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s2_local_palette_rewrite(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_local_palette_rewrite.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_local_palette_rewrite", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_local_palette_rewrite solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_frame_motif_project(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_frame_motif_project.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_frame_motif_project", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_frame_motif_project solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_object_nest_pack(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_object_nest_pack.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_object_nest_pack", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_object_nest_pack solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s2_component_recolor(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_component_recolor.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_component_recolor", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_component_recolor solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_ray_bounce_fill(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_ray_bounce_fill.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_ray_bounce_fill", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_ray_bounce_fill solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_separator_motif_fill(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_separator_motif_fill.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_separator_motif_fill", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_separator_motif_fill solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s2_paired_recolor(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_paired_recolor.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_paired_recolor", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_paired_recolor solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_bbox_motif_stamp(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_bbox_motif_stamp.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_bbox_motif_stamp", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_bbox_motif_stamp solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 def load_s3_period_tile_stamp(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_period_tile_stamp.py"
@@ -1158,10 +1419,32 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s2_diag = load_s2_diagonal_component_fill(root)
     s3_per = load_s3_period_tile_stamp(root)
     s3_bord = load_s3_border_path_fill(root)
+    m_s3_keycol_row_extend = load_s3_keycol_row_extend(root)
+    m_s3_axis_reflect_paint = load_s3_axis_reflect_paint(root)
     m_s1_anchor_crop_expand = load_s1_anchor_crop_expand(root)
     m_s3_triomino_tip_ray = load_s3_triomino_tip_ray(root)
     m_s3_marker_tip_beam = load_s3_marker_tip_beam(root)
     m_s2_tagged_shape_border_pack = load_s2_tagged_shape_border_pack(root)
+    m_s2_palette_partition_recolor = load_s2_palette_partition_recolor(root)
+    m_s3_lattice_seed_grow = load_s3_lattice_seed_grow(root)
+    m_s3_template_marker_expand = load_s3_template_marker_expand(root)
+    m_s3_object_gravity_stack = load_s3_object_gravity_stack(root)
+    m_s2_dual_palette_rewrite = load_s2_dual_palette_rewrite(root)
+    m_s3_corridor_fill = load_s3_corridor_fill(root)
+    m_s3_sprite_align_compose = load_s3_sprite_align_compose(root)
+    m_s2_marker_gate_recolor = load_s2_marker_gate_recolor(root)
+    m_s3_period_motif_tile = load_s3_period_motif_tile(root)
+    m_s2_symmetric_recolor = load_s2_symmetric_recolor(root)
+    m_s3_path_connect_fill = load_s3_path_connect_fill(root)
+    m_s3_complex_spatial_rewrite = load_s3_complex_spatial_rewrite(root)
+    m_s2_local_palette_rewrite = load_s2_local_palette_rewrite(root)
+    m_s3_frame_motif_project = load_s3_frame_motif_project(root)
+    m_s3_object_nest_pack = load_s3_object_nest_pack(root)
+    m_s2_component_recolor = load_s2_component_recolor(root)
+    m_s3_ray_bounce_fill = load_s3_ray_bounce_fill(root)
+    m_s3_separator_motif_fill = load_s3_separator_motif_fill(root)
+    m_s2_paired_recolor = load_s2_paired_recolor(root)
+    m_s3_bbox_motif_stamp = load_s3_bbox_motif_stamp(root)
     m_s2_marker_recolor_lattice = load_s2_marker_recolor_lattice(root)
     m_s2_color_gate_rewrite = load_s2_color_gate_rewrite(root)
     m_s2_pair_swap_recolor = load_s2_pair_swap_recolor(root)
@@ -1277,10 +1560,32 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s2_diag_hits = 0
     s3_per_hits = 0
     s3_bord_hits = 0
+    h_s3_keycol_row_extend = 0
+    h_s3_axis_reflect_paint = 0
     h_s1_anchor_crop_expand = 0
     h_s3_triomino_tip_ray = 0
     h_s3_marker_tip_beam = 0
     h_s2_tagged_shape_border_pack = 0
+    h_s2_palette_partition_recolor = 0
+    h_s3_lattice_seed_grow = 0
+    h_s3_template_marker_expand = 0
+    h_s3_object_gravity_stack = 0
+    h_s2_dual_palette_rewrite = 0
+    h_s3_corridor_fill = 0
+    h_s3_sprite_align_compose = 0
+    h_s2_marker_gate_recolor = 0
+    h_s3_period_motif_tile = 0
+    h_s2_symmetric_recolor = 0
+    h_s3_path_connect_fill = 0
+    h_s3_complex_spatial_rewrite = 0
+    h_s2_local_palette_rewrite = 0
+    h_s3_frame_motif_project = 0
+    h_s3_object_nest_pack = 0
+    h_s2_component_recolor = 0
+    h_s3_ray_bounce_fill = 0
+    h_s3_separator_motif_fill = 0
+    h_s2_paired_recolor = 0
+    h_s3_bbox_motif_stamp = 0
     h_s2_marker_recolor_lattice = 0
     h_s2_color_gate_rewrite = 0
     h_s2_pair_swap_recolor = 0
@@ -1471,6 +1776,86 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             if hybrid_attempts is not None:
                 h_s2_tagged_shape_border_pack += 1
         if hybrid_attempts is None:
+            hybrid_attempts = m_s2_palette_partition_recolor.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s2_palette_partition_recolor += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_lattice_seed_grow.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_lattice_seed_grow += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_template_marker_expand.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_template_marker_expand += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_object_gravity_stack.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_object_gravity_stack += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s2_dual_palette_rewrite.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s2_dual_palette_rewrite += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_corridor_fill.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_corridor_fill += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_sprite_align_compose.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_sprite_align_compose += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s2_marker_gate_recolor.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s2_marker_gate_recolor += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_period_motif_tile.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_period_motif_tile += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s2_symmetric_recolor.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s2_symmetric_recolor += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_path_connect_fill.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_path_connect_fill += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_complex_spatial_rewrite.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_complex_spatial_rewrite += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s2_local_palette_rewrite.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s2_local_palette_rewrite += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_frame_motif_project.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_frame_motif_project += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_object_nest_pack.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_object_nest_pack += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s2_component_recolor.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s2_component_recolor += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_ray_bounce_fill.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_ray_bounce_fill += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_separator_motif_fill.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_separator_motif_fill += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s2_paired_recolor.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s2_paired_recolor += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_bbox_motif_stamp.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_bbox_motif_stamp += 1
+        if hybrid_attempts is None:
             hybrid_attempts = m_s2_marker_recolor_lattice.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 h_s2_marker_recolor_lattice += 1
@@ -1506,6 +1891,14 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             hybrid_attempts = m_s1_strip_stack_project.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 h_s1_strip_stack_project += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_keycol_row_extend.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_keycol_row_extend += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_axis_reflect_paint.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_axis_reflect_paint += 1
         if hybrid_attempts is None:
             hybrid_attempts = s2_black.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
@@ -1705,10 +2098,32 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s2_diagonal_component_fill_licensed_tasks": s2_diag_hits,
             "s3_period_tile_stamp_licensed_tasks": s3_per_hits,
             "s3_border_path_fill_licensed_tasks": s3_bord_hits,
+            "s3_keycol_row_extend_licensed_tasks": h_s3_keycol_row_extend,
+            "s3_axis_reflect_paint_licensed_tasks": h_s3_axis_reflect_paint,
             "s1_anchor_crop_expand_licensed_tasks": h_s1_anchor_crop_expand,
             "s3_triomino_tip_ray_licensed_tasks": h_s3_triomino_tip_ray,
             "s3_marker_tip_beam_licensed_tasks": h_s3_marker_tip_beam,
             "s2_tagged_shape_border_pack_licensed_tasks": h_s2_tagged_shape_border_pack,
+            "s2_palette_partition_recolor_licensed_tasks": h_s2_palette_partition_recolor,
+            "s3_lattice_seed_grow_licensed_tasks": h_s3_lattice_seed_grow,
+            "s3_template_marker_expand_licensed_tasks": h_s3_template_marker_expand,
+            "s3_object_gravity_stack_licensed_tasks": h_s3_object_gravity_stack,
+            "s2_dual_palette_rewrite_licensed_tasks": h_s2_dual_palette_rewrite,
+            "s3_corridor_fill_licensed_tasks": h_s3_corridor_fill,
+            "s3_sprite_align_compose_licensed_tasks": h_s3_sprite_align_compose,
+            "s2_marker_gate_recolor_licensed_tasks": h_s2_marker_gate_recolor,
+            "s3_period_motif_tile_licensed_tasks": h_s3_period_motif_tile,
+            "s2_symmetric_recolor_licensed_tasks": h_s2_symmetric_recolor,
+            "s3_path_connect_fill_licensed_tasks": h_s3_path_connect_fill,
+            "s3_complex_spatial_rewrite_licensed_tasks": h_s3_complex_spatial_rewrite,
+            "s2_local_palette_rewrite_licensed_tasks": h_s2_local_palette_rewrite,
+            "s3_frame_motif_project_licensed_tasks": h_s3_frame_motif_project,
+            "s3_object_nest_pack_licensed_tasks": h_s3_object_nest_pack,
+            "s2_component_recolor_licensed_tasks": h_s2_component_recolor,
+            "s3_ray_bounce_fill_licensed_tasks": h_s3_ray_bounce_fill,
+            "s3_separator_motif_fill_licensed_tasks": h_s3_separator_motif_fill,
+            "s2_paired_recolor_licensed_tasks": h_s2_paired_recolor,
+            "s3_bbox_motif_stamp_licensed_tasks": h_s3_bbox_motif_stamp,
             "s2_marker_recolor_lattice_licensed_tasks": h_s2_marker_recolor_lattice,
             "s2_color_gate_rewrite_licensed_tasks": h_s2_color_gate_rewrite,
             "s2_pair_swap_recolor_licensed_tasks": h_s2_pair_swap_recolor,

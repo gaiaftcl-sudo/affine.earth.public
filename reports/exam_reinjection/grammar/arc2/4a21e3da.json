@@ -1,0 +1,22 @@
+{
+  "task_id": "4a21e3da",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S3_spatial_rewrite",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 2,
+  "engine": "s2_palette_partition_recolor",
+  "observations": [
+    "Train 3/3 labeled eval 2/2",
+    "Border markers cut object; off-cut pieces to marked-edge corners; discard opposite corner"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "3/3",
+    "labeled_eval": "2/2"
+  },
+  "mastery_eval": "84/172",
+  "mastery_train": "298/1076"
+}

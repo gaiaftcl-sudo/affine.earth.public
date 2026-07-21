@@ -1,0 +1,20 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T16:39:56.413248+00:00",
+  "base_eval_exact_grids": "79/172",
+  "overlay_eval_exact_grids": "84/172",
+  "delta_grids": 5,
+  "closed_tasks": [
+    "4a21e3da",
+    "4c3d4a41",
+    "4c416de3"
+  ],
+  "engines": [
+    "s2_palette_partition_recolor",
+    "s3_lattice_seed_grow",
+    "s3_template_marker_expand"
+  ],
+  "train_floor": "298/1076",
+  "note": "seal 4a21e3da+4c3d4a41+4c416de3 (+5); No Kaggle",
+  "kaggle_submit": false
+}

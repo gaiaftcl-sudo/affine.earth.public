@@ -1,0 +1,8 @@
+{
+  "task_id": "4c3d4a41",
+  "engine": "s3_lattice_seed_grow",
+  "status": "CLOSED",
+  "train_replay": "2/2",
+  "labeled_eval": "2/2",
+  "module": "llm_llvm_bench/arc/s3_lattice_seed_grow.py"
+}

@@ -1,0 +1,22 @@
+{
+  "task_id": "4c416de3",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S3_spatial_rewrite",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 1,
+  "engine": "s3_template_marker_expand",
+  "observations": [
+    "Train 3/3 labeled eval 1/1",
+    "Template marker expand spatial rewrite"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "3/3",
+    "labeled_eval": "1/1"
+  },
+  "mastery_eval": "84/172",
+  "mastery_train": "298/1076"
+}
