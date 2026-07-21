@@ -364,3 +364,11 @@ Train **2/2**, eval **1/1** via `s2_seven_triplet_rail`. Mastery **55/172**. No 
 
 C4: odd-row 777→868; even rails paint 6 at triplet centers; redistribute 3s to segment edges; suppress conflicts across 0-boundaries. Train 2/2, eval 1/1. Module `llm_llvm_bench/arc/s2_seven_triplet_rail.py`. No Kaggle.
 
+## FoT: S3 cross-arm shape dock — `2c181942`
+
+Train **3/3**, eval **1/1** via `s3_cross_arm_shape_dock`. Mastery **56/172**. No Kaggle.
+
+## 2c181942 — cross_arm_shape_dock (S3)
+
+C4: BG=8; 4×4 four-arm cross; rotate/dock same-color shapes onto arms by longest matching face. Train 3/3, eval 1/1. Module `llm_llvm_bench/arc/s3_cross_arm_shape_dock.py`. No Kaggle.
+

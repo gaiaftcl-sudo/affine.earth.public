@@ -1,0 +1,14 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T16:26:54.657619+00:00",
+  "base_eval_exact_grids": "55/172",
+  "overlay_eval_exact_grids": "56/172",
+  "delta_grids": 1,
+  "closed_task": "2c181942",
+  "engine": "s3_cross_arm_shape_dock",
+  "train_replay": "3/3",
+  "labeled_eval": "1/1",
+  "train_floor": "298/1076",
+  "note": "overlay +cross_arm_shape_dock 2c181942; prior 55/172 from 2b83f449; train floor 298/1076",
+  "kaggle_submit": false
+}

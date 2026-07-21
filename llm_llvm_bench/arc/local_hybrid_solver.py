@@ -806,6 +806,27 @@ def solve_task(
         receipt["s2_seven_triplet_rail_meta"] = trip_replay
         return trip_fragment, receipt
 
+    # 1b32) S3 cross-arm shape dock (2c181942).
+    s3cross = _load_module(
+        arc_dir / "s3_cross_arm_shape_dock.py", "s3_cross_arm_shape_dock"
+    )
+    cross_replay = s3cross.train_replay(task)
+    cross_fragment = s3cross.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(cross_replay)
+    if (
+        cross_fragment is not None
+        and cross_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in cross_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_cross_arm_shape_dock"
+        receipt["train_replay"] = cross_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_cross_arm_shape_dock_meta"] = cross_replay
+        return cross_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

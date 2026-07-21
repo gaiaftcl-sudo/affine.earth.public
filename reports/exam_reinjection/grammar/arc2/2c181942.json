@@ -1,0 +1,26 @@
+{
+  "task_id": "2c181942",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S3_spatial_rewrite",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 1,
+  "engine": "s3_cross_arm_shape_dock",
+  "observations": [
+    "4x4 four-arm cross with distinct arm colors",
+    "Dock matching-color shapes onto arms after face-matching rotation",
+    "Train 3/3 labeled eval 1/1"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_3_3_eval_1_1",
+    "train_replay": "3/3",
+    "labeled_eval": "1/1"
+  },
+  "mastery_eval": "56/172",
+  "mastery_train": "298/1076",
+  "recorded_at_utc": "2026-07-21T16:26:54Z",
+  "kaggle_submit": false
+}
