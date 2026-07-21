@@ -20,7 +20,7 @@ import re
 import sys
 import time
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple
 
 import requests
 
@@ -252,72 +252,108 @@ def try_ranked_closed_engines(
     import importlib.util
 
     arc = root / "llm_llvm_bench" / "arc"
+    zoom = _zoom_move(task)
+    zoom_stems = {
+        "zoom_out_expand": [
+            "container_period_tiling",
+            "s1_ones_stamp_period_fill",
+            "s1_panel_scale_project",
+            "s1_oriented_block_pack",
+            "s1_motif_stamp_jigsaw",
+            "s1_fixed_canvas_template",
+            "s1_canvas_hole_sprite_fill",
+        ],
+        "zoom_in_crop": [
+            "s1_anchor_crop_expand",
+            "s1_frame_extract_project",
+            "s1_solid_motif_carve",
+            "s1_hollow_accent_fill",
+        ],
+        "same_canvas_rewrite": [
+            "s2_color_gate_rewrite",
+            "s2_component_recolor",
+            "s2_dual_palette_rewrite",
+            "s1_header_bracket_fill",
+        ],
+    }.get(zoom, [])
+    ordered: List[Tuple[str, Optional[Dict[str, Any]]]] = []
     seen: set[str] = set()
     for ex in experiences:
         for eng in _resolve_experience_engines(root, ex):
             if eng in seen:
                 continue
             seen.add(eng)
-            path = arc / f"{eng}.py"
-            if not path.is_file():
+            ordered.append((eng, dict(ex)))
+    for eng in zoom_stems:
+        if eng in seen:
+            continue
+        seen.add(eng)
+        ordered.append((eng, None))
+    for eng, ex in ordered:
+        path = arc / f"{eng}.py"
+        if not path.is_file():
+            continue
+        try:
+            spec = importlib.util.spec_from_file_location(f"exp_{eng}", path)
+            if spec is None or spec.loader is None:
                 continue
-            try:
-                spec = importlib.util.spec_from_file_location(f"exp_{eng}", path)
-                if spec is None or spec.loader is None:
-                    continue
-                mod = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(mod)
-                if not hasattr(mod, "train_replay") or not hasattr(
-                    mod, "submission_fragment"
-                ):
-                    continue
-                if hasattr(mod, "applies"):
-                    try:
-                        if not mod.applies(task):
-                            continue
-                    except Exception:
-                        pass
-                replay = mod.train_replay(task)
-                if not (isinstance(replay, dict) and replay.get("perfect")):
-                    continue
-                frag = mod.submission_fragment(tid, task)
-                if not frag or tid not in frag:
-                    continue
-                preds = frag[tid]
-                if len(preds) != len(task["test"]):
-                    continue
-                licensed = sum(
-                    1
-                    for i, p in enumerate(preds)
-                    if isinstance(p.get("attempt_1"), list)
-                    and p["attempt_1"] != task["test"][i]["input"]
-                )
-                if licensed <= 0:
-                    continue
-                vr = {
-                    "accepted": True,
-                    "train_replay": f"{len(task['train'])}/{len(task['train'])}",
-                    "detail": "train_replay_perfect",
-                }
-                bound = jordan_loop_bound_closed(TRACK_ARC2, vr, accepted=True)
-                if not bound.get("closed"):
-                    continue
-                return {
-                    "task_id": tid,
-                    "ok": True,
-                    "predictions": preds,
-                    "licensed_grids": licensed,
-                    "turns": 0,
-                    "path": "closed_engine_experience",
-                    "engine": eng,
-                    "experience_task_id": ex.get("task_id"),
-                    "validator_result": vr,
-                    "jordan_loop_bound": bound,
-                    "learned_experiences_pulled": len(experiences),
-                    "zoom_move": _zoom_move(task),
-                }
-            except Exception:
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            if not hasattr(mod, "train_replay") or not hasattr(
+                mod, "submission_fragment"
+            ):
                 continue
+            if hasattr(mod, "applies"):
+                try:
+                    if not mod.applies(task):
+                        continue
+                except Exception:
+                    pass
+            replay = mod.train_replay(task)
+            if not (isinstance(replay, dict) and replay.get("perfect")):
+                continue
+            frag = mod.submission_fragment(tid, task)
+            if not frag or tid not in frag:
+                continue
+            preds = frag[tid]
+            if len(preds) != len(task["test"]):
+                continue
+            licensed = sum(
+                1
+                for i, p in enumerate(preds)
+                if isinstance(p.get("attempt_1"), list)
+                and p["attempt_1"] != task["test"][i]["input"]
+            )
+            if licensed <= 0:
+                continue
+            vr = {
+                "accepted": True,
+                "train_replay": f"{len(task['train'])}/{len(task['train'])}",
+                "detail": "train_replay_perfect",
+            }
+            bound = jordan_loop_bound_closed(TRACK_ARC2, vr, accepted=True)
+            if not bound.get("closed"):
+                continue
+            return {
+                "task_id": tid,
+                "ok": True,
+                "predictions": preds,
+                "licensed_grids": licensed,
+                "turns": 0,
+                "path": (
+                    "closed_engine_experience"
+                    if ex is not None
+                    else "zoom_engine_experience"
+                ),
+                "engine": eng,
+                "experience_task_id": (ex or {}).get("task_id"),
+                "validator_result": vr,
+                "jordan_loop_bound": bound,
+                "learned_experiences_pulled": len(experiences),
+                "zoom_move": zoom,
+            }
+        except Exception:
+            continue
     return None
 
 
@@ -412,28 +448,47 @@ def solve_one(
 
     last_vr: Dict[str, Any] = {"accepted": False}
     timeouts = 0
+    lock_path = Path(
+        os.environ.get(
+            "FRANKLIN_LLM_LOCK",
+            str(Path.home() / ".gaiaftcl" / "franklin_llm_8080.lock"),
+        )
+    )
+    lock_path.parent.mkdir(parents=True, exist_ok=True)
+
+    def _post_locked() -> str:
+        """Serialize ARC LLM calls so HLE workers do not starve Jordan turns."""
+        import fcntl
+
+        with open(lock_path, "a+", encoding="utf-8") as lockf:
+            fcntl.flock(lockf.fileno(), fcntl.LOCK_EX)
+            try:
+                resp = session.post(
+                    f"{base}/chat/completions",
+                    headers={
+                        "Authorization": f"Bearer {key}",
+                        "Content-Type": "application/json",
+                    },
+                    json={
+                        "model": model,
+                        "temperature": 0.1,
+                        "max_tokens": int(os.environ.get("FRANKLIN_MAX_TOKENS", "1000")),
+                        "messages": messages,
+                    },
+                    timeout=timeout,
+                )
+                resp.raise_for_status()
+                payload = resp.json()
+                msg = payload["choices"][0]["message"]
+                return str(
+                    msg.get("content") or msg.get("reasoning_content") or ""
+                ).strip()
+            finally:
+                fcntl.flock(lockf.fileno(), fcntl.LOCK_UN)
+
     for turn in range(max_turns):
         try:
-            resp = session.post(
-                f"{base}/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {key}",
-                    "Content-Type": "application/json",
-                },
-                json={
-                    "model": model,
-                    "temperature": 0.1,
-                    "max_tokens": int(os.environ.get("FRANKLIN_MAX_TOKENS", "1000")),
-                    "messages": messages,
-                },
-                timeout=timeout,
-            )
-            resp.raise_for_status()
-            payload = resp.json()
-            msg = payload["choices"][0]["message"]
-            answer = str(
-                msg.get("content") or msg.get("reasoning_content") or ""
-            ).strip()
+            answer = _post_locked()
         except Exception as exc:  # noqa: BLE001
             timeouts += 1
             # Retry within the same task — do not abort Jordan play on first timeout
@@ -579,7 +634,12 @@ def main() -> int:
         help="HTTP timeout; raise when sharing GPU with HLE (default 300)",
     )
     parser.add_argument("--limit", type=int, default=0)
-    parser.add_argument("--experience-limit", type=int, default=80)
+    parser.add_argument("--experience-limit", type=int, default=120)
+    parser.add_argument(
+        "--skip-llm",
+        action="store_true",
+        help="CLOSED/zoom local engines only — do not contend with HLE on :8080",
+    )
     args = parser.parse_args()
     root = args.root.resolve()
     out = args.out_dir.resolve()
