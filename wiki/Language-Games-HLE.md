@@ -5,6 +5,10 @@ the [CAIS evaluator](https://github.com/centerforaisafety/hle), and gated
 [`cais/hle`](https://huggingface.co/datasets/cais/hle). This page does not
 claim Accuracy or Calibration.
 
+Canonical doctrine: [`docs/LANGUAGE_GAMES_HLE.md`](../docs/LANGUAGE_GAMES_HLE.md)
+· shared invariants: [Exam language-game invariants](Language-Games-Exam-Invariants)
+· live harness record: [Humanity’s Last Exam — live](Humanitys-Last-Exam-Live).
+
 ## 1. Game, moves, and win condition
 
 HLE is an exact-answer game over official, multi-domain question records. The
@@ -86,24 +90,31 @@ with missing context or invalid answers are understanding drift.
 - **Coding:** loads the dataset, invokes the configured endpoint, and produces
   a validated CAIS artifact.
 
+UI captures under `wiki/assets/exam-ui-hle-*.png` are interaction evidence for
+context-setting → answer-state change. They are not CAIS judge output.
+
+| Layer | Still | Answer / state |
+| --- | --- | --- |
+| Access gate | `assets/exam-ui-hle-access-gate.png` | Sovereign entry before Games |
+| Games catalog | `assets/exam-ui-hle-games-catalog.png` | 12 LIVE context agents |
+| Linguistic membrane | `assets/exam-ui-hle-linguistic_membrane.png` | `…-answer.png` exam MCQ turn |
+| Formal manifold | `assets/exam-ui-hle-formal_manifold.png` | `…-answer.png` exact-token contract |
+| Coding | `assets/exam-ui-hle-coding.png` | `…-answer.png` harness drill |
+| Motion | `assets/exam-ui-hle-context-to-answer.gif` / `.mp4` | context → answer frames |
+
+Capture: `python3 scripts/capture_hle_exam_ui.py --record-video`.
+
 ## 8. Public-submission gate
 
 **No public HLE submission or score statement until authorized data access,
 schema validation, complete coverage, context capture, answer-format checks,
 artifact validation, and a successful official CAIS judge receipt are green.**
-# Language games for Humanity’s Last Exam
 
-This workspace owns a local-first language-game layer before it has authorization to retrieve `cais/hle`. It operates against the OpenAI-compatible loopback at `http://127.0.0.1:8080/v1` and records every response as a receipt.
+## 9. Local ownership drills (pre-`cais/hle`)
 
-## Local drill contract
-
-`bin/run-local-hle-mastery.sh` sends three transparent, locally authored fixtures:
-
-- MCQ: answer convention is the option letter.
-- Exact match: answer convention is the requested token.
-- Multimodal stub: a text-only adapter description, explicitly marked as a stub rather than an image evaluation.
-
-Every turn directs the model to set the answer convention in `context` before returning `answer`. The receipt includes both fields, raw model output, response timing, endpoint model list, and a fixture-only match count.
+While classic `HF_TOKEN` is absent or parquet resolve returns 401, this workspace
+still owns the language-game surface via synthetic fixtures that mirror HLE move
+types. Local evidence is labeled local (shared invariant 5).
 
 ```bash
 export OPENAI_BASE_URL="http://127.0.0.1:8080/v1"
@@ -111,24 +122,29 @@ export OPENAI_API_KEY="uum8d-hle-verifier"
 ./bin/run-local-hle-mastery.sh
 ```
 
-The generated `reports/hle_local_<UTC timestamp>/receipt.json` is not a CAIS artifact. Its `synthetic_fixture_accuracy` is deliberately distinct from `official_hle_accuracy`, which remains `null`.
+| Fixture move | Answer contract |
+| --- | --- |
+| MCQ | option letter only |
+| Exact match | exact token only |
+| Multimodal stub | exact token; modality recorded as unsupported text adapter |
 
-## Local ownership gate
+Receipts land in `reports/hle_local_<UTC>/` (example:
+`reports/hle_local_20260721T104720Z/`):
 
-The local drills are always runnable without Hugging Face credentials. They do not read macOS Keychain, call `security`, or use cached Hub credentials. A classic `HF_TOKEN` supplied through the process environment is only used by the official upstream path after the steward has accepted the `cais/hle` dataset terms.
+- `receipt.json` — endpoint/model manifest, per-question identity/format gates,
+  `local_fixture_match_ratio`, and `official_hle_accuracy: null`
+- `language-game-turns.jsonl` — OPEN → CONTEXT → ANSWER → GATE turns
 
-## Official HLE gate
+Measured local drill on loopback `qwen/qwen3.6-35b-a3b`: fixture matches 3/3,
+`official_hle_accuracy=null`, `official_claim_permitted=false`,
+`hf_token_status=absent`, `keychain_accessed=false`.
 
-The public/CAIS path is separate:
+Hard rules:
 
-1. Set a classic `HF_TOKEN` in the harness shell after access has been granted.
-2. Run an upstream prediction smoke slice without judging.
-3. Run a larger prediction slice without judging when its receipt is complete.
-4. Run the full 2,500-question upstream prediction and judge flow.
-5. Retain upstream prediction and judge JSON before making any score or leaderboard claim.
-
-The judge divides by the entire test set, so a smoke subset must never be presented as official HLE accuracy. See [Humanity’s Last Exam — live harness record](Humanitys-Last-Exam-Live).
-
-## UI proof boundary
-
-The Affine Earth captures show language-game context-setting and answer-state transitions. They are interaction evidence, not evaluator output, prediction provenance, or a score.
+- No Keychain / `security` CLI.
+- `HF_TOKEN` is read from the process environment only when present; local drills
+  do not require it and do not use it.
+- Never present `local_fixture_match_ratio` as Accuracy, Calibration, or a
+  leaderboard claim.
+- Official CAIS predict+judge remains the only path that may fill
+  `official_hle_accuracy`.

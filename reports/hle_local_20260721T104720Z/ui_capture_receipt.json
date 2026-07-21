@@ -1,0 +1,33 @@
+{
+  "kind": "hle_exam_ui_capture",
+  "recorded_at_unix": 1784631433,
+  "official_claim_permitted": false,
+  "results": [
+    {
+      "game": "linguistic_membrane",
+      "ok": true,
+      "answer_state_changed": true,
+      "chars": 491,
+      "preview": "vate key now \u2014 failure means irreversible loss of session, BTC, and QFOT. Edge fuses sealed UUM-8D invariants O(1) \u2014 no weight shards. Traveler queries; pilot mines.\n\nYou\n\nExam-style context drill: bind question identity, then answer with the option letter only. Which planet is commonly called the Red Planet? A) Earth B) Mars C) Venus D) Mercury\n\nF"
+    },
+    {
+      "game": "formal_manifold",
+      "ok": true,
+      "answer_state_changed": false,
+      "chars": 13872
+    },
+    {
+      "game": "coding",
+      "ok": true,
+      "answer_state_changed": true,
+      "chars": 14487
+    }
+  ],
+  "gif": "wiki/assets/exam-ui-hle-context-to-answer.gif",
+  "mp4": "wiki/assets/exam-ui-hle-context-to-answer.mp4",
+  "notes": [
+    "UI interaction evidence only",
+    "Not CAIS Accuracy/Calibration",
+    "Linguistic uses chat; Formal/Coding use game ingest/context forms per UI mapping"
+  ]
+}

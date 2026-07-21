@@ -1,0 +1,12 @@
+{"actor_role": "dispatcher", "answer_format": "option_letter", "dataset_revision": "local-synthetic-hle-fixtures-v1", "move_type": "mcq", "question_id": "local-mcq-planet-red", "turn_index": 0, "turn_kind": "OPEN"}
+{"actor_role": "agent", "answer_format": "option_letter", "context": "Question identity: local-mcq-planet-red. Answer contract: option_letter format for mcq move type.", "question_id": "local-mcq-planet-red", "turn_index": 1, "turn_kind": "CONTEXT"}
+{"actor_role": "agent", "answer": "B", "question_id": "local-mcq-planet-red", "turn_index": 2, "turn_kind": "ANSWER"}
+{"actor_role": "gate", "format_ok": true, "gate_verdict": "LOCAL_FIXTURE_MATCH", "identity_bound": true, "official_claim_permitted": false, "question_id": "local-mcq-planet-red", "turn_index": 3, "turn_kind": "GATE"}
+{"actor_role": "dispatcher", "answer_format": "exact_token", "dataset_revision": "local-synthetic-hle-fixtures-v1", "move_type": "exact_match", "question_id": "local-exact-symbol-gold", "turn_index": 0, "turn_kind": "OPEN"}
+{"actor_role": "agent", "answer_format": "exact_token", "context": "Question identity: local-exact-symbol-gold. Answer contract: Provide the exact chemical symbol for gold as a single token.", "question_id": "local-exact-symbol-gold", "turn_index": 1, "turn_kind": "CONTEXT"}
+{"actor_role": "agent", "answer": "Au", "question_id": "local-exact-symbol-gold", "turn_index": 2, "turn_kind": "ANSWER"}
+{"actor_role": "gate", "format_ok": true, "gate_verdict": "LOCAL_FIXTURE_MATCH", "identity_bound": true, "official_claim_permitted": false, "question_id": "local-exact-symbol-gold", "turn_index": 3, "turn_kind": "GATE"}
+{"actor_role": "dispatcher", "answer_format": "exact_token", "dataset_revision": "local-synthetic-hle-fixtures-v1", "move_type": "multimodal_stub", "question_id": "local-multimodal-stub-triangle", "turn_index": 0, "turn_kind": "OPEN"}
+{"actor_role": "agent", "answer_format": "exact_token", "context": "question_id: local-multimodal-stub-triangle | answer_contract: exact_token", "question_id": "local-multimodal-stub-triangle", "turn_index": 1, "turn_kind": "CONTEXT"}
+{"actor_role": "agent", "answer": "70", "question_id": "local-multimodal-stub-triangle", "turn_index": 2, "turn_kind": "ANSWER"}
+{"actor_role": "gate", "format_ok": true, "gate_verdict": "LOCAL_FIXTURE_MATCH", "identity_bound": true, "official_claim_permitted": false, "question_id": "local-multimodal-stub-triangle", "turn_index": 3, "turn_kind": "GATE"}

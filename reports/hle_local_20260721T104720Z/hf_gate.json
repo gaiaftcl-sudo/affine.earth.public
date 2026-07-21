@@ -1,0 +1,11 @@
+{
+  "kind": "hle_hf_gate",
+  "recorded_at_unix": 1784631495,
+  "hf_token_in_env": false,
+  "keychain_accessed": false,
+  "official_claim_permitted": false,
+  "dataset_gated": "auto",
+  "dataset_private": false,
+  "parquet_http": 401,
+  "parquet_error": "HTTP Error 401: Unauthorized"
+}

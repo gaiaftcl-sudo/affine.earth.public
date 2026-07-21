@@ -2,6 +2,22 @@
 
 Official sources: [agi.safe.ai](https://agi.safe.ai/), the [CAIS HLE evaluator](https://github.com/centerforaisafety/hle), and the gated [cais/hle dataset](https://huggingface.co/datasets/cais/hle).
 
+## Local mastery (aligned to language-game invariants)
+
+Doctrine: [`docs/LANGUAGE_GAMES_HLE.md`](../docs/LANGUAGE_GAMES_HLE.md) (SHA `f983986`) · wiki: [Language-Games-HLE](Language-Games-HLE) · shared gate: [Exam invariants](Language-Games-Exam-Invariants).
+
+While `HF_TOKEN` is absent and parquet resolve remains **401**, local ownership continues via synthetic move-type drills and UI context-setting proof. Local fixture matches are **local evidence only** (`official_hle_accuracy` stays `null`). No Keychain.
+
+```bash
+export OPENAI_BASE_URL="http://127.0.0.1:8080/v1"
+export OPENAI_API_KEY="uum8d-hle-verifier"
+./bin/run-local-hle-mastery.sh
+```
+
+UI captures (interaction evidence, not scores): `wiki/assets/exam-ui-hle-*.png`,
+`exam-ui-hle-context-to-answer.gif` / `.mp4`. Local drill receipt:
+`reports/hle_local_20260721T104720Z/` (`official_hle_accuracy: null`).
+
 ## Recorded 2026-07-21 (steward reset redo)
 
 Steward closed the browser and requested a full clean redo. Cleanup intentionally cleared `:8080`; this session restarted the OpenAI JSON loopback proxy and re-probed dataset access. **No Keychain / `security` CLI.**
