@@ -53,7 +53,7 @@ or private affine.earth OS source.
 - Score receipt: `evidence/arc-prize-2026-agi-2/kaggle-submissions.csv` — publicScore `0.00`.
 - Local mastery report: `reports/arc_local_20260721T110813Z/summary.json` — format validators **GREEN**; train **298/1076**; eval **1/172**; submit **LOCKED**.
 - Contracts: [Top-score formats](Kaggle-ARC-Top-Score-Formats) · [Language Games ARC-AGI-2](Language-Games-ARC-AGI-2).
-- Solver-quality lineage: `26a9758` → `7ab6e05` (DSL train 22/1076, eval 0/172) → hybrid icecuber receipt **1/172** eval / **298/1076** train.
+- Solver-quality lineage: `26a9758` → `7ab6e05` (DSL train 22/1076, eval 0/172) → main `db71c28` hybrid icecuber receipt **1/172** eval / **298/1076** train.
 
 ## 2026-07-21 local quality pass
 

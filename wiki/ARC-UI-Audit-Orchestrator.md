@@ -200,6 +200,15 @@ reduction provenance, extracted JSON validation, and a clean capture stop. It
 prevents format-only or partial-process evidence from being mistaken for local
 readiness; it does not rewrite the historical public receipts.
 
+
+## FoT local mastery context
+
+UI audit remains local-only with submit **LOCKED**. Parallel offline hybrid
+mastery (MIT arc-icecuber + DSL) on main `db71c28` measured eval **1/172** /
+train **298/1076** at `reports/arc_local_20260721T110813Z/` — see
+[ARC-AGI-2 live](ARC-Prize-AGI-2-Kaggle-Live). Schema validators **GREEN**;
+audit GREEN does not authorize Kaggle submit.
+
 ## Related doctrine
 
 - [Language Games — Exam Invariants](Language-Games-Exam-Invariants)

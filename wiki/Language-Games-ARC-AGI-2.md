@@ -145,7 +145,7 @@ CPU search solver vendored at `harnesses/arc-icecuber` (adapter:
 `arc-agi_evaluation_solutions.json` / training solutions (contract verified:
 172 eval grids, 1076 train grids).
 
-Measured local receipt `reports/arc_local_20260721T110813Z/` (validators
+Measured local receipt `reports/arc_local_20260721T110813Z/` (main `db71c28`; validators
 **GREEN**; submit **LOCKED**):
 
 | Split | Exact grids | Notes |
