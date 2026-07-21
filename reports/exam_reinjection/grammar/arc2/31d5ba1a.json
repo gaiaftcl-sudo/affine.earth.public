@@ -1,0 +1,24 @@
+{
+  "task_id": "31d5ba1a",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 5,
+  "test": 2,
+  "engine": "s1_half_xor_crop",
+  "module": "llm_llvm_bench/arc/s1_half_xor_crop.py",
+  "observations": [
+    "Zoom grammar engine s1_half_xor_crop",
+    "Train demonstration_replay 5/5"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "5/5",
+    "engine": "s1_half_xor_crop"
+  },
+  "c4_invariant": "s1_half_xor_crop",
+  "sealed_at_utc": "2026-07-21T21:39:41.104779+00:00"
+}

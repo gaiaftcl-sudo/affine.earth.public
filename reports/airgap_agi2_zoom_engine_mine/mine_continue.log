@@ -1,0 +1,17 @@
+START zoom_engine_mine residue=152 pending=152 stored=4 eng_timeout=3.0s exp_engines=0 zoom_only=True
+progress 10/152 new=0 stored=4
+progress 20/152 new=0 stored=4
+progress 30/152 new=0 stored=4
+progress 40/152 new=0 stored=4
+progress 50/152 new=0 stored=4
+progress 60/152 new=0 stored=4
+progress 70/152 new=0 stored=4
+progress 80/152 new=0 stored=4
+progress 90/152 new=0 stored=4
+progress 100/152 new=0 stored=4
+progress 110/152 new=0 stored=4
+progress 120/152 new=0 stored=4
+progress 130/152 new=0 stored=4
+progress 140/152 new=0 stored=4
+progress 150/152 new=0 stored=4
+DONE {"new_closes": 0, "stored": 4, "pending_seen": 152, "elapsed_s": 103.5, "closed_ids": ["310f3251", "3979b1a8", "3af2c5a8", "3cd86f4f"], "recorded_at_utc": "2026-07-21T21:27:41.004358+00:00"}

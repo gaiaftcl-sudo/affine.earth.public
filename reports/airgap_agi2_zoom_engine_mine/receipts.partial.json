@@ -4,5 +4,917 @@
     "engine": "s1_diag_left_pad_expand",
     "licensed_grids": 3,
     "train_replay": "3/3"
+  },
+  "03560426": {
+    "task_id": "03560426",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "045e512c": {
+    "task_id": "045e512c",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "0607ce86": {
+    "task_id": "0607ce86",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "09c534e7": {
+    "task_id": "09c534e7",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "0d87d2a6": {
+    "task_id": "0d87d2a6",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "0e206a2e": {
+    "task_id": "0e206a2e",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1190bc91": {
+    "task_id": "1190bc91",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "11dc524f": {
+    "task_id": "11dc524f",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "12eac192": {
+    "task_id": "12eac192",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "13713586": {
+    "task_id": "13713586",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "137eaa0f": {
+    "task_id": "137eaa0f",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "13f06aa5": {
+    "task_id": "13f06aa5",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "12422b43": {
+    "ok": true,
+    "engine": "s2_marker_col_period_tile",
+    "licensed_grids": 1,
+    "train_replay": "5/5"
+  },
+  "1478ab18": {
+    "task_id": "1478ab18",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "150deff5": {
+    "task_id": "150deff5",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "14b8e18c": {
+    "task_id": "14b8e18c",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "15663ba9": {
+    "task_id": "15663ba9",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "15660dd6": {
+    "task_id": "15660dd6",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "14754a24": {
+    "task_id": "14754a24",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "17829a00": {
+    "task_id": "17829a00",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "17cae0c1": {
+    "task_id": "17cae0c1",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "17b866bd": {
+    "task_id": "17b866bd",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "182e5d0f": {
+    "task_id": "182e5d0f",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "18286ef8": {
+    "task_id": "18286ef8",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "18447a8d": {
+    "task_id": "18447a8d",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1990f7a8": {
+    "task_id": "1990f7a8",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "06df4c85": {
+    "task_id": "06df4c85",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "0a1d4ef5": {
+    "task_id": "0a1d4ef5",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "103eff5b": {
+    "task_id": "103eff5b",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "15113be4": {
+    "task_id": "15113be4",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "17b80ad2": {
+    "task_id": "17b80ad2",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "184a9768": {
+    "task_id": "184a9768",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "19bb5feb": {
+    "task_id": "19bb5feb",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "1a07d186": {
+    "task_id": "1a07d186",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1a244afd": {
+    "task_id": "1a244afd",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1a6449f1": {
+    "task_id": "1a6449f1",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "1b59e163": {
+    "task_id": "1b59e163",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1b8318e3": {
+    "task_id": "1b8318e3",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1be83260": {
+    "task_id": "1be83260",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "1c02dbbe": {
+    "task_id": "1c02dbbe",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1c56ad9f": {
+    "task_id": "1c56ad9f",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1d0a4b61": {
+    "task_id": "1d0a4b61",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1e32b0e9": {
+    "task_id": "1e32b0e9",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1e81d6f9": {
+    "task_id": "1e81d6f9",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1efba499": {
+    "task_id": "1efba499",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1f642eb9": {
+    "task_id": "1f642eb9",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "1fad071e": {
+    "task_id": "1fad071e",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "2037f2c7": {
+    "task_id": "2037f2c7",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "20981f0e": {
+    "task_id": "20981f0e",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "20fb2937": {
+    "task_id": "20fb2937",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "212895b5": {
+    "task_id": "212895b5",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "22208ba4": {
+    "task_id": "22208ba4",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "22233c11": {
+    "task_id": "22233c11",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "22425bda": {
+    "task_id": "22425bda",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "2281f1f4": {
+    "task_id": "2281f1f4",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "22a4bbc2": {
+    "task_id": "22a4bbc2",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "230f2e48": {
+    "task_id": "230f2e48",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "234bbc79": {
+    "task_id": "234bbc79",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "239be575": {
+    "ok": true,
+    "engine": "s1_blocks_bridged_by_color",
+    "licensed_grids": 2,
+    "train_replay": "6/6"
+  },
+  "25094a63": {
+    "task_id": "25094a63",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "256b0a75": {
+    "task_id": "256b0a75",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "25c199f5": {
+    "task_id": "25c199f5",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "25e02866": {
+    "task_id": "25e02866",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "2601afb7": {
+    "task_id": "2601afb7",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "264363fd": {
+    "task_id": "264363fd",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2685904e": {
+    "task_id": "2685904e",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2697da3f": {
+    "task_id": "2697da3f",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_out_expand"
+  },
+  "272f95fa": {
+    "task_id": "272f95fa",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2753e76c": {
+    "task_id": "2753e76c",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "278e5215": {
+    "task_id": "278e5215",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "27a28665": {
+    "ok": true,
+    "engine": "s1_shape_fingerprint_singleton",
+    "licensed_grids": 3,
+    "train_replay": "7/7"
+  },
+  "27a77e38": {
+    "task_id": "27a77e38",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "28e73c20": {
+    "task_id": "28e73c20",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "292dd178": {
+    "task_id": "292dd178",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "29700607": {
+    "task_id": "29700607",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "29c11459": {
+    "task_id": "29c11459",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2a28add5": {
+    "task_id": "2a28add5",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2a5f8217": {
+    "task_id": "2a5f8217",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2b01abd0": {
+    "task_id": "2b01abd0",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2b9ef948": {
+    "task_id": "2b9ef948",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2bcee788": {
+    "task_id": "2bcee788",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2bee17df": {
+    "task_id": "2bee17df",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2c0b0aff": {
+    "task_id": "2c0b0aff",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "2c608aff": {
+    "task_id": "2c608aff",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2c737e39": {
+    "task_id": "2c737e39",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2ccd9fef": {
+    "task_id": "2ccd9fef",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "2dd70a9a": {
+    "task_id": "2dd70a9a",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2de01db2": {
+    "task_id": "2de01db2",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2dee498d": {
+    "task_id": "2dee498d",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "2e65ae53": {
+    "task_id": "2e65ae53",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2f0c5170": {
+    "task_id": "2f0c5170",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "2f767503": {
+    "task_id": "2f767503",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "2faf500b": {
+    "task_id": "2faf500b",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "305b1341": {
+    "task_id": "305b1341",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "30f42897": {
+    "task_id": "30f42897",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3194b014": {
+    "task_id": "3194b014",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "319f2597": {
+    "task_id": "319f2597",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "31aa019c": {
+    "task_id": "31aa019c",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "31adaf00": {
+    "task_id": "31adaf00",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "31d5ba1a": {
+    "ok": true,
+    "engine": "s1_half_xor_crop",
+    "licensed_grids": 2,
+    "train_replay": "5/5"
+  },
+  "320afe60": {
+    "task_id": "320afe60",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "321b1fc6": {
+    "task_id": "321b1fc6",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "32597951": {
+    "task_id": "32597951",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "32e9702f": {
+    "task_id": "32e9702f",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "33067df9": {
+    "task_id": "33067df9",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_out_expand"
+  },
+  "332202d5": {
+    "task_id": "332202d5",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "332efdb3": {
+    "task_id": "332efdb3",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3345333e": {
+    "task_id": "3345333e",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "337b420f": {
+    "task_id": "337b420f",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "3391f8c0": {
+    "task_id": "3391f8c0",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "33b52de3": {
+    "task_id": "33b52de3",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3428a4f5": {
+    "task_id": "3428a4f5",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "342ae2ed": {
+    "task_id": "342ae2ed",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "342dd610": {
+    "task_id": "342dd610",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3490cc26": {
+    "task_id": "3490cc26",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "34b99a2b": {
+    "task_id": "34b99a2b",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "34cfa167": {
+    "task_id": "34cfa167",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "351d6448": {
+    "task_id": "351d6448",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "358ba94e": {
+    "task_id": "358ba94e",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "363442ee": {
+    "task_id": "363442ee",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "36d67576": {
+    "task_id": "36d67576",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "36fdfd69": {
+    "task_id": "36fdfd69",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "37ce87bb": {
+    "task_id": "37ce87bb",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "396d80d7": {
+    "task_id": "396d80d7",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "39a8645d": {
+    "task_id": "39a8645d",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "39e1d7f9": {
+    "task_id": "39e1d7f9",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3a301edc": {
+    "task_id": "3a301edc",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3ac3eb23": {
+    "task_id": "3ac3eb23",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3ad05f52": {
+    "task_id": "3ad05f52",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3b4c2228": {
+    "task_id": "3b4c2228",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "3bd292e8": {
+    "task_id": "3bd292e8",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3bd67248": {
+    "task_id": "3bd67248",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3bdb4ada": {
+    "task_id": "3bdb4ada",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3befdf3e": {
+    "task_id": "3befdf3e",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3d31c5b3": {
+    "task_id": "3d31c5b3",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "3d588dc9": {
+    "task_id": "3d588dc9",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3d6c6e23": {
+    "task_id": "3d6c6e23",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3de23699": {
+    "task_id": "3de23699",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "3e980e27": {
+    "task_id": "3e980e27",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3eda0437": {
+    "task_id": "3eda0437",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3ee1011a": {
+    "task_id": "3ee1011a",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "3f23242b": {
+    "task_id": "3f23242b",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "3f7978a0": {
+    "task_id": "3f7978a0",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "4093f84a": {
+    "task_id": "4093f84a",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "40f6cd08": {
+    "task_id": "40f6cd08",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "412b6263": {
+    "task_id": "412b6263",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_out_expand"
+  },
+  "414297c0": {
+    "task_id": "414297c0",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "41ace6b5": {
+    "task_id": "41ace6b5",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "41e4d17e": {
+    "task_id": "41e4d17e",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "423a55dc": {
+    "task_id": "423a55dc",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
+  },
+  "4290ef0e": {
+    "task_id": "4290ef0e",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "zoom_in_crop"
+  },
+  "42918530": {
+    "task_id": "42918530",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
   }
 }

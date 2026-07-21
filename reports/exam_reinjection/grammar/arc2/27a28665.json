@@ -1,0 +1,24 @@
+{
+  "task_id": "27a28665",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 7,
+  "test": 3,
+  "engine": "s1_shape_fingerprint_singleton",
+  "module": "llm_llvm_bench/arc/s1_shape_fingerprint_singleton.py",
+  "observations": [
+    "Zoom grammar engine s1_shape_fingerprint_singleton",
+    "Train demonstration_replay 7/7"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "7/7",
+    "engine": "s1_shape_fingerprint_singleton"
+  },
+  "c4_invariant": "s1_shape_fingerprint_singleton",
+  "sealed_at_utc": "2026-07-21T21:39:41.102757+00:00"
+}

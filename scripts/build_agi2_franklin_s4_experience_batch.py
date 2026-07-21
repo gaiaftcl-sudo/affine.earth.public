@@ -341,6 +341,9 @@ def try_ranked_closed_engines(
         ],
         "zoom_in_crop": [
             "s1_cross_sep_quadrant_pack",
+            "s1_shape_fingerprint_singleton",
+            "s1_half_xor_crop",
+            "s1_blocks_bridged_by_color",
             "s1_anchor_crop_expand",
             "s1_frame_extract_project",
             "s1_solid_motif_carve",
@@ -348,6 +351,7 @@ def try_ranked_closed_engines(
         ],
         "same_canvas_rewrite": [
             "s2_marker_sprite_recolor",
+            "s2_marker_col_period_tile",
             "s1_diagonal_mod3_period_fill",
             "s1_seed_period_stripe_fill",
             "s2_slide_touch_blocker",

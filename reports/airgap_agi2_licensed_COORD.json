@@ -1,16 +1,19 @@
 {
-  "licensed": "99/259",
-  "licensed_pct": 38.22,
-  "identity": 160,
-  "submission_sha256": "c3f4c2544a3349bd06f0f6371e6112695db4fdc50c12323f10b3001a4ef3269e",
+  "licensed": "107/259",
+  "licensed_pct": 41.31,
+  "identity": 152,
+  "submission_sha256": "3f6564951cec3cbe73862ea4dc53d64f29fccba1aaecd3621ba722038270ee03",
   "new_closes_this_turn": [
-    "2281f1f4\u2192s2_top_pattern_stamp_on_right_marks (3/3)",
-    "29c11459\u2192s2_bicolor_row_meet5 (2/2)",
-    "3ac3eb23\u2192s2_top_seed_vertical_wave (2/2)"
+    "12422b43\u2192s2_marker_col_period_tile (5/5)",
+    "27a28665\u2192s1_shape_fingerprint_singleton (7/7)",
+    "31d5ba1a\u2192s1_half_xor_crop (5/5)",
+    "239be575\u2192s1_blocks_bridged_by_color (6/6)"
   ],
-  "commit_base": "e03d129",
+  "new_licensed_grids_this_turn": 8,
+  "commit_base": "241b961",
+  "crossed_100": true,
   "no_submit": true,
   "hle_left_alive": true,
   "exp_left_alive": true,
-  "recorded_at_utc": "2026-07-21T21:36:39.482488+00:00"
+  "recorded_at_utc": "2026-07-21T21:42:16.822184+00:00"
 }
