@@ -1,0 +1,9 @@
+{
+  "task_id": "a251c730",
+  "engine": "s3_g_a251c730",
+  "status": "CLOSED",
+  "c4": "train-replay gated s3_g_a251c730",
+  "train_replay": "2/2",
+  "labeled_eval": "1/1",
+  "module": "llm_llvm_bench/arc/s3_g_a251c730.py"
+}

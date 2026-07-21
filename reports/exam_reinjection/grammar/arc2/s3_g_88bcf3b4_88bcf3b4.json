@@ -1,0 +1,9 @@
+{
+  "task_id": "88bcf3b4",
+  "engine": "s3_g_88bcf3b4",
+  "status": "CLOSED",
+  "c4": "train-replay gated s3_g_88bcf3b4",
+  "train_replay": "5/5",
+  "labeled_eval": "2/2",
+  "module": "llm_llvm_bench/arc/s3_g_88bcf3b4.py"
+}

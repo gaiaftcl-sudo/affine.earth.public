@@ -1693,6 +1693,805 @@ def solve_task(
         receipt["s3_axis_reflect_paint_meta"] = heal1_replay
         return heal1_fragment, receipt
 
+
+    # 1b71) s3_g_80a900e0 (80a900e0).
+    e71 = _load_module(
+        arc_dir / "s3_g_80a900e0.py", "s3_g_80a900e0"
+    )
+    e71_replay = e71.train_replay(task)
+    e71_fragment = e71.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e71_replay)
+    if (
+        e71_fragment is not None
+        and e71_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e71_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_80a900e0"
+        receipt["train_replay"] = e71_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_80a900e0_meta"] = e71_replay
+        return e71_fragment, receipt
+
+    # 1b72) s3_g_88bcf3b4 (88bcf3b4).
+    e72 = _load_module(
+        arc_dir / "s3_g_88bcf3b4.py", "s3_g_88bcf3b4"
+    )
+    e72_replay = e72.train_replay(task)
+    e72_fragment = e72.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e72_replay)
+    if (
+        e72_fragment is not None
+        and e72_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e72_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_88bcf3b4"
+        receipt["train_replay"] = e72_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_88bcf3b4_meta"] = e72_replay
+        return e72_fragment, receipt
+
+    # 1b73) s3_g_88e364bc (88e364bc).
+    e73 = _load_module(
+        arc_dir / "s3_g_88e364bc.py", "s3_g_88e364bc"
+    )
+    e73_replay = e73.train_replay(task)
+    e73_fragment = e73.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e73_replay)
+    if (
+        e73_fragment is not None
+        and e73_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e73_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_88e364bc"
+        receipt["train_replay"] = e73_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_88e364bc_meta"] = e73_replay
+        return e73_fragment, receipt
+
+    # 1b74) s3_g_8b7bacbf (8b7bacbf).
+    e74 = _load_module(
+        arc_dir / "s3_g_8b7bacbf.py", "s3_g_8b7bacbf"
+    )
+    e74_replay = e74.train_replay(task)
+    e74_fragment = e74.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e74_replay)
+    if (
+        e74_fragment is not None
+        and e74_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e74_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_8b7bacbf"
+        receipt["train_replay"] = e74_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_8b7bacbf_meta"] = e74_replay
+        return e74_fragment, receipt
+
+    # 1b75) s3_g_8b9c3697 (8b9c3697).
+    e75 = _load_module(
+        arc_dir / "s3_g_8b9c3697.py", "s3_g_8b9c3697"
+    )
+    e75_replay = e75.train_replay(task)
+    e75_fragment = e75.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e75_replay)
+    if (
+        e75_fragment is not None
+        and e75_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e75_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_8b9c3697"
+        receipt["train_replay"] = e75_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_8b9c3697_meta"] = e75_replay
+        return e75_fragment, receipt
+
+    # 1b76) s3_g_8e5c0c38 (8e5c0c38).
+    e76 = _load_module(
+        arc_dir / "s3_g_8e5c0c38.py", "s3_g_8e5c0c38"
+    )
+    e76_replay = e76.train_replay(task)
+    e76_fragment = e76.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e76_replay)
+    if (
+        e76_fragment is not None
+        and e76_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e76_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_8e5c0c38"
+        receipt["train_replay"] = e76_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_8e5c0c38_meta"] = e76_replay
+        return e76_fragment, receipt
+
+    # 1b77) s3_g_8f215267 (8f215267).
+    e77 = _load_module(
+        arc_dir / "s3_g_8f215267.py", "s3_g_8f215267"
+    )
+    e77_replay = e77.train_replay(task)
+    e77_fragment = e77.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e77_replay)
+    if (
+        e77_fragment is not None
+        and e77_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e77_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_8f215267"
+        receipt["train_replay"] = e77_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_8f215267_meta"] = e77_replay
+        return e77_fragment, receipt
+
+    # 1b78) s3_g_9bbf930d (9bbf930d).
+    e78 = _load_module(
+        arc_dir / "s3_g_9bbf930d.py", "s3_g_9bbf930d"
+    )
+    e78_replay = e78.train_replay(task)
+    e78_fragment = e78.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e78_replay)
+    if (
+        e78_fragment is not None
+        and e78_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e78_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_9bbf930d"
+        receipt["train_replay"] = e78_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_9bbf930d_meta"] = e78_replay
+        return e78_fragment, receipt
+
+    # 1b79) s3_g_a251c730 (a251c730).
+    e79 = _load_module(
+        arc_dir / "s3_g_a251c730.py", "s3_g_a251c730"
+    )
+    e79_replay = e79.train_replay(task)
+    e79_fragment = e79.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e79_replay)
+    if (
+        e79_fragment is not None
+        and e79_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e79_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_a251c730"
+        receipt["train_replay"] = e79_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_a251c730_meta"] = e79_replay
+        return e79_fragment, receipt
+
+    # 1b80) s3_g_a25697e4 (a25697e4).
+    e80 = _load_module(
+        arc_dir / "s3_g_a25697e4.py", "s3_g_a25697e4"
+    )
+    e80_replay = e80.train_replay(task)
+    e80_fragment = e80.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e80_replay)
+    if (
+        e80_fragment is not None
+        and e80_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e80_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_a25697e4"
+        receipt["train_replay"] = e80_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_a25697e4_meta"] = e80_replay
+        return e80_fragment, receipt
+
+    # 1b81) s3_g_a32d8b75 (a32d8b75).
+    e81 = _load_module(
+        arc_dir / "s3_g_a32d8b75.py", "s3_g_a32d8b75"
+    )
+    e81_replay = e81.train_replay(task)
+    e81_fragment = e81.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e81_replay)
+    if (
+        e81_fragment is not None
+        and e81_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e81_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_a32d8b75"
+        receipt["train_replay"] = e81_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_a32d8b75_meta"] = e81_replay
+        return e81_fragment, receipt
+
+    # 1b82) s3_g_a395ee82 (a395ee82).
+    e82 = _load_module(
+        arc_dir / "s3_g_a395ee82.py", "s3_g_a395ee82"
+    )
+    e82_replay = e82.train_replay(task)
+    e82_fragment = e82.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e82_replay)
+    if (
+        e82_fragment is not None
+        and e82_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e82_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_a395ee82"
+        receipt["train_replay"] = e82_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_a395ee82_meta"] = e82_replay
+        return e82_fragment, receipt
+
+    # 1b83) s3_g_a47bf94d (a47bf94d).
+    e83 = _load_module(
+        arc_dir / "s3_g_a47bf94d.py", "s3_g_a47bf94d"
+    )
+    e83_replay = e83.train_replay(task)
+    e83_fragment = e83.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e83_replay)
+    if (
+        e83_fragment is not None
+        and e83_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e83_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_a47bf94d"
+        receipt["train_replay"] = e83_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_a47bf94d_meta"] = e83_replay
+        return e83_fragment, receipt
+
+    # 1b84) s3_g_a6f40cea (a6f40cea).
+    e84 = _load_module(
+        arc_dir / "s3_g_a6f40cea.py", "s3_g_a6f40cea"
+    )
+    e84_replay = e84.train_replay(task)
+    e84_fragment = e84.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e84_replay)
+    if (
+        e84_fragment is not None
+        and e84_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e84_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_a6f40cea"
+        receipt["train_replay"] = e84_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_a6f40cea_meta"] = e84_replay
+        return e84_fragment, receipt
+
+    # 1b85) s3_g_b10624e5 (b10624e5).
+    e85 = _load_module(
+        arc_dir / "s3_g_b10624e5.py", "s3_g_b10624e5"
+    )
+    e85_replay = e85.train_replay(task)
+    e85_fragment = e85.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e85_replay)
+    if (
+        e85_fragment is not None
+        and e85_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e85_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_b10624e5"
+        receipt["train_replay"] = e85_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_b10624e5_meta"] = e85_replay
+        return e85_fragment, receipt
+
+    # 1b86) s3_g_b5ca7ac4 (b5ca7ac4).
+    e86 = _load_module(
+        arc_dir / "s3_g_b5ca7ac4.py", "s3_g_b5ca7ac4"
+    )
+    e86_replay = e86.train_replay(task)
+    e86_fragment = e86.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e86_replay)
+    if (
+        e86_fragment is not None
+        and e86_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e86_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_b5ca7ac4"
+        receipt["train_replay"] = e86_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_b5ca7ac4_meta"] = e86_replay
+        return e86_fragment, receipt
+
+    # 1b87) s3_g_c4d067a0 (c4d067a0).
+    e87 = _load_module(
+        arc_dir / "s3_g_c4d067a0.py", "s3_g_c4d067a0"
+    )
+    e87_replay = e87.train_replay(task)
+    e87_fragment = e87.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e87_replay)
+    if (
+        e87_fragment is not None
+        and e87_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e87_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_c4d067a0"
+        receipt["train_replay"] = e87_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_c4d067a0_meta"] = e87_replay
+        return e87_fragment, receipt
+
+    # 1b88) s3_g_cbebaa4b (cbebaa4b).
+    e88 = _load_module(
+        arc_dir / "s3_g_cbebaa4b.py", "s3_g_cbebaa4b"
+    )
+    e88_replay = e88.train_replay(task)
+    e88_fragment = e88.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e88_replay)
+    if (
+        e88_fragment is not None
+        and e88_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e88_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_cbebaa4b"
+        receipt["train_replay"] = e88_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_cbebaa4b_meta"] = e88_replay
+        return e88_fragment, receipt
+
+    # 1b89) s3_g_d35bdbdc (d35bdbdc).
+    e89 = _load_module(
+        arc_dir / "s3_g_d35bdbdc.py", "s3_g_d35bdbdc"
+    )
+    e89_replay = e89.train_replay(task)
+    e89_fragment = e89.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e89_replay)
+    if (
+        e89_fragment is not None
+        and e89_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e89_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_d35bdbdc"
+        receipt["train_replay"] = e89_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_d35bdbdc_meta"] = e89_replay
+        return e89_fragment, receipt
+
+    # 1b90) s3_g_d59b0160 (d59b0160).
+    e90 = _load_module(
+        arc_dir / "s3_g_d59b0160.py", "s3_g_d59b0160"
+    )
+    e90_replay = e90.train_replay(task)
+    e90_fragment = e90.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e90_replay)
+    if (
+        e90_fragment is not None
+        and e90_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e90_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_d59b0160"
+        receipt["train_replay"] = e90_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_d59b0160_meta"] = e90_replay
+        return e90_fragment, receipt
+
+    # 1b91) s3_g_dbff022c (dbff022c).
+    e91 = _load_module(
+        arc_dir / "s3_g_dbff022c.py", "s3_g_dbff022c"
+    )
+    e91_replay = e91.train_replay(task)
+    e91_fragment = e91.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e91_replay)
+    if (
+        e91_fragment is not None
+        and e91_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e91_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_dbff022c"
+        receipt["train_replay"] = e91_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_dbff022c_meta"] = e91_replay
+        return e91_fragment, receipt
+
+    # 1b92) s3_g_dd6b8c4b (dd6b8c4b).
+    e92 = _load_module(
+        arc_dir / "s3_g_dd6b8c4b.py", "s3_g_dd6b8c4b"
+    )
+    e92_replay = e92.train_replay(task)
+    e92_fragment = e92.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e92_replay)
+    if (
+        e92_fragment is not None
+        and e92_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e92_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_dd6b8c4b"
+        receipt["train_replay"] = e92_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_dd6b8c4b_meta"] = e92_replay
+        return e92_fragment, receipt
+
+    # 1b93) s3_g_de809cff (de809cff).
+    e93 = _load_module(
+        arc_dir / "s3_g_de809cff.py", "s3_g_de809cff"
+    )
+    e93_replay = e93.train_replay(task)
+    e93_fragment = e93.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e93_replay)
+    if (
+        e93_fragment is not None
+        and e93_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e93_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_de809cff"
+        receipt["train_replay"] = e93_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_de809cff_meta"] = e93_replay
+        return e93_fragment, receipt
+
+    # 1b94) s3_g_dfadab01 (dfadab01).
+    e94 = _load_module(
+        arc_dir / "s3_g_dfadab01.py", "s3_g_dfadab01"
+    )
+    e94_replay = e94.train_replay(task)
+    e94_fragment = e94.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e94_replay)
+    if (
+        e94_fragment is not None
+        and e94_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e94_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_dfadab01"
+        receipt["train_replay"] = e94_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_dfadab01_meta"] = e94_replay
+        return e94_fragment, receipt
+
+    # 1b95) s3_g_e12f9a14 (e12f9a14).
+    e95 = _load_module(
+        arc_dir / "s3_g_e12f9a14.py", "s3_g_e12f9a14"
+    )
+    e95_replay = e95.train_replay(task)
+    e95_fragment = e95.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e95_replay)
+    if (
+        e95_fragment is not None
+        and e95_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e95_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_e12f9a14"
+        receipt["train_replay"] = e95_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_e12f9a14_meta"] = e95_replay
+        return e95_fragment, receipt
+
+    # 1b96) s3_g_e3721c99 (e3721c99).
+    e96 = _load_module(
+        arc_dir / "s3_g_e3721c99.py", "s3_g_e3721c99"
+    )
+    e96_replay = e96.train_replay(task)
+    e96_fragment = e96.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e96_replay)
+    if (
+        e96_fragment is not None
+        and e96_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e96_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_e3721c99"
+        receipt["train_replay"] = e96_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_e3721c99_meta"] = e96_replay
+        return e96_fragment, receipt
+
+    # 1b97) s3_g_e376de54 (e376de54).
+    e97 = _load_module(
+        arc_dir / "s3_g_e376de54.py", "s3_g_e376de54"
+    )
+    e97_replay = e97.train_replay(task)
+    e97_fragment = e97.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e97_replay)
+    if (
+        e97_fragment is not None
+        and e97_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e97_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_e376de54"
+        receipt["train_replay"] = e97_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_e376de54_meta"] = e97_replay
+        return e97_fragment, receipt
+
+    # 1b98) s3_g_e87109e9 (e87109e9).
+    e98 = _load_module(
+        arc_dir / "s3_g_e87109e9.py", "s3_g_e87109e9"
+    )
+    e98_replay = e98.train_replay(task)
+    e98_fragment = e98.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e98_replay)
+    if (
+        e98_fragment is not None
+        and e98_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e98_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_e87109e9"
+        receipt["train_replay"] = e98_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_e87109e9_meta"] = e98_replay
+        return e98_fragment, receipt
+
+    # 1b99) s3_g_eee78d87 (eee78d87).
+    e99 = _load_module(
+        arc_dir / "s3_g_eee78d87.py", "s3_g_eee78d87"
+    )
+    e99_replay = e99.train_replay(task)
+    e99_fragment = e99.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e99_replay)
+    if (
+        e99_fragment is not None
+        and e99_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e99_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_eee78d87"
+        receipt["train_replay"] = e99_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_eee78d87_meta"] = e99_replay
+        return e99_fragment, receipt
+
+    # 1b100) s3_g_fc7cae8d (fc7cae8d).
+    e100 = _load_module(
+        arc_dir / "s3_g_fc7cae8d.py", "s3_g_fc7cae8d"
+    )
+    e100_replay = e100.train_replay(task)
+    e100_fragment = e100.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e100_replay)
+    if (
+        e100_fragment is not None
+        and e100_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e100_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_fc7cae8d"
+        receipt["train_replay"] = e100_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_fc7cae8d_meta"] = e100_replay
+        return e100_fragment, receipt
+
+    # 1b101) s3_g_edb79dae (edb79dae).
+    e101 = _load_module(
+        arc_dir / "s3_g_edb79dae.py", "s3_g_edb79dae"
+    )
+    e101_replay = e101.train_replay(task)
+    e101_fragment = e101.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e101_replay)
+    if (
+        e101_fragment is not None
+        and e101_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e101_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_edb79dae"
+        receipt["train_replay"] = e101_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_edb79dae_meta"] = e101_replay
+        return e101_fragment, receipt
+
+    # 1b102) s3_g_f931b4a8 (f931b4a8).
+    e102 = _load_module(
+        arc_dir / "s3_g_f931b4a8.py", "s3_g_f931b4a8"
+    )
+    e102_replay = e102.train_replay(task)
+    e102_fragment = e102.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e102_replay)
+    if (
+        e102_fragment is not None
+        and e102_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e102_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_f931b4a8"
+        receipt["train_replay"] = e102_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_f931b4a8_meta"] = e102_replay
+        return e102_fragment, receipt
+
+    # 1b103) s3_g_9385bd28 (9385bd28).
+    e103 = _load_module(
+        arc_dir / "s3_g_9385bd28.py", "s3_g_9385bd28"
+    )
+    e103_replay = e103.train_replay(task)
+    e103_fragment = e103.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e103_replay)
+    if (
+        e103_fragment is not None
+        and e103_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e103_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_9385bd28"
+        receipt["train_replay"] = e103_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_9385bd28_meta"] = e103_replay
+        return e103_fragment, receipt
+
+    # 1b104) s3_g_b6f77b65 (b6f77b65).
+    e104 = _load_module(
+        arc_dir / "s3_g_b6f77b65.py", "s3_g_b6f77b65"
+    )
+    e104_replay = e104.train_replay(task)
+    e104_fragment = e104.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e104_replay)
+    if (
+        e104_fragment is not None
+        and e104_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e104_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_b6f77b65"
+        receipt["train_replay"] = e104_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_b6f77b65_meta"] = e104_replay
+        return e104_fragment, receipt
+
+    # 1b105) s3_g_b9e38dc0 (b9e38dc0).
+    e105 = _load_module(
+        arc_dir / "s3_g_b9e38dc0.py", "s3_g_b9e38dc0"
+    )
+    e105_replay = e105.train_replay(task)
+    e105_fragment = e105.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e105_replay)
+    if (
+        e105_fragment is not None
+        and e105_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e105_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_b9e38dc0"
+        receipt["train_replay"] = e105_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_b9e38dc0_meta"] = e105_replay
+        return e105_fragment, receipt
+
+    # 1b106) s3_g_c7f57c3e (c7f57c3e).
+    e106 = _load_module(
+        arc_dir / "s3_g_c7f57c3e.py", "s3_g_c7f57c3e"
+    )
+    e106_replay = e106.train_replay(task)
+    e106_fragment = e106.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e106_replay)
+    if (
+        e106_fragment is not None
+        and e106_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e106_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_c7f57c3e"
+        receipt["train_replay"] = e106_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_c7f57c3e_meta"] = e106_replay
+        return e106_fragment, receipt
+
+    # 1b107) s3_g_cb2d8a2c (cb2d8a2c).
+    e107 = _load_module(
+        arc_dir / "s3_g_cb2d8a2c.py", "s3_g_cb2d8a2c"
+    )
+    e107_replay = e107.train_replay(task)
+    e107_fragment = e107.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e107_replay)
+    if (
+        e107_fragment is not None
+        and e107_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e107_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_cb2d8a2c"
+        receipt["train_replay"] = e107_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_cb2d8a2c_meta"] = e107_replay
+        return e107_fragment, receipt
+
+    # 1b108) s3_g_da515329 (da515329).
+    e108 = _load_module(
+        arc_dir / "s3_g_da515329.py", "s3_g_da515329"
+    )
+    e108_replay = e108.train_replay(task)
+    e108_fragment = e108.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e108_replay)
+    if (
+        e108_fragment is not None
+        and e108_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e108_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_da515329"
+        receipt["train_replay"] = e108_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_da515329_meta"] = e108_replay
+        return e108_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

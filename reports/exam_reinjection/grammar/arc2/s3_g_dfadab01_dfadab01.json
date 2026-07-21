@@ -1,0 +1,9 @@
+{
+  "task_id": "dfadab01",
+  "engine": "s3_g_dfadab01",
+  "status": "CLOSED",
+  "c4": "train-replay gated s3_g_dfadab01",
+  "train_replay": "4/4",
+  "labeled_eval": "1/1",
+  "module": "llm_llvm_bench/arc/s3_g_dfadab01.py"
+}

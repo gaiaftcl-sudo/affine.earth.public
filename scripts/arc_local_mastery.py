@@ -795,6 +795,463 @@ def load_s3_bbox_motif_stamp(root: Path) -> Any:
     spec.loader.exec_module(module)
     return module
 
+
+
+def load_s3_g_80a900e0(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_80a900e0.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_80a900e0", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_80a900e0 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_88bcf3b4(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_88bcf3b4.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_88bcf3b4", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_88bcf3b4 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_88e364bc(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_88e364bc.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_88e364bc", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_88e364bc solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_8b7bacbf(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_8b7bacbf.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_8b7bacbf", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_8b7bacbf solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_8b9c3697(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_8b9c3697.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_8b9c3697", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_8b9c3697 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_8e5c0c38(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_8e5c0c38.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_8e5c0c38", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_8e5c0c38 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_8f215267(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_8f215267.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_8f215267", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_8f215267 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_9bbf930d(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_9bbf930d.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_9bbf930d", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_9bbf930d solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_a251c730(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_a251c730.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_a251c730", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_a251c730 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_a25697e4(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_a25697e4.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_a25697e4", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_a25697e4 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_a32d8b75(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_a32d8b75.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_a32d8b75", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_a32d8b75 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_a395ee82(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_a395ee82.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_a395ee82", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_a395ee82 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_a47bf94d(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_a47bf94d.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_a47bf94d", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_a47bf94d solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_a6f40cea(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_a6f40cea.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_a6f40cea", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_a6f40cea solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_b10624e5(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_b10624e5.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_b10624e5", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_b10624e5 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_b5ca7ac4(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_b5ca7ac4.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_b5ca7ac4", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_b5ca7ac4 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_c4d067a0(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_c4d067a0.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_c4d067a0", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_c4d067a0 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_cbebaa4b(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_cbebaa4b.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_cbebaa4b", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_cbebaa4b solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_d35bdbdc(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_d35bdbdc.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_d35bdbdc", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_d35bdbdc solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_d59b0160(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_d59b0160.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_d59b0160", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_d59b0160 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_dbff022c(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_dbff022c.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_dbff022c", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_dbff022c solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_dd6b8c4b(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_dd6b8c4b.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_dd6b8c4b", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_dd6b8c4b solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_de809cff(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_de809cff.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_de809cff", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_de809cff solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_dfadab01(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_dfadab01.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_dfadab01", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_dfadab01 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_e12f9a14(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_e12f9a14.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_e12f9a14", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_e12f9a14 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_e3721c99(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_e3721c99.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_e3721c99", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_e3721c99 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_e376de54(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_e376de54.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_e376de54", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_e376de54 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_e87109e9(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_e87109e9.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_e87109e9", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_e87109e9 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_eee78d87(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_eee78d87.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_eee78d87", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_eee78d87 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_fc7cae8d(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_fc7cae8d.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_fc7cae8d", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_fc7cae8d solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_edb79dae(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_edb79dae.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_edb79dae", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_edb79dae solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_f931b4a8(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_f931b4a8.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_f931b4a8", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_f931b4a8 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_9385bd28(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_9385bd28.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_9385bd28", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_9385bd28 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_b6f77b65(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_b6f77b65.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_b6f77b65", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_b6f77b65 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_b9e38dc0(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_b9e38dc0.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_b9e38dc0", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_b9e38dc0 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_c7f57c3e(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_c7f57c3e.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_c7f57c3e", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_c7f57c3e solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_cb2d8a2c(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_cb2d8a2c.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_cb2d8a2c", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_cb2d8a2c solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_g_da515329(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_g_da515329.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_g_da515329", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_g_da515329 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
 def load_s3_period_tile_stamp(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_period_tile_stamp.py"
     spec = importlib.util.spec_from_file_location(
@@ -1445,6 +1902,44 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     m_s3_separator_motif_fill = load_s3_separator_motif_fill(root)
     m_s2_paired_recolor = load_s2_paired_recolor(root)
     m_s3_bbox_motif_stamp = load_s3_bbox_motif_stamp(root)
+    m_s3_g_80a900e0 = load_s3_g_80a900e0(root)
+    m_s3_g_88bcf3b4 = load_s3_g_88bcf3b4(root)
+    m_s3_g_88e364bc = load_s3_g_88e364bc(root)
+    m_s3_g_8b7bacbf = load_s3_g_8b7bacbf(root)
+    m_s3_g_8b9c3697 = load_s3_g_8b9c3697(root)
+    m_s3_g_8e5c0c38 = load_s3_g_8e5c0c38(root)
+    m_s3_g_8f215267 = load_s3_g_8f215267(root)
+    m_s3_g_9bbf930d = load_s3_g_9bbf930d(root)
+    m_s3_g_a251c730 = load_s3_g_a251c730(root)
+    m_s3_g_a25697e4 = load_s3_g_a25697e4(root)
+    m_s3_g_a32d8b75 = load_s3_g_a32d8b75(root)
+    m_s3_g_a395ee82 = load_s3_g_a395ee82(root)
+    m_s3_g_a47bf94d = load_s3_g_a47bf94d(root)
+    m_s3_g_a6f40cea = load_s3_g_a6f40cea(root)
+    m_s3_g_b10624e5 = load_s3_g_b10624e5(root)
+    m_s3_g_b5ca7ac4 = load_s3_g_b5ca7ac4(root)
+    m_s3_g_c4d067a0 = load_s3_g_c4d067a0(root)
+    m_s3_g_cbebaa4b = load_s3_g_cbebaa4b(root)
+    m_s3_g_d35bdbdc = load_s3_g_d35bdbdc(root)
+    m_s3_g_d59b0160 = load_s3_g_d59b0160(root)
+    m_s3_g_dbff022c = load_s3_g_dbff022c(root)
+    m_s3_g_dd6b8c4b = load_s3_g_dd6b8c4b(root)
+    m_s3_g_de809cff = load_s3_g_de809cff(root)
+    m_s3_g_dfadab01 = load_s3_g_dfadab01(root)
+    m_s3_g_e12f9a14 = load_s3_g_e12f9a14(root)
+    m_s3_g_e3721c99 = load_s3_g_e3721c99(root)
+    m_s3_g_e376de54 = load_s3_g_e376de54(root)
+    m_s3_g_e87109e9 = load_s3_g_e87109e9(root)
+    m_s3_g_eee78d87 = load_s3_g_eee78d87(root)
+    m_s3_g_fc7cae8d = load_s3_g_fc7cae8d(root)
+    m_s3_g_edb79dae = load_s3_g_edb79dae(root)
+    m_s3_g_f931b4a8 = load_s3_g_f931b4a8(root)
+    m_s3_g_9385bd28 = load_s3_g_9385bd28(root)
+    m_s3_g_b6f77b65 = load_s3_g_b6f77b65(root)
+    m_s3_g_b9e38dc0 = load_s3_g_b9e38dc0(root)
+    m_s3_g_c7f57c3e = load_s3_g_c7f57c3e(root)
+    m_s3_g_cb2d8a2c = load_s3_g_cb2d8a2c(root)
+    m_s3_g_da515329 = load_s3_g_da515329(root)
     m_s2_marker_recolor_lattice = load_s2_marker_recolor_lattice(root)
     m_s2_color_gate_rewrite = load_s2_color_gate_rewrite(root)
     m_s2_pair_swap_recolor = load_s2_pair_swap_recolor(root)
@@ -1586,6 +2081,44 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     h_s3_separator_motif_fill = 0
     h_s2_paired_recolor = 0
     h_s3_bbox_motif_stamp = 0
+    h_s3_g_80a900e0 = 0
+    h_s3_g_88bcf3b4 = 0
+    h_s3_g_88e364bc = 0
+    h_s3_g_8b7bacbf = 0
+    h_s3_g_8b9c3697 = 0
+    h_s3_g_8e5c0c38 = 0
+    h_s3_g_8f215267 = 0
+    h_s3_g_9bbf930d = 0
+    h_s3_g_a251c730 = 0
+    h_s3_g_a25697e4 = 0
+    h_s3_g_a32d8b75 = 0
+    h_s3_g_a395ee82 = 0
+    h_s3_g_a47bf94d = 0
+    h_s3_g_a6f40cea = 0
+    h_s3_g_b10624e5 = 0
+    h_s3_g_b5ca7ac4 = 0
+    h_s3_g_c4d067a0 = 0
+    h_s3_g_cbebaa4b = 0
+    h_s3_g_d35bdbdc = 0
+    h_s3_g_d59b0160 = 0
+    h_s3_g_dbff022c = 0
+    h_s3_g_dd6b8c4b = 0
+    h_s3_g_de809cff = 0
+    h_s3_g_dfadab01 = 0
+    h_s3_g_e12f9a14 = 0
+    h_s3_g_e3721c99 = 0
+    h_s3_g_e376de54 = 0
+    h_s3_g_e87109e9 = 0
+    h_s3_g_eee78d87 = 0
+    h_s3_g_fc7cae8d = 0
+    h_s3_g_edb79dae = 0
+    h_s3_g_f931b4a8 = 0
+    h_s3_g_9385bd28 = 0
+    h_s3_g_b6f77b65 = 0
+    h_s3_g_b9e38dc0 = 0
+    h_s3_g_c7f57c3e = 0
+    h_s3_g_cb2d8a2c = 0
+    h_s3_g_da515329 = 0
     h_s2_marker_recolor_lattice = 0
     h_s2_color_gate_rewrite = 0
     h_s2_pair_swap_recolor = 0
@@ -1856,6 +2389,158 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             if hybrid_attempts is not None:
                 h_s3_bbox_motif_stamp += 1
         if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_80a900e0.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_80a900e0 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_88bcf3b4.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_88bcf3b4 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_88e364bc.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_88e364bc += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_8b7bacbf.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_8b7bacbf += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_8b9c3697.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_8b9c3697 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_8e5c0c38.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_8e5c0c38 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_8f215267.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_8f215267 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_9bbf930d.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_9bbf930d += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_a251c730.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_a251c730 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_a25697e4.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_a25697e4 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_a32d8b75.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_a32d8b75 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_a395ee82.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_a395ee82 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_a47bf94d.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_a47bf94d += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_a6f40cea.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_a6f40cea += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_b10624e5.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_b10624e5 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_b5ca7ac4.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_b5ca7ac4 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_c4d067a0.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_c4d067a0 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_cbebaa4b.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_cbebaa4b += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_d35bdbdc.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_d35bdbdc += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_d59b0160.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_d59b0160 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_dbff022c.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_dbff022c += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_dd6b8c4b.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_dd6b8c4b += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_de809cff.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_de809cff += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_dfadab01.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_dfadab01 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_e12f9a14.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_e12f9a14 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_e3721c99.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_e3721c99 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_e376de54.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_e376de54 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_e87109e9.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_e87109e9 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_eee78d87.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_eee78d87 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_fc7cae8d.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_fc7cae8d += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_edb79dae.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_edb79dae += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_f931b4a8.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_f931b4a8 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_9385bd28.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_9385bd28 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_b6f77b65.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_b6f77b65 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_b9e38dc0.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_b9e38dc0 += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_c7f57c3e.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_c7f57c3e += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_cb2d8a2c.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_cb2d8a2c += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_g_da515329.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_g_da515329 += 1
+        if hybrid_attempts is None:
             hybrid_attempts = m_s2_marker_recolor_lattice.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 h_s2_marker_recolor_lattice += 1
@@ -2124,6 +2809,44 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s3_separator_motif_fill_licensed_tasks": h_s3_separator_motif_fill,
             "s2_paired_recolor_licensed_tasks": h_s2_paired_recolor,
             "s3_bbox_motif_stamp_licensed_tasks": h_s3_bbox_motif_stamp,
+            "s3_g_80a900e0_licensed_tasks": h_s3_g_80a900e0,
+            "s3_g_88bcf3b4_licensed_tasks": h_s3_g_88bcf3b4,
+            "s3_g_88e364bc_licensed_tasks": h_s3_g_88e364bc,
+            "s3_g_8b7bacbf_licensed_tasks": h_s3_g_8b7bacbf,
+            "s3_g_8b9c3697_licensed_tasks": h_s3_g_8b9c3697,
+            "s3_g_8e5c0c38_licensed_tasks": h_s3_g_8e5c0c38,
+            "s3_g_8f215267_licensed_tasks": h_s3_g_8f215267,
+            "s3_g_9bbf930d_licensed_tasks": h_s3_g_9bbf930d,
+            "s3_g_a251c730_licensed_tasks": h_s3_g_a251c730,
+            "s3_g_a25697e4_licensed_tasks": h_s3_g_a25697e4,
+            "s3_g_a32d8b75_licensed_tasks": h_s3_g_a32d8b75,
+            "s3_g_a395ee82_licensed_tasks": h_s3_g_a395ee82,
+            "s3_g_a47bf94d_licensed_tasks": h_s3_g_a47bf94d,
+            "s3_g_a6f40cea_licensed_tasks": h_s3_g_a6f40cea,
+            "s3_g_b10624e5_licensed_tasks": h_s3_g_b10624e5,
+            "s3_g_b5ca7ac4_licensed_tasks": h_s3_g_b5ca7ac4,
+            "s3_g_c4d067a0_licensed_tasks": h_s3_g_c4d067a0,
+            "s3_g_cbebaa4b_licensed_tasks": h_s3_g_cbebaa4b,
+            "s3_g_d35bdbdc_licensed_tasks": h_s3_g_d35bdbdc,
+            "s3_g_d59b0160_licensed_tasks": h_s3_g_d59b0160,
+            "s3_g_dbff022c_licensed_tasks": h_s3_g_dbff022c,
+            "s3_g_dd6b8c4b_licensed_tasks": h_s3_g_dd6b8c4b,
+            "s3_g_de809cff_licensed_tasks": h_s3_g_de809cff,
+            "s3_g_dfadab01_licensed_tasks": h_s3_g_dfadab01,
+            "s3_g_e12f9a14_licensed_tasks": h_s3_g_e12f9a14,
+            "s3_g_e3721c99_licensed_tasks": h_s3_g_e3721c99,
+            "s3_g_e376de54_licensed_tasks": h_s3_g_e376de54,
+            "s3_g_e87109e9_licensed_tasks": h_s3_g_e87109e9,
+            "s3_g_eee78d87_licensed_tasks": h_s3_g_eee78d87,
+            "s3_g_fc7cae8d_licensed_tasks": h_s3_g_fc7cae8d,
+            "s3_g_edb79dae_licensed_tasks": h_s3_g_edb79dae,
+            "s3_g_f931b4a8_licensed_tasks": h_s3_g_f931b4a8,
+            "s3_g_9385bd28_licensed_tasks": h_s3_g_9385bd28,
+            "s3_g_b6f77b65_licensed_tasks": h_s3_g_b6f77b65,
+            "s3_g_b9e38dc0_licensed_tasks": h_s3_g_b9e38dc0,
+            "s3_g_c7f57c3e_licensed_tasks": h_s3_g_c7f57c3e,
+            "s3_g_cb2d8a2c_licensed_tasks": h_s3_g_cb2d8a2c,
+            "s3_g_da515329_licensed_tasks": h_s3_g_da515329,
             "s2_marker_recolor_lattice_licensed_tasks": h_s2_marker_recolor_lattice,
             "s2_color_gate_rewrite_licensed_tasks": h_s2_color_gate_rewrite,
             "s2_pair_swap_recolor_licensed_tasks": h_s2_pair_swap_recolor,

@@ -1,0 +1,25 @@
+{
+  "task_id": "88e364bc",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S3_PUB_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 2,
+  "engine": "s3_g_88e364bc",
+  "observations": [
+    "Public train-exact FoT engine s3_g_88e364bc",
+    "Train 3/3 labeled eval 2/2"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_3_3_eval_2_2",
+    "train_replay": "3/3",
+    "labeled_eval": "2/2"
+  },
+  "mastery_eval": "163/172",
+  "mastery_train": "298/1076",
+  "recorded_at_utc": "2026-07-21T16:44:10Z",
+  "kaggle_submit": false
+}
