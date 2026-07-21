@@ -1,0 +1,45 @@
+{
+  "arc_local_report": "reports/arc_local_20260721T171826Z",
+  "capture_mp4s": [
+    "affine_audit_logs/arc_agi3/bp35/20260721T171435Z/bp35.mp4",
+    "affine_audit_logs/arc_agi3/ar25/20260721T171636Z/ar25.mp4",
+    "affine_audit_logs/arc_agi3/ls20/20260721T171724Z/ls20.mp4"
+  ],
+  "captures": "affine_audit_logs/arc_agi3",
+  "diagnosis": {
+    "fix": "attribute-path frame tolist + platformer motion/click grammar + GAME_OVER\u2192RESET continue + motion replay verify + level-clear C4",
+    "owned_grammar": "unreproduced_productive_delta\u2192relative_avatar_motion+block_click+gem_level_clear",
+    "prior_missing_grammar_cause": "FrameDataRaw.model_dump() omitted numpy frame \u2192 empty grids \u2192 zero compared_cells \u2192 unreproduced theory at max_actions=2"
+  },
+  "environment_terminals": 3,
+  "episodes": "data/arc-prize-2026/ARC-AGI-3-Agents/reports/arc_local_20260721T171426Z/episodes.json",
+  "franklin_s4_stuck_turns": [],
+  "game_ids": [
+    "bp35",
+    "ar25",
+    "ls20"
+  ],
+  "game_over_events": 0,
+  "games": 3,
+  "high_confidence_terminals": 3,
+  "levels_by_game": {
+    "ar25": 8,
+    "bp35": 9,
+    "ls20": 7
+  },
+  "levels_cleared_total": 24,
+  "mean_confidence": 1.0,
+  "mean_turn_count": 325.0,
+  "miss_clusters": {},
+  "mode": "LOCAL_ONLY",
+  "next_grammar_class": "none",
+  "no_kaggle_submit_lock": true,
+  "parquet": "data/arc-prize-2026/ARC-AGI-3-Agents/reports/arc_local_20260721T171426Z/submission.parquet",
+  "public_probe": {
+    "label": "PROCESS_PROBE",
+    "publicScore": 0.12,
+    "submission_ref": "54875048"
+  },
+  "submission_blocked": true,
+  "win_terminals": 3
+}

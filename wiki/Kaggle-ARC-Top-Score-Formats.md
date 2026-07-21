@@ -87,4 +87,17 @@ python3 scripts/validate_arc_prize_submission.py fixtures/kaggle_arc_format/subm
 python3 scripts/validate_arc_agi3_submission.py fixtures/kaggle_arc_format/submission.parquet
 ```
 
+Verified AGI-3 suite parquet (2026-07-21 re-verify; lock still present):
+`reports/arc_local_20260721T171426Z/submission.parquet` — scores 9/8/7.
+
+Steward one-command when unlocked (`configs/NO_KAGGLE_SUBMIT.lock` stays;
+env override only — do not delete the lock):
+
+```bash
+ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh \
+  -c arc-prize-2026-arc-agi-3 \
+  -f reports/arc_local_20260721T171426Z/submission.parquet \
+  -m "local suite WIN bp35 9/9 ar25 8/8 ls20 7/7"
+```
+
 Auth for status pulls only: `export KAGGLE_API_TOKEN=…` — never Keychain.

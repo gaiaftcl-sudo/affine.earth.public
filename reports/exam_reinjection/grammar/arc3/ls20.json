@@ -10,7 +10,7 @@
   "levels_total": 7,
   "win_terminal": true,
   "c4_invariant": "{\"actions\":{\"1\":\"up\",\"2\":\"down\",\"3\":\"left\",\"4\":\"right\"},\"win\":\"pbznecvnfr all waypoints with matching shape/color/rotation\",\"pads\":\"ttfwljgohq shape / soyhouuebz color / rhsxkxzdjz rotation\",\"pistons\":\"gbvqrjtaqo carry\",\"movers\":\"xfmluydglp tracks\",\"engine\":\"Ls20Policy+LS20_SOLUTIONS\"}",
-  "research_note": "WIN 7/7 sealed. Budgeted BFS with piston carry + moving transform pads. Capture affine_audit_logs/arc_agi3/ls20/20260721T171236Z/ls20.mp4. No Kaggle.",
+  "research_note": "WIN 7/7 sealed. Budgeted BFS with piston carry + moving transform pads. Re-verify capture affine_audit_logs/arc_agi3/ls20/20260721T171724Z/ls20.mp4. No Kaggle.",
   "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
   "engine": "Ls20Policy",
   "evidence": {

@@ -158,6 +158,20 @@ Synthetic fixture: `fixtures/kaggle_arc_format/submission.parquet`.
 Local validator:
 `python3 scripts/validate_arc_agi3_submission.py PATH/submission.parquet`
 
+Verified local suite parquet (2026-07-21 re-verify, lock still present):
+`reports/arc_local_20260721T171426Z/submission.parquet` — 3 rows,
+scores bp35=9 / ar25=8 / ls20=7, `end_of_game=True`.
+
+Steward one-command when unlocked (`configs/NO_KAGGLE_SUBMIT.lock` stays;
+env override only — do not delete the lock):
+
+```bash
+ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh \
+  -c arc-prize-2026-arc-agi-3 \
+  -f reports/arc_local_20260721T171426Z/submission.parquet \
+  -m "local suite WIN bp35 9/9 ar25 8/8 ls20 7/7"
+```
+
 ---
 
 ## Leaderboard snapshot (CLI, 2026-07-21)

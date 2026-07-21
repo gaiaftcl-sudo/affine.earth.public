@@ -125,8 +125,10 @@ Source: offline Arcade + owned policies (`--max-actions 500`) under
 | `bp35` grammar | `C4_BOUND_OWNED` + WIN | L9 underfloor walk LOCKED |
 | `ar25` grammar | `C4_BOUND_OWNED` + WIN | `Ar25Policy` + `AR25_SOLUTIONS` |
 | `ls20` grammar | `C4_BOUND_OWNED` + WIN | `Ls20Policy` + `LS20_SOLUTIONS` |
-| Captures | `…/bp35/20260721T160924Z/bp35.mp4`, `…/ar25/20260721T171208Z/ar25.mp4`, `…/ls20/20260721T171236Z/ls20.mp4` | WIN trails |
+| Captures | `…/bp35/20260721T171435Z/bp35.mp4`, `…/ar25/20260721T171636Z/ar25.mp4`, `…/ls20/20260721T171724Z/ls20.mp4` | Re-verify WIN trails |
+| Parquet | `reports/arc_local_20260721T171426Z/submission.parquet` | Schema-valid; scores 9/8/7 |
 | Public probe | **0.12** (ref 54875048) | Process probe only; NO Kaggle |
+| Submit lock | `configs/NO_KAGGLE_SUBMIT.lock` **PRESENT** | No Kaggle |
 
 **Owned bp35 C4 grammar:**
 
@@ -188,3 +190,17 @@ pscamillo starter, jeroencottaar simplified (same four columns).
 Schema green is serialization integrity. Closing 0.12 → ~1.8 is policy mastery,
 not a new column list. Local check:
 `python3 scripts/validate_arc_agi3_submission.py …/submission.parquet`.
+
+### Steward one-command (when unlocked — do not run while lock present)
+
+`configs/NO_KAGGLE_SUBMIT.lock` stays on disk. Agents must not remove it.
+When the steward intentionally opens submit:
+
+```bash
+ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh \
+  -c arc-prize-2026-arc-agi-3 \
+  -f reports/arc_local_20260721T171426Z/submission.parquet \
+  -m "local suite WIN bp35 9/9 ar25 8/8 ls20 7/7"
+```
+
+Without `ALLOW_KAGGLE_SUBMIT=1`, `bin/kaggle-submit-guard.sh` exits 99.

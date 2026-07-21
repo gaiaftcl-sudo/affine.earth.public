@@ -10,7 +10,7 @@
   "levels_total": 8,
   "win_terminal": true,
   "c4_invariant": "{\"actions\":{\"1\":\"up\",\"2\":\"down\",\"3\":\"left\",\"4\":\"right\",\"5\":\"cycle_selection\"},\"win\":\"vplrhaovhr reflection field covers all 0001sruqbuvukh\",\"engine\":\"Ar25Policy+AR25_SOLUTIONS\"}",
-  "research_note": "WIN 8/8 sealed. L2 cover via piece 0026→(15,14) + mirror x=10. L7 pieces (7,7)/(8,1). Captures affine_audit_logs/arc_agi3/ar25/20260721T171208Z/ar25.mp4. No Kaggle.",
+  "research_note": "WIN 8/8 sealed. L2 cover via piece 0026→(15,14) + mirror x=10. L7 pieces (7,7)/(8,1). Re-verify capture affine_audit_logs/arc_agi3/ar25/20260721T171636Z/ar25.mp4. No Kaggle.",
   "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
   "engine": "Ar25Policy",
   "evidence": {

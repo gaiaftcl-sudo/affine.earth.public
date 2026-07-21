@@ -1,0 +1,49 @@
+{
+  "verified_at_utc": "2026-07-21T17:20:33Z",
+  "git_sha": "9b82d4fd4b7fbddc93dcc84f343b3666f5ae0d4c+",
+  "harness": "reports/arc_local_20260721T171426Z",
+  "win_terminals": 3,
+  "levels_by_game": {
+    "ar25": 8,
+    "bp35": 9,
+    "ls20": 7
+  },
+  "game_over_events": 0,
+  "submission_blocked": true,
+  "no_kaggle_submit_lock": true,
+  "parquet": "reports/arc_local_20260721T171426Z/submission.parquet",
+  "parquet_sha256": "9ffc90cee088b086e5d2539abee76b77346191666a657dd63dbf3cf0de340c73",
+  "episodes": [
+    {
+      "game_id": "bp35",
+      "win_terminal": true,
+      "levels_cleared": 9,
+      "turn_count": 387
+    },
+    {
+      "game_id": "ar25",
+      "win_terminal": true,
+      "levels_cleared": 8,
+      "turn_count": 279
+    },
+    {
+      "game_id": "ls20",
+      "win_terminal": true,
+      "levels_cleared": 7,
+      "turn_count": 309
+    }
+  ],
+  "captures": [
+    "affine_audit_logs/arc_agi3/bp35/20260721T171435Z/bp35.mp4",
+    "affine_audit_logs/arc_agi3/ar25/20260721T171636Z/ar25.mp4",
+    "affine_audit_logs/arc_agi3/ls20/20260721T171724Z/ls20.mp4"
+  ],
+  "reinjection_tasks_closed": [
+    "arc3:bp35",
+    "arc3:ar25",
+    "arc3:ls20",
+    "arc3:agi3-trajectory-gap",
+    "arc3:ar25-0c556536"
+  ],
+  "steward_submit_when_unlocked": "ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh -c arc-prize-2026-arc-agi-3 -f reports/arc_local_20260721T171426Z/submission.parquet -m \"local suite WIN bp35 9/9 ar25 8/8 ls20 7/7\""
+}
