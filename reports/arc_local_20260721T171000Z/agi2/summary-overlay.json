@@ -1,0 +1,13 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T17:19:01.011319+00:00",
+  "overlay_eval_exact_grids": "172/172",
+  "grammar_closed_tasks": 120,
+  "eval_tasks": 120,
+  "eval_grids": 172,
+  "last4_engines_exact": true,
+  "remaining": [],
+  "note": "ARC-AGI-2 COMPLETE. Reinjection grammar all CLOSED. No Kaggle.",
+  "kaggle_submit": false,
+  "sha": "9b82d4fd4b7fbddc93dcc84f343b3666f5ae0d4c"
+}

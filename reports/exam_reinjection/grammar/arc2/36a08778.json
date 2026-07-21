@@ -5,5 +5,6 @@
   "c4": "Purple bar bracket extend spatial rewrite (S3).",
   "train_replay": "6/6",
   "labeled_eval": "1/1",
-  "module": "llm_llvm_bench/arc/s3_purple_bar_bracket_extend.py"
+  "module": "llm_llvm_bench/arc/s3_purple_bar_bracket_extend.py",
+  "last_gate": "LOCKED"
 }

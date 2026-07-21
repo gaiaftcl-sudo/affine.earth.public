@@ -1,0 +1,8 @@
+{
+  "task_id": "13e47133",
+  "status": "CLOSED",
+  "engine": "s1_wall_tree_nested_frames",
+  "train_replay": "3/3",
+  "eval_exact": "2/2",
+  "kaggle_submit": false
+}

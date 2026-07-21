@@ -1,0 +1,8 @@
+{
+  "task_id": "142ca369",
+  "status": "CLOSED",
+  "engine": "s1_laser_mirror_beams",
+  "train_replay": "3/3",
+  "eval_exact": "2/2",
+  "kaggle_submit": false
+}

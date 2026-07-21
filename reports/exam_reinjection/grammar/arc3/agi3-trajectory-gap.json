@@ -1,35 +1,32 @@
 {
-  "c4_invariant": "{\"action\": \"click\", \"effect\": \"clear_component\", \"target\": \"center_of_connected_component\"}",
-  "closure_ready": true,
-  "grammar_update": "CLOSED C4_BOUND_OWNED PlatformerPolicy bp35 6/9; meta gap owned",
-  "protocol": "franklin_s4_projection",
-  "recorded_at_utc": "2026-07-21T14:48:00+00:00",
-  "repair_kind": "action_theory",
-  "research_note": "CLOSED at peer cdc7f40; advanced to bp35 6/9 L1-L6. Remaining L7+/ar25/ls20. No Kaggle.",
-  "s1": "{\"answer_contract\": \"legal next action/trajectory; LOCKED only after environment_step accepts\", \"input\": \"arc3 trajectory gap, 8 prior turns, 0.12 score\", \"modality\": \"language_game\", \"revision\": 9, \"task_id\": \"agi3-trajectory-gap\"}",
-  "s2": "{\"rule_candidates\": [\"1. Click to clear connected same-color components (Flood Fill). 2. Click to move a single block to an adjacent empty cell. 3. Click to rotate a 2x2 block. 4. Click to delete a single block.\"]}",
-  "s3": "{\"discriminating_evidence\": \"Replay the 3 games to isolate the exact interaction primitive (click vs drag vs multi-select) and the winning condition (clear all vs reach target score).\"}",
-  "s4": "{\"status\": \"REINJECT\", \"typed_candidate\": {\"action\": \"click\", \"effect\": \"clear_component\", \"target\": \"center_of_connected_component\"}, \"unresolved_alternatives\": [\"move_single_block\", \"rotate_2x2_block\"], \"validator\": \"environment_step\", \"validator_result\": {\"accepted\": false, \"detail\": \"franklin_reinject_with_action\", \"ran\": true, \"status\": \"REINJECT\", \"validator\": \"environment_step\"}}",
-  "s4_status": "CLOSED",
-  "source_miss": "reports/arc_local_20260721T134200Z/agi3/summary.json",
   "task_id": "agi3-trajectory-gap",
   "track": "arc3",
-  "turn_index": 9,
-  "typed_candidate": {
-    "action": "click",
-    "effect": "clear_component",
-    "target": "center_of_connected_component"
+  "grammar_id": "agi3_suite_CLOSED",
+  "s4_status": "LOCKED",
+  "closure_ready": true,
+  "protocol": "franklin_s4_projection",
+  "recorded_at_utc": "2026-07-21T17:19:26Z",
+  "c4_invariant": {
+    "owned": "PlatformerPolicy+Ar25Policy+Ls20Policy",
+    "win_terminals": 3,
+    "levels_by_game": {
+      "bp35": 9,
+      "ar25": 8,
+      "ls20": 7
+    },
+    "harness": "reports/arc_local_20260721T171426Z",
+    "parquet": "reports/arc_local_20260721T171426Z/submission.parquet",
+    "no_kaggle_submit_lock": true
   },
-  "unresolved_alternatives": [
-    "move_single_block",
-    "rotate_2x2_block"
-  ],
   "validator": "environment_step",
   "validator_result": {
-    "accepted": false,
-    "detail": "franklin_reinject_with_action",
-    "ran": true,
-    "status": "REINJECT",
-    "validator": "environment_step"
-  }
+    "accepted": true,
+    "levels_completed_total": 24,
+    "win_terminals": 3,
+    "detail": "independent triple-WIN re-verify; submission.parquet schema green; submit blocked by lock"
+  },
+  "kaggle_submit": false,
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "note": "Owned via unreproduced_productive_delta\u2192level_clear_motion_click_grammar; suite WIN sealed. No Kaggle."
 }

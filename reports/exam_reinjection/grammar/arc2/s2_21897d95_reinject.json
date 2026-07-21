@@ -2,8 +2,8 @@
   "task_id": "21897d95",
   "exam": "ARC-AGI-2",
   "language_game_class": "S2_palette_rewrite",
-  "status": "REINJECT",
-  "last_gate": "S4_REINJECT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
   "train": 4,
   "test": 2,
   "observations": [

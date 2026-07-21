@@ -34,5 +34,7 @@
     "engine": "container_period_tiling",
     "labeled_eval": "1/1",
     "train_replay": "2/2"
-  }
+  },
+  "status": "CLOSED",
+  "last_gate": "LOCKED"
 }

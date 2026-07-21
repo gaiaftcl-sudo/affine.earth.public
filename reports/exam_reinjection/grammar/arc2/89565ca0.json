@@ -7,5 +7,6 @@
   "mastery_eval": "45/172",
   "grammar_path": "reports/exam_reinjection/grammar/arc2/s1_89565ca0_frame_chamber_staircase.json",
   "sealed_at_utc": "2026-07-21T16:00:32Z",
-  "kaggle_submit": false
+  "kaggle_submit": false,
+  "last_gate": "LOCKED"
 }

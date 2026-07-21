@@ -8,16 +8,16 @@
   "train_replay": "2/2",
   "eval_grids": "1/1",
   "c4": {
-    "S1": "majority=bg; largest non-bg component is the frame canvas",
-    "S2": "output = frame bbox; holes = global-bg cells inside bbox",
-    "S3": "outside sprites match hole shapes under rotation/reflection",
-    "S4": "fill each hole with majority color among matching outside sprites",
-    "C4": "exact hole fill; train-replay gated"
+    "S1": "majority = background; largest non-bg component = canvas",
+    "S2": "output crop = canvas bbox; bg cells inside are holes",
+    "S3": "exterior sprites keyed by mask under rotation/reflection",
+    "S4": "each hole fills with majority sprite color for that mask class",
+    "C4": "exact filled crop; train-replay gated"
   },
   "module": "llm_llvm_bench/arc/s1_canvas_hole_sprite_fill.py",
   "mastery_eval": "41/172",
   "mastery_train": "298/1076",
-  "sealed_at_utc": "2026-07-21T15:30:05Z",
+  "sealed_at_utc": "2026-07-21T15:30:22Z",
   "kaggle_submit": false,
-  "overlay": "reports/arc_local_20260721T153005Z/agi2/summary-overlay.json"
+  "overlay": "reports/arc_local_20260721T153022Z/agi2/summary-overlay.json"
 }

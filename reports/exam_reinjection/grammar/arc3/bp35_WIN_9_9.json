@@ -1,0 +1,12 @@
+{
+  "task_id": "bp35",
+  "track": "arc3",
+  "status": "LOCKED",
+  "last_gate": "LOCKED",
+  "levels_cleared": "9/9",
+  "engine": "Bp35Policy",
+  "closure_ready": true,
+  "source_summary": "reports/arc_local_20260721T171826Z/agi3/summary.json",
+  "recorded_at_utc": "2026-07-21T17:19:26Z",
+  "note": "No Kaggle."
+}

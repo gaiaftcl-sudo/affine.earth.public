@@ -17,5 +17,6 @@
   "mastery_eval": "23/172",
   "mastery_train": "298/1076",
   "sealed_at_utc": "2026-07-21T14:19:36Z",
-  "kaggle_submit": false
+  "kaggle_submit": false,
+  "last_gate": "LOCKED"
 }

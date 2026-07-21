@@ -5,5 +5,6 @@
   "c4": "NxN black(0) block slides on path color via BFS to farthest placement (nearest red TL when red present); vacated cells refill path color.",
   "train_replay": "4/4",
   "labeled_eval": "1/1",
-  "module": "llm_llvm_bench/arc/s2_black_block_path_slide.py"
+  "module": "llm_llvm_bench/arc/s2_black_block_path_slide.py",
+  "last_gate": "LOCKED"
 }

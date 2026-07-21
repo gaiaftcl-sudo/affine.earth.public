@@ -107,5 +107,7 @@
     "ran": true,
     "status": "REINJECT",
     "validator": "demonstration_replay"
-  }
+  },
+  "status": "CLOSED",
+  "last_gate": "LOCKED"
 }

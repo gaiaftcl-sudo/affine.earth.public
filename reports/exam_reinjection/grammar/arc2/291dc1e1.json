@@ -12,5 +12,6 @@
   "protocol": "fot_language_game",
   "recorded_at_utc": "2026-07-21T14:13:58.102482+00:00",
   "repair_kind": "solver_owned",
-  "grammar_update": "Seal oriented block pack into reinjection CLOSED."
+  "grammar_update": "Seal oriented block pack into reinjection CLOSED.",
+  "last_gate": "LOCKED"
 }

@@ -32,5 +32,6 @@
   },
   "status": "CLOSED",
   "eval_exact": "2/2",
-  "train_replay": "3/3"
+  "train_replay": "3/3",
+  "last_gate": "LOCKED"
 }

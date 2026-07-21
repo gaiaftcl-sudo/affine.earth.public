@@ -7,5 +7,6 @@
   "mastery_eval": "38/172",
   "grammar_path": "reports/exam_reinjection/grammar/arc2/s2_1818057f_plus_stamp_recolor.json",
   "sealed_at_utc": "2026-07-21T15:20:00Z",
-  "kaggle_submit": false
+  "kaggle_submit": false,
+  "last_gate": "LOCKED"
 }

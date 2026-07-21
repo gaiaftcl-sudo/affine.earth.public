@@ -12,5 +12,6 @@
   "protocol": "fot_language_game",
   "recorded_at_utc": "2026-07-21T14:10:30+00:00",
   "repair_kind": "solver_owned",
-  "grammar_update": "Owned by s1_laser_mirror_beams; Franklin REINJECT stub superseded."
+  "grammar_update": "Owned by s1_laser_mirror_beams; Franklin REINJECT stub superseded.",
+  "last_gate": "LOCKED"
 }

@@ -19,5 +19,6 @@
   "mastery_train": "298/1076",
   "sealed_at_utc": "2026-07-21T14:45:13Z",
   "kaggle_submit": false,
-  "overlay": "reports/arc_local_20260721T144500Z/agi2/summary-overlay.json"
+  "overlay": "reports/arc_local_20260721T144500Z/agi2/summary-overlay.json",
+  "last_gate": "LOCKED"
 }

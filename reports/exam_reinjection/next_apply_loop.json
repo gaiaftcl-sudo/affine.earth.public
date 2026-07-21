@@ -122,15 +122,12 @@
     "arc2:fc7cae8d"
   ],
   "next_apply_loop": [],
-  "peer_in_flight": [
-    {
-      "agent": "cursor-sync",
-      "tasks": [
-        "faa9f03d"
-      ],
-      "goal": "close last open to 172/172"
-    }
-  ],
-  "note": "CLOSED faa9f03d (+2 => 172/172). ARC-AGI-2 labeled eval COMPLETE. No Kaggle.",
-  "recorded_at_utc": "2026-07-21T17:01:39Z"
+  "peer_in_flight": [],
+  "note": "ARC-AGI-2 COMPLETE 172/172 (grammar CLOSED 120/120). ARC-AGI-3 public suite WIN: bp35 9/9 + ar25 8/8 + ls20 7/7. No Kaggle.",
+  "recorded_at_utc": "2026-07-21T17:19:26Z",
+  "arc3_levels_by_game": {
+    "ar25": 8,
+    "bp35": 9,
+    "ls20": 7
+  }
 }

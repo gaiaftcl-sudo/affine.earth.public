@@ -6,6 +6,7 @@
   "eval_grids": "1/1",
   "mastery_eval": "41/172",
   "grammar_path": "reports/exam_reinjection/grammar/arc2/s1_67e490f4_canvas_hole_sprite_fill.json",
-  "sealed_at_utc": "2026-07-21T15:30:05Z",
-  "kaggle_submit": false
+  "sealed_at_utc": "2026-07-21T15:30:22Z",
+  "kaggle_submit": false,
+  "last_gate": "LOCKED"
 }

@@ -1,29 +1,28 @@
 {
   "task_id": "bp35",
   "track": "arc3",
+  "exam": "ARC-AGI-3",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
   "s4_status": "LOCKED",
   "closure_ready": true,
+  "levels_cleared": 9,
+  "levels_total": 9,
   "win_terminal": true,
-  "levels_completed": 9,
-  "win_levels": 9,
-  "grammar_update": "C4_BOUND_OWNED",
-  "protocol": "franklin_s4_projection",
-  "recorded_at_utc": "2026-07-21T16:10:00+00:00",
-  "research_note": "bp35 full WIN via PlatformerPolicy L1–L9; deaths=0; harness max-actions 500",
+  "engine": "Bp35Policy",
   "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
-  "evidence": {
-    "L7": "bp35_L7_soft1_shaft_col9_safe_drop.json",
-    "L8": "bp35_L8_ybridge_col8_chamber_gDN_gem.json",
-    "L9": "bp35_L9_col0_underfloor_y39_gem_walk.json",
-    "harness": "data/arc-prize-2026/ARC-AGI-3-Agents/reports/arc_local_20260721T160922Z/summary.json",
-    "mp4": "affine_audit_logs/arc_agi3/bp35/20260721T160924Z/bp35.mp4"
-  },
   "validator": "environment_step",
   "validator_result": {
     "accepted": true,
-    "levels_completed": 9,
-    "state": "WIN",
-    "win_terminals": 1
+    "levels_by_game": {
+      "ar25": 8,
+      "bp35": 9,
+      "ls20": 7
+    },
+    "win_terminals": 3,
+    "summary": "reports/arc_local_20260721T171826Z/agi3/summary.json",
+    "capture_mp4": "affine_audit_logs/arc_agi3/bp35/20260721T171435Z/bp35.mp4"
   },
-  "kaggle_submit": false
+  "note": "bp35 WIN 9/9 sealed from local environment_step run. Public suite ar25+ls20+bp35 CLOSED. No Kaggle.",
+  "recorded_at_utc": "2026-07-21T17:19:26Z"
 }

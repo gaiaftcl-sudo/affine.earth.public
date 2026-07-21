@@ -12,5 +12,6 @@
   "protocol": "fot_language_game",
   "recorded_at_utc": "2026-07-21T14:13:04Z",
   "repair_kind": "solver_owned",
-  "grammar_update": "Seal s1_fixed_canvas_template into reinjection CLOSED (was missing from state)."
+  "grammar_update": "Seal s1_fixed_canvas_template into reinjection CLOSED (was missing from state).",
+  "last_gate": "LOCKED"
 }

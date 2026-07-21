@@ -7,5 +7,6 @@
   "mastery_eval": "43/172",
   "grammar_path": "reports/exam_reinjection/grammar/arc2/s1_78332cb0_separator_block_unroll.json",
   "sealed_at_utc": "2026-07-21T15:40:57Z",
-  "kaggle_submit": false
+  "kaggle_submit": false,
+  "last_gate": "LOCKED"
 }

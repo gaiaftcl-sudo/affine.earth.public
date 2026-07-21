@@ -7,5 +7,6 @@
   "mastery_eval": "37/172",
   "grammar_path": "reports/exam_reinjection/grammar/arc2/s1_58f5dbd5_solid_motif_carve.json",
   "sealed_at_utc": "2026-07-21T15:17:00Z",
-  "kaggle_submit": false
+  "kaggle_submit": false,
+  "last_gate": "LOCKED"
 }

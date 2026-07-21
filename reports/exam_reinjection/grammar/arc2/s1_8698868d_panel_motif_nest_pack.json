@@ -8,16 +8,16 @@
   "train_replay": "2/2",
   "eval_grids": "1/1",
   "c4": {
-    "S1": "majority = background; non-bg components are objects",
-    "S2": "two sizes: larger panels, smaller motifs (equal count)",
-    "S3": "pair by panel bg-cell count == motif 4-conn bg-hole component count",
-    "S4": "solidify panel; center-stamp motif; arrange on panel bbox lattice",
-    "C4": "exact nest pack; train-replay gated"
+    "S1": "majority = background; non-bg same-color components are objects",
+    "S2": "larger equal-size class = panels; smaller equal-count class = motifs",
+    "S3": "pair by panel bg-cell count = motif 4-conn hole-component count",
+    "S4": "solidify panel; center-stamp motif; tile on panel bbox lattice",
+    "C4": "exact pack; train-replay gated"
   },
   "module": "llm_llvm_bench/arc/s1_panel_motif_nest_pack.py",
   "mastery_eval": "42/172",
   "mastery_train": "298/1076",
-  "sealed_at_utc": "2026-07-21T15:34:22Z",
+  "sealed_at_utc": "2026-07-21T15:35:03Z",
   "kaggle_submit": false,
-  "overlay": "reports/arc_local_20260721T153422Z/agi2/summary-overlay.json"
+  "overlay": "reports/arc_local_20260721T153500Z/agi2/summary-overlay.json"
 }
