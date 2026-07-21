@@ -1,0 +1,14 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T16:18:16.222993+00:00",
+  "base_eval_exact_grids": "50/172",
+  "overlay_eval_exact_grids": "52/172",
+  "delta_grids": 2,
+  "closed_task": "247ef758",
+  "engine": "s2_axis_glyph_stamp",
+  "train_replay": "3/3",
+  "labeled_eval": "2/2",
+  "train_floor": "298/1076",
+  "note": "overlay +axis_glyph_stamp 247ef758; prior 50/172 from 221dfab4; train floor 298/1076",
+  "kaggle_submit": false
+}

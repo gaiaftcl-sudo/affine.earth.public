@@ -1,0 +1,9 @@
+{
+  "task_id": "247ef758",
+  "engine": "s2_axis_glyph_stamp",
+  "status": "CLOSED",
+  "c4": "axis-glyph stamp at top/right color markers",
+  "train_replay": "3/3",
+  "labeled_eval": "2/2",
+  "module": "llm_llvm_bench/arc/s2_axis_glyph_stamp.py"
+}

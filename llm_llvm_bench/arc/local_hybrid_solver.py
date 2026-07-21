@@ -722,6 +722,27 @@ def solve_task(
         receipt["s2_marker_stripe_lattice_meta"] = ms_replay
         return ms_fragment, receipt
 
+    # 1b28) S2 axis-glyph stamp (247ef758).
+    s2ag = _load_module(
+        arc_dir / "s2_axis_glyph_stamp.py", "s2_axis_glyph_stamp"
+    )
+    ag_replay = s2ag.train_replay(task)
+    ag_fragment = s2ag.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(ag_replay)
+    if (
+        ag_fragment is not None
+        and ag_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in ag_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s2_axis_glyph_stamp"
+        receipt["train_replay"] = ag_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s2_axis_glyph_stamp_meta"] = ag_replay
+        return ag_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

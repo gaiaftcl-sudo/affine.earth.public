@@ -1,0 +1,24 @@
+{
+  "task_id": "247ef758",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S3_spatial_rewrite",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 2,
+  "engine": "s2_axis_glyph_stamp",
+  "observations": [
+    "Solid nonzero axis column; left glyphs stamp at top\u00d7right color markers",
+    "Source glyphs clear to 0; centered offsets",
+    "Train 3/3 labeled eval 2/2"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_3_3_eval_2_2",
+    "train_replay": "3/3",
+    "labeled_eval": "2/2"
+  },
+  "mastery_eval": "52/172",
+  "mastery_train": "298/1076"
+}
