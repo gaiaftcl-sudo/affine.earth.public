@@ -135,3 +135,16 @@ Without `ALLOW_KAGGLE_SUBMIT=1`, push exits 99. Lock stays.
 ## Git tip
 
 See `git rev-parse HEAD` after GaiaKey push. Prior readiness pack tip around `e848393` / `682eaa1`.
+
+## Notebooks-only path (post-400)
+
+Direct competitions submit refused: daily allowance + **Notebooks only**.
+
+| Track | Path |
+| --- | --- |
+| AGI-2 | `kaggle/airgap-notebooks/arc-agi-2/affine-agi2-airgap-submit.ipynb` |
+| AGI-3 | `kaggle/airgap-notebooks/arc-agi-3/affine-agi3-airgap-submit.ipynb` |
+
+Steward checklist + quota ETA: [`docs/KAGGLE_ARC_NOTEBOOK_SUBMIT.md`](KAGGLE_ARC_NOTEBOOK_SUBMIT.md).
+Reminder: `bin/remind-kaggle-notebook-submit.sh`.
+**Quota reset ETA:** ≈ **2026-07-21T23:57:04Z UTC**. Lock kept. No Keychain. HLE predict left running.
