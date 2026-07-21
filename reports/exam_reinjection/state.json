@@ -366,6 +366,25 @@
       "track": "hle",
       "turn_count": 8,
       "updated_at": "2026-07-21T14:34:50.783345+00:00"
+    },
+    "arc2:45a5af55": {
+      "engine": "s1_dimension_projection",
+      "last_c4": "Band concentric nest: full-width uniform row bands nest as concentric square frames; last band fills center; size=2*sum(t[:-1])+t[-1]; train-replay gated.",
+      "last_gate": "S4_LOCKED",
+      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/45a5af55.json",
+      "last_s4_status": "LOCKED",
+      "last_validator": "demonstration_replay+labeled_eval",
+      "last_validator_result": {
+        "accepted": true,
+        "detail": "local_solver_green",
+        "labeled_eval": "1/1",
+        "train_replay": "2/2"
+      },
+      "status": "CLOSED",
+      "task_id": "45a5af55",
+      "track": "arc2",
+      "turn_count": 1,
+      "updated_at": "2026-07-21T14:38:06.798201+00:00"
     }
   },
   "total_franklin_turns": 51

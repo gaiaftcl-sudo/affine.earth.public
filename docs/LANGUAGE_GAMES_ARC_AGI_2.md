@@ -195,6 +195,7 @@ train ice-on baseline remains **298/1076**). Lineage: 14/172 → **+2**
 | --- | --- | --- | --- |
 | marker-8 twin-S | `marker8_twin31` | 4/4 on `0934a4d8` | exact |
 | hollow/solid object pack | `s1_dimension_projection` | 4/4 on `2ba387bc` | exact |
+| band concentric nest | `s1_dimension_projection` | 2/2 on `45a5af55` | exact ×1 |
 | digit-separator snake | `s1_digit_separator_snake` | 3/3 on `136b0064` | exact |
 | seven-tab merge | `s1_seven_tab_merge` | 4/4 on `20270e3b` | exact ×2 |
 | panel odd-one-out | `s1_panel_odd_one_out` | 2/2 on `38007db0` | exact ×2 |
@@ -217,6 +218,14 @@ train ice-on baseline remains **298/1076**). Lineage: 14/172 → **+2**
 - **S3:** each partition sorted by source row; packed two columns wide.
 - **S4:** left = hollow, right = solid.
 - **C4:** exact packed grid; licensed only when every training pair replays.
+
+**S1 grammar (`band_concentric_nest` / `45a5af55`):**
+
+- **S1:** larger square output from full-width uniform row-band input.
+- **S2:** bands = maximal runs of identical solid rows `(color, thickness)`.
+- **S3:** each outer band becomes a concentric frame of the same thickness.
+- **S4:** last band fills the center; `size = 2*sum(t[:-1]) + t[-1]`.
+- **C4:** exact nest; train-replay gated (`2/2`, eval `1/1`).
 
 **S1 grammar (`digit_separator_snake` / `136b0064`):**
 

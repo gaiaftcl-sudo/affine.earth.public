@@ -1,6 +1,6 @@
 {
-  "eval_exact": "26/172",
-  "eval_pass": 26,
+  "eval_exact": "27/172",
+  "eval_pass": 27,
   "eval_total": 172,
   "base": "reports/arc_local_20260721T141241Z/agi2/local-evaluation-submission.json",
   "owned_hits": [
@@ -28,6 +28,11 @@
       "task_id": "142ca369",
       "engine": "s1_laser_mirror_beams",
       "grids": 2
+    },
+    {
+      "task_id": "16b78196",
+      "engine": "s3_separator_gap_stack",
+      "grids": 1
     },
     {
       "task_id": "1ae2feb7",
@@ -75,10 +80,10 @@
       "grids": 2
     },
     {
-      "task_id": "16b78196",
-      "engine": "s3_separator_gap_stack",
+      "task_id": "45a5af55",
+      "engine": "s1_dimension_projection",
       "grids": 1
     }
   ],
-  "note": "overlay +separator_gap_stack 16b78196; train 298/1076"
+  "note": "overlay +band_concentric_nest 45a5af55; train 298/1076"
 }

@@ -8,6 +8,13 @@ Grammar family owned here:
     S4: left column = hollow, right column = solid (2× object width).
     C4: exact packed rectangular grid licensed by full train replay.
 
+  band_concentric_nest (canonical: eval task 45a5af55)
+    S1: output is a larger square; input is full-width uniform row bands.
+    S2: bands = maximal runs of identical solid rows (color, thickness).
+    S3: outer bands become concentric frames (thickness preserved).
+    S4: last band fills the center; size = 2*sum(t[:-1]) + t[-1].
+    C4: exact nest licensed by full train replay.
+
 Never submits to Kaggle. Offline exact-match / local audit only.
 """
 
@@ -18,6 +25,67 @@ from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 Grid = List[List[int]]
 Transform = Callable[[Grid], Optional[Grid]]
+
+
+def _row_bands(grid: Grid) -> Optional[List[Tuple[int, int]]]:
+    """Return [(color, thickness), ...] for full-width uniform row runs."""
+    if not grid or not grid[0]:
+        return None
+    bands: List[Tuple[int, int]] = []
+    index = 0
+    height = len(grid)
+    while index < height:
+        row = grid[index]
+        if len(set(row)) != 1:
+            return None
+        color = row[0]
+        end = index + 1
+        while end < height and grid[end] == row:
+            end += 1
+        bands.append((color, end - index))
+        index = end
+    return bands
+
+
+def band_concentric_nest(grid: Grid) -> Optional[Grid]:
+    """Nest horizontal uniform bands as concentric square frames + center fill."""
+    bands = _row_bands(grid)
+    if bands is None or len(bands) < 2:
+        return None
+    outer = bands[:-1]
+    last_color, last_thickness = bands[-1]
+    size = 2 * sum(thickness for _, thickness in outer) + last_thickness
+    if size <= 0:
+        return None
+    out: Grid = [[0] * size for _ in range(size)]
+    r0 = c0 = 0
+    r1 = c1 = size - 1
+    for color, thickness in outer:
+        if thickness <= 0 or r0 + thickness - 1 > r1 or c0 + thickness - 1 > c1:
+            return None
+        for row in range(r0, r0 + thickness):
+            for col in range(c0, c1 + 1):
+                out[row][col] = color
+        for row in range(r1 - thickness + 1, r1 + 1):
+            for col in range(c0, c1 + 1):
+                out[row][col] = color
+        for row in range(r0, r1 + 1):
+            for col in range(c0, c0 + thickness):
+                out[row][col] = color
+            for col in range(c1 - thickness + 1, c1 + 1):
+                out[row][col] = color
+        r0 += thickness
+        r1 -= thickness
+        c0 += thickness
+        c1 -= thickness
+    if r0 > r1 or c0 > c1:
+        return None
+    if (r1 - r0 + 1) != last_thickness or (c1 - c0 + 1) != last_thickness:
+        return None
+    for row in range(r0, r1 + 1):
+        for col in range(c0, c1 + 1):
+            out[row][col] = last_color
+    return out
 
 
 def _background(grid: Grid) -> int:
@@ -120,7 +188,10 @@ def hollow_solid_object_pack(grid: Grid, bg: Optional[int] = None) -> Optional[G
 def named_candidates(train: Sequence[Dict[str, Any]]) -> List[Tuple[str, Transform]]:
     """Return dimension-projection candidates; caller enforces train replay."""
     _ = train  # reserved for train-conditioned variants
-    return [("hollow_solid_object_pack", hollow_solid_object_pack)]
+    return [
+        ("band_concentric_nest", band_concentric_nest),
+        ("hollow_solid_object_pack", hollow_solid_object_pack),
+    ]
 
 
 def exact_candidates(train: Sequence[Dict[str, Any]]) -> List[Tuple[str, Transform]]:
@@ -186,6 +257,7 @@ def applies(task: Dict[str, Any]) -> bool:
 
 __all__ = [
     "applies",
+    "band_concentric_nest",
     "exact_candidates",
     "hollow_solid_object_pack",
     "named_candidates",

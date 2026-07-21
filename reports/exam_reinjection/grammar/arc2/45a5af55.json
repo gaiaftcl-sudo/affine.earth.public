@@ -1,0 +1,22 @@
+{
+  "task_id": "45a5af55",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S1_dimension_projection",
+  "engine": "s1_dimension_projection",
+  "primary_transform": "band_concentric_nest",
+  "status": "CLOSED",
+  "train_replay": "2/2",
+  "eval_grids": "1/1",
+  "c4": {
+    "S1": "output is larger square; input is full-width uniform row bands",
+    "S2": "bands = maximal runs of identical solid rows (color, thickness)",
+    "S3": "outer bands become concentric frames (thickness preserved)",
+    "S4": "last band fills center; size = 2*sum(t[:-1]) + t[-1]",
+    "C4": "exact nest; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s1_dimension_projection.py",
+  "mastery_eval": "27/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T14:38:06Z",
+  "kaggle_submit": false
+}
