@@ -21,7 +21,7 @@ Requires `configs/NO_KAGGLE_SUBMIT.lock`.
 
 ## Cycle
 
-1. Load local fail receipts (ARC-2 failure cases, ARC-3 trajectory gap, HLE misses)
+1. Sync hybrid exact-match GREEN → `CLOSED` / `LOCAL_SOLVER_GREEN` (skip REINJECT); load open ARC-2 fails + S1/S3 queues, ARC-3 trajectory gap, HLE misses
 2. Franklin turn: UUM-8D + [S⁴ projection protocol](Franklin-S4-Projection-Language-Game) `WRAPPER_EVIDENCE` → typed S4 `LOCKED|REINJECT` JSON
 3. Local named validator fills `validator_result`; false `LOCKED` demotes to `REINJECT`
 4. Record grammar under `reports/exam_reinjection/grammar/`

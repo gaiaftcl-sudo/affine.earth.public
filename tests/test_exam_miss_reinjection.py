@@ -16,13 +16,16 @@ from llm_llvm_bench.exam.miss_reinjection import (
     ARISTOTELIAN_CLOSURE_TURNS,
     TRACK_ARC2,
     TRACK_HLE,
+    LoopState,
     MissRecord,
     acquire_writer_lock,
     apply_local_s4_validator,
+    discover_owned_hybrid_green,
     extract_json_object,
     load_fail_receipts,
     normalize_repair_payload,
     run_reinjection_cycle,
+    sync_local_solver_green,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -205,3 +208,37 @@ def test_dry_run_refused_when_live_lock_held(tmp_path: Path) -> None:
             mastery_mode="none",
             dry_run=True,
         )
+
+
+def test_sync_local_solver_green_closes_owned_exact() -> None:
+    owned = discover_owned_hybrid_green(ROOT)
+    assert "136b0064" in owned
+    assert owned["136b0064"]["engine"] == "s1_digit_separator_snake"
+    assert "135a2760" in owned
+    state = LoopState(
+        tasks={
+            "arc2:136b0064": {
+                "track": "arc2",
+                "task_id": "136b0064",
+                "status": "HEALING",
+                "last_c4": "REINJECT:slice",
+                "last_gate": "S4_REINJECT",
+                "turn_count": 3,
+            }
+        }
+    )
+    skipped = sync_local_solver_green(state, ROOT)
+    assert "arc2:136b0064" in skipped
+    task = state.tasks["arc2:136b0064"]
+    assert task["status"] == "CLOSED"
+    assert task["engine"] == "s1_digit_separator_snake"
+    assert not str(task["last_c4"]).startswith("REINJECT")
+    assert task["last_gate"] in {"LOCAL_SOLVER_GREEN", "S4_LOCKED"}
+
+
+def test_load_arc2_skips_owned_green_and_dedupes() -> None:
+    misses = load_fail_receipts(ROOT, tracks=(TRACK_ARC2,), per_track_limit=6)
+    ids = [m.task_id for m in misses]
+    assert "136b0064" not in ids
+    assert "135a2760" not in ids
+    assert len(ids) == len(set(ids))

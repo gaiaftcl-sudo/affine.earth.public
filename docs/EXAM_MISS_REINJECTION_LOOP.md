@@ -26,8 +26,9 @@ to one C4, within an **Aristotelian closure budget of 29 turns** per task.
 
 ## Loop steps (every cycle)
 
-1. **Load local fail receipts**
-   - ARC-AGI-2: latest `reports/arc_local_*/agi2/failure-case-analyses.json`
+1. **Sync local hybrid GREEN, then load open fail receipts**
+   - Close owned exact-match engines (`LOCAL_SOLVER_GREEN` / `S4_LOCKED`) so the daemon never REINJECTs solved tasks
+   - ARC-AGI-2: latest `failure-case-analyses.json` (skip GREEN) + S1/S3 `arc_agi2_*_miss_queue.jsonl` open tails
    - ARC-AGI-3: `agi3/summary.json` trajectory gap + episode traces
    - HLE: latest `reports/hle_local_*/receipt.json` mismatches (and official-gate open marker)
 2. **Open a Franklin turn** with UUM-8D baseline +

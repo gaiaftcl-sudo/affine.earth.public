@@ -1,9 +1,11 @@
 {
   "aristotelian_closure_turns": 29,
-  "closed_tasks": 0,
-  "cycle": 3,
+  "base_url": "http://127.0.0.1:8080/v1",
+  "closed_tasks": 7,
+  "cycle": 7,
   "dead_end_tasks": 0,
-  "dry_run": true,
+  "dry_run": false,
+  "fallback_base_url": "http://127.0.0.1:1234/v1",
   "kaggle_submit": false,
   "kind": "exam_miss_reinjection_cycle",
   "mastery": {
@@ -11,60 +13,169 @@
     "ran": false
   },
   "mastery_mode": "none",
-  "misses_actioned": 4,
-  "misses_loaded": 4,
+  "max_tokens": 2048,
+  "misses_actioned": 1,
+  "misses_loaded": 1,
   "no_kaggle_submit_lock": true,
-  "open_tasks": 8,
-  "recorded_at_utc": "2026-07-21T13:25:26.359073+00:00",
+  "open_tasks": 7,
+  "recorded_at_utc": "2026-07-21T13:58:20.340375+00:00",
   "rows": [
     {
-      "c4_invariant": "DRY_RUN",
+      "c4_invariant": "REINJECT:{\"grid\": [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8], [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 8], [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 8], [1, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 8], [1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 8], [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 8], [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 8], [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 8]], \"shape\": [8, 12]}",
+      "dry_run": false,
       "error": null,
       "franklin_ok": true,
-      "gate": "FRANKLIN_OK",
-      "grammar_path": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/agi3-trajectory-gap.json",
+      "gate": "S4_REINJECT",
+      "grammar_path": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc2/13e47133.json",
+      "s4_status": "REINJECT",
       "status": "HEALING",
-      "task_id": "agi3-trajectory-gap",
-      "track": "arc3",
-      "turn_count": 2
-    },
-    {
-      "c4_invariant": "DRY_RUN",
-      "error": null,
-      "franklin_ok": true,
-      "gate": "FRANKLIN_OK",
-      "grammar_path": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/ar25.json",
-      "status": "HEALING",
-      "task_id": "ar25",
-      "track": "arc3",
-      "turn_count": 1
-    },
-    {
-      "c4_invariant": "DRY_RUN",
-      "error": null,
-      "franklin_ok": true,
-      "gate": "FRANKLIN_OK",
-      "grammar_path": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/bp35.json",
-      "status": "HEALING",
-      "task_id": "bp35",
-      "track": "arc3",
-      "turn_count": 1
-    },
-    {
-      "c4_invariant": "DRY_RUN",
-      "error": null,
-      "franklin_ok": true,
-      "gate": "FRANKLIN_OK",
-      "grammar_path": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/ls20.json",
-      "status": "HEALING",
-      "task_id": "ls20",
-      "track": "arc3",
-      "turn_count": 1
+      "task_id": "13e47133",
+      "track": "arc2",
+      "turn_count": 3,
+      "typed_candidate": {
+        "grid": [
+          [
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            8
+          ],
+          [
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            8
+          ],
+          [
+            1,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            2,
+            1,
+            8
+          ],
+          [
+            1,
+            2,
+            1,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            2,
+            1,
+            8
+          ],
+          [
+            1,
+            2,
+            1,
+            2,
+            1,
+            1,
+            1,
+            2,
+            1,
+            2,
+            1,
+            8
+          ],
+          [
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            8
+          ],
+          [
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            8
+          ],
+          [
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            2,
+            1,
+            8
+          ]
+        ],
+        "shape": [
+          8,
+          12
+        ]
+      },
+      "validator": "demonstration_replay",
+      "validator_result": {
+        "accepted": false,
+        "detail": "franklin_reinject_with_candidate",
+        "ran": true,
+        "status": "REINJECT",
+        "validator": "demonstration_replay"
+      }
     }
   ],
+  "solver_green_skipped": [
+    "arc2:0934a4d8",
+    "arc2:2ba387bc",
+    "arc2:135a2760",
+    "arc2:1ae2feb7",
+    "arc2:136b0064",
+    "arc2:20270e3b",
+    "arc2:38007db0"
+  ],
   "state_dir": "reports/exam_reinjection",
-  "total_franklin_turns": 12,
+  "timeout": 300,
+  "total_franklin_turns": 21,
   "tracks": [
-    "arc3"
-  ]
+    "arc2"
+  ],
+  "writer_pid": 63129
 }

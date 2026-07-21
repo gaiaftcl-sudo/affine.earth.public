@@ -18,7 +18,7 @@ import time
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Any, Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
 import requests
 
@@ -162,47 +162,227 @@ def _latest_dir(pattern_glob: str, root: Path) -> Optional[Path]:
     return candidates[0] if candidates else None
 
 
-def load_arc2_fails(root: Path, limit: int) -> List[MissRecord]:
-    report = _latest_dir("reports/arc_local_*", root)
-    if report is None:
-        return []
-    path = report / "agi2" / "failure-case-analyses.json"
-    if not path.is_file():
-        # Also accept audit / quality trial layouts.
-        alt = list(root.glob("reports/arc_local_*/agi2/failure-case-analyses.json"))
-        if not alt:
-            return []
-        path = max(alt, key=lambda p: p.stat().st_mtime)
-    cases = json.loads(path.read_text(encoding="utf-8"))
+def discover_owned_hybrid_green(root: Path) -> Dict[str, Dict[str, Any]]:
+    """Map ARC-AGI-2 task_id → owned hybrid engine with local exact-match GREEN.
+
+    Sources (newest overlay / GREEN receipts win): summary-overlay owned_exact
+    rows and per-task receipts with eval_tick / labeled_eval 1/1.
+    """
+    owned: Dict[str, Dict[str, Any]] = {}
+    overlays = sorted(
+        root.glob("reports/arc_local_*/agi2/summary-overlay.json"),
+        key=lambda p: p.stat().st_mtime,
+    )
+    for path in overlays:
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        for row in (data.get("evaluation") or {}).get("owned_exact") or []:
+            task_id = str(row.get("task_id") or "")
+            engine = str(row.get("engine") or "").strip()
+            if not task_id or not engine:
+                continue
+            owned[task_id] = {
+                "engine": engine,
+                "source": _rel(root, path),
+                "labeled_eval": "owned_exact",
+            }
+    receipts = sorted(
+        root.glob("reports/arc_local_*/agi2/*-receipt.json"),
+        key=lambda p: p.stat().st_mtime,
+    )
+    for path in receipts:
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        engine = str(data.get("engine") or "").strip()
+        task_id = str(data.get("task_id") or path.stem.replace("-receipt", ""))
+        labeled = str(data.get("labeled_eval") or "")
+        green = bool(data.get("eval_tick") is True) or labeled.startswith("1/")
+        if not task_id or not engine or not green:
+            continue
+        owned[task_id] = {
+            "engine": engine,
+            "source": _rel(root, path),
+            "labeled_eval": labeled or "eval_tick",
+            "train_replay": data.get("train_replay"),
+            "s4_status": data.get("s4_status"),
+            "corrected_c4": data.get("corrected_c4"),
+        }
+    return owned
+
+
+def sync_local_solver_green(state: LoopState, root: Path) -> List[str]:
+    """Close hybrid exact-match GREEN tasks so the daemon never REINJECTs them.
+
+    Sets status CLOSED with last_c4 = owned grammar/engine name and
+    last_gate = LOCAL_SOLVER_GREEN (or S4_LOCKED when a prior validator lock
+    already accepted). Returns closed task keys.
+    """
+    closed_keys: List[str] = []
+    for task_id, meta in discover_owned_hybrid_green(root).items():
+        key = f"{TRACK_ARC2}:{task_id}"
+        engine = str(meta.get("engine") or "").strip()
+        if not engine:
+            continue
+        task = state.tasks.get(key) or {
+            "track": TRACK_ARC2,
+            "task_id": task_id,
+            "turn_count": 0,
+        }
+        prior_gate = str(task.get("last_gate") or "")
+        prior_c4 = str(task.get("last_c4") or "")
+        validator_ok = bool((task.get("last_validator_result") or {}).get("accepted"))
+        receipt_locked = str(meta.get("s4_status") or "") == S4_STATUS_LOCKED
+        if prior_gate == "S4_LOCKED" and validator_ok:
+            gate = "S4_LOCKED"
+        elif receipt_locked and meta.get("corrected_c4"):
+            gate = "S4_LOCKED"
+        else:
+            gate = "LOCAL_SOLVER_GREEN"
+        if gate == "S4_LOCKED" and prior_c4 and not prior_c4.startswith("REINJECT"):
+            c4 = prior_c4
+        elif meta.get("corrected_c4"):
+            c4 = str(meta["corrected_c4"])
+        else:
+            c4 = engine
+        task.update(
+            {
+                "track": TRACK_ARC2,
+                "task_id": task_id,
+                "status": "CLOSED",
+                "engine": engine,
+                "last_c4": c4,
+                "last_gate": gate,
+                "last_s4_status": S4_STATUS_LOCKED
+                if gate == "S4_LOCKED"
+                else task.get("last_s4_status") or S4_STATUS_LOCKED,
+                "updated_at": utc_now(),
+            }
+        )
+        if meta.get("labeled_eval") or meta.get("train_replay"):
+            task["last_validator"] = task.get("last_validator") or "local_hybrid_exact"
+            task["last_validator_result"] = {
+                "accepted": True,
+                "labeled_eval": meta.get("labeled_eval"),
+                "train_replay": meta.get("train_replay"),
+                "detail": "local_solver_green_skip",
+            }
+        state.tasks[key] = task
+        closed_keys.append(key)
+    return closed_keys
+
+
+def _task_is_closed(task: Mapping[str, Any]) -> bool:
+    return str(task.get("status") or "") in {"CLOSED", "HEALED"}
+
+
+def _load_arc2_queue_misses(
+    root: Path, *, skip_ids: Iterable[str], limit: int
+) -> List[MissRecord]:
+    """Pull next open ARC-2 misses from S1/S3 reinjection queues."""
+    skip = set(skip_ids)
+    seen: set[str] = set()
     misses: List[MissRecord] = []
-    for case in cases:
-        if case.get("attempt_1_exact") and case.get("attempt_2_exact"):
+    queue_paths = [
+        root / "reports" / "exam_reinjection" / "arc_agi2_s3_miss_queue.jsonl",
+        root / "reports" / "exam_reinjection" / "arc_agi2_s1_miss_queue.jsonl",
+    ]
+    for path in queue_paths:
+        if not path.is_file():
             continue
-        task_id = str(case.get("task_id") or "")
-        if not task_id:
-            continue
-        misses.append(
-            MissRecord(
-                track=TRACK_ARC2,
-                task_id=task_id,
-                evidence={
-                    "test_index": case.get("test_index"),
-                    "attempt_1_exact": case.get("attempt_1_exact"),
-                    "attempt_2_exact": case.get("attempt_2_exact"),
-                    "expected_shape": case.get("expected_shape"),
-                    "attempt_1_shape": case.get("attempt_1_shape"),
-                    "train_pairs": case.get("train_pairs"),
-                    "attempt_1_preview": case.get("attempt_1_preview"),
-                    "expected_preview": case.get("expected_preview"),
-                },
-                source_path=str(path.relative_to(root)),
-                s_state="incomplete",
-                drift_kind="understanding drift",
+        with path.open(encoding="utf-8") as handle:
+            for line in handle:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    row = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                task_id = str(row.get("task_id") or "")
+                if not task_id or task_id in skip or task_id in seen:
+                    continue
+                seen.add(task_id)
+                misses.append(
+                    MissRecord(
+                        track=TRACK_ARC2,
+                        task_id=task_id,
+                        evidence={
+                            "test_index": row.get("test_index"),
+                            "expected_shape": row.get("expected_shape"),
+                            "input_shape": row.get("input_shape"),
+                            "invariant": row.get("invariant"),
+                            "language_game_class": row.get("language_game_class"),
+                            "ask": row.get("ask"),
+                            "note": row.get("note"),
+                        },
+                        source_path=_rel(root, path),
+                        s_state="incomplete",
+                        drift_kind="understanding drift",
+                    )
+                )
+                if len(misses) >= limit:
+                    return misses
+    return misses
+
+
+def load_arc2_fails(root: Path, limit: int) -> List[MissRecord]:
+    owned_green = set(discover_owned_hybrid_green(root))
+    report = _latest_dir("reports/arc_local_*", root)
+    path: Optional[Path] = None
+    if report is not None:
+        candidate = report / "agi2" / "failure-case-analyses.json"
+        if candidate.is_file():
+            path = candidate
+    if path is None:
+        alt = list(root.glob("reports/arc_local_*/agi2/failure-case-analyses.json"))
+        if alt:
+            path = max(alt, key=lambda p: p.stat().st_mtime)
+    misses: List[MissRecord] = []
+    seen: set[str] = set()
+    if path is not None and path.is_file():
+        cases = json.loads(path.read_text(encoding="utf-8"))
+        for case in cases:
+            if case.get("attempt_1_exact") and case.get("attempt_2_exact"):
+                continue
+            task_id = str(case.get("task_id") or "")
+            if not task_id or task_id in owned_green or task_id in seen:
+                continue
+            seen.add(task_id)
+            misses.append(
+                MissRecord(
+                    track=TRACK_ARC2,
+                    task_id=task_id,
+                    evidence={
+                        "test_index": case.get("test_index"),
+                        "attempt_1_exact": case.get("attempt_1_exact"),
+                        "attempt_2_exact": case.get("attempt_2_exact"),
+                        "expected_shape": case.get("expected_shape"),
+                        "attempt_1_shape": case.get("attempt_1_shape"),
+                        "train_pairs": case.get("train_pairs"),
+                        "attempt_1_preview": case.get("attempt_1_preview"),
+                        "expected_preview": case.get("expected_preview"),
+                    },
+                    source_path=str(path.relative_to(root)),
+                    s_state="incomplete",
+                    drift_kind="understanding drift",
+                )
+            )
+            if len(misses) >= limit:
+                return misses
+    # Fill remaining slots from S1/S3 open queues (already-solved engines skipped).
+    if len(misses) < limit:
+        misses.extend(
+            _load_arc2_queue_misses(
+                root,
+                skip_ids=owned_green | seen,
+                limit=limit - len(misses),
             )
         )
-        if len(misses) >= limit:
-            break
-    return misses
+    return misses[:limit]
 
 
 def load_arc3_fails(root: Path, limit: int) -> List[MissRecord]:
@@ -1337,17 +1517,26 @@ def apply_gate_after_mastery(
     task = _task_state(state, miss)
     track_result = (mastery.get("tracks") or {}).get(miss.track)
     closed = False
+    accepted_engine = ""
     if miss.track == TRACK_ARC2 and isinstance(track_result, dict):
         task_res = (track_result.get("tasks") or {}).get(miss.task_id) or {}
         closed = bool(task_res.get("exact_match"))
+        accepted_engine = str(task_res.get("accepted_engine") or "").strip()
     elif miss.track == TRACK_HLE and isinstance(track_result, dict):
         closed = miss.task_id in (track_result.get("matched_requested") or [])
     elif miss.track == TRACK_ARC3 and isinstance(track_result, dict):
         # Schema green alone does not close mastery; keep HEALING.
         closed = False
     if closed:
+        engine = accepted_engine or str(task.get("engine") or "").strip()
         task["status"] = "CLOSED"
         task["last_gate"] = "LOCAL_MASTERY_CLOSED"
+        if engine:
+            task["engine"] = engine
+            if not str(task.get("last_c4") or "").strip() or str(
+                task.get("last_c4") or ""
+            ).startswith("REINJECT"):
+                task["last_c4"] = engine
         task["updated_at"] = utc_now()
         return "LOCAL_MASTERY_CLOSED"
     task["status"] = "HEALING"
@@ -1375,13 +1564,19 @@ def run_reinjection_cycle(
     acquire_writer_lock(state_dir, dry_run=dry_run)
     try:
         state = load_state(state_dir)
+        # Seal local hybrid GREEN before drain so solved tasks never burn Franklin.
+        solver_skipped = sync_local_solver_green(state, root)
         misses = load_fail_receipts(root, tracks=tracks, per_track_limit=per_track_limit)
 
         # Prefer non-closed, non-dead-end tasks; rotate DEAD_END after logging.
         actionable: List[MissRecord] = []
+        seen_keys: set[str] = set()
         for miss in misses:
+            if miss.key in seen_keys:
+                continue
+            seen_keys.add(miss.key)
             task = _task_state(state, miss)
-            if task.get("status") == "CLOSED":
+            if _task_is_closed(task) or task.get("status") == "DEAD_END":
                 continue
             actionable.append(miss)
 
@@ -1450,11 +1645,12 @@ def run_reinjection_cycle(
             ),
             "rows": cycle_rows,
             "mastery": mastery,
+            "solver_green_skipped": solver_skipped,
             "open_tasks": sum(
                 1 for t in state.tasks.values() if t.get("status") in {"OPEN", "HEALING"}
             ),
             "closed_tasks": sum(
-                1 for t in state.tasks.values() if t.get("status") == "CLOSED"
+                1 for t in state.tasks.values() if _task_is_closed(t)
             ),
             "dead_end_tasks": sum(
                 1 for t in state.tasks.values() if t.get("status") == "DEAD_END"
