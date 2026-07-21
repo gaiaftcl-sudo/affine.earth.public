@@ -1,0 +1,11 @@
+{
+  "depth": 2,
+  "engine": "arc-icecuber-STUB",
+  "exact_grids": 0,
+  "exact_rate": 0.0,
+  "license": "verify-only",
+  "sample_count": 172,
+  "verdicts": {
+    "stub": true
+  }
+}

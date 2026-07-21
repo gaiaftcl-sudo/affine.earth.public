@@ -3,30 +3,46 @@
 Local mastery artifacts are schema-valid and independently scored.
 `configs/NO_KAGGLE_SUBMIT.lock` remains in force.
 
-**DO NOT submit to Kaggle until the steward explicitly unlocks.**
+**DO NOT submit to Kaggle until the steward explicitly says to unlock.**
+Agents must not remove the lock file. Env override only when steward orders it.
 
 ## Verified scores
 
 | Track | Metric | Result | Receipt |
 | --- | --- | --- | --- |
-| ARC-AGI-2 | labeled eval exact grids | **172/172** | `reports/arc_local_20260721T172649Z/VERIFY_RECEIPT.json` |
-| ARC-AGI-3 | public suite levels / WIN | **bp35 9/9 · ar25 8/8 · ls20 7/7** (`win_terminals=3`) | `reports/arc_agi3_verify_20260721T171426Z/VERIFY_RECEIPT.json` |
+| ARC-AGI-2 | labeled eval exact grids | **172/172** | `reports/arc_local_20260721T172649Z/VERIFY_RECEIPT.json` · `reports/exam_reinjection/agi2_172_verify.json` |
+| ARC-AGI-2 reinjection | grammar CLOSED | **120/120** | tip close-loop `95d7b89` |
+| ARC-AGI-3 | public suite levels / WIN | **bp35 9/9 · ar25 8/8 · ls20 7/7** (`win_terminals=3`) | `reports/arc_agi3_verify_20260721T171426Z/VERIFY_RECEIPT.json` · `reports/arc_local_20260721T171426Z/README.md` |
 
-- AGI-2 scored against `data/arc-prize-2026-agi-2/arc-agi_evaluation_solutions.json`
-- AGI-2 schema: `python3 scripts/validate_arc_prize_submission.py …/submission.json --challenges data/arc-prize-2026-agi-2/arc-agi_evaluation_challenges.json` → **PASS** (120 tasks, 172 test inputs, two attempts each)
-- AGI-3 schema: `python3 scripts/validate_arc_agi3_submission.py …/submission.parquet` → **PASS** (3 rows)
+- AGI-2 scored against `data/arc-prize-2026-agi-2/arc-agi_evaluation_solutions.json` → **172/172**, `misses=[]`
+- AGI-2 schema: `scripts/validate_arc_prize_submission.py` vs evaluation challenges → **PASS** (120 tasks / 172 test inputs, two attempts each)
+- AGI-3 schema: `scripts/validate_arc_agi3_submission.py` → **PASS** (3 rows; scores 9/8/7; `end_of_game=true`)
 
 ## Artifact paths
 
-| Track | Artifact |
-| --- | --- |
-| ARC-AGI-2 `submission.json` | `reports/arc_local_20260721T172649Z/agi2/submission.json` |
-| ARC-AGI-3 `submission.parquet` | `reports/arc_local_20260721T171426Z/submission.parquet` |
-| Lock | `configs/NO_KAGGLE_SUBMIT.lock` |
+| Track | Artifact | SHA-256 |
+| --- | --- | --- |
+| ARC-AGI-2 `submission.json` | `reports/arc_local_20260721T172649Z/agi2/submission.json` | `3e27792b45d4f186ca436d042841c7db5a7164e71a4a018da1b01a894719e082` |
+| ARC-AGI-3 `submission.parquet` | `reports/arc_local_20260721T171426Z/submission.parquet` | `9ffc90cee088b086e5d2539abee76b77346191666a657dd63dbf3cf0de340c73` |
+| Lock | `configs/NO_KAGGLE_SUBMIT.lock` | `f22461e650b7dd6e112313df6806205462c1809d45b906d9711971c04785317f` |
 
-Land SHAs (history): AGI-2 close `21b2924`; AGI-3 re-verify `41f190d`. Tip updates when this doc lands.
+## Git SHAs
+
+| Role | SHA |
+| --- | --- |
+| Tip (this seal) | `2435920` |
+| AGI-2 land (172/172 COMPLETE) | `21b2924` |
+| Reinjection CLOSED 120/120 + bp35 9/9 | `95d7b89` |
+| AGI-3 independent triad re-verify | `41f190d` |
 
 ## Steward unlock (env override only — do not delete the lock)
+
+One-liner pattern (steward only):
+
+```bash
+ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh \
+  -c <competition> -f <artifact> -m "<message>"
+```
 
 AGI-2:
 
@@ -46,8 +62,10 @@ ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh \
   -m "local suite WIN bp35 9/9 ar25 8/8 ls20 7/7"
 ```
 
+Without `ALLOW_KAGGLE_SUBMIT=1`, `bin/kaggle-submit-guard.sh` exits 99.
+
 ## HLE (orthogonal; not a submit gate)
 
-Official harness in flight under `reports/hle_official_20260721T143509Z/` +
-`harnesses/hle/hle_eval/hle_qwen3.6-35b-a3b.json`. Babysit stays up until
-preds complete and `official_hle_accuracy.receipt.json` appears.
+Official harness **still running**: `reports/hle_official_20260721T143509Z/`
+— babysit last: **658/2500** preds, `judged=0`, `acc=null` (2026-07-21T17:28:40Z).
+Accuracy written only when preds finish and `official_hle_accuracy.receipt.json` appears.

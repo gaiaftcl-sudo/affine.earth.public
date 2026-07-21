@@ -1,0 +1,11 @@
+{
+  "kind": "agi2_eval_overlay",
+  "independent_verify": true,
+  "overlay_eval_exact_grids": "172/172",
+  "sha": "6d3a705601e4b22429add32409c6c81523896947",
+  "land_sha": "21b2924",
+  "submission_artifact": null,
+  "kaggle_submit": false,
+  "recorded_at_utc": null,
+  "note": "Independent re-verify CLOSED 172/172. No Kaggle."
+}
