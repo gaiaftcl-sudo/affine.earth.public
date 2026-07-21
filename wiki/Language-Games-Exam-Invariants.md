@@ -16,6 +16,13 @@ These pages explain contracts and readiness checks. They do not invent scores.
 — immutable root system instruction for HLE / ARC-AGI language games
 (constraint-satisfaction / Jordan bond; not probabilistic guessing).
 
+**Permanent miss → reinject → closure loop:**
+[Exam Miss → Reinject → Closure](Exam-Miss-Reinjection-Loop) —
+`bin/run-exam-reinjection-loop.sh` loads local fail receipts, opens Franklin
+turns for S1–S4 repair + C4 lock, re-runs local mastery, and logs progress
+toward 29-turn Aristotelian closure. Never idles. Never Kaggle-submits.
+Doctrine: [`docs/EXAM_MISS_REINJECTION_LOOP.md`](../docs/EXAM_MISS_REINJECTION_LOOP.md).
+
 ## One game, three answer languages
 
 ```text

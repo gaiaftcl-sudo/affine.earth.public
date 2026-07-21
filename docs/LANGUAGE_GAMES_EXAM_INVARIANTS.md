@@ -14,6 +14,12 @@ the emitted artifact before any public action. They are not score reports.
 **Franklin absolute execution baseline:**
 [FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md](FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md).
 
+**Permanent miss → reinject → closure loop:**
+[EXAM_MISS_REINJECTION_LOOP.md](EXAM_MISS_REINJECTION_LOOP.md) —
+`bin/run-exam-reinjection-loop.sh` (daemon-friendly). Loads ARC-2/3 + HLE fail
+receipts, Franklin S1–S4/C4 repair, local mastery retest, 29-turn Aristotelian
+turn log. No Kaggle submit.
+
 ## The common language game
 
 Every exam is a controlled exchange with four roles:

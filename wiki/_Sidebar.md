@@ -14,6 +14,7 @@
   - Format **GREEN** · eval **1/172** · train **298/1076** · probe **0.00** · submit **LOCKED** · `arc_local_20260721T110813Z` (`db71c28`)
 - [**Kaggle ARC top-score formats**](Kaggle-ARC-Top-Score-Formats)
 - [**Exam language-game invariants**](Language-Games-Exam-Invariants)
+  - [Exam miss → reinject → closure](Exam-Miss-Reinjection-Loop)
   - [ARC-AGI-2 language game](Language-Games-ARC-AGI-2)
   - [ARC UI audit orchestrator](ARC-UI-Audit-Orchestrator)
   - [ARC-AGI-3 language game](Language-Games-ARC-AGI-3)
