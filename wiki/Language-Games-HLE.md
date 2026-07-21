@@ -153,15 +153,26 @@ Receipts land in `reports/hle_local_<UTC>/` (example:
   gate supplies the corrected local C4 answer, Franklin re-reads the original
   contract, and the second answer is independently checked.
 
-Measured baseline local drill on loopback `qwen/qwen3.6-35b-a3b`: fixture
-matches 3/3 on v1, `official_hle_accuracy=null`,
-`official_claim_permitted=false`, `hf_token_status=absent`,
-`keychain_accessed=false`.
+Measured continuous local drill on loopback `qwen/qwen3.6-35b-a3b`
+(`reports/hle_local_continuous_20260721T133500Z/receipt.json`, fixture set v2,
+12 items):
+
+| Metric | Value | Official? |
+| --- | --- | --- |
+| `initial_local_fixture_match_ratio` | 8/12 = 0.667 | no |
+| `local_fixture_match_ratio_after_reinjection` | **12/12 = 1.0** | no |
+| `official_hle_accuracy` | `null` | — |
+| `hf_token_status` | `absent` | — |
+| `official_claim_permitted` | `false` | — |
+
+Local drills are GREEN after Franklin miss→C4 reinjection. This is **not** CAIS
+Accuracy.
 
 ### Official gate (2026-07-21)
 
-`HF_TOKEN` is **absent** in the process environment. No Keychain read is
-performed. Official `cais/hle` smoke+judge remains blocked. Gate-open receipt:
+`HF_TOKEN` is **absent** in the process environment (probed via `printenv` /
+process env only; no Keychain). Official `cais/hle` smoke+judge remains blocked.
+Gate-open receipt:
 `reports/exam_reinjection/grammar/hle/hle-official-gate-open.json`.
 Until the token appears, local fixture grammar and miss-reinjection continue;
 `official_hle_accuracy` stays null.

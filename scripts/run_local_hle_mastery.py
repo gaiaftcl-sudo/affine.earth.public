@@ -210,13 +210,17 @@ def message_for(fixture: dict[str, Any]) -> list[dict[str, str]]:
         },
         {
             "role": "user",
+            # Empty think close steers Qwen thinking models to emit content JSON
+            # before exhausting max_tokens on reasoning-only completions.
             "content": (
+                "<think>\n</think>\n"
                 f"question_id: {fixture['id']}\n"
                 f"dataset_revision: {DATASET_REVISION}\n"
                 f"move_type: {fixture['move_type']}\n"
                 f"answer_format: {fixture['answer_format']}\n"
                 f"question: {fixture['question']}{choice_text}\n"
                 f"modality_note: {modality_note}\n"
+                "Emit the JSON object first. "
                 "If answer_format is option_letter, answer with the letter only. "
                 "If answer_format is exact_token, answer with the token only."
             ),
@@ -228,11 +232,14 @@ def parse_model_message(message: dict[str, Any]) -> tuple[str, str, str, str]:
     content = str(message.get("content") or "").strip()
     reasoning = str(message.get("reasoning_content") or "").strip()
     parsed = extract_json_object(content) or extract_json_object(reasoning) or {}
+    answer = str(parsed.get("answer", "")).strip()
+    if not answer and content and not content.startswith("{"):
+        answer = content
     return (
         str(parsed.get("question_id", "")).strip(),
         str(parsed.get("context", "")).strip(),
         str(parsed.get("answer_format", "")).strip(),
-        str(parsed.get("answer", "")).strip() or content,
+        answer,
     )
 
 
@@ -257,17 +264,45 @@ def run_fixture(
         }
     ]
     started = time.perf_counter()
-    response = session.post(
-        f"{base_url}/chat/completions",
-        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-        json={
-            "model": model,
-            "messages": message_for(fixture),
-            "temperature": 0,
-            "max_tokens": max_tokens,
-        },
-        timeout=timeout,
-    )
+    try:
+        response = session.post(
+            f"{base_url}/chat/completions",
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            json={
+                "model": model,
+                "messages": message_for(fixture),
+                "temperature": 0,
+                "max_tokens": max_tokens,
+            },
+            timeout=timeout,
+        )
+    except requests.RequestException as exc:
+        elapsed_ms = round((time.perf_counter() - started) * 1000, 2)
+        turns.append(
+            {
+                "turn_index": 1,
+                "turn_kind": "GATE",
+                "actor_role": "gate",
+                "gate_verdict": "TRANSPORT_ERROR",
+                "detail": str(exc)[:500],
+            }
+        )
+        return {
+            "id": fixture["id"],
+            "move_type": fixture["move_type"],
+            "answer_format": fixture["answer_format"],
+            "expected": fixture["expected"],
+            "answer": "",
+            "context": "",
+            "identity_bound": False,
+            "format_ok": False,
+            "matched": False,
+            "elapsed_ms": elapsed_ms,
+            "raw_response": "",
+            "turns": turns,
+            "error": f"TRANSPORT:{exc.__class__.__name__}",
+            "modality": fixture.get("modality"),
+        }
     elapsed_ms = round((time.perf_counter() - started) * 1000, 2)
     if not response.ok:
         turns.append(
@@ -475,11 +510,83 @@ def apply_reinjection_turns(
         result["matched"] = True
 
 
+def write_receipt(
+    output_dir: Path,
+    *,
+    results: list[dict[str, Any]],
+    base_url: str,
+    model: str,
+    model_ids: list[Any],
+    hf_status: str,
+) -> tuple[Path, Path, dict[str, Any]]:
+    matched = sum(1 for item in results if item["matched"])
+    initial_matched = sum(1 for item in results if item.get("initial_matched"))
+    reinjected = sum(
+        1 for item in results if (item.get("reinjection") or {}).get("attempted")
+    )
+    identity_ok = sum(1 for item in results if item.get("identity_bound"))
+    format_ok = sum(1 for item in results if item.get("format_ok"))
+    n = max(len(results), 1)
+    receipt = {
+        "kind": "synthetic_hle_language_game_drill",
+        "doctrine_refs": [
+            "docs/LANGUAGE_GAMES_HLE.md",
+            "docs/LANGUAGE_GAMES_EXAM_INVARIANTS.md",
+            "wiki/Language-Games-HLE.md",
+        ],
+        "recorded_at_utc": datetime.now(timezone.utc).isoformat(),
+        "dataset_revision": DATASET_REVISION,
+        "endpoint": base_url.rstrip("/"),
+        "model": model,
+        "endpoint_models": model_ids,
+        "fixture_count": len(results),
+        "initial_matched_fixture_count": initial_matched,
+        "matched_fixture_count": matched,
+        "reinjection_attempt_count": reinjected,
+        "identity_bound_count": identity_ok,
+        "format_ok_count": format_ok,
+        "initial_local_fixture_match_ratio": initial_matched / n,
+        "local_fixture_match_ratio_after_reinjection": matched / n,
+        "official_hle_accuracy": None,
+        "official_hle_calibration": None,
+        "official_hle_judge_output": None,
+        "official_claim_permitted": False,
+        "hf_token_status": hf_status,
+        "keychain_accessed": False,
+        "notes": [
+            "Fixtures are authored locally and are not cais/hle prompts.",
+            "Both local fixture ratios are local evidence only (invariant 5).",
+            "official_hle_accuracy remains null until CAIS judge output exists.",
+            "The multimodal fixture records a modality capability stub, not an image score.",
+            "A local miss triggers one recorded Franklin reread → corrected-C4 → gate turn.",
+            "Transport timeouts are recorded as misses; receipts flush after each fixture.",
+        ],
+        "results": results,
+    }
+    output_path = output_dir / "receipt.json"
+    turns_path = output_dir / "language-game-turns.jsonl"
+    output_path.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
+    with turns_path.open("w", encoding="utf-8") as handle:
+        for result in results:
+            for turn in result.get("turns", []):
+                handle.write(
+                    json.dumps({"question_id": result["id"], **turn}, sort_keys=True)
+                    + "\n"
+                )
+    return output_path, turns_path, receipt
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", default=None)
-    parser.add_argument("--timeout", type=int, default=180)
+    parser.add_argument("--timeout", type=int, default=300)
     parser.add_argument("--max-tokens", type=int, default=2048)
+    parser.add_argument(
+        "--only-id",
+        action="append",
+        default=[],
+        help="Run only these fixture ids (repeatable). Default: all fixtures.",
+    )
     args = parser.parse_args()
 
     if env_first("HF_TOKEN", "HUGGING_FACE_HUB_TOKEN"):
@@ -514,11 +621,30 @@ def main() -> int:
     if not model:
         raise SystemExit("The local endpoint returned no usable chat model.")
 
+    selected = [
+        fixture
+        for fixture in FIXTURES
+        if not args.only_id or fixture["id"] in args.only_id
+    ]
+    if not selected:
+        raise SystemExit(f"No fixtures matched --only-id={args.only_id}")
+
     run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     output_dir = Path(args.output_dir or f"reports/hle_local_{run_id}")
     output_dir.mkdir(parents=True, exist_ok=True)
-    results = [
-        run_fixture(
+
+    # When retesting a subset into an existing receipt, preserve other rows.
+    prior_by_id: dict[str, dict[str, Any]] = {}
+    prior_path = output_dir / "receipt.json"
+    if prior_path.is_file() and args.only_id:
+        prior = json.loads(prior_path.read_text(encoding="utf-8"))
+        for row in prior.get("results") or []:
+            if row.get("id"):
+                prior_by_id[str(row["id"])] = row
+
+    results_map = dict(prior_by_id)
+    for index, fixture in enumerate(selected, start=1):
+        result = run_fixture(
             session,
             base_url.rstrip("/"),
             api_key,
@@ -527,9 +653,6 @@ def main() -> int:
             args.timeout,
             args.max_tokens,
         )
-        for fixture in FIXTURES
-    ]
-    for fixture, result in zip(FIXTURES, results):
         if not result["matched"]:
             apply_reinjection_turns(
                 result,
@@ -548,64 +671,40 @@ def main() -> int:
         else:
             result["initial_matched"] = True
             result["reinjection"] = {"attempted": False}
-    matched = sum(1 for item in results if item["matched"])
-    initial_matched = sum(1 for item in results if item["initial_matched"])
-    reinjected = sum(1 for item in results if item["reinjection"]["attempted"])
-    identity_ok = sum(1 for item in results if item["identity_bound"])
-    format_ok = sum(1 for item in results if item["format_ok"])
-    receipt = {
-        "kind": "synthetic_hle_language_game_drill",
-        "doctrine_refs": [
-            "docs/LANGUAGE_GAMES_HLE.md",
-            "docs/LANGUAGE_GAMES_EXAM_INVARIANTS.md",
-            "wiki/Language-Games-HLE.md",
-        ],
-        "recorded_at_utc": datetime.now(timezone.utc).isoformat(),
-        "dataset_revision": DATASET_REVISION,
-        "endpoint": base_url.rstrip("/"),
-        "model": model,
-        "endpoint_models": model_ids,
-        "fixture_count": len(results),
-        "initial_matched_fixture_count": initial_matched,
-        "matched_fixture_count": matched,
-        "reinjection_attempt_count": reinjected,
-        "identity_bound_count": identity_ok,
-        "format_ok_count": format_ok,
-        "initial_local_fixture_match_ratio": initial_matched / len(results),
-        "local_fixture_match_ratio_after_reinjection": matched / len(results),
-        "official_hle_accuracy": None,
-        "official_hle_calibration": None,
-        "official_hle_judge_output": None,
-        "official_claim_permitted": False,
-        "hf_token_status": hf_status,
-        "keychain_accessed": False,
-        "notes": [
-            "Fixtures are authored locally and are not cais/hle prompts.",
-            "Both local fixture ratios are local evidence only (invariant 5).",
-            "official_hle_accuracy remains null until CAIS judge output exists.",
-            "The multimodal fixture records a modality capability stub, not an image score.",
-            "A local miss triggers one recorded Franklin reread → corrected-C4 → gate turn.",
-        ],
-        "results": results,
-    }
-    output_path = output_dir / "receipt.json"
-    turns_path = output_dir / "language-game-turns.jsonl"
-    output_path.write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")
-    with turns_path.open("w", encoding="utf-8") as handle:
-        for result in results:
-            for turn in result.get("turns", []):
-                handle.write(
-                    json.dumps({"question_id": result["id"], **turn}, sort_keys=True)
-                    + "\n"
-                )
+        results_map[fixture["id"]] = result
+        ordered = [results_map[f["id"]] for f in FIXTURES if f["id"] in results_map]
+        write_receipt(
+            output_dir,
+            results=ordered,
+            base_url=base_url,
+            model=model,
+            model_ids=model_ids,
+            hf_status=hf_status,
+        )
+        print(
+            f"[{index}/{len(selected)}] {fixture['id']}: "
+            f"matched={result['matched']} error={result.get('error')}"
+        )
+
+    ordered = [results_map[f["id"]] for f in FIXTURES if f["id"] in results_map]
+    output_path, turns_path, receipt = write_receipt(
+        output_dir,
+        results=ordered,
+        base_url=base_url,
+        model=model,
+        model_ids=model_ids,
+        hf_status=hf_status,
+    )
+    matched = receipt["matched_fixture_count"]
+    initial_matched = receipt["initial_matched_fixture_count"]
     print(f"Local synthetic HLE language-game drill completed: {output_path}")
     print(f"Turns: {turns_path}")
     print(
-        f"Local fixture matches: initial={initial_matched}/{len(results)}, "
-        f"after_reinjection={matched}/{len(results)}; "
+        f"Local fixture matches: initial={initial_matched}/{len(ordered)}, "
+        f"after_reinjection={matched}/{len(ordered)}; "
         "official_hle_accuracy=null; not a CAIS score."
     )
-    return 0 if matched == len(results) else 1
+    return 0 if matched == len(ordered) and len(ordered) == len(FIXTURES) else 1
 
 
 if __name__ == "__main__":
