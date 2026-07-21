@@ -10,6 +10,8 @@ Agents run these via `bin/run-open-agi-harnesses.sh`. Deep harness manuals live 
 
 > **FoT:** AGI-2 MEASURED Kaggle publicScore **0.00** (COMPLETE) — [ARC Prize ARC-AGI-2 live record](ARC-Prize-AGI-2-Kaggle-Live)
 
+> **Pre-submission gate:** [Language Games — Exam Invariants](Language-Games-Exam-Invariants) defines the context, typed-answer, artifact, and local-validator invariants for ARC-AGI-2, ARC-AGI-3, and HLE. No public Kaggle or HLE submission proceeds until its track-specific local validators are green; local checks are not public scores.
+
 | Suite | Harness key | Affine status (this wiki) | What “score” would require |
 |:---|:---|:---|:---|
 | Humanity's Last Exam | `hle` | **MEASURED STEWARD GATE** — loopback restarted on `:8080`; `cais/hle` parquet **HTTP 401** (gated=auto); classic `HF_TOKEN` absent — Agree + export token required | [Live record](Humanitys-Last-Exam-Live): `reports/hle_live_20260721T103415Z/` |
