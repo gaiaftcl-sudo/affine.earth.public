@@ -1,0 +1,6 @@
+.venv/bin/python scripts/build_notebook.py
+[build_notebook] Wrote notebooks/submission.ipynb  (accelerator: t4)
+KAGGLE_API_TOKEN=$(cat .kaggle/access_token) .venv/bin/kaggle kernels push -p notebooks/
+Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/bliztafree/arc-prize-2026-arc-agi-3-starter
+
+Pushed. Track it with:  make status

@@ -38,7 +38,8 @@ Onboard → **all 12 LIVE Games** → Franklin replies in `#messageList` (Socrat
 | 3. Demo | [In action](In-Action) | Full all-tests embed + chapter stills (Games suites live-answered) |
 | 4. Scores | [Results & Scores](Results-And-Scores) | What we ran, with provenance — AGI-executable suites front and center |
 | 4a. HLE live record | [Humanity’s Last Exam](Humanitys-Last-Exam-Live) | CAIS evaluator + `agi.safe.ai` record; measured access state and receipt bundle |
-| 4b. ARC Prize live | [ARC Prize Kaggle Live](ARC-Prize-Kaggle-Live) | Kaggle ARC-AGI-3 package; rules-accept steward gate before data/score |
+| 4b. ARC Prize live | [ARC Prize Kaggle Live](ARC-Prize-Kaggle-Live) | ARC-AGI-3 entered; Phase A COMPLETE; Phase B score PENDING (`submission.parquet`) |
+| 4c. ARC-AGI-2 Kaggle live | [ARC-AGI-2 live record](ARC-Prize-AGI-2-Kaggle-Live) | Entered, data downloaded, air-gapped notebook version 1 complete; Kaggle submission API blocker recorded |
 | 5. Agents | [AGI agent execution](AGI-Agent-Execution) | Short commands (`bin/run-open-agi-harnesses.sh`); deep docs link upstream |
 | 6. Reproduce | [Create account (once)](Create-Account-Signup) | **Only** page with the signup / login walkthrough video |
 

@@ -2,62 +2,50 @@
 
 Official competition: [ARC Prize 2026 - ARC-AGI-3](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3)
 
-Package on `main`: air-gapped notebook under `kaggle/arc-prize-2026/`, producer/validator under `scripts/`, runner `bin/run-arc-prize-kaggle.sh`.
+**Format note:** ARC-AGI-3 is an interactive **agent** track. The air-gapped Kaggle output is `submission.parquet`, not classic ARC-AGI-2 `submission.json` with `attempt_1` / `attempt_2` grids. That grid contract belongs to [ARC-AGI-2](ARC-Prize-AGI-2-Kaggle-Live) (sibling track).
 
-## Recorded 2026-07-21
+Auth for this record: `export KAGGLE_API_TOKEN=…` only. No Keychain / `security` / browser credential APIs.
+
+## Recorded 2026-07-21 (post-join)
 
 | Check | Observed result |
 |:---|:---|
-| Kaggle CLI | Authenticated as `bliztafree` (`kaggle` 1.7.4.5; token via env / `~/.kaggle/kaggle.json`) |
-| Competition list | `userHasEntered=False` for `arc-prize-2026-arc-agi-3` |
-| Data list API | HTTP 200 (file listing visible) |
-| Data download | **403 Forbidden** on `competitions/data/download-all/arc-prize-2026-arc-agi-3` |
-| Kernel push | Rejected: *You must accept this competition's rules before you'll be able to add it as a datasource* |
-| Local producer | No mounted challenge JSON → no `submission.json` |
-| Leaderboard score | **None** — no submission possible until rules are accepted |
-| Browser automation | Cursor IDE browser could not open a logged-in Kaggle session (no usable tab / no cookie handshake from API token) |
+| Kaggle account | `bliztafree` |
+| `userHasEntered` | **True** |
+| Data download | **OK** — `arc-prize-2026-arc-agi-3.zip` (42 MB) under `data/arc-prize-2026/` (gitignored) |
+| Competition input shape | Agent framework + `environment_files/` + wheels — **no** `*challenges*.json` |
+| Local smoke | Official starter `make verify-local` → aggregate scorecard **0.0** (random baseline) |
+| Kernel Phase A | **COMPLETE** — [bliztafree/arc-prize-2026-arc-agi-3-starter](https://www.kaggle.com/code/bliztafree/arc-prize-2026-arc-agi-3-starter) |
+| Kernel constraints | `enable_internet=false`, GPU T4, competition source `arc-prize-2026-arc-agi-3` |
+| Kernel output | `submission.parquet` (890 B on platform; local copy in evidence) |
+| Competition submit | ref **54875048** — `SubmissionStatus.PENDING` (publicScore empty at last poll) |
+| Leaderboard score | **Not returned yet** — do not invent a number |
 
-This page records a **steward rules gate**, not a score. Competition is kernels-submissions-only (`isKernelsSubmissionsOnly=true`).
+Secret-free evidence under `evidence/arc-prize-2026/`:
 
-Secret-free evidence:
+- `download.log` — competition zip download
+- `verify-local.log` — local agent smoke
+- `kaggle-submit.log` — kernel push (Phase A)
+- `kaggle-status-final.log` — `KernelWorkerStatus.COMPLETE`
+- `kernel-output/submission.parquet` + kernel log
+- `kaggle-competition-submit.log` / `kaggle-submissions.log` — Phase B ref `54875048`
 
-- `evidence/arc-prize-2026/kaggle-notebook-push.log` — kernel push rejection
-- `evidence/arc-prize-2026/local-producer.log` — missing official input mount
-- `evidence/arc-prize-2026/rules-gate-check.log` — re-check of `userHasEntered` + download 403
+**Never commit `KAGGLE_API_TOKEN`.**
 
-**Never commit `KAGGLE_API_TOKEN`.** Use env or an out-of-repo env file from `configs/arc-prize-kaggle.env.example`.
+## Reproduce (public test repo only)
 
-## Steward action required (human click)
+```bash
+export KAGGLE_API_TOKEN=…   # env only; never Keychain
+# Official ARC Prize starter (Python 3.12): https://github.com/arcprize/ARC-AGI-3-Kaggle-Starter
+# notebooks/kernel-metadata.json id → bliztafree/arc-prize-2026-arc-agi-3-starter
+# enable_internet: false
+make setup && make verify-local && make submit && make status
+# When COMPLETE:
+kaggle competitions submit arc-prize-2026-arc-agi-3 \
+  -k bliztafree/arc-prize-2026-arc-agi-3-starter \
+  -f submission.parquet -v 1 \
+  -m "public-test AGI-3 starter baseline"
+kaggle competitions submissions -c arc-prize-2026-arc-agi-3
+```
 
-Kaggle does **not** allow accepting competition rules via the API token alone. A logged-in browser session must accept the rules once.
-
-1. Open this URL while logged in as the same Kaggle account that owns the API token (`bliztafree`):
-
-   **https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/rules**
-
-2. Click **I Understand and Accept** / **Join Competition** (wording on the page).
-
-3. Confirm entry (should print `True`):
-
-   ```bash
-   kaggle competitions list -s arc-prize-2026-arc-agi-3 --csv | head
-   ```
-
-4. Re-run the package:
-
-   ```bash
-   # Download competition data (local mirror for producer)
-   mkdir -p data/arc-prize-2026
-   kaggle competitions download -c arc-prize-2026-arc-agi-3 -p data/arc-prize-2026
-   unzip -o data/arc-prize-2026/arc-prize-2026-arc-agi-3.zip -d data/arc-prize-2026
-
-   # Build + validate submission.json (attempt_1 + attempt_2)
-   ./bin/run-arc-prize-kaggle.sh \
-     --input-dir data/arc-prize-2026 \
-     --output-dir reports/arc-prize-2026
-
-   # Push air-gapped notebook (internet disabled in kernel-metadata)
-   ./bin/run-arc-prize-kaggle.sh --push-notebook
-   ```
-
-Until step 2 completes, every download / notebook / score path stays blocked. After accept, update this page with `userHasEntered=true`, submission SHA/path, and the returned Kaggle score — do not invent a score before the platform returns one.
+When `publicScore` fills in, update this page with the exact platform value and the commit SHA that recorded it.

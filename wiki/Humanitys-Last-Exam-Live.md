@@ -2,6 +2,20 @@
 
 Official sources: [agi.safe.ai](https://agi.safe.ai/), the [CAIS HLE evaluator](https://github.com/centerforaisafety/hle), and the gated [cais/hle dataset](https://huggingface.co/datasets/cais/hle).
 
+## Recorded 2026-07-21 (live rerun)
+
+| Check | Observed result |
+|:---|:---|
+| Affine loopback | `http://127.0.0.1:8080/v1/models` returned OpenAI JSON with `qwen/qwen3.6-35b-a3b` and `text-embedding-nomic-embed-text-v1.5` |
+| Environment token check | `HF_TOKEN` and `HUGGING_FACE_HUB_TOKEN` were absent; no Keychain or `security` command was used |
+| Anonymous dataset download | `https://huggingface.co/datasets/cais/hle/resolve/main/test-00000-of-00001.parquet` returned **HTTP 401 Unauthorized** |
+| Official CAIS runner | `./bin/run-open-agi-harnesses.sh --harness hle` exited **2** before prediction, with `HLE_RUN_JUDGE=1` and the live loopback endpoint |
+| Predictions / judging | **Not run** — the official runner requires a Hub access token after terms authorization; therefore no Accuracy or Calibration exists |
+
+Secret-free receipt bundle: `reports/hle_live_20260721T103322Z/` (`proxy_models.json`, `hle_runner.log`, and `receipt.txt`).
+
+No screenshot or video was created: no evaluator UI or model evaluation began.
+
 ## Recorded 2026-07-21 (auth re-probe)
 
 | Check | Observed result |
