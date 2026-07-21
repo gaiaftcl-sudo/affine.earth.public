@@ -29,6 +29,7 @@
     "arc2:36a08778",
     "arc2:38007db0",
     "arc2:3a25b0d8",
+    "arc2:3e6067c3",
     "arc2:45a5af55",
     "arc2:4c7dc4dd",
     "arc2:4e34c42c",
@@ -36,8 +37,10 @@
     "arc2:58490d8a",
     "arc2:58f5dbd5",
     "arc2:67e490f4",
+    "arc2:7666fa5d",
     "arc2:78332cb0",
     "arc2:7b5033c1",
+    "arc2:7c66cb00",
     "arc2:8698868d",
     "arc2:89565ca0",
     "arc2:97d7923e",
@@ -51,9 +54,25 @@
       "task_id": "3dc255db",
       "track": "arc2",
       "language_game_class": "S3_spatial_rewrite"
+    },
+    {
+      "action": "train-replay-gated C4; Franklin S4 JSON-only \u226429 if needed",
+      "key": "arc2:409aa875",
+      "last_gate": "OPEN_MISS",
+      "task_id": "409aa875",
+      "track": "arc2",
+      "language_game_class": "S2_palette_rewrite"
+    },
+    {
+      "action": "train-replay-gated C4; Franklin S4 JSON-only \u226429 if needed",
+      "key": "arc2:446ef5d2",
+      "last_gate": "OPEN_MISS",
+      "task_id": "446ef5d2",
+      "track": "arc2",
+      "language_game_class": "S2_palette_rewrite"
     }
   ],
-  "note": "CLOSED 332f06d7 + 36a08778 (60/172). No Kaggle.",
+  "note": "CLOSED 7666fa5d+3e6067c3+7c66cb00 (64/172); jumped 3dc255db train-only. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T16:29:57Z"
+  "recorded_at_utc": "2026-07-21T16:31:25Z"
 }

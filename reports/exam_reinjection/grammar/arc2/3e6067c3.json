@@ -1,0 +1,22 @@
+{
+  "task_id": "3e6067c3",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S3_spatial_rewrite",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 2,
+  "engine": "s3_period_tile_stamp",
+  "observations": [
+    "Train 3/3 labeled eval 2/2",
+    "Jumped 3dc255db train-only"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "3/3",
+    "labeled_eval": "2/2"
+  },
+  "mastery_eval": "64/172",
+  "mastery_train": "298/1076"
+}

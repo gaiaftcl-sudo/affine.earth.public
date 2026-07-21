@@ -402,17 +402,6 @@ def load_s2_diagonal_component_fill(root: Path) -> Any:
     return module
 
 
-def load_s3_scaffold_run_halo(root: Path) -> Any:
-    path = root / "llm_llvm_bench/arc/s3_scaffold_run_halo.py"
-    spec = importlib.util.spec_from_file_location(
-        "arc_s3_scaffold_run_halo", path
-    )
-    if spec is None or spec.loader is None:
-        raise RuntimeError(f"Cannot load s3_scaffold_run_halo solver at {path}")
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
-
 
 def load_s3_terrain_period_bounce(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_terrain_period_bounce.py"
@@ -1010,7 +999,6 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s2_trip = load_s2_seven_triplet_rail(root)
     s3_cross = load_s3_cross_arm_shape_dock(root)
     s3_hull = load_s3_primary_hull_shift(root)
-    s3_halo = load_s3_scaffold_run_halo(root)
     s2_diag = load_s2_diagonal_component_fill(root)
     s3_per = load_s3_period_tile_stamp(root)
     s3_bord = load_s3_border_path_fill(root)
@@ -1117,7 +1105,6 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s2_trip_hits = 0
     s3_cross_hits = 0
     s3_hull_hits = 0
-    s3_halo_hits = 0
     s2_diag_hits = 0
     s3_per_hits = 0
     s3_bord_hits = 0
@@ -1273,10 +1260,6 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             if hybrid_attempts is not None:
                 s3_hull_hits += 1
 
-        if hybrid_attempts is None:
-            hybrid_attempts = s3_halo.solve_task(eval_challenges[task_id])
-            if hybrid_attempts is not None:
-                s3_halo_hits += 1
         if hybrid_attempts is None:
             hybrid_attempts = s2_diag.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
@@ -1485,7 +1468,6 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s2_seven_triplet_rail_licensed_tasks": s2_trip_hits,
             "s3_cross_arm_shape_dock_licensed_tasks": s3_cross_hits,
             "s3_primary_hull_shift_licensed_tasks": s3_hull_hits,
-            "s3_scaffold_run_halo_licensed_tasks": s3_halo_hits,
             "s2_diagonal_component_fill_licensed_tasks": s2_diag_hits,
             "s3_period_tile_stamp_licensed_tasks": s3_per_hits,
             "s3_border_path_fill_licensed_tasks": s3_bord_hits,

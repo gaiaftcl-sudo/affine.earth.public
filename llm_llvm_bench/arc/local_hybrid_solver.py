@@ -891,26 +891,6 @@ def solve_task(
         return purp_fragment, receipt
 
 
-    # 1b34) s3_scaffold_run_halo (36a08778).
-    s3halo = _load_module(
-        arc_dir / "s3_scaffold_run_halo.py", "s3_scaffold_run_halo"
-    )
-    s3halo_replay = s3halo.train_replay(task)
-    s3halo_fragment = s3halo.submission_fragment(task_id, task)
-    receipt["engines_tried"].append(s3halo_replay)
-    if (
-        s3halo_fragment is not None
-        and s3halo_replay.get("perfect")
-        and all(
-            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
-            for p in s3halo_fragment[task_id]
-        )
-    ):
-        receipt["accepted_engine"] = "s3_scaffold_run_halo"
-        receipt["train_replay"] = s3halo_replay["train_replay"]
-        receipt["ok"] = True
-        receipt["s3_scaffold_run_halo_meta"] = s3halo_replay
-        return s3halo_fragment, receipt
 
     # 1b35) s2_diagonal_component_fill (7666fa5d).
     s2diag = _load_module(
