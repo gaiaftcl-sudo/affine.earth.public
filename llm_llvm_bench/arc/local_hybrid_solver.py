@@ -323,6 +323,27 @@ def solve_task(
         receipt["s1_laser_meta"] = laser_replay
         return laser_fragment, receipt
 
+    # 1b9) S1 oriented block pack (291dc1e1).
+    s1pack = _load_module(
+        arc_dir / "s1_oriented_block_pack.py", "s1_oriented_block_pack"
+    )
+    pack_replay = s1pack.train_replay(task)
+    pack_fragment = s1pack.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(pack_replay)
+    if (
+        pack_fragment is not None
+        and pack_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in pack_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_oriented_block_pack"
+        receipt["train_replay"] = pack_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_pack_meta"] = pack_replay
+        return pack_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

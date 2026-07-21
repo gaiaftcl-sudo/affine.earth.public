@@ -12,9 +12,9 @@ Official competition: [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/comp
 | Top-score format study | [Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats) (`a04e483`) |
 | Hard schema validator | `scripts/validate_arc_prize_submission.py` on fixture + official sample + local `submission.json` vs test challenges |
 | Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_20260721T110813Z/` **overall GREEN** |
-| Eval quality (local) | **20/172** exact grids (S1 family + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL; was **16/172**) |
+| Eval quality (local) | **21/172** exact grids (S1 family + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL; was **20/172**) |
 | Train quality (local) | **298/1076** exact grids (ice-on receipt); **24/1000** DSL-licensed tasks |
-| Engine | `LOCAL_HYBRID_SOLVER` = marker8 + S1 family (pack/snake/tab/panel/motif/canvas/wall-tree/laser) + CPT + S3 ray-fill + icecuber + DSL |
+| Engine | `LOCAL_HYBRID_SOLVER` = marker8 + S1 family (pack/snake/tab/panel/motif/canvas/wall-tree/laser/block-pack) + CPT + S3 ray-fill + icecuber + DSL |
 | Public probe | publicScore **0.00** = **PROCESS_PROBE** (premature process test) |
 | LB contrast | Top public ~**65.83** — format≠mastery; local eval still far from LB |
 
@@ -48,12 +48,16 @@ or private affine.earth OS source.
 ## Evidence
 
 - Local schema validation: 240 official test tasks (hard gate green).
-- Offline evaluation set: **20/172** exact grids (marker8 + S1 family + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL).
+- Offline evaluation set: **21/172** exact grids (marker8 + S1 family + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL).
 - Notebook log: `evidence/arc-prize-2026-agi-2/kernel-output/affine-arc-prize-2026-arc-agi-2.log`
 - Score receipt: `evidence/arc-prize-2026-agi-2/kaggle-submissions.csv` — publicScore `0.00`.
-- Local mastery reports: `reports/arc_local_20260721T131200Z/` (ice-on train **298/1076**) · overlay `reports/arc_local_20260721T140955Z/agi2/summary-overlay.json` (eval **20/172**); submit **LOCKED**.
+- Local mastery reports: `reports/arc_local_20260721T131200Z/` (ice-on train **298/1076**) · overlay `reports/arc_local_20260721T141241Z/agi2/summary-overlay.json` (eval **21/172**); submit **LOCKED**.
 - Contracts: [Top-score formats](Kaggle-ARC-Top-Score-Formats) · [Language Games ARC-AGI-2](Language-Games-ARC-AGI-2).
-- Solver-quality lineage: `db71c28` (1/172) → `marker8_twin31` (2/172) → `s1_dimension_projection` (3/172) → `container_period_tiling` **135a2760** (4/172) → `s3_separator_ray_fill` **1ae2feb7** ×3 (7/172) → `s1_digit_separator_snake` **136b0064** (8/172) → `s1_seven_tab_merge` **20270e3b** ×2 → `s1_panel_odd_one_out` **38007db0** ×2 (12/172) → `s1_marker_frame_motif` **20a9e565** ×2 (14/172) → `s1_fixed_canvas_template` **269e22fb** ×2 → `s1_wall_tree_nested_frames` **13e47133** ×2 (18/172) → `s1_laser_mirror_beams` **142ca369** ×2 (**20/172**).
+- Solver-quality lineage: `db71c28` (1/172) → `marker8_twin31` (2/172) → `s1_dimension_projection` (3/172) → `container_period_tiling` **135a2760** (4/172) → `s3_separator_ray_fill` **1ae2feb7** ×3 (7/172) → `s1_digit_separator_snake` **136b0064** (8/172) → `s1_seven_tab_merge` **20270e3b** ×2 → `s1_panel_odd_one_out` **38007db0** ×2 (12/172) → `s1_marker_frame_motif` **20a9e565** ×2 (14/172) → `s1_fixed_canvas_template` **269e22fb** ×2 → `s1_wall_tree_nested_frames` **13e47133** ×2 (18/172) → `s1_laser_mirror_beams` **142ca369** ×2 (20/172) → `s1_oriented_block_pack` **291dc1e1** ×1 (**21/172**).
+
+## FoT note — 291dc1e1 oriented block pack (2026-07-21)
+
+C4: D4-canonicalize via 0/1 and 2/8 marker strips; split 2-row bands and column-blocks; ori-conditioned vertical flip; pad to max width with 8s; stack. Train **4/4**, eval **1/1** via `llm_llvm_bench/arc/s1_oriented_block_pack.py`. No Kaggle.
 
 ## FoT note — 142ca369 laser-mirror beams (2026-07-21)
 

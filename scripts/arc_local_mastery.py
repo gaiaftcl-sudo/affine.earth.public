@@ -172,6 +172,16 @@ def load_s1_laser_mirror_beams(root: Path) -> Any:
     return module
 
 
+def load_s1_oriented_block_pack(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s1_oriented_block_pack.py"
+    spec = importlib.util.spec_from_file_location("arc_s1_oriented_block_pack", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s1_oriented_block_pack solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def merge_attempt_pair(
     dsl_pair: Dict[str, Grid],
     ice_pair: Dict[str, Grid],
@@ -590,6 +600,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s1_canvas = load_s1_fixed_canvas_template(root)
     s1_frames = load_s1_wall_tree_nested_frames(root)
     s1_laser = load_s1_laser_mirror_beams(root)
+    s1_pack = load_s1_oriented_block_pack(root)
     cpt_proj = load_container_period_tiling(root)
     s3_ray = load_s3_separator_ray_fill(root)
     ice_depth = int(os.environ.get("ARC_ICECUBER_DEPTH", "2"))
@@ -664,6 +675,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s1_canvas_hits = 0
     s1_frames_hits = 0
     s1_laser_hits = 0
+    s1_pack_hits = 0
     cpt_hits = 0
     s3_hits = 0
     for task_id in sorted(eval_challenges):
@@ -702,6 +714,10 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             hybrid_attempts = s1_laser.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 s1_laser_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s1_pack.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s1_pack_hits += 1
         if hybrid_attempts is None:
             hybrid_attempts = cpt_proj.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
@@ -866,6 +882,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s1_fixed_canvas_template_licensed_tasks": s1_canvas_hits,
             "s1_wall_tree_nested_frames_licensed_tasks": s1_frames_hits,
             "s1_laser_mirror_beams_licensed_tasks": s1_laser_hits,
+            "s1_oriented_block_pack_licensed_tasks": s1_pack_hits,
             "container_period_tiling_licensed_tasks": cpt_hits,
             "s3_separator_ray_fill_licensed_tasks": s3_hits,
             "engine": "LOCAL_HYBRID_SOLVER_marker8_s1family_cpt_s3ray_icecuber_dsl",

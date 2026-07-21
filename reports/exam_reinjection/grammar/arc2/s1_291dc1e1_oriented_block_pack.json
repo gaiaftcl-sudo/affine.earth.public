@@ -1,0 +1,11 @@
+{
+  "task_id": "291dc1e1",
+  "class": "S1_dimension_projection",
+  "status": "CLOSED",
+  "engine": "s1_oriented_block_pack",
+  "c4_invariant": "D4-canonicalize 0/1+2/8 markers; band/column block pack; ori-conditioned vflip; 8-pad",
+  "train_replay": "4/4",
+  "eval_exact": "1/1",
+  "protocol": "fot_language_game",
+  "recorded_at_utc": "2026-07-21T14:12:41.293869+00:00"
+}
