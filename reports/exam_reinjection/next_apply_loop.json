@@ -7,6 +7,7 @@
     "arc2:142ca369",
     "arc2:16b78196",
     "arc2:16de56c4",
+    "arc2:1818057f",
     "arc2:195c6913",
     "arc2:1ae2feb7",
     "arc2:20270e3b",
@@ -26,6 +27,14 @@
   ],
   "next_apply_loop": [
     {
+      "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
+      "key": "arc2:21897d95",
+      "last_gate": "pending",
+      "task_id": "21897d95",
+      "track": "arc2",
+      "language_game_class": "S2_palette_rewrite"
+    },
+    {
       "action": "Heal unreproduced_productive_delta; do not regress bp35 L1",
       "key": "arc3:ar25",
       "last_gate": "S4_REINJECT",
@@ -33,7 +42,7 @@
       "track": "arc3"
     }
   ],
-  "note": "Reinjection CLOSED sealed for 58f5dbd5 solid_motif_carve. Mastery 37/172. Next open: arc3:ar25. No Kaggle.",
+  "note": "Reinjection CLOSED sealed for 1818057f plus_stamp_recolor. Mastery 38/172. Next open: arc2:21897d95. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T15:18:27.843283+00:00"
+  "recorded_at_utc": "2026-07-21T15:20:31.044487+00:00"
 }

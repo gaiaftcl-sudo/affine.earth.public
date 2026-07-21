@@ -1,0 +1,23 @@
+{
+  "task_id": "1818057f",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S2_palette_rewrite",
+  "engine": "s2_plus_stamp_recolor",
+  "primary_transform": "plus_stamp_recolor",
+  "status": "CLOSED",
+  "train_replay": "3/3",
+  "eval_grids": "1/1",
+  "c4": {
+    "S1": "same canvas shape (in-place palette rewrite)",
+    "S2": "bipartite palette \u2014 majority=bg; other=fg",
+    "S3": "every orthogonal plus of 5 fg cells is a stamp",
+    "S4": "recolor each stamp cell to constant 8",
+    "C4": "exact rewrite; train-replay gated; \u22651 stamp"
+  },
+  "module": "llm_llvm_bench/arc/s2_plus_stamp_recolor.py",
+  "mastery_eval": "38/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T15:20:00Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T152000Z/agi2/summary-overlay.json"
+}

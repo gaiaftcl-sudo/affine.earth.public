@@ -491,6 +491,48 @@ def solve_task(
         receipt["s1_solid_motif_carve_meta"] = carve_replay
         return carve_fragment, receipt
 
+    # 1b17) S2 plus-stamp recolor (1818057f).
+    s2plus = _load_module(
+        arc_dir / "s2_plus_stamp_recolor.py", "s2_plus_stamp_recolor"
+    )
+    plus_replay = s2plus.train_replay(task)
+    plus_fragment = s2plus.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(plus_replay)
+    if (
+        plus_fragment is not None
+        and plus_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in plus_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s2_plus_stamp_recolor"
+        receipt["train_replay"] = plus_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s2_plus_stamp_meta"] = plus_replay
+        return plus_fragment, receipt
+
+    # 1b18) S1 path-column unroll (7b5033c1).
+    s1path = _load_module(
+        arc_dir / "s1_path_column_unroll.py", "s1_path_column_unroll"
+    )
+    path_replay = s1path.train_replay(task)
+    path_fragment = s1path.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(path_replay)
+    if (
+        path_fragment is not None
+        and path_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in path_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_path_column_unroll"
+        receipt["train_replay"] = path_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_path_column_unroll_meta"] = path_replay
+        return path_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"
