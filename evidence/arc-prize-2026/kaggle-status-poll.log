@@ -1,7 +1,58 @@
-10:25:47 bliztafree/arc-prize-2026-arc-agi-3-starter has status "KernelWorkerStatus.QUEUED"
-10:26:18 bliztafree/arc-prize-2026-arc-agi-3-starter has status "KernelWorkerStatus.QUEUED"
-10:26:49 bliztafree/arc-prize-2026-arc-agi-3-starter has status "KernelWorkerStatus.QUEUED"
-10:27:20 bliztafree/arc-prize-2026-arc-agi-3-starter has status "KernelWorkerStatus.QUEUED"
-10:27:51 bliztafree/arc-prize-2026-arc-agi-3-starter has status "KernelWorkerStatus.QUEUED"
-10:28:21 bliztafree/arc-prize-2026-arc-agi-3-starter has status "KernelWorkerStatus.QUEUED"
-10:28:52 bliztafree/arc-prize-2026-arc-agi-3-starter has status "KernelWorkerStatus.RUNNING"
+poll_start_utc=2026-07-21T10:34:34Z timeout_s=2400
+---- poll utc=2026-07-21T10:34:34Z elapsed_s=0 ----
+/Users/richardgillespie/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+fileName            date                        description                                       status                    publicScore  privateScore  
+------------------  --------------------------  ------------------------------------------------  ------------------------  -----------  ------------  
+submission.parquet  2026-07-21 10:29:44.353000  public-test AGI-3 starter baseline v1 air-gapped  SubmissionStatus.PENDING                             
+parsed_status=SubmissionStatus.PENDING parsed_publicScore=<empty>
+---- poll utc=2026-07-21T10:36:05Z elapsed_s=91 ----
+/Users/richardgillespie/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+fileName            date                        description                                       status                    publicScore  privateScore  
+------------------  --------------------------  ------------------------------------------------  ------------------------  -----------  ------------  
+submission.parquet  2026-07-21 10:29:44.353000  public-test AGI-3 starter baseline v1 air-gapped  SubmissionStatus.PENDING                             
+parsed_status=SubmissionStatus.PENDING parsed_publicScore=<empty>
+---- poll utc=2026-07-21T10:37:35Z elapsed_s=181 ----
+/Users/richardgillespie/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+fileName            date                        description                                       status                    publicScore  privateScore  
+------------------  --------------------------  ------------------------------------------------  ------------------------  -----------  ------------  
+submission.parquet  2026-07-21 10:29:44.353000  public-test AGI-3 starter baseline v1 air-gapped  SubmissionStatus.PENDING                             
+parsed_status=SubmissionStatus.PENDING parsed_publicScore=<empty>
+---- poll utc=2026-07-21T10:39:06Z elapsed_s=272 ----
+/Users/richardgillespie/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+fileName            date                        description                                       status                    publicScore  privateScore  
+------------------  --------------------------  ------------------------------------------------  ------------------------  -----------  ------------  
+submission.parquet  2026-07-21 10:29:44.353000  public-test AGI-3 starter baseline v1 air-gapped  SubmissionStatus.PENDING                             
+parsed_status=SubmissionStatus.PENDING parsed_publicScore=<empty>
+---- poll utc=2026-07-21T10:40:36Z elapsed_s=362 ----
+/Users/richardgillespie/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+fileName            date                        description                                       status                    publicScore  privateScore  
+------------------  --------------------------  ------------------------------------------------  ------------------------  -----------  ------------  
+submission.parquet  2026-07-21 10:29:44.353000  public-test AGI-3 starter baseline v1 air-gapped  SubmissionStatus.PENDING                             
+parsed_status=SubmissionStatus.PENDING parsed_publicScore=<empty>
+---- poll utc=2026-07-21T10:42:07Z elapsed_s=453 ----
+/Users/richardgillespie/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+fileName            date                        description                                       status                    publicScore  privateScore  
+------------------  --------------------------  ------------------------------------------------  ------------------------  -----------  ------------  
+submission.parquet  2026-07-21 10:29:44.353000  public-test AGI-3 starter baseline v1 air-gapped  SubmissionStatus.PENDING                             
+parsed_status=SubmissionStatus.PENDING parsed_publicScore=<empty>
+---- poll utc=2026-07-21T10:43:37Z elapsed_s=543 ----
+/Users/richardgillespie/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+fileName            date                        description                                       status                    publicScore  privateScore  
+------------------  --------------------------  ------------------------------------------------  ------------------------  -----------  ------------  
+submission.parquet  2026-07-21 10:29:44.353000  public-test AGI-3 starter baseline v1 air-gapped  SubmissionStatus.PENDING                             
+parsed_status=SubmissionStatus.PENDING parsed_publicScore=<empty>
+---- poll utc=2026-07-21T10:45:09Z elapsed_s=635 ----
+/Users/richardgillespie/Library/Python/3.9/lib/python/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+fileName            date                        description                                       status                     publicScore  privateScore  
+------------------  --------------------------  ------------------------------------------------  -------------------------  -----------  ------------  
+submission.parquet  2026-07-21 10:29:44.353000  public-test AGI-3 starter baseline v1 air-gapped  SubmissionStatus.COMPLETE  0.12                       
+parsed_status=SubmissionStatus.COMPLETE parsed_publicScore=submission.parquet  2026-07-21 10:29:44.353000  public-test AGI-3 starter baseline v1 air-gapped  SubmissionStatus.COMPLETE  0.12                       
+TERMINAL status=SubmissionStatus.COMPLETE publicScore=submission.parquet  2026-07-21 10:29:44.353000  public-test AGI-3 starter baseline v1 air-gapped  SubmissionStatus.COMPLETE  0.12                       

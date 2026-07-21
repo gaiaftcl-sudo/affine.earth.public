@@ -18,8 +18,8 @@ Auth for this record: `export KAGGLE_API_TOKEN=…` only. No Keychain / `securit
 | Kernel Phase A | **COMPLETE** — [bliztafree/arc-prize-2026-arc-agi-3-starter](https://www.kaggle.com/code/bliztafree/arc-prize-2026-arc-agi-3-starter) |
 | Kernel constraints | `enable_internet=false`, GPU T4, competition source `arc-prize-2026-arc-agi-3` |
 | Kernel output | `submission.parquet` (890 B on platform; local copy in evidence) |
-| Competition submit | ref **54875048** — `SubmissionStatus.PENDING` (publicScore empty at last poll) |
-| Leaderboard score | **Not returned yet** — do not invent a number |
+| Competition submit | ref **54875048** — `SubmissionStatus.COMPLETE` (polled 2026-07-21T10:45:09Z) |
+| Leaderboard / publicScore | **0.12** (platform `publicScore`; privateScore empty) |
 
 Secret-free evidence under `evidence/arc-prize-2026/`:
 
@@ -29,6 +29,8 @@ Secret-free evidence under `evidence/arc-prize-2026/`:
 - `kaggle-status-final.log` — `KernelWorkerStatus.COMPLETE`
 - `kernel-output/submission.parquet` + kernel log
 - `kaggle-competition-submit.log` / `kaggle-submissions.log` — Phase B ref `54875048`
+- `kaggle-status-poll.log` — poll until COMPLETE; publicScore **0.12**
+- `poll-result.env` / `submit-poll-stamp.txt` — terminal poll stamp
 
 **Never commit `KAGGLE_API_TOKEN`.**
 
@@ -48,4 +50,20 @@ kaggle competitions submit arc-prize-2026-arc-agi-3 \
 kaggle competitions submissions -c arc-prize-2026-arc-agi-3
 ```
 
-When `publicScore` fills in, update this page with the exact platform value and the commit SHA that recorded it.
+## FoT score (MEASURED)
+
+| Field | Value |
+|:---|:---|
+| Competition | `arc-prize-2026-arc-agi-3` |
+| Submission ref | **54875048** |
+| fileName | `submission.parquet` |
+| description | `public-test AGI-3 starter baseline v1 air-gapped` |
+| status | `SubmissionStatus.COMPLETE` |
+| publicScore | **0.12** |
+| privateScore | *(empty on API)* |
+| Track | Agent / parquet (not ARC-AGI-2 `attempt_1`/`attempt_2` JSON grids) |
+| Poll evidence | `evidence/arc-prize-2026/kaggle-status-poll.log` (COMPLETE at 2026-07-21T10:45:09Z) |
+
+Official starter random baseline on public test. FoT: exact platform number only — no invented Pass@k.
+
+When re-submitting, append a new table row; do not overwrite this MEASURED line without a new ref.

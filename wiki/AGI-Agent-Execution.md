@@ -65,7 +65,7 @@ Artifacts land under `reports/third_party/open_agi/<suite>/`. A green launcher e
 | `lm-eval-hard`, `gpqa`, `bbh`, `mmlu-pro` | RUNNABLE_WRAPPER (`lm-eval==0.4.7`) |
 | `hle` | MEASURED_STEWARD_GATE — [CAIS + loopback record](Humanitys-Last-Exam-Live); accept `cais/hle` terms + classic `HF_TOKEN` required |
 | `arc-agi`, `arc-agi-2` | RUNNABLE_WRAPPER |
-| ARC Prize Kaggle (`run-arc-prize-kaggle.sh`) | MEASURED_BLOCKER — [rules gate](ARC-Prize-Kaggle-Live); `userHasEntered` must be true |
+| ARC Prize Kaggle (`run-arc-prize-kaggle.sh`) | **MEASURED** — publicScore **0.12** COMPLETE ref 54875048 — [live record](ARC-Prize-Kaggle-Live) |
 | ARC Prize Kaggle ARC-AGI-2 | MEASURED — publicScore **0.00** — [live record](ARC-Prize-AGI-2-Kaggle-Live) |
 | `gaia`, `inspect`, `inspect-gpqa` | RUNNABLE_WRAPPER (Inspect) |
 | `livecodebench` | RUNNABLE_WRAPPER (`lcb_runner`) |

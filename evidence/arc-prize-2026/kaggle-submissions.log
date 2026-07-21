@@ -1,3 +1,3 @@
-     ref  fileName            date                        description                                       status                    publicScore  privateScore  
---------  ------------------  --------------------------  ------------------------------------------------  ------------------------  -----------  ------------  
-54875048  submission.parquet  2026-07-21 10:29:44.353000  public-test AGI-3 starter baseline v1 air-gapped  SubmissionStatus.PENDING                             
+fileName            date                        description                                       status                     publicScore  privateScore  
+------------------  --------------------------  ------------------------------------------------  -------------------------  -----------  ------------  
+submission.parquet  2026-07-21 10:29:44.353000  public-test AGI-3 starter baseline v1 air-gapped  SubmissionStatus.COMPLETE  0.12                       
