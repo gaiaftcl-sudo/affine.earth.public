@@ -1,0 +1,9 @@
+{
+  "task_id": "1ae2feb7",
+  "class": "S3_spatial_rewrite",
+  "status": "PARTIAL",
+  "observed": "vertical separator column of uniform color; left row motifs ray-fill to the right",
+  "blocked_on": "period/motif selection when left row has mixed colors or a zero gap before separator",
+  "train_replay": "not licensed",
+  "next": "Franklin UUM-8D reinjection with full train pairs"
+}
