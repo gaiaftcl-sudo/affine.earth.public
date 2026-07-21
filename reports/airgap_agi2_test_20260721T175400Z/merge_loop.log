@@ -1,0 +1,8 @@
+['  "direct_cli": "blocked unless ALLOW_KAGGLE_SUBMIT=1"', '}', '{"licensed_grids": 30, "identity_grids": 229, "licensed_pct": 11.58, "submission_sha256": "dcf23419bc8f1034defd4181c032a7107c3129f43ffd0e1b342ac2290f07cc5f"}']
+LIFT -1 -> 30
+['  "direct_cli": "blocked unless ALLOW_KAGGLE_SUBMIT=1"', '}', '{"licensed_grids": 33, "identity_grids": 226, "licensed_pct": 12.74, "submission_sha256": "17f92203b287c3a92106d4c89dc6c367bceae8b42c538cb558027c27409d2ee5"}']
+LIFT 30 -> 33
+['  "direct_cli": "blocked unless ALLOW_KAGGLE_SUBMIT=1"', '}', '{"licensed_grids": 33, "identity_grids": 226, "licensed_pct": 12.74, "submission_sha256": "17f92203b287c3a92106d4c89dc6c367bceae8b42c538cb558027c27409d2ee5"}']
+['MERGED licensed=33/259 identity=226 pct=12.74 → /Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/airgap_agi2_test_20260721T175400Z/submission.json', 'SKIP rebuild (merged 33 <= notebook 33)', '{"licensed_grids": 33, "identity_grids": 226, "licensed_pct": 12.74, "submission_sha256": "17f92203b287c3a92106d4c89dc6c367bceae8b42c538cb558027c27409d2ee5"}']
+hybrids exited; final merge done
+MERGE_LOOP_DONE last 33
