@@ -1,0 +1,15 @@
+{
+  "recorded_at_utc": "2026-07-21T19:08:00.421872+00:00",
+  "licensed": "68/259",
+  "jordan_close_rate_local_engines": "0/175",
+  "jordan_close_rate_first24_llm": "0/5_attempted (never reached validator)",
+  "primary_cause": "LLM read timeout on :8080 (HLE 4-worker contention); turns=0; bound=None",
+  "secondary_cause": "load_learned_experiences engine field was str(None)='None' so ranked engines never loaded",
+  "tertiary_finding": "After engine fix, 111/120 experiences have engines; local train_replay still 0/175 lifts on platform identity (eval-sealed solvers do not transfer)",
+  "fixes": [
+    "miss_reinjection.load_learned_experiences: resolve real engine / s*_g_<tid>",
+    "experience_batch: local closed-engine probe before LLM",
+    "experience_batch: slim prompt + timeout retry + 300s timeout"
+  ],
+  "next_move": "LLM experience batch with 300s timeout on full 175; zoom-scale in prompt; keep wave6 hybrid orthogonal"
+}

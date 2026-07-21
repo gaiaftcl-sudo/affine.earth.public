@@ -832,21 +832,38 @@ def load_learned_experiences(
             if not locked:
                 continue
             c4 = str(payload.get("c4_invariant") or payload.get("typed_candidate") or "")
+            tid = str(payload.get("task_id") or path.stem)
+            engine = ""
+            if isinstance(vr, dict) and vr.get("engine"):
+                engine = str(vr.get("engine"))
+            elif payload.get("engine"):
+                engine = str(payload.get("engine"))
+            else:
+                s4 = payload.get("s4") if isinstance(payload.get("s4"), dict) else {}
+                typed = s4.get("typed_candidate") if isinstance(s4, dict) else {}
+                if isinstance(typed, dict) and typed.get("engine"):
+                    engine = str(typed.get("engine"))
+                elif isinstance(s4, dict) and s4.get("engine"):
+                    engine = str(s4.get("engine"))
+            if engine in {"None", "null", "?", "nan"}:
+                engine = ""
+            # Task-sealed solvers often live as s3_g_<task_id>.py / s1_g_ / s2_g_
+            if not engine and tid:
+                for prefix in ("s3_g_", "s2_g_", "s1_g_"):
+                    candidate = f"{prefix}{tid}"
+                    if (Path(__file__).resolve().parents[1] / "arc" / f"{candidate}.py").is_file():
+                        engine = candidate
+                        break
             _push(
                 {
-                    "task_id": str(payload.get("task_id") or path.stem),
+                    "task_id": tid,
                     "track": track,
                     "status": "CLOSED" if status.upper() in {"CLOSED", "HEALED"} else status,
                     "c4_invariant": c4[:240],
                     "grammar_update": str(payload.get("grammar_update") or "")[:160],
                     "validator": str(payload.get("validator") or ""),
                     "validator_result": vr if isinstance(vr, dict) else {},
-                    "engine": str(
-                        (vr or {}).get("engine")
-                        if isinstance(vr, dict)
-                        else payload.get("engine")
-                        or ""
-                    ),
+                    "engine": engine,
                     "source": f"grammar/{track}/{path.name}",
                 }
             )

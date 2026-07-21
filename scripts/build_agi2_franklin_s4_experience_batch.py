@@ -215,6 +215,33 @@ def _zoom_move(task: Dict[str, Any]) -> str:
     return max(set(zooms), key=zooms.count) if zooms else "same_canvas_rewrite"
 
 
+def _resolve_experience_engines(root: Path, ex: Mapping[str, Any]) -> List[str]:
+    """Map a CLOSED experience to concrete arc/*.py engine stems."""
+    arc = root / "llm_llvm_bench" / "arc"
+    out: List[str] = []
+    seen: set[str] = set()
+
+    def _add(name: str) -> None:
+        name = str(name or "").strip()
+        if not name or name in seen or name in {"None", "?", "null"}:
+            return
+        if (arc / f"{name}.py").is_file():
+            seen.add(name)
+            out.append(name)
+
+    _add(ex.get("engine"))
+    mod = str(ex.get("module") or "")
+    if mod.endswith(".py"):
+        _add(Path(mod).stem)
+    elif "/" in mod:
+        _add(Path(mod).stem)
+    eid = str(ex.get("task_id") or "")
+    if eid:
+        for pref in ("s3_g_", "s2_g_", "s1_g_", ""):
+            _add(f"{pref}{eid}" if pref else eid)
+    return out
+
+
 def try_ranked_closed_engines(
     root: Path,
     tid: str,
@@ -227,73 +254,75 @@ def try_ranked_closed_engines(
     arc = root / "llm_llvm_bench" / "arc"
     seen: set[str] = set()
     for ex in experiences:
-        eng = str(ex.get("engine") or "").strip()
-        if not eng or eng in seen or eng in {"None", "?", "null"}:
-            continue
-        seen.add(eng)
-        path = arc / f"{eng}.py"
-        if not path.is_file():
-            continue
-        try:
-            spec = importlib.util.spec_from_file_location(f"exp_{eng}", path)
-            if spec is None or spec.loader is None:
+        for eng in _resolve_experience_engines(root, ex):
+            if eng in seen:
                 continue
-            mod = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(mod)
-            if not hasattr(mod, "train_replay") or not hasattr(mod, "submission_fragment"):
+            seen.add(eng)
+            path = arc / f"{eng}.py"
+            if not path.is_file():
                 continue
-            if hasattr(mod, "applies"):
-                try:
-                    if not mod.applies(task):
-                        continue
-                except Exception:
-                    pass
-            replay = mod.train_replay(task)
-            if not (isinstance(replay, dict) and replay.get("perfect")):
+            try:
+                spec = importlib.util.spec_from_file_location(f"exp_{eng}", path)
+                if spec is None or spec.loader is None:
+                    continue
+                mod = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(mod)
+                if not hasattr(mod, "train_replay") or not hasattr(
+                    mod, "submission_fragment"
+                ):
+                    continue
+                if hasattr(mod, "applies"):
+                    try:
+                        if not mod.applies(task):
+                            continue
+                    except Exception:
+                        pass
+                replay = mod.train_replay(task)
+                if not (isinstance(replay, dict) and replay.get("perfect")):
+                    continue
+                frag = mod.submission_fragment(tid, task)
+                if not frag or tid not in frag:
+                    continue
+                preds = frag[tid]
+                if len(preds) != len(task["test"]):
+                    continue
+                licensed = sum(
+                    1
+                    for i, p in enumerate(preds)
+                    if isinstance(p.get("attempt_1"), list)
+                    and p["attempt_1"] != task["test"][i]["input"]
+                )
+                if licensed <= 0:
+                    continue
+                vr = {
+                    "accepted": True,
+                    "train_replay": f"{len(task['train'])}/{len(task['train'])}",
+                    "detail": "train_replay_perfect",
+                }
+                bound = jordan_loop_bound_closed(TRACK_ARC2, vr, accepted=True)
+                if not bound.get("closed"):
+                    continue
+                return {
+                    "task_id": tid,
+                    "ok": True,
+                    "predictions": preds,
+                    "licensed_grids": licensed,
+                    "turns": 0,
+                    "path": "closed_engine_experience",
+                    "engine": eng,
+                    "experience_task_id": ex.get("task_id"),
+                    "validator_result": vr,
+                    "jordan_loop_bound": bound,
+                    "learned_experiences_pulled": len(experiences),
+                    "zoom_move": _zoom_move(task),
+                }
+            except Exception:
                 continue
-            frag = mod.submission_fragment(tid, task)
-            if not frag or tid not in frag:
-                continue
-            preds = frag[tid]
-            if len(preds) != len(task["test"]):
-                continue
-            licensed = sum(
-                1
-                for i, p in enumerate(preds)
-                if isinstance(p.get("attempt_1"), list)
-                and p["attempt_1"] != task["test"][i]["input"]
-            )
-            if licensed <= 0:
-                continue
-            vr = {
-                "accepted": True,
-                "train_replay": f"{len(task['train'])}/{len(task['train'])}",
-                "detail": "train_replay_perfect",
-            }
-            bound = jordan_loop_bound_closed(TRACK_ARC2, vr, accepted=True)
-            if not bound.get("closed"):
-                continue
-            return {
-                "task_id": tid,
-                "ok": True,
-                "predictions": preds,
-                "licensed_grids": licensed,
-                "turns": 0,
-                "path": "closed_engine_experience",
-                "engine": eng,
-                "experience_task_id": ex.get("task_id"),
-                "validator_result": vr,
-                "jordan_loop_bound": bound,
-                "learned_experiences_pulled": len(experiences),
-                "zoom_move": _zoom_move(task),
-            }
-        except Exception:
-            continue
     return None
 
 
 def solve_one(
-    session: requests.Session,
+    session: Optional[requests.Session],
     *,
     root: Path,
     base: str,
@@ -304,13 +333,30 @@ def solve_one(
     experiences: List[Dict[str, Any]],
     max_turns: int,
     timeout: int,
+    skip_llm: bool = False,
 ) -> Dict[str, Any]:
-    # Path A: ranked CLOSED engines from learned experiences (no LLM invent)
+    # Path A: ranked CLOSED + zoom-class engines (no LLM invent)
     local = try_ranked_closed_engines(root, tid, task, experiences)
     if local is not None:
         return local
 
     zoom = _zoom_move(task)
+    if skip_llm or session is None:
+        open_bound = jordan_loop_bound_closed(
+            TRACK_ARC2, {"accepted": False, "train_replay": f"0/{len(task['train'])}"},
+            accepted=False,
+        )
+        open_bound["reason"] = "jordan_loop_bound_open:no_local_engine_skip_llm"
+        return {
+            "task_id": tid,
+            "ok": False,
+            "turns": 0,
+            "path": "skip_llm",
+            "zoom_move": zoom,
+            "jordan_loop_bound": open_bound,
+            "validator_result": {"accepted": False, "detail": "skip_llm"},
+            "learned_experiences_pulled": len(experiences),
+        }
     train_pack = [
         {
             "i": i,
@@ -377,7 +423,7 @@ def solve_one(
                 json={
                     "model": model,
                     "temperature": 0.1,
-                    "max_tokens": 1600,
+                    "max_tokens": int(os.environ.get("FRANKLIN_MAX_TOKENS", "1000")),
                     "messages": messages,
                 },
                 timeout=timeout,
@@ -405,6 +451,12 @@ def solve_one(
                     }
                 )
                 continue
+            open_bound = jordan_loop_bound_closed(
+                TRACK_ARC2,
+                {"accepted": False, "train_replay": f"0/{len(task['train'])}"},
+                accepted=False,
+            )
+            open_bound["reason"] = "jordan_loop_bound_open:llm_timeout_before_validator"
             return {
                 "task_id": tid,
                 "ok": False,
@@ -414,6 +466,11 @@ def solve_one(
                 "learned_experiences_pulled": len(experiences),
                 "zoom_move": zoom,
                 "path": "llm_timeout",
+                "jordan_loop_bound": open_bound,
+                "validator_result": {
+                    "accepted": False,
+                    "detail": "llm_timeout_before_validator",
+                },
             }
         messages.append({"role": "assistant", "content": answer})
         parsed = extract_json(answer)
@@ -562,29 +619,36 @@ def main() -> int:
         )
         print(f"RESUME stored={len(submission)}/{len(ids)}", flush=True)
 
-    session = requests.Session()
-    # Re-play timeout / error receipts — they never reached Jordan
+    session: Optional[requests.Session] = None if args.skip_llm else requests.Session()
+    # Re-play timeout / error / skip_llm receipts — they never closed Jordan
     pending = []
     for t in ids:
         if t in submission:
             continue
         prev = receipts.get(t) or {}
         err = str(prev.get("error") or "")
-        if prev.get("ok") is False and ("timed out" in err or prev.get("path") == "llm_timeout"):
+        path = str(prev.get("path") or "")
+        if prev.get("ok") is False and (
+            "timed out" in err
+            or path in {"llm_timeout", "skip_llm"}
+            or prev.get("turns") == 0
+        ):
             receipts.pop(t, None)
         pending.append(t)
     print(
         f"START franklin_s4_experience pending={len(pending)} model={model} "
-        f"timeout={args.timeout}s",
+        f"timeout={args.timeout}s skip_llm={args.skip_llm}",
         flush=True,
     )
     t0 = time.time()
     for n, tid in enumerate(pending, 1):
-        # Always refresh global pull + ranked for this play
+        # Always refresh global pull + ranked for this play (all CLOSED engines)
         fresh = load_learned_experiences(
             state_dir, track=TRACK_ARC2, exclude_task_id=tid, limit=args.experience_limit
         )
-        ranked = rank_experiences(challenges[tid], fresh, eval_ch, limit=12)
+        ranked = rank_experiences(
+            challenges[tid], fresh, eval_ch, limit=min(80, len(fresh) or 80)
+        )
         result = solve_one(
             session,
             root=root,
@@ -596,6 +660,7 @@ def main() -> int:
             experiences=ranked,
             max_turns=args.max_turns,
             timeout=args.timeout,
+            skip_llm=bool(args.skip_llm),
         )
         receipts[tid] = {k: v for k, v in result.items() if k != "predictions"}
         if result.get("ok") and result.get("predictions"):
