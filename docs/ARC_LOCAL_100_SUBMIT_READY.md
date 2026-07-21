@@ -1,7 +1,7 @@
 # ARC local 100 — submit-ready (DO NOT CLI-submit)
 
 
-**Live licensed fill:** `68/259` (26.25%) · identity `191` · merge `reports/airgap_agi2_test_20260721T175400Z/` · NOT submit-ready until ≥95%+.
+**Live licensed fill:** `68/259` (26.25%) · identity `191` · experience-path ON · NOT submit-ready until ≥95%+.
 Local mastery artifacts are schema-valid and independently scored.
 `configs/NO_KAGGLE_SUBMIT.lock` remains in force.
 

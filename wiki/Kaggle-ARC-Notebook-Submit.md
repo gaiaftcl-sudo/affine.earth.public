@@ -1,7 +1,7 @@
 # Kaggle ARC — notebooks-only submit (air-gap)
 
 
-**Live licensed fill:** `68/259` (26.25%) · identity `191` · merge `reports/airgap_agi2_test_20260721T175400Z/` · NOT submit-ready until ≥95%+.
+**Live licensed fill:** `68/259` (26.25%) · identity `191` · experience-path ON · NOT submit-ready until ≥95%+.
 Direct `competitions submit` → **HTTP 400**: daily allowance (1) + **Notebooks only**.
 
 Standing probes: AGI-2 **54875115** / **0.00** · AGI-3 **54875048** / **0.12**.
