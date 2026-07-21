@@ -12,18 +12,11 @@
     "arc2:291dc1e1",
     "arc2:2ba387bc",
     "arc2:2d0172a1",
+    "arc2:3a25b0d8",
     "arc2:38007db0",
     "arc3:agi3-trajectory-gap"
   ],
   "next_apply_loop": [
-    {
-      "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
-      "key": "arc2:3a25b0d8",
-      "last_gate": "pending",
-      "task_id": "3a25b0d8",
-      "track": "arc2",
-      "language_game_class": "S1_dimension_projection"
-    },
     {
       "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
       "key": "arc2:16b78196",
@@ -38,9 +31,16 @@
       "last_gate": "S4_REINJECT",
       "task_id": "ar25",
       "track": "arc3"
+    },
+    {
+      "action": "Heal unreproduced_productive_delta; do not regress bp35 L1",
+      "key": "arc3:ls20",
+      "last_gate": "S4_REINJECT",
+      "task_id": "ls20",
+      "track": "arc3"
     }
   ],
-  "note": "Reinjection CLOSED synced for 2d0172a1 topology_schematic. Mastery 23/172. Next open: 3a25b0d8. No Kaggle.",
+  "note": "Reinjection CLOSED synced for 3a25b0d8 hollow_accent_fill. Mastery 25/172. Next open: 16b78196. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T14:19:36.643957+00:00"
+  "recorded_at_utc": "2026-07-21T14:32:19.802+00:00"
 }

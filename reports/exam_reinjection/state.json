@@ -348,6 +348,25 @@
       "track": "arc2",
       "turn_count": 1,
       "updated_at": "2026-07-21T14:20:17.964204+00:00"
+    },
+    "arc2:3a25b0d8": {
+      "engine": "s1_hollow_accent_fill",
+      "last_c4": "Hollow accent-fill: 8-connected mono hollow frame + multi-color accent; D4-align accent by frame overlap; paint accents into hollow; flood-fill enclosed holes with majority accent seed; train-replay gated.",
+      "last_gate": "S4_LOCKED",
+      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/3a25b0d8.json",
+      "last_s4_status": "LOCKED",
+      "last_validator": "demonstration_replay+labeled_eval",
+      "last_validator_result": {
+        "accepted": true,
+        "detail": "local_solver_green",
+        "labeled_eval": "2/2",
+        "train_replay": "2/2"
+      },
+      "status": "CLOSED",
+      "task_id": "3a25b0d8",
+      "track": "arc2",
+      "turn_count": 1,
+      "updated_at": "2026-07-21T14:32:19.802+00:00"
     }
   },
   "total_franklin_turns": 31

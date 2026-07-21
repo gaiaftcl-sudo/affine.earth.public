@@ -365,6 +365,27 @@ def solve_task(
         receipt["s1_topo_meta"] = topo_replay
         return topo_fragment, receipt
 
+    # 1b11) S1 hollow accent-fill (3a25b0d8).
+    s1hollow = _load_module(
+        arc_dir / "s1_hollow_accent_fill.py", "s1_hollow_accent_fill"
+    )
+    hollow_replay = s1hollow.train_replay(task)
+    hollow_fragment = s1hollow.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(hollow_replay)
+    if (
+        hollow_fragment is not None
+        and hollow_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in hollow_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_hollow_accent_fill"
+        receipt["train_replay"] = hollow_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_hollow_meta"] = hollow_replay
+        return hollow_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"
