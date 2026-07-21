@@ -1,0 +1,19 @@
+{
+  "track": "hle",
+  "task_id": "hle-official-gate-open",
+  "gate": "HF_TOKEN_ABSENT",
+  "official_dataset": "cais/hle",
+  "official_claim_permitted": false,
+  "official_hle_accuracy": null,
+  "official_hle_calibration": null,
+  "keychain_accessed": false,
+  "closure_ready": false,
+  "next_action": "Expand local exact-match fixtures and miss→Franklin→C4 reinjection until HF_TOKEN is present in the process environment; then run official smoke→judge.",
+  "local_drill_revision": "local-synthetic-hle-fixtures-v2",
+  "recorded_at_utc": "2026-07-21T13:30:00Z",
+  "notes": [
+    "HF_TOKEN was absent in env (no Keychain read).",
+    "Official Accuracy remains null without CAIS judge output.",
+    "This grammar row is a gate-open receipt, not a score."
+  ]
+}

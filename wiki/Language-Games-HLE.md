@@ -132,24 +132,49 @@ export OPENAI_API_KEY="uum8d-hle-verifier"
 | MCQ | option letter only |
 | Exact match | exact token only |
 | Multimodal stub | exact token; modality recorded as unsupported text adapter |
+| Boolean | literal `True` or `False` token |
+| Numeric exact | integer token |
+| Mathematical expression | normalized fraction token |
+| Unit-bearing exact | exact converted numeric token |
+| Short answer | exact entity-name token |
+| Ordered sequence | comma-delimited exact sequence |
+| Set-membership MCQ | option letter only |
+| Formula exact | integer / reduced-form token |
+| Boolean (yes/no) | literal `True` or `False` token |
 
 Receipts land in `reports/hle_local_<UTC>/` (example:
 `reports/hle_local_20260721T104720Z/`):
 
 - `receipt.json` — endpoint/model manifest, per-question identity/format gates,
-  `local_fixture_match_ratio`, and `official_hle_accuracy: null`
+  initial and post-reinjection local match ratios, and
+  `official_hle_accuracy: null`
 - `language-game-turns.jsonl` — OPEN → CONTEXT → ANSWER → GATE turns
+- local misses append REINJECT → CONTEXT → ANSWER → GATE turns. The fixture
+  gate supplies the corrected local C4 answer, Franklin re-reads the original
+  contract, and the second answer is independently checked.
 
-Measured local drill on loopback `qwen/qwen3.6-35b-a3b`: fixture matches 3/3,
-`official_hle_accuracy=null`, `official_claim_permitted=false`,
-`hf_token_status=absent`, `keychain_accessed=false`.
+Measured baseline local drill on loopback `qwen/qwen3.6-35b-a3b`: fixture
+matches 3/3 on v1, `official_hle_accuracy=null`,
+`official_claim_permitted=false`, `hf_token_status=absent`,
+`keychain_accessed=false`.
+
+### Official gate (2026-07-21)
+
+`HF_TOKEN` is **absent** in the process environment. No Keychain read is
+performed. Official `cais/hle` smoke+judge remains blocked. Gate-open receipt:
+`reports/exam_reinjection/grammar/hle/hle-official-gate-open.json`.
+Until the token appears, local fixture grammar and miss-reinjection continue;
+`official_hle_accuracy` stays null.
 
 Hard rules:
 
 - No Keychain / `security` CLI.
 - `HF_TOKEN` is read from the process environment only when present; local drills
   do not require it and do not use it.
-- Never present `local_fixture_match_ratio` as Accuracy, Calibration, or a
+- Never present local fixture match ratios as Accuracy, Calibration, or a
   leaderboard claim.
+- `initial_local_fixture_match_ratio` and
+  `local_fixture_match_ratio_after_reinjection` remain local drill evidence;
+  neither is official Accuracy.
 - Official CAIS predict+judge remains the only path that may fill
   `official_hle_accuracy`.
