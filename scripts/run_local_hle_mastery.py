@@ -32,7 +32,7 @@ from llm_llvm_bench.arc.franklin_s4_projection import (  # noqa: E402
 )
 from llm_llvm_bench.exam.s4_client import run_s4_projection_turn  # noqa: E402
 
-DATASET_REVISION = "local-synthetic-hle-fixtures-v5"
+DATASET_REVISION = "local-synthetic-hle-fixtures-v6"
 
 FIXTURES: tuple[dict[str, Any], ...] = (
     {
@@ -349,6 +349,39 @@ FIXTURES: tuple[dict[str, Any], ...] = (
         "answer_format": "option_letter",
         "question": "Which body orbits Earth?",
         "choices": {"A": "Sun", "B": "Moon", "C": "Mars", "D": "Jupiter"},
+        "expected": "B",
+        "modality": None,
+    },
+    {
+        "id": "local-pow-exact",
+        "move_type": "number_theory_exact",
+        "answer_format": "exact_token",
+        "question": "What is 2^10? Integer token only.",
+        "expected": "1024",
+        "modality": None,
+    },
+    {
+        "id": "local-abs-exact",
+        "move_type": "number_theory_exact",
+        "answer_format": "exact_token",
+        "question": "Absolute value of -42? Integer token only.",
+        "expected": "42",
+        "modality": None,
+    },
+    {
+        "id": "local-binary-and",
+        "move_type": "base_conversion",
+        "answer_format": "exact_token",
+        "question": "Bitwise AND of 6 and 3? Integer token only.",
+        "expected": "2",
+        "modality": None,
+    },
+    {
+        "id": "local-mcq-h2o",
+        "move_type": "mcq",
+        "answer_format": "option_letter",
+        "question": "Chemical formula for water?",
+        "choices": {"A": "CO2", "B": "H2O", "C": "O2", "D": "NaCl"},
         "expected": "B",
         "modality": None,
     },

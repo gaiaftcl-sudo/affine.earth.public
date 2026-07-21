@@ -507,6 +507,39 @@ def load_arc3_fails(root: Path, limit: int) -> List[MissRecord]:
 
 
 def load_hle_fails(root: Path, limit: int) -> List[MissRecord]:
+    misses: List[MissRecord] = []
+    # Prefer official judged misses when present.
+    official_dirs = sorted(
+        root.glob("reports/hle_official_*/misses.json"),
+        key=lambda p: p.stat().st_mtime,
+        reverse=True,
+    )
+    if official_dirs:
+        misses_path = official_dirs[0]
+        for row in json.loads(misses_path.read_text(encoding="utf-8")):
+            task_id = str(row.get("id") or "")
+            if not task_id:
+                continue
+            misses.append(
+                MissRecord(
+                    track=TRACK_HLE,
+                    task_id=task_id,
+                    evidence={
+                        "source": "official_cais_hle",
+                        "model_answer": row.get("model_answer"),
+                        "correct_answer": row.get("correct_answer"),
+                        "confidence": row.get("confidence"),
+                    },
+                    source_path=str(misses_path.relative_to(root)),
+                    s_state="incomplete",
+                    drift_kind="understanding drift",
+                )
+            )
+            if len(misses) >= limit:
+                return misses
+        if misses:
+            return misses[:limit]
+
     report = _latest_dir("reports/hle_local_*", root)
     if report is None:
         return []
@@ -517,7 +550,6 @@ def load_hle_fails(root: Path, limit: int) -> List[MissRecord]:
             return []
         receipt = max(alts, key=lambda p: p.stat().st_mtime)
     data = json.loads(receipt.read_text(encoding="utf-8"))
-    misses: List[MissRecord] = []
     for result in data.get("results") or []:
         if result.get("matched"):
             continue

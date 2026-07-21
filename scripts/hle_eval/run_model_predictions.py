@@ -105,6 +105,34 @@ def main(args):
         with open(output_filepath, "w") as f:
             json.dump(predictions, f, indent=4)
 
+    # Text-only endpoints: seal multimodal as explicit misses up front so the
+    # async workers only spend wall time on text questions.
+    if any(tag in args.model.lower() for tag in ("qwen", "qwq")):
+        remaining = []
+        sealed = 0
+        for q in questions:
+            if q.get("image"):
+                predictions[q["id"]] = {
+                    "model": args.model,
+                    "response": (
+                        "Explanation: Model endpoint does not support image inputs.\n"
+                        "Answer: None\nConfidence: 0%"
+                    ),
+                    "usage": {
+                        "completion_tokens": 0,
+                        "prompt_tokens": 0,
+                        "total_tokens": 0,
+                        "skipped_multimodal": True,
+                    },
+                }
+                sealed += 1
+            else:
+                remaining.append(q)
+        if sealed:
+            persist()
+            print(f"sealed_multimodal_skips={sealed} text_remaining={len(remaining)}", flush=True)
+        questions = remaining
+
     async def attempt_all_incremental(questions):
         semaphore = asyncio.Semaphore(args.num_workers)
         done = 0

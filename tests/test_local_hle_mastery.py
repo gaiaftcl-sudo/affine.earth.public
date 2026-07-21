@@ -35,7 +35,7 @@ def test_local_fixture_set_covers_core_answer_contracts() -> None:
         "statistics_exact",
         "string_transform_exact",
     } <= move_types
-    assert len(FIXTURES) >= 34
+    assert len(FIXTURES) >= 40
     assert DATASET_REVISION.startswith("local-synthetic-hle-fixtures-v")
 
 
