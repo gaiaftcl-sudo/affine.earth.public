@@ -22,6 +22,17 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 
 import requests
 
+from llm_llvm_bench.arc.franklin_s4_projection import (
+    S4_RESPONSE_JSON_SCHEMA,
+    S4_STATUS_LOCKED,
+    S4_STATUS_REINJECT,
+    build_miss_wrapper_evidence,
+    default_validator_for_track,
+    exam_s4_user_prompt,
+    normalize_s4_response,
+    projection_system_prompt,
+    s4_response_score,
+)
 from llm_llvm_bench.arc.franklin_uum8d_system_prompt import (
     franklin_uum8d_game_comprehension_system_prompt,
 )
@@ -45,44 +56,7 @@ DEFAULT_TIMEOUT_SECONDS = 300
 DEFAULT_MAX_TOKENS = 1024
 EVIDENCE_CHAR_BUDGET = 1800
 
-REPAIR_REQUIRED_KEYS = (
-    "task_id",
-    "track",
-    "s1",
-    "s2",
-    "s3",
-    "s4",
-    "c4_invariant",
-    "grammar_update",
-    "repair_kind",
-    "research_note",
-    "closure_ready",
-)
-
-REPAIR_JSON_SCHEMA: Dict[str, Any] = {
-    "name": "exam_s1_s4_c4_repair",
-    "schema": {
-        "type": "object",
-        "additionalProperties": True,
-        "properties": {
-            "task_id": {"type": "string"},
-            "track": {"type": "string"},
-            "s1": {"type": "string"},
-            "s2": {"type": "string"},
-            "s3": {"type": "string"},
-            "s4": {"type": "string"},
-            "c4_invariant": {"type": "string"},
-            "grammar_update": {"type": "string"},
-            "repair_kind": {
-                "type": "string",
-                "enum": ["grammar", "solver_hint", "context", "action_theory"],
-            },
-            "research_note": {"type": "string"},
-            "closure_ready": {"type": "boolean"},
-        },
-        "required": list(REPAIR_REQUIRED_KEYS),
-    },
-}
+REPAIR_JSON_SCHEMA: Dict[str, Any] = S4_RESPONSE_JSON_SCHEMA
 
 
 @dataclass
@@ -433,15 +407,7 @@ def _iter_balanced_json_objects(text: str) -> List[str]:
 
 
 def _repair_score(obj: Dict[str, Any]) -> int:
-    keys = {str(k).lower() for k in obj}
-    score = 0
-    for key in ("s1", "s2", "s3", "s4", "c4_invariant", "grammar_update", "repair_kind"):
-        if key in keys:
-            score += 2
-    for key in ("c4", "invariant", "grammar", "closure_ready", "task_id", "track"):
-        if key in keys:
-            score += 1
-    return score
+    return s4_response_score(obj)
 
 
 def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
@@ -474,65 +440,8 @@ def extract_json_object(text: str) -> Optional[Dict[str, Any]]:
 def normalize_repair_payload(
     parsed: Optional[Dict[str, Any]], miss: MissRecord
 ) -> Optional[Dict[str, Any]]:
-    """Accept Franklin alias shapes and coerce into the canonical S1–S4 + C4 schema."""
-    if not isinstance(parsed, dict):
-        return None
-    # Nested envelopes Franklin sometimes emits under UUM-8D prompts.
-    for nest_key in ("repair", "result", "payload", "json", "data", "answer"):
-        nested = parsed.get(nest_key)
-        if isinstance(nested, dict) and _repair_score(nested) >= _repair_score(parsed):
-            parsed = nested
-            break
-
-    def pick(*names: str) -> Any:
-        lower_map = {str(k).lower(): v for k, v in parsed.items()}
-        for name in names:
-            if name.lower() in lower_map and lower_map[name.lower()] not in (None, ""):
-                return lower_map[name.lower()]
-        return None
-
-    s1 = pick("s1", "S1", "objects", "symbols")
-    s2 = pick("s2", "S2", "relations")
-    s3 = pick("s3", "S3", "transforms", "actions", "legal_transforms")
-    s4 = pick("s4", "S4", "acceptance", "acceptance_boundary", "boundary")
-    c4 = pick("c4_invariant", "c4", "C4", "invariant", "c4_lock", "terminal")
-    grammar = pick("grammar_update", "grammar", "update", "repair")
-    repair_kind = pick("repair_kind", "kind") or "grammar"
-    note = pick("research_note", "note", "rationale") or ""
-    closure = pick("closure_ready", "ready", "closed")
-    if isinstance(closure, str):
-        closure = closure.strip().lower() in {"1", "true", "yes", "ready"}
-    elif closure is None:
-        closure = False
-    else:
-        closure = bool(closure)
-
-    # Stringify structured fields Franklin may emit as objects/lists.
-    def as_text(value: Any) -> str:
-        if value is None:
-            return ""
-        if isinstance(value, (dict, list)):
-            return json.dumps(value, sort_keys=True)
-        return str(value)
-
-    repair = {
-        "task_id": as_text(pick("task_id", "id") or miss.task_id),
-        "track": as_text(pick("track") or miss.track),
-        "s1": as_text(s1),
-        "s2": as_text(s2),
-        "s3": as_text(s3),
-        "s4": as_text(s4),
-        "c4_invariant": as_text(c4),
-        "grammar_update": as_text(grammar),
-        "repair_kind": as_text(repair_kind),
-        "research_note": as_text(note),
-        "closure_ready": bool(closure),
-    }
-    if repair["c4_invariant"] == "DRY_RUN" or repair["s1"] == "DRY_RUN":
-        return None
-    if not (repair["s1"] or repair["c4_invariant"] or repair["grammar_update"]):
-        return None
-    return repair
+    """Accept Franklin S4 LOCKED|REINJECT shapes (and legacy aliases)."""
+    return normalize_s4_response(parsed, track=miss.track, task_id=miss.task_id)
 
 
 def _truncate_evidence(evidence: Dict[str, Any], budget: int = EVIDENCE_CHAR_BUDGET) -> str:
@@ -542,9 +451,85 @@ def _truncate_evidence(evidence: Dict[str, Any], budget: int = EVIDENCE_CHAR_BUD
     return raw[: budget - 20] + "...<truncated>"
 
 
+def apply_local_s4_validator(miss: MissRecord, repair: Dict[str, Any]) -> Dict[str, Any]:
+    """Run the named local/track-native check; demote false LOCKED → REINJECT."""
+    status = str(repair.get("s4_status") or S4_STATUS_REINJECT)
+    validator = str(repair.get("validator") or default_validator_for_track(miss.track))
+    candidate = repair.get("typed_candidate")
+    candidate_text = (
+        json.dumps(candidate, sort_keys=True)
+        if isinstance(candidate, (dict, list))
+        else str(candidate or "").strip()
+    )
+    detail = "candidate_present" if candidate_text else "empty_candidate"
+    accepted = False
+
+    if miss.track == TRACK_HLE:
+        expected = (
+            miss.evidence.get("expected")
+            or miss.evidence.get("answer")
+            or miss.evidence.get("corrected_c4")
+        )
+        if expected is not None and candidate_text:
+            accepted = candidate_text.strip().lower() == str(expected).strip().lower()
+            detail = "exact_token_match" if accepted else "exact_token_mismatch"
+        elif candidate_text and status == S4_STATUS_LOCKED:
+            # Format presence only when fixture expected is absent from the miss.
+            accepted = True
+            detail = "format_presence_pending_mastery"
+    elif miss.track == TRACK_ARC2:
+        if candidate_text and status == S4_STATUS_LOCKED:
+            accepted = True
+            detail = "typed_grid_or_rule_pending_mastery"
+        elif candidate_text:
+            accepted = False
+            detail = "franklin_reinject_with_candidate"
+    elif miss.track == TRACK_ARC3:
+        if candidate_text and status == S4_STATUS_LOCKED:
+            accepted = True
+            detail = "legal_action_pending_environment_step"
+        elif candidate_text:
+            accepted = False
+            detail = "franklin_reinject_with_action"
+
+    if status == S4_STATUS_LOCKED and not accepted:
+        status = S4_STATUS_REINJECT
+        repair["closure_ready"] = False
+        detail = f"demoted_locked:{detail}"
+    elif status == S4_STATUS_LOCKED and accepted:
+        repair["closure_ready"] = True
+    else:
+        repair["closure_ready"] = False
+        status = S4_STATUS_REINJECT
+
+    repair["s4_status"] = status
+    repair["validator"] = validator
+    repair["validator_result"] = {
+        "validator": validator,
+        "ran": True,
+        "accepted": bool(accepted and status == S4_STATUS_LOCKED),
+        "detail": detail,
+        "status": status,
+    }
+    repair["s4"] = json.dumps(
+        {
+            "typed_candidate": candidate if candidate is not None else "",
+            "validator": validator,
+            "status": status,
+            "unresolved_alternatives": repair.get("unresolved_alternatives") or [],
+            "validator_result": repair["validator_result"],
+        },
+        sort_keys=True,
+    )
+    if candidate_text:
+        repair["c4_invariant"] = candidate_text
+    elif status == S4_STATUS_REINJECT:
+        repair["c4_invariant"] = f"REINJECT:{detail}"
+    return repair
+
+
 def build_franklin_messages(miss: MissRecord, prior_turns: int) -> List[Dict[str, str]]:
-    """Compact UUM-8D reinjection prompt — machine-parseable S1–S4 + C4 JSON only."""
-    # Keep doctrine, drop the multi-KB essay so thinking models finish JSON in-budget.
+    """Protocol-aligned prompt: WRAPPER_EVIDENCE → typed S4 LOCKED|REINJECT JSON."""
     baseline = franklin_uum8d_game_comprehension_system_prompt()
     digest = baseline
     marker = "**3. Ingestion to Jordan Bond"
@@ -554,31 +539,24 @@ def build_franklin_messages(miss: MissRecord, prior_turns: int) -> List[Dict[str
     if len(digest) > 1200:
         digest = digest[:1200].rstrip() + "\n[UUM-8D digest truncated for reinjection latency]"
 
-    system = (
+    system = projection_system_prompt(
         f"{digest}\n\n"
         "---\n"
-        "EXAM REINJECTION CONTRACT (machine-parseable):\n"
-        "Miss ⇒ incomplete S-state, not compute failure.\n"
-        "Lock S1–S4 then one C4 projection (only true answer).\n"
+        "EXAM REINJECTION = Franklin S¹–S⁴ projection language game.\n"
         f"Aristotelian turn {prior_turns + 1}/{ARISTOTELIAN_CLOSURE_TURNS}.\n"
         "Respond with ONE JSON object ONLY in the assistant content field.\n"
-        "No markdown fences. No prose before/after JSON. No empty content.\n"
-        "Required keys (exact spelling):\n"
-        "task_id, track, s1, s2, s3, s4, c4_invariant, grammar_update, "
-        "repair_kind, research_note, closure_ready.\n"
-        "repair_kind ∈ {grammar, solver_hint, context, action_theory}.\n"
-        "closure_ready is boolean. Values are short strings.\n"
-        "Do not guess grids without locking C4. No Kaggle submit."
+        "s4.status ∈ {LOCKED, REINJECT}. No Kaggle submit."
     )
-    user = (
-        f"track={miss.track}\n"
-        f"task_id={miss.task_id}\n"
-        f"s_state={miss.s_state}\n"
-        f"drift_kind={miss.drift_kind}\n"
-        f"source={miss.source_path}\n"
-        f"miss_evidence={_truncate_evidence(miss.evidence)}\n"
-        "Emit the JSON object now."
+    evidence_turn = build_miss_wrapper_evidence(
+        track=miss.track,
+        task_id=miss.task_id,
+        s_state=miss.s_state,
+        drift_kind=miss.drift_kind,
+        evidence=miss.evidence,
+        prior_turns=prior_turns,
+        prior_gate={"turn": prior_turns, "source": miss.source_path},
     )
+    user = exam_s4_user_prompt(evidence_turn, _truncate_evidence(miss.evidence))
     return [
         {"role": "system", "content": system},
         {"role": "user", "content": user},
@@ -843,12 +821,18 @@ def record_grammar_update(
         "s2": repair.get("s2"),
         "s3": repair.get("s3"),
         "s4": repair.get("s4"),
+        "s4_status": repair.get("s4_status"),
+        "typed_candidate": repair.get("typed_candidate"),
+        "validator": repair.get("validator"),
+        "validator_result": repair.get("validator_result"),
+        "unresolved_alternatives": repair.get("unresolved_alternatives"),
         "c4_invariant": repair.get("c4_invariant"),
         "grammar_update": repair.get("grammar_update"),
         "repair_kind": repair.get("repair_kind"),
         "research_note": repair.get("research_note"),
         "closure_ready": bool(repair.get("closure_ready")),
         "source_miss": miss.source_path,
+        "protocol": "franklin_s4_projection",
     }
     write_json(path, payload)
     append_jsonl(
@@ -1086,7 +1070,20 @@ def process_miss(
             "s1": "DRY_RUN",
             "s2": "DRY_RUN",
             "s3": "DRY_RUN",
-            "s4": "DRY_RUN",
+            "s4": json.dumps(
+                {
+                    "typed_candidate": "DRY_RUN",
+                    "validator": default_validator_for_track(miss.track),
+                    "status": S4_STATUS_REINJECT,
+                    "unresolved_alternatives": [],
+                },
+                sort_keys=True,
+            ),
+            "s4_status": S4_STATUS_REINJECT,
+            "typed_candidate": "DRY_RUN",
+            "validator": default_validator_for_track(miss.track),
+            "validator_result": {"ran": False, "accepted": False, "detail": "dry_run"},
+            "unresolved_alternatives": [],
             "c4_invariant": "DRY_RUN",
             "grammar_update": "dry-run placeholder — no Franklin call",
             "repair_kind": "grammar",
@@ -1106,6 +1103,8 @@ def process_miss(
             messages, timeout=timeout, max_tokens=max_tokens, miss=miss
         )
         repair = frank.get("parsed") or {}
+        if repair:
+            repair = apply_local_s4_validator(miss, repair)
         write_json(
             state_dir / RAW_RESPONSE_FILENAME,
             {
@@ -1119,6 +1118,7 @@ def process_miss(
                 "fallback_used": frank.get("fallback_used"),
                 "content_preview": frank.get("content_preview"),
                 "parsed": repair or None,
+                "protocol": "franklin_s4_projection",
             },
         )
 
@@ -1128,6 +1128,7 @@ def process_miss(
     task["status"] = "HEALING"
     task["updated_at"] = utc_now()
 
+    s4_status = str(repair.get("s4_status") or "")
     append_jsonl(
         state_dir / TURNS_FILENAME,
         {
@@ -1148,8 +1149,13 @@ def process_miss(
             "s2": repair.get("s2"),
             "s3": repair.get("s3"),
             "s4": repair.get("s4"),
+            "s4_status": s4_status,
+            "typed_candidate": repair.get("typed_candidate"),
+            "validator": repair.get("validator"),
+            "validator_result": repair.get("validator_result"),
             "c4_invariant": repair.get("c4_invariant"),
             "repair_kind": repair.get("repair_kind"),
+            "protocol": "franklin_s4_projection",
             "aristotelian_turns_remaining": max(
                 0, state.aristotelian_closure_turns - turn_index
             ),
@@ -1163,10 +1169,19 @@ def process_miss(
         task["last_c4"] = "DRY_RUN"
         task["last_grammar_sha"] = str(grammar_path)
         live_c4 = "DRY_RUN"
-    elif repair.get("s1") or repair.get("c4_invariant") or repair.get("grammar_update"):
+    elif repair.get("s1") or repair.get("c4_invariant") or repair.get("s4_status"):
         grammar_path = record_grammar_update(state_dir, miss, repair, turn_index)
-        live_c4 = str(repair.get("c4_invariant") or "")
+        if s4_status == S4_STATUS_LOCKED:
+            live_c4 = str(repair.get("c4_invariant") or repair.get("typed_candidate") or "")
+            task["status"] = "CLOSED" if repair.get("closure_ready") else "HEALING"
+        else:
+            live_c4 = (
+                f"REINJECT:{repair.get('c4_invariant') or repair.get('typed_candidate') or ''}"
+            ).rstrip(":")
         task["last_c4"] = live_c4
+        task["last_s4_status"] = s4_status
+        task["last_validator"] = repair.get("validator")
+        task["last_validator_result"] = repair.get("validator_result")
         task["last_grammar_sha"] = str(grammar_path)
     else:
         # Live attempt failed — clear stale DRY_RUN so health checks see real gates.
@@ -1177,6 +1192,10 @@ def process_miss(
     gate = "FRANKLIN_OK" if frank.get("ok") else f"FRANKLIN_{frank.get('error') or 'FAIL'}"
     if frank.get("fallback_used") and frank.get("ok"):
         gate = "FRANKLIN_OK_FALLBACK"
+    if frank.get("ok") and s4_status == S4_STATUS_LOCKED:
+        gate = "S4_LOCKED"
+    elif frank.get("ok") and s4_status == S4_STATUS_REINJECT:
+        gate = "S4_REINJECT"
     task["last_gate"] = gate
     append_jsonl(
         state_dir / TURNS_FILENAME,
@@ -1188,6 +1207,8 @@ def process_miss(
             "turn_kind": "GATE",
             "actor_role": "gate",
             "gate_verdict": gate,
+            "s4_status": s4_status,
+            "validator_result": repair.get("validator_result"),
             "closure_ready": bool(repair.get("closure_ready")),
             "grammar_path": str(grammar_path) if grammar_path else None,
             "dry_run": bool(dry_run),
@@ -1199,6 +1220,10 @@ def process_miss(
         "status": task["status"],
         "turn_count": turn_index,
         "gate": gate,
+        "s4_status": s4_status,
+        "typed_candidate": repair.get("typed_candidate"),
+        "validator": repair.get("validator"),
+        "validator_result": repair.get("validator_result"),
         "grammar_path": str(grammar_path) if grammar_path else None,
         "c4_invariant": live_c4 or repair.get("c4_invariant"),
         "franklin_ok": bool(frank.get("ok")),

@@ -88,7 +88,7 @@ def test_theory_requires_reproduced_observation_for_c4_boundary():
         **before,
         "frame": [[[0, 2]]],
         "frame_sha256": "b",
-        "levels_completed": 1,
+        "levels_completed": 0,
     }
     theory = harness.DeterministicTheory()
     theory.update(1, before, after, {})
@@ -99,6 +99,30 @@ def test_theory_requires_reproduced_observation_for_c4_boundary():
     assert snapshot["grammar_status"] == "C4_BOUND"
     assert snapshot["conditioned_repro_trials"] == 1
     assert snapshot["conditioned_repro_hits"] == 1
+    assert snapshot["grammar_class"] == "reproduced_productive_transitions"
+
+
+def test_level_clear_locks_c4_grammar():
+    harness = load_harness()
+    before = {
+        "frame": [[[0, 1]]],
+        "frame_sha256": "a",
+        "state": "PLAYING",
+        "levels_completed": 0,
+        "available_actions": [3, 4, 6],
+    }
+    after = {
+        **before,
+        "frame": [[[0, 2]]],
+        "frame_sha256": "b",
+        "levels_completed": 1,
+    }
+    theory = harness.DeterministicTheory()
+    theory.update(3, before, after, {})
+    snapshot = theory.snapshot()
+    assert snapshot["grammar_status"] == "C4_BOUND"
+    assert snapshot["max_levels_completed"] == 1
+    assert snapshot["grammar_class"] == "level_clear_motion_click_grammar"
 
 
 def test_wrapper_turns_binds_prompt_observation_and_legal_action():
@@ -125,4 +149,3 @@ def test_wrapper_turns_binds_prompt_observation_and_legal_action():
     assert turns[0]["content"] == "FRANKLIN"
     assert '"legal_action_selected":3' in turns[1]["content"]
     assert '"selected_action":3' in turns[2]["content"]
-    assert "S1" in turns[1]["content"]

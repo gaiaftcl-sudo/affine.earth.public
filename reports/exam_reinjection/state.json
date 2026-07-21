@@ -1,21 +1,29 @@
 {
   "aristotelian_closure_turns": 29,
-  "cycles": 3,
-  "last_cycle_at": "2026-07-21T13:25:26.359073+00:00",
+  "cycles": 5,
+  "last_cycle_at": "2026-07-21T13:43:42.815796+00:00",
   "tasks": {
     "arc2:135a2760": {
-      "last_c4": "DRY_RUN",
-      "last_gate": "FRANKLIN_OK",
+      "engine": "container_period_tiling",
+      "last_c4": "Within each local container, repair anomalous cells so content forms a majority-vote periodic tiling: horizontal period along content rows for stacked frame-separated panels (inset past constant wall columns); vertical period of row-signatures inside color-3 column boxes when \u22652 side-by-side containers are present.",
+      "last_gate": "S4_LOCKED",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc2/135a2760.json",
-      "status": "HEALING",
+      "last_s4_status": "LOCKED",
+      "last_validator": "demonstration_replay+labeled_eval",
+      "last_validator_result": {
+        "accepted": true,
+        "labeled_eval": "1/1",
+        "train_replay": "2/2"
+      },
+      "status": "CLOSED",
       "task_id": "135a2760",
       "track": "arc2",
-      "turn_count": 2,
-      "updated_at": "2026-07-21T13:15:58.134366+00:00"
+      "turn_count": 5,
+      "updated_at": "2026-07-21T13:43:42.815796+00:00"
     },
     "arc2:136b0064": {
-      "last_c4": "DRY_RUN",
-      "last_gate": "FRANKLIN_OK",
+      "last_c4": "",
+      "last_gate": "CLEARED_STALE_DRY_RUN",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc2/136b0064.json",
       "status": "HEALING",
       "task_id": "136b0064",
@@ -24,8 +32,8 @@
       "updated_at": "2026-07-21T13:15:58.134578+00:00"
     },
     "arc3:agi3-trajectory-gap": {
-      "last_c4": "DRY_RUN",
-      "last_gate": "FRANKLIN_OK",
+      "last_c4": "",
+      "last_gate": "CLEARED_STALE_DRY_RUN",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/agi3-trajectory-gap.json",
       "status": "HEALING",
       "task_id": "agi3-trajectory-gap",
@@ -34,8 +42,8 @@
       "updated_at": "2026-07-21T13:25:26.353881+00:00"
     },
     "arc3:ar25": {
-      "last_c4": "DRY_RUN",
-      "last_gate": "FRANKLIN_OK",
+      "last_c4": "",
+      "last_gate": "CLEARED_STALE_DRY_RUN",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/ar25.json",
       "status": "HEALING",
       "task_id": "ar25",
@@ -44,8 +52,8 @@
       "updated_at": "2026-07-21T13:25:26.358715+00:00"
     },
     "arc3:ar25-0c556536": {
-      "last_c4": "DRY_RUN",
-      "last_gate": "FRANKLIN_OK",
+      "last_c4": "",
+      "last_gate": "CLEARED_STALE_DRY_RUN",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/ar25-0c556536.json",
       "status": "HEALING",
       "task_id": "ar25-0c556536",
@@ -54,8 +62,8 @@
       "updated_at": "2026-07-21T13:15:58.166509+00:00"
     },
     "arc3:bp35": {
-      "last_c4": "DRY_RUN",
-      "last_gate": "FRANKLIN_OK",
+      "last_c4": "",
+      "last_gate": "CLEARED_STALE_DRY_RUN",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/bp35.json",
       "status": "HEALING",
       "task_id": "bp35",
@@ -64,8 +72,8 @@
       "updated_at": "2026-07-21T13:25:26.358873+00:00"
     },
     "arc3:ls20": {
-      "last_c4": "DRY_RUN",
-      "last_gate": "FRANKLIN_OK",
+      "last_c4": "",
+      "last_gate": "CLEARED_STALE_DRY_RUN",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/ls20.json",
       "status": "HEALING",
       "task_id": "ls20",
@@ -74,8 +82,8 @@
       "updated_at": "2026-07-21T13:25:26.358978+00:00"
     },
     "hle:hle-official-gate-open": {
-      "last_c4": "DRY_RUN",
-      "last_gate": "FRANKLIN_OK",
+      "last_c4": "",
+      "last_gate": "CLEARED_STALE_DRY_RUN",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/hle/hle-official-gate-open.json",
       "status": "HEALING",
       "task_id": "hle-official-gate-open",
@@ -84,5 +92,5 @@
       "updated_at": "2026-07-21T13:15:58.166927+00:00"
     }
   },
-  "total_franklin_turns": 12
+  "total_franklin_turns": 14
 }

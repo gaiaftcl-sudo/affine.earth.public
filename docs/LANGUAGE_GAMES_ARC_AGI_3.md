@@ -168,15 +168,17 @@ Example local run:
 
 ```bash
 uv run --directory data/arc-prize-2026/ARC-AGI-3-Agents \
-  python ../../../scripts/arc_agi3_language_game.py \
-  --games ar25 bp35 ls20 --max-actions 40 \
-  --output-dir ../../../reports/arc_agi3_language_game_local
+  python "$PWD/../../../../scripts/arc_agi3_language_game.py" \
+  --games bp35 ar25 ls20 --max-actions 120 \
+  --output-dir "$PWD/../../../../reports/arc_agi3_language_game_levels_3"
 ```
 
-Live local FoT (full_2): games=3, WIN=0, GAME_OVER=2, mean_confidence≈0.88,
-`bp35` C4_BOUND, next class `unreproduced_productive_delta`. Public probe 0.12
-remains process-only. The harness refuses to run without
-`configs/NO_KAGGLE_SUBMIT.lock`.
+(Use an absolute path to `scripts/arc_agi3_language_game.py` from the Agents
+venv cwd.) Live local FoT (`levels_3`): games=3, WIN=0, **bp35 levels=1/9**,
+mean_confidence≈0.888, bp35 `C4_BOUND` /
+`level_clear_motion_click_grammar` (motion replay verified). `ar25`/`ls20`
+remain `unreproduced_productive_delta`. Public probe 0.12 process-only.
+`NO_KAGGLE_SUBMIT.lock` required.
 
 ## 9. Format from top scores
 

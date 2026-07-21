@@ -82,6 +82,26 @@ def load_s1_dimension_projection(root: Path) -> Any:
     return module
 
 
+def load_container_period_tiling(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/container_period_tiling.py"
+    spec = importlib.util.spec_from_file_location("arc_container_period_tiling", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load container_period_tiling solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_separator_ray_fill(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_separator_ray_fill.py"
+    spec = importlib.util.spec_from_file_location("arc_s3_separator_ray_fill", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_separator_ray_fill solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def merge_attempt_pair(
     dsl_pair: Dict[str, Grid],
     ice_pair: Dict[str, Grid],
@@ -493,6 +513,8 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     icecuber = load_icecuber_adapter(root)
     marker8 = load_marker8_twin31(root)
     s1_proj = load_s1_dimension_projection(root)
+    cpt_proj = load_container_period_tiling(root)
+    s3_ray = load_s3_separator_ray_fill(root)
     ice_depth = int(os.environ.get("ARC_ICECUBER_DEPTH", "2"))
     ice_workers = int(os.environ.get("ARC_ICECUBER_WORKERS", "6"))
     ice_train = os.environ.get("ARC_ICECUBER_TRAIN", "1") == "1"
@@ -558,6 +580,8 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     grid_pass = grid_total = 0
     marker8_hits = 0
     s1_hits = 0
+    cpt_hits = 0
+    s3_hits = 0
     for task_id in sorted(eval_challenges):
         hybrid_attempts = marker8.solve_task(eval_challenges[task_id])
         if hybrid_attempts is not None:
@@ -566,6 +590,14 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             hybrid_attempts = s1_proj.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 s1_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = cpt_proj.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                cpt_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s3_ray.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s3_hits += 1
         merged = []
         for index, _case in enumerate(eval_challenges[task_id]["test"]):
             expected = eval_solutions[task_id][index]
@@ -715,7 +747,9 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "icecuber_verdicts": ice_eval["verdicts"],
             "marker8_twin31_licensed_tasks": marker8_hits,
             "s1_dimension_projection_licensed_tasks": s1_hits,
-            "engine": "LOCAL_HYBRID_SOLVER_marker8_s1pack_icecuber_dsl",
+            "container_period_tiling_licensed_tasks": cpt_hits,
+            "s3_separator_ray_fill_licensed_tasks": s3_hits,
+            "engine": "LOCAL_HYBRID_SOLVER_marker8_s1pack_cpt_s3ray_icecuber_dsl",
         },
         "training": {
             "tasks": len(train_challenges),
@@ -947,6 +981,33 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
 
     agi2 = validate_agi2(root, report_dir)
     agi3 = validate_agi3(root, report_dir)
+    # Stuck ARC-2 tasks → shared Franklin S4 projection game (LOCKED|REINJECT).
+    s4_stuck: List[Dict[str, Any]] = []
+    fail_path = report_dir / "agi2" / "failure-case-analyses.json"
+    if fail_path.is_file():
+        try:
+            from llm_llvm_bench.exam.s4_client import maybe_run_s4_on_stuck
+
+            fails = json.loads(fail_path.read_text(encoding="utf-8"))
+            if isinstance(fails, list):
+                for row in fails[:2]:
+                    if not isinstance(row, dict):
+                        continue
+                    tid = str(row.get("task_id") or row.get("id") or "")
+                    if not tid:
+                        continue
+                    s4_stuck.append(
+                        maybe_run_s4_on_stuck(
+                            track="arc2",
+                            task_id=tid,
+                            evidence=row,
+                            source_path=str(fail_path.relative_to(root)),
+                            timeout=int(os.environ.get("EXAM_REINJECT_TIMEOUT", "300")),
+                        )
+                        or {"skipped": True, "task_id": tid}
+                    )
+        except Exception as exc:  # noqa: BLE001 — mastery must still emit local report
+            s4_stuck.append({"ok": False, "error": f"S4_WIRE:{exc}"})
     overall_status = "GREEN" if agi2["status"] == agi3["status"] == "GREEN" else "RED"
     overall = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -957,6 +1018,7 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
         "public_probes": PUBLIC_PROBE,
         "arc_agi_2": agi2,
         "arc_agi_3": agi3,
+        "franklin_s4_stuck_turns": s4_stuck,
         "overall_status": overall_status,
         "format_study_sha": "a04e483",
         "path_forward": (

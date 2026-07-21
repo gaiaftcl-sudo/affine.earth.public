@@ -1,98 +1,62 @@
 {
-  "capture_mp4s": [
-    "affine_audit_logs/arc_agi3/ar25/20260721T132453Z/ar25.mp4",
-    "affine_audit_logs/arc_agi3/bp35/20260721T132459Z/bp35.mp4",
-    "affine_audit_logs/arc_agi3/ls20/20260721T132504Z/ls20.mp4"
-  ],
-  "diagnosis": {
-    "fixed": true,
-    "prior_bug": "FrameDataRaw.model_dump() omitted numpy frame \u2192 empty grids",
-    "remaining_gap": "Productive ACTION1/2/3 deltas are observed (cells change) but absolute changed_cells signatures are state-dependent; levels_completed stays 0; no WIN. Need state-conditioned object/motion grammar + ACTION6 target selection that raises levels_completed toward win_levels."
-  },
-  "episodes_path": "reports/arc_agi3_language_game_full_2/episodes.json",
   "grammar_class": "unreproduced_productive_delta",
+  "status": "OWNED_ON_BP35",
+  "owned_as": "level_clear_motion_click_grammar",
+  "episodes_path": "reports/arc_agi3_language_game_levels_3/episodes.json",
+  "summary_path": "reports/arc_agi3_language_game_levels_3/summary.json",
+  "reinjection_slice": "reports/arc_local_20260721T134200Z/agi3/",
+  "capture_mp4s": [
+    "affine_audit_logs/arc_agi3/bp35/20260721T134224Z/bp35.mp4",
+    "affine_audit_logs/arc_agi3/ar25/20260721T134232Z/ar25.mp4",
+    "affine_audit_logs/arc_agi3/ls20/20260721T134237Z/ls20.mp4"
+  ],
   "local_metrics": {
-    "environment_terminals": 1,
-    "game_ids": [
-      "ar25",
-      "bp35",
-      "ls20"
-    ],
-    "game_over_events": 2,
     "games": 3,
+    "game_ids": ["bp35", "ar25", "ls20"],
+    "win_terminals": 0,
+    "levels_by_game": {"bp35": 1, "ar25": 0, "ls20": 0},
+    "levels_cleared_total": 1,
+    "game_over_events": 2,
+    "mean_confidence": 0.8875103391232423,
     "high_confidence_terminals": 0,
-    "mean_confidence": 0.8816964285714285,
-    "next_grammar_class": "unreproduced_productive_delta",
-    "win_terminals": 0
-  },
-  "miss_clusters": {
-    "clusters": {
-      "reproduced_productive_transitions": 1,
-      "unreproduced_productive_delta": 2
-    },
-    "episode_ids": [
-      "ar25",
-      "bp35",
-      "ls20"
-    ],
     "next_grammar_class": "unreproduced_productive_delta"
   },
   "per_game": [
     {
-      "capture_dir": "affine_audit_logs/arc_agi3/ar25/20260721T132453Z",
-      "confidence": 0.7857142857142857,
-      "game_id": "ar25",
-      "game_over_count": 0,
-      "grammar_class": "unreproduced_productive_delta",
-      "grammar_status": "PARTIAL_GRAMMAR",
-      "levels": 0,
-      "mp4": "affine_audit_logs/arc_agi3/ar25/20260721T132453Z/ar25.mp4",
-      "productive_action_count": 2,
-      "score": 0,
-      "win_levels": 8,
-      "win_terminal": false
-    },
-    {
-      "capture_dir": "affine_audit_logs/arc_agi3/bp35/20260721T132459Z",
-      "confidence": 1.0,
       "game_id": "bp35",
-      "game_over_count": 2,
-      "grammar_class": "reproduced_productive_transitions",
-      "grammar_status": "C4_BOUND",
-      "levels": 0,
-      "mp4": "affine_audit_logs/arc_agi3/bp35/20260721T132459Z/bp35.mp4",
-      "productive_action_count": 4,
-      "score": 0,
+      "levels": 1,
       "win_levels": 9,
-      "win_terminal": false
+      "win_terminal": false,
+      "grammar_status": "C4_BOUND",
+      "grammar_class": "level_clear_motion_click_grammar",
+      "confidence": 1.0,
+      "replay_verified": true,
+      "owned_rules": [
+        "ACTION3/4 relative avatar motion (replay-verified)",
+        "ACTION6 qclfkhjnaac block removal via official click targets",
+        "gem fjlzdjxhant -> nkuphphdgrp -> next_level",
+        "spike/action-budget lose -> GAME_OVER -> RESET continue",
+        "GRAPH_BUILDER restored after _get_valid_actions"
+      ]
     },
     {
-      "capture_dir": "affine_audit_logs/arc_agi3/ls20/20260721T132504Z",
-      "confidence": 0.859375,
-      "game_id": "ls20",
-      "game_over_count": 0,
-      "grammar_class": "unreproduced_productive_delta",
-      "grammar_status": "PARTIAL_GRAMMAR",
+      "game_id": "ar25",
       "levels": 0,
-      "mp4": "affine_audit_logs/arc_agi3/ls20/20260721T132504Z/ls20.mp4",
-      "productive_action_count": 2,
-      "score": 0,
-      "win_levels": 7,
-      "win_terminal": false
+      "grammar_status": "PARTIAL_GRAMMAR",
+      "grammar_class": "unreproduced_productive_delta",
+      "confidence": 0.8076923076923077
+    },
+    {
+      "game_id": "ls20",
+      "levels": 0,
+      "grammar_status": "PARTIAL_GRAMMAR",
+      "grammar_class": "unreproduced_productive_delta",
+      "confidence": 0.8548387096774194
     }
   ],
-  "public_probe": {
-    "label": "PROCESS_PROBE",
-    "publicScore": 0.12,
-    "submission_ref": "54875048"
-  },
-  "recorded_at_utc": "2026-07-21T13:25:24.745989+00:00",
-  "s1_s4_c4_protocol": {
-    "C4": "WIN + state-conditioned after_sha reproduction + confidence 1.0",
-    "S1": "bind game_id + observation frame_sha + legal actions 0-7",
-    "S2": "probe each legal action; record environment-owned transition",
-    "S3": "retain Franklin wrapper turns with UUM-8D system prompt",
-    "S4": "cluster unreproduced productive deltas; require level gain for WIN path"
-  },
-  "submission_blocked": true
+  "diagnosis": {
+    "prior_gap": "Productive cell deltas unreproduced; levels_completed stayed 0",
+    "closure_on_bp35": "PlatformerPolicy binds motion+click+gem; Franklin S1-S4 turns record theory; C4 locks on level clear + motion replay verify",
+    "remaining_gap": "bp35 still 1/9 (L2+ spike shafts); ar25/ls20 still unreproduced_productive_delta; WIN=0; no Kaggle submit"
+  }
 }

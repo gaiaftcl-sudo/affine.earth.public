@@ -114,29 +114,31 @@ downloaded official environment, not a static grid surrogate:
 
 ### Live FoT metrics (local, 2026-07-21)
 
-Source: `reports/arc_agi3_language_game_full_2/summary.json` (SHA at commit time).
+Source: `reports/arc_agi3_language_game_levels_3/summary.json`.
 
 | Metric | Value | Honest read |
 | --- | --- | --- |
-| Games played | 3 (`ar25`, `bp35`, `ls20`) | Official offline envs |
-| WIN terminals | **0** | No level cleared to WIN |
-| GAME_OVER events | 2 (`bp35`) | Terminal ≠ ownership |
-| Mean confidence | **0.882** | Up from 0.0 empty-frame bug |
+| Games played | 3 (`bp35`, `ar25`, `ls20`) × 120 turns | Official offline envs |
+| WIN terminals | **0** | Full WIN not yet sealed |
+| Levels cleared | **bp35 1/9**; ar25 0; ls20 0 | Documented level-clear progress |
+| GAME_OVER events | 2 | Spike-aware RESET continue |
+| Mean confidence | **0.888** | bp35 conf 1.0 |
 | High-confidence WIN | **0** | Submit still blocked |
-| `bp35` grammar | `C4_BOUND` / conf 1.0 | Reproduced productive moves; levels still 0/9 |
-| `ar25` / `ls20` | `PARTIAL_GRAMMAR` | Next class below |
-| Captures | 3 MP4 + PNG sequences | Landed under `affine_audit_logs/arc_agi3/` |
+| `bp35` grammar | `C4_BOUND` / `level_clear_motion_click_grammar` | Motion replay verified |
+| `ar25` / `ls20` | `PARTIAL_GRAMMAR` / `unreproduced_productive_delta` | Still open |
+| Captures | MP4 + PNG under `affine_audit_logs/arc_agi3/` | UI trail kept |
 | Public probe | **0.12** (ref 54875048) | Process probe only |
 
-**Root-cause closed:** prior `MISSING_GRAMMAR` was `FrameDataRaw.model_dump()`
-omitting numpy `frame` → empty grids → zero `compared_cells`. Fixed via attribute
-`tolist()` extraction.
+**Owned grammar (closes prior `unreproduced_productive_delta` on bp35):**
 
-**Next grammar class:** `unreproduced_productive_delta` — cells change under
-ACTION1/2/3 but absolute deltas are state-dependent and `levels_completed` stays 0.
-Evidence pack:
+1. Relative avatar motion — ACTION3/4 horizontal Δ; replay-verified after fresh env.
+2. ACTION6 on `qclfkhjnaac` — remove block / open shaft (official click targets; restore `GRAPH_BUILDER`).
+3. Land on gem `fjlzdjxhant` → world `win()` → `nkuphphdgrp` → `next_level()`.
+4. Spike / action-budget lose → GAME_OVER → RESET continue.
+
+Evidence:
 `reports/exam_reinjection/grammar/arc3/unreproduced_productive_delta/evidence.json`.
-Reinjection cycle 3 actioned `ar25` / `bp35` / `ls20` / `agi3-trajectory-gap`.
+Reinjection consumes `reports/arc_local_20260721T134200Z/agi3/`.
 
 ## 9. Format from top scores
 

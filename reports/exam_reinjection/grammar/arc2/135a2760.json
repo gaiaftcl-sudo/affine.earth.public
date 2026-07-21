@@ -1,0 +1,38 @@
+{
+  "c4_invariant": "Within each local container, repair anomalous cells so content forms a majority-vote periodic tiling: horizontal period along content rows for stacked frame-separated panels (inset past constant wall columns); vertical period of row-signatures inside color-3 column boxes when \u22652 side-by-side containers are present.",
+  "closure_ready": true,
+  "grammar_update": "REINJECT prior C4 (color-1 horizontal reflection in color-3 bbox) \u2014 incomplete: train[1] repairs colors {1,3,4,8,9} via period tiling; test uses vertical row-signature periods in four color-3 columns. Corrected C4 locked after train 2/2 + labeled eval exact.",
+  "prior_incomplete_c4": "Horizontal reflection symmetry of the foreground object (color 1) within its local bounding box defined by the container (color 3).",
+  "recorded_at_utc": "2026-07-21T13:43:42.815796+00:00",
+  "repair_kind": "grammar",
+  "research_note": "Prior live C4 was: Horizontal reflection symmetry of the foreground object (color 1) within its local bounding box defined by the container (color 3). Evidence against: train[1] diffs alter cells of colors 1,3,4,8,9 (not color-1-only); test changes span four color-3 columns with vertical period repair. Solver module: llm_llvm_bench/arc/container_period_tiling.py",
+  "s1": "Containers are either stacked panels separated by solid frame rows, or side-by-side color-3 column boxes on a frame-8 canvas.",
+  "s2": "Rule candidates: (a) color-1 H-reflection in color-3 bbox; (b) majority-vote period tiling per container (H rows / V row-sigs).",
+  "s3": "Discriminating check: replay train[1] \u2014 (a) fails multi-color diffs; (b) matches 2/2. Labeled eval confirms (b).",
+  "s4": {
+    "status": "LOCKED",
+    "typed_candidate": "Within each local container, repair anomalous cells so content forms a majority-vote periodic tiling: horizontal period along content rows for stacked frame-separated panels (inset past constant wall columns); vertical period of row-signatures inside color-3 column boxes when \u22652 side-by-side containers are present.",
+    "unresolved_alternatives": [
+      "Horizontal reflection symmetry of the foreground object (color 1) within its local bounding box defined by the container (color 3)."
+    ],
+    "validator": "demonstration_replay+labeled_eval",
+    "validator_result": {
+      "accepted": true,
+      "labeled_eval": "1/1",
+      "train_replay": "2/2"
+    }
+  },
+  "s4_status": "LOCKED",
+  "source_miss": "reports/arc_local_20260721T133000Z/agi2/failure-case-analyses.json",
+  "task_id": "135a2760",
+  "track": "arc2",
+  "turn_index": 4,
+  "typed_candidate": "Within each local container, repair anomalous cells so content forms a majority-vote periodic tiling: horizontal period along content rows for stacked frame-separated panels (inset past constant wall columns); vertical period of row-signatures inside color-3 column boxes when \u22652 side-by-side containers are present.",
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "engine": "container_period_tiling",
+    "labeled_eval": "1/1",
+    "train_replay": "2/2"
+  }
+}

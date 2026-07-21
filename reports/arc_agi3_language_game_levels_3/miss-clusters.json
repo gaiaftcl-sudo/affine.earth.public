@@ -1,0 +1,12 @@
+{
+  "clusters": {
+    "level_clear_motion_click_grammar": 1,
+    "unreproduced_productive_delta": 2
+  },
+  "episode_ids": [
+    "bp35",
+    "ar25",
+    "ls20"
+  ],
+  "next_grammar_class": "unreproduced_productive_delta"
+}

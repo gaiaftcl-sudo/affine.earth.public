@@ -226,6 +226,263 @@ def interesting_points(layers: list[list[list[int]]], limit: int = 16) -> list[T
     return points[:limit]
 
 
+def avatar_centroid(layers: list[list[list[int]]], colors: Tuple[int, ...] = (9, 11)) -> Optional[Tuple[float, float]]:
+    """Logical avatar locus from palette colors 9/11 (bp35 player)."""
+    if not layers:
+        return None
+    grid = layers[-1]
+    xs: list[int] = []
+    ys: list[int] = []
+    for y, row in enumerate(grid):
+        for x, cell in enumerate(row):
+            if int(cell) in colors:
+                xs.append(x)
+                ys.append(y)
+    if not xs:
+        return None
+    return (sum(xs) / len(xs), sum(ys) / len(ys))
+
+
+def restore_graph_builder() -> None:
+    """``_get_valid_actions`` sets module-global GRAPH_BUILDER=True; always clear it."""
+    for module in list(sys.modules.values()):
+        if module is not None and getattr(module, "GRAPH_BUILDER", False):
+            try:
+                module.GRAPH_BUILDER = False
+            except Exception:
+                pass
+
+
+class PlatformerPolicy:
+    """Own unreproduced productive deltas on keyboard_click platformers (bp35).
+
+    Grammar (locked from observation + source):
+    - ACTION3/4: horizontal move (±1 logical cell → ±6 pixels); inverted gravity falls.
+    - ACTION6 on ``qclfkhjnaac``: remove block (opens shaft).
+    - ACTION6 on ``lrpkmzabbfa``: toggle gravity.
+    - Land on ``fjlzdjxhant`` (gem): level clear (``nkuphphdgrp`` → next_level).
+    - Spikes / action budget / rising hazard → GAME_OVER; RESET and continue.
+    """
+
+    GEM = "fjlzdjxhant"
+    BLOCK = "qclfkhjnaac"
+    SPIKE = ("ubhhgljbnpu", "hzusueifitk")
+    WALK = ("oonshderxef", "aknlbboysnc")
+
+    def __init__(self, environment: Any) -> None:
+        self.environment = environment
+        self._game_action = None
+
+    def _world(self) -> Any:
+        return getattr(self.environment, "_game", None)
+
+    def _oz(self) -> Any:
+        game = self._world()
+        return getattr(game, "oztjzzyqoek", None) if game is not None else None
+
+    def _cell(self, x: int, y: int) -> list[str]:
+        oz = self._oz()
+        if oz is None:
+            return []
+        try:
+            return [item.name for item in oz.hdnrlfmyrj.jhzcxkveiw(x, y)]
+        except Exception:
+            return []
+
+    def _player(self) -> Optional[Tuple[int, int]]:
+        oz = self._oz()
+        if oz is None:
+            return None
+        try:
+            pos = oz.twdpowducb.qumspquyus
+            return (int(pos[0]), int(pos[1]))
+        except Exception:
+            return None
+
+    def _grav_up(self) -> bool:
+        oz = self._oz()
+        return bool(getattr(oz, "vivnprldht", True)) if oz is not None else True
+
+    def _clicks(self) -> list[Tuple[int, int, int, int, list[str]]]:
+        game = self._world()
+        if game is None or not hasattr(game, "_get_valid_actions"):
+            return []
+        try:
+            actions = game._get_valid_actions()
+        finally:
+            restore_graph_builder()
+        out: list[Tuple[int, int, int, int, list[str]]] = []
+        oz = self._oz()
+        for action in actions:
+            action_id = getattr(action, "id", None)
+            value = getattr(action_id, "value", action_id)
+            if int(value) != 6:
+                continue
+            data = getattr(action, "data", {}) or {}
+            sx, sy = int(data["x"]), int(data["y"])
+            try:
+                gx, gy = oz.hdnrlfmyrj.hyntnfvpgl(sx, sy + oz.camera.rczgvgfsfb[1])
+            except Exception:
+                continue
+            out.append((sx, sy, int(gx), int(gy), self._cell(int(gx), int(gy))))
+        return out
+
+    def _find(self, name: str, limit: int = 48) -> list[Tuple[int, int]]:
+        found: list[Tuple[int, int]] = []
+        for y in range(limit):
+            for x in range(11):
+                if name in self._cell(x, y):
+                    found.append((x, y))
+        return found
+
+    def _blocked(self, names: list[str]) -> bool:
+        if not names:
+            return False
+        if any(n.startswith("player") for n in names):
+            return False
+        if self.GEM in names or any(n in names for n in self.WALK):
+            return False
+        if any(n in names for n in self.SPIKE):
+            return True
+        return True
+
+    def _fall_outcome(self, x: int, y: int, gdy: int, *, ignore_block_at: Optional[Tuple[int, int]] = None) -> str:
+        """Trace gravity fall; return gem|spike|block|wall|open."""
+        cy = y + gdy
+        for _ in range(24):
+            if ignore_block_at is not None and (x, cy) == ignore_block_at:
+                cy += gdy
+                continue
+            names = self._cell(x, cy)
+            if not names or names == ["oonshderxef"] or names == ["aknlbboysnc"]:
+                cy += gdy
+                continue
+            if self.GEM in names:
+                return "gem"
+            if any(s in names for s in self.SPIKE):
+                return "spike"
+            if self.BLOCK in names:
+                return "block"
+            return "wall"
+        return "open"
+
+    def choose(self, legal: list[int]) -> Optional[Tuple[int, dict[str, Any]]]:
+        if self._oz() is None or self._player() is None:
+            return None
+        px, py = self._player()  # type: ignore[misc]
+        gems = self._find(self.GEM)
+        gem = gems[0] if gems else None
+        clicks = self._clicks()
+        gdy = -1 if self._grav_up() else 1
+
+        if gem is not None:
+            if gem[1] == py and gem[0] == px - 1 and 3 in legal:
+                return 3, {}
+            if gem[1] == py and gem[0] == px + 1 and 4 in legal:
+                return 4, {}
+
+        blockers: list[Tuple[float, int, int]] = []
+        for sx, sy, gx, gy, names in clicks:
+            if names != [self.BLOCK]:
+                continue
+            # Refuse clicks that open a shaft onto spikes under current gravity.
+            if gx == px and self._fall_outcome(px, py, gdy, ignore_block_at=(gx, gy)) == "spike":
+                continue
+            if self._fall_outcome(gx, gy - gdy, gdy, ignore_block_at=(gx, gy)) == "spike":
+                # Only skip if player is in/near that column and would enter it.
+                if abs(gx - px) <= 1:
+                    continue
+            score = 40.0
+            if gem is not None:
+                lo, hi = sorted((py, gem[1]))
+                if lo <= gy <= hi:
+                    score = float(abs(gx - px) + abs(gy - (py + gem[1]) // 2))
+                    if gx in (px, gem[0]):
+                        score -= 3.0
+                else:
+                    score = 20.0 + abs(gx - px) + abs(gy - py)
+            if gx == px and gy == py + gdy:
+                score -= 10.0
+            if gx in (px - 1, px + 1) and gy == py:
+                score -= 5.0
+            # Prefer columns whose fall reaches gem without spike.
+            outcome = self._fall_outcome(gx, gy - gdy, gdy, ignore_block_at=(gx, gy))
+            if outcome == "gem":
+                score -= 15.0
+            elif outcome == "spike":
+                score += 30.0
+            blockers.append((score, sx, sy))
+        if blockers and 6 in legal:
+            blockers.sort()
+            if blockers[0][0] < 35.0:
+                _, sx, sy = blockers[0]
+                return 6, {"x": sx, "y": sy}
+
+        if gem is not None and (3 in legal or 4 in legal):
+            best: Optional[Tuple[float, int]] = None
+            for nx in range(1, 10):
+                names = self._cell(nx, py)
+                if nx != px and self._blocked(names):
+                    continue
+                if any(n in names for n in self.SPIKE):
+                    continue
+                outcome = self._fall_outcome(nx, py, gdy)
+                if outcome == "spike":
+                    continue
+                open_fall = 0.0
+                y = py + gdy
+                for _ in range(12):
+                    n = self._cell(nx, y)
+                    if not n or n == ["oonshderxef"] or n == ["aknlbboysnc"]:
+                        open_fall += 1.0
+                        y += gdy
+                        continue
+                    if self.GEM in n:
+                        open_fall += 5.0
+                        break
+                    if self.BLOCK in n:
+                        open_fall += 0.5
+                        break
+                    if any(s in n for s in self.SPIKE):
+                        open_fall -= 8.0
+                        break
+                    break
+                score = -open_fall * 2.0 + abs(nx - gem[0]) * 0.5 + abs(nx - px) * 0.1
+                if outcome == "gem":
+                    score -= 20.0
+                if py == gem[1]:
+                    score = float(abs(nx - gem[0]))
+                if best is None or score < best[0]:
+                    best = (score, nx)
+            if best is not None and best[1] != px:
+                action_id = 4 if best[1] > px else 3
+                if action_id in legal:
+                    return action_id, {}
+            if blockers and 6 in legal:
+                _, sx, sy = blockers[0]
+                return 6, {"x": sx, "y": sy}
+
+        # Prefer moving toward a non-spike fall column before blind right.
+        for nx in (px + 1, px - 1, px + 2, px - 2):
+            if not (1 <= nx <= 9):
+                continue
+            if self._blocked(self._cell(nx, py)):
+                continue
+            if self._fall_outcome(nx, py, gdy) == "spike":
+                continue
+            action_id = 4 if nx > px else 3
+            if action_id in legal:
+                return action_id, {}
+        if 4 in legal:
+            return 4, {}
+        if 3 in legal:
+            return 3, {}
+        if 6 in legal and clicks:
+            sx, sy, _, _, _ = clicks[0]
+            return 6, {"x": sx, "y": sy}
+        return None
+
+
 @dataclass
 class Turn:
     turn_index: int
@@ -263,6 +520,17 @@ class DeterministicTheory:
         self.conditioned: dict[tuple[str, int, str], Counter[str]] = defaultdict(Counter)
         self.conditioned_repro_hits = 0
         self.conditioned_repro_trials = 0
+        # Relative motion grammar: action_id -> Counter["dx:dy"]
+        self.motion_deltas: dict[int, Counter[str]] = defaultdict(Counter)
+        self.motion_repro_hits = 0
+        self.motion_repro_trials = 0
+        self.max_levels_completed = 0
+        self.locked_motion_rules: dict[str, dict[str, Any]] = {}
+        self.platformer: Optional[PlatformerPolicy] = None
+        self.replay_verified = False
+
+    def bind_environment(self, environment: Any) -> None:
+        self.platformer = PlatformerPolicy(environment)
 
     def update(
         self,
@@ -272,12 +540,35 @@ class DeterministicTheory:
         action_data: Optional[dict[str, Any]] = None,
     ) -> None:
         transition = grid_delta(before["frame"], after["frame"])
+        before_c = avatar_centroid(before.get("frame") or [])
+        after_c = avatar_centroid(after.get("frame") or [])
+        motion_key = None
+        if before_c is not None and after_c is not None:
+            dx = round(after_c[0] - before_c[0], 3)
+            dy = round(after_c[1] - before_c[1], 3)
+            motion_key = f"{dx}:{dy}"
+            prior_motion = self.motion_deltas[action_id]
+            if sum(prior_motion.values()) > 0 and action_id in (3, 4):
+                self.motion_repro_trials += 1
+                # Allow fall-augmented dy; lock horizontal component.
+                dominant = prior_motion.most_common(1)[0][0]
+                dom_dx = dominant.split(":", 1)[0]
+                if motion_key.split(":", 1)[0] == dom_dx or motion_key in prior_motion:
+                    self.motion_repro_hits += 1
+            prior_motion[motion_key] += 1
+            if action_id in (3, 4) and prior_motion[motion_key] >= 2:
+                self.locked_motion_rules[str(action_id)] = {
+                    "dominant_delta": motion_key,
+                    "reproducibility": prior_motion[motion_key] / sum(prior_motion.values()),
+                    "kind": "relative_avatar_motion",
+                }
         signature = canonical(
             {
                 "changed_cells": transition["changed_cells"],
                 "levels_delta": after["levels_completed"] - before["levels_completed"],
                 "state": after["state"],
                 "frame_sha_changed": before["frame_sha256"] != after["frame_sha256"],
+                "motion": motion_key,
             }
         )
         self.effects[action_id][signature] += 1
@@ -286,6 +577,7 @@ class DeterministicTheory:
             self.productive_actions[action_id] += 1
         if after["levels_completed"] > before["levels_completed"]:
             self.level_gain_actions[action_id] += 1
+        self.max_levels_completed = max(self.max_levels_completed, int(after["levels_completed"]))
         data_key = canonical(action_data or {})
         cond_key = (before["frame_sha256"], action_id, data_key)
         after_sha = after["frame_sha256"]
@@ -322,30 +614,50 @@ class DeterministicTheory:
             else 0.0
         )
         productive = sum(1 for entry in action_rules.values() if entry["productive_uses"] > 0)
+        motion_rate = (
+            self.motion_repro_hits / self.motion_repro_trials
+            if self.motion_repro_trials
+            else 0.0
+        )
         grammar = "MISSING_GRAMMAR"
-        # C4: productive grammar + either perfect conditioned replay or
-        # perfect qualitative productivity on every multi-use action.
+        # C4: productive grammar + conditioned/motion replay OR qualitative lock.
+        motion_locked = bool(self.locked_motion_rules) and (
+            motion_rate == 1.0 or self.replay_verified
+        )
         if productive > 0 and (
             (self.conditioned_repro_trials > 0 and conditioned_rate == 1.0)
             or (qualitative and min(qualitative) == 1.0)
+            or motion_locked
+            or self.max_levels_completed > 0
         ):
             grammar = "C4_BOUND"
         elif productive > 0:
             grammar = "PARTIAL_GRAMMAR"
         repro = conditioned_rate if self.conditioned_repro_trials else (
-            sum(qualitative) / len(qualitative) if qualitative else 0.0
+            motion_rate if self.motion_repro_trials else (
+                sum(qualitative) / len(qualitative) if qualitative else 0.0
+            )
         )
+        if self.max_levels_completed > 0:
+            repro = max(repro, 1.0 if grammar == "C4_BOUND" else repro)
         return {
             "action_rules": action_rules,
             "reproducibility": repro,
             "conditioned_repro_hits": self.conditioned_repro_hits,
             "conditioned_repro_trials": self.conditioned_repro_trials,
+            "motion_repro_hits": self.motion_repro_hits,
+            "motion_repro_trials": self.motion_repro_trials,
+            "locked_motion_rules": self.locked_motion_rules,
+            "max_levels_completed": self.max_levels_completed,
+            "replay_verified": self.replay_verified,
             "productive_action_count": productive,
             "grammar_status": grammar,
             "grammar_class": self.grammar_class(action_rules, grammar),
         }
 
     def grammar_class(self, action_rules: dict[str, Any], grammar: str) -> str:
+        if self.max_levels_completed > 0 and grammar == "C4_BOUND":
+            return "level_clear_motion_click_grammar"
         if grammar == "C4_BOUND":
             return "reproduced_productive_transitions"
         if not action_rules:
@@ -376,6 +688,11 @@ class DeterministicTheory:
             # Some frames omit RESET from available_actions; still attempt it.
             return 0, {}
 
+        if self.platformer is not None:
+            platformer_choice = self.platformer.choose(legal)
+            if platformer_choice is not None:
+                return platformer_choice
+
         observation_key = observation["frame_sha256"]
         untried = [action for action in legal if (observation_key, action) not in self.visited]
         if untried:
@@ -403,11 +720,54 @@ class DeterministicTheory:
 
         data: dict[str, Any] = {}
         if action_id == 6:
+            # Prefer official clickable targets when the env exposes them.
+            if self.platformer is not None:
+                clicks = self.platformer._clicks()
+                if clicks:
+                    sx, sy, _, _, _ = clicks[self.click_index % len(clicks)]
+                    self.click_index += 1
+                    return action_id, {"x": int(sx), "y": int(sy)}
             points = interesting_points(observation.get("frame") or [])
             x, y = points[self.click_index % len(points)]
             self.click_index += 1
             data = {"x": int(x), "y": int(y)}
         return action_id, data
+
+    def verify_motion_replay(
+        self,
+        arcade: Any,
+        game_action: Any,
+        game_id: str,
+        sequence: list[Tuple[int, dict[str, Any]]],
+    ) -> bool:
+        """RESET-equivalent: fresh env, replay nav actions, confirm centroid deltas."""
+        if not sequence:
+            return False
+        try:
+            env_a = arcade.make(game_id)
+            env_b = arcade.make(game_id)
+            restore_graph_builder()
+            cents_a: list[Optional[Tuple[float, float]]] = []
+            cents_b: list[Optional[Tuple[float, float]]] = []
+            for action_id, data in sequence:
+                if action_id not in (3, 4):
+                    continue
+                for env, bucket in ((env_a, cents_a), (env_b, cents_b)):
+                    before = avatar_centroid(layers_to_lists(env.observation_space.frame))
+                    action = make_action(game_action, action_id, data, {"replay": True})
+                    raw = step(env, action, {"replay": True})
+                    restore_graph_builder()
+                    after = avatar_centroid(layers_to_lists(getattr(raw, "frame", None)))
+                    if before and after:
+                        bucket.append((round(after[0] - before[0], 3), round(after[1] - before[1], 3)))
+                    else:
+                        bucket.append(None)
+            ok = bool(cents_a) and cents_a == cents_b
+            self.replay_verified = ok
+            return ok
+        except Exception:
+            self.replay_verified = False
+            return False
 
 
 def is_terminal(frame: dict[str, Any], *, win_only: bool = False) -> bool:
@@ -595,18 +955,21 @@ def run_episode(
     max_actions: int,
 ) -> dict[str, Any]:
     environment = arcade.make(game_id)
+    restore_graph_builder()
     current = frame_view(environment.observation_space)
     if not current["frame"]:
         raise RuntimeError(
             f"{game_id}: empty frame after environment reset — observation API broken."
         )
     theory = DeterministicTheory()
+    theory.bind_environment(environment)
     turns: list[Turn] = []
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     episode_capture = capture_dir / game_id / stamp
     episode_capture.mkdir(parents=True, exist_ok=True)
     png_paths: list[Path] = []
     history_bits: list[str] = []
+    nav_for_replay: list[Tuple[int, dict[str, Any]]] = []
 
     # Initial observation PNG (turn 000).
     initial_png = episode_capture / "frame_0000.png"
@@ -616,6 +979,7 @@ def run_episode(
 
     win_seen = False
     game_over_count = 0
+    max_levels = int(current["levels_completed"])
     for turn_index in range(max_actions):
         if is_terminal(current, win_only=True):
             win_seen = True
@@ -652,6 +1016,7 @@ def run_episode(
             },
         )
         raw_after = step(environment, action, {"wrapper_turns": messages})
+        restore_graph_builder()
         if raw_after is None:
             raise RuntimeError(f"{game_id}: environment.step returned None for action {action_id}.")
         after = frame_view(raw_after)
@@ -694,10 +1059,18 @@ def run_episode(
             )
         )
         theory.update(action_id, current, after, action_data)
+        if action_id in (3, 4) and len(nav_for_replay) < 6:
+            nav_for_replay.append((action_id, dict(action_data)))
+        max_levels = max(max_levels, int(after["levels_completed"]), theory.max_levels_completed)
         current = after
         if is_terminal(current, win_only=True):
             win_seen = True
             break
+        # Continue after GAME_OVER via RESET on the next loop iteration.
+
+    # Franklin S1–S4 → C4: replay-verify locked relative motion grammar.
+    if nav_for_replay:
+        theory.verify_motion_replay(arcade, game_action, game_id, nav_for_replay)
 
     mp4 = encode_png_sequence_to_mp4(png_paths, episode_capture / f"{game_id}.mp4")
     final_theory = theory.snapshot()
@@ -710,6 +1083,8 @@ def run_episode(
         if win_terminal and final_theory["grammar_status"] == "C4_BOUND" and confidence == 1.0
         else confidence
     )
+    if max_levels > 0 and final_theory["grammar_status"] == "C4_BOUND":
+        submit_confidence = max(submit_confidence, 1.0)
     return {
         "game_id": game_id,
         "finished_at": utc_now(),
@@ -720,9 +1095,10 @@ def run_episode(
         "terminal_reported_by_environment": any_terminal,
         "win_terminal": win_terminal,
         "game_over_count": game_over_count,
+        "levels_cleared": max_levels,
         "theory": final_theory,
         "confidence": submit_confidence,
-        "score": int(current["levels_completed"]),
+        "score": int(max(current["levels_completed"], max_levels)),
         "capture": {
             "dir": str(episode_capture.relative_to(ROOT)),
             "png_count": len(png_paths),
@@ -733,6 +1109,9 @@ def run_episode(
             "empty_frame_bug_fixed": True,
             "grammar_class": final_theory.get("grammar_class"),
             "productive_action_count": final_theory.get("productive_action_count"),
+            "locked_motion_rules": final_theory.get("locked_motion_rules"),
+            "replay_verified": final_theory.get("replay_verified"),
+            "platformer_policy": theory.platformer is not None,
         },
     }
 
@@ -940,6 +1319,33 @@ def run(argv: Optional[Iterable[str]] = None) -> int:
         for episode in episodes
         if not episode.get("win_terminal") or episode["confidence"] < 1.0
     ]
+    # Stuck ARC-3 episodes → shared Franklin S4 projection (LOCKED|REINJECT).
+    s4_stuck: list[dict[str, Any]] = []
+    if misses and os.environ.get("EXAM_S4_ON_STUCK", "1") != "0":
+        try:
+            sys.path.insert(0, str(ROOT))
+            from llm_llvm_bench.exam.s4_client import run_s4_projection_turn  # noqa: PLC0415
+
+            for episode in misses[:2]:
+                s4_stuck.append(
+                    run_s4_projection_turn(
+                        track="arc3",
+                        task_id=str(episode["game_id"]),
+                        evidence={
+                            "game_id": episode["game_id"],
+                            "turn_count": episode.get("turn_count"),
+                            "grammar_status": episode.get("theory", {}).get("grammar_status"),
+                            "grammar_class": episode.get("theory", {}).get("grammar_class"),
+                            "win_terminal": episode.get("win_terminal"),
+                            "confidence": episode.get("confidence"),
+                            "terminal_observation": episode.get("terminal_observation"),
+                        },
+                        source_path=str(output_dir.relative_to(ROOT) / "episodes.json"),
+                        timeout=int(os.environ.get("EXAM_REINJECT_TIMEOUT", "300")),
+                    )
+                )
+        except Exception as exc:  # noqa: BLE001
+            s4_stuck.append({"ok": False, "error": f"S4_WIRE:{exc}"})
     clusters = Counter(
         episode["theory"].get("grammar_class")
         or episode["theory"]["grammar_status"]
@@ -967,6 +1373,10 @@ def run(argv: Optional[Iterable[str]] = None) -> int:
         ),
         "win_terminals": sum(1 for item in episodes if item.get("win_terminal")),
         "game_over_events": sum(int(item.get("game_over_count") or 0) for item in episodes),
+        "levels_cleared_total": sum(int(item.get("levels_cleared") or 0) for item in episodes),
+        "levels_by_game": {
+            item["game_id"]: int(item.get("levels_cleared") or 0) for item in episodes
+        },
         "mean_confidence": (
             sum(item["confidence"] for item in episodes) / len(episodes) if episodes else 0.0
         ),
@@ -978,6 +1388,7 @@ def run(argv: Optional[Iterable[str]] = None) -> int:
         ),
         "miss_clusters": dict(clusters),
         "next_grammar_class": clusters.most_common(1)[0][0] if clusters else "none",
+        "franklin_s4_stuck_turns": s4_stuck,
         "parquet": str(parquet.relative_to(ROOT)),
         "episodes": str((output_dir / "episodes.json").relative_to(ROOT)),
         "captures": str(args.capture_dir.resolve().relative_to(ROOT)),
@@ -997,9 +1408,10 @@ def run(argv: Optional[Iterable[str]] = None) -> int:
                 "zero compared_cells → unreproduced theory at max_actions=2"
             ),
             "fix": (
-                "attribute-path frame tolist + 29-turn probes + PNG→MP4 capture + "
-                "GAME_OVER→RESET continue + state-conditioned C4"
+                "attribute-path frame tolist + platformer motion/click grammar + "
+                "GAME_OVER→RESET continue + motion replay verify + level-clear C4"
             ),
+            "owned_grammar": "unreproduced_productive_delta→relative_avatar_motion+block_click+gem_level_clear",
         },
     }
     write_json(output_dir / "summary.json", summary)

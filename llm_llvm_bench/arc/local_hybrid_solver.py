@@ -182,6 +182,46 @@ def solve_task(
         receipt["s1_meta"] = s1_replay
         return s1_fragment, receipt
 
+    # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
+    cpt = _load_module(
+        arc_dir / "container_period_tiling.py", "container_period_tiling"
+    )
+    cpt_replay = cpt.train_replay(task)
+    cpt_fragment = cpt.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(cpt_replay)
+    if (
+        cpt_fragment is not None
+        and cpt_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in cpt_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "container_period_tiling"
+        receipt["train_replay"] = cpt_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["cpt_meta"] = cpt_replay
+        return cpt_fragment, receipt
+
+    # 1d) S3 separator ray-fill (1ae2feb7; vertical sep + motif rays).
+    s3 = _load_module(arc_dir / "s3_separator_ray_fill.py", "s3_separator_ray_fill")
+    s3_replay = s3.train_replay(task)
+    s3_fragment = s3.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(s3_replay)
+    if (
+        s3_fragment is not None
+        and s3_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in s3_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_separator_ray_fill"
+        receipt["train_replay"] = s3_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_meta"] = s3_replay
+        return s3_fragment, receipt
+
     # 2) Replay-gated DSL (db71c28 lineage).
     dsl_path = repo_root / "kaggle/arc-prize-2026-agi-2/arc_agi_2_kaggle.py"
     try:

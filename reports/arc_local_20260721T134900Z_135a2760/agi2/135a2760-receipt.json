@@ -1,0 +1,14 @@
+{
+  "corrected_c4": "Within each local container, repair anomalous cells so content forms a majority-vote periodic tiling: horizontal period along content rows for stacked frame-separated panels (inset past constant wall columns); vertical period of row-signatures inside color-3 column boxes when \u22652 side-by-side containers are present.",
+  "engine": "container_period_tiling",
+  "eval_tick": true,
+  "kaggle_submit": "LOCKED",
+  "labeled_eval": "1/1",
+  "prior_c4_incomplete": "Horizontal reflection symmetry of the foreground object (color 1) within its local bounding box defined by the container (color 3).",
+  "recorded_at_utc": "2026-07-21T13:43:42.815796+00:00",
+  "s4_status": "LOCKED",
+  "sha_note": "commit pending",
+  "task_id": "135a2760",
+  "track": "arc2",
+  "train_replay": "2/2"
+}

@@ -1,0 +1,9 @@
+{
+  "agi2_task": "135a2760",
+  "hybrid_eval_exact_grids": "7/172",
+  "labeled_eval": "1/1",
+  "mastery_delta": "+1 eval exact from CPT 135a2760; hybrid stack with S3 \u2192 7/172 grids",
+  "overall": "GREEN_TASK",
+  "submit": "LOCKED",
+  "train_replay": "2/2"
+}
