@@ -1,0 +1,39 @@
+{
+  "c4_invariant": "{\"grid\": [[0, 0, 0, 0, 0, 0]]}",
+  "closure_ready": false,
+  "grammar_update": "",
+  "protocol": "franklin_s4_projection",
+  "recorded_at_utc": "2026-07-21T14:09:49.867505+00:00",
+  "repair_kind": "grammar",
+  "research_note": "",
+  "s1": "{\"evidence_keys\": [\"attempt_1_exact\", \"attempt_1_preview\", \"attempt_1_shape\", \"attempt_2_exact\", \"expected_preview\", \"expected_shape\", \"test_index\", \"train_pairs\"], \"ingestion\": \"miss_receipt\", \"s_state\": \"incomplete\", \"task_id\": \"142ca369\", \"track\": \"arc2\"}",
+  "s2": "{\"drift_kind\": \"understanding drift\", \"prior_turns\": 1, \"rule_candidates\": \"1. Fill 18x18 grid with 0s. 2. Fill 18x18 grid with 1s. 3. Fill 18x18 grid with 2s. 4. Fill 18x18 grid with 7s. 5. Fill 18x18 grid with 5s. 6. Fill 18x18 grid with 8s. 7. Fill 18x18 grid with 6s. 8. Fill 18x18 grid with 4s. 9. Fill 18x18 grid with 3s. 10. Fill 18x18 grid with 9s. 11. Fill 18x18 grid with 10s. 12. Fill 18x18 grid with 11s. 13. Fill 18x18 grid with 12s. 14. Fill 18x18 grid with 13s. 15. Fill 18x18 grid with 14s. 16. Fill 18x18 grid with 15s. 17. Fill 18x18 grid with 16s. 18. Fill 18x18 grid with 17s. 19. Fill 18x18 grid with 18s. 20. Fill 18x18 grid with 19s. 21. Fill 18x18 grid with 20s. 22. Fill 18x18 grid with 21s. 23. Fill 18x18 grid with 22s. 24. Fill 18x18 grid with 23s. 25. Fill 18x18 grid with 24s. 26. Fill 18x18 grid with 25s. 27. Fill 18x18 grid with 26s. 28. Fill 18x18 grid with 27s. 29. Fill 18x18 grid with 28s. 30. Fill 18x18 grid with 29s. 31. Fill 18x18 grid with 30s. 32. Fill 18x18 grid with 31s. 33. Fill 18x18 grid with 32s. 34. Fill 18x18 grid with 33s. 35. Fill 18x18 grid with 34s. 36. Fill 18x18 grid with 35s. 37. Fill 18x18 grid with 36s. 38. Fill 18x18 grid with 37s. 39. Fill 18x18 grid with 38s. 40. Fill 18x18 grid with 39s. 41. Fill 18x18 grid with 40s. 42. Fill 18x18 grid with 41s. 43. Fill 18x18 grid with 42s. 44. Fill 18x18 grid with 43s. 45. Fill 18x18 grid with 44s. 46. Fill 18x18 grid with 45s. 47. Fill 18x18 grid with 46s. 48. Fill 18x18 grid with 47s. 49. Fill 18x18 grid with 48s. 50. Fill 18x18 grid with 49s. 51. Fill 18x18 grid with 50s. 52. Fill 18x18 grid with 51s. 53. Fill 18x18 grid with 52s. 54. Fill 18x18 grid with 53s. 55. Fill 18x18 grid with 54s. 56. Fill 18x18 grid with 55s. 57. Fill 18x18 grid with 56s. 58. Fill 18x18 grid with 57s. 59. Fill 18x18 grid with 58s. 60. Fill 18x18 grid with 59s. 61. Fill 18x18 grid with 60s. 62. Fill 18x18 grid with 61s. 63. Fill 18x18 grid with 62s. 64. Fill 18x18 grid with 63s. 65. Fill 18x18 grid with 64s. 66. Fill 18x18 grid with 65s. 67. Fill 18x18 grid with 66s. 68. Fill 18x18 grid with 67s. 69. Fill 18x18 grid with 68s. 70. Fill 18x18 grid with 69s. 71. Fill 18x18 grid with 70s. 72. Fill 18x18 grid with 71s. 73. Fill 18x18 grid with 72s. 74. Fill 18x18 grid with 73s. 75. Fill 18x18 grid with 74s. 76. Fill 18x18 grid with 75s. 77. Fill 18x18 grid with 76s. 78. Fill 18x18 grid with 77s. 79. Fill 18x18 grid with 78s. 80. Fill 18x18 grid with 79s. 81. Fill 18x18 grid with 80s. 82. Fill 18x18 grid with 81s. 83. Fill 18x18 grid with 82s. 84. Fill 18x18 grid with 83s. 85. Fill 18x18 grid with 84s. 86. Fill 18x18 grid with 85s. 87. Fill 18x18 grid with 86s. 88. Fill 18x18 grid with 87s. 89. Fill 18x18 grid with 88s. 90. Fill 18x18 grid with 89s. 91. Fill 18x18 grid with 90s. 92. Fill 18x18 grid with 91s. 93. Fill 18x18 grid with 92s. 94. Fill 18x18 grid with 93s. 95. Fill 18x18 grid with 94s. 96. Fill 18x18 grid with 95s. 97. Fill 18x18 grid with 96s. 98. Fill 18x18 grid with 97s. 99. Fill 18x18 grid with 98s. 100. Fill 18x18 grid with 99s.\"}",
+  "s3": "{\"discriminator\": \"demonstration_replay\", \"next_probe\": \"emit one typed candidate the named validator can accept or reject\"}",
+  "s4": "{\"status\": \"REINJECT\", \"typed_candidate\": {\"grid\": [[0, 0, 0, 0, 0, 0]]}, \"unresolved_alternatives\": [], \"validator\": \"demonstration_replay\", \"validator_result\": {\"accepted\": false, \"detail\": \"franklin_reinject_with_candidate\", \"ran\": true, \"status\": \"REINJECT\", \"validator\": \"demonstration_replay\"}}",
+  "s4_status": "REINJECT",
+  "source_miss": "reports/arc_local_20260721T133000Z/agi2/failure-case-analyses.json",
+  "task_id": "142ca369",
+  "track": "arc2",
+  "turn_index": 2,
+  "typed_candidate": {
+    "grid": [
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  },
+  "unresolved_alternatives": [],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": false,
+    "detail": "franklin_reinject_with_candidate",
+    "ran": true,
+    "status": "REINJECT",
+    "validator": "demonstration_replay"
+  }
+}

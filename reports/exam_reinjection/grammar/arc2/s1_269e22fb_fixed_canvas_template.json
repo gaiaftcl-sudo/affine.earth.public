@@ -1,0 +1,11 @@
+{
+  "task_id": "269e22fb",
+  "class": "S1_dimension_projection",
+  "status": "CLOSED",
+  "engine": "s1_fixed_canvas_template",
+  "c4_invariant": "20x20 binary template under D4+invert; input crop; recolor",
+  "train_replay": "5/5",
+  "eval_exact": "2/2",
+  "protocol": "fot_language_game",
+  "recorded_at_utc": "2026-07-21T14:09:55.681844+00:00"
+}

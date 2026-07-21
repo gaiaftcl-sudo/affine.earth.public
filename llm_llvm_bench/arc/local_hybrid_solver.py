@@ -302,6 +302,27 @@ def solve_task(
         receipt["s1_frames_meta"] = frames_replay
         return frames_fragment, receipt
 
+    # 1b8) S1 laser-mirror diagonal beams (142ca369).
+    s1laser = _load_module(
+        arc_dir / "s1_laser_mirror_beams.py", "s1_laser_mirror_beams"
+    )
+    laser_replay = s1laser.train_replay(task)
+    laser_fragment = s1laser.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(laser_replay)
+    if (
+        laser_fragment is not None
+        and laser_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in laser_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_laser_mirror_beams"
+        receipt["train_replay"] = laser_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_laser_meta"] = laser_replay
+        return laser_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

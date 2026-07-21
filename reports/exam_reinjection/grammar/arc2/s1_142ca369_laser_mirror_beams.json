@@ -1,0 +1,10 @@
+{
+  "task_id": "142ca369",
+  "class": "S1_dimension_projection",
+  "status": "CLOSED",
+  "engine": "s1_laser_mirror_beams",
+  "train_replay": "3/3",
+  "eval_exact": "2/2",
+  "protocol": "fot_language_game",
+  "recorded_at_utc": "2026-07-21T14:09:55.681482+00:00"
+}

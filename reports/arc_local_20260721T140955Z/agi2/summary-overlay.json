@@ -1,0 +1,194 @@
+{
+  "track": "ARC-AGI-2",
+  "measured_at": "2026-07-21T14:09:55.679943+00:00",
+  "submission_blocked": true,
+  "evaluation": {
+    "grid_passes": 20,
+    "grid_total": 172,
+    "grid_pass_rate": 0.11627906976744186,
+    "note": "overlay +canvas+wall_tree+laser on ice 134500Z; train 298/1076",
+    "owned_exact": [
+      {
+        "engine": "marker8_twin31",
+        "task_id": "0934a4d8",
+        "test_index": 0
+      },
+      {
+        "engine": "container_period_tiling",
+        "task_id": "135a2760",
+        "test_index": 0
+      },
+      {
+        "engine": "s1_digit_separator_snake",
+        "task_id": "136b0064",
+        "test_index": 0
+      },
+      {
+        "engine": "s1_wall_tree_nested_frames",
+        "task_id": "13e47133",
+        "test_index": 0
+      },
+      {
+        "engine": "s1_wall_tree_nested_frames",
+        "task_id": "13e47133",
+        "test_index": 1
+      },
+      {
+        "engine": "s1_laser_mirror_beams",
+        "task_id": "142ca369",
+        "test_index": 0
+      },
+      {
+        "engine": "s1_laser_mirror_beams",
+        "task_id": "142ca369",
+        "test_index": 1
+      },
+      {
+        "engine": "s3_separator_ray_fill",
+        "task_id": "1ae2feb7",
+        "test_index": 0
+      },
+      {
+        "engine": "s3_separator_ray_fill",
+        "task_id": "1ae2feb7",
+        "test_index": 1
+      },
+      {
+        "engine": "s3_separator_ray_fill",
+        "task_id": "1ae2feb7",
+        "test_index": 2
+      },
+      {
+        "engine": "s1_seven_tab_merge",
+        "task_id": "20270e3b",
+        "test_index": 0
+      },
+      {
+        "engine": "s1_seven_tab_merge",
+        "task_id": "20270e3b",
+        "test_index": 1
+      },
+      {
+        "engine": "s1_marker_frame_motif",
+        "task_id": "20a9e565",
+        "test_index": 0
+      },
+      {
+        "engine": "s1_marker_frame_motif",
+        "task_id": "20a9e565",
+        "test_index": 1
+      },
+      {
+        "engine": "s1_fixed_canvas_template",
+        "task_id": "269e22fb",
+        "test_index": 0
+      },
+      {
+        "engine": "s1_fixed_canvas_template",
+        "task_id": "269e22fb",
+        "test_index": 1
+      },
+      {
+        "engine": "s1_dimension_projection",
+        "task_id": "2ba387bc",
+        "test_index": 0
+      },
+      {
+        "engine": "s1_panel_odd_one_out",
+        "task_id": "38007db0",
+        "test_index": 0
+      },
+      {
+        "engine": "s1_panel_odd_one_out",
+        "task_id": "38007db0",
+        "test_index": 1
+      }
+    ],
+    "all_exact": [
+      {
+        "task_id": "0934a4d8",
+        "test_index": 0
+      },
+      {
+        "task_id": "135a2760",
+        "test_index": 0
+      },
+      {
+        "task_id": "136b0064",
+        "test_index": 0
+      },
+      {
+        "task_id": "13e47133",
+        "test_index": 0
+      },
+      {
+        "task_id": "13e47133",
+        "test_index": 1
+      },
+      {
+        "task_id": "142ca369",
+        "test_index": 0
+      },
+      {
+        "task_id": "142ca369",
+        "test_index": 1
+      },
+      {
+        "task_id": "1ae2feb7",
+        "test_index": 0
+      },
+      {
+        "task_id": "1ae2feb7",
+        "test_index": 1
+      },
+      {
+        "task_id": "1ae2feb7",
+        "test_index": 2
+      },
+      {
+        "task_id": "20270e3b",
+        "test_index": 0
+      },
+      {
+        "task_id": "20270e3b",
+        "test_index": 1
+      },
+      {
+        "task_id": "20a9e565",
+        "test_index": 0
+      },
+      {
+        "task_id": "20a9e565",
+        "test_index": 1
+      },
+      {
+        "task_id": "269e22fb",
+        "test_index": 0
+      },
+      {
+        "task_id": "269e22fb",
+        "test_index": 1
+      },
+      {
+        "task_id": "2ba387bc",
+        "test_index": 0
+      },
+      {
+        "task_id": "38007db0",
+        "test_index": 0
+      },
+      {
+        "task_id": "38007db0",
+        "test_index": 1
+      },
+      {
+        "task_id": "981571dc",
+        "test_index": 0
+      }
+    ]
+  },
+  "training": {
+    "grid_passes": 298,
+    "grid_total": 1076
+  }
+}

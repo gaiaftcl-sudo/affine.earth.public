@@ -1,0 +1,11 @@
+{
+  "task_id": "13e47133",
+  "class": "S3_spatial_rewrite",
+  "status": "CLOSED",
+  "engine": "s1_wall_tree_nested_frames",
+  "c4_invariant": "wall separators partition rooms; depth rings colored by seeded period",
+  "train_replay": "3/3",
+  "eval_exact": "2/2",
+  "protocol": "fot_language_game",
+  "recorded_at_utc": "2026-07-21T14:08:17.142506+00:00"
+}
