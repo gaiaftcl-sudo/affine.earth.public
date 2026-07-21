@@ -1,14 +1,14 @@
 {
-  "task_id": "409aa875",
+  "task_id": "3dc255db",
   "exam": "ARC-AGI-2",
-  "language_game_class": "S2_palette_rewrite",
+  "language_game_class": "S3_spatial_rewrite",
   "status": "CLOSED",
   "last_gate": "LOCKED",
   "train": 3,
   "test": 1,
-  "engine": "s3_triomino_tip_ray",
+  "engine": "s3_marker_tip_beam",
   "observations": [
-    "Triomino tips fire length-5 rays; collision=1 else 9 or recolor hit component",
+    "Minority markers eject as a beam from the shape tip",
     "Train 3/3 labeled eval 1/1"
   ],
   "validator": "demonstration_replay+labeled_eval",

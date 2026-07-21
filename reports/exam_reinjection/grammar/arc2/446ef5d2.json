@@ -1,22 +1,22 @@
 {
-  "task_id": "409aa875",
+  "task_id": "446ef5d2",
   "exam": "ARC-AGI-2",
   "language_game_class": "S2_palette_rewrite",
   "status": "CLOSED",
   "last_gate": "LOCKED",
-  "train": 3,
-  "test": 1,
-  "engine": "s3_triomino_tip_ray",
+  "train": 2,
+  "test": 2,
+  "engine": "s2_tagged_shape_border_pack",
   "observations": [
-    "Triomino tips fire length-5 rays; collision=1 else 9 or recolor hit component",
-    "Train 3/3 labeled eval 1/1"
+    "Tagged shapes pack into a border rectangle near the tag corner",
+    "Train 2/2 labeled eval 2/2"
   ],
   "validator": "demonstration_replay+labeled_eval",
   "validator_result": {
     "accepted": true,
-    "detail": "train_replay_3_3_eval_1_1",
-    "train_replay": "3/3",
-    "labeled_eval": "1/1"
+    "detail": "train_replay_2_2_eval_2_2",
+    "train_replay": "2/2",
+    "labeled_eval": "2/2"
   },
   "mastery_eval": "79/172",
   "mastery_train": "298/1076",

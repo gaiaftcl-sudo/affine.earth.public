@@ -510,6 +510,30 @@ def load_s3_triomino_tip_ray(root: Path) -> Any:
     return module
 
 
+def load_s3_marker_tip_beam(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_marker_tip_beam.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_marker_tip_beam", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_marker_tip_beam solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s2_tagged_shape_border_pack(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_tagged_shape_border_pack.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_tagged_shape_border_pack", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_tagged_shape_border_pack solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def load_s3_period_tile_stamp(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_period_tile_stamp.py"
     spec = importlib.util.spec_from_file_location(
@@ -1136,6 +1160,8 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s3_bord = load_s3_border_path_fill(root)
     m_s1_anchor_crop_expand = load_s1_anchor_crop_expand(root)
     m_s3_triomino_tip_ray = load_s3_triomino_tip_ray(root)
+    m_s3_marker_tip_beam = load_s3_marker_tip_beam(root)
+    m_s2_tagged_shape_border_pack = load_s2_tagged_shape_border_pack(root)
     m_s2_marker_recolor_lattice = load_s2_marker_recolor_lattice(root)
     m_s2_color_gate_rewrite = load_s2_color_gate_rewrite(root)
     m_s2_pair_swap_recolor = load_s2_pair_swap_recolor(root)
@@ -1253,6 +1279,8 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s3_bord_hits = 0
     h_s1_anchor_crop_expand = 0
     h_s3_triomino_tip_ray = 0
+    h_s3_marker_tip_beam = 0
+    h_s2_tagged_shape_border_pack = 0
     h_s2_marker_recolor_lattice = 0
     h_s2_color_gate_rewrite = 0
     h_s2_pair_swap_recolor = 0
@@ -1434,6 +1462,14 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             hybrid_attempts = m_s3_triomino_tip_ray.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 h_s3_triomino_tip_ray += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_marker_tip_beam.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_marker_tip_beam += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s2_tagged_shape_border_pack.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s2_tagged_shape_border_pack += 1
         if hybrid_attempts is None:
             hybrid_attempts = m_s2_marker_recolor_lattice.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
@@ -1671,6 +1707,8 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s3_border_path_fill_licensed_tasks": s3_bord_hits,
             "s1_anchor_crop_expand_licensed_tasks": h_s1_anchor_crop_expand,
             "s3_triomino_tip_ray_licensed_tasks": h_s3_triomino_tip_ray,
+            "s3_marker_tip_beam_licensed_tasks": h_s3_marker_tip_beam,
+            "s2_tagged_shape_border_pack_licensed_tasks": h_s2_tagged_shape_border_pack,
             "s2_marker_recolor_lattice_licensed_tasks": h_s2_marker_recolor_lattice,
             "s2_color_gate_rewrite_licensed_tasks": h_s2_color_gate_rewrite,
             "s2_pair_swap_recolor_licensed_tasks": h_s2_pair_swap_recolor,

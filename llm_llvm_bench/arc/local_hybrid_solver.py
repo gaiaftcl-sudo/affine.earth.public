@@ -1187,6 +1187,48 @@ def solve_task(
         receipt["s3_triomino_tip_ray_meta"] = e10_replay
         return e10_fragment, receipt
 
+    # 1b49) S3 marker tip-beam (3dc255db).
+    s3beam = _load_module(
+        arc_dir / "s3_marker_tip_beam.py", "s3_marker_tip_beam"
+    )
+    beam_replay = s3beam.train_replay(task)
+    beam_fragment = s3beam.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(beam_replay)
+    if (
+        beam_fragment is not None
+        and beam_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in beam_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_marker_tip_beam"
+        receipt["train_replay"] = beam_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_marker_tip_beam_meta"] = beam_replay
+        return beam_fragment, receipt
+
+    # 1b50) S2 tagged-shape border pack (446ef5d2).
+    s2pack = _load_module(
+        arc_dir / "s2_tagged_shape_border_pack.py", "s2_tagged_shape_border_pack"
+    )
+    pack_replay = s2pack.train_replay(task)
+    pack_fragment = s2pack.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(pack_replay)
+    if (
+        pack_fragment is not None
+        and pack_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in pack_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s2_tagged_shape_border_pack"
+        receipt["train_replay"] = pack_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s2_tagged_shape_border_pack_meta"] = pack_replay
+        return pack_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

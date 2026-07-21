@@ -29,8 +29,10 @@
     "arc2:36a08778",
     "arc2:38007db0",
     "arc2:3a25b0d8",
+    "arc2:3dc255db",
     "arc2:3e6067c3",
     "arc2:409aa875",
+    "arc2:446ef5d2",
     "arc2:45a5af55",
     "arc2:4c7dc4dd",
     "arc2:4e34c42c",
@@ -59,23 +61,31 @@
   ],
   "next_apply_loop": [
     {
-      "action": "train-replay-gated C4; Franklin S4 JSON-only ≤429 if needed",
-      "key": "arc2:3dc255db",
+      "action": "train-replay-gated C4; Franklin S4 JSON-only \u2264429 if needed",
+      "key": "arc2:4a21e3da",
       "last_gate": "OPEN_MISS",
-      "task_id": "3dc255db",
+      "task_id": "4a21e3da",
       "track": "arc2",
-      "language_game_class": "S3_spatial_rewrite"
+      "language_game_class": "OPEN"
     },
     {
-      "action": "train-replay-gated C4; Franklin S4 JSON-only ≤429 if needed",
-      "key": "arc2:446ef5d2",
+      "action": "train-replay-gated C4; Franklin S4 JSON-only \u2264429 if needed",
+      "key": "arc2:4c3d4a41",
       "last_gate": "OPEN_MISS",
-      "task_id": "446ef5d2",
+      "task_id": "4c3d4a41",
       "track": "arc2",
-      "language_game_class": "S2_palette_rewrite"
+      "language_game_class": "OPEN"
+    },
+    {
+      "action": "train-replay-gated C4; Franklin S4 JSON-only \u2264429 if needed",
+      "key": "arc2:4c416de3",
+      "last_gate": "OPEN_MISS",
+      "task_id": "4c416de3",
+      "track": "arc2",
+      "language_game_class": "OPEN"
     }
   ],
-  "note": "CLOSED 409aa875 (+1 => 76/172); jumped 3dc255db train-only. No Kaggle.",
+  "note": "CLOSED 409aa875+3dc255db+446ef5d2 (79/172). No Kaggle.",
   "peer_in_flight": [],
   "recorded_at_utc": "2026-07-21T16:45:00Z"
 }

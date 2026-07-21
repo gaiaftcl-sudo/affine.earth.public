@@ -1,0 +1,20 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T16:36:10.406024+00:00",
+  "base_eval_exact_grids": "75/172",
+  "overlay_eval_exact_grids": "79/172",
+  "delta_grids": 4,
+  "closed_tasks": [
+    "409aa875",
+    "3dc255db",
+    "446ef5d2"
+  ],
+  "engines": [
+    "s3_triomino_tip_ray",
+    "s3_marker_tip_beam",
+    "s2_tagged_shape_border_pack"
+  ],
+  "train_floor": "298/1076",
+  "kaggle_submit": false,
+  "note": "overlay +409 +3dc +446(+2); prior 75/172; train floor 298/1076"
+}

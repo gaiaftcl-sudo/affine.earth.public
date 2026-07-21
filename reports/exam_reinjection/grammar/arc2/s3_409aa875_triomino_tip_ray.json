@@ -1,0 +1,9 @@
+{
+  "task_id": "409aa875",
+  "engine": "s3_triomino_tip_ray",
+  "status": "CLOSED",
+  "c4": "Odd tip triominoes fire rays of length 5; landing bg\u21929, occupied\u2192recolor component 9, multi-hit\u21921.",
+  "train_replay": "3/3",
+  "labeled_eval": "1/1",
+  "module": "llm_llvm_bench/arc/s3_triomino_tip_ray.py"
+}
