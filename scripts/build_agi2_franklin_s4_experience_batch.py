@@ -68,22 +68,46 @@ def parse_grid(text: Any) -> Optional[Grid]:
 
 
 def extract_json(text: str) -> Optional[Dict[str, Any]]:
+    """Parse model JSON; tolerate reasoning preamble before the object."""
     text = text.strip()
+    if not text:
+        return None
     if text.startswith("```"):
         text = re.sub(r"^```(?:json)?\n?", "", text)
-        text = re.sub(r"\n?```$", "", text)
+        text = re.sub(r"\n?```$", "", text).strip()
+    # Prefer first '{' … last '}' (reasoning models often narrate first)
+    if not text.startswith("{"):
+        start = text.find("{")
+        end = text.rfind("}")
+        if start >= 0 and end > start:
+            text = text[start : end + 1]
     try:
         parsed = json.loads(text)
         return parsed if isinstance(parsed, dict) else None
     except Exception:
-        m = re.search(r"\{.*\}", text, re.S)
-        if not m:
-            return None
-        try:
-            parsed = json.loads(m.group(0))
-            return parsed if isinstance(parsed, dict) else None
-        except Exception:
-            return None
+        pass
+    # Balanced-brace scan for nested objects
+    starts = [i for i, ch in enumerate(text) if ch == "{"]
+    for start in starts:
+        depth = 0
+        for i in range(start, len(text)):
+            if text[i] == "{":
+                depth += 1
+            elif text[i] == "}":
+                depth -= 1
+                if depth == 0:
+                    chunk = text[start : i + 1]
+                    try:
+                        parsed = json.loads(chunk)
+                        if isinstance(parsed, dict) and (
+                            "train_predictions" in parsed
+                            or "test_predictions" in parsed
+                            or "task_id" in parsed
+                        ):
+                            return parsed
+                    except Exception:
+                        break
+    return None
 
 
 def fingerprint(task: Dict[str, Any]) -> Tuple:
@@ -556,11 +580,23 @@ def solve_one(
                 fcntl.flock(lockf.fileno(), fcntl.LOCK_UN)
 
     for turn in range(max_turns):
+        print(
+            f"TURN_BEGIN task={tid} turn={turn + 1}/{max_turns} timeout={timeout}s",
+            flush=True,
+        )
         try:
             answer = _post_locked()
             last_raw = answer
+            print(
+                f"TURN_OK task={tid} turn={turn + 1}/{max_turns} chars={len(answer)}",
+                flush=True,
+            )
         except Exception as exc:  # noqa: BLE001
             timeouts += 1
+            print(
+                f"TURN_ERR task={tid} turn={turn + 1}/{max_turns} timeouts={timeouts} err={str(exc)[:160]}",
+                flush=True,
+            )
             if timeouts <= 2 and turn + 1 < max_turns:
                 messages.append(
                     {
@@ -627,6 +663,12 @@ def solve_one(
         last_vr = vr
         bound = jordan_loop_bound_closed(
             TRACK_ARC2, vr, accepted=bool(vr.get("accepted"))
+        )
+        print(
+            f"TURN_VAL task={tid} turn={turn + 1}/{max_turns} "
+            f"replay={vr.get('train_replay')} detail={vr.get('detail')} "
+            f"jordan_closed={bound.get('closed')}",
+            flush=True,
         )
         turns_log.append(
             {
