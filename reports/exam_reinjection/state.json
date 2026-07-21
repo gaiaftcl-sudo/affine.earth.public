@@ -329,6 +329,25 @@
       "track": "hle",
       "turn_count": 4,
       "updated_at": "2026-07-21T14:11:03.662532+00:00"
+    },
+    "arc2:2d0172a1": {
+      "engine": "s1_topology_schematic",
+      "last_c4": "Lossy containment schematic: fg loops/leaves tree; nested frames; leaf markers by centroid side of medium; outside roots as 3-cell exterior bar; train-replay gated.",
+      "last_gate": "S4_LOCKED",
+      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/2d0172a1.json",
+      "last_s4_status": "LOCKED",
+      "last_validator": "demonstration_replay+labeled_eval",
+      "last_validator_result": {
+        "accepted": true,
+        "detail": "local_solver_green",
+        "labeled_eval": "2/2",
+        "train_replay": "4/4"
+      },
+      "status": "CLOSED",
+      "task_id": "2d0172a1",
+      "track": "arc2",
+      "turn_count": 1,
+      "updated_at": "2026-07-21T14:20:17.964204+00:00"
     }
   },
   "total_franklin_turns": 31

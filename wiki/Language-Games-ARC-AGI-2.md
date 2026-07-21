@@ -203,6 +203,7 @@ train ice-on baseline remains **298/1076**). Lineage: 14/172 → **+2**
 | wall-tree nested frames | `s1_wall_tree_nested_frames` | 3/3 on `13e47133` | exact ×2 |
 | laser-mirror beams | `s1_laser_mirror_beams` | 3/3 on `142ca369` | exact ×2 |
 | oriented block pack | `s1_oriented_block_pack` | 4/4 on `291dc1e1` | exact ×1 |
+| topology schematic | `s1_topology_schematic` | 4/4 on `2d0172a1` | exact ×2 |
 | container period tiling | `container_period_tiling` | 2/2 on `135a2760` | exact |
 | separator ray-fill | `s3_separator_ray_fill` | 3/3 on `1ae2feb7` | exact ×3 |
 | ice+DSL residual | `arc-icecuber` hybrid | n/a | +1 prior (`981571dc`) |

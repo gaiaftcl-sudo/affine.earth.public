@@ -11,15 +11,16 @@
     "arc2:269e22fb",
     "arc2:291dc1e1",
     "arc2:2ba387bc",
+    "arc2:2d0172a1",
     "arc2:38007db0",
     "arc3:agi3-trajectory-gap"
   ],
   "next_apply_loop": [
     {
       "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
-      "key": "arc2:2d0172a1",
+      "key": "arc2:3a25b0d8",
       "last_gate": "pending",
-      "task_id": "2d0172a1",
+      "task_id": "3a25b0d8",
       "track": "arc2",
       "language_game_class": "S1_dimension_projection"
     },
@@ -39,7 +40,7 @@
       "track": "arc3"
     }
   ],
-  "note": "Reinjection CLOSED synced for 269e22fb+142ca369+291dc1e1. Mastery 21/172. Next open: 2d0172a1. No Kaggle.",
+  "note": "Reinjection CLOSED synced for 2d0172a1 topology_schematic. Mastery 23/172. Next open: 3a25b0d8. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T14:13:58.102482+00:00"
+  "recorded_at_utc": "2026-07-21T14:19:36.643957+00:00"
 }

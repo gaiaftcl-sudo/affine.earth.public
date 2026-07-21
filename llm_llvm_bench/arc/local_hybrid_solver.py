@@ -344,6 +344,27 @@ def solve_task(
         receipt["s1_pack_meta"] = pack_replay
         return pack_fragment, receipt
 
+    # 1b10) S1 topology schematic (2d0172a1).
+    s1topo = _load_module(
+        arc_dir / "s1_topology_schematic.py", "s1_topology_schematic"
+    )
+    topo_replay = s1topo.train_replay(task)
+    topo_fragment = s1topo.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(topo_replay)
+    if (
+        topo_fragment is not None
+        and topo_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in topo_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_topology_schematic"
+        receipt["train_replay"] = topo_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_topo_meta"] = topo_replay
+        return topo_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

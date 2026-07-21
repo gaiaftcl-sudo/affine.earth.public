@@ -1,0 +1,74 @@
+{
+  "eval_exact": "23/172",
+  "eval_pass": 23,
+  "eval_total": 172,
+  "base": "reports/arc_local_20260721T141241Z/agi2/local-evaluation-submission.json",
+  "owned_hits": [
+    {
+      "task_id": "0934a4d8",
+      "engine": "marker8_twin31",
+      "grids": 1
+    },
+    {
+      "task_id": "135a2760",
+      "engine": "container_period_tiling",
+      "grids": 1
+    },
+    {
+      "task_id": "136b0064",
+      "engine": "s1_digit_separator_snake",
+      "grids": 1
+    },
+    {
+      "task_id": "13e47133",
+      "engine": "s1_wall_tree_nested_frames",
+      "grids": 2
+    },
+    {
+      "task_id": "142ca369",
+      "engine": "s1_laser_mirror_beams",
+      "grids": 2
+    },
+    {
+      "task_id": "1ae2feb7",
+      "engine": "s3_separator_ray_fill",
+      "grids": 3
+    },
+    {
+      "task_id": "20270e3b",
+      "engine": "s1_seven_tab_merge",
+      "grids": 2
+    },
+    {
+      "task_id": "20a9e565",
+      "engine": "s1_marker_frame_motif",
+      "grids": 2
+    },
+    {
+      "task_id": "269e22fb",
+      "engine": "s1_fixed_canvas_template",
+      "grids": 2
+    },
+    {
+      "task_id": "291dc1e1",
+      "engine": "s1_oriented_block_pack",
+      "grids": 1
+    },
+    {
+      "task_id": "2ba387bc",
+      "engine": "s1_dimension_projection",
+      "grids": 1
+    },
+    {
+      "task_id": "2d0172a1",
+      "engine": "s1_topology_schematic",
+      "grids": 2
+    },
+    {
+      "task_id": "38007db0",
+      "engine": "s1_panel_odd_one_out",
+      "grids": 2
+    }
+  ],
+  "note": "overlay +topology_schematic on prior baseline; train 298/1076"
+}
