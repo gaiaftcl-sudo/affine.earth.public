@@ -1,0 +1,24 @@
+{
+  "task_id": "ar25",
+  "track": "arc3",
+  "grammar_id": "ar25_WIN_8_8",
+  "s4_status": "LOCKED",
+  "closure_ready": true,
+  "levels_completed_after": 8,
+  "win_terminal": true,
+  "protocol": "franklin_s4_projection",
+  "recorded_at_utc": "2026-07-21T17:13:00+00:00",
+  "c4_invariant": {
+    "win": "vplrhaovhr",
+    "engine": "Ar25Policy",
+    "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
+    "capture_mp4": "affine_audit_logs/arc_agi3/ar25/20260721T171208Z/ar25.mp4",
+    "harness_report": "reports/arc_local_20260721T171202Z"
+  },
+  "validator_result": {
+    "accepted": true,
+    "levels_completed": 8,
+    "state": "WIN",
+    "deaths": 0
+  }
+}

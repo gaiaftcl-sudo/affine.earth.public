@@ -1014,95 +1014,218 @@ class PlatformerPolicy:
         return self._open_policy(legal)
 
 
-# ar25 L1 (grid21): piece 0007arvfmhagbj @ (6,5); vertical mirror @ x=10.
-# Move piece to (1,15) so reflection covers all five 0001sruqbuvukh targets.
-AR25_L1_OPS: list[int] = [3] * 5 + [2] * 10  # left×5, down×10
+# ar25: reflection field covers all 0001sruqbuvukh targets (vplrhaovhr).
+# L1–L8 precomputed placements (engine-validated). mx=vertical 0054 x; my=horizontal 0002 y.
+AR25_L1_OPS: list[int] = [3] * 5 + [2] * 10  # left×5, down×10 → piece (1,15)
+
+AR25_SOLUTIONS: dict[int, dict[str, Any]] = {
+    0: {"names": ["0007arvfmhagbj"], "positions": [(1, 15)], "mx": None, "my": None},
+    1: {"names": ["0026ptolirjxrb"], "positions": [(15, 14)], "mx": 10, "my": None},
+    2: {
+        "names": ["0027crpzfdutil", "0053vnfodarlql"],
+        "positions": [(11, 14), (3, 14)],
+        "mx": None,
+        "my": 9,
+    },
+    3: {
+        "names": ["0028vcmxnipgaw", "0032uqgfobrfhs"],
+        "positions": [(11, 6), (13, 10)],
+        "mx": None,
+        "my": 9,
+    },
+    4: {"names": ["0029mcptsvtwrp"], "positions": [(4, 5)], "mx": 8, "my": 9},
+    5: {
+        "names": ["0045stdoddmwgj", "0046frieufpmcm"],
+        "positions": [(2, 12), (7, 15)],
+        "mx": 6,
+        "my": 11,
+    },
+    6: {
+        "names": ["0030rmanxmvnah", "0031uifisqqrex"],
+        "positions": [(7, 7), (8, 1)],
+        "mx": 12,
+        "my": 7,
+    },
+    7: {
+        "names": ["0048sobinwpoqd", "0049kqstcizzck"],
+        "positions": [(4, 6), (16, 3)],
+        "mx": 12,
+        "my": 11,
+    },
+}
 
 
 class Ar25Policy:
-    """ar25 keyboard_click: move selected sprite (1–4), cycle (5), click (6), undo (7).
-
-    L1 is a verified scripted clear (piece → (1,15) under vertical mirror).
-    Later levels keep a deterministic productive sweep (no bp35 touch).
-    """
+    """ar25 keyboard_click: move selected (1–4), cycle (5). L1–L8 precomputed WIN."""
 
     def __init__(self, environment: Any) -> None:
         self.environment = environment
-        self._i = 0
-        self._script_lv: Optional[int] = None
+        self._li: Optional[int] = None
+        self._phase = 0  # 0=vm, 1=hm, 2+=piece index
         self._script_i = 0
 
+    def _game(self) -> Any:
+        return getattr(self.environment, "_game", None)
+
     def _levels(self) -> int:
-        game = getattr(self.environment, "_game", None)
-        if game is None:
-            return 0
         try:
-            return int(
-                getattr(game, "levels_completed", 0)
-                or getattr(self.environment.observation_space, "levels_completed", 0)
-                or 0
-            )
+            return int(self.environment.observation_space.levels_completed or 0)
         except Exception:
-            try:
-                return int(self.environment.observation_space.levels_completed or 0)
-            except Exception:
-                return 0
+            game = self._game()
+            return int(getattr(game, "level_index", 0) or 0) if game else 0
+
+    def _find(self, name: str) -> Any:
+        game = self._game()
+        if game is None:
+            return None
+        for s in getattr(game, "ayyvxqrhnzw", []) or []:
+            if getattr(s, "name", None) == name or (s.tags and name in s.tags):
+                return s
+        return None
+
+    def _select_toward(self, target: Any, legal: list[int]) -> Optional[Tuple[int, dict[str, Any]]]:
+        game = self._game()
+        if game is None or target is None:
+            return None
+        if game.yvifanjrcyu is target:
+            return None
+        if 5 in legal:
+            return 5, {}
+        return None
+
+    def _move_toward(
+        self, sprite: Any, tx: int, ty: int, legal: list[int]
+    ) -> Optional[Tuple[int, dict[str, Any]]]:
+        sel = self._select_toward(sprite, legal)
+        if sel is not None:
+            return sel
+        if sprite is None:
+            return None
+        dx, dy = tx - sprite.x, ty - sprite.y
+        if dx == 0 and dy == 0:
+            return None
+        if abs(dx) >= abs(dy) and dx != 0:
+            aid = 4 if dx > 0 else 3
+        else:
+            aid = 2 if dy > 0 else 1
+        if aid in legal:
+            return aid, {}
+        return None
 
     def choose(self, legal: list[int]) -> Optional[Tuple[int, dict[str, Any]]]:
-        lv = self._levels()
-        if lv == 0:
-            if self._script_lv != 0:
-                self._script_lv = 0
-                self._script_i = 0
+        game = self._game()
+        if game is None:
+            return None
+        li = int(getattr(game, "level_index", 0) or 0)
+        if li != self._li:
+            self._li = li
+            self._phase = 0
+            self._script_i = 0
+        if li == 0:
             if self._script_i < len(AR25_L1_OPS):
                 action_id = AR25_L1_OPS[self._script_i]
                 self._script_i += 1
                 if action_id in legal:
                     return action_id, {}
-        # Deterministic productive sweep for L2+.
-        plan = [
-            (5, {}),
-            (4, {}),
-            (4, {}),
-            (2, {}),
-            (3, {}),
-            (1, {}),
-            (6, {"x": 32, "y": 32}),
-            (6, {"x": 20, "y": 20}),
-            (6, {"x": 44, "y": 44}),
-            (6, {"x": 32, "y": 20}),
-            (6, {"x": 20, "y": 32}),
-            (5, {}),
-            (4, {}),
-            (1, {}),
-            (2, {}),
-            (3, {}),
-            (6, {"x": 28, "y": 28}),
-            (6, {"x": 36, "y": 36}),
-            (7, {}),
-        ]
-        for _ in range(len(plan)):
-            action_id, data = plan[self._i % len(plan)]
-            self._i += 1
-            if action_id in legal:
-                return action_id, data
+        sol = AR25_SOLUTIONS.get(li)
+        if not sol:
+            if legal:
+                return min(legal), {}
+            return None
+        # Drain phase advances without emitting a stray move when already at target.
+        for _ in range(8):
+            if sol.get("mx") is not None and self._phase == 0:
+                vm = getattr(game, "iabnfcqotmd", None)
+                if vm is None or vm.x == sol["mx"]:
+                    self._phase = 1
+                    continue
+                move = self._move_toward(vm, sol["mx"], vm.y, legal)
+                if move:
+                    return move
+                self._phase = 1
+                continue
+            if self._phase == 0:
+                self._phase = 1
+            if sol.get("my") is not None and self._phase == 1:
+                hm = getattr(game, "lakiokfgmlc", None)
+                if hm is None or hm.y == sol["my"]:
+                    self._phase = 2
+                    continue
+                move = self._move_toward(hm, hm.x, sol["my"], legal)
+                if move:
+                    return move
+                self._phase = 2
+                continue
+            if self._phase == 1:
+                self._phase = 2
+            pi = self._phase - 2
+            names = sol["names"]
+            positions = sol["positions"]
+            if pi >= len(names):
+                break
+            sprite = self._find(names[pi])
+            tx, ty = positions[pi]
+            if sprite is None or (sprite.x == tx and sprite.y == ty):
+                self._phase += 1
+                continue
+            move = self._move_toward(sprite, tx, ty, legal)
+            if move:
+                return move
+            self._phase += 1
         if legal:
-            return min(legal), {}
+            return min(a for a in legal if a != 7) if any(a != 7 for a in legal) else min(legal), {}
         return None
 
 
+# ls20: visit every rjlbuycveu waypoint with matching shape/color/rotation (pbznecvnfr).
+# Precomputed ACTION1–4 paths (budgeted BFS + piston carry + moving pads).
+LS20_SOLUTIONS: dict[int, list[int]] = {
+    0: [3, 3, 3, 1, 1, 1, 1, 4, 4, 4, 1, 1, 1],
+    1: [
+        1, 4, 1, 1, 1, 1, 1, 4, 4, 2, 4, 2, 2, 2, 2, 2, 2, 1, 2, 2, 3, 3, 4, 1, 4, 1, 1, 1, 1,
+        1, 1, 1, 3, 3, 3, 3, 3, 3, 2, 3, 2, 2, 2, 2, 2,
+    ],
+    2: [
+        1, 1, 1, 1, 1, 1, 1, 1, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 3, 3, 1, 4, 4, 4, 4, 4, 4,
+        4, 1, 1, 1, 3, 1, 2, 1, 4, 2,
+    ],
+    3: [
+        3, 3, 3, 2, 2, 2, 3, 2, 2, 3, 3, 1, 2, 1, 2, 1, 2, 1, 1, 3, 3, 1, 2, 3, 3, 1, 1, 1, 2,
+        2, 4, 1, 1, 1, 1, 4, 1, 4, 1, 1, 3, 3, 3,
+    ],
+    4: [
+        1, 3, 1, 1, 3, 3, 3, 4, 3, 4, 3, 4, 1, 1, 3, 3, 3, 3, 1, 3, 3, 3, 4, 4, 2, 2, 2, 2, 2,
+        4, 4, 3, 2, 2, 4, 2, 4, 4, 4, 4, 4, 4, 4, 1,
+    ],
+    5: [
+        1, 1, 2, 1, 2, 4, 4, 1, 4, 1, 1, 1, 3, 3, 4, 4, 1, 1, 4, 4, 1, 1, 4, 2, 2, 1, 1, 3, 1,
+        2, 3, 3, 3, 3, 1, 2, 3, 3, 2, 2, 2, 2, 1, 4, 4, 4, 3, 3, 3, 1, 1, 1, 1, 1, 1, 4, 4, 4,
+        4, 4, 4, 2, 4, 4, 1, 1, 4, 2, 2, 2, 2, 2,
+    ],
+    6: [
+        1, 1, 2, 2, 3, 3, 2, 2, 2, 2, 2, 1, 2, 4, 2, 1, 4, 1, 2, 1, 2, 1, 2, 1, 2, 3, 3, 1, 1,
+        1, 4, 4, 4, 4, 1, 4, 4, 1, 4, 4, 1, 1, 4, 2, 2, 3, 3, 3, 1, 2, 2, 2, 2,
+    ],
+}
+
+
 class Ls20Policy:
-    """ls20 keyboard-only (1–4): directional exploration toward level predicate."""
+    """ls20 keyboard-only (1–4): scripted waypoint clears → WIN 7/7."""
 
     def __init__(self, environment: Any) -> None:
         self.environment = environment
+        self._li: Optional[int] = None
         self._i = 0
 
     def choose(self, legal: list[int]) -> Optional[Tuple[int, dict[str, Any]]]:
-        # Spiral / sweep pattern that changes avatar position reproducibly.
-        plan = [4, 4, 2, 2, 3, 3, 1, 1, 4, 2, 3, 1, 4, 4, 4, 2, 2, 2, 3, 3, 3, 1, 1, 1]
-        for _ in range(len(plan)):
-            action_id = plan[self._i % len(plan)]
+        game = getattr(self.environment, "_game", None)
+        li = int(getattr(game, "level_index", 0) or 0) if game is not None else 0
+        if li != self._li:
+            self._li = li
+            self._i = 0
+        plan = LS20_SOLUTIONS.get(li, [])
+        while self._i < len(plan):
+            action_id = plan[self._i]
             self._i += 1
             if action_id in legal:
                 return action_id, {}

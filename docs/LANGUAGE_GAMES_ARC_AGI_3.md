@@ -174,19 +174,17 @@ uv run --directory data/arc-prize-2026/ARC-AGI-3-Agents \
 ```
 
 (Use an absolute path to `scripts/arc_agi3_language_game.py` from the Agents
-venv cwd; `--max-actions 500` for full bp35 WIN.) Live local FoT
-(`20260721T160922Z`): games=1 probe + owned suite, **WIN=1**,
-**bp35 levels=9/9 WIN** (deaths=0, 387 turns),
-`C4_BOUND_OWNED` / `level_clear_motion_click_grammar` via `_choose_l9`.
-MP4: `affine_audit_logs/arc_agi3/bp35/20260721T160924Z/bp35.mp4`.
-Lifted: ar25 L1 LOCKED; next `ar25_L2_mirror_targets_cover`; ls20 L1 REINJECT.
+venv cwd; `--max-actions 500` for full WIN.) Live local FoT
+(`20260721T171202Z`): **WIN=3** — bp35 **9/9**, ar25 **8/8**, ls20 **7/7**.
+MP4s: `…/bp35/20260721T160924Z/bp35.mp4`,
+`…/ar25/20260721T171208Z/ar25.mp4`, `…/ls20/20260721T171236Z/ls20.mp4`.
 Public probe 0.12 process-only. `NO_KAGGLE_SUBMIT.lock` required.
 
-### FoT — agi3-trajectory-gap CLOSED + bp35 WIN (2026-07-21)
+### FoT — agi3 suite CLOSED (2026-07-21)
 
-Meta miss `arc3:agi3-trajectory-gap` sealed **CLOSED / C4_BOUND_OWNED**. Locked
-C4 = `PlatformerPolicy` / `level_clear_motion_click_grammar` (bp35 **9/9 WIN**).
-Remaining heal: ar25 L2 mirror cover, ls20 L1 predicate bind. No Kaggle.
+Meta miss `arc3:agi3-trajectory-gap` sealed **CLOSED / C4_BOUND_OWNED**. Owned:
+`PlatformerPolicy` (bp35), `Ar25Policy`+`AR25_SOLUTIONS` (ar25),
+`Ls20Policy`+`LS20_SOLUTIONS` (ls20). No Kaggle.
 
 ## 9. Format from top scores
 

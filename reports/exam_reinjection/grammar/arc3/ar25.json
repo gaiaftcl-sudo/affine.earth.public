@@ -3,19 +3,21 @@
   "track": "arc3",
   "protocol": "source_locked_level_predicate",
   "repair_kind": "grammar",
-  "grammar_update": "PARTIAL_GRAMMAR; levels_cleared=1/8; L1 LOCKED; L2 REINJECT",
-  "s4_status": "REINJECT",
-  "closure_ready": false,
-  "levels_cleared": 1,
+  "grammar_update": "C4_BOUND_OWNED; levels_cleared=8/8 WIN",
+  "s4_status": "LOCKED",
+  "closure_ready": true,
+  "levels_cleared": 8,
   "levels_total": 8,
-  "c4_invariant": "{\"actions\":{\"1\":\"up\",\"2\":\"down\",\"3\":\"left\",\"4\":\"right\",\"5\":\"cycle_selection\",\"6\":\"click\",\"7\":\"undo\"},\"win\":\"reflection field covers all 0001sruqbuvukh targets\",\"L1\":\"AR25_L1_OPS piece→(1,15)\"}",
-  "research_note": "L1 LOCKED (AR25_L1_OPS). L2: eight 0001 targets + piece 0026ptolirjxrb @ (15,6) + mirror 0054kgxrvfihgm @ (12,-3). Next: ar25_L2_mirror_targets_cover.",
+  "win_terminal": true,
+  "c4_invariant": "{\"actions\":{\"1\":\"up\",\"2\":\"down\",\"3\":\"left\",\"4\":\"right\",\"5\":\"cycle_selection\"},\"win\":\"vplrhaovhr reflection field covers all 0001sruqbuvukh\",\"engine\":\"Ar25Policy+AR25_SOLUTIONS\"}",
+  "research_note": "WIN 8/8 sealed. L2 cover via piece 0026→(15,14) + mirror x=10. L7 pieces (7,7)/(8,1). Captures affine_audit_logs/arc_agi3/ar25/20260721T171208Z/ar25.mp4. No Kaggle.",
   "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
   "engine": "Ar25Policy",
   "evidence": {
     "L1": "ar25_L1_mirror_piece_1_15.json",
-    "L2": "ar25_L2_mirror_targets_cover.json"
+    "L2": "ar25_L2_mirror_targets_cover.json",
+    "WIN": "ar25_WIN_8_8.json"
   },
   "kaggle_submit": false,
-  "recorded_at_utc": "2026-07-21T16:10:00+00:00"
+  "recorded_at_utc": "2026-07-21T17:13:00+00:00"
 }

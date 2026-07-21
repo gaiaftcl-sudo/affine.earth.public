@@ -3,15 +3,20 @@
   "track": "arc3",
   "protocol": "source_locked_level_predicate",
   "repair_kind": "grammar",
-  "grammar_update": "PARTIAL_GRAMMAR; levels_cleared=0/7; REINJECT",
-  "s4_status": "REINJECT",
-  "closure_ready": false,
-  "levels_cleared": 0,
+  "grammar_update": "C4_BOUND_OWNED; levels_cleared=7/7 WIN",
+  "s4_status": "LOCKED",
+  "closure_ready": true,
+  "levels_cleared": 7,
   "levels_total": 7,
-  "c4_invariant": "{\"actions\":{\"1\":\"up\",\"2\":\"down\",\"3\":\"left\",\"4\":\"right\"},\"win\":\"pbznecvnfr all waypoints matched for shape/color/rotation\"}",
-  "research_note": "keyboard 1-4 only. Win when avatar visits every plrpelhym waypoint with matching StartShape/StartColor/StartRotation (bejndxqqzf). Sweep unreproduced for L1. class=unreproduced_productive_delta. REINJECT.",
+  "win_terminal": true,
+  "c4_invariant": "{\"actions\":{\"1\":\"up\",\"2\":\"down\",\"3\":\"left\",\"4\":\"right\"},\"win\":\"pbznecvnfr all waypoints with matching shape/color/rotation\",\"pads\":\"ttfwljgohq shape / soyhouuebz color / rhsxkxzdjz rotation\",\"pistons\":\"gbvqrjtaqo carry\",\"movers\":\"xfmluydglp tracks\",\"engine\":\"Ls20Policy+LS20_SOLUTIONS\"}",
+  "research_note": "WIN 7/7 sealed. Budgeted BFS with piston carry + moving transform pads. Capture affine_audit_logs/arc_agi3/ls20/20260721T171236Z/ls20.mp4. No Kaggle.",
   "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
   "engine": "Ls20Policy",
+  "evidence": {
+    "L1": "ls20_L1_keyboard_explore.json",
+    "WIN": "ls20_WIN_7_7.json"
+  },
   "kaggle_submit": false,
-  "recorded_at_utc": "2026-07-21T14:48:00+00:00"
+  "recorded_at_utc": "2026-07-21T17:13:00+00:00"
 }

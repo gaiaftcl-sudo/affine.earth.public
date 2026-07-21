@@ -1,7 +1,7 @@
 {
   "task_id": "ls20",
   "track": "arc3",
-  "grammar_id": "ls20_L1_keyboard_explore",
+  "grammar_id": "ls20_WIN_7_7",
   "s4_status": "LOCKED",
   "closure_ready": true,
   "levels_completed_after": 7,
@@ -9,14 +9,16 @@
   "protocol": "franklin_s4_projection",
   "recorded_at_utc": "2026-07-21T17:13:00+00:00",
   "c4_invariant": {
-    "level": 1,
-    "actions": "ACTION1–4",
-    "clear": "one rotation pad hit then waypoint (34,10) with StartShape/Color match",
-    "owned": "LS20_SOLUTIONS[0] → full WIN 7/7"
+    "win": "pbznecvnfr",
+    "engine": "Ls20Policy",
+    "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
+    "capture_mp4": "affine_audit_logs/arc_agi3/ls20/20260721T171236Z/ls20.mp4",
+    "harness_report": "reports/arc_local_20260721T171202Z"
   },
   "validator_result": {
     "accepted": true,
     "levels_completed": 7,
-    "detail": "L1 predicate bound; suite sealed WIN"
+    "state": "WIN",
+    "deaths": 0
   }
 }

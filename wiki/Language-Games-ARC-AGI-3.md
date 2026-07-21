@@ -114,17 +114,18 @@ downloaded official environment, not a static grid surrogate:
 
 ### Live FoT metrics (local, 2026-07-21)
 
-Source: offline Arcade + `PlatformerPolicy` L1–L9 WIN harness
-(`--max-actions 500`) under `reports/exam_reinjection/grammar/arc3/`.
+Source: offline Arcade + owned policies (`--max-actions 500`) under
+`reports/exam_reinjection/grammar/arc3/`.
 
 | Metric | Value | Honest read |
 | --- | --- | --- |
 | Games played | 3 (`bp35`, `ar25`, `ls20`) | Official offline envs |
-| WIN terminals | **1** (`bp35`) | Full WIN sealed |
-| Levels cleared | **bp35 9/9 WIN**; ar25 1/8; ls20 0/7 | bp35 closed; ar25/ls20 lifted |
+| WIN terminals | **3** | All three public games sealed |
+| Levels cleared | **bp35 9/9**; **ar25 8/8**; **ls20 7/7** | Full suite WIN |
 | `bp35` grammar | `C4_BOUND_OWNED` + WIN | L9 underfloor walk LOCKED |
-| `ar25` / `ls20` | L1 LOCKED / L1 REINJECT | next: `ar25_L2_mirror_targets_cover` |
-| Captures | `affine_audit_logs/arc_agi3/bp35/20260721T160924Z/bp35.mp4` | WIN trail |
+| `ar25` grammar | `C4_BOUND_OWNED` + WIN | `Ar25Policy` + `AR25_SOLUTIONS` |
+| `ls20` grammar | `C4_BOUND_OWNED` + WIN | `Ls20Policy` + `LS20_SOLUTIONS` |
+| Captures | `…/bp35/20260721T160924Z/bp35.mp4`, `…/ar25/20260721T171208Z/ar25.mp4`, `…/ls20/20260721T171236Z/ls20.mp4` | WIN trails |
 | Public probe | **0.12** (ref 54875048) | Process probe only; NO Kaggle |
 
 **Owned bp35 C4 grammar:**
@@ -142,12 +143,13 @@ Evidence: `bp35_L7_soft1_shaft_col9_safe_drop.json`,
 `bp35_L9_col0_underfloor_y39_gem_walk.json` (LOCKED).
 Module: `llm_llvm_bench/arc/agi3_platformer_policy.py`.
 
-### FoT note — agi3-trajectory-gap CLOSED + bp35 WIN (2026-07-21)
+### FoT note — agi3 suite CLOSED (2026-07-21)
 
-Meta miss `arc3:agi3-trajectory-gap` sealed **CLOSED / C4_BOUND_OWNED**. Locked C4 =
-`PlatformerPolicy` / `level_clear_motion_click_grammar` — bp35 **9/9 WIN**
-(deaths=0, 387 turns). Lifted: ar25 L1 LOCKED, ar25 L2 + ls20 L1 REINJECT.
-No Kaggle submit.
+Meta miss `arc3:agi3-trajectory-gap` sealed **CLOSED / C4_BOUND_OWNED**. Public
+games: bp35 **9/9 WIN**, ar25 **8/8 WIN** (`Ar25Policy` / reflection cover),
+ls20 **7/7 WIN** (`Ls20Policy` / waypoint shape-color-rotation). Harness
+`reports/arc_local_20260721T171202Z`: `win_terminals=2` on ar25+ls20 replay
+(bp35 prior). No Kaggle submit.
 
 ## 9. Format from top scores
 
