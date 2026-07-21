@@ -1,0 +1,85 @@
+{
+  "eval_exact": "15/172",
+  "eval_exact_num": 15,
+  "eval_exact_den": 172,
+  "owned_hits": [
+    {
+      "task_id": "0934a4d8",
+      "test_index": 0,
+      "engine": "marker8_twin31"
+    },
+    {
+      "task_id": "135a2760",
+      "test_index": 0,
+      "engine": "container_period_tiling"
+    },
+    {
+      "task_id": "136b0064",
+      "test_index": 0,
+      "engine": "s1_digit_separator_snake"
+    },
+    {
+      "task_id": "13e47133",
+      "test_index": 0,
+      "engine": "s1_wall_tree_nested_frames"
+    },
+    {
+      "task_id": "13e47133",
+      "test_index": 1,
+      "engine": "s1_wall_tree_nested_frames"
+    },
+    {
+      "task_id": "1ae2feb7",
+      "test_index": 0,
+      "engine": "s3_separator_ray_fill"
+    },
+    {
+      "task_id": "1ae2feb7",
+      "test_index": 1,
+      "engine": "s3_separator_ray_fill"
+    },
+    {
+      "task_id": "1ae2feb7",
+      "test_index": 2,
+      "engine": "s3_separator_ray_fill"
+    },
+    {
+      "task_id": "20270e3b",
+      "test_index": 0,
+      "engine": "s1_seven_tab_merge"
+    },
+    {
+      "task_id": "20270e3b",
+      "test_index": 1,
+      "engine": "s1_seven_tab_merge"
+    },
+    {
+      "task_id": "20a9e565",
+      "test_index": 0,
+      "engine": "s1_marker_frame_motif"
+    },
+    {
+      "task_id": "20a9e565",
+      "test_index": 1,
+      "engine": "s1_marker_frame_motif"
+    },
+    {
+      "task_id": "2ba387bc",
+      "test_index": 0,
+      "engine": "s1_dimension_projection"
+    },
+    {
+      "task_id": "38007db0",
+      "test_index": 0,
+      "engine": "s1_panel_odd_one_out"
+    },
+    {
+      "task_id": "38007db0",
+      "test_index": 1,
+      "engine": "s1_panel_odd_one_out"
+    }
+  ],
+  "baseline": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/arc_local_quality_trial_4/agi2/submission.json",
+  "stamp": "20260721T140732Z",
+  "note": "+13e47133 s1_wall_tree_nested_frames"
+}

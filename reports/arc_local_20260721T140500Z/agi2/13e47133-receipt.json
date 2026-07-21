@@ -1,0 +1,17 @@
+{
+  "corrected_c4": "Wall-tree nested frames: majority color = room bg; full-height/width uniform non-bg separator = wall tree; rooms = 4-connected non-wall components (may be C-shaped); depth = Chebyshev distance from 8-neighbor boundary; non-bg seeds at depth d set period[d] (missing depth-0 injects bg); contiguous period from 0 cycles for deeper rings; walls preserved; every room cell = period[depth % len]; train-replay gated.",
+  "engine": "s1_wall_tree_nested_frames",
+  "eval_tick": true,
+  "franklin_reinject": "Franklin emitted truncated expected_preview (8x12 crop / wrong shape claim) as typed_candidate \u2014 rejected by demonstration_replay (not a train-licensed transform)",
+  "kaggle_submit": "LOCKED",
+  "labeled_eval": "2/2",
+  "mastery_eval_exact_grids": "16/172",
+  "recorded_at_utc": "2026-07-21T14:08:16.134275+00:00",
+  "s4_status": "LOCKED",
+  "solver_module": "llm_llvm_bench/arc/s1_wall_tree_nested_frames.py",
+  "task_id": "13e47133",
+  "track": "arc2",
+  "train_replay": "3/3",
+  "hybrid_ok": true,
+  "accepted_engine": "s1_wall_tree_nested_frames"
+}

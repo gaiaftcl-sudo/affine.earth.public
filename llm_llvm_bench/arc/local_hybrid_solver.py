@@ -260,7 +260,28 @@ def solve_task(
         receipt["s1_motif_meta"] = motif_replay
         return motif_fragment, receipt
 
-    # 1b6) S1 wall-tree nested frames (13e47133).
+    # 1b6) S1 fixed-canvas template crop (269e22fb).
+    s1canvas = _load_module(
+        arc_dir / "s1_fixed_canvas_template.py", "s1_fixed_canvas_template"
+    )
+    canvas_replay = s1canvas.train_replay(task)
+    canvas_fragment = s1canvas.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(canvas_replay)
+    if (
+        canvas_fragment is not None
+        and canvas_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in canvas_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_fixed_canvas_template"
+        receipt["train_replay"] = canvas_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_canvas_meta"] = canvas_replay
+        return canvas_fragment, receipt
+
+    # 1b7) S1 wall-tree nested frames (13e47133).
     s1frames = _load_module(
         arc_dir / "s1_wall_tree_nested_frames.py", "s1_wall_tree_nested_frames"
     )

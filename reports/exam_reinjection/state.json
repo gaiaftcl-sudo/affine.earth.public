@@ -1,7 +1,7 @@
 {
   "aristotelian_closure_turns": 29,
-  "cycles": 7,
-  "last_cycle_at": "2026-07-21T13:58:20.340375+00:00",
+  "cycles": 8,
+  "last_cycle_at": "2026-07-21T14:04:35.735271+00:00",
   "tasks": {
     "arc2:0934a4d8": {
       "engine": "marker8_twin31",
@@ -19,7 +19,7 @@
       "task_id": "0934a4d8",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T13:57:11.586002+00:00"
+      "updated_at": "2026-07-21T14:07:32.990266+00:00"
     },
     "arc2:135a2760": {
       "engine": "container_period_tiling",
@@ -38,7 +38,7 @@
       "task_id": "135a2760",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T13:57:11.586024+00:00"
+      "updated_at": "2026-07-21T14:07:32.990305+00:00"
     },
     "arc2:136b0064": {
       "engine": "s1_digit_separator_snake",
@@ -57,26 +57,45 @@
       "task_id": "136b0064",
       "track": "arc2",
       "turn_count": 4,
-      "updated_at": "2026-07-21T13:57:11.586036+00:00"
+      "updated_at": "2026-07-21T14:07:32.990318+00:00"
     },
     "arc2:13e47133": {
-      "last_c4": "REINJECT:{\"grid\": [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8], [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 8], [1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1, 8], [1, 2, 1, 2, 2, 2, 2, 2, 1, 2, 1, 8], [1, 2, 1, 2, 1, 1, 1, 2, 1, 2, 1, 8], [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 8], [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 8], [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 8]], \"shape\": [8, 12]}",
-      "last_gate": "S4_REINJECT",
+      "engine": "s1_wall_tree_nested_frames",
+      "last_c4": "Wall-tree nested frames: majority color = room bg; full-height/width uniform non-bg separator = wall tree; rooms = 4-connected non-wall components (may be C-shaped); depth = Chebyshev distance from 8-neighbor boundary; non-bg seeds at depth d set period[d] (missing depth-0 injects bg); contiguous period from 0 cycles for deeper rings; walls preserved; every room cell = period[depth % len]; train-replay gated.",
+      "last_gate": "S4_LOCKED",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc2/13e47133.json",
-      "last_s4_status": "REINJECT",
+      "last_s4_status": "LOCKED",
+      "last_validator": "demonstration_replay+labeled_eval",
+      "last_validator_result": {
+        "accepted": true,
+        "detail": "local_solver_green",
+        "labeled_eval": "2/2",
+        "train_replay": "3/3"
+      },
+      "status": "CLOSED",
+      "task_id": "13e47133",
+      "track": "arc2",
+      "turn_count": 4,
+      "updated_at": "2026-07-21T14:07:32.862455+00:00"
+    },
+    "arc2:142ca369": {
+      "last_c4": "{\"grid\": [[0, 1, 0, 2, 0, 7, 0, 5, 0, 0, 2, 0, 0, 1, 0, 2, 0, 7], [1, 1, 2, 2, 7, 7, 5, 5, 0, 0, 1, 1, 2, 2, 7, 7, 5, 5], [0, 2, 1, 0, 2, 0, 7, 0, 5, 2, 0, 2, 1, 0, 2, 0, 7, 0], [2, 2, 0, 1, 0, 2, 0, 7, 2, 5, 2, 2, 0, 1, 0, 2, 0, 7], [0, 7, 2, 0, 1, 0, 2, 2, 7, 8, 0, 7, 2, 0, 1, 0, 2, 2], [7, 7, 0, 2, 0, 1, 2, 2, 8, 7, 7, 7, 0, 2, 0, 1, 2, 2], [0, 5, 7, 0, 2, 2, 1, 8, 2, 6, 0, 5, 7, 0, 2, 2, 1, 8], [5, 5, 0, 7, 2, 2, 8, 1, 6, 2, 5, 5, 0, 7, 2, 2, 8, 1], [0, 1, 0, 2, 0, 7, 0, 5, 0, 0, 2, 0, 0, 1, 0, 2, 0, 7], [1, 1, 2, 2, 7, 7, 5, 5, 0, 0, 1, 1, 2, 2, 7, 7, 5, 5], [0, 2, 1, 0, 2, 0, 7, 0, 5, 2, 0, 2, 1, 0, 2, 0, 7, 0], [2, 2, 0, 1, 0, 2, 0, 7, 2, 5, 2, 2, 0, 1, 0, 2, 0, 7], [0, 7, 2, 0, 1, 0, 2, 2, 7, 8, 0, 7, 2, 0, 1, 0, 2, 2], [7, 7, 0, 2, 0, 1, 2, 2, 8, 7, 7, 7, 0, 2, 0, 1, 2, 2], [0, 5, 7, 0, 2, 2, 1, 8, 2, 6, 0, 5, 7, 0, 2, 2, 1, 8], [5, 5, 0, 7, 2, 2, 8, 1, 6, 2, 5, 5, 0, 7, 2, 2, 8, 1], [0, 1, 0, 2, 0, 7, 0, 5, 0, 0, 2, 0, 0, 1, 0, 2, 0, 7], [1, 1, 2, 2, 7, 7, 5, 5, 0, 0, 1, 1, 2, 2, 7, 7, 5, 5]], \"shape\": [18, 18]}",
+      "last_gate": "S4_LOCKED",
+      "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc2/142ca369.json",
+      "last_s4_status": "LOCKED",
       "last_validator": "demonstration_replay",
       "last_validator_result": {
-        "accepted": false,
-        "detail": "franklin_reinject_with_candidate",
+        "accepted": true,
+        "detail": "typed_grid_or_rule_pending_mastery",
         "ran": true,
-        "status": "REINJECT",
+        "status": "LOCKED",
         "validator": "demonstration_replay"
       },
       "status": "HEALING",
-      "task_id": "13e47133",
+      "task_id": "142ca369",
       "track": "arc2",
-      "turn_count": 3,
-      "updated_at": "2026-07-21T13:58:20.339608+00:00"
+      "turn_count": 1,
+      "updated_at": "2026-07-21T14:04:35.734863+00:00"
     },
     "arc2:1ae2feb7": {
       "engine": "s3_separator_ray_fill",
@@ -94,7 +113,7 @@
       "task_id": "1ae2feb7",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T13:57:11.586031+00:00"
+      "updated_at": "2026-07-21T14:07:32.990312+00:00"
     },
     "arc2:20270e3b": {
       "engine": "s1_seven_tab_merge",
@@ -112,7 +131,25 @@
       "task_id": "20270e3b",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T13:57:11.586041+00:00"
+      "updated_at": "2026-07-21T14:07:32.990324+00:00"
+    },
+    "arc2:20a9e565": {
+      "engine": "s1_marker_frame_motif",
+      "last_c4": "s1_marker_frame_motif",
+      "last_gate": "LOCAL_SOLVER_GREEN",
+      "last_s4_status": "LOCKED",
+      "last_validator": "local_hybrid_exact",
+      "last_validator_result": {
+        "accepted": true,
+        "detail": "local_solver_green_skip",
+        "labeled_eval": "owned_exact",
+        "train_replay": null
+      },
+      "status": "CLOSED",
+      "task_id": "20a9e565",
+      "track": "arc2",
+      "turn_count": 0,
+      "updated_at": "2026-07-21T14:07:32.990334+00:00"
     },
     "arc2:2ba387bc": {
       "engine": "s1_dimension_projection",
@@ -130,7 +167,7 @@
       "task_id": "2ba387bc",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T13:57:11.586017+00:00"
+      "updated_at": "2026-07-21T14:07:32.990288+00:00"
     },
     "arc2:38007db0": {
       "engine": "s1_panel_odd_one_out",
@@ -148,27 +185,26 @@
       "task_id": "38007db0",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T13:57:11.586046+00:00"
+      "updated_at": "2026-07-21T14:07:32.990329+00:00"
     },
     "arc3:agi3-trajectory-gap": {
-      "engine": "PlatformerPolicy",
-      "grammar_class": "level_clear_motion_click_grammar",
-      "last_c4": "{\"grammar\":\"level_clear_motion_click_grammar\",\"engine\":\"PlatformerPolicy\",\"actions\":{\"3\":\"relative_avatar_move_left\",\"4\":\"relative_avatar_move_right\",\"6_block\":\"click_qclfkhjnaac_remove_block\",\"6_gravity\":\"click_lrpkmzabbfa_toggle_gravity\",\"gem\":\"land_fjlzdjxhant_level_clear\"},\"terminals\":{\"level_clear\":\"nkuphphdgrp\u2192next_level\",\"lose\":\"spike_or_budget\u2192GAME_OVER\u2192RESET_continue\"},\"validator\":\"environment_step+motion_replay\",\"bp35\":\"C4_BOUND 1/9 replay_verified\",\"unresolved\":[\"bp35_L2plus_spikes\",\"ar25_unreproduced_productive_delta\",\"ls20_unreproduced_productive_delta\"],\"kaggle_submit\":false}",
-      "last_gate": "C4_BOUND_OWNED",
-      "last_grammar_sha": "reports/exam_reinjection/grammar/arc3/agi3-trajectory-gap.json",
-      "last_s4_status": "LOCKED",
-      "last_validator": "environment_step+motion_replay",
+      "last_c4": "REINJECT:{\"action\": \"click\", \"x\": 10, \"y\": 10}",
+      "last_gate": "S4_REINJECT",
+      "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/agi3-trajectory-gap.json",
+      "last_s4_status": "REINJECT",
+      "last_validator": "environment_step",
       "last_validator_result": {
-        "accepted": true,
-        "bp35_levels": "1/9",
-        "detail": "owned_level_clear_motion_click_grammar_bp35_replay_verified",
-        "win_terminals": 0
+        "accepted": false,
+        "detail": "franklin_reinject_with_action",
+        "ran": true,
+        "status": "REINJECT",
+        "validator": "environment_step"
       },
-      "status": "CLOSED",
+      "status": "HEALING",
       "task_id": "agi3-trajectory-gap",
       "track": "arc3",
       "turn_count": 4,
-      "updated_at": "2026-07-21T14:02:11.852+00:00"
+      "updated_at": "2026-07-21T14:04:35.734972+00:00"
     },
     "arc3:ar25": {
       "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"target\": \"empty_cell\", \"value\": \"background_color\"}",
@@ -200,24 +236,23 @@
       "updated_at": "2026-07-21T13:15:58.166509+00:00"
     },
     "arc3:bp35": {
-      "engine": "PlatformerPolicy",
-      "grammar_class": "level_clear_motion_click_grammar",
-      "last_c4": "level_clear_motion_click_grammar / PlatformerPolicy; bp35 C4_BOUND 1/9 replay_verified; remaining L2+ spikes",
-      "last_gate": "C4_BOUND_L1",
-      "last_grammar_sha": "reports/exam_reinjection/grammar/arc3/bp35.json",
-      "last_s4_status": "LOCKED",
-      "last_validator": "environment_step+motion_replay",
+      "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"color\": 0, \"x\": 32, \"y\": 32}",
+      "last_gate": "S4_REINJECT",
+      "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/bp35.json",
+      "last_s4_status": "REINJECT",
+      "last_validator": "environment_step",
       "last_validator_result": {
-        "accepted": true,
-        "detail": "l1_owned_remaining_l2plus",
-        "levels": "1/9",
-        "win_terminals": 0
+        "accepted": false,
+        "detail": "franklin_reinject_with_action",
+        "ran": true,
+        "status": "REINJECT",
+        "validator": "environment_step"
       },
       "status": "HEALING",
       "task_id": "bp35",
       "track": "arc3",
-      "turn_count": 2,
-      "updated_at": "2026-07-21T14:02:11.852+00:00"
+      "turn_count": 3,
+      "updated_at": "2026-07-21T14:04:35.735086+00:00"
     },
     "arc3:ls20": {
       "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"grid\": \"background_fill_connected_components\"}",
@@ -239,15 +274,24 @@
       "updated_at": "2026-07-21T13:55:39.224291+00:00"
     },
     "hle:hle-official-gate-open": {
-      "last_c4": "",
-      "last_gate": "CLEARED_STALE_DRY_RUN",
+      "last_c4": "REINJECT:{\"status\": \"REINJECT\", \"typed_candidate\": \"gate_open\", \"unresolved_alternatives\": [\"gate_closed\", \"official_judge_pending\"], \"validator\": \"exact_format_check\"}",
+      "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/hle/hle-official-gate-open.json",
+      "last_s4_status": "REINJECT",
+      "last_validator": "exact_format_check",
+      "last_validator_result": {
+        "accepted": false,
+        "detail": "candidate_present",
+        "ran": true,
+        "status": "REINJECT",
+        "validator": "exact_format_check"
+      },
       "status": "HEALING",
       "task_id": "hle-official-gate-open",
       "track": "hle",
-      "turn_count": 2,
-      "updated_at": "2026-07-21T13:15:58.166927+00:00"
+      "turn_count": 3,
+      "updated_at": "2026-07-21T14:04:35.735183+00:00"
     }
   },
-  "total_franklin_turns": 21
+  "total_franklin_turns": 26
 }

@@ -3,17 +3,27 @@
     "arc2:0934a4d8",
     "arc2:135a2760",
     "arc2:136b0064",
+    "arc2:13e47133",
     "arc2:1ae2feb7",
     "arc2:20270e3b",
+    "arc2:20a9e565",
     "arc2:2ba387bc",
     "arc2:38007db0",
     "arc3:agi3-trajectory-gap"
   ],
   "next_apply_loop": [
     {
+      "action": "Acquire live C4 via Franklin S4; named validator; no fake GREEN",
+      "key": "arc2:142ca369",
+      "last_c4": "",
+      "last_gate": "pending",
+      "task_id": "142ca369",
+      "track": "arc2",
+      "language_game_class": "S3_spatial_rewrite"
+    },
+    {
       "action": "Heal unreproduced_productive_delta; do not regress bp35 L1 PlatformerPolicy",
       "key": "arc3:ar25",
-      "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"target\": \"empty_cell\", \"value\": \"background_color\"}",
       "last_gate": "S4_REINJECT",
       "task_id": "ar25",
       "track": "arc3"
@@ -21,31 +31,12 @@
     {
       "action": "Heal unreproduced_productive_delta; do not regress bp35 L1 PlatformerPolicy",
       "key": "arc3:ls20",
-      "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"grid\": \"background_fill_connected_components\"}",
       "last_gate": "S4_REINJECT",
       "task_id": "ls20",
       "track": "arc3"
-    },
-    {
-      "action": "bp35 L2+ spike shafts after L1 C4_BOUND; keep PlatformerPolicy",
-      "key": "arc3:bp35",
-      "last_c4": "level_clear_motion_click_grammar / PlatformerPolicy; bp35 C4_BOUND 1/9 replay_verified; remaining L2+ spikes",
-      "last_gate": "C4_BOUND_L1",
-      "task_id": "bp35",
-      "track": "arc3"
-    },
-    {
-      "action": "Acquire live C4 via Franklin S4; named validator; no fake GREEN (peer skipped 13e47133)",
-      "key": "arc2:142ca369",
-      "last_c4": "",
-      "last_gate": "pending",
-      "task_id": "142ca369",
-      "track": "arc2"
     }
   ],
-  "note": "agi3-trajectory-gap CLOSED C4_BOUND_OWNED (PlatformerPolicy / level_clear_motion_click_grammar). Peer ea2d68ca owns arc2:13e47133. No Kaggle.",
-  "peer_in_flight": [
-    "arc2:13e47133"
-  ],
-  "recorded_at_utc": "2026-07-21T14:02:11.852+00:00"
+  "note": "arc2:13e47133 CLOSED S4_LOCKED wall_tree_nested_frames train 3/3 eval 2/2; mastery 16/172. Next Franklin open: arc2:142ca369 (S3). No Kaggle.",
+  "peer_in_flight": [],
+  "recorded_at_utc": "2026-07-21T14:07:32.862455+00:00"
 }
