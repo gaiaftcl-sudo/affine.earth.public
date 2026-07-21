@@ -126,8 +126,10 @@ def resume_franklin() -> int:
         ids = json.loads(rec.read_text())["identity_task_ids"]
         IDS.write_text(json.dumps(ids), encoding="utf-8")
     env = os.environ.copy()
-    env["FRANKLIN_TIMEOUT"] = "360"
-    env["FRANKLIN_MAX_TOKENS"] = "1000"
+    env["FRANKLIN_TIMEOUT"] = "480"
+    env["FRANKLIN_MAX_TOKENS"] = "900"
+    # conc=1 serialize via flock inside batch; prefer direct LM Studio when set
+    env.setdefault("FRANKLIN_S4_BASE_URL", "http://127.0.0.1:8080/v1")
     log_path = OUT / "build.log"
     with log_path.open("a", encoding="utf-8") as fh:
         proc = subprocess.Popen(
@@ -144,7 +146,7 @@ def resume_franklin() -> int:
                 "--experience-limit",
                 "120",
                 "--timeout",
-                "360",
+                "480",
                 "--max-turns",
                 "4",
                 "--limit",
@@ -156,7 +158,7 @@ def resume_franklin() -> int:
             stderr=subprocess.STDOUT,
         )
     (OUT / "pid.txt").write_text(str(proc.pid), encoding="utf-8")
-    log(f"FRANKLIN_RESUMED pid={proc.pid} out={OUT} limit=24 timeout=360")
+    log(f"FRANKLIN_RESUMED conc=1 pid={proc.pid} out={OUT} limit=24 timeout=480")
     return proc.pid
 
 
@@ -174,16 +176,14 @@ def main() -> int:
             f"8080_clients={ncli} pids={sorted(pids)} "
             f"licensed={lic}/259 frank_running={franklin_llm_running()}"
         )
-        # Resume when: HLE dead/finished OR fewer than 4 clients to :8080
-        # OR preds stalled and clients < 4
+        # NEW MODE: unpark at conc=1 with flock (timeout≥480). Do not wait for
+        # empty :8080 — serialize with HLE instead of flooding 4 workers.
         free_slot = ncli < 4
         hle_done = (not alive) or (pred >= 2500)
         stalled = pred == last_pred and pred >= 0
+        force_conc1 = os.environ.get("FRANKLIN_FORCE_CONC1", "1") == "1"
         if not frank_started and not franklin_llm_running():
-            if hle_done or free_slot:
-                resume_franklin()
-                frank_started = True
-            elif stalled and ncli <= 3:
+            if force_conc1 or hle_done or free_slot or (stalled and ncli <= 3):
                 resume_franklin()
                 frank_started = True
         last_pred = pred

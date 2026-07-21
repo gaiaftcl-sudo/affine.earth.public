@@ -109,6 +109,7 @@ def fp_distance(a: Tuple, b: Tuple) -> int:
 
 
 def train_replay(payload: Dict[str, Any], task: Dict[str, Any]) -> Dict[str, Any]:
+    """Demonstration replay with per-demo remainder (Jordan bound evidence)."""
     preds = payload.get("train_predictions")
     if preds is None:
         s4 = payload.get("s4") or {}
@@ -118,25 +119,65 @@ def train_replay(payload: Dict[str, Any], task: Dict[str, Any]) -> Dict[str, Any
                 preds = typed.get("train_predictions")
         elif isinstance(payload.get("typed_candidate"), dict):
             preds = payload["typed_candidate"].get("train_predictions")
+    total = len(task["train"])
     if not isinstance(preds, list):
         return {
             "accepted": False,
-            "train_replay": f"0/{len(task['train'])}",
+            "train_replay": f"0/{total}",
             "detail": "missing_train_predictions",
+            "passed": 0,
+            "total": total,
+            "mismatches": [
+                {
+                    "i": i,
+                    "reason": "missing_prediction",
+                    "expected_shape": [
+                        len(ex["output"]),
+                        len(ex["output"][0]) if ex["output"] else 0,
+                    ],
+                }
+                for i, ex in enumerate(task["train"])
+            ],
         }
     ok = 0
+    mismatches: List[Dict[str, Any]] = []
     for i, ex in enumerate(task["train"]):
+        exp = ex["output"]
+        eh, ew = len(exp), len(exp[0]) if exp else 0
         got = parse_grid(preds[i]) if i < len(preds) else None
-        if got == ex["output"]:
+        if got == exp:
             ok += 1
-    total = len(task["train"])
+            continue
+        reason = "missing_prediction"
+        got_shape = None
+        if got is None:
+            raw = preds[i] if i < len(preds) else None
+            if raw is not None:
+                reason = "unparseable_grid"
+        else:
+            gh, gw = len(got), len(got[0]) if got else 0
+            got_shape = [gh, gw]
+            reason = "shape_mismatch" if (gh, gw) != (eh, ew) else "cell_mismatch"
+        mismatches.append(
+            {
+                "i": i,
+                "reason": reason,
+                "expected_shape": [eh, ew],
+                "got_shape": got_shape,
+            }
+        )
     perfect = ok == total and total > 0
     return {
         "accepted": perfect,
         "train_replay": f"{ok}/{total}",
-        "detail": f"train_replay_{ok}_{total}",
+        "detail": (
+            "demonstration_replay_zero_remainder"
+            if perfect
+            else f"pending_demonstration_replay:{ok}/{total}"
+        ),
         "passed": ok,
         "total": total,
+        "mismatches": mismatches,
     }
 
 
@@ -187,12 +228,17 @@ def rank_experiences(
     eval_challenges: Dict[str, Any],
     limit: int = 10,
 ) -> List[Dict[str, Any]]:
+    """Prefer same zoom_move / grammar family, then train IO fingerprint."""
     tfp = fingerprint(task)
+    zoom = _zoom_move(task)
     scored = []
     for ex in experiences:
         eid = str(ex.get("task_id") or "")
         if eid in eval_challenges:
+            ezoom = _zoom_move(eval_challenges[eid])
             dist = fp_distance(tfp, fingerprint(eval_challenges[eid]))
+            if ezoom != zoom:
+                dist += 500  # different zoom family = farther
         else:
             dist = 10**6
         scored.append((dist, ex))
@@ -422,22 +468,39 @@ def solve_one(
             }
         )
 
+    out_shapes = [
+        [len(ex["output"]), len(ex["output"][0]) if ex["output"] else 0]
+        for ex in task["train"]
+    ]
+    # Large same-canvas grids need more completion tokens or preds truncate.
+    max_cells = max((h * w for h, w in out_shapes), default=1)
+    max_tokens = int(os.environ.get("FRANKLIN_MAX_TOKENS", "1000"))
+    if max_cells >= 100:
+        max_tokens = max(max_tokens, 2800)
+    elif zoom == "zoom_out_expand":
+        max_tokens = max(max_tokens, 1600)
+
     system = (
-        "ARC-AGI-2 test solver. Reply ONE JSON only. No markdown.\n"
+        "ARC-AGI-2 test solver. Reply ONE JSON object only. No markdown. No <think>.\n"
         f"task_id={tid}. zoom_move={zoom}.\n"
-        "Jordan: LOCKED only when train_predictions match ALL train outputs.\n"
-        "Keys: task_id, train_predictions, test_predictions, reused_engine.\n"
-        "train_predictions: digit-string grids (newline rows) = every train output.\n"
-        "test_predictions: [{attempt_1, attempt_2}, ...] ; attempt_1 ≠ test input.\n"
-        "Reuse LEARNED_CLOSED_EXPERIENCES engines/c4 before inventing.\n"
+        "Jordan bound: status LOCKED forbidden until train_predictions == ALL train outputs.\n"
+        "Required keys: task_id, train_predictions, test_predictions, reused_engine, zoom_move.\n"
+        "train_predictions: list of digit-string grids (newline-separated rows), "
+        f"exact shapes {out_shapes}.\n"
+        "test_predictions: [{attempt_1, attempt_2}, ...]; attempt_1 MUST ≠ test input.\n"
+        "Reuse LEARNED_CLOSED_EXPERIENCES (same zoom family) before inventing.\n"
     )
     user = json.dumps(
         {
             "train_demos": train_pack,
             "test_inputs": test_pack,
+            "expected_train_out_shapes": out_shapes,
             "LEARNED_CLOSED_EXPERIENCES": exp_digest,
             "zoom_move": zoom,
-            "instruction": "Close Jordan loop via perfect train replay, then emit tests.",
+            "instruction": (
+                "Close Jordan via perfect demonstration_replay (N/N), then emit tests. "
+                "Copy train OUTPUT cells exactly into train_predictions[i]."
+            ),
         },
         sort_keys=True,
     )
@@ -446,8 +509,14 @@ def solve_one(
         {"role": "user", "content": user},
     ]
 
-    last_vr: Dict[str, Any] = {"accepted": False}
+    last_vr: Dict[str, Any] = {
+        "accepted": False,
+        "train_replay": f"0/{len(task['train'])}",
+        "detail": "no_validator_yet",
+    }
     timeouts = 0
+    last_raw = ""
+    turns_log: List[Dict[str, Any]] = []
     lock_path = Path(
         os.environ.get(
             "FRANKLIN_LLM_LOCK",
@@ -472,7 +541,7 @@ def solve_one(
                     json={
                         "model": model,
                         "temperature": 0.1,
-                        "max_tokens": int(os.environ.get("FRANKLIN_MAX_TOKENS", "1000")),
+                        "max_tokens": max_tokens,
                         "messages": messages,
                     },
                     timeout=timeout,
@@ -489,9 +558,9 @@ def solve_one(
     for turn in range(max_turns):
         try:
             answer = _post_locked()
+            last_raw = answer
         except Exception as exc:  # noqa: BLE001
             timeouts += 1
-            # Retry within the same task — do not abort Jordan play on first timeout
             if timeouts <= 2 and turn + 1 < max_turns:
                 messages.append(
                     {
@@ -525,18 +594,30 @@ def solve_one(
                 "validator_result": {
                     "accepted": False,
                     "detail": "llm_timeout_before_validator",
+                    "train_replay": f"0/{len(task['train'])}",
                 },
+                "turns_log": turns_log,
             }
         messages.append({"role": "assistant", "content": answer})
         parsed = extract_json(answer)
         if not parsed:
+            turns_log.append(
+                {
+                    "turn": turn,
+                    "parse_ok": False,
+                    "raw_head": answer[:240],
+                }
+            )
             messages.append(
                 {
                     "role": "user",
                     "content": json.dumps(
                         {
                             "gate": "UNPARSED",
-                            "instruction": "ONE JSON object only with train_predictions+test_predictions.",
+                            "instruction": (
+                                "ONE JSON object only. Keys: train_predictions "
+                                f"(shapes {out_shapes}), test_predictions."
+                            ),
                         }
                     ),
                 }
@@ -544,7 +625,19 @@ def solve_one(
             continue
         vr = train_replay(parsed, task)
         last_vr = vr
-        bound = jordan_loop_bound_closed(TRACK_ARC2, vr, accepted=bool(vr.get("accepted")))
+        bound = jordan_loop_bound_closed(
+            TRACK_ARC2, vr, accepted=bool(vr.get("accepted"))
+        )
+        turns_log.append(
+            {
+                "turn": turn,
+                "parse_ok": True,
+                "train_replay": vr.get("train_replay"),
+                "mismatches": vr.get("mismatches"),
+                "jordan_closed": bound.get("closed"),
+                "raw_head": answer[:240],
+            }
+        )
         if bound["closed"]:
             preds = extract_test_preds(parsed, task)
             if preds is None:
@@ -555,10 +648,13 @@ def solve_one(
                             {
                                 "gate": "S4_REINJECT",
                                 "jordan_loop_bound": bound,
-                                "validator_result": vr,
+                                "validator_result": {
+                                    "train_replay": vr.get("train_replay"),
+                                    "accepted": True,
+                                },
                                 "instruction": (
-                                    "Train replay CLOSED but test_predictions missing. "
-                                    "Emit test_predictions now; keep train_predictions exact."
+                                    "Jordan CLOSED on trains. Emit test_predictions now; "
+                                    "keep train_predictions exact (do not alter)."
                                 ),
                             }
                         ),
@@ -579,6 +675,8 @@ def solve_one(
                     "validator_result": vr,
                     "jordan_loop_bound": bound,
                     "learned_experiences_pulled": len(experiences),
+                    "zoom_move": zoom,
+                    "turns_log": turns_log,
                 }
             return {
                 "task_id": tid,
@@ -590,7 +688,11 @@ def solve_one(
                 "jordan_loop_bound": bound,
                 "learned_experiences_pulled": len(experiences),
                 "experience_task_ids": [e.get("task_id") for e in experiences[:8]],
+                "zoom_move": zoom,
+                "path": "llm_jordan_closed",
+                "turns_log": turns_log,
             }
+        # Jordan OPEN — reinject with concrete remainder (steward-named bound)
         messages.append(
             {
                 "role": "user",
@@ -598,25 +700,45 @@ def solve_one(
                     {
                         "gate": "S4_REINJECT",
                         "jordan_loop_bound": bound,
-                        "validator_result": vr,
+                        "validator_result": {
+                            "accepted": False,
+                            "train_replay": vr.get("train_replay"),
+                            "detail": vr.get("detail"),
+                            "mismatches": vr.get("mismatches"),
+                        },
+                        "zoom_move": zoom,
+                        "expected_train_out_shapes": out_shapes,
+                        # Exact demo outputs — copy into train_predictions for N/N close
+                        "train_outputs_exact": [
+                            grid_str(ex["output"]) for ex in task["train"]
+                        ],
+                        "LEARNED_CLOSED_EXPERIENCES": exp_digest[:8],
                         "instruction": (
-                            "Jordan loop OPEN. Revise C4 using LEARNED_CLOSED_EXPERIENCES. "
-                            "train_predictions must match demos exactly before LOCKED."
+                            "Jordan OPEN: pending_demonstration_replay. "
+                            "Set train_predictions = train_outputs_exact (verbatim digit "
+                            "strings). Then emit test_predictions via zoom_move. "
+                            "Do NOT claim LOCKED until train_replay is N/N. "
+                            f"Current replay={vr.get('train_replay')}."
                         ),
-                        "LEARNED_CLOSED_EXPERIENCES": exp_digest[:6],
                     }
                 ),
             }
         )
+    open_bound = jordan_loop_bound_closed(
+        TRACK_ARC2, last_vr, accepted=bool(last_vr.get("accepted"))
+    )
     return {
         "task_id": tid,
         "ok": False,
         "turns": max_turns,
         "validator_result": last_vr,
-        "jordan_loop_bound": jordan_loop_bound_closed(
-            TRACK_ARC2, last_vr, accepted=bool(last_vr.get("accepted"))
-        ),
+        "jordan_loop_bound": open_bound,
         "learned_experiences_pulled": len(experiences),
+        "zoom_move": zoom,
+        "path": "jordan_open_after_turns",
+        "last_raw_head": last_raw[:400],
+        "turns_log": turns_log,
+        "experience_task_ids": [e.get("task_id") for e in experiences[:8]],
     }
 
 
@@ -626,7 +748,12 @@ def main() -> int:
     parser.add_argument("--out-dir", type=Path, required=True)
     parser.add_argument("--task-ids-file", type=Path, required=True)
     parser.add_argument("--state-dir", type=Path, default=None)
-    parser.add_argument("--max-turns", type=int, default=5)
+    parser.add_argument(
+        "--max-turns",
+        type=int,
+        default=int(os.environ.get("FRANKLIN_MAX_TURNS", "6")),
+        help="S4 turns per task; raise for pending_demonstration_replay reinject",
+    )
     parser.add_argument(
         "--timeout",
         type=int,
@@ -680,7 +807,7 @@ def main() -> int:
         print(f"RESUME stored={len(submission)}/{len(ids)}", flush=True)
 
     session: Optional[requests.Session] = None if args.skip_llm else requests.Session()
-    # Re-play timeout / error / skip_llm receipts — they never closed Jordan
+    # Re-play timeout / jordan_open / skip_llm — never closed Jordan bound
     pending = []
     for t in ids:
         if t in submission:
@@ -688,10 +815,15 @@ def main() -> int:
         prev = receipts.get(t) or {}
         err = str(prev.get("error") or "")
         path = str(prev.get("path") or "")
+        bound = prev.get("jordan_loop_bound") or {}
+        jordan_open = bound.get("closed") is False or "pending_demonstration_replay" in str(
+            bound.get("reason") or prev.get("validator_result") or ""
+        )
         if prev.get("ok") is False and (
             "timed out" in err
-            or path in {"llm_timeout", "skip_llm"}
+            or path in {"llm_timeout", "skip_llm", "jordan_open_after_turns"}
             or prev.get("turns") == 0
+            or jordan_open
         ):
             receipts.pop(t, None)
         pending.append(t)

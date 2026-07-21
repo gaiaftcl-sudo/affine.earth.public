@@ -1,0 +1,117 @@
+{
+  "recorded_at_utc": "2026-07-21T19:22:37.921382+00:00",
+  "licensed_still": "68/259",
+  "jordan_open_receipts": [
+    {
+      "task_id": "00576224",
+      "zoom_move": "zoom_out_expand",
+      "train_count": 2,
+      "test_count": 1,
+      "demos": [
+        {
+          "i": 0,
+          "in": [
+            2,
+            2
+          ],
+          "out": [
+            6,
+            6
+          ]
+        },
+        {
+          "i": 1,
+          "in": [
+            2,
+            2
+          ],
+          "out": [
+            6,
+            6
+          ]
+        }
+      ],
+      "prior_receipt": {
+        "turns": 2,
+        "reason": "jordan_loop_bound_open:pending_demonstration_replay",
+        "validator_result_was": "accepted:false only \u2014 no train_replay ratio persisted"
+      }
+    },
+    {
+      "task_id": "009d5c81",
+      "zoom_move": "same_canvas_rewrite",
+      "train_count": 5,
+      "test_count": 1,
+      "demos": [
+        {
+          "i": 0,
+          "in": [
+            14,
+            14
+          ],
+          "out": [
+            14,
+            14
+          ]
+        },
+        {
+          "i": 1,
+          "in": [
+            14,
+            14
+          ],
+          "out": [
+            14,
+            14
+          ]
+        },
+        {
+          "i": 2,
+          "in": [
+            14,
+            14
+          ],
+          "out": [
+            14,
+            14
+          ]
+        },
+        {
+          "i": 3,
+          "in": [
+            14,
+            14
+          ],
+          "out": [
+            14,
+            14
+          ]
+        },
+        {
+          "i": 4,
+          "in": [
+            14,
+            14
+          ],
+          "out": [
+            14,
+            14
+          ]
+        }
+      ],
+      "prior_receipt": {
+        "turns": 2,
+        "reason": "jordan_loop_bound_open:pending_demonstration_replay",
+        "validator_result_was": "accepted:false only \u2014 no train_replay ratio persisted"
+      }
+    }
+  ],
+  "root_cause": "Receipts lacked per-demo mismatches (validator_result only accepted:false). Likely unparsed LLM JSON and/or truncated 14x14 train_predictions. 00576224 is zoom_out 2x2\u21926x6; 009d5c81 same_canvas 14x14\u00d75 demos.",
+  "fix": [
+    "train_replay emits mismatches[{i,reason,expected_shape,got_shape}]",
+    "S4_REINJECT carries mismatches + expected shapes; forbid LOCKED until N/N",
+    "zoom-family experience ranking",
+    "max_tokens\u2191 for large grids; max_turns=6",
+    "persist turns_log + last_raw_head on jordan_open"
+  ]
+}
