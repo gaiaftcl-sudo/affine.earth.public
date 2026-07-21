@@ -515,7 +515,12 @@ def main() -> int:
     parser.add_argument("--task-ids-file", type=Path, required=True)
     parser.add_argument("--state-dir", type=Path, default=None)
     parser.add_argument("--max-turns", type=int, default=5)
-    parser.add_argument("--timeout", type=int, default=180)
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        default=int(os.environ.get("FRANKLIN_TIMEOUT", "300")),
+        help="HTTP timeout; raise when sharing GPU with HLE (default 300)",
+    )
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--experience-limit", type=int, default=80)
     args = parser.parse_args()

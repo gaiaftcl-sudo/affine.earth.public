@@ -1,0 +1,21 @@
+{
+  "status": "LICENSED_FAIL_NOT_100",
+  "licensed_grids": "68/259",
+  "licensed_pct": 26.25,
+  "identity_a1_grids": "191/259",
+  "shape_grids": "259/259",
+  "shape_tasks": "240/240",
+  "identity_fill_is_fail_for_100pct": true,
+  "licensed_definition": "attempt_1 != test_input",
+  "local_labeled_eval_mastery": "172/172 GREEN \u2014 NOT Kaggle-ready",
+  "airgap_platform_sha256": "822397da2a82cd7f9137e2b4881dc87411c13694c4bc5b9ea8b6667095ce8896",
+  "git_head": "8cbafb7",
+  "active_fillers": [
+    "franklin_s4_experience",
+    "wave5_depth3_120s"
+  ],
+  "no_submit": true,
+  "lock": "configs/NO_KAGGLE_SUBMIT.lock",
+  "updated_at_utc": "2026-07-21T19:01:39.884099+00:00",
+  "next_tactic": "Experience-pull Franklin S4 with Jordan train-replay (expand past first24); wave5 ice depth3/120s; enrich CLOSED digests with engine+c4 into prompt; target \u2265150 then 200 before 23:57Z"
+}
