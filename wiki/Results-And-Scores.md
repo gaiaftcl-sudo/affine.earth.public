@@ -12,13 +12,13 @@ Agents run these via `bin/run-open-agi-harnesses.sh`. Deep harness manuals live 
 
 > **FoT:** AGI-3 MEASURED Kaggle publicScore **0.12** (COMPLETE, ref 54875048) — process probe vs LB ~1.86 — [ARC-AGI-3 live](ARC-Prize-Kaggle-Live)
 
-> **LOCAL mastery:** `./bin/run-arc-local-mastery.sh` hard-gates top-score schemas (`validate_arc_prize_submission.py`, `validate_arc_agi3_submission.py`) + language-game traces. Submit **LOCKED** (`NO_KAGGLE_SUBMIT.lock`). Format≠mastery — [Top-score formats](Kaggle-ARC-Top-Score-Formats).
+> **LOCAL mastery (`7ab6e05`, report `reports/arc_local_20260721T105900Z/`):** format validators **GREEN** (top-score hard gates). AGI-2 train **22/1076** (was 19); eval **0/172** (mastery gap); AGI-3 public probe **0.12**. Submit **LOCKED** (`NO_KAGGLE_SUBMIT.lock`). Format≠mastery — [Top-score formats](Kaggle-ARC-Top-Score-Formats) · [ARC-AGI-2 game](Language-Games-ARC-AGI-2) · [ARC-AGI-3 game](Language-Games-ARC-AGI-3).
 
 > **Pre-submission gate:** [Language Games — Exam Invariants](Language-Games-Exam-Invariants). No public Kaggle or HLE submission until track-specific local validators are green **and** steward re-opens submit.
 
 | Suite | Harness key | Affine status (this wiki) | What “score” would require |
 |:---|:---|:---|:---|
-| Humanity's Last Exam | `hle` | **MEASURED STEWARD GATE** — loopback restarted on `:8080`; `cais/hle` parquet **HTTP 401** (gated=auto); classic `HF_TOKEN` absent — Agree + export token required | [Live record](Humanitys-Last-Exam-Live): `reports/hle_live_20260721T103415Z/` |
+| Humanity's Last Exam | `hle` | **LOCAL mastery + steward gate** — drills **3/3** (`reports/hle_local_20260721T104720Z/`, main `c3cf4d3`); `official_hle_accuracy=null` (not a CAIS score); `HF_TOKEN` absent; parquet **HTTP 401** until Agree + classic token | [Live](Humanitys-Last-Exam-Live) · [HLE game](Language-Games-HLE) · doctrine `f983986` |
 | ARC Prize 2026 ARC-AGI-3 (Kaggle) | official starter → `submission.parquet` | **MEASURED** — publicScore **0.12** (COMPLETE, ref 54875048, 2026-07-21) | [Live record](ARC-Prize-Kaggle-Live): agent track parquet; not attempt_1/attempt_2 JSON |
 | ARC Prize 2026 ARC-AGI-2 (Kaggle) | `kaggle/arc-prize-2026-agi-2/` | **MEASURED** — publicScore **0.00** (COMPLETE, 2026-07-21) | [Live record](ARC-Prize-AGI-2-Kaggle-Live): kernel v1 submitted; `evidence/arc-prize-2026-agi-2/kaggle-submissions.csv` |
 | ARC-AGI / ARC-AGI-2 | `arc-agi` / `arc-agi-2` | **RUNNABLE** — no sample-task substitution | Checkout + task data + official scorer output |
@@ -54,6 +54,7 @@ LLVM CLI averages (same day) — see [Live Leaderboard](Live-Leaderboard) §1 or
 | Evidence | Label |
 |:---|:---|
 | `affine-earth-demo-ui-all-tests.*` + `ui-tests-*.png` | **UI FoT** — [In action](In-Action) |
+| `exam-ui-hle-*.png` + `exam-ui-hle-context-to-answer.gif`/`.mp4` | **HLE UI context→answer** — [HLE live](Humanitys-Last-Exam-Live) · [HLE game](Language-Games-HLE) (not signup video) |
 | Wallet · QFOT Profile **PROVEN 100/1** in demo | **UI FoT** (economics onboard) — not a coding benchmark |
 
 ---

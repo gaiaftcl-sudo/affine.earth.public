@@ -7,6 +7,7 @@
 - [**In action**](In-Action)
 - [**Results & Scores**](Results-And-Scores)
 - [**Humanity’s Last Exam**](Humanitys-Last-Exam-Live)
+  - Local drills **3/3** · `official_hle_accuracy=null` · `HF_TOKEN` absent · `hle_local_20260721T104720Z`
 - [**ARC Prize Kaggle Live**](ARC-Prize-Kaggle-Live)
   - Format **GREEN** · probe **0.12** · submit **LOCKED** · `arc_local_20260721T105200Z`
 - [**ARC Prize ARC-AGI-2 Live**](ARC-Prize-AGI-2-Kaggle-Live)

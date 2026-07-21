@@ -14,9 +14,29 @@ export OPENAI_API_KEY="uum8d-hle-verifier"
 ./bin/run-local-hle-mastery.sh
 ```
 
-UI captures (interaction evidence, not scores): `wiki/assets/exam-ui-hle-*.png`,
-`exam-ui-hle-context-to-answer.gif` / `.mp4`. Local drill receipt:
-`reports/hle_local_20260721T104720Z/` (`official_hle_accuracy: null`).
+### UI captures (interaction evidence, not scores)
+
+Local drill receipt: [`reports/hle_local_20260721T104720Z/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/reports/hle_local_20260721T104720Z) (`official_hle_accuracy: null`, fixtures **3/3**, `HF_TOKEN` absent). Doctrine SHA `f983986` · main harness SHA `c3cf4d3`.
+
+![HLE access gate](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-access-gate.png)
+
+![HLE games catalog](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-games-catalog.png)
+
+| Layer | Still → answer |
+|:---|:---|
+| Linguistic membrane | ![still](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-linguistic_membrane.png) ![answer](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-linguistic_membrane-answer.png) |
+| Formal manifold | ![still](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-formal_manifold.png) ![answer](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-formal_manifold-answer.png) |
+| Coding | ![still](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-coding.png) ![answer](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-coding-answer.png) |
+
+Context → answer motion (not a signup/login walkthrough; that video lives only on [Create account](Create-Account-Signup)):
+
+![HLE context to answer](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-context-to-answer.gif)
+
+<video controls width="720">
+  <source src="https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-context-to-answer.mp4" type="video/mp4">
+</video>
+
+[mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-context-to-answer.mp4) · [gif](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-context-to-answer.gif)
 
 ## Recorded 2026-07-21 (steward reset redo)
 

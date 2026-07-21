@@ -90,19 +90,23 @@ with missing context or invalid answers are understanding drift.
 - **Coding:** loads the dataset, invokes the configured endpoint, and produces
   a validated CAIS artifact.
 
-UI captures under `wiki/assets/exam-ui-hle-*.png` are interaction evidence for
-context-setting → answer-state change. They are not CAIS judge output.
+UI captures are interaction evidence for context-setting → answer-state change.
+They are not CAIS judge output. Signup/login walkthrough video is **only** on
+[Create account](Create-Account-Signup).
+
+![HLE access gate](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-access-gate.png)
+
+![HLE games catalog](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-games-catalog.png)
 
 | Layer | Still | Answer / state |
 | --- | --- | --- |
-| Access gate | `assets/exam-ui-hle-access-gate.png` | Sovereign entry before Games |
-| Games catalog | `assets/exam-ui-hle-games-catalog.png` | 12 LIVE context agents |
-| Linguistic membrane | `assets/exam-ui-hle-linguistic_membrane.png` | `…-answer.png` exam MCQ turn |
-| Formal manifold | `assets/exam-ui-hle-formal_manifold.png` | `…-answer.png` exact-token contract |
-| Coding | `assets/exam-ui-hle-coding.png` | `…-answer.png` harness drill |
-| Motion | `assets/exam-ui-hle-context-to-answer.gif` / `.mp4` | context → answer frames |
+| Linguistic membrane | ![still](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-linguistic_membrane.png) | ![answer](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-linguistic_membrane-answer.png) |
+| Formal manifold | ![still](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-formal_manifold.png) | ![answer](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-formal_manifold-answer.png) |
+| Coding | ![still](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-coding.png) | ![answer](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-coding-answer.png) |
+| Motion | ![gif](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-context-to-answer.gif) | [mp4](https://raw.githubusercontent.com/wiki/gaiaftcl-sudo/affine.earth.public/assets/exam-ui-hle-context-to-answer.mp4) |
 
-Capture: `python3 scripts/capture_hle_exam_ui.py --record-video`.
+Capture: `python3 scripts/capture_hle_exam_ui.py --record-video`. Live embeds also on
+[Humanity’s Last Exam — live](Humanitys-Last-Exam-Live).
 
 ## 8. Public-submission gate
 
