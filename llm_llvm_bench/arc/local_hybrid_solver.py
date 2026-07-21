@@ -449,27 +449,6 @@ def solve_task(
         receipt["s1_motif_jigsaw_meta"] = jigsaw_replay
         return jigsaw_fragment, receipt
 
-    # 1b15) S3 period-axis complete (16de56c4).
-    s3period = _load_module(
-        arc_dir / "s3_period_axis_complete.py", "s3_period_axis_complete"
-    )
-    period_replay = s3period.train_replay(task)
-    period_fragment = s3period.submission_fragment(task_id, task)
-    receipt["engines_tried"].append(period_replay)
-    if (
-        period_fragment is not None
-        and period_replay.get("perfect")
-        and all(
-            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
-            for p in period_fragment[task_id]
-        )
-    ):
-        receipt["accepted_engine"] = "s3_period_axis_complete"
-        receipt["train_replay"] = period_replay["train_replay"]
-        receipt["ok"] = True
-        receipt["s3_period_axis_meta"] = period_replay
-        return period_fragment, receipt
-
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"
