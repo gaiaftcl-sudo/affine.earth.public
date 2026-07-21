@@ -1,7 +1,7 @@
 # Kaggle ARC — notebooks-only submit (air-gap)
 
 
-**Live licensed fill:** `68/259` (26.25%) · identity `191` · payload SHA `822397da2a82cd7f…` · NOT submit-ready until ≥95%+.
+**Live licensed fill:** `68/259` (26.25%) · Franklin closed=0 timeout=0 jordan_open=2 · NOT submit-ready.
 Direct `competitions submit` → **HTTP 400**: daily allowance (1) + **Notebooks only**.
 
 Standing probes: AGI-2 **54875115** / **0.00** · AGI-3 **54875048** / **0.12**.

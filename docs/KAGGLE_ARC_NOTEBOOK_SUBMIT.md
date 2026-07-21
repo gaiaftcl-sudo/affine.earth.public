@@ -1,7 +1,7 @@
 # Kaggle ARC — notebooks-only submit (air-gap)
 
 
-**Live licensed fill:** `68/259` (26.25%) · identity `191` · payload SHA `822397da2a82cd7f…` · NOT submit-ready until ≥95%+.
+**Live licensed fill:** `68/259` (26.25%) · Franklin closed=0 timeout=0 jordan_open=2 · NOT submit-ready.
 Direct `kaggle competitions submit` for both ARC Prize 2026 tracks returns
 **HTTP 400**: daily allowance (1) **and** **Notebooks only**.
 

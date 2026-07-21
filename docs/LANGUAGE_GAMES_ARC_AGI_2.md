@@ -436,6 +436,13 @@ Train **2/2**, eval **2/2** via `s1_g_f560132c`. Mastery **169/172**. No Kaggle.
 ## FoT note — d8e07eb2 closed → 168/172 (2026-07-21)
 
 Closed `d8e07eb2` (+2) via train-replay-gated `s3_g_d8e07eb2` (complete_row selector recolor). Remaining OPEN: abc82100, faa9f03d. No Kaggle until 172/172.
+## FoT note — independent re-verify 172/172 (2026-07-21)
+
+Independent labeled-eval score against `arc-agi_evaluation_solutions.json`: **172/172**.
+Report: `reports/arc_local_20260721T174743Z/agi2/` (eval artifact from `20260721T172649Z`, schema-validated 240-task `submission.json`).
+SHA tip: `86f4f93` (land claim `21b2924` is ancestor). `configs/NO_KAGGLE_SUBMIT.lock` **held**. `ALLOW_KAGGLE_SUBMIT` unset.
+Steward submit (notebook-only competition): `ALLOW_KAGGLE_SUBMIT=1 ./bin/run-arc-prize-kaggle.sh --push-notebook`
+
 ## FoT note — 172/172 COMPLETE (2026-07-21)
 
 Closed final open `faa9f03d` (+2) via train-replay-gated `s3_g_faa9f03d` (octotetrahedral transform). Offline evaluation set **172/172**. No Kaggle.

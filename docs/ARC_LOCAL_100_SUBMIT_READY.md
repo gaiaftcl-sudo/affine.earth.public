@@ -1,7 +1,7 @@
 # ARC local 100 — submit-ready (DO NOT CLI-submit)
 
 
-**Live licensed fill:** `68/259` (26.25%) · identity `191` · payload SHA `822397da2a82cd7f…` · NOT submit-ready until ≥95%+.
+**Live licensed fill:** `68/259` (26.25%) · Franklin closed=0 timeout=0 jordan_open=2 · NOT submit-ready.
 Local mastery artifacts are schema-valid and independently scored.
 `configs/NO_KAGGLE_SUBMIT.lock` remains in force.
 
