@@ -43,8 +43,18 @@
     "arc2:7c66cb00",
     "arc2:8698868d",
     "arc2:89565ca0",
+    "arc2:898e7135",
+    "arc2:8f3a5a89",
     "arc2:97d7923e",
-    "arc2:981571dc"
+    "arc2:981571dc",
+    "arc2:9aaea919",
+    "arc2:aa4ec2a5",
+    "arc2:b0039139",
+    "arc2:b99e7126",
+    "arc2:bf45cf4b",
+    "arc2:db0c5428",
+    "arc2:db695cfb",
+    "arc2:e8686506"
   ],
   "next_apply_loop": [
     {
@@ -72,7 +82,7 @@
       "language_game_class": "S2_palette_rewrite"
     }
   ],
-  "note": "CLOSED 7666fa5d+3e6067c3+7c66cb00 (64/172); jumped 3dc255db train-only. No Kaggle.",
+  "note": "CLOSED 10-task exact batch (+11 => 75/172); jumped 409aa875+3dc255db train-only. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T16:31:25Z"
+  "recorded_at_utc": "2026-07-21T16:33:37Z"
 }

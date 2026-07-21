@@ -378,6 +378,126 @@ def load_s3_border_path_fill(root: Path) -> Any:
     return module
 
 
+def load_s1_strip_stack_project(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s1_strip_stack_project.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s1_strip_stack_project", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s1_strip_stack_project solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_contact_grow_fill(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_contact_grow_fill.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_contact_grow_fill", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_contact_grow_fill solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_mirror_fold_fill(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_mirror_fold_fill.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_mirror_fold_fill", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_mirror_fold_fill solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s1_frame_extract_project(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s1_frame_extract_project.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s1_frame_extract_project", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s1_frame_extract_project solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_object_align_shift(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_object_align_shift.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_object_align_shift", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_object_align_shift solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s1_panel_scale_project(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s1_panel_scale_project.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s1_panel_scale_project", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s1_panel_scale_project solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s2_pair_swap_recolor(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_pair_swap_recolor.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_pair_swap_recolor", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_pair_swap_recolor solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s2_color_gate_rewrite(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_color_gate_rewrite.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_color_gate_rewrite", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_color_gate_rewrite solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s2_marker_recolor_lattice(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_marker_recolor_lattice.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_marker_recolor_lattice", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_marker_recolor_lattice solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s1_anchor_crop_expand(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s1_anchor_crop_expand.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s1_anchor_crop_expand", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s1_anchor_crop_expand solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def load_s3_period_tile_stamp(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_period_tile_stamp.py"
     spec = importlib.util.spec_from_file_location(
@@ -1002,6 +1122,16 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s2_diag = load_s2_diagonal_component_fill(root)
     s3_per = load_s3_period_tile_stamp(root)
     s3_bord = load_s3_border_path_fill(root)
+    m_s1_anchor_crop_expand = load_s1_anchor_crop_expand(root)
+    m_s2_marker_recolor_lattice = load_s2_marker_recolor_lattice(root)
+    m_s2_color_gate_rewrite = load_s2_color_gate_rewrite(root)
+    m_s2_pair_swap_recolor = load_s2_pair_swap_recolor(root)
+    m_s1_panel_scale_project = load_s1_panel_scale_project(root)
+    m_s3_object_align_shift = load_s3_object_align_shift(root)
+    m_s1_frame_extract_project = load_s1_frame_extract_project(root)
+    m_s3_mirror_fold_fill = load_s3_mirror_fold_fill(root)
+    m_s3_contact_grow_fill = load_s3_contact_grow_fill(root)
+    m_s1_strip_stack_project = load_s1_strip_stack_project(root)
     s2_black = load_s2_black_block_path_slide(root)
     s3_purp = load_s3_purple_bar_bracket_extend(root)
     s3_bounce = load_s3_terrain_period_bounce(root)
@@ -1108,6 +1238,16 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s2_diag_hits = 0
     s3_per_hits = 0
     s3_bord_hits = 0
+    h_s1_anchor_crop_expand = 0
+    h_s2_marker_recolor_lattice = 0
+    h_s2_color_gate_rewrite = 0
+    h_s2_pair_swap_recolor = 0
+    h_s1_panel_scale_project = 0
+    h_s3_object_align_shift = 0
+    h_s1_frame_extract_project = 0
+    h_s3_mirror_fold_fill = 0
+    h_s3_contact_grow_fill = 0
+    h_s1_strip_stack_project = 0
     s2_black_hits = 0
     s3_purp_hits = 0
     s3_bounce_hits = 0
@@ -1272,6 +1412,46 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             hybrid_attempts = s3_bord.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 s3_bord_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s1_anchor_crop_expand.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s1_anchor_crop_expand += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s2_marker_recolor_lattice.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s2_marker_recolor_lattice += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s2_color_gate_rewrite.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s2_color_gate_rewrite += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s2_pair_swap_recolor.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s2_pair_swap_recolor += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s1_panel_scale_project.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s1_panel_scale_project += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_object_align_shift.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_object_align_shift += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s1_frame_extract_project.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s1_frame_extract_project += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_mirror_fold_fill.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_mirror_fold_fill += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_contact_grow_fill.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_contact_grow_fill += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s1_strip_stack_project.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s1_strip_stack_project += 1
         if hybrid_attempts is None:
             hybrid_attempts = s2_black.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
@@ -1471,6 +1651,16 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s2_diagonal_component_fill_licensed_tasks": s2_diag_hits,
             "s3_period_tile_stamp_licensed_tasks": s3_per_hits,
             "s3_border_path_fill_licensed_tasks": s3_bord_hits,
+            "s1_anchor_crop_expand_licensed_tasks": h_s1_anchor_crop_expand,
+            "s2_marker_recolor_lattice_licensed_tasks": h_s2_marker_recolor_lattice,
+            "s2_color_gate_rewrite_licensed_tasks": h_s2_color_gate_rewrite,
+            "s2_pair_swap_recolor_licensed_tasks": h_s2_pair_swap_recolor,
+            "s1_panel_scale_project_licensed_tasks": h_s1_panel_scale_project,
+            "s3_object_align_shift_licensed_tasks": h_s3_object_align_shift,
+            "s1_frame_extract_project_licensed_tasks": h_s1_frame_extract_project,
+            "s3_mirror_fold_fill_licensed_tasks": h_s3_mirror_fold_fill,
+            "s3_contact_grow_fill_licensed_tasks": h_s3_contact_grow_fill,
+            "s1_strip_stack_project_licensed_tasks": h_s1_strip_stack_project,
             "s2_black_block_path_slide_licensed_tasks": s2_black_hits,
             "s3_purple_bar_bracket_extend_licensed_tasks": s3_purp_hits,
             "s3_terrain_period_bounce_licensed_tasks": s3_bounce_hits,

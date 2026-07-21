@@ -1,0 +1,34 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T16:33:37.043518+00:00",
+  "base_eval_exact_grids": "64/172",
+  "overlay_eval_exact_grids": "75/172",
+  "delta_grids": 11,
+  "closed_tasks": [
+    "898e7135",
+    "8f3a5a89",
+    "9aaea919",
+    "aa4ec2a5",
+    "b0039139",
+    "b99e7126",
+    "bf45cf4b",
+    "db0c5428",
+    "db695cfb",
+    "e8686506"
+  ],
+  "engines": [
+    "s1_anchor_crop_expand",
+    "s2_marker_recolor_lattice",
+    "s2_color_gate_rewrite",
+    "s2_pair_swap_recolor",
+    "s1_panel_scale_project",
+    "s3_object_align_shift",
+    "s1_frame_extract_project",
+    "s3_mirror_fold_fill",
+    "s3_contact_grow_fill",
+    "s1_strip_stack_project"
+  ],
+  "train_floor": "298/1076",
+  "note": "jump-ahead from 409aa875+3dc255db train-only; No Kaggle",
+  "kaggle_submit": false
+}

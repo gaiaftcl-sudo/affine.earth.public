@@ -390,4 +390,10 @@ C4: purple-bar bracket extend spatial rewrite. Train **6/6**, eval **1/1** via `
 - `s3_period_tile_stamp` **3e6067c3** 3/3 + 2/2
 - `s3_border_path_fill` **7c66cb00** 3/3 + 1/1
 
-Mastery **64/172**. Jumped `3dc255db` (train-only). No Kaggle.
+Mastery **75/172**. Jumped `3dc255db` (train-only). No Kaggle.
+
+## FoT: 10-task exact drain
+
+`s1_anchor_crop_expand` **898e7135** ×1 + `s2_marker_recolor_lattice` **8f3a5a89** ×1 + `s2_color_gate_rewrite` **9aaea919** ×1 + `s2_pair_swap_recolor` **aa4ec2a5** ×1 + `s1_panel_scale_project` **b0039139** ×2 + `s3_object_align_shift` **b99e7126** ×1 + `s1_frame_extract_project` **bf45cf4b** ×1 + `s3_mirror_fold_fill` **db0c5428** ×1 + `s3_contact_grow_fill` **db695cfb** ×1 + `s1_strip_stack_project` **e8686506** ×1
+
+Mastery **75/172**. Jumped `409aa875` + `3dc255db` (train-only). No Kaggle.

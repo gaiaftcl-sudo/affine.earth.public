@@ -186,7 +186,7 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **64/172** exact grids
+**MEASURED local** (2026-07-21): evaluation lifts to **75/172** exact grids
 (overlay `reports/arc_local_20260721T162944Z/agi2/summary-overlay.json`;
 train ice-on baseline remains **298/1076**). Lineage includes
 `s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 → `s3_terrain_period_bounce` **195c6913** ×2 → `s1_solid_motif_carve` **58f5dbd5** ×1 → `s2_plus_stamp_recolor` **1818057f** ×1 → `s1_path_column_unroll` **7b5033c1** ×1 → `s1_ones_stamp_period_fill` **53fb4810** ×1 → `s1_canvas_hole_sprite_fill` **67e490f4** ×1 → `s1_panel_motif_nest_pack` **8698868d** ×1 → `s1_separator_block_unroll` **78332cb0** ×2 → `s1_sep_row_extent_sort` **31f7f899** ×1 → `s1_frame_chamber_staircase` **89565ca0** ×1 → `s1_header_bracket_fill` **97d7923e** ×1 → `s2_arrow_room_recolor` **21897d95** ×2 → `s2_marker_stripe_lattice` **221dfab4** ×2 → `s2_axis_glyph_stamp` **247ef758** ×2 → `s3_box_slide_rail_fill` **271d71e2** ×1 → `s3_staircase_interior_fill` **28a6681f** ×1 → `s2_seven_triplet_rail` **2b83f449** ×1 → `s3_cross_arm_shape_dock` **2c181942** ×1 = **59/172**.
@@ -393,4 +393,10 @@ C4: purple-bar bracket extend spatial rewrite. Train **6/6**, eval **1/1** via `
 - `s3_period_tile_stamp` **3e6067c3** 3/3 + 2/2
 - `s3_border_path_fill` **7c66cb00** 3/3 + 1/1
 
-Mastery **64/172**. Jumped `3dc255db` (train-only). No Kaggle.
+Mastery **75/172**. Jumped `3dc255db` (train-only). No Kaggle.
+
+## FoT: 10-task exact drain
+
+`s1_anchor_crop_expand` **898e7135** ×1 + `s2_marker_recolor_lattice` **8f3a5a89** ×1 + `s2_color_gate_rewrite` **9aaea919** ×1 + `s2_pair_swap_recolor` **aa4ec2a5** ×1 + `s1_panel_scale_project` **b0039139** ×2 + `s3_object_align_shift` **b99e7126** ×1 + `s1_frame_extract_project` **bf45cf4b** ×1 + `s3_mirror_fold_fill` **db0c5428** ×1 + `s3_contact_grow_fill` **db695cfb** ×1 + `s1_strip_stack_project` **e8686506** ×1
+
+Mastery **75/172**. Jumped `409aa875` + `3dc255db` (train-only). No Kaggle.

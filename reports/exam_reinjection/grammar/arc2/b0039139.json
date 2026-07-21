@@ -1,0 +1,22 @@
+{
+  "task_id": "b0039139",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S1_dimension_projection",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 4,
+  "test": 2,
+  "engine": "s1_panel_scale_project",
+  "observations": [
+    "Train 4/4 labeled eval 2/2",
+    "Batch drain; jumped 409aa875+3dc255db train-only"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "4/4",
+    "labeled_eval": "2/2"
+  },
+  "mastery_eval": "75/172",
+  "mastery_train": "298/1076"
+}

@@ -1,0 +1,8 @@
+{
+  "task_id": "9aaea919",
+  "engine": "s2_color_gate_rewrite",
+  "status": "CLOSED",
+  "train_replay": "3/3",
+  "labeled_eval": "1/1",
+  "module": "llm_llvm_bench/arc/s2_color_gate_rewrite.py"
+}

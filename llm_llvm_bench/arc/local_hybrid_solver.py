@@ -955,6 +955,217 @@ def solve_task(
         receipt["s3_border_path_fill_meta"] = s3bord_replay
         return s3bord_fragment, receipt
 
+
+    # 1b38) s1_anchor_crop_expand (898e7135).
+    e0 = _load_module(
+        arc_dir / "s1_anchor_crop_expand.py", "s1_anchor_crop_expand"
+    )
+    e0_replay = e0.train_replay(task)
+    e0_fragment = e0.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e0_replay)
+    if (
+        e0_fragment is not None
+        and e0_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e0_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_anchor_crop_expand"
+        receipt["train_replay"] = e0_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_anchor_crop_expand_meta"] = e0_replay
+        return e0_fragment, receipt
+
+    # 1b39) s2_marker_recolor_lattice (8f3a5a89).
+    e1 = _load_module(
+        arc_dir / "s2_marker_recolor_lattice.py", "s2_marker_recolor_lattice"
+    )
+    e1_replay = e1.train_replay(task)
+    e1_fragment = e1.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e1_replay)
+    if (
+        e1_fragment is not None
+        and e1_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e1_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s2_marker_recolor_lattice"
+        receipt["train_replay"] = e1_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s2_marker_recolor_lattice_meta"] = e1_replay
+        return e1_fragment, receipt
+
+    # 1b40) s2_color_gate_rewrite (9aaea919).
+    e2 = _load_module(
+        arc_dir / "s2_color_gate_rewrite.py", "s2_color_gate_rewrite"
+    )
+    e2_replay = e2.train_replay(task)
+    e2_fragment = e2.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e2_replay)
+    if (
+        e2_fragment is not None
+        and e2_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e2_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s2_color_gate_rewrite"
+        receipt["train_replay"] = e2_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s2_color_gate_rewrite_meta"] = e2_replay
+        return e2_fragment, receipt
+
+    # 1b41) s2_pair_swap_recolor (aa4ec2a5).
+    e3 = _load_module(
+        arc_dir / "s2_pair_swap_recolor.py", "s2_pair_swap_recolor"
+    )
+    e3_replay = e3.train_replay(task)
+    e3_fragment = e3.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e3_replay)
+    if (
+        e3_fragment is not None
+        and e3_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e3_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s2_pair_swap_recolor"
+        receipt["train_replay"] = e3_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s2_pair_swap_recolor_meta"] = e3_replay
+        return e3_fragment, receipt
+
+    # 1b42) s1_panel_scale_project (b0039139).
+    e4 = _load_module(
+        arc_dir / "s1_panel_scale_project.py", "s1_panel_scale_project"
+    )
+    e4_replay = e4.train_replay(task)
+    e4_fragment = e4.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e4_replay)
+    if (
+        e4_fragment is not None
+        and e4_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e4_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_panel_scale_project"
+        receipt["train_replay"] = e4_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_panel_scale_project_meta"] = e4_replay
+        return e4_fragment, receipt
+
+    # 1b43) s3_object_align_shift (b99e7126).
+    e5 = _load_module(
+        arc_dir / "s3_object_align_shift.py", "s3_object_align_shift"
+    )
+    e5_replay = e5.train_replay(task)
+    e5_fragment = e5.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e5_replay)
+    if (
+        e5_fragment is not None
+        and e5_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e5_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_object_align_shift"
+        receipt["train_replay"] = e5_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_object_align_shift_meta"] = e5_replay
+        return e5_fragment, receipt
+
+    # 1b44) s1_frame_extract_project (bf45cf4b).
+    e6 = _load_module(
+        arc_dir / "s1_frame_extract_project.py", "s1_frame_extract_project"
+    )
+    e6_replay = e6.train_replay(task)
+    e6_fragment = e6.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e6_replay)
+    if (
+        e6_fragment is not None
+        and e6_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e6_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_frame_extract_project"
+        receipt["train_replay"] = e6_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_frame_extract_project_meta"] = e6_replay
+        return e6_fragment, receipt
+
+    # 1b45) s3_mirror_fold_fill (db0c5428).
+    e7 = _load_module(
+        arc_dir / "s3_mirror_fold_fill.py", "s3_mirror_fold_fill"
+    )
+    e7_replay = e7.train_replay(task)
+    e7_fragment = e7.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e7_replay)
+    if (
+        e7_fragment is not None
+        and e7_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e7_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_mirror_fold_fill"
+        receipt["train_replay"] = e7_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_mirror_fold_fill_meta"] = e7_replay
+        return e7_fragment, receipt
+
+    # 1b46) s3_contact_grow_fill (db695cfb).
+    e8 = _load_module(
+        arc_dir / "s3_contact_grow_fill.py", "s3_contact_grow_fill"
+    )
+    e8_replay = e8.train_replay(task)
+    e8_fragment = e8.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e8_replay)
+    if (
+        e8_fragment is not None
+        and e8_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e8_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_contact_grow_fill"
+        receipt["train_replay"] = e8_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_contact_grow_fill_meta"] = e8_replay
+        return e8_fragment, receipt
+
+    # 1b47) s1_strip_stack_project (e8686506).
+    e9 = _load_module(
+        arc_dir / "s1_strip_stack_project.py", "s1_strip_stack_project"
+    )
+    e9_replay = e9.train_replay(task)
+    e9_fragment = e9.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e9_replay)
+    if (
+        e9_fragment is not None
+        and e9_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e9_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_strip_stack_project"
+        receipt["train_replay"] = e9_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_strip_stack_project_meta"] = e9_replay
+        return e9_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

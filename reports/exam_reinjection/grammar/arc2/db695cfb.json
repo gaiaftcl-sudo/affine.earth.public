@@ -1,0 +1,22 @@
+{
+  "task_id": "db695cfb",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S3_spatial_rewrite",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 5,
+  "test": 1,
+  "engine": "s3_contact_grow_fill",
+  "observations": [
+    "Train 5/5 labeled eval 1/1",
+    "Batch drain; jumped 409aa875+3dc255db train-only"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "5/5",
+    "labeled_eval": "1/1"
+  },
+  "mastery_eval": "75/172",
+  "mastery_train": "298/1076"
+}

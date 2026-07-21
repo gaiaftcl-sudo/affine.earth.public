@@ -1,0 +1,8 @@
+{
+  "task_id": "db695cfb",
+  "engine": "s3_contact_grow_fill",
+  "status": "CLOSED",
+  "train_replay": "5/5",
+  "labeled_eval": "1/1",
+  "module": "llm_llvm_bench/arc/s3_contact_grow_fill.py"
+}
