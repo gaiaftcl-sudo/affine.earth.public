@@ -78,6 +78,28 @@ Full matrix, status labels, and upstream links: [wiki/AGI-Agent-Execution](https
 
 ---
 
+## ARC local ownership — UI audit
+
+ARC production exam work uses a task-by-task Cursor UI audit, with a raw
+primary-display MP4 and strict local `attempt_1` / `attempt_2` validation for
+each task. It writes only local artifacts and retains
+`configs/NO_KAGGLE_SUBMIT.lock`; it has no Kaggle-submit path.
+
+Before running it, grant **Accessibility** and **Screen Recording** to both
+Terminal and Cursor in macOS **System Settings → Privacy & Security**, then
+restart both applications. Missing permissions make the AppleScript UI turn or
+AVFoundation/ffmpeg capture unavailable.
+
+```bash
+./bin/run-arc-ui-audit-orchestrator.sh --preflight
+./bin/run-arc-ui-audit-orchestrator.sh --task-id 0934a4d8 --wait-seconds 10
+```
+
+See [ARC UI Audit Orchestrator](docs/ARC_UI_AUDIT_ORCHESTRATOR.md) and the
+[wiki production path](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/ARC-UI-Audit-Orchestrator).
+
+---
+
 ## Reports
 
 Generated under `reports/` (gitignored). Never publish a score without the artifact path and provenance label. Comparative 100% baseline tables are **BASELINE_TABLE_ONLY** until matching upstream receipts exist.

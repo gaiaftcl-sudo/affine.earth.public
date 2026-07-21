@@ -1,52 +1,5 @@
 # ARC UI Audit Orchestrator
 
-This is the production ARC exam path: **local task ownership with a raw video
-audit for every task**. It is not a Kaggle submission path. The repository
-retains `configs/NO_KAGGLE_SUBMIT.lock`, and the orchestrator has no command
-that submits to Kaggle.
-
-## Required macOS consent
-
-Grant **Accessibility** and **Screen Recording** to both Terminal and Cursor in
-**System Settings → Privacy & Security**, then quit and reopen both apps.
-Accessibility permits the documented AppleScript focus/paste/copy UI turn.
-Screen Recording permits AVFoundation/ffmpeg to record the primary display.
-Without either permission, stop at the loud preflight check:
-
-```bash
-./bin/run-arc-ui-audit-orchestrator.sh --preflight
-```
-
-## Per-task evidence loop
-
-1. Start async `h264_videotoolbox` display capture at
-   `affine_audit_logs/task_<ID>.mp4`.
-2. Inject full ARC train/test state into Cursor as language-game context.
-3. Call the configured local `/v1/chat/completions` bridge when available; if
-   none is configured, record `AWAITING_CELL_BRIDGE` without inventing an
-   answer.
-4. Make the primary response acquisition through the Cursor UI and clipboard.
-   A configured response file is a parallel evidence path when UI selection is
-   unreliable.
-5. Validate the exact `attempt_1` / `attempt_2` artifact for that task and
-   append it to local `submission.json`.
-6. Send ffmpeg SIGINT to finalize the MP4.
-
-Each receipt reports its actual bridge status, UI-copy result, artifact source,
-and schema verdict. Raw MP4 and JSON artifacts stay local in
-`affine_audit_logs/`.
-
-## Language-game binding
-
-The injected context preserves the full task ID, demonstrations, test inputs,
-coordinate system, and color symbols. It requires demonstration replay before
-a response and permits only the exact task-scoped JSON answer language. This
-operationalizes the shared [Exam language-game invariants](Language-Games-Exam-Invariants)
-and the [ARC-AGI-2 language game](Language-Games-ARC-AGI-2).
-
-Implementation and commands: [`docs/ARC_UI_AUDIT_ORCHESTRATOR.md`](../docs/ARC_UI_AUDIT_ORCHESTRATOR.md).
-# ARC UI Audit Orchestrator
-
 The ARC UI audit is the local, evidence-producing examination protocol for
 ARC-AGI-2 and ARC-AGI-3. It records how the local system reaches each typed
 answer artifact. It is not a Kaggle submission mechanism and it does not
@@ -68,49 +21,69 @@ official inputs
   → Kaggle receipt / public score
 ```
 
-`configs/NO_KAGGLE_SUBMIT.lock` remains present during audit and ordinary local
-work. It blocks competition and kernel submission paths unless the steward
-deliberately supplies `ALLOW_KAGGLE_SUBMIT=1`. A local audit never removes the
-lock or authorizes a submission.
+`configs/NO_KAGGLE_SUBMIT.lock` is required to remain present during audit and
+ordinary local work. It blocks competition and kernel submission paths unless
+the steward deliberately supplies `ALLOW_KAGGLE_SUBMIT=1`. A local audit is
+GREEN only when its own evidence and artifact checks pass; it never removes
+the lock or authorizes a submission.
 
 ## Required macOS permissions
 
-- **Accessibility:** enable the terminal or host process used by `osascript` in
-  **System Settings → Privacy & Security → Accessibility** so it can control
-  Cursor.
-- **Screen Recording:** enable the terminal/host process and capture tool in
-  **Screen Recording & System Audio Recording** so the Cursor window can be
-  recorded.
+The operator running an interactive capture must confirm these capabilities
+before booting the orchestrator:
+
+- **Accessibility:** the terminal or host process used by `osascript` may
+  control Cursor. Enable it in System Settings → Privacy & Security →
+  Accessibility.
+- **Screen Recording:** the terminal/host process and the selected capture
+  tool may record the Cursor window. Enable them in System Settings → Privacy
+  & Security → Screen Recording & System Audio Recording.
 - **Cursor session:** Cursor is open, the intended workspace is active, and
-  editor focus is observable to the operator.
-- **VideoToolbox:** `ffmpeg` must list the selected `*_videotoolbox` encoder.
-- **No bypass:** denied permissions, absent focus, missing encoder, or missing
-  source assets fail the audit; they cannot be labelled GREEN.
+  the command palette/editor focus is observable to the operator.
+- **VideoToolbox:** `ffmpeg` is installed with VideoToolbox support; record
+  with a hardware encoder only when `ffmpeg -encoders` lists the selected
+  `*_videotoolbox` encoder.
+- **No bypass:** permission denial, unavailable Cursor focus, missing encoder,
+  or missing source assets is an audit failure. It must be recorded as such;
+  the run cannot be relabelled GREEN.
+
+The permission check is local-machine evidence. Do not publish permissions or
+screenshots as proof of ARC task quality.
 
 ## Four-phase flow
 
 ### Phase 1 — permission and run binding
 
-1. Confirm the macOS checklist.
-2. Bind run ID, UTC start time, repository revision, selected ARC track,
-   official input revision/checksum, output directory, and active workspace.
+1. Confirm the macOS checklist above.
+2. Bind the run ID, UTC start time, repository revision, selected ARC track,
+   official input revision/checksum, output directory, and operator-visible
+   Cursor workspace.
 3. Assert `configs/NO_KAGGLE_SUBMIT.lock` exists.
-4. Write the run manifest before task execution.
-5. Refuse a run without required identity, permission, lock, or path.
+4. Create an audit manifest in the run directory before task execution.
+5. Refuse the run if any required identity, permission, lock, or output path
+   is absent.
+
+The manifest distinguishes a reproducible local examination from an
+unattributed recording.
 
 ### Phase 2 — orchestrator boot
 
-`bin/affine_audit_logs` is the coordinator:
+`bin/run-arc-ui-audit-orchestrator.sh` is the single coordinator. It starts a
+bounded local run and writes its own structured lifecycle record:
 
 ```text
-preflight → initialize ffmpeg VideoToolbox capture → per-task state machine
-         → retain events / timestamps / command outcomes → close capture
-         → validate artifact and receipt
+preflight
+  → initialize ffmpeg VideoToolbox capture
+  → open per-task state machine
+  → retain events, frame timestamps, and command outcomes
+  → close capture
+  → validate artifact and receipt
 ```
 
-The capture is a recording of the actual local audit window. It must not
-synthesize frames, reuse an unrelated recording, or present a placeholder as a
-run. Until a dry-run asset exists, documentation uses this state diagram:
+The capture must be a recording of the actual local audit window. The
+orchestrator must not synthesize frames, reuse an unrelated recording, or
+write a video placeholder that is presented as a run. Before a dry-run asset
+exists, documentation uses the state diagram only:
 
 ```text
 [bound] → [capturing] → [task active] → [reduced] → [validated] → [stopped]
@@ -119,48 +92,78 @@ run. Until a dry-run asset exists, documentation uses this state diagram:
 
 ### Phase 3 — per-task state machine
 
+For every official ARC task or ARC-AGI-3 episode, the orchestrator follows
+this bounded state machine:
+
 ```text
-TASK_BOUND → CAPTURE_STARTED → CURSOR_PROMPT_INJECTED
-          → NINE_CELL_REDUCTION → RESULT_JSON_EXTRACTED
-          → TASK_RECORDED → SIGINT_STOPPED
+TASK_BOUND
+  → CAPTURE_STARTED
+  → CURSOR_PROMPT_INJECTED
+  → NINE_CELL_REDUCTION
+  → RESULT_JSON_EXTRACTED
+  → TASK_RECORDED
+  → SIGINT_STOPPED
 ```
 
-1. **`TASK_BOUND`:** retain task/episode ID, official input revision, and
-   target artifact location.
-2. **`CAPTURE_STARTED`:** start `ffmpeg` with VideoToolbox and record command,
-   encoder, target, PID, capture path, and timestamps.
-3. **`CURSOR_PROMPT_INJECTED`:** use `osascript` to inject the task-bound
-   prompt into active Cursor; retain prompt digest and command outcome.
-4. **`NINE_CELL_REDUCTION`:** retain nine cell identities, ordering,
-   individual outcomes, reduction rule, and reduced state. Missing, duplicate,
-   or cross-task cells make the task incomplete.
-5. **`RESULT_JSON_EXTRACTED`:** parse structured response JSON, bind it to
-   the task ID, and retain raw/canonical digests. Parsing is not validation.
-6. **`TASK_RECORDED`:** append `complete`, `failed`, or `incomplete` evidence
-   to the run manifest; do not infer a Kaggle result.
-7. **`SIGINT_STOPPED`:** stop capture with `SIGINT`, record bounded graceful
-   exit, and mark any missing clean stop as incomplete evidence.
+1. **`TASK_BOUND`:** retain the task or episode identifier, official input
+   revision, and the target artifact location.
+2. **`CAPTURE_STARTED`:** start `ffmpeg` with the chosen VideoToolbox
+   encoder. Record the complete command, encoder, display/window target, PID,
+   and capture path in the event log.
+3. **`CURSOR_PROMPT_INJECTED`:** inject the task-bound prompt into the active
+   Cursor UI through `osascript`. Record the exact prompt digest, launch/exit
+   status, and monotonic timestamps. Injection success does not imply an
+   answer is correct.
+4. **`NINE_CELL_REDUCTION`:** collect the nine-cell reduction output for the
+   bound task only. Preserve cell identities, ordering, individual outcomes,
+   reduction rule, and resulting task state. A missing, duplicate, or
+   cross-task cell makes the task incomplete.
+5. **`RESULT_JSON_EXTRACTED`:** extract structured JSON from the audited
+   response, parse it, bind it back to the task identifier, and retain both
+   raw and canonical JSON digests. Parsing is not validation.
+6. **`TASK_RECORDED`:** append the task event record to the run manifest. It
+   states `complete`, `failed`, or `incomplete`; it does not infer a Kaggle
+   result.
+7. **`SIGINT_STOPPED`:** terminate the capture process with `SIGINT`, wait for
+   a bounded graceful exit, and record its status. A recording without a
+   recorded clean stop is incomplete evidence.
 
-Task state, JSON, cells, and capture identity cannot carry to another task.
+The next task cannot inherit extracted state, response JSON, cells, or
+capture identity from the previous task.
 
 ### Phase 4 — artifact and submission validation
 
+After all tasks, validate the task records and the track-native artifact:
+
 | Track | Artifact contract |
 | --- | --- |
-| ARC-AGI-2 | `submission.json` has every official task/test entry, exactly `attempt_1` and `attempt_2`, rectangular permitted integer grids, and task-bound provenance. |
-| ARC-AGI-3 | Official `submission.parquet` has episode provenance, legal trace/terminal state, and the native schema. |
+| ARC-AGI-2 | `submission.json` has every official task/test entry; each has exactly `attempt_1` and `attempt_2`, rectangular integer grids with permitted colors, and task-bound provenance. |
+| ARC-AGI-3 | Official framework output is `submission.parquet`, with valid episode provenance, legal trace/terminal state, and the official schema. |
 
-For `submission.json`, reject unknown/missing/duplicate IDs, test-item count
-mismatch, missing/extra attempt keys, malformed or out-of-range grids,
-task/artifact ID mismatch, and a canonical digest mismatch.
+For `submission.json`, validation must reject:
 
-GREEN requires complete clean-stop evidence for every task, task-bound
-nine-cell reductions and JSON, a GREEN native artifact validator, agreement
-between manifest/capture/artifact digests, and continued presence of the lock.
-It is a local preflight condition—not Kaggle acceptance, score, or hidden-task
-success.
+- unknown, missing, or duplicate task IDs;
+- test-item count mismatch;
+- missing/extra attempt keys;
+- non-rectangular, non-integer, or out-of-range grid cells;
+- extracted JSON whose bound task ID differs from the emitted artifact; and
+- a file whose canonical digest differs from the audited validated artifact.
+
+The final audit receipt is GREEN only if:
+
+1. each task reached `SIGINT_STOPPED` with a complete evidence record;
+2. every nine-cell reduction and extracted JSON bound to its task;
+3. the native artifact validator is GREEN;
+4. the run manifest, capture index, and artifact digests agree; and
+5. `NO_KAGGLE_SUBMIT.lock` remained present.
+
+GREEN is a local preflight condition. It does not represent Kaggle acceptance,
+a leaderboard value, or hidden-task success.
 
 ## Evidence layout
+
+The dry-run implementation owns the exact paths. Its receipt should make
+these classes independently inspectable:
 
 ```text
 reports/arc_ui_audit/<run-id>/
@@ -174,17 +177,28 @@ reports/arc_ui_audit/<run-id>/
   receipt.json
 ```
 
-Only Kaggle can issue an official score receipt after an intentionally
-authorized submission.
+Raw ffmpeg MP4s are also mirrored under `affine_audit_logs/task_<ID>.mp4`
+(gitignored except README/.gitkeep).
 
-## Why the earlier public probes differ
+No file in this layout is an official score receipt. Only Kaggle can issue
+that receipt after an intentionally authorized submission.
 
-The ARC-AGI-2 **0.00** and ARC-AGI-3 **0.12** records are prior Kaggle process
-probes: a particular artifact was accepted and scored. They are not proof that
-this local audit is GREEN or that puzzle mastery exists. The UI audit adds
-task-bound capture, injection provenance, nine-cell reduction, extracted JSON
-validation, and clean capture termination; it does not rewrite historical
-public receipts.
+## Why the earlier public probes are different
+
+The recorded ARC-AGI-2 0.00 and ARC-AGI-3 0.12 values are earlier Kaggle
+process probes: they established that a particular artifact was accepted and
+scored. They are neither evidence that a new local audit passed nor evidence
+of puzzle mastery. In particular:
+
+- 0.00 is schema-valid artifact delivery with no exact hidden-grid matches in
+  that probe.
+- 0.12 is a scored starter-process probe, not a claim that the agent's current
+  task policy is locally audited or leaderboard-competitive.
+
+The UI audit adds task-bound capture, prompt injection provenance, nine-cell
+reduction provenance, extracted JSON validation, and a clean capture stop. It
+prevents format-only or partial-process evidence from being mistaken for local
+readiness; it does not rewrite the historical public receipts.
 
 ## Related doctrine
 
@@ -192,3 +206,6 @@ public receipts.
 - [Language Games — ARC-AGI-2](Language-Games-ARC-AGI-2)
 - [Language Games — ARC-AGI-3](Language-Games-ARC-AGI-3)
 - [AGI agent execution](AGI-Agent-Execution)
+- [ARC Prize Kaggle Live](ARC-Prize-Kaggle-Live)
+
+Implementation: [`docs/ARC_UI_AUDIT_ORCHESTRATOR.md`](../docs/ARC_UI_AUDIT_ORCHESTRATOR.md).

@@ -27,6 +27,7 @@ evidence/arc-prize-2026-agi-2/kernel-output/submission.json
 affine_audit_logs/*.mp4
 affine_audit_logs/*.json
 affine_audit_logs/.validation/
+reports/arc_ui_audit/
 
 # Cloned External Evaluation Harness Submodules (keep arc-icecuber vendored)
 harnesses/*
