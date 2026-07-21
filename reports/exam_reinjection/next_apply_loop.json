@@ -24,7 +24,9 @@
     "arc2:2c181942",
     "arc2:2d0172a1",
     "arc2:31f7f899",
+    "arc2:332f06d7",
     "arc2:35ab12c3",
+    "arc2:36a08778",
     "arc2:38007db0",
     "arc2:3a25b0d8",
     "arc2:45a5af55",
@@ -44,22 +46,6 @@
   "next_apply_loop": [
     {
       "action": "train-replay-gated C4; Franklin S4 JSON-only \u226429 if needed",
-      "key": "arc2:332f06d7",
-      "last_gate": "OPEN_MISS",
-      "task_id": "332f06d7",
-      "track": "arc2",
-      "language_game_class": "S2_palette_rewrite"
-    },
-    {
-      "action": "train-replay-gated C4; Franklin S4 JSON-only \u226429 if needed",
-      "key": "arc2:36a08778",
-      "last_gate": "OPEN_MISS",
-      "task_id": "36a08778",
-      "track": "arc2",
-      "language_game_class": "S3_spatial_rewrite"
-    },
-    {
-      "action": "train-replay-gated C4; Franklin S4 JSON-only \u226429 if needed",
       "key": "arc2:3dc255db",
       "last_gate": "OPEN_MISS",
       "task_id": "3dc255db",
@@ -67,7 +53,7 @@
       "language_game_class": "S3_spatial_rewrite"
     }
   ],
-  "note": "CLOSED 35ab12c3 via s3_primary_hull_shift (57/172); jumped 332f06d7 train-only. No Kaggle.",
+  "note": "CLOSED 332f06d7 via s2_black_block_path_slide + 36a08778 via s3_purple_bar_bracket_extend (59/172). No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T16:27:59Z"
+  "recorded_at_utc": "2026-07-21T16:29:57Z"
 }

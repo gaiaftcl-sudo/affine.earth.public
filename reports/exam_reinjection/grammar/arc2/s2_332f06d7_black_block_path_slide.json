@@ -1,0 +1,7 @@
+{
+  "task_id": "332f06d7",
+  "engine": "s2_black_block_path_slide",
+  "status": "CLOSED",
+  "train_replay": "4/4",
+  "labeled_eval": "1/1"
+}

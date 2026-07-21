@@ -330,6 +330,30 @@ def load_s3_cross_arm_shape_dock(root: Path) -> Any:
     return module
 
 
+def load_s2_black_block_path_slide(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_black_block_path_slide.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_black_block_path_slide", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_black_block_path_slide solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_purple_bar_bracket_extend(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_purple_bar_bracket_extend.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_purple_bar_bracket_extend", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_purple_bar_bracket_extend solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def load_s3_primary_hull_shift(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_primary_hull_shift.py"
     spec = importlib.util.spec_from_file_location(
@@ -337,6 +361,54 @@ def load_s3_primary_hull_shift(root: Path) -> Any:
     )
     if spec is None or spec.loader is None:
         raise RuntimeError(f"Cannot load s3_primary_hull_shift solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_border_path_fill(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_border_path_fill.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_border_path_fill", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_border_path_fill solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_period_tile_stamp(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_period_tile_stamp.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_period_tile_stamp", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_period_tile_stamp solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s2_diagonal_component_fill(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_diagonal_component_fill.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s2_diagonal_component_fill", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_diagonal_component_fill solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def load_s3_scaffold_run_halo(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_scaffold_run_halo.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_scaffold_run_halo", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_scaffold_run_halo solver at {path}")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
@@ -938,6 +1010,12 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s2_trip = load_s2_seven_triplet_rail(root)
     s3_cross = load_s3_cross_arm_shape_dock(root)
     s3_hull = load_s3_primary_hull_shift(root)
+    s3_halo = load_s3_scaffold_run_halo(root)
+    s2_diag = load_s2_diagonal_component_fill(root)
+    s3_per = load_s3_period_tile_stamp(root)
+    s3_bord = load_s3_border_path_fill(root)
+    s2_black = load_s2_black_block_path_slide(root)
+    s3_purp = load_s3_purple_bar_bracket_extend(root)
     s3_bounce = load_s3_terrain_period_bounce(root)
     ice_depth = int(os.environ.get("ARC_ICECUBER_DEPTH", "2"))
     ice_workers = int(os.environ.get("ARC_ICECUBER_WORKERS", "6"))
@@ -1039,6 +1117,12 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s2_trip_hits = 0
     s3_cross_hits = 0
     s3_hull_hits = 0
+    s3_halo_hits = 0
+    s2_diag_hits = 0
+    s3_per_hits = 0
+    s3_bord_hits = 0
+    s2_black_hits = 0
+    s3_purp_hits = 0
     s3_bounce_hits = 0
     for task_id in sorted(eval_challenges):
         hybrid_attempts = marker8.solve_task(eval_challenges[task_id])
@@ -1188,6 +1272,31 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             hybrid_attempts = s3_hull.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 s3_hull_hits += 1
+
+        if hybrid_attempts is None:
+            hybrid_attempts = s3_halo.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s3_halo_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s2_diag.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s2_diag_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s3_per.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s3_per_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s3_bord.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s3_bord_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s2_black.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s2_black_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s3_purp.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s3_purp_hits += 1
         if hybrid_attempts is None:
             hybrid_attempts = s3_bounce.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
@@ -1376,6 +1485,12 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s2_seven_triplet_rail_licensed_tasks": s2_trip_hits,
             "s3_cross_arm_shape_dock_licensed_tasks": s3_cross_hits,
             "s3_primary_hull_shift_licensed_tasks": s3_hull_hits,
+            "s3_scaffold_run_halo_licensed_tasks": s3_halo_hits,
+            "s2_diagonal_component_fill_licensed_tasks": s2_diag_hits,
+            "s3_period_tile_stamp_licensed_tasks": s3_per_hits,
+            "s3_border_path_fill_licensed_tasks": s3_bord_hits,
+            "s2_black_block_path_slide_licensed_tasks": s2_black_hits,
+            "s3_purple_bar_bracket_extend_licensed_tasks": s3_purp_hits,
             "s3_terrain_period_bounce_licensed_tasks": s3_bounce_hits,
             "engine": "LOCAL_HYBRID_SOLVER_marker8_s1family_cpt_s3ray_icecuber_dsl",
         },

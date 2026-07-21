@@ -1,0 +1,7 @@
+{
+  "task_id": "36a08778",
+  "engine": "s3_purple_bar_bracket_extend",
+  "status": "CLOSED",
+  "train_replay": "6/6",
+  "labeled_eval": "1/1"
+}

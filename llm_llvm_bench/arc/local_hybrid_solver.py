@@ -848,6 +848,133 @@ def solve_task(
         receipt["s3_primary_hull_shift_meta"] = hull_replay
         return hull_fragment, receipt
 
+    # 1b34) S2 black-block path slide (332f06d7).
+    s2black = _load_module(
+        arc_dir / "s2_black_block_path_slide.py", "s2_black_block_path_slide"
+    )
+    black_replay = s2black.train_replay(task)
+    black_fragment = s2black.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(black_replay)
+    if (
+        black_fragment is not None
+        and black_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in black_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s2_black_block_path_slide"
+        receipt["train_replay"] = black_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s2_black_block_path_slide_meta"] = black_replay
+        return black_fragment, receipt
+
+    # 1b35) S3 purple bar-bracket extend (36a08778).
+    s3purp = _load_module(
+        arc_dir / "s3_purple_bar_bracket_extend.py", "s3_purple_bar_bracket_extend"
+    )
+    purp_replay = s3purp.train_replay(task)
+    purp_fragment = s3purp.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(purp_replay)
+    if (
+        purp_fragment is not None
+        and purp_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in purp_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_purple_bar_bracket_extend"
+        receipt["train_replay"] = purp_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_purple_bar_bracket_extend_meta"] = purp_replay
+        return purp_fragment, receipt
+
+
+    # 1b34) s3_scaffold_run_halo (36a08778).
+    s3halo = _load_module(
+        arc_dir / "s3_scaffold_run_halo.py", "s3_scaffold_run_halo"
+    )
+    s3halo_replay = s3halo.train_replay(task)
+    s3halo_fragment = s3halo.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(s3halo_replay)
+    if (
+        s3halo_fragment is not None
+        and s3halo_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in s3halo_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_scaffold_run_halo"
+        receipt["train_replay"] = s3halo_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_scaffold_run_halo_meta"] = s3halo_replay
+        return s3halo_fragment, receipt
+
+    # 1b35) s2_diagonal_component_fill (7666fa5d).
+    s2diag = _load_module(
+        arc_dir / "s2_diagonal_component_fill.py", "s2_diagonal_component_fill"
+    )
+    s2diag_replay = s2diag.train_replay(task)
+    s2diag_fragment = s2diag.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(s2diag_replay)
+    if (
+        s2diag_fragment is not None
+        and s2diag_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in s2diag_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s2_diagonal_component_fill"
+        receipt["train_replay"] = s2diag_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s2_diagonal_component_fill_meta"] = s2diag_replay
+        return s2diag_fragment, receipt
+
+    # 1b36) s3_period_tile_stamp (3e6067c3).
+    s3per = _load_module(
+        arc_dir / "s3_period_tile_stamp.py", "s3_period_tile_stamp"
+    )
+    s3per_replay = s3per.train_replay(task)
+    s3per_fragment = s3per.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(s3per_replay)
+    if (
+        s3per_fragment is not None
+        and s3per_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in s3per_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_period_tile_stamp"
+        receipt["train_replay"] = s3per_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_period_tile_stamp_meta"] = s3per_replay
+        return s3per_fragment, receipt
+
+    # 1b37) s3_border_path_fill (7c66cb00).
+    s3bord = _load_module(
+        arc_dir / "s3_border_path_fill.py", "s3_border_path_fill"
+    )
+    s3bord_replay = s3bord.train_replay(task)
+    s3bord_fragment = s3bord.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(s3bord_replay)
+    if (
+        s3bord_fragment is not None
+        and s3bord_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in s3bord_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_border_path_fill"
+        receipt["train_replay"] = s3bord_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_border_path_fill_meta"] = s3bord_replay
+        return s3bord_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

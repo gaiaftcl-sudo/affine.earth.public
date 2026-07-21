@@ -1,0 +1,26 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T16:29:44.830181+00:00",
+  "base_eval_exact_grids": "57/172",
+  "overlay_eval_exact_grids": "60/172",
+  "delta_grids": 3,
+  "closed_tasks": [
+    "332f06d7",
+    "36a08778"
+  ],
+  "engines": [
+    "s2_black_block_path_slide",
+    "s3_purple_bar_bracket_extend"
+  ],
+  "train_replays": {
+    "332f06d7": "4/4",
+    "36a08778": "6/6"
+  },
+  "labeled_evals": {
+    "332f06d7": "1/1",
+    "36a08778": "2/2"
+  },
+  "train_floor": "298/1076",
+  "note": "overlay +332f06d7 +36a08778; prior 57/172 from 35ab12c3; train floor 298/1076",
+  "kaggle_submit": false
+}
