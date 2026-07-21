@@ -12,9 +12,9 @@ Official competition: [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/comp
 | Top-score format study | [Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats) (`a04e483`) |
 | Hard schema validator | `scripts/validate_arc_prize_submission.py` on fixture + official sample + local `submission.json` vs test challenges |
 | Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_20260721T110813Z/` **overall GREEN** |
-| Eval quality (local) | **25/172** exact grids (S1 family + hollow accent-fill + topology schematic + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL) |
+| Eval quality (local) | **26/172** exact grids (S1 family + hollow accent-fill + topology schematic + separator gap-stack + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL) |
 | Train quality (local) | **298/1076** exact grids (ice-on receipt); **24/1000** DSL-licensed tasks |
-| Engine | `LOCAL_HYBRID_SOLVER` = marker8 + S1 family (pack/snake/tab/panel/motif/canvas/wall-tree/laser/block-pack/topology/hollow-accent) + CPT + S3 ray-fill + icecuber + DSL |
+| Engine | `LOCAL_HYBRID_SOLVER` = marker8 + S1 family (pack/snake/tab/panel/motif/canvas/wall-tree/laser/block-pack/topology/hollow-accent) + CPT + S3 ray-fill/gap-stack + icecuber + DSL |
 | Public probe | publicScore **0.00** = **PROCESS_PROBE** (premature process test) |
 | LB contrast | Top public ~**65.83** — format≠mastery; local eval still far from LB |
 
@@ -48,12 +48,16 @@ or private affine.earth OS source.
 ## Evidence
 
 - Local schema validation: 240 official test tasks (hard gate green).
-- Offline evaluation set: **25/172** exact grids (marker8 + S1 family + hollow accent-fill + topology schematic + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL).
+- Offline evaluation set: **26/172** exact grids (marker8 + S1 family + hollow accent-fill + topology schematic + separator gap-stack + fixed-canvas + wall-tree + marker-frame + CPT + S3 + ice/DSL).
 - Notebook log: `evidence/arc-prize-2026-agi-2/kernel-output/affine-arc-prize-2026-arc-agi-2.log`
 - Score receipt: `evidence/arc-prize-2026-agi-2/kaggle-submissions.csv` — publicScore `0.00`.
-- Local mastery reports: `reports/arc_local_20260721T131200Z/` (ice-on train **298/1076**) · overlay `reports/arc_local_20260721T141500Z/agi2/summary-overlay.json` (eval **25/172**); submit **LOCKED**.
+- Local mastery reports: `reports/arc_local_20260721T131200Z/` (ice-on train **298/1076**) · overlay `reports/arc_local_20260721T141500Z/agi2/summary-overlay.json` (eval **26/172**); submit **LOCKED**.
 - Contracts: [Top-score formats](Kaggle-ARC-Top-Score-Formats) · [Language Games ARC-AGI-2](Language-Games-ARC-AGI-2).
-- Solver-quality lineage: `db71c28` (1/172) → `marker8_twin31` (2/172) → `s1_dimension_projection` (3/172) → `container_period_tiling` **135a2760** (4/172) → `s3_separator_ray_fill` **1ae2feb7** ×3 (7/172) → `s1_digit_separator_snake` **136b0064** (8/172) → `s1_seven_tab_merge` **20270e3b** ×2 → `s1_panel_odd_one_out` **38007db0** ×2 (12/172) → `s1_marker_frame_motif` **20a9e565** ×2 (14/172) → `s1_fixed_canvas_template` **269e22fb** ×2 → `s1_wall_tree_nested_frames` **13e47133** ×2 (18/172) → `s1_laser_mirror_beams` **142ca369** ×2 (20/172) → `s1_oriented_block_pack` **291dc1e1** ×1 (21/172) → `s1_topology_schematic` **2d0172a1** ×2 (23/172) → `s1_hollow_accent_fill` **3a25b0d8** ×2 (**25/172**).
+- Solver-quality lineage: `db71c28` (1/172) → `marker8_twin31` (2/172) → `s1_dimension_projection` (3/172) → `container_period_tiling` **135a2760** (4/172) → `s3_separator_ray_fill` **1ae2feb7** ×3 (7/172) → `s1_digit_separator_snake` **136b0064** (8/172) → `s1_seven_tab_merge` **20270e3b** ×2 → `s1_panel_odd_one_out` **38007db0** ×2 (12/172) → `s1_marker_frame_motif` **20a9e565** ×2 (14/172) → `s1_fixed_canvas_template` **269e22fb** ×2 → `s1_wall_tree_nested_frames` **13e47133** ×2 (18/172) → `s1_laser_mirror_beams` **142ca369** ×2 (20/172) → `s1_oriented_block_pack` **291dc1e1** ×1 (21/172) → `s1_topology_schematic` **2d0172a1** ×2 (23/172) → `s1_hollow_accent_fill` **3a25b0d8** ×2 (25/172) → `s3_separator_gap_stack` **16b78196** ×1 (**26/172**).
+
+## FoT note — 16b78196 separator gap-stack (2026-07-21)
+
+C4: thick H/V separator band; objects (non-sep color) form tight high-contact vertical nest stacks (Kruskal); dock assemblies into band gaps by gap penetration then contact (V bands via transpose). Train **2/2**, eval **1/1** via `llm_llvm_bench/arc/s3_separator_gap_stack.py`. No Kaggle.
 
 ## FoT note — 3a25b0d8 hollow accent-fill (2026-07-21)
 
@@ -70,9 +74,9 @@ C4: D4-canonicalize via 0/1 and 2/8 marker strips; split 2-row bands and column-
 
 ## FoT note — reinjection state sync (2026-07-21)
 
-Hybrid GREEN task `3a25b0d8` sealed **CLOSED** in
-`reports/exam_reinjection/grammar/arc2/`. Mastery **25/172**. Next open
-`16b78196`. No Kaggle submit.
+Hybrid GREEN task `16b78196` sealed **CLOSED** in
+`reports/exam_reinjection/grammar/arc2/`. Mastery **26/172**. Next open
+`45a5af55`. No Kaggle submit.
 
 ## FoT note — 142ca369 laser-mirror beams (2026-07-21)
 

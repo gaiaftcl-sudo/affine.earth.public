@@ -1,6 +1,6 @@
 {
-  "eval_exact": "25/172",
-  "eval_pass": 25,
+  "eval_exact": "26/172",
+  "eval_pass": 26,
   "eval_total": 172,
   "base": "reports/arc_local_20260721T141241Z/agi2/local-evaluation-submission.json",
   "owned_hits": [
@@ -73,7 +73,12 @@
       "task_id": "3a25b0d8",
       "engine": "s1_hollow_accent_fill",
       "grids": 2
+    },
+    {
+      "task_id": "16b78196",
+      "engine": "s3_separator_gap_stack",
+      "grids": 1
     }
   ],
-  "note": "overlay +hollow_accent_fill 3a25b0d8; train 298/1076"
+  "note": "overlay +separator_gap_stack 16b78196; train 298/1076"
 }

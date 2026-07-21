@@ -1,7 +1,7 @@
 {
   "aristotelian_closure_turns": 29,
-  "cycles": 9,
-  "last_cycle_at": "2026-07-21T14:11:03.662652+00:00",
+  "cycles": 13,
+  "last_cycle_at": "2026-07-21T14:34:50.784226+00:00",
   "tasks": {
     "arc2:0934a4d8": {
       "engine": "marker8_twin31",
@@ -19,7 +19,7 @@
       "task_id": "0934a4d8",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:13:58.199974+00:00"
+      "updated_at": "2026-07-21T14:29:27.107732+00:00"
     },
     "arc2:135a2760": {
       "engine": "container_period_tiling",
@@ -38,7 +38,7 @@
       "task_id": "135a2760",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T14:13:58.200001+00:00"
+      "updated_at": "2026-07-21T14:29:27.107767+00:00"
     },
     "arc2:136b0064": {
       "engine": "s1_digit_separator_snake",
@@ -57,7 +57,7 @@
       "task_id": "136b0064",
       "track": "arc2",
       "turn_count": 4,
-      "updated_at": "2026-07-21T14:13:58.200013+00:00"
+      "updated_at": "2026-07-21T14:29:27.107783+00:00"
     },
     "arc2:13e47133": {
       "engine": "s1_wall_tree_nested_frames",
@@ -76,18 +76,18 @@
       "task_id": "13e47133",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T14:13:58.200032+00:00"
+      "updated_at": "2026-07-21T14:29:27.107812+00:00"
     },
     "arc2:142ca369": {
       "engine": "s1_laser_mirror_beams",
-      "last_c4": "L-tromino laser guns emit diagonal beams; mirrors flip axis and recolor",
+      "last_c4": "Laser-mirror diagonal beams: L-trominoes (2x2 minus one corner) are guns; other nonzero components are mirrors; emit from elbow along diagonal away from missing cell; paint empty cells; on 4-adjacent mirror flip axis velocity and recolor; stop at solids/borders; train-replay gated.",
       "last_gate": "S4_LOCKED",
-      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/142ca369.json",
+      "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc2/142ca369.json",
       "last_s4_status": "LOCKED",
       "last_validator": "demonstration_replay+labeled_eval",
       "last_validator_result": {
         "accepted": true,
-        "detail": "local_solver_green",
+        "detail": "local_solver_green_skip",
         "labeled_eval": "2/2",
         "train_replay": "3/3"
       },
@@ -95,7 +95,45 @@
       "task_id": "142ca369",
       "track": "arc2",
       "turn_count": 2,
-      "updated_at": "2026-07-21T14:13:58.102482+00:00"
+      "updated_at": "2026-07-21T14:29:27.107826+00:00"
+    },
+    "arc2:16b78196": {
+      "engine": "s3_separator_gap_stack",
+      "last_c4": "Separator gap-stack: tight vertical nests form Kruskal assemblies; dock into band gaps by penetration/contact; V bands via transpose; train-replay gated.",
+      "last_gate": "S4_LOCKED",
+      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/16b78196.json",
+      "last_s4_status": "LOCKED",
+      "last_validator": "demonstration_replay+labeled_eval",
+      "last_validator_result": {
+        "accepted": true,
+        "detail": "local_solver_green",
+        "labeled_eval": "1/1",
+        "train_replay": "2/2"
+      },
+      "status": "CLOSED",
+      "task_id": "16b78196",
+      "track": "arc2",
+      "turn_count": 1,
+      "updated_at": "2026-07-21T14:35:27.594935+00:00"
+    },
+    "arc2:16de56c4": {
+      "last_c4": "{\"grid\": [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 2, 0, 0, 2, 0, 0, 2, 7, 0, 2], [0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9], [0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [6, 0, 0, 0, 0, 6, 0, 0, 0, 0, 6, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 8, 0, 0, 8, 0, 0, 8, 0, 0, 8]], \"shape\": [9, 21]}",
+      "last_gate": "S4_LOCKED",
+      "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc2/16de56c4.json",
+      "last_s4_status": "LOCKED",
+      "last_validator": "demonstration_replay",
+      "last_validator_result": {
+        "accepted": true,
+        "detail": "typed_grid_or_rule_pending_mastery",
+        "ran": true,
+        "status": "LOCKED",
+        "validator": "demonstration_replay"
+      },
+      "status": "HEALING",
+      "task_id": "16de56c4",
+      "track": "arc2",
+      "turn_count": 4,
+      "updated_at": "2026-07-21T14:34:50.782692+00:00"
     },
     "arc2:1ae2feb7": {
       "engine": "s3_separator_ray_fill",
@@ -113,7 +151,7 @@
       "task_id": "1ae2feb7",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:13:58.200007+00:00"
+      "updated_at": "2026-07-21T14:29:27.107774+00:00"
     },
     "arc2:20270e3b": {
       "engine": "s1_seven_tab_merge",
@@ -131,7 +169,7 @@
       "task_id": "20270e3b",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:13:58.200018+00:00"
+      "updated_at": "2026-07-21T14:29:27.107790+00:00"
     },
     "arc2:20a9e565": {
       "engine": "s1_marker_frame_motif",
@@ -149,18 +187,18 @@
       "task_id": "20a9e565",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:13:58.200028+00:00"
+      "updated_at": "2026-07-21T14:29:27.107805+00:00"
     },
     "arc2:269e22fb": {
       "engine": "s1_fixed_canvas_template",
       "last_c4": "20x20 binary template under D4+invert; input crop; recolor",
       "last_gate": "S4_LOCKED",
-      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/269e22fb.json",
+      "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc2/269e22fb.json",
       "last_s4_status": "LOCKED",
       "last_validator": "demonstration_replay+labeled_eval",
       "last_validator_result": {
         "accepted": true,
-        "detail": "local_solver_green",
+        "detail": "local_solver_green_skip",
         "labeled_eval": "2/2",
         "train_replay": "5/5"
       },
@@ -168,18 +206,17 @@
       "task_id": "269e22fb",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:13:58.102482+00:00"
+      "updated_at": "2026-07-21T14:29:27.107819+00:00"
     },
     "arc2:291dc1e1": {
       "engine": "s1_oriented_block_pack",
       "last_c4": "D4-canonicalize via 0/1 and 2/8 marker strips; split 2-row bands and column-blocks; ori-conditioned vertical flip; pad to max width with 8s; stack.",
       "last_gate": "S4_LOCKED",
-      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/291dc1e1.json",
       "last_s4_status": "LOCKED",
-      "last_validator": "demonstration_replay+labeled_eval",
+      "last_validator": "local_hybrid_exact",
       "last_validator_result": {
         "accepted": true,
-        "detail": "local_solver_green",
+        "detail": "local_solver_green_skip",
         "labeled_eval": "1/1",
         "train_replay": "4/4"
       },
@@ -187,7 +224,7 @@
       "task_id": "291dc1e1",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:13:58.102482+00:00"
+      "updated_at": "2026-07-21T14:29:27.107833+00:00"
     },
     "arc2:2ba387bc": {
       "engine": "s1_dimension_projection",
@@ -205,7 +242,7 @@
       "task_id": "2ba387bc",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:13:58.199994+00:00"
+      "updated_at": "2026-07-21T14:29:27.107758+00:00"
     },
     "arc2:38007db0": {
       "engine": "s1_panel_odd_one_out",
@@ -223,10 +260,10 @@
       "task_id": "38007db0",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:13:58.200023+00:00"
+      "updated_at": "2026-07-21T14:29:27.107797+00:00"
     },
     "arc3:agi3-trajectory-gap": {
-      "last_c4": "REINJECT:{\"action\": \"move\", \"target\": {\"x\": 10, \"y\": 10}}",
+      "last_c4": "REINJECT:{\"action\": \"click\", \"effect\": \"clear_component\", \"target\": \"center_of_connected_component\"}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/agi3-trajectory-gap.json",
       "last_s4_status": "REINJECT",
@@ -241,8 +278,8 @@
       "status": "HEALING",
       "task_id": "agi3-trajectory-gap",
       "track": "arc3",
-      "turn_count": 5,
-      "updated_at": "2026-07-21T14:11:03.662142+00:00"
+      "turn_count": 9,
+      "updated_at": "2026-07-21T14:34:50.782948+00:00"
     },
     "arc3:ar25": {
       "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"target\": \"empty_cell\", \"value\": \"background_color\"}",
@@ -274,7 +311,7 @@
       "updated_at": "2026-07-21T13:15:58.166509+00:00"
     },
     "arc3:bp35": {
-      "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"params\": {\"color\": 0}}",
+      "last_c4": "REINJECT:{\"action_sequence\": [\"ACTION1: Move Right\", \"ACTION2: Move Down\", \"ACTION3: Click\", \"ACTION4: Move Left\", \"ACTION5: Move Up\", \"ACTION6: Click\", \"ACTION7: Move Right\"]}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/bp35.json",
       "last_s4_status": "REINJECT",
@@ -289,8 +326,8 @@
       "status": "HEALING",
       "task_id": "bp35",
       "track": "arc3",
-      "turn_count": 4,
-      "updated_at": "2026-07-21T14:11:03.662380+00:00"
+      "turn_count": 8,
+      "updated_at": "2026-07-21T14:34:50.783169+00:00"
     },
     "arc3:ls20": {
       "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"grid\": \"background_fill_connected_components\"}",
@@ -312,7 +349,7 @@
       "updated_at": "2026-07-21T13:55:39.224291+00:00"
     },
     "hle:hle-official-gate-open": {
-      "last_c4": "REINJECT:{\"s4\": {\"status\": \"REINJECT\", \"typed_candidate\": \"REINJECT\", \"unresolved_alternatives\": [\"LOCKED\"], \"validator\": \"exact_format_check\"}}",
+      "last_c4": "REINJECT:{\"s1\": \"awaiting_official\", \"s2\": \"enumerate every demonstration-consistent candidate\", \"s3\": \"emit one typed candidate the named validator can accept or reject\", \"s4\": {\"status\": \"REINJECT\", \"typed_candidate\": \"REINJECT\", \"unresolved_alternatives\": [\"LOCKED\"], \"validator\": \"exact_format_check\"}, \"task_id\": \"hle-official-gate-open\", \"track\": \"hle\"}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/hle/hle-official-gate-open.json",
       "last_s4_status": "REINJECT",
@@ -327,47 +364,9 @@
       "status": "HEALING",
       "task_id": "hle-official-gate-open",
       "track": "hle",
-      "turn_count": 4,
-      "updated_at": "2026-07-21T14:11:03.662532+00:00"
-    },
-    "arc2:2d0172a1": {
-      "engine": "s1_topology_schematic",
-      "last_c4": "Lossy containment schematic: fg loops/leaves tree; nested frames; leaf markers by centroid side of medium; outside roots as 3-cell exterior bar; train-replay gated.",
-      "last_gate": "S4_LOCKED",
-      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/2d0172a1.json",
-      "last_s4_status": "LOCKED",
-      "last_validator": "demonstration_replay+labeled_eval",
-      "last_validator_result": {
-        "accepted": true,
-        "detail": "local_solver_green",
-        "labeled_eval": "2/2",
-        "train_replay": "4/4"
-      },
-      "status": "CLOSED",
-      "task_id": "2d0172a1",
-      "track": "arc2",
-      "turn_count": 1,
-      "updated_at": "2026-07-21T14:20:17.964204+00:00"
-    },
-    "arc2:3a25b0d8": {
-      "engine": "s1_hollow_accent_fill",
-      "last_c4": "Hollow accent-fill: 8-connected mono hollow frame + multi-color accent; D4-align accent by frame overlap; paint accents into hollow; flood-fill enclosed holes with majority accent seed; train-replay gated.",
-      "last_gate": "S4_LOCKED",
-      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/3a25b0d8.json",
-      "last_s4_status": "LOCKED",
-      "last_validator": "demonstration_replay+labeled_eval",
-      "last_validator_result": {
-        "accepted": true,
-        "detail": "local_solver_green",
-        "labeled_eval": "2/2",
-        "train_replay": "2/2"
-      },
-      "status": "CLOSED",
-      "task_id": "3a25b0d8",
-      "track": "arc2",
-      "turn_count": 1,
-      "updated_at": "2026-07-21T14:32:19.802+00:00"
+      "turn_count": 8,
+      "updated_at": "2026-07-21T14:34:50.783345+00:00"
     }
   },
-  "total_franklin_turns": 31
+  "total_franklin_turns": 51
 }

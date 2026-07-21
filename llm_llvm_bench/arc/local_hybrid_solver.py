@@ -386,6 +386,27 @@ def solve_task(
         receipt["s1_hollow_meta"] = hollow_replay
         return hollow_fragment, receipt
 
+    # 1b12) S3 separator gap-stack (16b78196).
+    s3gap = _load_module(
+        arc_dir / "s3_separator_gap_stack.py", "s3_separator_gap_stack"
+    )
+    gap_replay = s3gap.train_replay(task)
+    gap_fragment = s3gap.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(gap_replay)
+    if (
+        gap_fragment is not None
+        and gap_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in gap_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_separator_gap_stack"
+        receipt["train_replay"] = gap_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_gap_meta"] = gap_replay
+        return gap_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"
