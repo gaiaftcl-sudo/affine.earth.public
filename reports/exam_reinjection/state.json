@@ -19,7 +19,7 @@
       "task_id": "0934a4d8",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:11:38.775064+00:00"
+      "updated_at": "2026-07-21T14:13:58.199974+00:00"
     },
     "arc2:135a2760": {
       "engine": "container_period_tiling",
@@ -38,7 +38,7 @@
       "task_id": "135a2760",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T14:11:38.775093+00:00"
+      "updated_at": "2026-07-21T14:13:58.200001+00:00"
     },
     "arc2:136b0064": {
       "engine": "s1_digit_separator_snake",
@@ -57,7 +57,7 @@
       "task_id": "136b0064",
       "track": "arc2",
       "turn_count": 4,
-      "updated_at": "2026-07-21T14:11:38.775104+00:00"
+      "updated_at": "2026-07-21T14:13:58.200013+00:00"
     },
     "arc2:13e47133": {
       "engine": "s1_wall_tree_nested_frames",
@@ -76,7 +76,7 @@
       "task_id": "13e47133",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T14:11:38.775124+00:00"
+      "updated_at": "2026-07-21T14:13:58.200032+00:00"
     },
     "arc2:142ca369": {
       "engine": "s1_laser_mirror_beams",
@@ -88,14 +88,14 @@
       "last_validator_result": {
         "accepted": true,
         "detail": "local_solver_green",
-        "train_replay": "3/3",
-        "labeled_eval": "2/2"
+        "labeled_eval": "2/2",
+        "train_replay": "3/3"
       },
       "status": "CLOSED",
       "task_id": "142ca369",
       "track": "arc2",
       "turn_count": 2,
-      "updated_at": "2026-07-21T14:13:04Z"
+      "updated_at": "2026-07-21T14:13:58.102482+00:00"
     },
     "arc2:1ae2feb7": {
       "engine": "s3_separator_ray_fill",
@@ -113,7 +113,7 @@
       "task_id": "1ae2feb7",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:11:38.775099+00:00"
+      "updated_at": "2026-07-21T14:13:58.200007+00:00"
     },
     "arc2:20270e3b": {
       "engine": "s1_seven_tab_merge",
@@ -131,7 +131,7 @@
       "task_id": "20270e3b",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:11:38.775109+00:00"
+      "updated_at": "2026-07-21T14:13:58.200018+00:00"
     },
     "arc2:20a9e565": {
       "engine": "s1_marker_frame_motif",
@@ -149,7 +149,7 @@
       "task_id": "20a9e565",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:11:38.775118+00:00"
+      "updated_at": "2026-07-21T14:13:58.200028+00:00"
     },
     "arc2:269e22fb": {
       "engine": "s1_fixed_canvas_template",
@@ -161,14 +161,33 @@
       "last_validator_result": {
         "accepted": true,
         "detail": "local_solver_green",
-        "train_replay": "5/5",
-        "labeled_eval": "2/2"
+        "labeled_eval": "2/2",
+        "train_replay": "5/5"
       },
       "status": "CLOSED",
       "task_id": "269e22fb",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:13:04Z"
+      "updated_at": "2026-07-21T14:13:58.102482+00:00"
+    },
+    "arc2:291dc1e1": {
+      "engine": "s1_oriented_block_pack",
+      "last_c4": "D4-canonicalize via 0/1 and 2/8 marker strips; split 2-row bands and column-blocks; ori-conditioned vertical flip; pad to max width with 8s; stack.",
+      "last_gate": "S4_LOCKED",
+      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/291dc1e1.json",
+      "last_s4_status": "LOCKED",
+      "last_validator": "demonstration_replay+labeled_eval",
+      "last_validator_result": {
+        "accepted": true,
+        "detail": "local_solver_green",
+        "labeled_eval": "1/1",
+        "train_replay": "4/4"
+      },
+      "status": "CLOSED",
+      "task_id": "291dc1e1",
+      "track": "arc2",
+      "turn_count": 0,
+      "updated_at": "2026-07-21T14:13:58.102482+00:00"
     },
     "arc2:2ba387bc": {
       "engine": "s1_dimension_projection",
@@ -186,7 +205,7 @@
       "task_id": "2ba387bc",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:11:38.775086+00:00"
+      "updated_at": "2026-07-21T14:13:58.199994+00:00"
     },
     "arc2:38007db0": {
       "engine": "s1_panel_odd_one_out",
@@ -204,7 +223,7 @@
       "task_id": "38007db0",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:11:38.775113+00:00"
+      "updated_at": "2026-07-21T14:13:58.200023+00:00"
     },
     "arc3:agi3-trajectory-gap": {
       "last_c4": "REINJECT:{\"action\": \"move\", \"target\": {\"x\": 10, \"y\": 10}}",

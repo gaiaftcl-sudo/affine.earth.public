@@ -62,10 +62,9 @@ C4: D4-canonicalize via 0/1 and 2/8 marker strips; split 2-row bands and column-
 
 ## FoT note — reinjection state sync (2026-07-21)
 
-Hybrid GREEN tasks `269e22fb` / `142ca369` sealed **CLOSED** in
-`reports/exam_reinjection/state.json` (receipts under
-`reports/arc_local_20260721T140955Z/agi2/`). Mastery remains **20/172**.
-Peer owns `291dc1e1`; next open `2d0172a1`. No Kaggle submit.
+Hybrid GREEN tasks `269e22fb` / `142ca369` / `291dc1e1` sealed **CLOSED** in
+`reports/exam_reinjection/state.json`. Mastery **21/172**. Next open
+`2d0172a1`. No Kaggle submit.
 
 ## FoT note — 142ca369 laser-mirror beams (2026-07-21)
 
