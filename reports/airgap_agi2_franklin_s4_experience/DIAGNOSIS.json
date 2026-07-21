@@ -1,0 +1,12 @@
+{
+  "licensed": "68/259",
+  "pct": 26.25,
+  "sha": "d705fd4",
+  "franklin_receipts": 2,
+  "franklin_closed": 0,
+  "franklin_timeout": 0,
+  "franklin_jordan_open": 2,
+  "franklin_other": 0,
+  "wave5_partial_tasks": 20,
+  "diagnosis": "jordan_remainder_not_timeout; LLM responds at 480s; local engines 0 transfer"
+}

@@ -5,19 +5,19 @@
   "batch": {
     "licensed": "68/259",
     "pct": 26.25,
-    "sha": "8fcf8e9",
+    "sha": "d705fd4",
     "franklin_receipts": 2,
     "franklin_closed": 0,
     "franklin_timeout": 0,
     "franklin_jordan_open": 2,
     "franklin_other": 0,
-    "franklin_stored": 0,
     "wave5_partial_tasks": 20,
-    "payload_sha": "822397da2a82cd7f"
+    "diagnosis": "jordan_remainder_not_timeout; LLM responds at 480s; local engines 0 transfer"
   },
   "no_submit": true,
   "lock": "configs/NO_KAGGLE_SUBMIT.lock",
-  "git_head": "8fcf8e9",
-  "updated_at_utc": "2026-07-21T19:17:47.196426+00:00",
-  "airgap_platform_sha256": "822397da2a82cd7f9137e2b4881dc87411c13694c4bc5b9ea8b6667095ce8896"
+  "git_head": "d705fd4",
+  "airgap_platform_sha256": "822397da2a82cd7f9137e2b4881dc87411c13694c4bc5b9ea8b6667095ce8896",
+  "updated_at_utc": "2026-07-21T19:18:32.219954+00:00",
+  "exp_restarted": true
 }
