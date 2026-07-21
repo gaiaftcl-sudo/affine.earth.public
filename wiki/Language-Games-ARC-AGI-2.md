@@ -400,3 +400,7 @@ Mastery **75/172**. Jumped `3dc255db` (train-only). No Kaggle.
 `s1_anchor_crop_expand` **898e7135** ×1 + `s2_marker_recolor_lattice` **8f3a5a89** ×1 + `s2_color_gate_rewrite` **9aaea919** ×1 + `s2_pair_swap_recolor` **aa4ec2a5** ×1 + `s1_panel_scale_project` **b0039139** ×2 + `s3_object_align_shift` **b99e7126** ×1 + `s1_frame_extract_project` **bf45cf4b** ×1 + `s3_mirror_fold_fill` **db0c5428** ×1 + `s3_contact_grow_fill` **db695cfb** ×1 + `s1_strip_stack_project` **e8686506** ×1
 
 Mastery **75/172**. Jumped `409aa875` + `3dc255db` (train-only). No Kaggle.
+
+## FoT: 409aa875 triomino tip-ray (2026-07-21)
+
+C4: size-3 tip triominoes fire length-5 rays; multi-ray→1, bg→9, occupied→recolor component 9. Train **3/3**, eval **1/1** via `llm_llvm_bench/arc/s3_triomino_tip_ray.py`. Mastery **76/172**. Next `3dc255db` / `446ef5d2`. No Kaggle.

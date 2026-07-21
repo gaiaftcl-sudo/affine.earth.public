@@ -1,0 +1,16 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T16:34:56.759196+00:00",
+  "base_eval_exact_grids": "75/172",
+  "overlay_eval_exact_grids": "76/172",
+  "delta_grids": 1,
+  "closed_tasks": [
+    "409aa875"
+  ],
+  "engines": [
+    "s3_triomino_tip_ray"
+  ],
+  "train_floor": "298/1076",
+  "note": "seal 409aa875 triomino tip-ray; jumped 3dc255db train-only; No Kaggle",
+  "kaggle_submit": false
+}

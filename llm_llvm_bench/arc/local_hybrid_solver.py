@@ -1166,6 +1166,27 @@ def solve_task(
         receipt["s1_strip_stack_project_meta"] = e9_replay
         return e9_fragment, receipt
 
+    # 1b48) s3_triomino_tip_ray (409aa875).
+    e10 = _load_module(
+        arc_dir / "s3_triomino_tip_ray.py", "s3_triomino_tip_ray"
+    )
+    e10_replay = e10.train_replay(task)
+    e10_fragment = e10.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e10_replay)
+    if (
+        e10_fragment is not None
+        and e10_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e10_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_triomino_tip_ray"
+        receipt["train_replay"] = e10_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_triomino_tip_ray_meta"] = e10_replay
+        return e10_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

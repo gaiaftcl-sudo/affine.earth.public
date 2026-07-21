@@ -123,6 +123,12 @@ Overlay **75/172**. No Kaggle.
 Hybrid GREEN batch sealed **CLOSED**. Mastery **75/172**. Next open
 from reinjection miss queue. No Kaggle submit.
 
+## FoT note — 409aa875 triomino tip-ray (2026-07-21)
+
+C4 sealed: tip-triomino length-5 rays. Train **3/3**, eval **1/1** via
+`llm_llvm_bench/arc/s3_triomino_tip_ray.py`. Overlay **76/172**. Next
+`3dc255db` / `446ef5d2`. No Kaggle.
+
 ## FoT note — 35ab12c3 primary hull shift (2026-07-21)
 
 C4: multi-cell colors form primary hulls; singleton colors shift a copy of the

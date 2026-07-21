@@ -30,6 +30,7 @@
     "arc2:38007db0",
     "arc2:3a25b0d8",
     "arc2:3e6067c3",
+    "arc2:409aa875",
     "arc2:45a5af55",
     "arc2:4c7dc4dd",
     "arc2:4e34c42c",
@@ -58,7 +59,7 @@
   ],
   "next_apply_loop": [
     {
-      "action": "train-replay-gated C4; Franklin S4 JSON-only \u226429 if needed",
+      "action": "train-replay-gated C4; Franklin S4 JSON-only ≤429 if needed",
       "key": "arc2:3dc255db",
       "last_gate": "OPEN_MISS",
       "task_id": "3dc255db",
@@ -66,15 +67,7 @@
       "language_game_class": "S3_spatial_rewrite"
     },
     {
-      "action": "train-replay-gated C4; Franklin S4 JSON-only \u226429 if needed",
-      "key": "arc2:409aa875",
-      "last_gate": "OPEN_MISS",
-      "task_id": "409aa875",
-      "track": "arc2",
-      "language_game_class": "S2_palette_rewrite"
-    },
-    {
-      "action": "train-replay-gated C4; Franklin S4 JSON-only \u226429 if needed",
+      "action": "train-replay-gated C4; Franklin S4 JSON-only ≤429 if needed",
       "key": "arc2:446ef5d2",
       "last_gate": "OPEN_MISS",
       "task_id": "446ef5d2",
@@ -82,7 +75,7 @@
       "language_game_class": "S2_palette_rewrite"
     }
   ],
-  "note": "CLOSED 10-task exact batch (+11 => 75/172); jumped 409aa875+3dc255db train-only. No Kaggle.",
+  "note": "CLOSED 409aa875 (+1 => 76/172); jumped 3dc255db train-only. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T16:33:37Z"
+  "recorded_at_utc": "2026-07-21T16:45:00Z"
 }

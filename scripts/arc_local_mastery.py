@@ -498,6 +498,18 @@ def load_s1_anchor_crop_expand(root: Path) -> Any:
     return module
 
 
+def load_s3_triomino_tip_ray(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_triomino_tip_ray.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_triomino_tip_ray", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_triomino_tip_ray solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def load_s3_period_tile_stamp(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_period_tile_stamp.py"
     spec = importlib.util.spec_from_file_location(
@@ -1123,6 +1135,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s3_per = load_s3_period_tile_stamp(root)
     s3_bord = load_s3_border_path_fill(root)
     m_s1_anchor_crop_expand = load_s1_anchor_crop_expand(root)
+    m_s3_triomino_tip_ray = load_s3_triomino_tip_ray(root)
     m_s2_marker_recolor_lattice = load_s2_marker_recolor_lattice(root)
     m_s2_color_gate_rewrite = load_s2_color_gate_rewrite(root)
     m_s2_pair_swap_recolor = load_s2_pair_swap_recolor(root)
@@ -1239,6 +1252,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s3_per_hits = 0
     s3_bord_hits = 0
     h_s1_anchor_crop_expand = 0
+    h_s3_triomino_tip_ray = 0
     h_s2_marker_recolor_lattice = 0
     h_s2_color_gate_rewrite = 0
     h_s2_pair_swap_recolor = 0
@@ -1416,6 +1430,10 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             hybrid_attempts = m_s1_anchor_crop_expand.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 h_s1_anchor_crop_expand += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s3_triomino_tip_ray.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_triomino_tip_ray += 1
         if hybrid_attempts is None:
             hybrid_attempts = m_s2_marker_recolor_lattice.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
@@ -1652,6 +1670,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s3_period_tile_stamp_licensed_tasks": s3_per_hits,
             "s3_border_path_fill_licensed_tasks": s3_bord_hits,
             "s1_anchor_crop_expand_licensed_tasks": h_s1_anchor_crop_expand,
+            "s3_triomino_tip_ray_licensed_tasks": h_s3_triomino_tip_ray,
             "s2_marker_recolor_lattice_licensed_tasks": h_s2_marker_recolor_lattice,
             "s2_color_gate_rewrite_licensed_tasks": h_s2_color_gate_rewrite,
             "s2_pair_swap_recolor_licensed_tasks": h_s2_pair_swap_recolor,

@@ -1,0 +1,22 @@
+{
+  "task_id": "409aa875",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S3_spatial_rewrite",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 1,
+  "engine": "s3_triomino_tip_ray",
+  "observations": [
+    "Train 3/3 labeled eval 1/1",
+    "Tip triominoes fire length-5 rays; collision→1, bg→9, hit→recolor component 9"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "3/3",
+    "labeled_eval": "1/1"
+  },
+  "mastery_eval": "76/172",
+  "mastery_train": "298/1076"
+}
