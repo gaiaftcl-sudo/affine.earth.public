@@ -7,6 +7,9 @@ gated-dataset prerequisite. It does not claim Accuracy or Calibration.
 Official sources: <https://agi.safe.ai/>, <https://github.com/centerforaisafety/hle>,
 and <https://huggingface.co/datasets/cais/hle>.
 
+**Franklin root baseline:**
+[FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md](FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md).
+
 ## 1. The game
 
 Humanity's Last Exam is an exact-answer evaluation game over difficult,

@@ -5,6 +5,11 @@ ARC-AGI-2 and ARC-AGI-3. It records how the local system reaches each typed
 answer artifact. It is not a Kaggle submission mechanism and it does not
 create a public score.
 
+**Cursor inject root:** every task prompt is prepended with the Franklin
+absolute baseline
+[UUM-8D game comprehension & bond resolution](../docs/FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md)
+(`llm_llvm_bench/arc/franklin_uum8d_system_prompt.py`).
+
 The implementation surfaces are `bin/run-arc-ui-audit-orchestrator.sh`, its
 orchestrator script, and the local `affine_audit_logs/` evidence scaffold.
 Until a recorded dry-run produces assets, this page intentionally contains no

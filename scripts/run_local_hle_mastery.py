@@ -21,6 +21,13 @@ from typing import Any, Optional
 
 import requests
 
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
+from llm_llvm_bench.arc.franklin_uum8d_system_prompt import (  # noqa: E402
+    franklin_uum8d_game_comprehension_system_prompt,
+)
+
 DATASET_REVISION = "local-synthetic-hle-fixtures-v1"
 
 FIXTURES: tuple[dict[str, Any], ...] = (
@@ -103,10 +110,13 @@ def message_for(fixture: dict[str, Any]) -> list[dict[str, str]]:
         )
     modality = fixture.get("modality") or {}
     modality_note = modality.get("note", "none")
+    baseline = franklin_uum8d_game_comprehension_system_prompt()
     return [
         {
             "role": "system",
             "content": (
+                f"{baseline}\n\n"
+                "---\n"
                 "You are playing a local synthetic language game that mirrors HLE "
                 "move types under docs/LANGUAGE_GAMES_HLE.md. "
                 "Turn order: (1) bind question identity and answer contract into "

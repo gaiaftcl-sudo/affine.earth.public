@@ -11,6 +11,11 @@ This is the pre-submission hub for the three public exam tracks:
 
 These pages explain contracts and readiness checks. They do not invent scores.
 
+**Franklin absolute execution baseline:**
+[UUM-8D game comprehension & bond resolution](../docs/FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md)
+— immutable root system instruction for HLE / ARC-AGI language games
+(constraint-satisfaction / Jordan bond; not probabilistic guessing).
+
 ## One game, three answer languages
 
 ```text

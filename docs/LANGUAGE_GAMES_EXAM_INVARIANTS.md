@@ -11,6 +11,9 @@ These documents describe how Affine carries question context across the
 linguistic membrane, formalizes the permitted answer transition, and verifies
 the emitted artifact before any public action. They are not score reports.
 
+**Franklin absolute execution baseline:**
+[FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md](FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md).
+
 ## The common language game
 
 Every exam is a controlled exchange with four roles:

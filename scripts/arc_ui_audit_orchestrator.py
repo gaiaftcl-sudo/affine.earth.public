@@ -29,6 +29,10 @@ from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+from llm_llvm_bench.arc.franklin_uum8d_system_prompt import (  # noqa: E402
+    franklin_uum8d_game_comprehension_system_prompt,
+)
+
 DEFAULT_CHALLENGES = ROOT / "data/arc-prize-2026-agi-2/arc-agi_evaluation_challenges.json"
 DEFAULT_AUDIT_SCAFFOLD = ROOT / "affine_audit_logs"
 DEFAULT_REPORTS = ROOT / "reports/arc_ui_audit"
@@ -221,7 +225,10 @@ class EventLog:
 
 def task_prompt(task_id: str, task: Dict[str, Any]) -> str:
     context = json.dumps({"task_id": task_id, **task}, separators=(",", ":"))
+    baseline = franklin_uum8d_game_comprehension_system_prompt()
     return (
+        f"{baseline}\n\n"
+        "---\n"
         "ARC-AGI-2 LOCAL EXAM TASK — UI-AUDITED\n"
         f"Task ID: {task_id}\n"
         "Treat colors as symbols and preserve all coordinates. Infer candidate "

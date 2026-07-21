@@ -6,6 +6,10 @@ further Kaggle submission. It does not claim a score.
 
 Official competition: <https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3>
 
+**Franklin root baseline:**
+[FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md](FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md)
+— Phase I interactive probe (actions 1–7) → C4 invariant → Jordan bond.
+
 ## 1. The game
 
 ARC-AGI-3 is an interactive agent game, not the static

@@ -7,7 +7,8 @@ claim Accuracy or Calibration.
 
 Canonical doctrine: [`docs/LANGUAGE_GAMES_HLE.md`](../docs/LANGUAGE_GAMES_HLE.md)
 · shared invariants: [Exam language-game invariants](Language-Games-Exam-Invariants)
-· live harness record: [Humanity’s Last Exam — live](Humanitys-Last-Exam-Live).
+· live harness record: [Humanity’s Last Exam — live](Humanitys-Last-Exam-Live)
+· Franklin root baseline: [UUM-8D game comprehension](../docs/FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md).
 
 ## 1. Game, moves, and win condition
 

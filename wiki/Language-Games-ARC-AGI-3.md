@@ -2,6 +2,10 @@
 
 Pre-submission specification for [ARC Prize 2026 — ARC-AGI-3](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3). This page describes the agent/parquet track; it does not claim a score.
 
+**Franklin root baseline:**
+[UUM-8D game comprehension & bond resolution](../docs/FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md)
+— Phase I interactive probe (actions 1–7) → C4 invariant → Jordan bond → verified JSON.
+
 ## 1. Game, moves, and win condition
 
 ARC-AGI-3 is an interactive agent game. The environment opens an episode,

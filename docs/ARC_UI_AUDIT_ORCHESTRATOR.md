@@ -7,6 +7,9 @@ exams). Matches wiki doctrine
 
 It never submits to Kaggle. `configs/NO_KAGGLE_SUBMIT.lock` is required.
 
+Cursor task prompts prepend the Franklin root baseline
+[FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md](FRANKLIN_UUM8D_GAME_COMPREHENSION_SYSTEM_PROMPT.md).
+
 ## Entry point
 
 ```bash
