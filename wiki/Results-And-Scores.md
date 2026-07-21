@@ -18,7 +18,7 @@ Agents run these via `bin/run-open-agi-harnesses.sh`. Deep harness manuals live 
 
 | Suite | Harness key | Affine status (this wiki) | What “score” would require |
 |:---|:---|:---|:---|
-| Humanity's Last Exam | `hle` | **LOCAL mastery + steward gate** — drills **3/3** (`reports/hle_local_20260721T104720Z/`, main `c3cf4d3`); `official_hle_accuracy=null` (not a CAIS score); `HF_TOKEN` absent; parquet **HTTP 401** until Agree + classic token | [Live](Humanitys-Last-Exam-Live) · [HLE game](Language-Games-HLE) · doctrine `f983986` |
+| Humanity's Last Exam | `hle` | **`cais/hle` load OK** (`test=2500`); full predict+judge **in flight** (`reports/hle_official_20260721T143509Z/`); `official_hle_accuracy=null` until judged receipt; local drills remain local-only evidence | [Live](Humanitys-Last-Exam-Live) · [HLE game](Language-Games-HLE) · doctrine `f983986` |
 | ARC Prize 2026 ARC-AGI-3 (Kaggle) | official starter → `submission.parquet` | **MEASURED** — publicScore **0.12** (COMPLETE, ref 54875048, 2026-07-21) | [Live record](ARC-Prize-Kaggle-Live): agent track parquet; not attempt_1/attempt_2 JSON |
 | ARC Prize 2026 ARC-AGI-2 (Kaggle) | `kaggle/arc-prize-2026-agi-2/` | **MEASURED** — publicScore **0.00** (COMPLETE, 2026-07-21) | [Live record](ARC-Prize-AGI-2-Kaggle-Live): kernel v1 submitted; `evidence/arc-prize-2026-agi-2/kaggle-submissions.csv` |
 | ARC-AGI / ARC-AGI-2 | `arc-agi` / `arc-agi-2` | **RUNNABLE** — no sample-task substitution | Checkout + task data + official scorer output |

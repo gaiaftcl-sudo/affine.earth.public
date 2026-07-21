@@ -32,7 +32,7 @@ from llm_llvm_bench.arc.franklin_s4_projection import (  # noqa: E402
 )
 from llm_llvm_bench.exam.s4_client import run_s4_projection_turn  # noqa: E402
 
-DATASET_REVISION = "local-synthetic-hle-fixtures-v4"
+DATASET_REVISION = "local-synthetic-hle-fixtures-v5"
 
 FIXTURES: tuple[dict[str, Any], ...] = (
     {
@@ -317,6 +317,39 @@ FIXTURES: tuple[dict[str, Any], ...] = (
         "answer_format": "exact_token",
         "question": "Convert hexadecimal FF to decimal. Integer token only.",
         "expected": "255",
+        "modality": None,
+    },
+    {
+        "id": "local-factorial-five",
+        "move_type": "number_theory_exact",
+        "answer_format": "exact_token",
+        "question": "What is 5!? Integer token only.",
+        "expected": "120",
+        "modality": None,
+    },
+    {
+        "id": "local-mod-exact",
+        "move_type": "number_theory_exact",
+        "answer_format": "exact_token",
+        "question": "What is 17 mod 5? Integer token only.",
+        "expected": "2",
+        "modality": None,
+    },
+    {
+        "id": "local-sqrt-exact",
+        "move_type": "mathematical_expression",
+        "answer_format": "exact_token",
+        "question": "Integer square root of 81? Integer token only.",
+        "expected": "9",
+        "modality": None,
+    },
+    {
+        "id": "local-mcq-earth-moon",
+        "move_type": "mcq",
+        "answer_format": "option_letter",
+        "question": "Which body orbits Earth?",
+        "choices": {"A": "Sun", "B": "Moon", "C": "Mars", "D": "Jupiter"},
+        "expected": "B",
         "modality": None,
     },
 )

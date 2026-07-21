@@ -6,7 +6,7 @@ Official sources: [agi.safe.ai](https://agi.safe.ai/), the [CAIS HLE evaluator](
 
 Doctrine: [`docs/LANGUAGE_GAMES_HLE.md`](../docs/LANGUAGE_GAMES_HLE.md) (SHA `f983986`) · wiki: [Language-Games-HLE](Language-Games-HLE) · shared gate: [Exam invariants](Language-Games-Exam-Invariants).
 
-While `HF_TOKEN` is absent and parquet resolve remains **401**, local ownership continues via synthetic move-type drills and UI context-setting proof. Local fixture matches are **local evidence only** (`official_hle_accuracy` stays `null`). No Keychain.
+**2026-07-21 update:** `load_dataset("cais/hle")` succeeded after steward-provided classic `HF_TOKEN` (process env / hub cache only — never committed). Split lengths: **`test=2500`**. Full predict+judge is in flight under `reports/hle_official_20260721T143509Z/` (`official_hle_accuracy` remains **null** until judged JSON + receipt). Local fixture matches stay local evidence only. No Keychain. **Rotate the HF token** that was pasted in chat after the exam run.
 
 ```bash
 export OPENAI_BASE_URL="http://127.0.0.1:8080/v1"

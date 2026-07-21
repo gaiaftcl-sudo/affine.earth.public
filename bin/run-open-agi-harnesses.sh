@@ -234,6 +234,10 @@ run_hle() {
     require_file "$dir/hle_eval/run_model_predictions.py" \
         'Ensure checkout is centerforaisafety/hle with hle_eval/ scripts'
     local python_bin="${HLE_PYTHON_BIN:-$dir/hle_eval/.venv/bin/python}"
+    # Resolve relative venv paths before cd into hle_eval (relative breaks after cd).
+    if [[ "$python_bin" != /* ]]; then
+        python_bin="$ROOT_DIR/$python_bin"
+    fi
     [[ -x "$python_bin" ]] || {
         echo "FATAL: HLE virtual environment missing: $python_bin" >&2
         echo "Install: python3 -m venv $dir/hle_eval/.venv && $dir/hle_eval/.venv/bin/pip install -r $dir/requirements.txt" >&2
@@ -255,14 +259,21 @@ run_hle() {
     export HF_TOKEN="${HF_TOKEN:-${HUGGING_FACE_HUB_TOKEN}}"
     mkdir -p "${HLE_OUTPUT_DIR:-reports/third_party/open_agi/hle}"
     local out_dir="${HLE_OUTPUT_DIR:-reports/third_party/open_agi/hle}"
+    if [[ "$out_dir" != /* ]]; then
+        out_dir="$ROOT_DIR/$out_dir"
+    fi
     local max_tokens="${HLE_MAX_COMPLETION_TOKENS:-8192}"
     local workers="${HLE_NUM_WORKERS:-4}"
     local dataset="${HLE_DATASET:-cais/hle}"
+    local judge_model="${HLE_JUDGE_MODEL:-${OPENAI_MODEL:-$MODEL}}"
     if [[ -n "${HLE_MAX_SAMPLES:-}" && "${HLE_RUN_JUDGE:-0}" == "1" ]]; then
         echo "FATAL: upstream HLE judge divides by the full test-set size and cannot emit a valid smoke-subset metric." >&2
         echo "Run predictions with HLE_MAX_SAMPLES only, or omit it for a full 2,500-question judged run." >&2
         exit 2
     fi
+    # Upstream writes hle_<basename(model)>.json — never use raw MODEL (may contain '/').
+    local pred_basename="hle_$(basename "$MODEL").json"
+    local judged_basename="judged_${pred_basename}"
     local pred_args=(
         --dataset "$dataset"
         --model "$MODEL"
@@ -272,16 +283,22 @@ run_hle() {
     if [[ -n "${HLE_MAX_SAMPLES:-}" ]]; then
         pred_args+=(--max_samples "$HLE_MAX_SAMPLES")
     fi
+    # Prefer tracked overrides (harnesses/* is gitignored) when present.
+    local pred_script="$ROOT_DIR/scripts/hle_eval/run_model_predictions.py"
+    local judge_script="$ROOT_DIR/scripts/hle_eval/run_judge_results.py"
+    [[ -f "$pred_script" ]] || pred_script="$ROOT_DIR/$dir/hle_eval/run_model_predictions.py"
+    [[ -f "$judge_script" ]] || judge_script="$ROOT_DIR/$dir/hle_eval/run_judge_results.py"
     (
         cd "$dir/hle_eval"
-        "$python_bin" run_model_predictions.py "${pred_args[@]}"
-        cp "hle_${MODEL}.json" "$ROOT_DIR/$out_dir/"
+        "$python_bin" "$pred_script" "${pred_args[@]}"
+        cp "$pred_basename" "$out_dir/"
         if [[ "${HLE_RUN_JUDGE:-0}" == "1" ]]; then
-            "$python_bin" run_judge_results.py \
+            "$python_bin" "$judge_script" \
                 --dataset "$dataset" \
-                --predictions "hle_${MODEL}.json" \
-                --num_workers "$workers"
-            cp "judged_hle_${MODEL}.json" "$ROOT_DIR/$out_dir/"
+                --predictions "$pred_basename" \
+                --num_workers "$workers" \
+                --judge "$judge_model"
+            cp "$judged_basename" "$out_dir/"
         else
             echo "HLE predictions finished under $dir/hle_eval/."
             echo "Judging not run (set HLE_RUN_JUDGE=1 to invoke run_judge_results.py)."
