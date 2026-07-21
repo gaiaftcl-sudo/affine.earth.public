@@ -87,6 +87,7 @@
     "arc2:a47bf94d",
     "arc2:a6f40cea",
     "arc2:aa4ec2a5",
+    "arc2:abc82100",
     "arc2:b0039139",
     "arc2:b10624e5",
     "arc2:b5ca7ac4",
@@ -121,15 +122,7 @@
   ],
   "next_apply_loop": [
     {
-      "action": "train-replay-gated C4; coordinate \u2014 do not clobber",
-      "key": "arc2:abc82100",
-      "last_gate": "OPEN_MISS",
-      "task_id": "abc82100",
-      "track": "arc2",
-      "language_game_class": "S2_palette_rewrite"
-    },
-    {
-      "action": "train-replay-gated C4; coordinate \u2014 do not clobber",
+      "action": "train-replay-gated C4 heal; last open to 172/172",
       "key": "arc2:faa9f03d",
       "last_gate": "OPEN_MISS",
       "task_id": "faa9f03d",
@@ -141,12 +134,11 @@
     {
       "agent": "cursor-sync",
       "tasks": [
-        "abc82100",
         "faa9f03d"
       ],
-      "goal": "close remaining to 172/172"
+      "goal": "close last open to 172/172"
     }
   ],
-  "note": "CLOSED f560132c via s1_g_f560132c (167/172). Remaining: ['abc82100', 'faa9f03d']. No Kaggle.",
-  "recorded_at_utc": "2026-07-21T17:00:37Z"
+  "note": "CLOSED abc82100 via s2_encoded_template_stamp (169/172). Last open: faa9f03d. No Kaggle.",
+  "recorded_at_utc": "2026-07-21T17:01:39Z"
 }

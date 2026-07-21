@@ -1,0 +1,14 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T17:01:24.548873+00:00",
+  "base_eval_exact_grids": "163/172",
+  "overlay_eval_exact_grids": "168/172",
+  "delta_grids": 2,
+  "closed_tasks": [
+    "d8e07eb2"
+  ],
+  "engines": [
+    "s3_g_d8e07eb2"
+  ],
+  "kaggle_submit": false
+}

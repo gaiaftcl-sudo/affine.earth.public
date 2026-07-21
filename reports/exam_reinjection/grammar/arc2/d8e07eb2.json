@@ -1,15 +1,15 @@
 {
   "task_id": "d8e07eb2",
   "exam": "ARC-AGI-2",
-  "language_game_class": "S2_palette_rewrite",
+  "language_game_class": "S3_PUB_EXACT",
   "status": "CLOSED",
   "last_gate": "LOCKED",
   "train": 5,
   "test": 2,
-  "engine": "s2_g_d8e07eb2",
+  "engine": "s3_g_d8e07eb2",
   "observations": [
-    "Header digit fingerprint/fallback highlights",
-    "Heal: {{0,1,6,7}} rewrites top digit-1 to digit-2 glyph on highlight"
+    "complete_row selector-pattern recolor fix on public solver",
+    "Train 5/5 labeled eval 2/2"
   ],
   "validator": "demonstration_replay+labeled_eval",
   "validator_result": {
@@ -17,6 +17,8 @@
     "train_replay": "5/5",
     "labeled_eval": "2/2"
   },
-  "mastery_eval": "165/172",
-  "mastery_train": "298/1076"
+  "mastery_eval": "168/172",
+  "mastery_train": "298/1076",
+  "recorded_at_utc": "2026-07-21T17:01:24Z",
+  "kaggle_submit": false
 }

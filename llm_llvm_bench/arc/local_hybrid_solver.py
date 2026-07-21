@@ -2495,6 +2495,28 @@ def solve_task(
 
 
 
+
+    # 1b97) s2_encoded_template_stamp (abc82100).
+    abceng = _load_module(
+        arc_dir / "s2_encoded_template_stamp.py", "s2_encoded_template_stamp"
+    )
+    abc_replay = abceng.train_replay(task)
+    abc_fragment = abceng.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(abc_replay)
+    if (
+        abc_fragment is not None
+        and abc_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in abc_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s2_encoded_template_stamp"
+        receipt["train_replay"] = abc_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s2_encoded_template_stamp_meta"] = abc_replay
+        return abc_fragment, receipt
+
     # 1b98) s1_g_f560132c (f560132c).
     f560eng = _load_module(
         arc_dir / "s1_g_f560132c.py", "s1_g_f560132c"
@@ -2536,6 +2558,28 @@ def solve_task(
         receipt["ok"] = True
         receipt["s2_g_d8e07eb2_meta"] = d8_replay
         return d8_fragment, receipt
+
+
+    # 1b109) s3_g_d8e07eb2 (d8e07eb2).
+    e109 = _load_module(
+        arc_dir / "s3_g_d8e07eb2.py", "s3_g_d8e07eb2"
+    )
+    e109_replay = e109.train_replay(task)
+    e109_fragment = e109.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(e109_replay)
+    if (
+        e109_fragment is not None
+        and e109_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in e109_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_g_d8e07eb2"
+        receipt["train_replay"] = e109_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_g_d8e07eb2_meta"] = e109_replay
+        return e109_fragment, receipt
 
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(

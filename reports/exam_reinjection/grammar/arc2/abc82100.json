@@ -1,0 +1,22 @@
+{
+  "task_id": "abc82100",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S2_palette_rewrite",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 4,
+  "test": 2,
+  "engine": "s2_encoded_template_stamp",
+  "observations": [
+    "Encoded template stamp C4",
+    "Train 4/4 labeled eval 2/2"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "4/4",
+    "labeled_eval": "2/2"
+  },
+  "mastery_eval": "169/172",
+  "mastery_train": "298/1076"
+}

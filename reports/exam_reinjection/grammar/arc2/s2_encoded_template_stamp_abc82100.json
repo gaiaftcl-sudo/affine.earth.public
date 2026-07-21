@@ -1,0 +1,8 @@
+{
+  "task_id": "abc82100",
+  "engine": "s2_encoded_template_stamp",
+  "status": "CLOSED",
+  "train_replay": "4/4",
+  "labeled_eval": "2/2",
+  "module": "llm_llvm_bench/arc/s2_encoded_template_stamp.py"
+}
