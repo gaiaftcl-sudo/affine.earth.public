@@ -1,0 +1,15 @@
+{
+  "sealed": [
+    {
+      "task_id": "78332cb0",
+      "engine": "s1_separator_block_unroll",
+      "train_replay": "3/3",
+      "eval_grids": "2/2"
+    }
+  ],
+  "mastery_eval": "43/172",
+  "mastery_train": "298/1076",
+  "note": "overlay +separator_block_unroll 78332cb0; 21897d95 remains S4_REINJECT; train floor 298/1076",
+  "recorded_at_utc": "2026-07-21T15:40:57Z",
+  "kaggle_submit": false
+}

@@ -1,0 +1,23 @@
+{
+  "task_id": "78332cb0",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S1_dimension_projection",
+  "engine": "s1_separator_block_unroll",
+  "primary_transform": "separator_block_unroll",
+  "status": "CLOSED",
+  "train_replay": "3/3",
+  "eval_grids": "2/2",
+  "c4": {
+    "S1": "separator color forms full rows/cols partitioning equal rectangular blocks",
+    "S2": "1D vertical stack: swap first/last; odd→horizontal pack, even→vertical pack; 1D horizontal: keep order; odd→vertical, even→horizontal",
+    "S3": "2D: main-diagonal then off-diagonal order; >1 motif colors → vertical pack; else swap ends + horizontal",
+    "S4": "re-insert separator lines between packed blocks",
+    "C4": "exact unroll; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s1_separator_block_unroll.py",
+  "mastery_eval": "43/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T15:40:57Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T154057Z/agi2/summary-overlay.json"
+}

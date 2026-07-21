@@ -596,6 +596,27 @@ def solve_task(
         receipt["s1_panel_motif_nest_pack_meta"] = nest_replay
         return nest_fragment, receipt
 
+    # 1b22) S1 separator-block unroll (78332cb0).
+    s1unroll = _load_module(
+        arc_dir / "s1_separator_block_unroll.py", "s1_separator_block_unroll"
+    )
+    unroll_replay = s1unroll.train_replay(task)
+    unroll_fragment = s1unroll.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(unroll_replay)
+    if (
+        unroll_fragment is not None
+        and unroll_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in unroll_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_separator_block_unroll"
+        receipt["train_replay"] = unroll_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_separator_block_unroll_meta"] = unroll_replay
+        return unroll_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"
