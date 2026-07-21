@@ -132,6 +132,16 @@ def load_s1_panel_odd_one_out(root: Path) -> Any:
     return module
 
 
+def load_s1_marker_frame_motif(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s1_marker_frame_motif.py"
+    spec = importlib.util.spec_from_file_location("arc_s1_marker_frame_motif", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s1_marker_frame_motif solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def merge_attempt_pair(
     dsl_pair: Dict[str, Grid],
     ice_pair: Dict[str, Grid],
@@ -546,6 +556,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s1_snake = load_s1_digit_separator_snake(root)
     s1_tab = load_s1_seven_tab_merge(root)
     s1_panel = load_s1_panel_odd_one_out(root)
+    s1_motif = load_s1_marker_frame_motif(root)
     cpt_proj = load_container_period_tiling(root)
     s3_ray = load_s3_separator_ray_fill(root)
     ice_depth = int(os.environ.get("ARC_ICECUBER_DEPTH", "2"))
@@ -616,6 +627,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s1_snake_hits = 0
     s1_tab_hits = 0
     s1_panel_hits = 0
+    s1_motif_hits = 0
     cpt_hits = 0
     s3_hits = 0
     for task_id in sorted(eval_challenges):
@@ -638,6 +650,10 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             hybrid_attempts = s1_panel.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 s1_panel_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s1_motif.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s1_motif_hits += 1
         if hybrid_attempts is None:
             hybrid_attempts = cpt_proj.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
@@ -798,6 +814,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s1_digit_separator_snake_licensed_tasks": s1_snake_hits,
             "s1_seven_tab_merge_licensed_tasks": s1_tab_hits,
             "s1_panel_odd_one_out_licensed_tasks": s1_panel_hits,
+            "s1_marker_frame_motif_licensed_tasks": s1_motif_hits,
             "container_period_tiling_licensed_tasks": cpt_hits,
             "s3_separator_ray_fill_licensed_tasks": s3_hits,
             "engine": "LOCAL_HYBRID_SOLVER_marker8_s1family_cpt_s3ray_icecuber_dsl",

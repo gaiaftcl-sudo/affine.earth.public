@@ -241,6 +241,46 @@ def solve_task(
         receipt["s1_panel_meta"] = panel_replay
         return panel_fragment, receipt
 
+    # 1b5) S1 marker-frame motif extrapolate (20a9e565).
+    s1motif = _load_module(arc_dir / "s1_marker_frame_motif.py", "s1_marker_frame_motif")
+    motif_replay = s1motif.train_replay(task)
+    motif_fragment = s1motif.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(motif_replay)
+    if (
+        motif_fragment is not None
+        and motif_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in motif_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_marker_frame_motif"
+        receipt["train_replay"] = motif_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_motif_meta"] = motif_replay
+        return motif_fragment, receipt
+
+    # 1b6) S1 wall-tree nested frames (13e47133).
+    s1frames = _load_module(
+        arc_dir / "s1_wall_tree_nested_frames.py", "s1_wall_tree_nested_frames"
+    )
+    frames_replay = s1frames.train_replay(task)
+    frames_fragment = s1frames.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(frames_replay)
+    if (
+        frames_fragment is not None
+        and frames_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in frames_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_wall_tree_nested_frames"
+        receipt["train_replay"] = frames_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_frames_meta"] = frames_replay
+        return frames_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

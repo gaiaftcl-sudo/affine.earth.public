@@ -1,0 +1,18 @@
+{
+  "task_id": "20a9e565",
+  "class": "S1_dimension_projection",
+  "status": "CLOSED",
+  "engine": "s1_marker_frame_motif",
+  "c4_invariant": "marker_frame_bbox + family motif extrapolate + spatial AP crop",
+  "train_replay": "3/3",
+  "eval_exact": "2/2",
+  "families": [
+    "comb",
+    "chevron",
+    "ladder",
+    "ribbon",
+    "bracket"
+  ],
+  "protocol": "fot_language_game",
+  "recorded_at_utc": "2026-07-21T14:05:21.943387+00:00"
+}
