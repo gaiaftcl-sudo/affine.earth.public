@@ -1,0 +1,24 @@
+{
+  "task_id": "1fad071e",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 1,
+  "engine": "s1_ones_block_tally",
+  "module": "llm_llvm_bench/arc/s1_ones_block_tally.py",
+  "observations": [
+    "Zoom grammar engine s1_ones_block_tally",
+    "Train demonstration_replay 3/3"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "3/3",
+    "engine": "s1_ones_block_tally"
+  },
+  "c4_invariant": "s1_ones_block_tally",
+  "sealed_at_utc": "2026-07-21T22:20:30.486609+00:00"
+}

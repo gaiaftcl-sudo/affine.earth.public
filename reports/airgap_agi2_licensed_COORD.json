@@ -1,22 +1,19 @@
 {
-  "licensed": "116/259",
-  "licensed_pct": 44.79,
-  "identity": 143,
-  "submission_sha256": "569284c2d9b74178a8d2f08874b8c20957ecb29d8fc02300df25e935f358816b",
+  "licensed": "123/259",
+  "licensed_pct": 47.49,
+  "identity": 136,
+  "submission_sha256": "9703def03c22ba0433c826d6a632877d8fc519b36c7c6066c717958d169defd4",
   "new_closes_this_turn": [
-    "332efdb3\u2192s1_checker_frame_fill (3/3)",
-    "2685904e\u2192s2_marker_freq_column_project (6/6)",
-    "2a5f8217\u2192s2_ones_shape_template_recolor (3/3)",
-    "2dee498d\u2192s1_third_width_prefix_crop (3/3)",
-    "34b99a2b\u2192s1_sep_panel_mask_xor (4/4)",
-    "3428a4f5\u2192s1_sep_panel_mask_xor (4/4)"
+    "1fad071e\u2192s1_ones_block_tally (3/3)",
+    "25c199f5\u2192s1_sep_panel_feature_stack (5/5)",
+    "17cae0c1\u2192s2_triplet_mask_digit_map (4/4)",
+    "3d31c5b3\u2192s1_quad_band_priority_merge (6/6)"
   ],
-  "new_licensed_grids_this_turn": 9,
-  "commit_base": "8ee486b",
-  "tip": "f648754",
+  "new_licensed_grids_this_turn": 7,
+  "commit_base": "e010f5f",
   "target": "150",
   "no_submit": true,
   "hle_left_alive": true,
   "exp_left_alive": true,
-  "recorded_at_utc": "2026-07-21T22:08:27.135798+00:00"
+  "recorded_at_utc": "2026-07-21T22:22:35.029358+00:00"
 }
