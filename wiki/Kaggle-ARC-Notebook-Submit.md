@@ -13,9 +13,15 @@ Standing probes: AGI-2 **54875115** / **0.00** · AGI-3 **54875048** / **0.12**.
 
 Internet **OFF**. Embeds verified FoT artifacts; writes `/kaggle/working/submission.json|parquet`.
 
+**AGI-2 gate:** platform shape = 240 tasks / 259 grids (schema). Licensed fill =
+**N/259** (non-identity grids). **Do not claim 100% until 259/259.** Peer hybrid
+in flight; tip airgap pack `8776e73` / `b16c8b1`. Measure:
+`bin/prepare-kaggle-notebook-submit.sh --dry-run-only`.
+
 ## Quota wait window
 
 From 2026-07-21T17:39:04Z + ~6.3h → retry ≈ **2026-07-21T23:57:04Z UTC**.
+**NO submit before reset.**
 
 ## Steward steps
 

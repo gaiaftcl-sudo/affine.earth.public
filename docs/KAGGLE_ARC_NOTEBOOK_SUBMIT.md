@@ -33,9 +33,26 @@ python3 scripts/build_arc_airgap_kaggle_notebooks.py --root . \
 
 | File | Role | SHA-256 |
 | --- | --- | --- |
-| `arc-agi-2/payload/fot_eval_mastery_submission.json` | FoT labeled-eval **120/172** | `3e27792b45d4f186ca436d042841c7db5a7164e71a4a018da1b01a894719e082` |
-| `arc-agi-2/payload/submission.json` | Platform **240/259** emit target | see `MANIFEST.json` |
+| `arc-agi-2/payload/fot_eval_mastery_submission.json` | FoT labeled-eval **172/172** (120 tasks) | `3e27792b45d4f186ca436d042841c7db5a7164e71a4a018da1b01a894719e082` |
+| `arc-agi-2/payload/submission.json` | Platform **shape** 240 tasks / 259 grids | see `MANIFEST.json` |
 | `arc-agi-3/payload/submission.parquet` | FoT suite WIN bp35/ar25/ls20 | `9ffc90cee088b086e5d2539abee76b77346191666a657dd63dbf3cf0de340c73` |
+
+### CRITICAL — AGI-2 licensed fill (not shape)
+
+| Metric | Meaning | Gate |
+| --- | --- | --- |
+| Shape | 240 tasks · 259 grids · two attempts | schema validator PASS |
+| Licensed `N/259` | grids where `attempt_1 ≠ test input` (non-identity) | **must be 259/259** before claiming 100% |
+| Current platform | measure via `bin/prepare-kaggle-notebook-submit.sh` | **NOT 100%** until peer hybrid closes |
+
+Do **not** read “240/259” as a score. That string is shape (tasks/grids). Peer
+`scripts/build_agi2_test_submission_hybrid.py` is closing licensed fill to
+**259/259**. Rebuild airgap notebooks after hybrid lands:
+
+```bash
+python3 scripts/build_arc_airgap_kaggle_notebooks.py --root . \
+  --agi2-platform-json reports/airgap_agi2_test_*/submission.json
+```
 
 Internet disabled in `kernel-metadata.json`. Solving is offline; notebook only
 materializes `/kaggle/working/submission.json|parquet`.

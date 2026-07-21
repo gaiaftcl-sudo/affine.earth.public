@@ -26,7 +26,7 @@ Platform proof (2026-07-21T17:39Z HTTP 400 body): **Notebooks only** + **daily S
 | R3 | Daily quota ≤ 1 submission / team / day (UTC) | ✅ blocked until ≈ **2026-07-21T23:57Z** | ✅ same | N/A |
 | R4 | Output filename exact | ✅ `submission.json` | ✅ `submission.parquet` | preds JSON + judge |
 | R5 | Schema | ✅ `{task_id:[{attempt_1,attempt_2}]}` grids ints 0–9, ≤30×30 | ✅ cols `row_id,game_id,end_of_game,score` | CAIS harness format |
-| R6 | Cover scored input set | ✅ dry-run vs **test** 240/259; sealed mastery is **eval** 120/172 | ✅ triad rows schema-valid | 2500 / 2500 preds then judge |
+| R6 | Cover scored input set | ✅ shape **240 tasks / 259 grids**; ❌ licensed **N/259 ≠ 259** until hybrid closes; sealed mastery is **eval** 172/172 | ✅ triad rows schema-valid | 2500 / 2500 preds then judge |
 | R7 | No junk-submit against exhausted quota | ✅ lock + no CLI | ✅ lock + no CLI | leave predict alive |
 | R8 | Team / late-submit | follow Kaggle competition rules page at submit time | same | HF terms + CAIS judge only |
 
@@ -125,12 +125,13 @@ Without `ALLOW_KAGGLE_SUBMIT=1`, push exits 99. Lock stays.
 
 | Gap | Status |
 | --- | --- |
-| AGI-2 private-test mastery | ❌ unknown; local 172/172 is public labeled eval only |
-| AGI-2 notebook solver quality on private test | ❌ DSL regenerate is schema-compliant; not guaranteed LB 100% |
+| AGI-2 platform licensed fill | ❌ **N/259** (shape 240 tasks/259 grids schema-PASS; identity placeholders dominate). Peer hybrid `reports/airgap_agi2_test_20260721T174500Z/` closing → **259/259**. Do not claim 100% until then. |
+| AGI-2 private-test mastery | ❌ local 172/172 is labeled **eval** only (0 overlap with test IDs) |
+| AGI-2 notebook solver quality on private test | ❌ schema ≠ LB 100% |
 | AGI-3 private / scored games beyond public triad | ❌ sealed parquet is public-suite WIN; scored rerun may differ |
 | AGI-3 full agent binary in air-gapped package | ⚠️ schema path GREEN; full gateway agent wiring optional follow-up |
-| Daily quota | ❌ exhausted until ≈ 2026-07-21T23:57Z |
-| HLE judge complete | ❌ preds in flight (~700+/2500) |
+| Daily quota | ❌ exhausted until ≈ 2026-07-21T23:57Z — **NO submit before reset** |
+| HLE judge complete | ❌ preds in flight |
 
 ## Git tip
 
