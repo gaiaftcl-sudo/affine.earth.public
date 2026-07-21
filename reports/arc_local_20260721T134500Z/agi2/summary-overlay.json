@@ -1,0 +1,28 @@
+{
+  "evaluation": {
+    "grid_pass_rate": 0.01744186046511628,
+    "grid_passes": 3,
+    "grid_total": 172,
+    "note": "overlay marker8+s1 on ice+dsl baseline 133000Z; train unchanged 298/1076 when ice train on",
+    "owned_exact": [
+      {
+        "engine": "marker8_twin31",
+        "task_id": "0934a4d8",
+        "test_index": 0
+      },
+      {
+        "engine": "s1_dimension_projection",
+        "task_id": "2ba387bc",
+        "test_index": 0
+      }
+    ]
+  },
+  "measured_at": "2026-07-21T13:38:08.480753+00:00",
+  "submission_blocked": true,
+  "track": "ARC-AGI-2",
+  "training": {
+    "grid_passes": 298,
+    "grid_total": 1076,
+    "note": "from reports/arc_local_20260721T131200Z ice-on receipt"
+  }
+}

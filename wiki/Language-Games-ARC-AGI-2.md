@@ -182,3 +182,30 @@ Canonical submission fragment:
 
 Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 **LOCKED** (`configs/NO_KAGGLE_SUBMIT.lock`).
+
+
+## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
+
+**MEASURED local** (2026-07-21): evaluation lifts to **3/172** exact grids
+(overlay receipt `reports/arc_local_20260721T134500Z/agi2/summary-overlay.json`;
+train ice-on baseline remains **298/1076**).
+
+| Owned grammar | Engine | Train replay | Eval |
+| --- | --- | --- | --- |
+| marker-8 twin-S | `marker8_twin31` | 4/4 on `0934a4d8` | exact |
+| hollow/solid object pack | `s1_dimension_projection` | 4/4 on `2ba387bc` | exact |
+| ice+DSL residual | `arc-icecuber` hybrid | n/a | +1 prior (`981571dc`) |
+
+**S1 grammar (`hollow_solid_object_pack`):**
+
+- **S1:** output canvas size ≠ input (packed object grid).
+- **S2:** equal-size connected components partition into hollow frames vs solid fills.
+- **S3:** each partition sorted by source row; packed two columns wide.
+- **S4:** left = hollow, right = solid.
+- **C4:** exact packed grid; licensed only when every training pair replays.
+
+Failure taxonomy retains all misses with classes `S3_spatial_rewrite` /
+`S1_dimension_projection` / `S2_palette_rewrite` (`scripts/arc_local_mastery.py`).
+Remaining S1/S3 tasks queued at
+`reports/exam_reinjection/arc_agi2_s1_miss_queue.jsonl` and
+`reports/exam_reinjection/arc_agi2_s3_miss_queue.jsonl`. Submit **LOCKED**.

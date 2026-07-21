@@ -209,10 +209,12 @@ readiness; it does not rewrite the historical public receipts.
 ## FoT local mastery context
 
 UI audit remains local-only with submit **LOCKED**. Parallel offline hybrid
-mastery (MIT arc-icecuber + DSL) on main `db71c28` measured eval **1/172** /
-train **298/1076** at `reports/arc_local_20260721T110813Z/` — see
+mastery measured eval **3/172** / train **298/1076** (overlay
+`reports/arc_local_20260721T134500Z/`; ice-on train
+`reports/arc_local_20260721T131200Z/`) — see
 [ARC-AGI-2 live](ARC-Prize-AGI-2-Kaggle-Live). Schema validators **GREEN**;
-audit GREEN does not authorize Kaggle submit.
+audit GREEN does not authorize Kaggle submit. `2ba387bc` UI audit GREEN:
+`reports/arc_ui_audit/20260721T134600Z/`.
 
 ## FoT: `0934a4d8` LOCAL_HYBRID_SOLVER GREEN
 

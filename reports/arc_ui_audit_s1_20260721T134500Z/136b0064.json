@@ -1,0 +1,13 @@
+{
+  "task_id": "136b0064",
+  "class": "S1_dimension_projection",
+  "train_replay": {
+    "engine": "s1_dimension_projection",
+    "train_replay": "0/3",
+    "perfect": false,
+    "passed": 0,
+    "total": 3,
+    "licensed_transforms": []
+  },
+  "licensed": false
+}

@@ -1,158 +1,211 @@
-# Language Game: ARC Prize 2026 — ARC-AGI-2
+# Language Games — ARC-AGI-2
 
-This is pre-submission technical doctrine for the public test repository. It
-describes the official ARC-AGI-2 task contract and the local checks required
-before any further Kaggle submission. It does not claim a score.
+Pre-submission specification for [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-2). This page explains the contract; it does not claim a score.
 
-Official competition: <https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-2>
+## 1. Game, moves, and win condition
 
-## 1. The game
+Each task supplies input/output grid demonstrations and one or more withheld
+test grids. The solver must infer a single executable transformation that
+reproduces all demonstrations, then emit two ranked test-grid candidates.
+Kaggle wins an item only when `attempt_1` or `attempt_2` exactly equals the
+hidden grid. Dimensions, color labels, coordinates, task keys, and JSON shape
+are all part of the move.
 
-ARC-AGI-2 presents a finite set of demonstrations followed by one test input.
-Each demonstration is a move of the form:
+## 2. Input/output state
 
-```text
-input grid ──[latent transformation]──> output grid
-```
+- Input: `{input, output}` integer-grid training pairs plus test input grids.
+- State: grid dimensions, discrete color labels, components, object relations,
+  symmetry, and the candidate transformation.
+- Output: official `submission.json`, keyed by task ID, with rectangular
+  `attempt_1` and `attempt_2` grids for every test item.
+- Evaluation: exact hidden-grid match; an explanation is not an output grid.
 
-The solver's turn is to infer one transformation that is consistent with all
-training moves, apply that transformation to the test grid, and write two
-ranked candidate outputs. The evaluator's turn is exact grid comparison. The
-win condition is an exact match for either `attempt_1` or `attempt_2`; color,
-cell coordinate, grid dimensions, and JSON nesting are all part of the move.
+## 3. Affine communication invariants
 
-The language game is therefore not “describe a plausible visual pattern.” It
-is a constrained program-induction exchange:
-
-1. Observe every input/output demonstration without changing its coordinate
-   system.
-2. State a transformation hypothesis in an internal, executable form.
-3. Reject hypotheses contradicted by any demonstration.
-4. Apply a surviving hypothesis to the held-out input.
-5. Emit two concrete grid candidates in the official schema.
-
-## 2. Input, output, and state
-
-| Element | Contract |
-| --- | --- |
-| Training state | One or more `{input, output}` integer grids. |
-| Test state | One or more input grids with outputs withheld. |
-| Cell alphabet | Integer colors in the official ARC encoding; values are symbols, not numeric magnitudes. |
-| Spatial state | Rectangular dimensions, row/column order, connected components, symmetries, and object relations. |
-| Output state | `submission.json`, keyed by task id; every test item carries `attempt_1` and `attempt_2` as rectangular integer grids. |
-| Evaluation | Exact match of a candidate grid to the hidden target. |
-
-The submission adapter must preserve task IDs, test-item ordering, and
-rectangular rows. A correct transformation with a changed task key, a missing
-attempt, or an invalid grid is not a valid move in the competition game.
-
-## 3. Communication invariants for Affine
-
-The linguistic membrane must preserve these facts from question context to
-answer state:
-
-1. **Observation provenance:** every proposed output must be traceable to the
-   complete training set for that task, never a prompt fragment or a
-   cross-task prior.
-2. **Coordinate integrity:** row/column origin, orientation, and grid
-   dimensions remain stable unless the demonstrations require a resize.
-3. **Symbol integrity:** colors are discrete labels. Do not treat a color ID
-   as a magnitude or replace it with prose.
-4. **Object identity:** connected components, bounding boxes, counts,
-   repeated motifs, and relations are explicit state, not implicit visual
-   impressions.
-5. **Hypothesis consistency:** a candidate rule must reproduce every training
-   output exactly before it may generate a test answer.
-6. **Serialization integrity:** the final structured answer must be the same
-   grid state the solver validated locally.
+The linguistic membrane preserves full training provenance, coordinate
+orientation, color-as-symbol semantics, object identity, and the task ID.
+Every candidate must replay every training pair exactly, and the serialized
+JSON must carry the same validated grid state.
 
 ## 4. Context-setting protocol
 
-Before answering a test item, form a task ledger:
+1. Parse every training pair into geometry, components, color inventory, and
+   input/output delta.
+2. Express candidate rules as deterministic grid operations with
+   preconditions and output-size rules.
+3. Replay each rule against *all* demonstrations.
+4. Rank only exact-replay candidates; retain two distinct candidates only
+   when ambiguity remains.
+5. Apply to the test grid, then validate shape, colors, ordering, and keys.
 
-1. Parse each training pair into dimensions, background candidates, components,
-   color inventory, and coordinate relations.
-2. Diff each input/output pair to identify additions, removals, recolors,
-   translations, reflections, rotations, crops, tilings, or counting rules.
-3. Express candidate transformations as deterministic operations over grid
-   state, including preconditions and an output-size rule.
-4. Execute each candidate against *all* training inputs; retain only exact
-   reproductions.
-5. Resolve ambiguity by ranking rules that use demonstrated invariants rather
-   than unobserved assumptions. Keep the two strongest distinct executable
-   candidates where ambiguity remains.
-6. Apply candidates to the test input and verify each produced grid is
-   rectangular and uses the permitted symbol domain.
+## 5. Formal state transition
 
-This protocol separates question comprehension from answer emission. An answer
-is released only after the full training context has been consumed and
-replayed.
-
-## 5. Formal question-to-answer state change
-
-Let a task be `T = (D, X)`, where `D = {(x_i, y_i)}` is the demonstration set
-and `X` is the test-input sequence. Let `H` be the candidate transformation
-space. A valid candidate is:
+For demonstrations `D = {(x_i, y_i)}`, candidate space `H`, and test inputs
+`X`, a candidate is valid only when:
 
 ```text
-h ∈ H such that ∀(x_i, y_i) ∈ D, h(x_i) = y_i
+h ∈ H and ∀(x_i, y_i) ∈ D: h(x_i) = y_i
 ```
 
-The answer transition is:
+The answer is:
 
 ```text
-(D, X, h1, h2) → {
-  task_id: [{attempt_1: h1(x), attempt_2: h2(x)} for x in X]
-}
+(D, X, h1, h2) → { task_id: [{attempt_1: h1(x), attempt_2: h2(x)}] }
 ```
 
-with `h1` and `h2` both locally replayed against `D`. The result is not
-licensed by narrative plausibility; it is licensed by exact demonstration
-reproduction plus schema validity.
+Neither candidate is licensed by visual plausibility alone.
 
 ## 6. Local drift checks
 
-Local validation distinguishes a changed official contract from a bad
-interpretation:
-
-| Check | Detects |
+| Check | Distinguishes |
 | --- | --- |
-| Official-data schema validator | Missing task IDs, missing attempts, malformed JSON, invalid grids, or changed competition schema. |
-| Demonstration replay | A transformation that does not actually explain the stated question. |
-| Task-count and test-count comparison | Stale or partial official data. |
-| Output key/order comparison | Adapter drift between solver state and submission state. |
-| Grid shape and integer-domain check | Serialization corruption. |
-| Offline held-out exact-match evaluation, when labels exist | Local solver quality; it is not a Kaggle score. |
-| Submission preflight receipt | Evidence that all checks were green before a public action. |
+| Official schema/task-count validator | Changed competition data or JSON contract |
+| Demonstration replay | Incorrect task interpretation |
+| Key/order and grid-shape validator | Solver-to-adapter serialization drift |
+| Offline held-out evaluation | Local quality only, never a Kaggle score |
+| Preflight receipt | Evidence local validators were green |
 
-If the schema or official dataset changes, treat it as **exam-spec drift** and
-update the adapter and validator. If the schema is stable but replay fails,
-treat it as **solver-understanding drift** and do not submit.
+Changed schema/data is exam-spec drift. Stable schema with replay failure is
+understanding drift.
 
-## 7. Affine.Earth UI language-game mapping
+## 7. Affine UI mapping
 
-| UI game | ARC-AGI-2 role |
-| --- | --- |
-| Linguistic membrane | Captures the complete task, preserves symbols and coordinates, and makes ambiguous observations explicit. |
-| Formal game | Converts observations into executable candidate transformations and replays them across demonstrations. |
-| Coding game | Materializes grids into the official `attempt_1` / `attempt_2` JSON contract and runs the preflight validator. |
+- **Linguistic membrane:** preserves full demonstrations and spatial symbols.
+- **Formal:** represents transformations and exact-replay constraints.
+- **Coding:** writes and validates the official `attempt_1` / `attempt_2`
+  artifact.
 
-The UI may show explanations, but those explanations are not the submission.
-The submission is the validated structured grid state.
+## 7.1 Production exam path: local UI audit
 
-## 8. Submission gate
+The production path is [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator):
+one local Cursor turn and one raw `task_<ID>.mp4` video audit per task. It
+injects the full task state, performs a real configured local bridge call when
+available, takes the UI clipboard as the primary answer path, and validates
+each task-scoped attempt pair before local serialization. The complete
+protocol and macOS Accessibility / Screen Recording requirement are in
+[`docs/ARC_UI_AUDIT_ORCHESTRATOR.md`](../docs/ARC_UI_AUDIT_ORCHESTRATOR.md).
+This remains local-only with `NO_KAGGLE_SUBMIT.lock` present.
 
-**No public ARC-AGI-2 Kaggle submission is permitted until local validators are
-green.** The minimum green set is official-data schema validation,
-demonstration replay for every produced candidate, output serialization
-validation, and a saved preflight receipt. A local result must be described as
-local until Kaggle publishes a score receipt.
+## 8. Public-submission gate
+
+**No public ARC-AGI-2 submission until schema validation, candidate replay,
+serialization validation, and a saved preflight receipt are green.** Local
+results remain local until Kaggle issues a score receipt.
+
+The required ARC local preflight is documented in
+[ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). It binds each official
+task to VideoToolbox capture, Cursor prompt-injection provenance, a nine-cell
+reduction, extracted result JSON, a clean `SIGINT` capture stop, and
+`submission.json` validation. `configs/NO_KAGGLE_SUBMIT.lock` stays present:
+audit GREEN comes before, and never itself authorizes, any Kaggle submit.
 
 ## 9. Format from top scores
 
-Typed artifact: `submission.json` with exactly `attempt_1` / `attempt_2`
-rectangular grids (ints 0..9) per test input. Full reverse-engineering and LB
-citations: [KAGGLE_ARC_TOP_SCORE_FORMATS.md](KAGGLE_ARC_TOP_SCORE_FORMATS.md);
-wiki [Language-Games-ARC-AGI-2](../wiki/Language-Games-ARC-AGI-2.md) §9.
-Schema-valid baseline can still score **0.00** while LB leaders sit near
-**65.83** — format correctness vs transformation mastery.
+Typed artifact after the language-game state change (full detail:
+[Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats),
+[`docs/KAGGLE_ARC_TOP_SCORE_FORMATS.md`](../docs/KAGGLE_ARC_TOP_SCORE_FORMATS.md)):
+
+```text
+submission.json → { task_id: [ {attempt_1: grid, attempt_2: grid}, … ] }
+```
+
+| Rule | Exact |
+| --- | --- |
+| Keys per test | exactly `attempt_1`, `attempt_2` |
+| Grid | rectangular ints 0..9 |
+| Win | either attempt exact-matches the hidden grid |
+
+Cited: official `sample_submission.json` (240 tasks); NVARC baseline
+`get_submission`; MCP AGI-2 starter. Our baseline
+[live record](ARC-Prize-AGI-2-Kaggle-Live) scores **0.00** with a schema-valid
+file — format correctness, not LB mastery (nvbanana **65.83**). Local check:
+`python3 scripts/validate_arc_prize_submission.py …/submission.json`.
+
+## 10. Local replay-gated rule inventory
+
+The local solver implements small executable rule families, not output
+placeholders:
+
+- dihedral geometry followed by a training-fitted color permutation;
+- uniform cell scaling, periodic tiling, and modal reduction where all
+  demonstrations agree on output dimensions;
+- color-specific and foreground-component crop/extraction, including isolated
+  same-color objects;
+- separator-row/column removal, reflection, and symmetry completion;
+- directional gravity as a same-shape object-motion operation.
+
+For each task, the trace records the entire candidate family, the candidates
+that replay all demonstrations, and the two emitted grids.
+
+## 11. Local hybrid engine (MIT arc-icecuber + DSL)
+
+Offline mastery now hybridizes the replay-gated Python DSL with the MIT-licensed
+CPU search solver vendored at `harnesses/arc-icecuber` (adapter:
+`llm_llvm_bench/arc/icecuber_adapter.py`). Scoring is against official
+`arc-agi_evaluation_solutions.json` / training solutions (contract verified:
+172 eval grids, 1076 train grids).
+
+Measured local receipt `reports/arc_local_20260721T110813Z/` (main `db71c28`; validators
+**GREEN**; submit **LOCKED**):
+
+| Split | Exact grids | Notes |
+| --- | --- | --- |
+| Evaluation | **1/172** | Was **0/172** at `7ab6e05`; hit task `981571dc` |
+| Training | **298/1076** | Was **22/1076** DSL-only; icecuber alone 296/1076 |
+
+Failure-case dump (5): `agi2/failure-case-analyses.json`. Root cause of the
+prior 0/172 was coverage (no licensed transform / search miss), not a scorer
+bug. Depth-3 / flip-augmented probes did not add eval hits on a Dimensions
+subset. No Kaggle submit.
+
+## 12. FoT: task `0934a4d8` local SOLVED 4/4 (marker8_twin31)
+
+**MEASURED local** (2026-07-21): evaluation task `0934a4d8` is licensed by
+`LOCAL_HYBRID_SOLVER` `llm_llvm_bench/arc/marker8_twin31.py` — train replay
+**4/4**, test prediction exact-matches official evaluation solution, attempt_1
+= attempt_2. Rule: color-8 filled bbox; cell values from S=31 rot180 twin
+`g[31-r][31-c]` (symmetry ignoring 8s); OOB twins via transpose `g[c][r]`
+(mode order BOTH>LR>UD>MAIN>ANTI).
+
+Artifacts:
+
+- `affine_audit_logs/submission_0934a4d8.json`
+- `affine_audit_logs/train_replay_proof_0934a4d8.json`
+- UI audit GREEN: `reports/arc_ui_audit/20260721T111911Z/` (reduction
+  `LOCAL_HYBRID_SOLVER`, not `AWAITING_CELL_BRIDGE`)
+
+Canonical submission fragment:
+
+```json
+{"0934a4d8":[{"attempt_1":[[7,7,9],[7,2,9],[7,2,9],[7,7,9],[4,4,7],[4,4,7],[6,6,1],[6,6,6],[1,6,1]],"attempt_2":[[7,7,9],[7,2,9],[7,2,9],[7,7,9],[4,4,7],[4,4,7],[6,6,1],[6,6,6],[1,6,1]]}]}
+```
+
+Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
+**LOCKED** (`configs/NO_KAGGLE_SUBMIT.lock`).
+
+
+## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
+
+**MEASURED local** (2026-07-21): evaluation lifts to **3/172** exact grids
+(overlay receipt `reports/arc_local_20260721T134500Z/agi2/summary-overlay.json`;
+train ice-on baseline remains **298/1076**).
+
+| Owned grammar | Engine | Train replay | Eval |
+| --- | --- | --- | --- |
+| marker-8 twin-S | `marker8_twin31` | 4/4 on `0934a4d8` | exact |
+| hollow/solid object pack | `s1_dimension_projection` | 4/4 on `2ba387bc` | exact |
+| ice+DSL residual | `arc-icecuber` hybrid | n/a | +1 prior (`981571dc`) |
+
+**S1 grammar (`hollow_solid_object_pack`):**
+
+- **S1:** output canvas size ≠ input (packed object grid).
+- **S2:** equal-size connected components partition into hollow frames vs solid fills.
+- **S3:** each partition sorted by source row; packed two columns wide.
+- **S4:** left = hollow, right = solid.
+- **C4:** exact packed grid; licensed only when every training pair replays.
+
+Failure taxonomy retains all misses with classes `S3_spatial_rewrite` /
+`S1_dimension_projection` / `S2_palette_rewrite` (`scripts/arc_local_mastery.py`).
+Remaining S1/S3 tasks queued at
+`reports/exam_reinjection/arc_agi2_s1_miss_queue.jsonl` and
+`reports/exam_reinjection/arc_agi2_s3_miss_queue.jsonl`. Submit **LOCKED**.

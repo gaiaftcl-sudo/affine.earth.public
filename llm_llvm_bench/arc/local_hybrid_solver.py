@@ -163,6 +163,25 @@ def solve_task(
         receipt["marker_meta"] = marker_meta
         return {task_id: marker_attempts}, receipt
 
+    # 1b) S1 dimension projection (hollow/solid object pack; 2ba387bc).
+    s1 = _load_module(arc_dir / "s1_dimension_projection.py", "s1_dimension_projection")
+    s1_replay = s1.train_replay(task)
+    s1_fragment = s1.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(s1_replay)
+    if (
+        s1_fragment is not None
+        and s1_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in s1_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_dimension_projection"
+        receipt["train_replay"] = s1_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_meta"] = s1_replay
+        return s1_fragment, receipt
+
     # 2) Replay-gated DSL (db71c28 lineage).
     dsl_path = repo_root / "kaggle/arc-prize-2026-agi-2/arc_agi_2_kaggle.py"
     try:

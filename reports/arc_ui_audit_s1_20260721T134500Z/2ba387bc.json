@@ -1,0 +1,19 @@
+{
+  "task_id": "2ba387bc",
+  "class": "S1_dimension_projection",
+  "train_replay": {
+    "engine": "s1_dimension_projection",
+    "train_replay": "4/4",
+    "perfect": true,
+    "passed": 4,
+    "total": 4,
+    "licensed_transforms": [
+      "hollow_solid_object_pack"
+    ],
+    "primary_transform": "hollow_solid_object_pack"
+  },
+  "licensed": true,
+  "test_exact": [
+    true
+  ]
+}

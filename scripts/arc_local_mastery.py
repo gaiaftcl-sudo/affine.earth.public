@@ -72,6 +72,16 @@ def load_marker8_twin31(root: Path) -> Any:
     return module
 
 
+def load_s1_dimension_projection(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s1_dimension_projection.py"
+    spec = importlib.util.spec_from_file_location("arc_s1_dimension_projection", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s1_dimension_projection solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def merge_attempt_pair(
     dsl_pair: Dict[str, Grid],
     ice_pair: Dict[str, Grid],
@@ -111,8 +121,53 @@ def dump_failure_cases(
     challenges: Dict[str, Any],
     solutions: Dict[str, Any],
     predictions: Dict[str, Any],
-    limit: int = 5,
+    limit: Optional[int] = None,
 ) -> List[Dict[str, Any]]:
+    """Retain every held-out miss with a deterministic invariant taxonomy."""
+
+    def game_class(source: Grid, target: Grid) -> Tuple[str, Dict[str, Any]]:
+        source_shape = grid_shape(source)
+        target_shape = grid_shape(target)
+        source_palette = color_inventory(source)
+        target_palette = color_inventory(target)
+        if source_shape != target_shape:
+            return (
+                "S1_dimension_projection",
+                {
+                    "S1": "input and output dimensions differ",
+                    "S2": "unresolved projected object selection",
+                    "S3": "output geometry must be inferred from demonstrations",
+                    "S4": "coordinate frame changes",
+                    "C4": f"rectangular output shape {target_shape}",
+                },
+            )
+        changed = sum(
+            left != right
+            for source_row, target_row in zip(source, target)
+            for left, right in zip(source_row, target_row)
+        )
+        if source_palette != target_palette:
+            return (
+                "S2_palette_rewrite",
+                {
+                    "S1": "grid dimensions are preserved",
+                    "S2": "palette membership changes",
+                    "S3": "spatial relation of rewritten cells is unresolved",
+                    "S4": "input and output share the same coordinate frame",
+                    "C4": f"target palette {target_palette}",
+                },
+            )
+        return (
+            "S3_spatial_rewrite",
+            {
+                "S1": "grid dimensions are preserved",
+                "S2": "palette membership is preserved",
+                "S3": f"{changed} cells differ under a spatial/object rule",
+                "S4": "input and output share the same coordinate frame",
+                "C4": "exact target grid",
+            },
+        )
+
     cases: List[Dict[str, Any]] = []
     for task_id in sorted(challenges):
         for index, case in enumerate(challenges[task_id]["test"]):
@@ -121,6 +176,7 @@ def dump_failure_cases(
             hit = pred["attempt_1"] == expected or pred["attempt_2"] == expected
             if hit:
                 continue
+            class_name, invariant = game_class(case["input"], expected)
             train_meta = [
                 {
                     "index": i,
@@ -137,6 +193,10 @@ def dump_failure_cases(
                     "train_pairs": train_meta,
                     "input_shape": grid_shape(case["input"]),
                     "expected_shape": grid_shape(expected),
+                    "input_palette": color_inventory(case["input"]),
+                    "expected_palette": color_inventory(expected),
+                    "language_game_class": class_name,
+                    "invariant": invariant,
                     "attempt_1_shape": grid_shape(pred["attempt_1"]),
                     "attempt_2_shape": grid_shape(pred["attempt_2"]),
                     "attempt_1_exact": pred["attempt_1"] == expected,
@@ -145,9 +205,10 @@ def dump_failure_cases(
                     "attempt_1_preview": [row[:12] for row in pred["attempt_1"][:8]],
                 }
             )
-            if len(cases) >= limit:
+            if limit is not None and len(cases) >= limit:
                 return cases
     return cases
+
 
 
 def write_json(path: Path, payload: Any) -> None:
@@ -431,6 +492,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     solver = load_agi2_solver(root)
     icecuber = load_icecuber_adapter(root)
     marker8 = load_marker8_twin31(root)
+    s1_proj = load_s1_dimension_projection(root)
     ice_depth = int(os.environ.get("ARC_ICECUBER_DEPTH", "2"))
     ice_workers = int(os.environ.get("ARC_ICECUBER_WORKERS", "6"))
     ice_train = os.environ.get("ARC_ICECUBER_TRAIN", "1") == "1"
@@ -492,13 +554,18 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
         },
     )
 
-    # Hybrid predictions: LOCAL_HYBRID_SOLVER (marker8_twin31) → icecuber → DSL.
+    # Hybrid predictions: LOCAL_HYBRID_SOLVER (marker8 / S1 pack) → icecuber → DSL.
     grid_pass = grid_total = 0
     marker8_hits = 0
+    s1_hits = 0
     for task_id in sorted(eval_challenges):
         hybrid_attempts = marker8.solve_task(eval_challenges[task_id])
         if hybrid_attempts is not None:
             marker8_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s1_proj.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s1_hits += 1
         merged = []
         for index, _case in enumerate(eval_challenges[task_id]["test"]):
             expected = eval_solutions[task_id][index]
@@ -513,10 +580,11 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             )
         submission[task_id] = merged
 
-    failure_cases = dump_failure_cases(
-        eval_challenges, eval_solutions, submission, limit=5
-    )
+    failure_cases = dump_failure_cases(eval_challenges, eval_solutions, submission)
     write_json(traces_dir / "failure-case-analyses.json", failure_cases)
+    failure_class_counts = Counter(
+        case["language_game_class"] for case in failure_cases
+    )
 
     # Training split: DSL always; icecuber optional (default on for ownership receipt).
     train_licensed = train_dsl_pass = train_grid_total = 0
@@ -646,7 +714,8 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "icecuber_exact_grids": ice_eval["exact_grids"],
             "icecuber_verdicts": ice_eval["verdicts"],
             "marker8_twin31_licensed_tasks": marker8_hits,
-            "engine": "LOCAL_HYBRID_SOLVER_marker8_twin31_plus_icecuber_plus_dsl",
+            "s1_dimension_projection_licensed_tasks": s1_hits,
+            "engine": "LOCAL_HYBRID_SOLVER_marker8_s1pack_icecuber_dsl",
         },
         "training": {
             "tasks": len(train_challenges),
@@ -656,11 +725,12 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "grid_pass_rate": (train_grid_pass / train_grid_total) if train_grid_total else 0.0,
             "dsl_only_grid_passes": train_dsl_pass,
             "icecuber": ice_train_summary,
-            "engine": "LOCAL_HYBRID_SOLVER_marker8_twin31_plus_icecuber_plus_dsl",
+            "engine": "LOCAL_HYBRID_SOLVER_marker8_s1pack_icecuber_dsl",
         },
         "failure_case_analyses": str(
             (traces_dir / "failure-case-analyses.json").relative_to(report_dir)
         ),
+        "failure_class_counts": dict(sorted(failure_class_counts.items())),
         "icecuber_evaluation_receipt": str(
             (traces_dir / "icecuber-evaluation.json").relative_to(report_dir)
         ),
