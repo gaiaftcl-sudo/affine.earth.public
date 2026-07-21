@@ -32,6 +32,16 @@ while (($#)); do
   esac
 done
 
+
+# Submit / notebook-push guard (junk-submit brake)
+if [[ -f "$ROOT/configs/NO_KAGGLE_SUBMIT.lock" && "${ALLOW_KAGGLE_SUBMIT:-}" != "1" ]]; then
+  if ((PUSH_NOTEBOOK)); then
+    echo "BLOCKED: --push-notebook refused (configs/NO_KAGGLE_SUBMIT.lock)." >&2
+    echo "Set ALLOW_KAGGLE_SUBMIT=1 only for an intentional Kaggle upload/submit." >&2
+    exit 99
+  fi
+fi
+
 if ((PUSH_NOTEBOOK)); then
   command -v kaggle >/dev/null || { echo "Kaggle CLI is required." >&2; exit 127; }
   PUSH_LOG="$(mktemp)"

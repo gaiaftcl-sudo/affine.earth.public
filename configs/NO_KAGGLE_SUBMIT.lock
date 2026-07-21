@@ -1,0 +1,5 @@
+# NO_KAGGLE_SUBMIT.lock
+# Presence of this file blocks Kaggle competition / kernel submit paths
+# unless ALLOW_KAGGLE_SUBMIT=1 is set in the environment.
+# Status polling (kaggle competitions submissions) is allowed.
+# Do not remove to "make progress" — set ALLOW_KAGGLE_SUBMIT=1 only for intentional submits.
