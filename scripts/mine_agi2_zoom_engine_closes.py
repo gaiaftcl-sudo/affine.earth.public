@@ -36,6 +36,7 @@ ZOOM_STEMS = {
         "s1_canvas_hole_sprite_fill",
         "s1_diagonal_mod3_period_fill",
         "s1_seed_period_stripe_fill",
+        "s1_ncomp_staircase_project",
     ],
     "zoom_in_crop": [
         "s1_anchor_crop_expand",
@@ -51,6 +52,10 @@ ZOOM_STEMS = {
         "s1_ones_block_tally",
         "s1_sep_panel_mask_xor",
         "s1_third_width_prefix_crop",
+        "s1_largest_solid_square_color",
+        "s1_odd_hole_count_tile",
+        "s1_marker_band_crop",
+        "s1_ncomp_staircase_project",
     ],
     "same_canvas_rewrite": [
         "s2_color_gate_rewrite",
@@ -64,6 +69,7 @@ ZOOM_STEMS = {
         "s2_bbox_fourfold_mirror_complete",
         "s2_seed_neighborhood_stamp",
         "s2_slide_touch_blocker",
+        "s2_row_run_shift_left_fill",
     ],
 }
 

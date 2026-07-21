@@ -338,6 +338,7 @@ def try_ranked_closed_engines(
             "s1_motif_stamp_jigsaw",
             "s1_fixed_canvas_template",
             "s1_canvas_hole_sprite_fill",
+            "s1_ncomp_staircase_project",
         ],
         "zoom_in_crop": [
             "s1_cross_sep_quadrant_pack",
@@ -360,8 +361,13 @@ def try_ranked_closed_engines(
             "s1_ones_block_tally",
             "s1_sep_panel_mask_xor",
             "s1_third_width_prefix_crop",
+            "s1_largest_solid_square_color",
+            "s1_odd_hole_count_tile",
+            "s1_marker_band_crop",
+            "s1_ncomp_staircase_project",
         ],
         "same_canvas_rewrite": [
+            "s2_row_run_shift_left_fill",
             "s2_marker_sprite_recolor",
             "s2_marker_col_period_tile",
             "s1_diagonal_mod3_period_fill",

@@ -1,0 +1,24 @@
+{
+  "task_id": "2753e76c",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 1,
+  "engine": "s1_ncomp_staircase_project",
+  "module": "llm_llvm_bench/arc/s1_ncomp_staircase_project.py",
+  "observations": [
+    "Zoom grammar engine s1_ncomp_staircase_project",
+    "Train demonstration_replay 3/3"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "3/3",
+    "engine": "s1_ncomp_staircase_project"
+  },
+  "c4_invariant": "s1_ncomp_staircase_project",
+  "sealed_at_utc": "2026-07-21T22:46:57.608576+00:00"
+}

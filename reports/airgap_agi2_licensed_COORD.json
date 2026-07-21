@@ -1,19 +1,20 @@
 {
-  "licensed": "127/259",
-  "licensed_pct": 49.03,
-  "identity": 132,
-  "submission_sha256": "dc210d8bd2cb323244bc72b26cedc700bb4a7106857901dfaaca29743b4a000c",
+  "licensed": "132/259",
+  "licensed_pct": 50.97,
+  "identity": 127,
+  "submission_sha256": "04dcda4abaf073def204fc6f37e2a5bd201ace04b8545d515a5eae6da7f76ab7",
   "new_closes_this_turn": [
-    "19bb5feb\u2192s1_twobytwo_block_pack (3/3)",
-    "351d6448\u2192s1_sep_row_motif_progress (2/2)",
-    "39a8645d\u2192s1_most_common_shape_8conn (3/3)",
-    "3de23699\u2192s1_corner_marker_interior_recolor (4/4)"
+    "32e9702f\u2192s2_row_run_shift_left_fill (3/3)",
+    "2753e76c\u2192s1_ncomp_staircase_project (3/3)",
+    "3194b014\u2192s1_largest_solid_square_color (3/3)",
+    "358ba94e\u2192s1_odd_hole_count_tile (4/4)",
+    "3f7978a0\u2192s1_marker_band_crop (3/3)"
   ],
-  "new_licensed_grids_this_turn": 4,
-  "commit_base": "6c6fd31",
+  "new_licensed_grids_this_turn": 5,
+  "commit_base": "60b77da",
   "target": "150",
   "no_submit": true,
   "hle_left_alive": true,
   "exp_left_alive": true,
-  "recorded_at_utc": "2026-07-21T22:34:09.336879+00:00"
+  "recorded_at_utc": "2026-07-21T22:49:58.315309+00:00"
 }
