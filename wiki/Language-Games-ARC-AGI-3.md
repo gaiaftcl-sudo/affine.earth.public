@@ -122,8 +122,8 @@ Source: offline Arcade + harness `reports/arc_agi3_bp35_20260721T144507Z`
 | --- | --- | --- |
 | Games played | 3 (`bp35`, `ar25`, `ls20`) | Official offline envs |
 | WIN terminals | **0** | Full WIN not yet sealed |
-| Levels cleared | **bp35 6/9**; ar25 0/8; ls20 0/7 | L1–L6 scripted + harness-verified |
-| `bp35` grammar | `C4_BOUND_OWNED` / `level_clear_motion_click_grammar` | L1–L6 owned |
+| Levels cleared | **bp35 6/9**; ar25 0/8; ls20 0/7 | L1–L6 owned; L7 prefix owned, clear open |
+| `bp35` grammar | `C4_BOUND_OWNED` + L7 `REINJECT` | next: `bp35_L7_soft1_shaft_col9_safe_drop` |
 | `ar25` / `ls20` | `PARTIAL_GRAMMAR` / `unreproduced_productive_delta` | REINJECT L1 |
 | Captures | `affine_audit_logs/arc_agi3/bp35/20260721T144509Z/bp35.mp4` | UI trail kept |
 | Public probe | **0.12** (ref 54875048) | Process probe only; NO Kaggle |
@@ -136,17 +136,19 @@ Source: offline Arcade + harness `reports/arc_agi3_bp35_20260721T144507Z`
 4. Gem `fjlzdjxhant` → `next_level()`; spike / ~64-action budget → GAME_OVER → RESET.
 5. L5: keep row-8 XX landings; mid+bottom toggles; walk under landings onto gem.
 6. L6: col8 shaft drop → remote-clear blocking `G(4,31)` → re-drop via `G(8,1)` → walk left onto gem.
+7. L7 owned prefix: `C(6,21)` soft1 → shaft UP `(8,15)` → `C(6,17)` soft1 catch → land `(6,16)` gDN. **Blocker:** enter **col9 with gDN** (safe fall past floors 18/22 to gem `(3,25)`). Col8 spike `(8,24)`; col9 UP spike `(9,4)`; mid walkway gated by `(3,17)`/`(7,17)`; floors/spikes not `gwfodrkvzx`-destroyable.
 
-Evidence: `reports/exam_reinjection/grammar/arc3/bp35.json`.
-Module: `llm_llvm_bench/arc/agi3_platformer_policy.py`.
+Evidence: `reports/exam_reinjection/grammar/arc3/bp35.json`,
+`reports/exam_reinjection/grammar/arc3/bp35_L7_soft1_shaft_col9_safe_drop.json`.
+Module: `llm_llvm_bench/arc/agi3_platformer_policy.py` (`L7_OPS`).
 
 ### FoT note — agi3-trajectory-gap CLOSED (2026-07-21)
 
 Meta miss `arc3:agi3-trajectory-gap` sealed **CLOSED / C4_BOUND_OWNED**. Franklin
 center-click / dominant-component REINJECT candidates discarded. Locked C4 =
 `PlatformerPolicy` / `level_clear_motion_click_grammar` — bp35 **6/9** (L1–L6
-verified), WIN=0. Remaining: bp35 L7–L9 (floor/shaft), ar25/ls20
-`unreproduced_productive_delta`. No Kaggle submit.
+verified), WIN=0. Remaining: bp35 L7 col9-gDN entry (REINJECT pack sealed), L8–L9,
+ar25/ls20 `unreproduced_productive_delta`. No Kaggle submit.
 
 ## 9. Format from top scores
 

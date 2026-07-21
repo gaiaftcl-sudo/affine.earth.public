@@ -3,7 +3,8 @@
 bp35 C4 grammar (source-locked):
   ACTION3/4 horizontal move; ACTION6 on qclfkhjnaac/yuuqpmlxorv/oonshderxef/lrpkmzabbfa;
   gem fjlzdjxhant → next_level; spike/budget → GAME_OVER → RESET.
-  L1–L6 are scripted verified clears; L7+ uses gravity-toggle + spike-safe search.
+  L1–L6 are scripted verified clears; L7 has owned soft1-shaft prefix then
+  spike-safe search (col9 gDN entry still open); L8+ open search.
   L4/L5 may ACTION6 via grid*6−cam (screen y may be outside 0..63; harness
   mutates ComplexAction after pydantic clamp so gwfodrkvzx still receives it).
 """
@@ -115,6 +116,23 @@ L6_OPS: list[Op] = (
     + [("L",)] * 6
 )
 
+# L7 (grid7): owned REINJECT prefix → soft1 catch at (6,16) gDN.
+# Blocker: must enter col9 with gDN (safe fall); col8 spike (8,24); col9 UP
+# spike (9,4); mid soft1 walkway gated by spikes (3,17)/(7,17). Floors/spikes
+# are not gwfodrkvzx-destroyable. See bp35_L7_soft1_shaft_col9_safe_drop.json.
+L7_OPS: list[Op] = (
+    [("C", 6, 21)]
+    + [("R",)] * 3
+    + [("G", 0, 19)]
+    + [("R",)]
+    + [("G", 0, 20)]
+    + [("R",)]
+    + [("L",)]
+    + [("C", 6, 17)]
+    + [("L",)]
+    + [("G", 0, 13)]
+)
+
 
 def restore_graph_builder() -> None:
     import sys
@@ -134,7 +152,15 @@ class PlatformerPolicy:
         self.environment = environment
         self._script_lv: Optional[int] = None
         self._script_i = 0
-        self._scripts = {0: L1_OPS, 1: L2_OPS, 2: L3_OPS, 3: L4_OPS, 4: L5_OPS, 5: L6_OPS}
+        self._scripts = {
+            0: L1_OPS,
+            1: L2_OPS,
+            2: L3_OPS,
+            3: L4_OPS,
+            4: L5_OPS,
+            5: L6_OPS,
+            6: L7_OPS,
+        }
         self._recent: list[Tuple[int, int]] = []
 
     def _world(self) -> Any:

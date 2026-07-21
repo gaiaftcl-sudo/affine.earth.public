@@ -174,19 +174,20 @@ uv run --directory data/arc-prize-2026/ARC-AGI-3-Agents \
 ```
 
 (Use an absolute path to `scripts/arc_agi3_language_game.py` from the Agents
-venv cwd.) Live local FoT (`20260721T144507Z`): games=1 focused bp35, WIN=0,
+venv cwd.) Live local FoT (`20260721T144507Z` + L7 REINJECT): games=3, WIN=0,
 **bp35 levels=6/9**, mean_confidence=1.0, bp35 `C4_BOUND_OWNED` /
-`level_clear_motion_click_grammar` (L1–L6 scripted + harness MP4). `ar25`/`ls20`
-remain `PARTIAL_GRAMMAR` / `unreproduced_productive_delta`. Public probe 0.12
-process-only. `NO_KAGGLE_SUBMIT.lock` required.
+`level_clear_motion_click_grammar` (L1–L6 owned; L7 soft1-shaft prefix owned).
+Next grammar: `bp35_L7_soft1_shaft_col9_safe_drop` (col9 gDN entry).
+`ar25`/`ls20` remain `PARTIAL_GRAMMAR` / `unreproduced_productive_delta`.
+Public probe 0.12 process-only. `NO_KAGGLE_SUBMIT.lock` required.
 
 ### FoT — agi3-trajectory-gap CLOSED (2026-07-21)
 
 Meta miss `arc3:agi3-trajectory-gap` sealed **CLOSED / C4_BOUND_OWNED**. Locked
 C4 = `PlatformerPolicy` / `level_clear_motion_click_grammar` (bp35 **6/9**
 L1–L6 verified). Franklin fake center-click REINJECT discarded. Remaining heal:
-bp35 L7+, ar25/ls20. Loader skips meta-gap re-queue while evidence is
-`OWNED_ON_BP35`. No Kaggle.
+bp35 L7 col9-gDN (`bp35_L7_soft1_shaft_col9_safe_drop.json`), L8–L9, ar25/ls20.
+Loader skips meta-gap re-queue while evidence is `OWNED_ON_BP35`. No Kaggle.
 
 ## 9. Format from top scores
 

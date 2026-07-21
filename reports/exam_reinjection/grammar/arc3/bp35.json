@@ -1,22 +1,38 @@
 {
+  "c4_invariant": "{\"action\": \"level_clear_motion_click_grammar\", \"owned_levels\": [1, 2, 3, 4, 5, 6], \"l7\": \"soft1_shaft_prefix_owned_col9_gDN_open\"}",
+  "closure_ready": false,
+  "grammar_update": "C4_BOUND_OWNED",
+  "protocol": "franklin_s4_projection",
+  "recorded_at_utc": "2026-07-21T15:08:00+00:00",
+  "repair_kind": "action_theory",
+  "research_note": "bp35 6/9 WIN=0; L1-L6 PlatformerPolicy owned; L7 REINJECT pack bp35_L7_soft1_shaft_col9_safe_drop (prefix lands (6,16) gDN; need col9 gDN entry)",
+  "s1": "{\"contract\": \"output ACTION1..ACTION7 sequence\", \"input\": \"arc3 level_clear_motion_click_grammar\", \"modality\": \"grid_action\", \"revision\": 13, \"task_id\": \"bp35\"}",
+  "s2": "{\"candidates\": [\"col9_gDN_safe_drop\", \"soft1_shaft_prefix\", \"clear_all_obstacles\", \"move_to_target\", \"click_target\"]}",
+  "s3": "{\"action\": \"emit typed candidate for validator\", \"probe\": \"environment_step\"}",
+  "s4": "{\"status\": \"REINJECT\", \"typed_candidate\": {\"action\": \"col9_gDN_safe_drop\"}, \"unresolved_alternatives\": [\"soft1_bridge_cross_spike_gate\"], \"validator\": \"environment_step\", \"validator_result\": {\"accepted\": false, \"detail\": \"l7_prefix_owned_clear_open\", \"ran\": true, \"status\": \"REINJECT\", \"validator\": \"environment_step\"}}",
+  "s4_status": "REINJECT",
+  "next_grammar": "bp35_L7_soft1_shaft_col9_safe_drop",
+  "source_miss": "reports/exam_reinjection/grammar/arc3/bp35_L7_soft1_shaft_col9_safe_drop.json",
   "task_id": "bp35",
   "track": "arc3",
-  "protocol": "platformer_policy_source_lock",
-  "repair_kind": "grammar",
-  "grammar_class": "level_clear_motion_click_grammar",
-  "grammar_update": "C4_BOUND_OWNED; levels_cleared=6/9; L1-L6 scripted verified",
-  "s4_status": "C4_BOUND_OWNED",
-  "closure_ready": false,
+  "turn_index": 13,
+  "typed_candidate": {
+    "action": "col9_gDN_safe_drop"
+  },
+  "unresolved_alternatives": [
+    "soft1_bridge_cross_spike_gate"
+  ],
+  "validator": "environment_step",
+  "validator_result": {
+    "accepted": false,
+    "detail": "l7_prefix_owned_clear_open",
+    "ran": true,
+    "status": "REINJECT",
+    "validator": "environment_step"
+  },
   "levels_cleared": 6,
   "levels_total": 9,
-  "win_terminals": 0,
-  "c4_invariant": "{\"engine\":\"PlatformerPolicy\",\"actions\":{\"3\":\"left\",\"4\":\"right\",\"6\":\"click_block_soft_grav\"},\"gem\":\"fjlzdjxhant\",\"grav_flag\":\"vivnprldht\",\"offscreen_click\":\"grid*6-cam_mutate_ComplexAction\"}",
-  "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
-  "engine": "PlatformerPolicy",
-  "scripts": ["L1_OPS", "L2_OPS", "L3_OPS", "L4_OPS", "L5_OPS", "L6_OPS"],
-  "research_note": "L1-L6 owned offline + harness reports/arc_agi3_bp35_20260721T144507Z (levels=6, WIN=0). L4/L5 off-viewport gravity pads require post-pydantic ComplexAction x/y restore. L6: clear softs, col8 drop, remote-clear blocking G(4,31), re-drop via G(8,1), walk left onto gem. L7+ REINJECT (floor xcjjwqfzjfe + col7 wall shaft). No Kaggle.",
-  "source_miss": "reports/arc_agi3_bp35_20260721T144507Z/episodes.json",
-  "evidence_capture": "affine_audit_logs/arc_agi3/bp35/20260721T144509Z/bp35.mp4",
-  "kaggle_submit": false,
-  "recorded_at_utc": "2026-07-21T14:48:00+00:00"
+  "win": 0,
+  "base_sha": "3411e40",
+  "kaggle_submit": false
 }

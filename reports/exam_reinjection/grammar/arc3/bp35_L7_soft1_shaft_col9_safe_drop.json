@@ -1,0 +1,59 @@
+{
+  "task_id": "bp35",
+  "track": "arc3",
+  "level": 7,
+  "levels_completed_at_entry": 6,
+  "s4_status": "REINJECT",
+  "grammar_update": "C4_BOUND_PARTIAL",
+  "next_grammar": "bp35_L7_soft1_shaft_col9_safe_drop",
+  "closure_ready": false,
+  "protocol": "franklin_s1_s4_reinject",
+  "recorded_at_utc": "2026-07-21T15:06:00+00:00",
+  "grid_id": "grid7",
+  "s1_entity_inventory": {
+    "spawn": [3, 19],
+    "gem": [3, 25],
+    "grav_column": 0,
+    "soft2_shaft_cols": [4, 5, 6],
+    "soft1_initial": [[6, 9], [5, 10]],
+    "spikes": [[9, 4], [4, 8], [6, 8], [5, 11], [7, 11], [3, 17], [7, 17], [8, 24]],
+    "floor_gaps_row18_22": [8, 9],
+    "clickable_via_gwfodrkvzx": ["qclfkhjnaac", "yuuqpmlxorv", "oonshderxef", "lrpkmzabbfa"],
+    "not_destroyable": ["xcjjwqfzjfe", "hzusueifitk", "ubhhgljbnpu"],
+    "no_x_blocks_on_L7": true,
+    "no_etlsaqqtjvn_on_L7": true
+  },
+  "s2_owned_prefix_verified": [
+    ["C", 6, 21],
+    ["R"], ["R"], ["R"],
+    ["G", 0, 19],
+    ["R"],
+    ["G", 0, 20],
+    ["R"],
+    ["L"],
+    ["C", 6, 17],
+    ["L"],
+    ["G", 0, 13]
+  ],
+  "s2_owned_prefix_lands": [6, 16],
+  "s2_notes": "soft2→soft1 at (6,21) then (6,17); shaft UP to (8,15); soft1 catch lands (6,16) gDN",
+  "s3_death_modes": [
+    {"from": [7, 20], "op": "R_gDN", "land": [8, 23], "kill": [8, 24]},
+    {"from": [8, 15], "op": "R_gUP", "land": [9, 5], "kill": [9, 4]},
+    {"from": [8, 15], "op": "G_gDN", "kill": [8, 24]},
+    {"from": [6, 16], "op": "R_gDN", "kill": [7, 17]},
+    {"from": [4, 15], "op": "L_gDN", "kill": [3, 17]},
+    {"from": [7, 13], "op": "G_gDN_no_soft1", "kill": [7, 17]}
+  ],
+  "s4_blocker": {
+    "required_clear": "enter col9 with vivnprldht=False (gDN) so fall clears floors 18/22 and lands near gem (3,25)",
+    "col9_safe_down": "col9 empty y=5..26; floor support ~y=27; no mid spikes",
+    "col8_lethal_down": "spike hzusueifitk at (8,24)",
+    "col9_lethal_up": "spike ubhhgljbnpu at (9,4)",
+    "soft1_walkway_gate": "mid soft1 bridge at y=15..17 cannot cross spikes (3,17)/(7,17) to reach col2 gap or col8/9 with gDN support",
+    "floors_not_ACTION6": "gwfodrkvzx else-return on xcjjwqfzjfe; valid-action floor hits are camera-map ghosts",
+    "missing_grammar": "soft1_catch_or_grav_flip_on_col9_before_fall"
+  },
+  "research_note": "bp35 L7 REINJECT; owned prefix to soft1 (6,16); WIN still 0; L8/L9 unmapped",
+  "base_sha": "3411e40"
+}
