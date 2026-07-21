@@ -45,6 +45,7 @@ Onboard → **all 12 LIVE Games** → Franklin replies in `#messageList` (Socrat
 | 4d+. UI audit protocol | [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator) | macOS permission preflight → VideoToolbox capture → Cursor injection → nine-cell reduction → artifact validation; local GREEN before any submit |
 | 4e. ARC-AGI-2 game | [Language Games — ARC-AGI-2](Language-Games-ARC-AGI-2) | Demonstrations → two exact-grid attempts |
 | 4f. ARC-AGI-3 game | [Language Games — ARC-AGI-3](Language-Games-ARC-AGI-3) | Agent observation → legal action trajectory → parquet |
+| 4f+. S¹–S⁴ protocol | [Franklin S¹–S⁴ projection game](Franklin-S4-Projection-Language-Game) | Wrapper evidence → typed candidate → validator → reinject |
 | 4f+. Top-score formats | [Kaggle ARC top-score formats](Kaggle-ARC-Top-Score-Formats) | Exact JSON/parquet; FoT 0.00≠~65 / 0.12≠~1.86 |
 | 4g. HLE game | [Language Games — HLE](Language-Games-HLE) | Context → exact answer → CAIS judge; local fixtures + UI embeds; doctrine `f983986` |
 | 5. Agents | [AGI agent execution](AGI-Agent-Execution) | Short commands (`bin/run-open-agi-harnesses.sh`); deep docs link upstream |
