@@ -6,7 +6,7 @@ Official competition: [ARC Prize 2026 - ARC-AGI-3](https://www.kaggle.com/compet
 
 Auth for this record: `export KAGGLE_API_TOKEN=…` only. No Keychain / `security` / browser credential APIs.
 
-**Submit status:** **STEWARD UNLOCK ATTEMPTED** (2026-07-21T17:39Z) — `ALLOW_KAGGLE_SUBMIT=1` authorized; `configs/NO_KAGGLE_SUBMIT.lock` **kept**. Direct file upload **rejected by Kaggle**.
+**Submit status:** **DIRECT CLI BLOCKED** (2026-07-21T17:39Z proved) — `ALLOW_KAGGLE_SUBMIT=1` authorized; `configs/NO_KAGGLE_SUBMIT.lock` **kept**. `bin/kaggle-competitions-submit.sh` → Kaggle **400** (Notebooks-only + daily quota).
 
 ## FoT — steward unlock attempt (2026-07-21)
 
@@ -21,7 +21,7 @@ Auth for this record: `export KAGGLE_API_TOKEN=…` only. No Keychain / `securit
 | Standing ref | **54875048** — publicScore **0.12** — `SubmissionStatus.COMPLETE` (process probe) |
 | Receipt | `reports/kaggle_submit_20260721T173500Z/agi3_submit.receipt.json` · `poll.receipt.json` |
 
-Next submit path: air-gapped **notebook** → `submission.parquet` → competition submit after UTC daily reset. Do not delete the lock; use `ALLOW_KAGGLE_SUBMIT=1` per command.
+Next submit path: air-gapped kernel package `kaggle/arc-prize-2026/` → `ALLOW_KAGGLE_SUBMIT=1 bin/run-arc-prize-kaggle.sh --push-notebook` / Notebook UI **Submit** after UTC daily reset (≈ **2026-07-21T23:57Z**). Do **not** use `bin/kaggle-competitions-submit.sh`. Do not delete the lock. See `docs/ARC_LOCAL_100_SUBMIT_READY.md`.
 
 ## LOCAL mastery gate (required before any future submit)
 

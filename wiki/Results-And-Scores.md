@@ -12,9 +12,9 @@ Agents run these via `bin/run-open-agi-harnesses.sh`. Deep harness manuals live 
 
 > **FoT:** AGI-3 MEASURED Kaggle publicScore **0.12** (COMPLETE, ref **54875048**) — process probe vs LB ~1.86 — [ARC-AGI-3 live](ARC-Prize-Kaggle-Live)
 
-> **LOCAL mastery (tip `b21978c`):** AGI-2 labeled eval **172/172** (`reports/arc_local_20260721T172649Z/`); AGI-3 triad **WIN** bp35 9/9 · ar25 8/8 · ls20 7/7 (`reports/arc_local_20260721T171426Z/`). Schema validators **GREEN**. Steward unlock 2026-07-21T17:39Z → Kaggle **400** (daily allowance + Notebooks only); lock kept. Receipts: `reports/kaggle_submit_20260721T173500Z/`.
+> **LOCAL mastery (pack `e848393`+):** AGI-2 labeled eval **172/172** (`reports/arc_local_20260721T172649Z/`); AGI-3 triad **WIN** bp35 9/9 · ar25 8/8 · ls20 7/7 (`reports/arc_local_20260721T171426Z/`). Schema validators **GREEN**. Steward unlock 2026-07-21T17:39Z → Kaggle **400** (daily allowance + Notebooks only); **direct CLI BLOCKED**; lock kept. Receipts: `reports/kaggle_submit_20260721T173500Z/`.
 
-> **Pre-submission gate:** [Language Games — Exam Invariants](Language-Games-Exam-Invariants). Next Kaggle path = **notebook** submit after UTC daily reset; keep `NO_KAGGLE_SUBMIT.lock` and use `ALLOW_KAGGLE_SUBMIT=1` per command.
+> **Pre-submission gate:** [Language Games — Exam Invariants](Language-Games-Exam-Invariants). Next Kaggle path = air-gapped **notebook/kernel** (`kaggle/arc-prize-2026-agi-2/`, `kaggle/arc-prize-2026/`) after UTC daily reset (≈ **2026-07-21T23:57Z**). Keep `NO_KAGGLE_SUBMIT.lock`. Do **not** use `bin/kaggle-competitions-submit.sh`.
 
 | Suite | Harness key | Affine status (this wiki) | What “score” would require |
 |:---|:---|:---|:---|

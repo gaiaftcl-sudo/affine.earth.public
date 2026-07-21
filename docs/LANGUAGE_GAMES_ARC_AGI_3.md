@@ -182,14 +182,9 @@ ar25 **8/8**, ls20 **7/7**; parquet
 `…/ar25/20260721T171636Z/ar25.mp4`, `…/ls20/20260721T171724Z/ls20.mp4`.
 Public probe 0.12 process-only. `NO_KAGGLE_SUBMIT.lock` required.
 
-Steward one-command when unlocked (lock file stays; env override only):
-
-```bash
-ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh \
-  -c arc-prize-2026-arc-agi-3 \
-  -f reports/arc_local_20260721T171426Z/submission.parquet \
-  -m "local suite WIN bp35 9/9 ar25 8/8 ls20 7/7"
-```
+Direct CLI submit **BLOCKED** (Notebooks-only). Steward path:
+`kaggle/arc-prize-2026/` air-gapped kernel after UTC quota reset — see
+`docs/ARC_LOCAL_100_SUBMIT_READY.md`. Do not use `kaggle-competitions-submit.sh`.
 
 ### FoT — agi3 suite CLOSED (2026-07-21)
 

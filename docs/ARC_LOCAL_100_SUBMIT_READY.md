@@ -30,43 +30,65 @@ Agents must not remove the lock file. Env override only when steward orders it.
 
 | Role | SHA |
 | --- | --- |
-| Tip (this seal) | `17624ad` |
+| Tip (this seal) | *(filled at commit)* |
+| Prior tip / readiness pack at follow-up start | `e848393` |
 | AGI-2 independent verify receipt | `6d3a705` (`reports/arc_local_20260721T172649Z/VERIFY_RECEIPT.json`) |
 | AGI-2 land (172/172 COMPLETE) | `21b2924` |
 | Reinjection CLOSED 120/120 + bp35 9/9 | `95d7b89` |
 | AGI-3 independent triad re-verify | `41f190d` |
-| AGI-3 FoT + steward unlock one-liner | `6d3a705` |
+| AGI-3 FoT + steward unlock attempt | `6d3a705` |
 
-## Steward unlock (env override only — do not delete the lock)
+## Direct CLI submit — BLOCKED (Notebooks-only)
 
-One-liner pattern (steward only):
+**Do not use** `bin/kaggle-competitions-submit.sh` for these competitions.
+
+Steward unlock with `ALLOW_KAGGLE_SUBMIT=1` already proved (2026-07-21T17:39Z) that both tracks return Kaggle **HTTP 400**:
+
+> Submission not allowed: Your team has used its daily Submission allowance (1) today… **This competition only accepts Submissions from Notebooks.**
+
+| Track | Competition | Direct CLI |
+| --- | --- | --- |
+| ARC-AGI-2 | `arc-prize-2026-arc-agi-2` | **BLOCKED** — Notebooks-only |
+| ARC-AGI-3 | `arc-prize-2026-arc-agi-3` | **BLOCKED** — Notebooks-only |
+
+Receipts: `reports/kaggle_submit_20260721T173500Z/`.
+Standing refs unchanged: AGI-2 **54875115** / **0.00**; AGI-3 **54875048** / **0.12**.
+Lock **kept**. No new Kaggle submit until notebook path is ready **and** daily quota resets.
+
+### Quota note
+
+- Attempt: **2026-07-21T17:39:04Z**
+- Platform: daily allowance **(1)** exhausted; retry **tomorrow UTC** (~**6.3h** from attempt ≈ **2026-07-21T23:57Z**)
+- **No new submit attempt** until after that UTC reset **and** air-gapped notebook is ready to score.
+
+## Steward path — air-gapped notebook submit (only)
+
+Competition scoring accepts **Notebook / kernel** output only. Landed packages (internet disabled in metadata):
+
+| Track | Air-gapped package | Entry | Competition source |
+| --- | --- | --- | --- |
+| ARC-AGI-2 | `kaggle/arc-prize-2026-agi-2/` | `arc_agi_2_kaggle.py` + `kernel-metadata.json` | `arc-prize-2026-arc-agi-2` |
+| ARC-AGI-3 | `kaggle/arc-prize-2026/` | `arc_prize_kaggle.py` + `kernel-metadata.json` | `arc-prize-2026-arc-agi-3` |
+
+Local mastery artifacts above remain the FoT score sources; the Kaggle notebook must emit the competition contract (`submission.json` / `submission.parquet`) under `/kaggle/working` when the kernel runs.
+
+Steward-only push (after quota reset; lock stays; env override only — **do not** call `kaggle-competitions-submit.sh`):
 
 ```bash
-ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh \
-  -c <competition> -f <artifact> -m "<message>"
+# AGI-3 package push (built-in helper)
+ALLOW_KAGGLE_SUBMIT=1 bin/run-arc-prize-kaggle.sh --push-notebook
+
+# AGI-2 package push
+ALLOW_KAGGLE_SUBMIT=1 kaggle kernels push -p kaggle/arc-prize-2026-agi-2
 ```
 
-AGI-2:
+Then **Submit** from the Kaggle Notebook UI (competition “Submit” from kernel output) — not CLI file upload.
 
-```bash
-ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh \
-  -c arc-prize-2026-arc-agi-2 \
-  -f reports/arc_local_20260721T172649Z/agi2/submission.json \
-  -m "local labeled-eval 172/172"
-```
+`notebooks/` submit pack: **not landed yet** (notebook-path agent may still be in flight). Until it lands, use `kaggle/arc-prize-2026-agi-2/` and `kaggle/arc-prize-2026/` above.
 
-AGI-3:
+Without `ALLOW_KAGGLE_SUBMIT=1`, `bin/kaggle-submit-guard.sh` / `--push-notebook` exits 99.
 
-```bash
-ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh \
-  -c arc-prize-2026-arc-agi-3 \
-  -f reports/arc_local_20260721T171426Z/submission.parquet \
-  -m "local suite WIN bp35 9/9 ar25 8/8 ls20 7/7"
-```
-
-Without `ALLOW_KAGGLE_SUBMIT=1`, `bin/kaggle-submit-guard.sh` exits 99.
-
-## Steward unlock attempt (2026-07-21T17:39Z)
+## Steward unlock attempt (2026-07-21T17:39Z) — closed as BLOCKED
 
 `ALLOW_KAGGLE_SUBMIT=1` authorized; lock **kept**. Both tracks uploaded blob then got Kaggle **400**:
 daily Submission allowance (1) exhausted (~6.3h UTC) **and** competitions accept **Notebooks only**.
@@ -76,5 +98,6 @@ Receipts: `reports/kaggle_submit_20260721T173500Z/`.
 ## HLE (orthogonal; not a submit gate)
 
 Official harness **still running**: `reports/hle_official_20260721T143509Z/`
-— live preds **690/2500** (`harnesses/hle/hle_eval/hle_qwen3.6-35b-a3b.json`); `acc=null` until judge finishes.
+— live preds in flight (`harnesses/hle/hle_eval/hle_qwen3.6-35b-a3b.json`); `acc=null` until judge finishes.
 Accuracy written only when preds finish and `official_hle_accuracy.receipt.json` appears.
+**Leave HLE running** — do not stop for this doc/notebook work.

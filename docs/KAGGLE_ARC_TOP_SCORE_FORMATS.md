@@ -162,15 +162,11 @@ Verified local suite parquet (2026-07-21 re-verify, lock still present):
 `reports/arc_local_20260721T171426Z/submission.parquet` — 3 rows,
 scores bp35=9 / ar25=8 / ls20=7, `end_of_game=True`.
 
-Steward one-command when unlocked (`configs/NO_KAGGLE_SUBMIT.lock` stays;
-env override only — do not delete the lock):
-
-```bash
-ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh \
-  -c arc-prize-2026-arc-agi-3 \
-  -f reports/arc_local_20260721T171426Z/submission.parquet \
-  -m "local suite WIN bp35 9/9 ar25 8/8 ls20 7/7"
-```
+Direct CLI submit is **BLOCKED** for these competitions (Notebooks-only; steward
+unlock 2026-07-21T17:39Z → HTTP 400). Do **not** use
+`bin/kaggle-competitions-submit.sh`. Steward path after UTC quota reset:
+air-gapped kernels `kaggle/arc-prize-2026/` / `kaggle/arc-prize-2026-agi-2/`
+(see `docs/ARC_LOCAL_100_SUBMIT_READY.md`). Lock stays.
 
 ---
 

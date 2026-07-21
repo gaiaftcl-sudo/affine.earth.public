@@ -191,16 +191,12 @@ Schema green is serialization integrity. Closing 0.12 → ~1.8 is policy mastery
 not a new column list. Local check:
 `python3 scripts/validate_arc_agi3_submission.py …/submission.parquet`.
 
-### Steward one-command (when unlocked — do not run while lock present)
+### Direct CLI submit — BLOCKED (Notebooks-only)
 
 `configs/NO_KAGGLE_SUBMIT.lock` stays on disk. Agents must not remove it.
-When the steward intentionally opens submit:
+`bin/kaggle-competitions-submit.sh` is **BLOCKED** for this competition (steward
+unlock 2026-07-21T17:39Z → HTTP 400 Notebooks-only + daily quota).
 
-```bash
-ALLOW_KAGGLE_SUBMIT=1 bin/kaggle-competitions-submit.sh \
-  -c arc-prize-2026-arc-agi-3 \
-  -f reports/arc_local_20260721T171426Z/submission.parquet \
-  -m "local suite WIN bp35 9/9 ar25 8/8 ls20 7/7"
-```
-
-Without `ALLOW_KAGGLE_SUBMIT=1`, `bin/kaggle-submit-guard.sh` exits 99.
+Steward path after UTC quota reset: air-gapped kernel `kaggle/arc-prize-2026/`
+→ `ALLOW_KAGGLE_SUBMIT=1 bin/run-arc-prize-kaggle.sh --push-notebook` → Notebook
+UI **Submit**. See `docs/ARC_LOCAL_100_SUBMIT_READY.md`.

@@ -38,8 +38,8 @@ Onboard → **all 12 LIVE Games** → Franklin replies in `#messageList` (Socrat
 | 3. Demo | [In action](In-Action) | Full all-tests embed + chapter stills (Games suites live-answered) |
 | 4. Scores | [Results & Scores](Results-And-Scores) | What we ran, with provenance — AGI-executable suites front and center |
 | 4a. HLE live record | [Humanity’s Last Exam](Humanitys-Last-Exam-Live) | Local drills **3/3**; official harness **RUNNING** (`690/2500` preds, `acc=null`, `reports/hle_official_20260721T143509Z/`); UI `exam-ui-hle-*` embedded |
-| 4b. ARC Prize live | [ARC Prize Kaggle Live](ARC-Prize-Kaggle-Live) | Format validators **GREEN**; probe **0.12** (ref 54875048); submit **LOCKED**; AGI-3 local suite **WIN** bp35 9/9 · ar25 8/8 · ls20 7/7 (`reports/arc_local_20260721T171426Z/`) |
-| 4c. ARC-AGI-2 Kaggle live | [ARC-AGI-2 live record](ARC-Prize-AGI-2-Kaggle-Live) | Format validators **GREEN**; labeled eval **172/172** (independent verify `6d3a705`); reinjection **120/120 CLOSED**; probe **0.00**; submit **LOCKED**; land `21b2924`; tip `17624ad`; `docs/ARC_LOCAL_100_SUBMIT_READY.md` |
+| 4b. ARC Prize live | [ARC Prize Kaggle Live](ARC-Prize-Kaggle-Live) | Format validators **GREEN**; probe **0.12** (ref 54875048); direct CLI **BLOCKED** (Notebooks-only); AGI-3 local suite **WIN** bp35 9/9 · ar25 8/8 · ls20 7/7 (`reports/arc_local_20260721T171426Z/`) |
+| 4c. ARC-AGI-2 Kaggle live | [ARC-AGI-2 live record](ARC-Prize-AGI-2-Kaggle-Live) | Format validators **GREEN**; labeled eval **172/172** (independent verify `6d3a705`); reinjection **120/120 CLOSED**; probe **0.00**; direct CLI **BLOCKED** (Notebooks-only); land `21b2924`; pack `e848393`+; `docs/ARC_LOCAL_100_SUBMIT_READY.md` |
 | 4d. Exam game contract | [Language Games — Exam Invariants](Language-Games-Exam-Invariants) | Pre-submission hub: context, answer artifacts, drift checks, and public-submission gate |
 | 4d++. Miss reinjection | [Exam Miss → Reinject → Closure](Exam-Miss-Reinjection-Loop) | Permanent local loop: fail receipts → Franklin S1–S4/C4 → mastery retest → 29-turn Aristotelian closure; **no Kaggle submit** |
 | 4d+. UI audit protocol | [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator) | macOS permission preflight → VideoToolbox capture → Cursor injection → nine-cell reduction → artifact validation; local GREEN before any submit |
@@ -53,7 +53,7 @@ Onboard → **all 12 LIVE Games** → Franklin replies in `#messageList` (Socrat
 
 → **Start here to reproduce:** [Create account (once)](Create-Account-Signup)
 
-> **FoT scoreboard (2026-07-21):** AGI-2 local **172/172** · AGI-3 triad **WIN** (bp35 9/9, ar25 8/8, ls20 7/7) · steward unlock **attempted** (`ALLOW_KAGGLE_SUBMIT=1`; lock kept) · Kaggle **400** daily-allowance + **Notebooks only** · standing refs AGI-2 **54875115**/**0.00** · AGI-3 **54875048**/**0.12** — [AGI-2 live](ARC-Prize-AGI-2-Kaggle-Live) · [AGI-3 live](ARC-Prize-Kaggle-Live)
+> **FoT scoreboard (2026-07-21):** AGI-2 local **172/172** · AGI-3 triad **WIN** (bp35 9/9, ar25 8/8, ls20 7/7) · direct `kaggle-competitions-submit.sh` **BLOCKED** (Notebooks-only + daily quota; reset ≈ **2026-07-21T23:57Z**) · next path air-gapped kernels `kaggle/arc-prize-2026-agi-2/` · `kaggle/arc-prize-2026/` · standing refs AGI-2 **54875115**/**0.00** · AGI-3 **54875048**/**0.12** — [submit-ready](../docs/ARC_LOCAL_100_SUBMIT_READY.md) · [AGI-2 live](ARC-Prize-AGI-2-Kaggle-Live) · [AGI-3 live](ARC-Prize-Kaggle-Live)
 
 ---
 

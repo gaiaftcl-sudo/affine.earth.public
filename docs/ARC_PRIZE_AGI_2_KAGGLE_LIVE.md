@@ -2,7 +2,7 @@
 
 Official competition: [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-2)
 
-**Submit status:** **STEWARD UNLOCK ATTEMPTED** (2026-07-21T17:39Z) — `ALLOW_KAGGLE_SUBMIT=1` authorized; `configs/NO_KAGGLE_SUBMIT.lock` **kept**. Direct file upload **rejected by Kaggle**.
+**Submit status:** **DIRECT CLI BLOCKED** (2026-07-21T17:39Z proved) — `ALLOW_KAGGLE_SUBMIT=1` authorized; `configs/NO_KAGGLE_SUBMIT.lock` **kept**. `bin/kaggle-competitions-submit.sh` → Kaggle **400** (Notebooks-only + daily quota).
 
 ## FoT — steward unlock attempt (2026-07-21)
 
@@ -17,7 +17,7 @@ Official competition: [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/comp
 | Standing ref | **54875115** — publicScore **0.00** — `SubmissionStatus.COMPLETE` (process probe) |
 | Receipt | `reports/kaggle_submit_20260721T173500Z/agi2_submit.receipt.json` · `poll.receipt.json` |
 
-Next submit path: air-gapped **notebook** output → competition submit after UTC daily reset. Do not delete the lock; use `ALLOW_KAGGLE_SUBMIT=1` per command.
+Next submit path: air-gapped kernel package `kaggle/arc-prize-2026-agi-2/` → `kaggle kernels push` / Notebook UI **Submit** after UTC daily reset (≈ **2026-07-21T23:57Z**). Do **not** use `bin/kaggle-competitions-submit.sh`. Do not delete the lock; `ALLOW_KAGGLE_SUBMIT=1` only for intentional kernel push. See `docs/ARC_LOCAL_100_SUBMIT_READY.md`.
 
 
 ## LOCAL mastery gate (required before any future submit)
