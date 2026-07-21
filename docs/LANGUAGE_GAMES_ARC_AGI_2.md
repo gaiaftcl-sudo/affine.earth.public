@@ -355,3 +355,12 @@ C4: BG=0; blue(1) conserved; Type A same-color L/R gaps from floor; Type B open 
 ## FoT: S3 staircase interior fill — `28a6681f`
 
 Train **3/3**, eval **1/1** via `s3_staircase_interior_fill`. Mastery **54/172**. No Kaggle.
+
+## FoT: S2 seven-triplet rail — `2b83f449`
+
+Train **2/2**, eval **1/1** via `s2_seven_triplet_rail`. Mastery **55/172**. No Kaggle.
+
+## 2b83f449 — seven_triplet_rail (S2)
+
+C4: odd-row 777→868; even rails paint 6 at triplet centers; redistribute 3s to segment edges; suppress conflicts across 0-boundaries. Train 2/2, eval 1/1. Module `llm_llvm_bench/arc/s2_seven_triplet_rail.py`. No Kaggle.
+

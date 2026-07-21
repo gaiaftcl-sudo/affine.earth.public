@@ -1,0 +1,26 @@
+{
+  "task_id": "2b83f449",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S2_palette_rewrite",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 2,
+  "test": 1,
+  "engine": "s2_seven_triplet_rail",
+  "observations": [
+    "Odd-row 777 triplets become 868; even rails receive 6 at center columns",
+    "Color-3 markers redistribute to segment edges from above-centers",
+    "Train 2/2 labeled eval 1/1"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_2_2_eval_1_1",
+    "train_replay": "2/2",
+    "labeled_eval": "1/1"
+  },
+  "mastery_eval": "55/172",
+  "mastery_train": "298/1076",
+  "recorded_at_utc": "2026-07-21T16:25:06Z",
+  "kaggle_submit": false
+}

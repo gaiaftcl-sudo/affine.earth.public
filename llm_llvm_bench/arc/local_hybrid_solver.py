@@ -785,6 +785,27 @@ def solve_task(
         receipt["s3_staircase_interior_fill_meta"] = stair_replay
         return stair_fragment, receipt
 
+    # 1b31) S2 seven-triplet rail palette (2b83f449).
+    s2trip = _load_module(
+        arc_dir / "s2_seven_triplet_rail.py", "s2_seven_triplet_rail"
+    )
+    trip_replay = s2trip.train_replay(task)
+    trip_fragment = s2trip.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(trip_replay)
+    if (
+        trip_fragment is not None
+        and trip_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in trip_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s2_seven_triplet_rail"
+        receipt["train_replay"] = trip_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s2_seven_triplet_rail_meta"] = trip_replay
+        return trip_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

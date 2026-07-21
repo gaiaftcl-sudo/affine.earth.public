@@ -186,10 +186,10 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **54/172** exact grids
-(overlay `reports/arc_local_20260721T162242Z/agi2/summary-overlay.json`;
+**MEASURED local** (2026-07-21): evaluation lifts to **55/172** exact grids
+(overlay `reports/arc_local_20260721T162506Z/agi2/summary-overlay.json`;
 train ice-on baseline remains **298/1076**). Lineage includes
-`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 → `s3_terrain_period_bounce` **195c6913** ×2 → `s1_solid_motif_carve` **58f5dbd5** ×1 → `s2_plus_stamp_recolor` **1818057f** ×1 → `s1_path_column_unroll` **7b5033c1** ×1 → `s1_ones_stamp_period_fill` **53fb4810** ×1 → `s1_canvas_hole_sprite_fill` **67e490f4** ×1 → `s1_panel_motif_nest_pack` **8698868d** ×1 → `s1_separator_block_unroll` **78332cb0** ×2 → `s1_sep_row_extent_sort` **31f7f899** ×1 → `s1_frame_chamber_staircase` **89565ca0** ×1 → `s1_header_bracket_fill` **97d7923e** ×1 → `s2_arrow_room_recolor` **21897d95** ×2 → `s2_marker_stripe_lattice` **221dfab4** ×2 → `s2_axis_glyph_stamp` **247ef758** ×2 → `s3_box_slide_rail_fill` **271d71e2** ×1 → `s3_staircase_interior_fill` **28a6681f** ×1 = **54/172**.
+`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 → `s3_terrain_period_bounce` **195c6913** ×2 → `s1_solid_motif_carve` **58f5dbd5** ×1 → `s2_plus_stamp_recolor` **1818057f** ×1 → `s1_path_column_unroll` **7b5033c1** ×1 → `s1_ones_stamp_period_fill` **53fb4810** ×1 → `s1_canvas_hole_sprite_fill` **67e490f4** ×1 → `s1_panel_motif_nest_pack` **8698868d** ×1 → `s1_separator_block_unroll` **78332cb0** ×2 → `s1_sep_row_extent_sort` **31f7f899** ×1 → `s1_frame_chamber_staircase` **89565ca0** ×1 → `s1_header_bracket_fill` **97d7923e** ×1 → `s2_arrow_room_recolor` **21897d95** ×2 → `s2_marker_stripe_lattice` **221dfab4** ×2 → `s2_axis_glyph_stamp` **247ef758** ×2 → `s3_box_slide_rail_fill` **271d71e2** ×1 → `s3_staircase_interior_fill` **28a6681f** ×1 → `s2_seven_triplet_rail` **2b83f449** ×1 = **55/172**.
 
 | Owned grammar | Engine | Train replay | Eval |
 | --- | --- | --- | --- |
@@ -226,6 +226,7 @@ train ice-on baseline remains **298/1076**). Lineage includes
 | header-bracket fill | `s1_header_bracket_fill` | 3/3 on `97d7923e` | exact ×1 |
 | frame-chamber staircase | `s1_frame_chamber_staircase` | 3/3 on `89565ca0` | exact ×1 |
 | staircase interior fill | `s3_staircase_interior_fill` | 3/3 on `28a6681f` | exact ×1 |
+| seven-triplet rail | `s2_seven_triplet_rail` | 2/2 on `2b83f449` | exact ×1 |
 | ice+DSL residual | `arc-icecuber` hybrid | n/a | +1 prior (`981571dc`) |
 
 **S1 grammar (`hollow_solid_object_pack`):**
@@ -356,3 +357,11 @@ Train **3/3**, eval **1/1** via `s3_staircase_interior_fill`. Mastery **54/172**
 ## 28a6681f — staircase_interior_fill (S3)
 
 C4: BG=0; blue(1) conserved; Type A same-color L/R gaps from floor; Type B open left extensions; fill A then B bottom-up to N. Train 3/3, eval 1/1. Module `llm_llvm_bench/arc/s3_staircase_interior_fill.py`. No Kaggle.
+
+## FoT: S2 seven-triplet rail — `2b83f449`
+
+Train **2/2**, eval **1/1** via `s2_seven_triplet_rail`. Mastery **55/172**. No Kaggle.
+
+## 2b83f449 — seven_triplet_rail (S2)
+
+C4: odd-row 777→868; even rails paint 6 at triplet centers; redistribute 3s to segment edges; suppress conflicts across 0-boundaries. Train 2/2, eval 1/1. Module `llm_llvm_bench/arc/s2_seven_triplet_rail.py`. No Kaggle.
