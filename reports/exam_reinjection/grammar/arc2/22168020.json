@@ -1,0 +1,18 @@
+{
+  "task_id": "22168020",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "engine": "s2_same_color_axis_link",
+  "module": "llm_llvm_bench/arc/s2_same_color_axis_link.py",
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "3/3",
+    "engine": "s2_same_color_axis_link",
+    "detail": "train_replay_perfect"
+  },
+  "c4_invariant": "s2_same_color_axis_link",
+  "sealed_at_utc": "2026-07-21T20:34:38.748902+00:00"
+}

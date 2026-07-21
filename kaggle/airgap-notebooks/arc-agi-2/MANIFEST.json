@@ -1,10 +1,10 @@
 {
   "track": "arc-agi-2",
-  "built_at_utc": "2026-07-21T20:19:10.977337+00:00",
+  "built_at_utc": "2026-07-21T20:52:45.645614+00:00",
   "enable_internet": false,
   "platform_submission": {
     "path": "payload/submission.json",
-    "sha256": "faa41969bb938449d2cb14deb18a97071dbf3d3f8b8549c59c5e72a8bb8a9199",
+    "sha256": "312b859e213ed55a64ed752e4052323387a75121066b374ab50872c03344890e",
     "tasks": 240,
     "grids": 259
   },

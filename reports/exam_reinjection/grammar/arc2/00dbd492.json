@@ -1,0 +1,18 @@
+{
+  "task_id": "00dbd492",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "engine": "s2_enclosed_hole_fill_by_area",
+  "module": "llm_llvm_bench/arc/s2_enclosed_hole_fill_by_area.py",
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "4/4",
+    "engine": "s2_enclosed_hole_fill_by_area",
+    "detail": "train_replay_perfect"
+  },
+  "c4_invariant": "s2_enclosed_hole_fill_by_area",
+  "sealed_at_utc": "2026-07-21T20:47:32.127397+00:00"
+}

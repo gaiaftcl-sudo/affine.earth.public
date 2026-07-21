@@ -1,0 +1,18 @@
+{
+  "task_id": "0e671a1a",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "engine": "s2_three_point_star_path",
+  "module": "llm_llvm_bench/arc/s2_three_point_star_path.py",
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "4/4",
+    "engine": "s2_three_point_star_path",
+    "detail": "train_replay_perfect"
+  },
+  "c4_invariant": "s2_three_point_star_path",
+  "sealed_at_utc": "2026-07-21T20:51:20.332463+00:00"
+}

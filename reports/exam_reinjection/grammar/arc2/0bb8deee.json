@@ -1,0 +1,14 @@
+{
+  "task_id": "0bb8deee",
+  "exam": "ARC-AGI-2",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "engine": "s1_cross_sep_quadrant_pack",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "3/3",
+    "engine": "s1_cross_sep_quadrant_pack"
+  },
+  "c4_invariant": "s1_cross_sep_quadrant_pack",
+  "sealed_at_utc": "2026-07-21T20:29:33.212856+00:00"
+}

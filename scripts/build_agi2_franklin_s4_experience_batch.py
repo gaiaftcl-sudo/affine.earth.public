@@ -338,6 +338,7 @@ def try_ranked_closed_engines(
             "s1_canvas_hole_sprite_fill",
         ],
         "zoom_in_crop": [
+            "s1_cross_sep_quadrant_pack",
             "s1_anchor_crop_expand",
             "s1_frame_extract_project",
             "s1_solid_motif_carve",
@@ -350,6 +351,10 @@ def try_ranked_closed_engines(
             "s2_slide_touch_blocker",
             "s2_bbox_fourfold_mirror_complete",
             "s2_seed_neighborhood_stamp",
+            "s2_same_color_axis_link",
+            "s2_enclosed_hole_fill_by_area",
+            "s2_marker_recolor_by_hole_count",
+            "s2_three_point_star_path",
             "s2_color_gate_rewrite",
             "s2_component_recolor",
             "s2_dual_palette_rewrite",
