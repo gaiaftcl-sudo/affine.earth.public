@@ -23,6 +23,7 @@
     "arc2:4e34c42c",
     "arc2:58490d8a",
     "arc2:58f5dbd5",
+    "arc2:7b5033c1",
     "arc3:agi3-trajectory-gap"
   ],
   "next_apply_loop": [
@@ -42,7 +43,7 @@
       "track": "arc3"
     }
   ],
-  "note": "Reinjection CLOSED sealed for 1818057f plus_stamp_recolor. Mastery 38/172. Next open: arc2:21897d95. No Kaggle.",
+  "note": "Reinjection CLOSED sealed for 7b5033c1 path_column_unroll. Mastery 39/172. Next open: arc2:21897d95. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T15:20:31.044487+00:00"
+  "recorded_at_utc": "2026-07-21T15:22:14.468936+00:00"
 }

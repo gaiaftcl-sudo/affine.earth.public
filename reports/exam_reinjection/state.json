@@ -1,7 +1,7 @@
 {
   "aristotelian_closure_turns": 31,
-  "cycles": 19,
-  "last_cycle_at": "2026-07-21T15:20:31.044487+00:00",
+  "cycles": 20,
+  "last_cycle_at": "2026-07-21T15:22:14.468936+00:00",
   "tasks": {
     "arc2:0934a4d8": {
       "engine": "marker8_twin31",
@@ -19,7 +19,7 @@
       "task_id": "0934a4d8",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:56:59.800663+00:00"
+      "updated_at": "2026-07-21T15:19:20.593888+00:00"
     },
     "arc2:135a2760": {
       "engine": "container_period_tiling",
@@ -38,7 +38,7 @@
       "task_id": "135a2760",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T14:56:59.800692+00:00"
+      "updated_at": "2026-07-21T15:19:20.593918+00:00"
     },
     "arc2:136b0064": {
       "engine": "s1_digit_separator_snake",
@@ -57,7 +57,7 @@
       "task_id": "136b0064",
       "track": "arc2",
       "turn_count": 4,
-      "updated_at": "2026-07-21T14:56:59.800704+00:00"
+      "updated_at": "2026-07-21T15:19:20.593930+00:00"
     },
     "arc2:13e47133": {
       "engine": "s1_wall_tree_nested_frames",
@@ -76,7 +76,7 @@
       "task_id": "13e47133",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T14:56:59.800722+00:00"
+      "updated_at": "2026-07-21T15:19:20.593949+00:00"
     },
     "arc2:142ca369": {
       "engine": "s1_laser_mirror_beams",
@@ -95,7 +95,7 @@
       "task_id": "142ca369",
       "track": "arc2",
       "turn_count": 2,
-      "updated_at": "2026-07-21T14:56:59.800731+00:00"
+      "updated_at": "2026-07-21T15:19:20.593959+00:00"
     },
     "arc2:16b78196": {
       "engine": "s3_separator_gap_stack",
@@ -135,6 +135,20 @@
       "turn_count": 1,
       "updated_at": "2026-07-21T15:03:18.971697+00:00"
     },
+    "arc2:195c6913": {
+      "engine": "s3_terrain_period_bounce",
+      "eval_grids": "2/2",
+      "kaggle_submit": false,
+      "last_gate": "CLOSED",
+      "mastery_eval": "36/172",
+      "overlay": "reports/arc_local_20260721T151400Z/agi2/summary-overlay.json",
+      "sealed_at_utc": "2026-07-21T15:14:00Z",
+      "status": "CLOSED",
+      "task_id": "195c6913",
+      "track": "arc2",
+      "train_replay": "3/3",
+      "updated_at": "2026-07-21T15:14:00Z"
+    },
     "arc2:1ae2feb7": {
       "engine": "s3_separator_ray_fill",
       "last_c4": "s3_separator_ray_fill",
@@ -151,7 +165,7 @@
       "task_id": "1ae2feb7",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:56:59.800698+00:00"
+      "updated_at": "2026-07-21T15:19:20.593924+00:00"
     },
     "arc2:20270e3b": {
       "engine": "s1_seven_tab_merge",
@@ -169,7 +183,7 @@
       "task_id": "20270e3b",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:56:59.800708+00:00"
+      "updated_at": "2026-07-21T15:19:20.593934+00:00"
     },
     "arc2:20a9e565": {
       "engine": "s1_marker_frame_motif",
@@ -187,7 +201,7 @@
       "task_id": "20a9e565",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:56:59.800718+00:00"
+      "updated_at": "2026-07-21T15:19:20.593944+00:00"
     },
     "arc2:269e22fb": {
       "engine": "s1_fixed_canvas_template",
@@ -206,7 +220,7 @@
       "task_id": "269e22fb",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:56:59.800727+00:00"
+      "updated_at": "2026-07-21T15:19:20.593954+00:00"
     },
     "arc2:291dc1e1": {
       "engine": "s1_oriented_block_pack",
@@ -224,7 +238,7 @@
       "task_id": "291dc1e1",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:56:59.800736+00:00"
+      "updated_at": "2026-07-21T15:19:20.593963+00:00"
     },
     "arc2:2ba387bc": {
       "engine": "s1_dimension_projection",
@@ -242,7 +256,7 @@
       "task_id": "2ba387bc",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:56:59.800685+00:00"
+      "updated_at": "2026-07-21T15:19:20.593911+00:00"
     },
     "arc2:38007db0": {
       "engine": "s1_panel_odd_one_out",
@@ -260,10 +274,40 @@
       "task_id": "38007db0",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:56:59.800713+00:00"
+      "updated_at": "2026-07-21T15:19:20.593939+00:00"
+    },
+    "arc2:58490d8a": {
+      "engine": "s1_zero_panel_motif_count",
+      "last_c4": "zero panel motif count: bbox of 0s; 8-connected outside motifs per marker color; paint period-2 count times",
+      "last_gate": "S4_LOCKED",
+      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/58490d8a.json",
+      "last_s4_status": "LOCKED",
+      "last_validator": "local_hybrid_exact",
+      "last_validator_result": {
+        "accepted": true,
+        "detail": "local_solver_green_skip",
+        "labeled_eval": "1/1",
+        "train_replay": "3/3"
+      },
+      "status": "CLOSED",
+      "task_id": "58490d8a",
+      "track": "arc2",
+      "turn_count": 1,
+      "updated_at": "2026-07-21T15:06:44.495723+00:00"
+    },
+    "arc2:58f5dbd5": {
+      "engine": "s1_solid_motif_carve",
+      "eval_grids": "1/1",
+      "kaggle_submit": false,
+      "last_gate": "CLOSED",
+      "mastery_eval": "37/172",
+      "overlay": "reports/arc_local_20260721T151600Z/agi2/summary-overlay.json",
+      "sealed_at_utc": "2026-07-21T15:16:00Z",
+      "status": "CLOSED",
+      "train_replay": "3/3"
     },
     "arc3:agi3-trajectory-gap": {
-      "last_c4": "REINJECT:{\"action\": \"click\", \"x\": 10, \"y\": 10}",
+      "last_c4": "REINJECT:{\"action\": \"fill_connected_components\", \"background_color\": \"white\", \"target_color\": \"blue\"}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/agi3-trajectory-gap.json",
       "last_s4_status": "REINJECT",
@@ -278,8 +322,8 @@
       "status": "HEALING",
       "task_id": "agi3-trajectory-gap",
       "track": "arc3",
-      "turn_count": 13,
-      "updated_at": "2026-07-21T15:01:47.870172+00:00"
+      "turn_count": 14,
+      "updated_at": "2026-07-21T15:21:28.195242+00:00"
     },
     "arc3:ar25": {
       "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"target\": \"empty_cell\", \"value\": \"background_color\"}",
@@ -311,7 +355,7 @@
       "updated_at": "2026-07-21T13:15:58.166509+00:00"
     },
     "arc3:bp35": {
-      "last_c4": "REINJECT:{\"action\": \"clear_all_obstacles\"}",
+      "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"target\": \"center\", \"value\": \"clear\"}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/bp35.json",
       "last_s4_status": "REINJECT",
@@ -326,8 +370,8 @@
       "status": "HEALING",
       "task_id": "bp35",
       "track": "arc3",
-      "turn_count": 12,
-      "updated_at": "2026-07-21T15:01:47.896419+00:00"
+      "turn_count": 13,
+      "updated_at": "2026-07-21T15:21:28.196484+00:00"
     },
     "arc3:ls20": {
       "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"grid\": \"background_fill_connected_components\"}",
@@ -349,8 +393,8 @@
       "updated_at": "2026-07-21T13:55:39.224291+00:00"
     },
     "hle:hle-official-gate-open": {
-      "last_c4": "REINJECT:{\"status\": \"REINJECT\", \"unresolved_alternatives\": [\"Candidate 1: Output 'LOCKED'\", \"Candidate 2: Output 'REINJECT'\"], \"validator\": \"exact_format_check\"}",
-      "last_gate": "FRANKLIN_PARSE_FAIL",
+      "last_c4": "REINJECT:{\"status\": \"REINJECT\", \"unresolved_alternatives\": [\"The task requires a specific answer to a puzzle, but no puzzle input is provided in the prompt. The prompt only provides wrapper evidence and instructions for the S1-S4 framework.\"], \"validator\": \"exact_format_check\"}",
+      "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/hle/hle-official-gate-open.json",
       "last_s4_status": "REINJECT",
       "last_validator": "exact_format_check",
@@ -364,67 +408,23 @@
       "status": "HEALING",
       "task_id": "hle-official-gate-open",
       "track": "hle",
-      "turn_count": 12,
-      "updated_at": "2026-07-21T15:01:47.972820+00:00"
+      "turn_count": 13,
+      "updated_at": "2026-07-21T15:21:28.196832+00:00"
     },
-    "arc2:58490d8a": {
-      "engine": "s1_zero_panel_motif_count",
-      "last_c4": "zero panel motif count: bbox of 0s; 8-connected outside motifs per marker color; paint period-2 count times",
-      "last_gate": "S4_LOCKED",
-      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/58490d8a.json",
-      "last_s4_status": "LOCKED",
-      "last_validator": "local_hybrid_exact",
-      "last_validator_result": {
-        "accepted": true,
-        "detail": "local_solver_green_skip",
-        "labeled_eval": "1/1",
-        "train_replay": "3/3"
-      },
-      "status": "CLOSED",
-      "task_id": "58490d8a",
-      "track": "arc2",
-      "turn_count": 1,
-      "updated_at": "2026-07-21T15:06:44.495723+00:00"
-    },
-    "arc2:195c6913": {
+    "arc2:7b5033c1": {
       "status": "CLOSED",
       "last_gate": "CLOSED",
-      "engine": "s3_terrain_period_bounce",
-      "train_replay": "3/3",
-      "eval_grids": "2/2",
-      "mastery_eval": "36/172",
-      "overlay": "reports/arc_local_20260721T151400Z/agi2/summary-overlay.json",
-      "kaggle_submit": false,
-      "sealed_at_utc": "2026-07-21T15:14:00Z",
-      "task_id": "195c6913",
-      "track": "arc2",
-      "updated_at": "2026-07-21T15:14:00Z"
-    },
-    "arc2:58f5dbd5": {
-      "status": "CLOSED",
-      "last_gate": "CLOSED",
-      "engine": "s1_solid_motif_carve",
-      "train_replay": "3/3",
+      "engine": "s1_path_column_unroll",
+      "train_replay": "2/2",
       "eval_grids": "1/1",
-      "mastery_eval": "37/172",
-      "overlay": "reports/arc_local_20260721T151600Z/agi2/summary-overlay.json",
+      "mastery_eval": "39/172",
+      "overlay": "reports/arc_local_20260721T152214Z/agi2/summary-overlay.json",
       "kaggle_submit": false,
-      "sealed_at_utc": "2026-07-21T15:16:00Z"
-    },
-    "arc2:1818057f": {
-      "status": "CLOSED",
-      "last_gate": "CLOSED",
-      "engine": "s2_plus_stamp_recolor",
-      "train_replay": "3/3",
-      "eval_grids": "1/1",
-      "mastery_eval": "38/172",
-      "overlay": "reports/arc_local_20260721T152000Z/agi2/summary-overlay.json",
-      "kaggle_submit": false,
-      "sealed_at_utc": "2026-07-21T15:20:00Z",
-      "task_id": "1818057f",
+      "sealed_at_utc": "2026-07-21T15:22:14Z",
+      "task_id": "7b5033c1",
       "track": "arc2",
-      "updated_at": "2026-07-21T15:20:00Z"
+      "updated_at": "2026-07-21T15:22:14Z"
     }
   },
-  "total_franklin_turns": 67
+  "total_franklin_turns": 70
 }

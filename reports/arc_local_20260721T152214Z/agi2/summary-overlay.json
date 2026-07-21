@@ -1,0 +1,15 @@
+{
+  "eval_exact": "39/172",
+  "eval_pass": 39,
+  "eval_total": 172,
+  "base": "reports/arc_local_20260721T152000Z/agi2/local-evaluation-submission.json",
+  "owned_hits": [
+    {
+      "task_id": "7b5033c1",
+      "engine": "s1_path_column_unroll",
+      "grids": 1
+    }
+  ],
+  "note": "overlay +path_column_unroll 7b5033c1; train floor 298/1076",
+  "sealed_at_utc": "2026-07-21T15:22:14Z"
+}

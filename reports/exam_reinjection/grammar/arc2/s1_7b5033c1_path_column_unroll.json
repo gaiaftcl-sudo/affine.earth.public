@@ -1,0 +1,23 @@
+{
+  "task_id": "7b5033c1",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S1_dimension_projection",
+  "engine": "s1_path_column_unroll",
+  "primary_transform": "path_column_unroll",
+  "status": "CLOSED",
+  "train_replay": "2/2",
+  "eval_grids": "1/1",
+  "c4": {
+    "S1": "majority color = background; non-bg cells form a simple 4-path",
+    "S2": "exactly two degree-1 endpoints; no junctions (degree>2)",
+    "S3": "start at lexicographically smallest endpoint; walk the unique path",
+    "S4": "output = N\u00d71 column of cell colors along that path order",
+    "C4": "exact path unroll; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s1_path_column_unroll.py",
+  "mastery_eval": "39/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T15:22:14Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T152214Z/agi2/summary-overlay.json"
+}
