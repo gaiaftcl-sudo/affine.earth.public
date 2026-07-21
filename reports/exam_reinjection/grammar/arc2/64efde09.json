@@ -1,21 +1,21 @@
 {
-  "task_id": "4a21e3da",
+  "task_id": "64efde09",
   "exam": "ARC-AGI-2",
   "language_game_class": "OPEN",
   "status": "CLOSED",
   "last_gate": "LOCKED",
-  "train": 3,
-  "test": 2,
-  "engine": "s2_palette_partition_recolor",
+  "train": 2,
+  "test": 1,
+  "engine": "s3_period_motif_tile",
   "observations": [
-    "Train 3/3 labeled eval 2/2",
+    "Train 2/2 labeled eval 1/1",
     "batch20 peer GREEN seal"
   ],
   "validator": "demonstration_replay+labeled_eval",
   "validator_result": {
     "accepted": true,
-    "train_replay": "3/3",
-    "labeled_eval": "2/2"
+    "train_replay": "2/2",
+    "labeled_eval": "1/1"
   },
   "mastery_eval": "108/172",
   "mastery_train": "298/1076"

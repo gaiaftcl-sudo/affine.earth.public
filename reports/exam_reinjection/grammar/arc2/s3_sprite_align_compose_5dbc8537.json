@@ -1,0 +1,8 @@
+{
+  "task_id": "5dbc8537",
+  "engine": "s3_sprite_align_compose",
+  "status": "CLOSED",
+  "train_replay": "2/2",
+  "labeled_eval": "2/2",
+  "module": "llm_llvm_bench/arc/s3_sprite_align_compose.py"
+}

@@ -1,12 +1,12 @@
 {
-  "task_id": "4a21e3da",
+  "task_id": "65b59efc",
   "exam": "ARC-AGI-2",
   "language_game_class": "OPEN",
   "status": "CLOSED",
   "last_gate": "LOCKED",
   "train": 3,
   "test": 2,
-  "engine": "s2_palette_partition_recolor",
+  "engine": "s2_symmetric_recolor",
   "observations": [
     "Train 3/3 labeled eval 2/2",
     "batch20 peer GREEN seal"

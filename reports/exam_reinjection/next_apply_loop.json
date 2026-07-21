@@ -40,13 +40,30 @@
     "arc2:4c7dc4dd",
     "arc2:4e34c42c",
     "arc2:53fb4810",
+    "arc2:5545f144",
+    "arc2:581f7754",
     "arc2:58490d8a",
     "arc2:58f5dbd5",
+    "arc2:5961cc34",
+    "arc2:5dbc8537",
+    "arc2:62593bfd",
+    "arc2:64efde09",
+    "arc2:65b59efc",
     "arc2:67e490f4",
+    "arc2:6e453dd6",
+    "arc2:6e4f6532",
+    "arc2:6ffbe589",
+    "arc2:71e489b6",
+    "arc2:7491f3cf",
     "arc2:7666fa5d",
     "arc2:78332cb0",
+    "arc2:7b0280bc",
+    "arc2:7b3084d4",
     "arc2:7b5033c1",
+    "arc2:7b80bb43",
     "arc2:7c66cb00",
+    "arc2:7ed72f31",
+    "arc2:800d221b",
     "arc2:8698868d",
     "arc2:89565ca0",
     "arc2:898e7135",
@@ -65,30 +82,46 @@
   "next_apply_loop": [
     {
       "action": "train-replay-gated C4; Franklin S4 JSON-only \u2264429 if needed",
-      "key": "arc2:5545f144",
+      "key": "arc2:80a900e0",
       "last_gate": "OPEN_MISS",
-      "task_id": "5545f144",
+      "task_id": "80a900e0",
       "track": "arc2",
       "language_game_class": "OPEN"
     },
     {
       "action": "train-replay-gated C4; Franklin S4 JSON-only \u2264429 if needed",
-      "key": "arc2:581f7754",
+      "key": "arc2:88bcf3b4",
       "last_gate": "OPEN_MISS",
-      "task_id": "581f7754",
+      "task_id": "88bcf3b4",
       "track": "arc2",
       "language_game_class": "OPEN"
     },
     {
       "action": "train-replay-gated C4; Franklin S4 JSON-only \u2264429 if needed",
-      "key": "arc2:5961cc34",
+      "key": "arc2:88e364bc",
       "last_gate": "OPEN_MISS",
-      "task_id": "5961cc34",
+      "task_id": "88e364bc",
+      "track": "arc2",
+      "language_game_class": "OPEN"
+    },
+    {
+      "action": "train-replay-gated C4; Franklin S4 JSON-only \u2264429 if needed",
+      "key": "arc2:8b7bacbf",
+      "last_gate": "OPEN_MISS",
+      "task_id": "8b7bacbf",
+      "track": "arc2",
+      "language_game_class": "OPEN"
+    },
+    {
+      "action": "train-replay-gated C4; Franklin S4 JSON-only \u2264429 if needed",
+      "key": "arc2:8b9c3697",
+      "last_gate": "OPEN_MISS",
+      "task_id": "8b9c3697",
       "track": "arc2",
       "language_game_class": "OPEN"
     }
   ],
-  "note": "CLOSED 4a21e3da+4c3d4a41+4c416de3 (+5 => 84/172). No Kaggle.",
+  "note": "CLOSED batch20 exact (+29 => 108/172) incl 4a21/4c3d/4c416. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T16:39:56Z"
+  "recorded_at_utc": "2026-07-21T16:41:41Z"
 }

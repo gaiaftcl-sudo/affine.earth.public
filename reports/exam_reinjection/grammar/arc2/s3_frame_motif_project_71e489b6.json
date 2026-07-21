@@ -1,0 +1,8 @@
+{
+  "task_id": "71e489b6",
+  "engine": "s3_frame_motif_project",
+  "status": "CLOSED",
+  "train_replay": "3/3",
+  "labeled_eval": "2/2",
+  "module": "llm_llvm_bench/arc/s3_frame_motif_project.py"
+}

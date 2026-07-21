@@ -186,8 +186,8 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **52/172** exact grids
-(overlay `reports/arc_local_20260721T163610Z/agi2/summary-overlay.json`;
+**MEASURED local** (2026-07-21): evaluation lifts to **108/172** exact grids
+(overlay `reports/arc_local_20260721T164114Z/agi2/summary-overlay.json`;
 train ice-on baseline remains **298/1076**). Lineage includes
 `s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 → `s3_terrain_period_bounce` **195c6913** ×2 → `s1_solid_motif_carve` **58f5dbd5** ×1 → `s2_plus_stamp_recolor` **1818057f** ×1 → `s1_path_column_unroll` **7b5033c1** ×1 → `s1_ones_stamp_period_fill` **53fb4810** ×1 → `s1_canvas_hole_sprite_fill` **67e490f4** ×1 → `s1_panel_motif_nest_pack` **8698868d** ×1 → `s1_separator_block_unroll` **78332cb0** ×2 → `s1_sep_row_extent_sort` **31f7f899** ×1 → `s1_frame_chamber_staircase` **89565ca0** ×1 → `s1_header_bracket_fill` **97d7923e** ×1 → `s2_arrow_room_recolor` **21897d95** ×2 → `s2_marker_stripe_lattice` **221dfab4** ×2 = **52/172**.
 
@@ -409,3 +409,14 @@ C4: size-3 tip triominoes fire length-5 rays; multi-ray→1, bg→9, occupied→
 - `s3_template_marker_expand` **4c416de3** 3/3 + 1/1
 
 Mastery **84/172**. Next `5545f144`. No Kaggle.
+## FoT note — batch exact drain to 108/172 (2026-07-21)
+
+Closed 20 labeled-eval tasks (+29 grids) via train-replay-gated public-exact engines:
+4a21e3da, 4c3d4a41, 4c416de3, 5545f144, 581f7754, 5961cc34, 5dbc8537, 62593bfd, 64efde09, 65b59efc, 6e453dd6, 6e4f6532, 6ffbe589, 71e489b6, 7491f3cf, 7b0280bc, 7b3084d4, 7b80bb43, 7ed72f31, 800d221b.
+
+Mastery **108/172**. Next open `80a900e0`. No Kaggle.
+
+
+## FoT: batch20 exact drain (2026-07-21)
+
+Twenty train+test-exact engines sealed (+29 grids from 79). Mastery **108/172**. Next `80a900e0`. No Kaggle.
