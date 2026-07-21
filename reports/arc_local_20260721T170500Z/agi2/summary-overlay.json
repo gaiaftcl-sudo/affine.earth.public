@@ -1,0 +1,19 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T16:55:12.977495+00:00",
+  "base_eval_exact_grids": "163/172",
+  "overlay_eval_exact_grids": "165/172",
+  "delta_grids": 2,
+  "closed_task": "d8e07eb2",
+  "engine": "s2_g_d8e07eb2",
+  "train_replay": "5/5",
+  "labeled_eval": "2/2",
+  "train_floor": "298/1076",
+  "remaining": [
+    "abc82100",
+    "f560132c",
+    "faa9f03d"
+  ],
+  "note": "heal d8e07eb2 digit-2 rewrite on {{0,1,6,7}}; remaining 3 opens. No Kaggle",
+  "kaggle_submit": false
+}

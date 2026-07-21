@@ -1,0 +1,22 @@
+{
+  "task_id": "d8e07eb2",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S2_palette_rewrite",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 5,
+  "test": 2,
+  "engine": "s2_g_d8e07eb2",
+  "observations": [
+    "Header digit fingerprint/fallback highlights",
+    "Heal: {{0,1,6,7}} rewrites top digit-1 to digit-2 glyph on highlight"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "5/5",
+    "labeled_eval": "2/2"
+  },
+  "mastery_eval": "165/172",
+  "mastery_train": "298/1076"
+}

@@ -400,6 +400,16 @@ def load_s3_axis_reflect_paint(root: Path) -> Any:
     return module
 
 
+def load_s3_color_fold_trim(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_color_fold_trim.py"
+    spec = importlib.util.spec_from_file_location("arc_s3_color_fold_trim", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_color_fold_trim solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def load_s3_keycol_row_extend(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_keycol_row_extend.py"
     spec = importlib.util.spec_from_file_location("arc_s3_keycol_row_extend", path)
@@ -796,6 +806,16 @@ def load_s3_bbox_motif_stamp(root: Path) -> Any:
     return module
 
 
+
+
+def load_s2_g_d8e07eb2(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s2_g_d8e07eb2.py"
+    spec = importlib.util.spec_from_file_location("arc_s2_g_d8e07eb2", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s2_g_d8e07eb2 solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 def load_s3_g_80a900e0(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_g_80a900e0.py"
@@ -1878,6 +1898,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s3_bord = load_s3_border_path_fill(root)
     m_s3_keycol_row_extend = load_s3_keycol_row_extend(root)
     m_s3_axis_reflect_paint = load_s3_axis_reflect_paint(root)
+    m_s3_color_fold_trim = load_s3_color_fold_trim(root)
     m_s1_anchor_crop_expand = load_s1_anchor_crop_expand(root)
     m_s3_triomino_tip_ray = load_s3_triomino_tip_ray(root)
     m_s3_marker_tip_beam = load_s3_marker_tip_beam(root)
@@ -1908,6 +1929,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     m_s3_g_8b7bacbf = load_s3_g_8b7bacbf(root)
     m_s3_g_8b9c3697 = load_s3_g_8b9c3697(root)
     m_s3_g_8e5c0c38 = load_s3_g_8e5c0c38(root)
+    m_s2_g_d8e07eb2 = load_s2_g_d8e07eb2(root)
     m_s3_g_8f215267 = load_s3_g_8f215267(root)
     m_s3_g_9bbf930d = load_s3_g_9bbf930d(root)
     m_s3_g_a251c730 = load_s3_g_a251c730(root)
@@ -2057,6 +2079,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s3_bord_hits = 0
     h_s3_keycol_row_extend = 0
     h_s3_axis_reflect_paint = 0
+    h_s3_color_fold_trim = 0
     h_s1_anchor_crop_expand = 0
     h_s3_triomino_tip_ray = 0
     h_s3_marker_tip_beam = 0
@@ -2082,6 +2105,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     h_s2_paired_recolor = 0
     h_s3_bbox_motif_stamp = 0
     h_s3_g_80a900e0 = 0
+    h_s2_g_d8e07eb2 = 0
     h_s3_g_88bcf3b4 = 0
     h_s3_g_88e364bc = 0
     h_s3_g_8b7bacbf = 0
@@ -2585,6 +2609,14 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             if hybrid_attempts is not None:
                 h_s3_axis_reflect_paint += 1
         if hybrid_attempts is None:
+            hybrid_attempts = m_s3_color_fold_trim.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s3_color_fold_trim += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = m_s2_g_d8e07eb2.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s2_g_d8e07eb2 += 1
+        if hybrid_attempts is None:
             hybrid_attempts = s2_black.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 s2_black_hits += 1
@@ -2785,6 +2817,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s3_border_path_fill_licensed_tasks": s3_bord_hits,
             "s3_keycol_row_extend_licensed_tasks": h_s3_keycol_row_extend,
             "s3_axis_reflect_paint_licensed_tasks": h_s3_axis_reflect_paint,
+            "s3_color_fold_trim_licensed_tasks": h_s3_color_fold_trim,
             "s1_anchor_crop_expand_licensed_tasks": h_s1_anchor_crop_expand,
             "s3_triomino_tip_ray_licensed_tasks": h_s3_triomino_tip_ray,
             "s3_marker_tip_beam_licensed_tasks": h_s3_marker_tip_beam,
@@ -2810,6 +2843,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s2_paired_recolor_licensed_tasks": h_s2_paired_recolor,
             "s3_bbox_motif_stamp_licensed_tasks": h_s3_bbox_motif_stamp,
             "s3_g_80a900e0_licensed_tasks": h_s3_g_80a900e0,
+            "s2_g_d8e07eb2_licensed_tasks": h_s2_g_d8e07eb2,
             "s3_g_88bcf3b4_licensed_tasks": h_s3_g_88bcf3b4,
             "s3_g_88e364bc_licensed_tasks": h_s3_g_88e364bc,
             "s3_g_8b7bacbf_licensed_tasks": h_s3_g_8b7bacbf,

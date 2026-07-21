@@ -100,6 +100,7 @@
     "arc2:cbebaa4b",
     "arc2:d35bdbdc",
     "arc2:d59b0160",
+    "arc2:d8e07eb2",
     "arc2:da515329",
     "arc2:db0c5428",
     "arc2:db695cfb",
@@ -119,39 +120,41 @@
   ],
   "next_apply_loop": [
     {
-      "action": "train-replay-gated C4; Franklin S4 JSON-only \u2264429 if needed",
+      "action": "train-replay-gated C4; coordinate \u2014 do not clobber",
       "key": "arc2:abc82100",
       "last_gate": "OPEN_MISS",
       "task_id": "abc82100",
       "track": "arc2",
-      "language_game_class": "OPEN"
+      "language_game_class": "S2_palette_rewrite"
     },
     {
-      "action": "train-replay-gated C4; Franklin S4 JSON-only \u2264429 if needed",
-      "key": "arc2:d8e07eb2",
-      "last_gate": "OPEN_MISS",
-      "task_id": "d8e07eb2",
-      "track": "arc2",
-      "language_game_class": "OPEN"
-    },
-    {
-      "action": "train-replay-gated C4; Franklin S4 JSON-only \u2264429 if needed",
+      "action": "train-replay-gated C4; coordinate \u2014 do not clobber",
       "key": "arc2:f560132c",
       "last_gate": "OPEN_MISS",
       "task_id": "f560132c",
       "track": "arc2",
-      "language_game_class": "OPEN"
+      "language_game_class": "S1_dimension_projection"
     },
     {
-      "action": "train-replay-gated C4; Franklin S4 JSON-only \u2264429 if needed",
+      "action": "train-replay-gated C4; coordinate \u2014 do not clobber",
       "key": "arc2:faa9f03d",
       "last_gate": "OPEN_MISS",
       "task_id": "faa9f03d",
       "track": "arc2",
-      "language_game_class": "OPEN"
+      "language_game_class": "S2_palette_rewrite"
     }
   ],
-  "note": "CLOSED drain38 exact (+55 => 163/172; measured 164/172). No Kaggle.",
-  "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T16:41:41Z"
+  "peer_in_flight": [
+    {
+      "agent": "cursor-sync",
+      "tasks": [
+        "abc82100",
+        "f560132c",
+        "faa9f03d"
+      ],
+      "goal": "close remaining to 172/172"
+    }
+  ],
+  "note": "CLOSED d8e07eb2 via s2_g_d8e07eb2 (165/172). Remaining: ['abc82100', 'f560132c', 'faa9f03d']. No Kaggle.",
+  "recorded_at_utc": "2026-07-21T16:55:12Z"
 }
