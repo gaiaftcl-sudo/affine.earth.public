@@ -175,16 +175,19 @@ uv run --directory data/arc-prize-2026/ARC-AGI-3-Agents \
 
 (Use an absolute path to `scripts/arc_agi3_language_game.py` from the Agents
 venv cwd; `--max-actions 500` for full WIN.) Live local FoT
-(`20260721T171202Z`): **WIN=3** — bp35 **9/9**, ar25 **8/8**, ls20 **7/7**.
-MP4s: `…/bp35/20260721T160924Z/bp35.mp4`,
-`…/ar25/20260721T171208Z/ar25.mp4`, `…/ls20/20260721T171236Z/ls20.mp4`.
+(`20260721T171426Z` independent re-verify): **WIN=3** — bp35 **9/9**,
+ar25 **8/8**, ls20 **7/7**; parquet
+`reports/arc_local_20260721T171426Z/submission.parquet` schema-valid;
+`submission_blocked=true`. MP4s: `…/bp35/20260721T171435Z/bp35.mp4`,
+`…/ar25/20260721T171636Z/ar25.mp4`, `…/ls20/20260721T171724Z/ls20.mp4`.
 Public probe 0.12 process-only. `NO_KAGGLE_SUBMIT.lock` required.
 
 ### FoT — agi3 suite CLOSED (2026-07-21)
 
 Meta miss `arc3:agi3-trajectory-gap` sealed **CLOSED / C4_BOUND_OWNED**. Owned:
 `PlatformerPolicy` (bp35), `Ar25Policy`+`AR25_SOLUTIONS` (ar25),
-`Ls20Policy`+`LS20_SOLUTIONS` (ls20). No Kaggle.
+`Ls20Policy`+`LS20_SOLUTIONS` (ls20). ARC-2 already **172/172 COMPLETE**
+(`21b2924`). No Kaggle.
 
 ## 9. Format from top scores
 

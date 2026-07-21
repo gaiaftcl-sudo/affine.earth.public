@@ -147,9 +147,19 @@ Module: `llm_llvm_bench/arc/agi3_platformer_policy.py`.
 
 Meta miss `arc3:agi3-trajectory-gap` sealed **CLOSED / C4_BOUND_OWNED**. Public
 games: bp35 **9/9 WIN**, ar25 **8/8 WIN** (`Ar25Policy` / reflection cover),
-ls20 **7/7 WIN** (`Ls20Policy` / waypoint shape-color-rotation). Harness
-`reports/arc_local_20260721T171202Z`: `win_terminals=2` on ar25+ls20 replay
-(bp35 prior). No Kaggle submit.
+ls20 **7/7 WIN** (`Ls20Policy` / waypoint shape-color-rotation).
+
+**Independent re-verify** (`reports/arc_local_20260721T171426Z`): one harness pass
+`--games bp35 ar25 ls20 --max-actions 500` → `win_terminals=3`,
+`levels_by_game={bp35:9,ar25:8,ls20:7}`, `game_over_events=0`,
+`submission_blocked=true`, lock intact. Validated
+`reports/arc_local_20260721T171426Z/submission.parquet` (3 rows;
+`row_id,game_id,end_of_game,score`; scores 9/8/7). Captures:
+`…/bp35/20260721T171435Z/bp35.mp4`, `…/ar25/20260721T171636Z/ar25.mp4`,
+`…/ls20/20260721T171724Z/ls20.mp4`. No Kaggle submit.
+
+ARC-2 coordination: eval **172/172 COMPLETE** already on `main` (`21b2924`);
+agi3 re-verify does not block that land.
 
 ## 9. Format from top scores
 
