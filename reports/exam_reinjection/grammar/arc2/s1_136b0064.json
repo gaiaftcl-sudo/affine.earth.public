@@ -1,0 +1,12 @@
+{
+  "task_id": "136b0064",
+  "class": "S1_dimension_projection",
+  "status": "CLOSED",
+  "grammar": "digit_separator_snake",
+  "engine": "s1_digit_separator_snake",
+  "train_replay": "3/3",
+  "eval_exact": "1/1",
+  "module": "llm_llvm_bench/arc/s1_digit_separator_snake.py",
+  "overlay": "reports/arc_local_20260721T135200Z/agi2/summary-overlay.json",
+  "kaggle_submit": false
+}

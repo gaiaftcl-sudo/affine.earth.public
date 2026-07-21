@@ -1,0 +1,87 @@
+{
+  "track": "ARC-AGI-2",
+  "measured_at": "2026-07-21T13:48:13.901218+00:00",
+  "submission_blocked": true,
+  "evaluation": {
+    "grid_passes": 8,
+    "grid_total": 172,
+    "grid_pass_rate": 0.046511627906976744,
+    "note": "overlay marker8+s1+snake+cpt+s3 on ice baseline 134500Z; train 298/1076",
+    "owned_exact": [
+      {
+        "engine": "marker8_twin31",
+        "task_id": "0934a4d8",
+        "test_index": 0
+      },
+      {
+        "engine": "s1_dimension_projection",
+        "task_id": "2ba387bc",
+        "test_index": 0
+      },
+      {
+        "engine": "s1_digit_separator_snake",
+        "task_id": "136b0064",
+        "test_index": 0
+      },
+      {
+        "engine": "container_period_tiling",
+        "task_id": "135a2760",
+        "test_index": 0
+      },
+      {
+        "engine": "s3_separator_ray_fill",
+        "task_id": "1ae2feb7",
+        "test_index": 0
+      },
+      {
+        "engine": "s3_separator_ray_fill",
+        "task_id": "1ae2feb7",
+        "test_index": 1
+      },
+      {
+        "engine": "s3_separator_ray_fill",
+        "task_id": "1ae2feb7",
+        "test_index": 2
+      }
+    ],
+    "all_exact": [
+      {
+        "task_id": "0934a4d8",
+        "test_index": 0
+      },
+      {
+        "task_id": "135a2760",
+        "test_index": 0
+      },
+      {
+        "task_id": "136b0064",
+        "test_index": 0
+      },
+      {
+        "task_id": "1ae2feb7",
+        "test_index": 0
+      },
+      {
+        "task_id": "1ae2feb7",
+        "test_index": 1
+      },
+      {
+        "task_id": "1ae2feb7",
+        "test_index": 2
+      },
+      {
+        "task_id": "2ba387bc",
+        "test_index": 0
+      },
+      {
+        "task_id": "981571dc",
+        "test_index": 0
+      }
+    ]
+  },
+  "training": {
+    "grid_passes": 298,
+    "grid_total": 1076,
+    "note": "from reports/arc_local_20260721T131200Z ice-on receipt"
+  }
+}

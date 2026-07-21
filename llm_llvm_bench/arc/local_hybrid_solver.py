@@ -182,6 +182,27 @@ def solve_task(
         receipt["s1_meta"] = s1_replay
         return s1_fragment, receipt
 
+    # 1b2) S1 digit-separator snake pack (136b0064).
+    s1snake = _load_module(
+        arc_dir / "s1_digit_separator_snake.py", "s1_digit_separator_snake"
+    )
+    snake_replay = s1snake.train_replay(task)
+    snake_fragment = s1snake.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(snake_replay)
+    if (
+        snake_fragment is not None
+        and snake_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in snake_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_digit_separator_snake"
+        receipt["train_replay"] = snake_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_snake_meta"] = snake_replay
+        return snake_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"
