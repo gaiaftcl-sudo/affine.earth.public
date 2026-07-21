@@ -1,0 +1,29 @@
+{
+  "task_id": "ar25",
+  "track": "arc3",
+  "grammar_id": "ar25_L2_mirror_targets_cover",
+  "s4_status": "REINJECT",
+  "closure_ready": false,
+  "levels_completed_at_entry": 1,
+  "protocol": "franklin_s4_projection",
+  "recorded_at_utc": "2026-07-21T16:10:00+00:00",
+  "c4_invariant": {
+    "level": 2,
+    "grid": "grid21",
+    "targets_0001": [
+      [5, 14], [1, 17], [4, 14], [3, 14], [3, 15], [3, 16], [3, 17], [2, 17]
+    ],
+    "clickable_piece": {"name": "0026ptolirjxrb", "pos": [15, 6], "tags": ["0006lxjtqggkmi", "sys_click"]},
+    "mirror": {"name": "0054kgxrvfihgm", "pos": [12, -3], "tags": ["0003uqrdzdofso", "sys_click"]},
+    "actions": "1–4 move selected, 5 cycle, 6 click, 7 undo",
+    "owned": "L1 clear via AR25_L1_OPS; L2 sprite map dumped",
+    "blocker": "Select correct movable piece (cycle/click); place so mirror covers all eight 0001 targets; win_score=8"
+  },
+  "next_grammar": "ar25_L2_mirror_targets_cover",
+  "validator": "environment_step",
+  "validator_result": {
+    "accepted": false,
+    "levels_completed": 1,
+    "detail": "L1 LOCKED; L2 cover geometry REINJECT — no sealed clear yet"
+  }
+}

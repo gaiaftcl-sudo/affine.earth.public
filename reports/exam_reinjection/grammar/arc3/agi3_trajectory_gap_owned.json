@@ -5,15 +5,15 @@
   "grammar": "level_clear_motion_click_grammar",
   "engine": "PlatformerPolicy",
   "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
-  "bp35": "C4_BOUND_OWNED 6/9 L1-L6 scripted verified",
-  "win_terminals": 0,
+  "bp35": "C4_BOUND_OWNED 9/9 WIN",
+  "win_terminals": 1,
   "remaining": [
-    "bp35_L7plus_floor_shaft_grammar",
-    "ar25_unreproduced_productive_delta",
-    "ls20_unreproduced_productive_delta"
+    "ar25_L2_mirror_targets_cover",
+    "ls20_L1_predicate_bind"
   ],
-  "evidence": "reports/exam_reinjection/grammar/arc3/bp35.json",
-  "harness": "reports/arc_agi3_bp35_20260721T144507Z/summary.json",
+  "evidence": "reports/exam_reinjection/grammar/arc3/bp35_L9_col0_underfloor_y39_gem_walk.json",
+  "harness": "data/arc-prize-2026/ARC-AGI-3-Agents/reports/arc_local_20260721T160922Z/summary.json",
+  "mp4": "affine_audit_logs/arc_agi3/bp35/20260721T160924Z/bp35.mp4",
   "kaggle_submit": false,
-  "recorded_at_utc": "2026-07-21T14:48:00+00:00"
+  "recorded_at_utc": "2026-07-21T16:10:00+00:00"
 }

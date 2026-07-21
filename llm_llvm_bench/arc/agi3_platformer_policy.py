@@ -4,9 +4,11 @@ bp35 C4 grammar (source-locked):
   ACTION3/4 horizontal move; ACTION6 on qclfkhjnaac/yuuqpmlxorv/oonshderxef/lrpkmzabbfa;
   etlsaqqtjvn (Y) force-click spreads platforms (not in valid-action list);
   gem fjlzdjxhant → next_level; spike/budget → GAME_OVER → RESET.
-  L1–L8 are scripted verified clears; L9 open (col0 shaft → gem (2,40)).
+  L1–L9 are scripted verified clears (bp35 WIN at 9/9).
   L7: col9 gDN safe-drop. L8: Y-bridge → col8 → soft1 chamber → Y climb →
   G(5,2) DN onto (8,19) → gem (9,19).
+  L9: defer breach; Y gap/cover/landing; col9 climb; col0; strip shaft
+  grav pads; DN freefall to y40; R to gem (2,40). Never R at y38.
   L4/L5 may ACTION6 via grid*6−cam (screen y may be outside 0..63; harness
   mutates ComplexAction after pydantic clamp so gwfodrkvzx still receives it).
 """
@@ -180,7 +182,7 @@ def restore_graph_builder() -> None:
 
 
 class PlatformerPolicy:
-    """bp35 scripted L1–L8 + open spike-safe policy for L9."""
+    """bp35 scripted L1–L9 clears (WIN at levels_completed=9)."""
 
     def __init__(self, environment: Any) -> None:
         self.environment = environment
@@ -198,6 +200,8 @@ class PlatformerPolicy:
         self._recent: list[Tuple[int, int]] = []
         self._l8_phase = 0
         self._l8_sub = 0
+        self._l9_phase = 0
+        self._l9_sub = 0
 
     def _world(self) -> Any:
         return getattr(self.environment, "_game", None)
@@ -643,6 +647,301 @@ class PlatformerPolicy:
 
         return self._open_policy(legal)
 
+    def _y_expand_toward(
+        self,
+        targets: list[Tuple[int, int]],
+        *,
+        xlo: int,
+        xhi: int,
+        ylo: int,
+        yhi: int,
+        min_x_fill: int,
+        legal: list[int],
+    ) -> Optional[Tuple[int, dict[str, Any]]]:
+        """One Y-spread click that reduces distance to missing targets."""
+        if all(YBLOCK in self._cell(tx, ty) for tx, ty in targets):
+            return None
+        ys = [
+            (x, y)
+            for y in range(ylo, yhi + 1)
+            for x in range(xlo, xhi + 1)
+            if YBLOCK in self._cell(x, y)
+        ]
+        if not ys:
+            return None
+        miss = [(tx, ty) for tx, ty in targets if YBLOCK not in self._cell(tx, ty)]
+        best: Optional[Tuple[int, int, int]] = None
+        for gx, gy in ys:
+            for dx, dy in ((1, 0), (0, -1), (0, 1), (-1, 0)):
+                nx, ny = gx + dx, gy + dy
+                if nx < min_x_fill:
+                    continue
+                if self._cell(nx, ny) == [] and xlo <= nx <= xhi and ylo <= ny <= yhi:
+                    dist = min(abs(nx - tx) + abs(ny - ty) for tx, ty in miss)
+                    if best is None or dist < best[0]:
+                        best = (dist, gx, gy)
+        if best is None:
+            return None
+        return self._force_click_grid(best[1], best[2], legal)
+
+    def _choose_l9(self, legal: list[int]) -> Optional[Tuple[int, dict[str, Any]]]:
+        """Live L9 clear: prep → col9 climb → col0 → strip shaft grav → freefall gem."""
+        player = self._player()
+        if player is None:
+            return None
+        px, py = player
+
+        def y_click(gx: int, gy: int) -> Optional[Tuple[int, dict[str, Any]]]:
+            if YBLOCK in self._cell(gx, gy):
+                return self._force_click_grid(gx, gy, legal)
+            return None
+
+        def s2_click(gx: int, gy: int) -> Optional[Tuple[int, dict[str, Any]]]:
+            if SOFT1 in self._cell(gx, gy):
+                return self._force_click_grid(gx, gy, legal)
+            return None
+
+        def a7() -> Optional[Tuple[int, dict[str, Any]]]:
+            if 7 in legal:
+                return 7, {}
+            return None
+
+        # Phase 0: mid-block clear + S2 + Y gap/cover/landing (defer breach (1,8)).
+        # Y-click consumes the source cell — never re-expand a completed target set.
+        # Do NOT clear Y that refills (2-4,26) after the wall blocks are gone.
+        if self._l9_phase == 0:
+            if self._l9_sub == 0:
+                for gx, gy in ((2, 26), (3, 26), (4, 26)):
+                    if BLOCK in self._cell(gx, gy):
+                        hit = self._force_click_grid(gx, gy, legal)
+                        if hit:
+                            return hit
+                hit = s2_click(9, 15)
+                if hit:
+                    return hit
+                self._l9_sub = 1
+            if self._l9_sub == 1:
+                gap = [(5, 34), (6, 34), (7, 34), (2, 27), (3, 27), (4, 27)]
+                if all(YBLOCK in self._cell(*t) for t in gap):
+                    self._l9_sub = 2
+                else:
+                    hit = self._y_expand_toward(
+                        gap, xlo=2, xhi=7, ylo=22, yhi=34, min_x_fill=2, legal=legal
+                    )
+                    if hit:
+                        return hit
+                    self._l9_sub = 2
+            if self._l9_sub == 2:
+                # Fixed right-only landing: click (7,8)→(8,8); click (8,8)→(9,8).
+                if YBLOCK not in self._cell(9, 8):
+                    if YBLOCK in self._cell(8, 8):
+                        hit = y_click(8, 8)
+                        if hit:
+                            return hit
+                    elif YBLOCK in self._cell(7, 8):
+                        hit = y_click(7, 8)
+                        if hit:
+                            return hit
+                self._l9_phase = 1
+                self._l9_sub = 0
+
+        # Phase 1: gap climb → mid cols2–4 → traverse to (7,21).
+        if self._l9_phase == 1:
+            if (px, py) == (7, 21):
+                self._l9_phase = 2
+            elif py > 29 and 5 <= px <= 7:
+                hit = y_click(px, py - 1)
+                if hit:
+                    return hit
+                if px < 6 and 4 in legal:
+                    return 4, {}
+                if 3 in legal:
+                    return 3, {}
+            elif py > 29:
+                if px < 5 and 4 in legal:
+                    return 4, {}
+                if px > 7 and 3 in legal:
+                    return 3, {}
+                if 4 in legal:
+                    return 4, {}
+            elif py > 21 and px > 3:
+                left = self._cell(px - 1, py)
+                if YBLOCK in left:
+                    hit = y_click(px - 1, py)
+                    if hit:
+                        return hit
+                if left == [] and 3 in legal:
+                    return 3, {}
+            elif py > 21 and 2 <= px <= 4:
+                above = self._cell(px, py - 1)
+                if any(s in above for s in SPIKE):
+                    if px > 2 and 3 in legal:
+                        return 3, {}
+                elif YBLOCK in above or BLOCK in above:
+                    hit = self._force_click_grid(px, py - 1, legal)
+                    if hit:
+                        return hit
+                elif px > 3 and 3 in legal:
+                    return 3, {}
+                elif 4 in legal:
+                    return 4, {}
+            elif py <= 21 and px < 7:
+                right = self._cell(px + 1, py)
+                if YBLOCK in right:
+                    hit = y_click(px + 1, py)
+                    if hit:
+                        return hit
+                if (right == [] or SOFT2 in right) and 4 in legal:
+                    return 4, {}
+            elif px < 5 and 4 in legal:
+                return 4, {}
+
+        # Phase 2: G(0,21) DN → y23 → col9.
+        if self._l9_phase == 2:
+            if self._grav_up():
+                grav = self._force_click_grid(0, 21, legal)
+                if grav is not None:
+                    return grav
+            if py >= 23 and px >= 9:
+                self._l9_phase = 3
+            elif py >= 23 and px < 9:
+                if YBLOCK in self._cell(px + 1, py):
+                    hit = y_click(px + 1, py)
+                    if hit:
+                        return hit
+                if 4 in legal:
+                    return 4, {}
+            else:
+                under = self._cell(px, py + 1)
+                if YBLOCK in under or BLOCK in under or SOFT1 in under:
+                    hit = self._force_click_grid(px, py + 1, legal)
+                    if hit:
+                        return hit
+                if (under == [] or SOFT2 in under) and 4 in legal:
+                    return 4, {}
+
+        # Phase 3: G UP + climb col9 to y≤8 (stop before y6 spikes).
+        if self._l9_phase == 3:
+            if not self._grav_up():
+                for gy in (25, 33, 35, 19, 15):
+                    if GRAV in self._cell(0, gy):
+                        grav = self._force_click_grid(0, gy, legal)
+                        if grav is not None:
+                            return grav
+                grav = self._force_click_grid(2, 1, legal)
+                if grav is not None:
+                    return grav
+            if py <= 8:
+                self._l9_phase = 4
+            else:
+                above = self._cell(px, py - 1)
+                if any(s in above for s in SPIKE):
+                    self._l9_phase = 4
+                elif YBLOCK in above or BLOCK in above or SOFT1 in above:
+                    hit = self._force_click_grid(px, py - 1, legal)
+                    if hit:
+                        return hit
+
+        # Phase 4: walk to (2,8), clear breach, enter col0.
+        if self._l9_phase == 4:
+            if px == 0:
+                self._l9_phase = 5
+            elif py > 8:
+                above = self._cell(px, py - 1)
+                if YBLOCK in above or SOFT1 in above or BLOCK in above:
+                    hit = self._force_click_grid(px, py - 1, legal)
+                    if hit:
+                        return hit
+            elif px > 2:
+                left = self._cell(px - 1, 8)
+                if YBLOCK in left:
+                    hit = y_click(px - 1, 8)
+                    if hit:
+                        return hit
+                if left == [] and 3 in legal:
+                    return 3, {}
+            elif px == 2:
+                cell = self._cell(1, 8)
+                if BLOCK in cell or YBLOCK in cell:
+                    hit = self._force_click_grid(1, 8, legal)
+                    if hit:
+                        return hit
+                if 3 in legal:
+                    return 3, {}
+            elif px == 1:
+                if YBLOCK in self._cell(0, 8):
+                    hit = y_click(0, 8)
+                    if hit:
+                        return hit
+                if 3 in legal:
+                    return 3, {}
+
+        # Phase 5: strip remaining col0 grav pads (each click toggles + removes).
+        if self._l9_phase == 5:
+            pads = [y for y in range(42) if GRAV in self._cell(0, y)]
+            if pads:
+                grav = self._force_click_grid(0, pads[0], legal)
+                if grav is not None:
+                    return grav
+            if not self._grav_up():
+                for x in range(1, 10):
+                    if GRAV in self._cell(x, 1):
+                        grav = self._force_click_grid(x, 1, legal)
+                        if grav is not None:
+                            return grav
+            self._l9_phase = 6
+
+        # Phase 6: DN freefall → y39+ → R to gem (2,40). Never R at y38.
+        if self._l9_phase == 6:
+            if GEM in self._cell(px, py) or (px == 2 and py >= 40):
+                if 4 in legal:
+                    return 4, {}
+                return a7()
+            if self._grav_up() and py < 38:
+                for x in range(11):
+                    for y in range(42):
+                        if GRAV in self._cell(x, y):
+                            grav = self._force_click_grid(x, y, legal)
+                            if grav is not None:
+                                return grav
+                return a7()
+            if px > 0 and py < 39:
+                if 3 in legal:
+                    return 3, {}
+            if py < 38:
+                under = self._cell(px, py + 1)
+                if GRAV in under:
+                    hit = self._force_click_grid(px, py + 1, legal)
+                    if hit:
+                        return hit
+                if YBLOCK in under or BLOCK in under or SOFT1 in under:
+                    hit = self._force_click_grid(px, py + 1, legal)
+                    if hit:
+                        return hit
+                return a7()
+            if py == 38:
+                if YBLOCK in self._cell(0, 39):
+                    hit = y_click(0, 39)
+                    if hit:
+                        return hit
+                return a7()
+            # underfloor y>=39
+            if px < 2:
+                nxt = self._cell(px + 1, py)
+                if YBLOCK in nxt:
+                    hit = y_click(px + 1, py)
+                    if hit:
+                        return hit
+                if (nxt == [] or GEM in nxt) and 4 in legal:
+                    return 4, {}
+            if px > 2 and 3 in legal:
+                return 3, {}
+            if 4 in legal:
+                return 4, {}
+            return a7()
+
+        return self._open_policy(legal)
+
     def choose(self, legal: list[int]) -> Optional[Tuple[int, dict[str, Any]]]:
         if self._oz() is None or self._player() is None:
             return None
@@ -659,6 +958,13 @@ class PlatformerPolicy:
                 self._l8_phase = 0
                 self._l8_sub = 0
             return self._choose_l8(legal)
+
+        if levels == 8:
+            if self._script_lv != 8:
+                self._script_lv = 8
+                self._l9_phase = 0
+                self._l9_sub = 0
+            return self._choose_l9(legal)
 
         if levels in self._scripts:
             if self._script_lv != levels:

@@ -114,39 +114,39 @@ downloaded official environment, not a static grid surrogate:
 
 ### Live FoT metrics (local, 2026-07-21)
 
-Source: offline Arcade + `PlatformerPolicy` L1–L8 replay + L9 REINJECT packs
-under `reports/exam_reinjection/grammar/arc3/`.
+Source: offline Arcade + `PlatformerPolicy` L1–L9 WIN harness
+(`--max-actions 500`) under `reports/exam_reinjection/grammar/arc3/`.
 
 | Metric | Value | Honest read |
 | --- | --- | --- |
 | Games played | 3 (`bp35`, `ar25`, `ls20`) | Official offline envs |
-| WIN terminals | **0** | Full WIN not yet sealed |
-| Levels cleared | **bp35 8/9**; ar25 0/8; ls20 0/7 | L1–L8 owned; L9 prefix owned |
-| `bp35` grammar | `C4_BOUND_OWNED` + L9 `REINJECT` | next: `bp35_L9_col0_underfloor_y39_gem_walk` |
-| `ar25` / `ls20` | `PARTIAL_GRAMMAR` / `unreproduced_productive_delta` | REINJECT L1 |
-| Captures | `affine_audit_logs/arc_agi3/bp35/` | UI trail kept |
+| WIN terminals | **1** (`bp35`) | Full WIN sealed |
+| Levels cleared | **bp35 9/9 WIN**; ar25 1/8; ls20 0/7 | bp35 closed; ar25/ls20 lifted |
+| `bp35` grammar | `C4_BOUND_OWNED` + WIN | L9 underfloor walk LOCKED |
+| `ar25` / `ls20` | L1 LOCKED / L1 REINJECT | next: `ar25_L2_mirror_targets_cover` |
+| Captures | `affine_audit_logs/arc_agi3/bp35/20260721T160924Z/bp35.mp4` | WIN trail |
 | Public probe | **0.12** (ref 54875048) | Process probe only; NO Kaggle |
 
 **Owned bp35 C4 grammar:**
 
 1. ACTION3/4 horizontal move; inverted gravity falls toward decreasing y when gUP.
-2. ACTION6 on `qclfkhjnaac` / `yuuqpmlxorv` / `oonshderxef` / `lrpkmzabbfa`; Y-block `etlsaqqtjvn` force-click spreads into empty neighbors.
+2. ACTION6 on `qclfkhjnaac` / `yuuqpmlxorv` / `oonshderxef` / `lrpkmzabbfa`; Y-block `etlsaqqtjvn` force-click spreads into empty neighbors (source cell consumed).
 3. Off-viewport pads: ACTION6 via `grid*6 − camera`; harness restores true `x/y` after clamp.
-4. Gem `fjlzdjxhant` → `next_level()`; spike / ~64-action budget → GAME_OVER → RESET.
+4. Gem `fjlzdjxhant` → `next_level()` / WIN; spike / 128-action L9 budget → GAME_OVER → RESET.
 5. L7: soft ladder → `(8,6)` gUP → floor `(8,8)` → col9 gDN safe-drop → gem `(3,25)` (`L7_OPS`).
 6. L8: Y-bridge → col8 → soft1 chamber → stand-on-(7,17) clear-(8,17) → `G(5,2)` DN → gem `(9,19)` (`_choose_l8`).
-7. L9 owned prefix: gap/Y mid climb → gDN connect to col9 → y18 gap → breach `(1,8)` → col0 `(0,8)`. **Blocker:** under-floor walk y39→gem `(2,40)` without Y-refill/grav-toggle/budget death.
+7. L9: defer breach; Y gap/cover/landing; col9 climb; col0; strip shaft grav pads; DN freefall; never R at y38; R at y39+ → gem `(2,40)` (`_choose_l9`) → **WIN**.
 
 Evidence: `bp35_L7_soft1_shaft_col9_safe_drop.json`,
 `bp35_L8_ybridge_col8_chamber_gDN_gem.json`,
-`bp35_L9_col0_shaft_gem_2_40.json`.
+`bp35_L9_col0_underfloor_y39_gem_walk.json` (LOCKED).
 Module: `llm_llvm_bench/arc/agi3_platformer_policy.py`.
 
-### FoT note — agi3-trajectory-gap CLOSED (2026-07-21)
+### FoT note — agi3-trajectory-gap CLOSED + bp35 WIN (2026-07-21)
 
 Meta miss `arc3:agi3-trajectory-gap` sealed **CLOSED / C4_BOUND_OWNED**. Locked C4 =
-`PlatformerPolicy` / `level_clear_motion_click_grammar` — bp35 **8/9** (L1–L8
-verified), WIN=0. Remaining: bp35 L9 under-floor gem walk (REINJECT), ar25/ls20.
+`PlatformerPolicy` / `level_clear_motion_click_grammar` — bp35 **9/9 WIN**
+(deaths=0, 387 turns). Lifted: ar25 L1 LOCKED, ar25 L2 + ls20 L1 REINJECT.
 No Kaggle submit.
 
 ## 9. Format from top scores

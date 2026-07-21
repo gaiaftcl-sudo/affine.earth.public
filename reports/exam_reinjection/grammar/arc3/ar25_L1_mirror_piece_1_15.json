@@ -1,0 +1,29 @@
+{
+  "task_id": "ar25",
+  "track": "arc3",
+  "grammar_id": "ar25_L1_mirror_piece_1_15",
+  "s4_status": "LOCKED",
+  "closure_ready": true,
+  "levels_completed_after": 1,
+  "protocol": "franklin_s4_projection",
+  "recorded_at_utc": "2026-07-21T16:10:00+00:00",
+  "c4_invariant": {
+    "level": 1,
+    "grid": "grid21",
+    "piece": "0007arvfmhagbj",
+    "spawn": [6, 5],
+    "target": [1, 15],
+    "mirror": "vertical @ x=10",
+    "ops": "ACTION3×5 + ACTION2×10 (AR25_L1_OPS)",
+    "predicate": "reflection covers all five 0001sruqbuvukh targets"
+  },
+  "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
+  "implementation": "Ar25Policy L1 script",
+  "validator": "environment_step",
+  "validator_result": {
+    "accepted": true,
+    "levels_completed": 1,
+    "detail": "Ar25Policy clears L1 in 15 actions"
+  },
+  "next_grammar": "ar25_L2_mirror_targets_cover"
+}

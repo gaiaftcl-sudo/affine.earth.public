@@ -2,38 +2,24 @@
   "task_id": "bp35",
   "track": "arc3",
   "grammar_id": "bp35_L9_col0_shaft_gem_2_40",
-  "s4_status": "REINJECT",
-  "closure_ready": false,
-  "levels_completed_after": 8,
+  "s4_status": "LOCKED",
+  "closure_ready": true,
+  "levels_completed_after": 9,
   "protocol": "franklin_s4_projection",
-  "recorded_at_utc": "2026-07-21T16:00:00+00:00",
+  "recorded_at_utc": "2026-07-21T16:10:00+00:00",
   "c4_invariant": {
     "level": 9,
     "grid": "grid9",
     "spawn": [3, 35],
     "gem": [2, 40],
-    "owned_prefix": [
-      "Clear breach block (1,8); clear mid blocks (2-4,26); S2 (9,15)",
-      "Y-floor gap (5-7,34); Y-cover spikes (2-4,27); Y landing (9,8) expand RIGHT only",
-      "Gap-up cols5-7 → mid climb cols2-4 through y26 → traverse R at y21 to col7",
-      "G(0,21) DN; clear underfoot Y; fall to y23; R to col9",
-      "G UP; climb col9 through y18-only gap; land y8 (stop before y6 spikes)",
-      "Stand (2,8); clear (1,8); L L into col0 (0,8)"
-    ],
-    "owned_mechanics": [
-      "y18 wall blocks cols1-8 — only col9 passes",
-      "y26 wall blocks cols5-10 — only cols2-4 pass (after # clear)",
-      "Connect shafts via gDN at (7,21) → y23 → col9",
-      "Gem under floor: y38 is W for cols1+; passage is y39 cols0-3 → gem (2,40)",
-      "Y-click spreads into empty neighbors — stand on neighbor before corridor clear"
-    ],
-    "blocker": "col0 shaft drop to y39 chamber then R to gem (2,40) without Y-refill / grav-toggle / action-budget death; keep L9 action count low (~64 budget)"
+    "note": "Superseded by bp35_L9_col0_underfloor_y39_gem_walk LOCKED + WIN"
   },
-  "next_grammar": "bp35_L9_col0_underfloor_y39_gem_walk",
+  "next_grammar": null,
   "validator": "environment_step",
   "validator_result": {
-    "accepted": false,
-    "levels_completed": 8,
-    "detail": "Prefix to col0 (0,8) owned interactively; gem clear not yet replay-sealed"
+    "accepted": true,
+    "levels_completed": 9,
+    "state": "WIN",
+    "detail": "Merged into underfloor y39 gem walk; full WIN sealed"
   }
 }

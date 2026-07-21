@@ -1,0 +1,32 @@
+{
+  "task_id": "ls20",
+  "track": "arc3",
+  "grammar_id": "ls20_L1_keyboard_explore",
+  "s4_status": "REINJECT",
+  "closure_ready": false,
+  "levels_completed_after": 0,
+  "protocol": "franklin_s4_projection",
+  "recorded_at_utc": "2026-07-21T16:10:00+00:00",
+  "c4_invariant": {
+    "level": 1,
+    "grid": "64x64",
+    "actions": "ACTION1–4 only (no click)",
+    "avatar_candidates": [
+      {"name": "eqatonpohu", "pos": [1, 53]},
+      {"name": "ghizzeqtoh", "pos": [1, 53]},
+      {"name": "hoswmpiqkw", "pos": [33, 9]}
+    ],
+    "walls_ihdgageizm": "border lattice at x=4..59 / y=0..25+",
+    "win_score": 7,
+    "blocker": "Level-clear predicate unknown; Ls20Policy sweep has not produced levels_completed>0"
+  },
+  "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
+  "implementation": "Ls20Policy spiral sweep (unverified)",
+  "next_grammar": "ls20_L1_predicate_bind",
+  "validator": "environment_step",
+  "validator_result": {
+    "accepted": false,
+    "levels_completed": 0,
+    "detail": "Lifted after bp35 WIN; L1 predicate still unbound"
+  }
+}

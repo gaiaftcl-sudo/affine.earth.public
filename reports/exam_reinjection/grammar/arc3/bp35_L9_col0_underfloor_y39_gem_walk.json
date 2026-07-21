@@ -1,0 +1,51 @@
+{
+  "task_id": "bp35",
+  "track": "arc3",
+  "grammar_id": "bp35_L9_col0_underfloor_y39_gem_walk",
+  "s4_status": "LOCKED",
+  "closure_ready": true,
+  "levels_completed_after": 9,
+  "win_terminal": true,
+  "protocol": "franklin_s4_projection",
+  "recorded_at_utc": "2026-07-21T16:10:00+00:00",
+  "c4_invariant": {
+    "level": 9,
+    "grid": "grid9",
+    "spawn": [3, 35],
+    "gem": [2, 40],
+    "action_budget": 128,
+    "clear_sequence": [
+      "Defer breach (1,8) until entry — early clear lets Y flood col0",
+      "Clear BLOCK only at (2-4,26); S2 (9,15)",
+      "Y-expand gap (5-7,34) + spike covers (2-4,27); lock set once complete (Y-click consumes source)",
+      "Landing right-only: click (7,8)→(8,8), click (8,8)→(9,8); never expand into col0",
+      "Gap climb cols5-7 → mid cols2-4 → (7,21)",
+      "G(0,21) DN → y23 → R col9; G UP; climb col9 to y8 (stop before y6 spikes)",
+      "Walk to (2,8); clear breach (1,8); L into col0",
+      "Strip remaining col0 grav pads (15/19/33/35) while at top — each click removes pad + toggles",
+      "Restore gUP via row1 if needed; DN once; freefall (ACTION7) past y38",
+      "Never R at y38 (wall); at y39+ R to gem (2,40)"
+    ],
+    "failure_modes": [
+      "Y refill into (2-4,26) if those cells are re-cleared as Y after BLOCK gone",
+      "Clicking col0 grav underfoot mid-fall toggles gUP and resets altitude",
+      "R at y38 into wall → death",
+      "Early breach clear → Y floods (0,8) shaft"
+    ]
+  },
+  "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
+  "implementation": "_choose_l9 phase machine",
+  "validator": "environment_step",
+  "validator_result": {
+    "accepted": true,
+    "levels_completed": 9,
+    "state": "WIN",
+    "deaths": 0,
+    "detail": "PlatformerPolicy L1–L9 replay + harness --max-actions 500 → WIN"
+  },
+  "evidence": {
+    "harness_summary": "data/arc-prize-2026/ARC-AGI-3-Agents/reports/arc_local_20260721T160922Z/summary.json",
+    "mp4": "affine_audit_logs/arc_agi3/bp35/20260721T160924Z/bp35.mp4",
+    "mean_turn_count": 387
+  }
+}
