@@ -30,7 +30,7 @@ Agents must not remove the lock file. Env override only when steward orders it.
 
 | Role | SHA |
 | --- | --- |
-| Tip (this seal) | *(filled at commit)* |
+| Tip (this seal) | `682eaa1` |
 | Prior tip / readiness pack at follow-up start | `e848393` |
 | AGI-2 independent verify receipt | `6d3a705` (`reports/arc_local_20260721T172649Z/VERIFY_RECEIPT.json`) |
 | AGI-2 land (172/172 COMPLETE) | `21b2924` |
