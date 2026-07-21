@@ -7,6 +7,7 @@
     "arc2:142ca369",
     "arc2:16b78196",
     "arc2:16de56c4",
+    "arc2:195c6913",
     "arc2:1ae2feb7",
     "arc2:20270e3b",
     "arc2:20a9e565",
@@ -25,14 +26,6 @@
   "next_apply_loop": [
     {
       "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
-      "key": "arc2:195c6913",
-      "last_gate": "pending",
-      "task_id": "195c6913",
-      "track": "arc2",
-      "language_game_class": "S3_spatial_rewrite"
-    },
-    {
-      "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
       "key": "arc2:58f5dbd5",
       "last_gate": "pending",
       "task_id": "58f5dbd5",
@@ -47,7 +40,7 @@
       "track": "arc3"
     }
   ],
-  "note": "Reinjection CLOSED synced for 58490d8a zero_panel_motif_count. Mastery 34/172. Next open: arc2:195c6913. No Kaggle.",
+  "note": "Reinjection CLOSED sealed for 195c6913 terrain_period_bounce. Mastery 36/172. Next open: arc2:58f5dbd5. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T15:06:44.495723+00:00"
+  "recorded_at_utc": "2026-07-21T15:14:50.381755+00:00"
 }

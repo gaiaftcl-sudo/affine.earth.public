@@ -531,6 +531,27 @@ def solve_task(
         receipt["s3_lattice_meta"] = lat_replay
         return lat_fragment, receipt
 
+    # 1f) S3 terrain period-bounce (195c6913).
+    s3bounce = _load_module(
+        arc_dir / "s3_terrain_period_bounce.py", "s3_terrain_period_bounce"
+    )
+    bounce_replay = s3bounce.train_replay(task)
+    bounce_fragment = s3bounce.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(bounce_replay)
+    if (
+        bounce_fragment is not None
+        and bounce_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in bounce_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_terrain_period_bounce"
+        receipt["train_replay"] = bounce_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_bounce_meta"] = bounce_replay
+        return bounce_fragment, receipt
+
     # 2) Replay-gated DSL (db71c28 lineage).
     dsl_path = repo_root / "kaggle/arc-prize-2026-agi-2/arc_agi_2_kaggle.py"
     try:

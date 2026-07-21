@@ -1,0 +1,23 @@
+{
+  "task_id": "195c6913",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S3_spatial_rewrite",
+  "engine": "s3_terrain_period_bounce",
+  "primary_transform": "terrain_period_bounce",
+  "status": "CLOSED",
+  "train_replay": "3/3",
+  "eval_grids": "2/2",
+  "c4": {
+    "S1": "same canvas shape (in-place rewrite)",
+    "S2": "top-2 colors = terrain (seed-bg vs object)",
+    "S3": "top-row 2x2 stamps = period P; remaining stamp = M; left-edge seeds erase then E/N bounce paint P, place M on object hits; stop on OOB or blocked new facing",
+    "S4": "unpainted cells stay erased terrain",
+    "C4": "exact rewrite; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s3_terrain_period_bounce.py",
+  "mastery_eval": "36/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T15:14:00Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T151400Z/agi2/summary-overlay.json"
+}

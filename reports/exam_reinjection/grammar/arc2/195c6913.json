@@ -1,0 +1,11 @@
+{
+  "task_id": "195c6913",
+  "status": "CLOSED",
+  "engine": "s3_terrain_period_bounce",
+  "train_replay": "3/3",
+  "eval_grids": "2/2",
+  "mastery_eval": "36/172",
+  "grammar_path": "reports/exam_reinjection/grammar/arc2/s3_195c6913_terrain_period_bounce.json",
+  "sealed_at_utc": "2026-07-21T15:14:00Z",
+  "kaggle_submit": false
+}

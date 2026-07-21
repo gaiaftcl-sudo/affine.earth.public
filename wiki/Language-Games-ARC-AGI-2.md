@@ -186,10 +186,10 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **34/172** exact grids
+**MEASURED local** (2026-07-21): evaluation lifts to **36/172** exact grids
 (overlay `reports/arc_local_20260721T150629Z/agi2/summary-overlay.json`;
 train ice-on baseline remains **298/1076**). Lineage includes
-`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 = **34/172**.
+`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 → `s3_terrain_period_bounce` **195c6913** ×2 = **36/172**.
 
 | Owned grammar | Engine | Train replay | Eval |
 | --- | --- | --- | --- |
@@ -214,6 +214,7 @@ train ice-on baseline remains **298/1076**). Lineage includes
 | separator gap-stack | `s3_separator_gap_stack` | 2/2 on `16b78196` | exact ×1 |
 | period lattice rewrite | `s3_period_lattice_rewrite` | 3/3 on `16de56c4` | exact ×2 |
 | legend motif tally | `s1_legend_motif_tally` | 3/3 on `58490d8a` | exact ×1 |
+| terrain period-bounce | `s3_terrain_period_bounce` | 3/3 on `195c6913` | exact ×2 |
 | ice+DSL residual | `arc-icecuber` hybrid | n/a | +1 prior (`981571dc`) |
 
 **S1 grammar (`hollow_solid_object_pack`):**
