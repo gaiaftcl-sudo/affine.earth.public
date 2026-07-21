@@ -325,6 +325,7 @@ def try_ranked_closed_engines(
     zoom = _zoom_move(task)
     zoom_stems = {
         "zoom_out_expand": [
+            "s1_rail_diagonal_base",
             "s1_period_tile_colflip_rowblock",
             "s1_period_tile_dihedral2",
             "s1_nw_wrap_mark_period_tile",
@@ -360,6 +361,9 @@ def try_ranked_closed_engines(
             "s2_drop_into_floor_row",
             "s2_marker_paint_block_edge",
             "s2_sep_majority_bottom_mark",
+            "s2_top_pattern_stamp_on_right_marks",
+            "s2_top_seed_vertical_wave",
+            "s2_bicolor_row_meet5",
             "s2_mono_row_recolor",
             "s2_corner_fill_2x2",
             "s2_color_gate_rewrite",

@@ -1,0 +1,18 @@
+{
+  "task_id": "2281f1f4",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "engine": "s2_top_pattern_stamp_on_right_marks",
+  "module": "llm_llvm_bench/arc/s2_top_pattern_stamp_on_right_marks.py",
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "train_replay": "3/3",
+    "engine": "s2_top_pattern_stamp_on_right_marks",
+    "detail": "train_replay_perfect"
+  },
+  "c4_invariant": "s2_top_pattern_stamp_on_right_marks",
+  "sealed_at_utc": "2026-07-21T21:35:41.405157+00:00"
+}
