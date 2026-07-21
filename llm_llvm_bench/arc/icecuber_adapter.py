@@ -110,14 +110,30 @@ def _run_one(
     log_path = work_dir / f"log_{sample_index}.txt"
     # icecuber writes to cwd/output/answer_{sid}_{depth}.csv
     env = os.environ.copy()
-    completed = subprocess.run(
-        [str(binary), str(sample_dir), str(sample_index), str(depth)],
-        cwd=str(work_dir),
-        text=True,
-        capture_output=True,
-        check=False,
-        env=env,
-    )
+    # Bound per-sample wall time so hybrid licensed-fill can advance.
+    # Unset / 0 = unlimited (legacy). Default 45s keeps private-test sweeps moving.
+    timeout_raw = env.get("ARC_ICECUBER_TIMEOUT_S", "45").strip()
+    timeout_s: Optional[float]
+    try:
+        timeout_s = float(timeout_raw) if timeout_raw not in ("", "0") else None
+    except ValueError:
+        timeout_s = 45.0
+    try:
+        completed = subprocess.run(
+            [str(binary), str(sample_dir), str(sample_index), str(depth)],
+            cwd=str(work_dir),
+            text=True,
+            capture_output=True,
+            check=False,
+            env=env,
+            timeout=timeout_s,
+        )
+    except subprocess.TimeoutExpired as exc:
+        log_path.write_text(
+            f"TIMEOUT after {timeout_s}s\n{(exc.stdout or '')}\n{(exc.stderr or '')}",
+            encoding="utf-8",
+        )
+        return sample_index, "Nothing", []
     log_path.write_text(
         (completed.stdout or "") + "\n" + (completed.stderr or ""), encoding="utf-8"
     )
