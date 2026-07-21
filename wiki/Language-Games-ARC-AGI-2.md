@@ -80,3 +80,25 @@ understanding drift.
 **No public ARC-AGI-2 submission until schema validation, candidate replay,
 serialization validation, and a saved preflight receipt are green.** Local
 results remain local until Kaggle issues a score receipt.
+
+## 9. Format from top scores
+
+Typed artifact after the language-game state change (full detail:
+[Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats),
+[`docs/KAGGLE_ARC_TOP_SCORE_FORMATS.md`](../docs/KAGGLE_ARC_TOP_SCORE_FORMATS.md)):
+
+```text
+submission.json → { task_id: [ {attempt_1: grid, attempt_2: grid}, … ] }
+```
+
+| Rule | Exact |
+| --- | --- |
+| Keys per test | exactly `attempt_1`, `attempt_2` |
+| Grid | rectangular ints 0..9 |
+| Win | either attempt exact-matches the hidden grid |
+
+Cited: official `sample_submission.json` (240 tasks); NVARC baseline
+`get_submission`; MCP AGI-2 starter. Our baseline
+[live record](ARC-Prize-AGI-2-Kaggle-Live) scores **0.00** with a schema-valid
+file — format correctness, not LB mastery (nvbanana **65.83**). Local check:
+`python3 scripts/validate_arc_prize_submission.py …/submission.json`.

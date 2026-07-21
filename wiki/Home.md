@@ -43,6 +43,7 @@ Onboard → **all 12 LIVE Games** → Franklin replies in `#messageList` (Socrat
 | 4d. Exam game contract | [Language Games — Exam Invariants](Language-Games-Exam-Invariants) | Pre-submission hub: context, answer artifacts, drift checks, and public-submission gate |
 | 4e. ARC-AGI-2 game | [Language Games — ARC-AGI-2](Language-Games-ARC-AGI-2) | Demonstrations → two exact-grid attempts |
 | 4f. ARC-AGI-3 game | [Language Games — ARC-AGI-3](Language-Games-ARC-AGI-3) | Agent observation → legal action trajectory → parquet |
+| 4f+. Top-score formats | [Kaggle ARC top-score formats](Kaggle-ARC-Top-Score-Formats) | Exact JSON/parquet contracts; FoT 0.12 vs LB ~1.86 |
 | 4g. HLE game | [Language Games — HLE](Language-Games-HLE) | Official question context → exact answer → CAIS judge |
 | 5. Agents | [AGI agent execution](AGI-Agent-Execution) | Short commands (`bin/run-open-agi-harnesses.sh`); deep docs link upstream |
 | 6. Reproduce | [Create account (once)](Create-Account-Signup) | **Only** page with the signup / login walkthrough video |

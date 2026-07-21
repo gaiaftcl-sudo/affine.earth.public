@@ -80,3 +80,31 @@ framework rejecting an action or trajectory is understanding drift.
 action/trace/terminal validation, parquet validation, and a preflight receipt
 are green.** A pending Kaggle result has no public score until Kaggle returns
 one.
+
+## 9. Format from top scores
+
+Typed artifact after the language-game state change (full detail:
+[Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats),
+[`docs/KAGGLE_ARC_TOP_SCORE_FORMATS.md`](../docs/KAGGLE_ARC_TOP_SCORE_FORMATS.md)):
+
+| Column | dtype | Commit-mode example |
+| --- | --- | --- |
+| `row_id` | string | `"1_0"` |
+| `game_id` | string | `"1"` |
+| `end_of_game` | bool | `True` |
+| `score` | int64 | `1` |
+
+Filename: `submission.parquet`. Cited from inversion Stochastic Goose,
+pscamillo starter, jeroencottaar simplified (same four columns).
+
+### FoT: our 0.12 vs LB leaders
+
+| Artifact | publicScore | Reads as |
+| --- | --- | --- |
+| Our probe ref **54875048** | **0.12** | Format accepted + scored ([live record](ARC-Prize-Kaggle-Live)) |
+| Goose sample notebook | 0.25 | Same schema; better policy |
+| LB #1 YUTO KOJIMA | **1.86** | Puzzle/agent mastery on the same parquet language |
+
+Schema green is serialization integrity. Closing 0.12 → ~1.8 is policy mastery,
+not a new column list. Local check:
+`python3 scripts/validate_arc_agi3_submission.py …/submission.parquet`.

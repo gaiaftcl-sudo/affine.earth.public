@@ -1,0 +1,28 @@
+{
+  "filename": "submission.parquet",
+  "columns_exact_order": [
+    "row_id",
+    "game_id",
+    "end_of_game",
+    "score"
+  ],
+  "dtypes": {
+    "row_id": "string/object",
+    "game_id": "string/object",
+    "end_of_game": "bool",
+    "score": "int64"
+  },
+  "commit_mode_dummy_row": {
+    "row_id": "1_0",
+    "game_id": "1",
+    "end_of_game": true,
+    "score": 1,
+    "note": "Used when KAGGLE_IS_COMPETITION_RERUN unset; gateway writes real parquet on scored rerun"
+  },
+  "sources": [
+    "inversion/arc3-sample-submission-stochastic-goose (publicScore 0.25)",
+    "pscamillo/arc-prize-2026-arc-agi-3-starter",
+    "jeroencottaar/simplified-submission-approach",
+    "bliztafree probe ref 54875048 publicScore 0.12"
+  ]
+}

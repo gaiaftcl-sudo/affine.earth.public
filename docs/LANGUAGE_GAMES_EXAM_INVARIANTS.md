@@ -128,3 +128,8 @@ are green and a preflight receipt exists.** The required validators are
 track-specific and are defined in the linked pages. Green local validation is a
 readiness condition, not an invented score; every public result must cite the
 corresponding official receipt.
+
+## Format from top scores
+
+Artifact contracts and FoT contrast (AGI-3 **0.12** vs LB ~1.86):
+[KAGGLE_ARC_TOP_SCORE_FORMATS.md](KAGGLE_ARC_TOP_SCORE_FORMATS.md).

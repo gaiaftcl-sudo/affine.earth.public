@@ -73,3 +73,11 @@ move.
 **No public Kaggle or HLE submission occurs until the relevant local validators
 are green and a preflight receipt exists.** Green local checks establish
 readiness only. Public scores require the corresponding Kaggle or CAIS receipt.
+
+## Format from top scores
+
+Reverse-engineered artifact contracts (with FoT contrast of our AGI-3
+**publicScore 0.12** vs LB ~1.86):
+[Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats). Those examples
+are the **serialization** of the state changes defined on the ARC-AGI-2 /
+ARC-AGI-3 language-game pages — not a substitute for puzzle mastery.

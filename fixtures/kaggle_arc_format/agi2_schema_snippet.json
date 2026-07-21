@@ -1,0 +1,19 @@
+{
+  "filename": "submission.json",
+  "root": "object keyed by task_id string",
+  "value": "array of test predictions; length == len(task['test'])",
+  "each_prediction": {
+    "attempt_1": "rectangular List[List[int]] colors 0..9",
+    "attempt_2": "rectangular List[List[int]] colors 0..9",
+    "keys_exactly": [
+      "attempt_1",
+      "attempt_2"
+    ]
+  },
+  "scoring": "exact grid match if either attempt equals hidden solution",
+  "sources": [
+    "official sample_submission.json (240 tasks)",
+    "nihilisticneuralnet/baseline-nvarc-arc-25-winning-solution-for-t4x2 get_submission",
+    "ibrahimqasimi/mcp-arc-prize-agi-2-2026-starter"
+  ]
+}

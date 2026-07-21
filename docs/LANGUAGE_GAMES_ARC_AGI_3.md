@@ -138,3 +138,14 @@ green.** The minimum green set is `make verify-local`, official asset/version
 validation, action and episode-trace validation, terminal-state validation, and
 parquet-schema validation with a saved preflight receipt. A pending submission
 has no score until Kaggle returns one.
+
+## 9. Format from top scores
+
+After the trajectory state change above, the typed artifact is
+`submission.parquet` with columns
+`row_id, game_id, end_of_game, score` (bool / int64 on the last two). See
+[KAGGLE_ARC_TOP_SCORE_FORMATS.md](KAGGLE_ARC_TOP_SCORE_FORMATS.md) and wiki
+[Language-Games-ARC-AGI-3](../wiki/Language-Games-ARC-AGI-3.md) §9.
+
+FoT contrast: our probe ref **54875048** scored **publicScore 0.12** on that
+exact schema; LB leaders sit near **1.86**. Format acceptance ≠ agent mastery.

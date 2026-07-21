@@ -147,3 +147,12 @@ green.** The minimum green set is official-data schema validation,
 demonstration replay for every produced candidate, output serialization
 validation, and a saved preflight receipt. A local result must be described as
 local until Kaggle publishes a score receipt.
+
+## 9. Format from top scores
+
+Typed artifact: `submission.json` with exactly `attempt_1` / `attempt_2`
+rectangular grids (ints 0..9) per test input. Full reverse-engineering and LB
+citations: [KAGGLE_ARC_TOP_SCORE_FORMATS.md](KAGGLE_ARC_TOP_SCORE_FORMATS.md);
+wiki [Language-Games-ARC-AGI-2](../wiki/Language-Games-ARC-AGI-2.md) §9.
+Schema-valid baseline can still score **0.00** while LB leaders sit near
+**65.83** — format correctness vs transformation mastery.
