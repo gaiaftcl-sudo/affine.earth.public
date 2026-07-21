@@ -6,6 +6,31 @@ Official competition: [ARC Prize 2026 - ARC-AGI-3](https://www.kaggle.com/compet
 
 Auth for this record: `export KAGGLE_API_TOKEN=…` only. No Keychain / `security` / browser credential APIs.
 
+**Submit status:** **BLOCKED** — `configs/NO_KAGGLE_SUBMIT.lock`. No new Kaggle submits until local mastery is green **and** the steward sets `ALLOW_KAGGLE_SUBMIT=1`.
+
+## LOCAL mastery gate (required before any future submit)
+
+| Gate | Result |
+|:---|:---|
+| Language-game doctrine | [Language-Games-ARC-AGI-3](Language-Games-ARC-AGI-3) · hub [Exam Invariants](Language-Games-Exam-Invariants) (`f983986`) |
+| Top-score format study | [Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats) (`a04e483`) |
+| Hard schema validator | `scripts/validate_arc_agi3_submission.py` on fixture + probe parquet |
+| Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_*/` **overall GREEN** (validators) |
+| Public probe | ref **54875048** publicScore **0.12** = **PROCESS_PROBE**, not perfected ownership |
+| LB contrast | Top public ~**1.86** — format≠mastery |
+
+```bash
+./bin/run-arc-local-mastery.sh
+# Hard gates first: fixtures → validate_arc_* → language-game traces
+# Never: kaggle competitions submit  (lock present)
+```
+
+UI context (Affine membrane / Formal — ARC grids not hosted in UI yet):
+
+![Exam UI context](assets/exam-ui-arc-context.png)
+
+![ARC-AGI-3 doctrine](assets/exam-ui-arc-agi3-doctrine.png)
+
 ## Recorded 2026-07-21 (post-join)
 
 | Check | Observed result |
@@ -19,7 +44,7 @@ Auth for this record: `export KAGGLE_API_TOKEN=…` only. No Keychain / `securit
 | Kernel constraints | `enable_internet=false`, GPU T4, competition source `arc-prize-2026-arc-agi-3` |
 | Kernel output | `submission.parquet` (890 B on platform; local copy in evidence) |
 | Competition submit | ref **54875048** — `SubmissionStatus.COMPLETE` (polled 2026-07-21T10:45:09Z) |
-| Leaderboard / publicScore | **0.12** (platform `publicScore`; privateScore empty) |
+| Leaderboard / publicScore | **0.12** (platform `publicScore`; privateScore empty) — **process probe** |
 
 Secret-free evidence under `evidence/arc-prize-2026/`:
 
@@ -34,36 +59,23 @@ Secret-free evidence under `evidence/arc-prize-2026/`:
 
 **Never commit `KAGGLE_API_TOKEN`.**
 
-## Reproduce (public test repo only)
-
-```bash
-export KAGGLE_API_TOKEN=…   # env only; never Keychain
-# Official ARC Prize starter (Python 3.12): https://github.com/arcprize/ARC-AGI-3-Kaggle-Starter
-# notebooks/kernel-metadata.json id → bliztafree/arc-prize-2026-arc-agi-3-starter
-# enable_internet: false
-make setup && make verify-local && make submit && make status
-# When COMPLETE:
-kaggle competitions submit arc-prize-2026-arc-agi-3 \
-  -k bliztafree/arc-prize-2026-arc-agi-3-starter \
-  -f submission.parquet -v 1 \
-  -m "public-test AGI-3 starter baseline"
-kaggle competitions submissions -c arc-prize-2026-arc-agi-3
-```
-
-## FoT score (MEASURED)
+## FoT score (MEASURED process probe)
 
 | Field | Value |
 |:---|:---|
 | Competition | `arc-prize-2026-arc-agi-3` |
 | Submission ref | **54875048** |
 | fileName | `submission.parquet` |
-| description | `public-test AGI-3 starter baseline v1 air-gapped` |
 | status | `SubmissionStatus.COMPLETE` |
 | publicScore | **0.12** |
-| privateScore | *(empty on API)* |
-| Track | Agent / parquet (not ARC-AGI-2 `attempt_1`/`attempt_2` JSON grids) |
-| Poll evidence | `evidence/arc-prize-2026/kaggle-status-poll.log` (COMPLETE at 2026-07-21T10:45:09Z) |
+| Label | **PROCESS_PROBE** — not perfected ownership |
+| Top public LB (approx) | **~1.86** |
+| Path forward | Local green → agent/policy mastery → steward re-opens submit |
 
-Official starter random baseline on public test. FoT: exact platform number only — no invented Pass@k.
+## Reproduce (public test repo only — submit still locked)
 
-When re-submitting, append a new table row; do not overwrite this MEASURED line without a new ref.
+```bash
+export KAGGLE_API_TOKEN=…   # env only; never Keychain; DATA download only
+./bin/run-arc-local-mastery.sh
+# Submit path remains blocked by configs/NO_KAGGLE_SUBMIT.lock
+```

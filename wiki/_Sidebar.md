@@ -9,9 +9,9 @@
 - [**Humanity’s Last Exam**](Humanitys-Last-Exam-Live)
 - [**HLE language games**](Language-Games-HLE)
 - [**ARC Prize Kaggle Live**](ARC-Prize-Kaggle-Live)
-  - FoT: MEASURED publicScore **0.12** (COMPLETE, ref 54875048)
+  - Probe **0.12** · LOCAL mastery · submit **LOCKED**
 - [**ARC Prize ARC-AGI-2 Live**](ARC-Prize-AGI-2-Kaggle-Live)
-  - FoT: MEASURED publicScore **0.00** (COMPLETE)
+  - Probe **0.00** · LOCAL mastery · submit **LOCKED**
 - [**Kaggle ARC top-score formats**](Kaggle-ARC-Top-Score-Formats)
 - [**Exam language-game invariants**](Language-Games-Exam-Invariants)
   - [ARC-AGI-2 language game](Language-Games-ARC-AGI-2)
