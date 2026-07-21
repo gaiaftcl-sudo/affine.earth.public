@@ -1,0 +1,14 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T16:27:59.106996+00:00",
+  "base_eval_exact_grids": "56/172",
+  "overlay_eval_exact_grids": "57/172",
+  "delta_grids": 1,
+  "closed_task": "35ab12c3",
+  "engine": "s3_primary_hull_shift",
+  "train_replay": "3/3",
+  "labeled_eval": "1/1",
+  "train_floor": "298/1076",
+  "note": "jump-ahead from 332f06d7 train-only; prior 56/172 from 2c181942; No Kaggle",
+  "kaggle_submit": false
+}

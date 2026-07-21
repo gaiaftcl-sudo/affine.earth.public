@@ -827,6 +827,27 @@ def solve_task(
         receipt["s3_cross_arm_shape_dock_meta"] = cross_replay
         return cross_fragment, receipt
 
+    # 1b33) S3 primary hull shift (35ab12c3).
+    s3hull = _load_module(
+        arc_dir / "s3_primary_hull_shift.py", "s3_primary_hull_shift"
+    )
+    hull_replay = s3hull.train_replay(task)
+    hull_fragment = s3hull.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(hull_replay)
+    if (
+        hull_fragment is not None
+        and hull_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in hull_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_primary_hull_shift"
+        receipt["train_replay"] = hull_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_primary_hull_shift_meta"] = hull_replay
+        return hull_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"
