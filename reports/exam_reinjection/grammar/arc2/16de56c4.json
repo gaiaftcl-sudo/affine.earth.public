@@ -1,0 +1,23 @@
+{
+  "task_id": "16de56c4",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S3_spatial_rewrite",
+  "engine": "s3_period_lattice_rewrite",
+  "primary_transform": "period_lattice_rewrite",
+  "status": "CLOSED",
+  "train_replay": "3/3",
+  "eval_grids": "2/2",
+  "c4": {
+    "S1": "same canvas shape (in-place rewrite)",
+    "S2": "axis = rows if more multi-seed rows than cols, else cols",
+    "S3": "per line: mono color \u2192 full lattice by gcd(gaps); pattern+singleton \u2192 recolor lattice in [min,max] if singleton on-lattice else extend pattern + keep singleton",
+    "S4": "lines with <2 seeds unchanged",
+    "C4": "exact rewrite; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s3_period_lattice_rewrite.py",
+  "mastery_eval": "33/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T15:03:18Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T150306Z/agi2/summary-overlay.json"
+}

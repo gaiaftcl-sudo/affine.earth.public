@@ -1,7 +1,7 @@
 {
   "aristotelian_closure_turns": 30,
-  "cycles": 17,
-  "last_cycle_at": "2026-07-21T14:59:28.876118+00:00",
+  "cycles": 18,
+  "last_cycle_at": "2026-07-21T15:03:18.971697+00:00",
   "tasks": {
     "arc2:0934a4d8": {
       "engine": "marker8_twin31",
@@ -19,7 +19,7 @@
       "task_id": "0934a4d8",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:53:17.541490+00:00"
+      "updated_at": "2026-07-21T14:56:59.800663+00:00"
     },
     "arc2:135a2760": {
       "engine": "container_period_tiling",
@@ -38,7 +38,7 @@
       "task_id": "135a2760",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T14:53:17.541518+00:00"
+      "updated_at": "2026-07-21T14:56:59.800692+00:00"
     },
     "arc2:136b0064": {
       "engine": "s1_digit_separator_snake",
@@ -57,7 +57,7 @@
       "task_id": "136b0064",
       "track": "arc2",
       "turn_count": 4,
-      "updated_at": "2026-07-21T14:53:17.541533+00:00"
+      "updated_at": "2026-07-21T14:56:59.800704+00:00"
     },
     "arc2:13e47133": {
       "engine": "s1_wall_tree_nested_frames",
@@ -76,7 +76,7 @@
       "task_id": "13e47133",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T14:53:17.541559+00:00"
+      "updated_at": "2026-07-21T14:56:59.800722+00:00"
     },
     "arc2:142ca369": {
       "engine": "s1_laser_mirror_beams",
@@ -95,7 +95,7 @@
       "task_id": "142ca369",
       "track": "arc2",
       "turn_count": 2,
-      "updated_at": "2026-07-21T14:53:17.541572+00:00"
+      "updated_at": "2026-07-21T14:56:59.800731+00:00"
     },
     "arc2:16b78196": {
       "engine": "s3_separator_gap_stack",
@@ -117,23 +117,23 @@
       "updated_at": "2026-07-21T14:35:27.594935+00:00"
     },
     "arc2:16de56c4": {
-      "last_c4": "{\"grid\": [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 2, 0, 0, 2, 0, 0, 2, 7, 0, 2], [0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9], [0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [6, 0, 0, 0, 0, 6, 0, 0, 0, 0, 6, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 8, 0, 0, 8, 0, 0, 8, 0, 0, 8]], \"shape\": [9, 21]}",
+      "engine": "s3_period_lattice_rewrite",
+      "last_c4": "period lattice rewrite: axis by multi-seed density; mono\u2192full lattice; pattern+singleton on-lattice recolor [min,max] else extend+keep",
       "last_gate": "S4_LOCKED",
-      "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc2/16de56c4.json",
+      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/16de56c4.json",
       "last_s4_status": "LOCKED",
-      "last_validator": "demonstration_replay",
+      "last_validator": "local_hybrid_exact",
       "last_validator_result": {
         "accepted": true,
-        "detail": "typed_grid_or_rule_pending_mastery",
-        "ran": true,
-        "status": "LOCKED",
-        "validator": "demonstration_replay"
+        "detail": "local_solver_green_skip",
+        "labeled_eval": "2/2",
+        "train_replay": "3/3"
       },
-      "status": "HEALING",
+      "status": "CLOSED",
       "task_id": "16de56c4",
       "track": "arc2",
-      "turn_count": 7,
-      "updated_at": "2026-07-21T14:56:14.609675+00:00"
+      "turn_count": 1,
+      "updated_at": "2026-07-21T15:03:18.971697+00:00"
     },
     "arc2:1ae2feb7": {
       "engine": "s3_separator_ray_fill",
@@ -151,7 +151,7 @@
       "task_id": "1ae2feb7",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:53:17.541526+00:00"
+      "updated_at": "2026-07-21T14:56:59.800698+00:00"
     },
     "arc2:20270e3b": {
       "engine": "s1_seven_tab_merge",
@@ -169,7 +169,7 @@
       "task_id": "20270e3b",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:53:17.541540+00:00"
+      "updated_at": "2026-07-21T14:56:59.800708+00:00"
     },
     "arc2:20a9e565": {
       "engine": "s1_marker_frame_motif",
@@ -187,7 +187,7 @@
       "task_id": "20a9e565",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:53:17.541553+00:00"
+      "updated_at": "2026-07-21T14:56:59.800718+00:00"
     },
     "arc2:269e22fb": {
       "engine": "s1_fixed_canvas_template",
@@ -206,7 +206,7 @@
       "task_id": "269e22fb",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:53:17.541566+00:00"
+      "updated_at": "2026-07-21T14:56:59.800727+00:00"
     },
     "arc2:291dc1e1": {
       "engine": "s1_oriented_block_pack",
@@ -224,7 +224,7 @@
       "task_id": "291dc1e1",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:53:17.541578+00:00"
+      "updated_at": "2026-07-21T14:56:59.800736+00:00"
     },
     "arc2:2ba387bc": {
       "engine": "s1_dimension_projection",
@@ -242,7 +242,7 @@
       "task_id": "2ba387bc",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:53:17.541510+00:00"
+      "updated_at": "2026-07-21T14:56:59.800685+00:00"
     },
     "arc2:38007db0": {
       "engine": "s1_panel_odd_one_out",
@@ -260,11 +260,11 @@
       "task_id": "38007db0",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:53:17.541546+00:00"
+      "updated_at": "2026-07-21T14:56:59.800713+00:00"
     },
     "arc3:agi3-trajectory-gap": {
-      "last_c4": "REINJECT:{\"action\": \"click\", \"effect\": \"clear_component\", \"target\": \"center_of_connected_component\"}",
-      "last_gate": "FRANKLIN_PARSE_FAIL",
+      "last_c4": "REINJECT:{\"action\": \"click\", \"x\": 10, \"y\": 10}",
+      "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/agi3-trajectory-gap.json",
       "last_s4_status": "REINJECT",
       "last_validator": "environment_step",
@@ -278,8 +278,8 @@
       "status": "HEALING",
       "task_id": "agi3-trajectory-gap",
       "track": "arc3",
-      "turn_count": 12,
-      "updated_at": "2026-07-21T14:56:14.609803+00:00"
+      "turn_count": 13,
+      "updated_at": "2026-07-21T15:01:47.870172+00:00"
     },
     "arc3:ar25": {
       "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"target\": \"empty_cell\", \"value\": \"background_color\"}",
@@ -311,7 +311,7 @@
       "updated_at": "2026-07-21T13:15:58.166509+00:00"
     },
     "arc3:bp35": {
-      "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"target\": \"0,0\"}",
+      "last_c4": "REINJECT:{\"action\": \"clear_all_obstacles\"}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/bp35.json",
       "last_s4_status": "REINJECT",
@@ -326,8 +326,8 @@
       "status": "HEALING",
       "task_id": "bp35",
       "track": "arc3",
-      "turn_count": 11,
-      "updated_at": "2026-07-21T14:56:14.609912+00:00"
+      "turn_count": 12,
+      "updated_at": "2026-07-21T15:01:47.896419+00:00"
     },
     "arc3:ls20": {
       "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"grid\": \"background_fill_connected_components\"}",
@@ -350,7 +350,7 @@
     },
     "hle:hle-official-gate-open": {
       "last_c4": "REINJECT:{\"status\": \"REINJECT\", \"unresolved_alternatives\": [\"Candidate 1: Output 'LOCKED'\", \"Candidate 2: Output 'REINJECT'\"], \"validator\": \"exact_format_check\"}",
-      "last_gate": "S4_REINJECT",
+      "last_gate": "FRANKLIN_PARSE_FAIL",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/hle/hle-official-gate-open.json",
       "last_s4_status": "REINJECT",
       "last_validator": "exact_format_check",
@@ -364,47 +364,9 @@
       "status": "HEALING",
       "task_id": "hle-official-gate-open",
       "track": "hle",
-      "turn_count": 11,
-      "updated_at": "2026-07-21T14:56:14.610005+00:00"
-    },
-    "arc2:4c7dc4dd": {
-      "engine": "s1_panel_motif_projection",
-      "last_c4": "four equal hollow frames; recolor densest bichrome via template / connect anchor / XOR mono",
-      "last_gate": "S4_LOCKED",
-      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/4c7dc4dd.json",
-      "last_s4_status": "LOCKED",
-      "last_validator": "local_hybrid_exact",
-      "last_validator_result": {
-        "accepted": true,
-        "detail": "local_solver_green_skip",
-        "labeled_eval": "2/2",
-        "train_replay": "2/2"
-      },
-      "status": "CLOSED",
-      "task_id": "4c7dc4dd",
-      "track": "arc2",
-      "turn_count": 1,
-      "updated_at": "2026-07-21T14:59:28.876118+00:00"
-    },
-    "arc2:4e34c42c": {
-      "engine": "s1_motif_stamp_jigsaw",
-      "last_c4": "motif stamp jigsaw: filter sub-stamps; assemble by min_ov=3 overlap; max overlap then min bbox",
-      "last_gate": "S4_LOCKED",
-      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/4e34c42c.json",
-      "last_s4_status": "LOCKED",
-      "last_validator": "local_hybrid_exact",
-      "last_validator_result": {
-        "accepted": true,
-        "detail": "local_solver_green_skip",
-        "labeled_eval": "2/2",
-        "train_replay": "2/2"
-      },
-      "status": "CLOSED",
-      "task_id": "4e34c42c",
-      "track": "arc2",
-      "turn_count": 1,
-      "updated_at": "2026-07-21T14:59:28.876118+00:00"
+      "turn_count": 12,
+      "updated_at": "2026-07-21T15:01:47.972820+00:00"
     }
   },
-  "total_franklin_turns": 63
+  "total_franklin_turns": 67
 }

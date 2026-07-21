@@ -186,10 +186,10 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **31/172** exact grids
-(overlay `reports/arc_local_20260721T145910Z/agi2/summary-overlay.json`;
+**MEASURED local** (2026-07-21): evaluation lifts to **33/172** exact grids
+(overlay `reports/arc_local_20260721T150306Z/agi2/summary-overlay.json`;
 train ice-on baseline remains **298/1076**). Lineage includes
-`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 = **31/172**.
+`s1_panel_motif_projection` **4c7dc4dd** ×2 → `s1_motif_stamp_jigsaw` **4e34c42c** ×2 = **33/172**.
 
 | Owned grammar | Engine | Train replay | Eval |
 | --- | --- | --- | --- |
@@ -211,6 +211,7 @@ train ice-on baseline remains **298/1076**). Lineage includes
 | container period tiling | `container_period_tiling` | 2/2 on `135a2760` | exact |
 | separator ray-fill | `s3_separator_ray_fill` | 3/3 on `1ae2feb7` | exact ×3 |
 | separator gap-stack | `s3_separator_gap_stack` | 2/2 on `16b78196` | exact ×1 |
+| period lattice rewrite | `s3_period_lattice_rewrite` | 3/3 on `16de56c4` | exact ×2 |
 | ice+DSL residual | `arc-icecuber` hybrid | n/a | +1 prior (`981571dc`) |
 
 **S1 grammar (`hollow_solid_object_pack`):**
@@ -271,3 +272,12 @@ Failure taxonomy retains all misses with classes `S3_spatial_rewrite` /
 Remaining S1/S3 tasks queued at
 `reports/exam_reinjection/arc_agi2_s1_miss_queue.jsonl` and
 `reports/exam_reinjection/arc_agi2_s3_miss_queue.jsonl`. Submit **LOCKED**.
+
+
+**S3 grammar (`period_lattice_rewrite` / `16de56c4`):**
+
+- **S1:** same canvas shape (in-place rewrite).
+- **S2:** axis = rows if more multi-seed rows than cols, else cols.
+- **S3:** mono → full gcd lattice; pattern+singleton on-lattice → recolor `[min,max]`; else extend pattern + keep singleton.
+- **S4:** lines with <2 seeds unchanged.
+- **C4:** exact rewrite; train-replay gated (`3/3`, eval `2/2`).

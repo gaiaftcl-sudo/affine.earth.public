@@ -6,6 +6,7 @@
     "arc2:13e47133",
     "arc2:142ca369",
     "arc2:16b78196",
+    "arc2:16de56c4",
     "arc2:1ae2feb7",
     "arc2:20270e3b",
     "arc2:20a9e565",
@@ -23,19 +24,19 @@
   "next_apply_loop": [
     {
       "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
-      "key": "arc2:16de56c4",
-      "last_gate": "pending",
-      "task_id": "16de56c4",
-      "track": "arc2",
-      "language_game_class": "S3_spatial_rewrite"
-    },
-    {
-      "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
       "key": "arc2:58490d8a",
       "last_gate": "pending",
       "task_id": "58490d8a",
       "track": "arc2",
       "language_game_class": "S1_dimension_projection"
+    },
+    {
+      "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
+      "key": "arc2:195c6913",
+      "last_gate": "pending",
+      "task_id": "195c6913",
+      "track": "arc2",
+      "language_game_class": "S3_spatial_rewrite"
     },
     {
       "action": "Heal unreproduced_productive_delta; do not regress bp35 L1",
@@ -45,7 +46,7 @@
       "track": "arc3"
     }
   ],
-  "note": "Reinjection CLOSED synced for 4e34c42c motif_stamp_jigsaw. Mastery 31/172. Next open: arc2:16de56c4. No Kaggle.",
+  "note": "Reinjection CLOSED synced for 16de56c4 period_lattice_rewrite. Mastery 33/172. Next open: arc2:58490d8a. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T14:59:28.876118+00:00"
+  "recorded_at_utc": "2026-07-21T15:03:18.971697+00:00"
 }
