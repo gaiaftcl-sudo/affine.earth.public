@@ -1,0 +1,3 @@
+run_id=hle_live_20260721T103340Z_unauth
+started_at=2026-07-21T10:33:40Z
+hf_token_present=false

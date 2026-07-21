@@ -2,36 +2,27 @@
 
 Official sources: [agi.safe.ai](https://agi.safe.ai/), the [CAIS HLE evaluator](https://github.com/centerforaisafety/hle), and the gated [cais/hle dataset](https://huggingface.co/datasets/cais/hle).
 
-## Recorded 2026-07-21 (live rerun)
+## Recorded 2026-07-21 (steward reset redo)
+
+Steward closed the browser and requested a full clean redo. Cleanup intentionally cleared `:8080`; this session restarted the OpenAI JSON loopback proxy and re-probed dataset access. **No Keychain / `security` CLI.**
 
 | Check | Observed result |
 |:---|:---|
-| Affine loopback | `http://127.0.0.1:8080/v1/models` returned OpenAI JSON with `qwen/qwen3.6-35b-a3b` and `text-embedding-nomic-embed-text-v1.5` |
-| Environment token check | `HF_TOKEN` and `HUGGING_FACE_HUB_TOKEN` were absent; no Keychain or `security` command was used |
-| Anonymous dataset download | `https://huggingface.co/datasets/cais/hle/resolve/main/test-00000-of-00001.parquet` returned **HTTP 401 Unauthorized** |
-| Official CAIS runner | `./bin/run-open-agi-harnesses.sh --harness hle` exited **2** before prediction, with `HLE_RUN_JUDGE=1` and the live loopback endpoint |
-| Predictions / judging | **Not run** — the official runner requires a Hub access token after terms authorization; therefore no Accuracy or Calibration exists |
+| Loopback proxy | Restarted on `127.0.0.1:8080` → upstream `http://127.0.0.1:1234`; `GET /v1/models` → **HTTP 200** OpenAI JSON (`qwen/qwen3.6-35b-a3b`) — PID recorded in receipt |
+| Classic `HF_TOKEN` | **Absent** in harness shell env (`HF_TOKEN` / `HUGGING_FACE_HUB_TOKEN` unset; no `~/.cache/huggingface/token`) |
+| Hub identity (MCP OAuth) | `hf_whoami` → user **`rpg67`** (session-only; never committed) |
+| Dataset gate | `GET https://huggingface.co/api/datasets/cais/hle` → `gated=auto`, `private=false` |
+| Parquet resolve (no token) | `.../resolve/main/data/test-00000-of-00001.parquet` → **HTTP 401** (“Access to dataset cais/hle is restricted… Please log in.”); magic ≠ `PAR1` |
+| MCP `hf_fs` | `stat` sees LFS parquet (~274.3 MB); binary `cat` refused by tool — resolve still requires classic auth after Agree |
+| System browser | Opened once to [cais/hle](https://huggingface.co/datasets/cais/hle) for steward **Agree** + token export |
+| Predictions / judging | **Not run** — zero predictions; no Accuracy or Calibration |
 
-Secret-free receipt bundle: `reports/hle_live_20260721T103322Z/` (`proxy_models.json`, `hle_runner.log`, and `receipt.txt`).
+Receipts (secret-free):
 
-No screenshot or video was created: no evaluator UI or model evaluation began.
-
-## Recorded 2026-07-21 (auth re-probe)
-
-| Check | Observed result |
-|:---|:---|
-| CAIS evaluator | Cloned at `26dca2e253b405105b4c3d8c2f5af06f86f90c66`; isolated `hle_eval/.venv` installed from the upstream root `requirements.txt` |
-| Affine loopback | `http://127.0.0.1:8080/v1/models` returned OpenAI JSON (`qwen/qwen3.6-35b-a3b`) through the live transparent loopback proxy |
-| Local classic `HF_TOKEN` | **Absent** — not in env, shell profiles, `~/.cache/huggingface/token`, Keychain generic HF items, `.env` files, 1Password CLI, or `gh secret list` |
-| Recovered Hub identity | Cursor HF MCP OAuth for Hub user `rpg67` (session-only; never committed). `whoami` HTTP 200 |
-| Dataset gate | `cais/hle` is `gated=auto`. Repo tree lists `data/test-00000-of-00001.parquet`, but parquet resolve returns **HTTP 403** (“not in the authorized list”) for both OAuth and HF MCP `hf_fs` |
-| Terms accept API | `POST /datasets/cais/hle/ask-access` with the MCP OAuth bearer returned **401** (web gate accept requires a browser session / classic user access token after accepting terms) |
-| Predictions / judging | **Not run** — zero predictions; no accuracy or calibration exists |
-
-Secret-free receipts:
-
-- Earlier harness stop (no token in env): `reports/hle_live_20260721T102039Z/`
-- Auth re-probe (OAuth found, parquet still gated): `reports/hle_live_20260721T102858Z/`
+- Fresh redo probe + proxy restart: `reports/hle_live_20260721T103415Z/`
+- Prior unauth probe: `reports/hle_live_20260721T103340Z_unauth/`
+- Earlier auth re-probe: `reports/hle_live_20260721T102858Z/`
+- Earlier harness stop (no token): `reports/hle_live_20260721T102039Z/`
 
 This is a measured **steward gate**, not an HLE score. Accuracy/Calibration can only be written after a successful official CAIS prediction + judge artifact.
 

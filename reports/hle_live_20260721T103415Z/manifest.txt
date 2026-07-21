@@ -1,0 +1,13 @@
+run_id=hle_live_20260721T103415Z
+started_at=2026-07-21T10:34:15Z
+proxy_pid=57006
+HF_TOKEN_present=
+HUGGING_FACE_HUB_TOKEN_present=
+proxy_restarted_at=2026-07-21T10:34:29Z
+old_pid=57006
+new_pid=57728
+harness_exit=recorded
+harness_at=2026-07-21T10:35:03Z
+hle_runner_exit=2
+hle_runner_at=2026-07-21T10:35:24Z
+blocker=HF_TOKEN_absent_dataset_http_401
