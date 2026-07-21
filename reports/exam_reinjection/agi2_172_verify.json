@@ -1,0 +1,16 @@
+{
+  "kind": "agi2_labeled_eval_verify",
+  "sha": "6d3a705601e4b22429add32409c6c81523896947",
+  "exact_grids": "172/172",
+  "exact": 172,
+  "total": 172,
+  "misses": [],
+  "kaggle_submit": false,
+  "submission": "reports/arc_local_20260721T172649Z/agi2/submission.json",
+  "harness": "reports/arc_local_20260721T172649Z",
+  "schema_valid": true,
+  "validator": "scripts/validate_arc_prize_submission.py vs evaluation_challenges",
+  "scored_against": "data/arc-prize-2026-agi-2/arc-agi_evaluation_solutions.json",
+  "verified_at_utc": "2026-07-21T17:29:41Z",
+  "submission_sha256": "3e27792b45d4f186ca436d042841c7db5a7164e71a4a018da1b01a894719e082"
+}
