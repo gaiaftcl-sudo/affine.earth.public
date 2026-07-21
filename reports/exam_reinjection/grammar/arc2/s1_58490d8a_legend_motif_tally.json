@@ -1,0 +1,23 @@
+{
+  "task_id": "58490d8a",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S1_dimension_projection",
+  "engine": "s1_legend_motif_tally",
+  "primary_transform": "legend_motif_tally",
+  "status": "CLOSED",
+  "train_replay": "3/3",
+  "eval_grids": "1/1",
+  "c4": {
+    "S1": "majority color = main bg; largest mostly-zero panel = legend crop",
+    "S2": "legend markers = unique nonzero colors on that crop",
+    "S3": "for each marker color, count 8-connected components in main (legend masked to bg)",
+    "S4": "emit legend-shaped zeros; place count copies at marker_col+2k on marker row",
+    "C4": "exact tally crop; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s1_legend_motif_tally.py",
+  "mastery_eval": "34/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T15:06:03Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T151200Z/agi2/summary-overlay.json"
+}
