@@ -58,6 +58,7 @@ ZOOM_STEMS = {
         "s1_ncomp_staircase_project",
         "s1_singleton_3x3_stamp",
         "s1_line_color_sequence",
+        "s1_diagonal_component_stack",
     ],
     "same_canvas_rewrite": [
         "s2_color_gate_rewrite",
@@ -75,6 +76,9 @@ ZOOM_STEMS = {
         "s2_enclosed_zero_rect_fill",
         "s2_legend_row_recolor_or_stamp",
         "s1_singleton_3x3_stamp",
+        "s2_marker3_template_stamp",
+        "s2_sep_panel_template_stamp",
+        "s1_diagonal_component_stack",
     ],
 }
 
