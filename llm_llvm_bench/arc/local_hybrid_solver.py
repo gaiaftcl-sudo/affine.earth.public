@@ -680,6 +680,27 @@ def solve_task(
         receipt["s1_header_bracket_fill_meta"] = hb_replay
         return hb_fragment, receipt
 
+    # 1b26) S2 arrow-room recolor (21897d95).
+    s2ar = _load_module(
+        arc_dir / "s2_arrow_room_recolor.py", "s2_arrow_room_recolor"
+    )
+    ar_replay = s2ar.train_replay(task)
+    ar_fragment = s2ar.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(ar_replay)
+    if (
+        ar_fragment is not None
+        and ar_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in ar_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s2_arrow_room_recolor"
+        receipt["train_replay"] = ar_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s2_arrow_room_recolor_meta"] = ar_replay
+        return ar_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

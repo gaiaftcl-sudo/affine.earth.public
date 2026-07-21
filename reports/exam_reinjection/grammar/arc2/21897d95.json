@@ -2,25 +2,23 @@
   "task_id": "21897d95",
   "exam": "ARC-AGI-2",
   "language_game_class": "S2_palette_rewrite",
-  "status": "REINJECT",
-  "last_gate": "S4_REINJECT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
   "train": 4,
   "test": 2,
+  "engine": "s2_arrow_room_recolor",
   "observations": [
-    "Oriented color-1 digit stamps (U/D/L/R 4-cell) plus singleton 1s appear in all trains",
-    "Outputs drop color 1 and reshape (transpose dims on T0/T2; same-shape on T1/T3)",
-    "No train-exact local transform locked this cycle; Franklin S4 REINJECT required for C4"
+    "T-arrow rooms: stem selects neighbor; flow=payload or source room color",
+    "Square remap; non-square expand+rotate",
+    "Train 4/4 labeled eval 2/2"
   ],
   "validator": "demonstration_replay+labeled_eval",
   "validator_result": {
-    "accepted": false,
-    "detail": "franklin_s4_reinject_pending_c4",
-    "train_replay": null,
-    "labeled_eval": "0/2"
+    "accepted": true,
+    "detail": "train_replay_4_4_eval_2_2",
+    "train_replay": "4/4",
+    "labeled_eval": "2/2"
   },
-  "mastery_eval": "40/172",
-  "mastery_train": "298/1076",
-  "recorded_at_utc": "2026-07-21T15:26:39Z",
-  "kaggle_submit": false,
-  "parallel_closed": "53fb4810"
+  "mastery_eval": "48/172",
+  "mastery_train": "298/1076"
 }

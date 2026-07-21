@@ -1,0 +1,9 @@
+{
+  "task_id": "21897d95",
+  "engine": "s2_arrow_room_recolor",
+  "status": "CLOSED",
+  "c4": "T-arrow room recolor + optional 90\u00b0 rotate on non-square",
+  "train_replay": "4/4",
+  "labeled_eval": "2/2",
+  "module": "llm_llvm_bench/arc/s2_arrow_room_recolor.py"
+}
