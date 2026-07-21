@@ -186,17 +186,18 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **8/172** exact grids
-(overlay receipt `reports/arc_local_20260721T135200Z/agi2/summary-overlay.json`;
-train ice-on baseline remains **298/1076**). Lineage: 3/172 (S1 pack) → 4/172
-(CPT `135a2760`) → 7/172 (S3 ray-fill `1ae2feb7` ×3) → **8/172** (S1 digit snake
-`136b0064`).
+**MEASURED local** (2026-07-21): evaluation lifts to **12/172** exact grids
+(overlay receipt `reports/arc_local_20260721T135500Z/agi2/summary-overlay.json`;
+train ice-on baseline remains **298/1076**). Lineage: 8/172 → **+2** `20270e3b`
+seven-tab merge → **+2** `38007db0` panel odd-one-out = **12/172**.
 
 | Owned grammar | Engine | Train replay | Eval |
 | --- | --- | --- | --- |
 | marker-8 twin-S | `marker8_twin31` | 4/4 on `0934a4d8` | exact |
 | hollow/solid object pack | `s1_dimension_projection` | 4/4 on `2ba387bc` | exact |
 | digit-separator snake | `s1_digit_separator_snake` | 3/3 on `136b0064` | exact |
+| seven-tab merge | `s1_seven_tab_merge` | 4/4 on `20270e3b` | exact ×2 |
+| panel odd-one-out | `s1_panel_odd_one_out` | 2/2 on `38007db0` | exact ×2 |
 | container period tiling | `container_period_tiling` | 2/2 on `135a2760` | exact |
 | separator ray-fill | `s3_separator_ray_fill` | 3/3 on `1ae2feb7` | exact ×3 |
 | ice+DSL residual | `arc-icecuber` hybrid | n/a | +1 prior (`981571dc`) |

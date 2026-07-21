@@ -1,0 +1,12 @@
+{
+  "task_id": "20270e3b",
+  "class": "S1_dimension_projection",
+  "status": "CLOSED",
+  "grammar": "seven_tab_merge",
+  "engine": "s1_seven_tab_merge",
+  "train_replay": "4/4",
+  "eval_exact": "2/2",
+  "module": "llm_llvm_bench/arc/s1_seven_tab_merge.py",
+  "overlay": "reports/arc_local_20260721T135500Z/agi2/summary-overlay.json",
+  "kaggle_submit": false
+}

@@ -12,9 +12,9 @@ Official competition: [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/comp
 | Top-score format study | [Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats) (`a04e483`) |
 | Hard schema validator | `scripts/validate_arc_prize_submission.py` on fixture + official sample + local `submission.json` vs test challenges |
 | Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_20260721T110813Z/` **overall GREEN** |
-| Eval quality (local) | **8/172** exact grids (marker8 + S1 pack + S1 snake + CPT + S3 ray-fill + ice/DSL; was **7/172**) |
+| Eval quality (local) | **12/172** exact grids (S1 family + CPT + S3 ray-fill + ice/DSL; was **8/172**) |
 | Train quality (local) | **298/1076** exact grids (ice-on receipt); **24/1000** DSL-licensed tasks |
-| Engine | `LOCAL_HYBRID_SOLVER` = marker8_twin31 + s1_dimension_projection + s1_digit_separator_snake + container_period_tiling + s3_separator_ray_fill + icecuber + DSL |
+| Engine | `LOCAL_HYBRID_SOLVER` = marker8 + S1 family (pack/snake/tab/panel) + CPT + S3 ray-fill + icecuber + DSL |
 | Public probe | publicScore **0.00** = **PROCESS_PROBE** (premature process test) |
 | LB contrast | Top public ~**65.83** — format≠mastery; local eval still far from LB |
 
@@ -48,12 +48,12 @@ or private affine.earth OS source.
 ## Evidence
 
 - Local schema validation: 240 official test tasks (hard gate green).
-- Offline evaluation set: **8/172** exact grids (marker8 + S1 + S1 snake + CPT + S3 ray-fill + ice/DSL).
+- Offline evaluation set: **12/172** exact grids (marker8 + S1 family + CPT + S3 ray-fill + ice/DSL).
 - Notebook log: `evidence/arc-prize-2026-agi-2/kernel-output/affine-arc-prize-2026-arc-agi-2.log`
 - Score receipt: `evidence/arc-prize-2026-agi-2/kaggle-submissions.csv` — publicScore `0.00`.
-- Local mastery reports: `reports/arc_local_20260721T131200Z/` (ice-on train **298/1076**) · overlay `reports/arc_local_20260721T135200Z/agi2/summary-overlay.json` (eval **8/172**); submit **LOCKED**.
+- Local mastery reports: `reports/arc_local_20260721T131200Z/` (ice-on train **298/1076**) · overlay `reports/arc_local_20260721T135500Z/agi2/summary-overlay.json` (eval **12/172**); submit **LOCKED**.
 - Contracts: [Top-score formats](Kaggle-ARC-Top-Score-Formats) · [Language Games ARC-AGI-2](Language-Games-ARC-AGI-2).
-- Solver-quality lineage: `db71c28` (1/172) → `marker8_twin31` (2/172) → `s1_dimension_projection` (3/172) → `container_period_tiling` **135a2760** (4/172) → `s3_separator_ray_fill` **1ae2feb7** ×3 (7/172) → `s1_digit_separator_snake` **136b0064** (**8/172**).
+- Solver-quality lineage: `db71c28` (1/172) → `marker8_twin31` (2/172) → `s1_dimension_projection` (3/172) → `container_period_tiling` **135a2760** (4/172) → `s3_separator_ray_fill` **1ae2feb7** ×3 (7/172) → `s1_digit_separator_snake` **136b0064** (8/172) → `s1_seven_tab_merge` **20270e3b** ×2 → `s1_panel_odd_one_out` **38007db0** ×2 (**12/172**).
 
 ## FoT note — 135a2760 container period tiling (2026-07-21)
 

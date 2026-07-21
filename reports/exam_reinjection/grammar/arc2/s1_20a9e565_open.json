@@ -1,0 +1,8 @@
+{
+  "task_id": "20a9e565",
+  "class": "S1_dimension_projection",
+  "status": "OPEN_REINJECT",
+  "ask": "Thin extract from 30x30 to small strips; define C4 with train pairs; no Kaggle.",
+  "train_shapes": [[30,30,3,6],[29,29,14,2],[30,30,17,3]],
+  "next": "Franklin UUM-8D reinjection"
+}
