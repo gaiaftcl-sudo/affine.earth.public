@@ -1,0 +1,11 @@
+{
+  "task_id": "31f7f899",
+  "status": "CLOSED",
+  "engine": "s1_sep_row_extent_sort",
+  "train_replay": "3/3",
+  "eval_grids": "1/1",
+  "mastery_eval": "44/172",
+  "grammar_path": "reports/exam_reinjection/grammar/arc2/s1_31f7f899_sep_row_extent_sort.json",
+  "sealed_at_utc": "2026-07-21T15:51:10Z",
+  "kaggle_submit": false
+}

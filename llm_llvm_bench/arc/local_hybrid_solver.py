@@ -617,6 +617,27 @@ def solve_task(
         receipt["s1_separator_block_unroll_meta"] = unroll_replay
         return unroll_fragment, receipt
 
+    # 1b23) S1 separator-row extent sort (31f7f899).
+    s1ext = _load_module(
+        arc_dir / "s1_sep_row_extent_sort.py", "s1_sep_row_extent_sort"
+    )
+    ext_replay = s1ext.train_replay(task)
+    ext_fragment = s1ext.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(ext_replay)
+    if (
+        ext_fragment is not None
+        and ext_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in ext_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_sep_row_extent_sort"
+        receipt["train_replay"] = ext_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_sep_row_extent_sort_meta"] = ext_replay
+        return ext_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

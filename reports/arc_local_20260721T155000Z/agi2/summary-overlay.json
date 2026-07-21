@@ -1,0 +1,15 @@
+{
+  "sealed": [
+    {
+      "task_id": "31f7f899",
+      "engine": "s1_sep_row_extent_sort",
+      "train_replay": "3/3",
+      "eval_grids": "1/1"
+    }
+  ],
+  "mastery_eval": "44/172",
+  "mastery_train": "298/1076",
+  "note": "overlay +sep_row_extent_sort 31f7f899; 21897d95 remains S4_REINJECT; train floor 298/1076",
+  "recorded_at_utc": "2026-07-21T15:51:10Z",
+  "kaggle_submit": false
+}

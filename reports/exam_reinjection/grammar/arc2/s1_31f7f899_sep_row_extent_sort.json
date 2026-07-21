@@ -1,0 +1,23 @@
+{
+  "task_id": "31f7f899",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S3_spatial_rewrite",
+  "engine": "s1_sep_row_extent_sort",
+  "primary_transform": "sep_row_extent_sort",
+  "status": "CLOSED",
+  "train_replay": "3/3",
+  "eval_grids": "1/1",
+  "c4": {
+    "S1": "bg=8; separator = row with most 6s",
+    "S2": "motif columns = sep cells neither bg nor 6",
+    "S3": "collect per-column vertical extents; sort ascending; reassign left\u2192right",
+    "S4": "paint sep colors to new extents, clipped to input motif row bbox",
+    "C4": "exact rewrite; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s1_sep_row_extent_sort.py",
+  "mastery_eval": "44/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T15:51:10Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T155000Z/agi2/summary-overlay.json"
+}

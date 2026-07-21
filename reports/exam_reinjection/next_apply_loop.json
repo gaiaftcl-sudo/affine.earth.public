@@ -16,6 +16,7 @@
     "arc2:291dc1e1",
     "arc2:2ba387bc",
     "arc2:2d0172a1",
+    "arc2:31f7f899",
     "arc2:38007db0",
     "arc2:3a25b0d8",
     "arc2:45a5af55",
@@ -32,7 +33,7 @@
   ],
   "next_apply_loop": [
     {
-      "action": "Franklin S4 REINJECT \u226429 turns \u2192 LOCKED train-exact C4 or Aristotelian dead-end pack",
+      "action": "Franklin S4 JSON-only \u226429 turns \u2192 LOCKED train-exact C4 or Aristotelian dead-end pack",
       "key": "arc2:21897d95",
       "last_gate": "S4_REINJECT",
       "task_id": "21897d95",
@@ -40,14 +41,15 @@
       "language_game_class": "S2_palette_rewrite"
     },
     {
-      "action": "Heal unreproduced_productive_delta; do not regress bp35 L1",
-      "key": "arc3:ar25",
-      "last_gate": "S4_REINJECT",
-      "task_id": "ar25",
-      "track": "arc3"
+      "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
+      "key": "arc2:89565ca0",
+      "last_gate": "pending",
+      "task_id": "89565ca0",
+      "track": "arc2",
+      "language_game_class": "S1_dimension_projection"
     }
   ],
-  "note": "CLOSED 78332cb0 separator_block_unroll (43/172). Next open: arc2:21897d95 (S4_REINJECT). No Kaggle.",
+  "note": "CLOSED 31f7f899 (44/172). 21897d95 S4_REINJECT (Franklin :1234 JSON). Next 89565ca0. No Kaggle.",
   "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T15:40:57Z"
+  "recorded_at_utc": "2026-07-21T15:51:46Z"
 }
