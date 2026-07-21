@@ -118,8 +118,4 @@ placeholders:
 
 For each task, the trace records the entire candidate family, the candidates
 that replay all demonstrations, and the two emitted grids. The training receipt
-has moved from **12/1076** to **22/1076** exact grids, while the labeled
-evaluation receipt remains **0/172**. This is a measured training lift only;
-the evaluation quality target has not yet moved. Schema validation remains a
-hard gate and Kaggle submission remains blocked. Receipt:
-`reports/arc_local_20260721T105900Z/`.
+has moved from **12/1076** to **22/1076** exact grids (main `7ab6e05`; was **19/1076** at `26a9758`), while the labeled evaluation receipt remains **0/172**. Schema validators are **GREEN**; submit remains **LOCKED**. Report: `reports/arc_local_20260721T105900Z/`. This is a measured training lift only; the evaluation quality target has not yet moved.

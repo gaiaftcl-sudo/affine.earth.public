@@ -15,9 +15,10 @@ Auth for this record: `export KAGGLE_API_TOKEN=…` only. No Keychain / `securit
 | Language-game doctrine | [Language-Games-ARC-AGI-3](Language-Games-ARC-AGI-3) · hub [Exam Invariants](Language-Games-Exam-Invariants) (`f983986`) |
 | Top-score format study | [Kaggle-ARC-Top-Score-Formats](Kaggle-ARC-Top-Score-Formats) (`a04e483`) |
 | Hard schema validator | `scripts/validate_arc_agi3_submission.py` on fixture + probe parquet |
-| Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_*/` **overall GREEN** (validators) |
+| Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_20260721T105200Z/` **overall GREEN** (format validators; main `0af6775`) |
 | Public probe | ref **54875048** publicScore **0.12** = **PROCESS_PROBE**, not perfected ownership |
 | LB contrast | Top public ~**1.86** — format≠mastery |
+| Sibling AGI-2 | Format GREEN; eval **0/172** mastery gap — [ARC-AGI-2 live](ARC-Prize-AGI-2-Kaggle-Live) |
 
 ```bash
 ./bin/run-arc-local-mastery.sh
@@ -71,6 +72,12 @@ Secret-free evidence under `evidence/arc-prize-2026/`:
 | Label | **PROCESS_PROBE** — not perfected ownership |
 | Top public LB (approx) | **~1.86** |
 | Path forward | Local green → agent/policy mastery → steward re-opens submit |
+
+## Report pin
+
+- Local mastery: `reports/arc_local_20260721T105200Z/summary.json` — format validators **GREEN**; submit **LOCKED**
+- Main hard-gate: `0af6775`
+- Contracts: [Top-score formats](Kaggle-ARC-Top-Score-Formats) · [Language Games ARC-AGI-3](Language-Games-ARC-AGI-3)
 
 ## Reproduce (public test repo only — submit still locked)
 

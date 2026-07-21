@@ -52,7 +52,7 @@ or private affine.earth OS source.
 - Score receipt: `evidence/arc-prize-2026-agi-2/kaggle-submissions.csv` — publicScore `0.00`.
 - Local mastery report: `reports/arc_local_20260721T105900Z/summary.json` — format validators **GREEN**; train **22/1076**; eval **0/172** mastery gap; submit **LOCKED**.
 - Contracts: [Top-score formats](Kaggle-ARC-Top-Score-Formats) · [Language Games ARC-AGI-2](Language-Games-ARC-AGI-2).
-- Main solver-quality commit: `26a9758` (train lift 12→19/1076; eval still 0/172).
+- Main solver-quality commits: `26a9758` (train lift 12→19/1076); `7ab6e05` (train lift 19→22/1076; eval still 0/172).
 
 ## 2026-07-21 local quality pass
 
@@ -70,6 +70,8 @@ and parquet validators stayed GREEN throughout. No new ARC exam UI surface
 appeared, so the existing UI receipts remain current.
 
 ## 2026-07-21 held-out structural pass
+
+Main commit: `7ab6e05` (`feat(arc): expand replay-gated structural DSL`).
 
 The replay-gated DSL now also tests separator-line removal, left/right and
 top/bottom reflection, background-preserving symmetry completion, and isolated
