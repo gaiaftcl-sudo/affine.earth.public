@@ -39,6 +39,7 @@ Docs: [`docs/OPEN_AGI_FRAMEWORKS.md`](https://github.com/gaiaftcl-sudo/affine.ea
 ./bin/run-open-agi-harnesses.sh --harness lm-eval-hard  # GPQA + BBH + MMLU-Pro
 ./bin/run-open-agi-harnesses.sh --harness hle           # needs HF_TOKEN + gated cais/hle; [record](Humanitys-Last-Exam-Live)
 ./bin/run-open-agi-harnesses.sh --harness arc-agi-2     # refuses sample substitution
+./bin/run-arc-prize-kaggle.sh                           # Kaggle ARC-AGI-3; needs rules accept — [record](ARC-Prize-Kaggle-Live)
 ./bin/run-open-agi-harnesses.sh --harness gaia          # Inspect AI
 ./bin/run-open-agi-harnesses.sh --harness inspect-gpqa
 ./bin/run-open-agi-harnesses.sh --harness livecodebench # needs LiveCodeBench checkout
@@ -58,6 +59,7 @@ Artifacts land under `reports/third_party/open_agi/<suite>/`. A green launcher e
 | `lm-eval-hard`, `gpqa`, `bbh`, `mmlu-pro` | RUNNABLE_WRAPPER (`lm-eval==0.4.7`) |
 | `hle` | MEASURED_BLOCKER — [CAIS + loopback record](Humanitys-Last-Exam-Live); local HF authorization required |
 | `arc-agi`, `arc-agi-2` | RUNNABLE_WRAPPER |
+| ARC Prize Kaggle (`run-arc-prize-kaggle.sh`) | MEASURED_BLOCKER — [rules gate](ARC-Prize-Kaggle-Live); `userHasEntered` must be true |
 | `gaia`, `inspect`, `inspect-gpqa` | RUNNABLE_WRAPPER (Inspect) |
 | `livecodebench` | RUNNABLE_WRAPPER (`lcb_runner`) |
 | `swe-bench` | RUNNABLE_WRAPPER (needs predictions JSONL) |

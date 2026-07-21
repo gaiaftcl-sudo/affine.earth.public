@@ -1,0 +1,12 @@
+recorded_at_iso=2026-07-21T10:22:00Z
+kaggle_username=bliztafree
+competition=arc-prize-2026-arc-agi-3
+userHasEntered=False
+isKernelsSubmissionsOnly=true
+data_list_http=200
+data_download_all_http=403
+kernel_push=rejected_rules_not_accepted
+browser_mcp=no_usable_tab
+steward_url=https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/rules
+resume_command=./bin/run-arc-prize-kaggle.sh
+token_committed=false
