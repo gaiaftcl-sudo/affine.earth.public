@@ -11,8 +11,10 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import os
+import signal
 import time
-from concurrent.futures import ProcessPoolExecutor, as_completed
+from concurrent.futures import ProcessPoolExecutor, TimeoutError as FuturesTimeout, as_completed
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -24,6 +26,13 @@ def _load_module(path: Path, name: str) -> Any:
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
+
+
+def _skip_task_specific_engine(name: str) -> bool:
+    """Skip eval-task-id sealed solvers unless ARC_GRAMMAR_SKIP_S3G=0."""
+    if os.environ.get("ARC_GRAMMAR_SKIP_S3G", "1") != "1":
+        return False
+    return name.startswith("s3_g_") or name.startswith("s1_g_") or name.startswith("s2_g_")
 
 
 def _discover_engines(root: Path) -> List[Tuple[str, str]]:
@@ -44,6 +53,8 @@ def _discover_engines(root: Path) -> List[Tuple[str, str]]:
             eng = g.get("engine")
             if not eng or eng == "?":
                 continue
+            if _skip_task_specific_engine(eng):
+                continue
             candidate = arc / f"{eng}.py"
             if candidate.is_file():
                 engines[eng] = candidate
@@ -58,21 +69,34 @@ def _discover_engines(root: Path) -> List[Tuple[str, str]]:
             "agi3_platformer_policy",
         ):
             continue
+        if _skip_task_specific_engine(name):
+            continue
         if name.startswith(("s1_", "s2_", "s3_", "marker", "container", "eight_")):
             engines.setdefault(name, path)
     return sorted((n, str(p)) for n, p in engines.items())
 
 
-def _try_task(payload: Tuple[str, str, Dict[str, Any], List[Tuple[str, str]]]) -> Dict[str, Any]:
-    root_s, tid, task, engine_list = payload
+def _try_task(payload: Tuple[str, str, Dict[str, Any], List[Tuple[str, str]], float]) -> Dict[str, Any]:
+    root_s, tid, task, engine_list, per_task_timeout = payload
     root = Path(root_s)
     best = None
     best_eng = None
     tried = 0
+    deadline = time.time() + max(5.0, per_task_timeout)
+
+    def _alarm(_signum, _frame):
+        raise TimeoutError("engine_alarm")
+
     for eng, path_s in engine_list:
+        if time.time() >= deadline:
+            break
         path = Path(path_s)
         tried += 1
         try:
+            if hasattr(signal, "SIGALRM"):
+                signal.signal(signal.SIGALRM, _alarm)
+                remaining = max(1, int(deadline - time.time()))
+                signal.alarm(min(remaining, 20))
             mod = _load_module(path, f"gram_{eng}")
             if not hasattr(mod, "train_replay") or not hasattr(mod, "submission_fragment"):
                 continue
@@ -109,6 +133,9 @@ def _try_task(payload: Tuple[str, str, Dict[str, Any], List[Tuple[str, str]]]) -
             break  # first sealed licensed win
         except Exception:
             continue
+        finally:
+            if hasattr(signal, "SIGALRM"):
+                signal.alarm(0)
     return {
         "task_id": tid,
         "predictions": best,
@@ -137,6 +164,12 @@ def main() -> int:
     )
     parser.add_argument("--out-dir", type=Path, required=True)
     parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument(
+        "--per-task-timeout",
+        type=float,
+        default=float(os.environ.get("ARC_GRAMMAR_TASK_TIMEOUT", "45")),
+        help="Hard wall timeout per identity task (seconds)",
+    )
     args = parser.parse_args()
     root = args.root.resolve()
     out_dir = args.out_dir.resolve()
@@ -172,20 +205,42 @@ def main() -> int:
     engines = _discover_engines(root)
     print(
         f"identity_tasks={len(identity_tasks)} engines={len(engines)} "
-        f"workers={args.workers}",
+        f"workers={args.workers} per_task_timeout={args.per_task_timeout}",
         flush=True,
     )
 
     lifts = []
     t0 = time.time()
     payloads = [
-        (str(root), tid, challenges[tid], engines) for tid in identity_tasks
+        (str(root), tid, challenges[tid], engines, args.per_task_timeout)
+        for tid in identity_tasks
     ]
     done = 0
+    fut_timeout = args.per_task_timeout + 5.0
     with ProcessPoolExecutor(max_workers=max(1, args.workers)) as pool:
         futs = {pool.submit(_try_task, p): p[1] for p in payloads}
         for fut in as_completed(futs):
-            res = fut.result()
+            tid = futs[fut]
+            try:
+                res = fut.result(timeout=fut_timeout)
+            except FuturesTimeout:
+                res = {
+                    "task_id": tid,
+                    "predictions": None,
+                    "engine": None,
+                    "engines_tried": 0,
+                    "licensed_grids": 0,
+                }
+                print(f"TIMEOUT {tid}", flush=True)
+            except Exception as exc:
+                res = {
+                    "task_id": tid,
+                    "predictions": None,
+                    "engine": None,
+                    "engines_tried": 0,
+                    "licensed_grids": 0,
+                }
+                print(f"ERROR {tid} {type(exc).__name__}", flush=True)
             done += 1
             if res["predictions"] is not None:
                 submission[res["task_id"]] = res["predictions"]
@@ -218,9 +273,13 @@ def main() -> int:
                 lic += 1
             else:
                 ident += 1
+    try:
+        base_rel = str(base_path.resolve().relative_to(root))
+    except ValueError:
+        base_rel = str(base_path)
     receipt = {
         "kind": "agi2_eval_grammar_apply_to_test",
-        "base": str(base_path.relative_to(root)),
+        "base": base_rel,
         "identity_tasks_input": len(identity_tasks),
         "lifts": lifts,
         "lift_tasks": len(lifts),

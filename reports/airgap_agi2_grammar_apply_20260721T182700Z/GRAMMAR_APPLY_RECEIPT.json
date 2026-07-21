@@ -1,0 +1,13 @@
+{
+  "kind": "agi2_eval_grammar_apply_to_test",
+  "base": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
+  "identity_tasks_input": 175,
+  "lifts": [],
+  "lift_tasks": 0,
+  "licensed_grids": 68,
+  "identity_grids": 191,
+  "licensed_pct": 26.25,
+  "engines": 84,
+  "elapsed_s": 422.3,
+  "note": "train_replay sealed engines produced 0 lifts on identity test tasks; receipt rewritten after relative_to fix"
+}
