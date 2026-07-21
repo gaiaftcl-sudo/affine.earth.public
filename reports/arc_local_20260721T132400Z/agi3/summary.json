@@ -1,0 +1,57 @@
+{
+  "environment_games": 3,
+  "language_game_summary": {
+    "capture_mp4s": [
+      "affine_audit_logs/arc_agi3/ar25/20260721T132453Z/ar25.mp4",
+      "affine_audit_logs/arc_agi3/bp35/20260721T132459Z/bp35.mp4",
+      "affine_audit_logs/arc_agi3/ls20/20260721T132504Z/ls20.mp4"
+    ],
+    "captures": "affine_audit_logs/arc_agi3",
+    "diagnosis": {
+      "fix": "attribute-path frame tolist + 29-turn probes + PNG\u2192MP4 capture + GAME_OVER\u2192RESET continue + state-conditioned C4",
+      "prior_missing_grammar_cause": "FrameDataRaw.model_dump() omitted numpy frame \u2192 empty grids \u2192 zero compared_cells \u2192 unreproduced theory at max_actions=2"
+    },
+    "environment_terminals": 1,
+    "episodes": "reports/arc_agi3_language_game_full_2/episodes.json",
+    "game_ids": [
+      "ar25",
+      "bp35",
+      "ls20"
+    ],
+    "game_over_events": 2,
+    "games": 3,
+    "high_confidence_terminals": 0,
+    "mean_confidence": 0.8816964285714285,
+    "mean_turn_count": 40.0,
+    "miss_clusters": {
+      "reproduced_productive_transitions": 1,
+      "unreproduced_productive_delta": 2
+    },
+    "mode": "LOCAL_ONLY",
+    "next_grammar_class": "unreproduced_productive_delta",
+    "no_kaggle_submit_lock": true,
+    "parquet": "reports/arc_agi3_language_game_full_2/submission.parquet",
+    "public_probe": {
+      "label": "PROCESS_PROBE",
+      "publicScore": 0.12,
+      "submission_ref": "54875048"
+    },
+    "submission_blocked": true,
+    "win_terminals": 0
+  },
+  "leaderboard_contrast": {
+    "meaning": "format\u2260mastery \u2014 local trajectory still incomplete for submit",
+    "our_publicScore": 0.12,
+    "top_public_lb_approx": 1.86
+  },
+  "public_probe": {
+    "label": "PROCESS_PROBE",
+    "publicScore": 0.12,
+    "submission_ref": "54875048"
+  },
+  "status": "GREEN",
+  "submission_blocked": true,
+  "task_trace": "reports/arc_local_20260721T132400Z/agi3/episode-language-games.jsonl",
+  "track": "ARC-AGI-3",
+  "trajectory_replay": "RAN:3 games, terminals=1, mean_confidence=0.8817, miss_clusters={'unreproduced_productive_delta': 2, 'reproduced_productive_transitions': 1}"
+}

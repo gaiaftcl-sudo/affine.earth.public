@@ -143,6 +143,41 @@ validation, action and episode-trace validation, terminal-state validation, and
 parquet-schema validation with a saved preflight receipt. A pending submission
 has no score until Kaggle returns one.
 
+### Local interactive harness
+
+`scripts/arc_agi3_language_game.py` runs the installed official local
+environments directly. It does not synthesize an observation, terminal state,
+or score. For each selected `game_id` it:
+
+1. records the official observation via attribute `frame.tolist()` — never
+   `model_dump()` (that path omits numpy frames and previously sealed false
+   `MISSING_GRAMMAR`);
+2. creates a two-way Franklin UUM-8D wrapper turn (system / user / assistant)
+   with S1–S4 phase tags and a 29-turn closure budget;
+3. sends one legal action (0–7; ACTION6 with `(x,y)`) through
+   `EnvironmentWrapper.step`, then records the returned observation;
+4. on `GAME_OVER`, attempts `RESET` and continues within the action budget;
+5. locks C4 only on reproduced productive effects; otherwise records
+   `PARTIAL_GRAMMAR` / `MISSING_GRAMMAR` with a clustered grammar class;
+6. writes per-turn PNGs and an MP4 (PNG concat → VideoToolbox) under
+   `affine_audit_logs/arc_agi3/<game_id>/<stamp>/`;
+7. writes `episodes.json`, miss clusters, `submission.parquet`, and a
+   reinjection-ready `reports/arc_local_*/agi3/` slice.
+
+Example local run:
+
+```bash
+uv run --directory data/arc-prize-2026/ARC-AGI-3-Agents \
+  python ../../../scripts/arc_agi3_language_game.py \
+  --games ar25 bp35 ls20 --max-actions 40 \
+  --output-dir ../../../reports/arc_agi3_language_game_local
+```
+
+Live local FoT (full_2): games=3, WIN=0, GAME_OVER=2, mean_confidence≈0.88,
+`bp35` C4_BOUND, next class `unreproduced_productive_delta`. Public probe 0.12
+remains process-only. The harness refuses to run without
+`configs/NO_KAGGLE_SUBMIT.lock`.
+
 ## 9. Format from top scores
 
 After the trajectory state change above, the typed artifact is

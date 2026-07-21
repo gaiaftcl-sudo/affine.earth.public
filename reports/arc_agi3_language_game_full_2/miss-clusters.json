@@ -1,0 +1,12 @@
+{
+  "clusters": {
+    "reproduced_productive_transitions": 1,
+    "unreproduced_productive_delta": 2
+  },
+  "episode_ids": [
+    "ar25",
+    "bp35",
+    "ls20"
+  ],
+  "next_grammar_class": "unreproduced_productive_delta"
+}

@@ -1,0 +1,16 @@
+{
+  "c4_invariant": "DRY_RUN",
+  "closure_ready": false,
+  "grammar_update": "dry-run placeholder \u2014 no Franklin call",
+  "recorded_at_utc": "2026-07-21T13:25:26.349150+00:00",
+  "repair_kind": "grammar",
+  "research_note": null,
+  "s1": "DRY_RUN",
+  "s2": "DRY_RUN",
+  "s3": "DRY_RUN",
+  "s4": "DRY_RUN",
+  "source_miss": "reports/arc_local_20260721T132400Z/agi3/episode-language-games.jsonl",
+  "task_id": "bp35",
+  "track": "arc3",
+  "turn_index": 1
+}

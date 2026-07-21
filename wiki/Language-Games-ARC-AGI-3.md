@@ -93,6 +93,51 @@ The audit validates local evidence and the native `submission.parquet`
 contract. `configs/NO_KAGGLE_SUBMIT.lock` remains in place until an explicit
 steward-authorized submit; an audit GREEN result is not authorization.
 
+### Live FoT local protocol
+
+The local executable is `scripts/arc_agi3_language_game.py`. It plays the
+downloaded official environment, not a static grid surrogate:
+
+- bind one `game_id` to its observation and action language (0–7; RESET on GAME_OVER);
+- choose one declared action; ACTION6 carries deterministic `(x,y)` probe data;
+- call the environment transition and retain its returned observation;
+- persist three Franklin UUM-8D wrapper messages per turn (system / user / assistant)
+  with S1–S4 phase tags toward a 29-turn closure budget;
+- build grammar from observed transitions; C4 requires reproduced productive effects
+  (state-conditioned `after_sha` or perfect qualitative productivity);
+- accept WIN / GAME_OVER / score only as returned by the environment;
+- write per-turn PNGs and an MP4 (PNG sequence → `h264_videotoolbox`) under
+  `affine_audit_logs/arc_agi3/<game_id>/<stamp>/`;
+- emit `reports/arc_local_*/agi3/` for exam reinjection; cluster misses by grammar class.
+
+`NO_KAGGLE_SUBMIT.lock` remains a hard requirement. Schema-valid parquet ≠ submit.
+
+### Live FoT metrics (local, 2026-07-21)
+
+Source: `reports/arc_agi3_language_game_full_2/summary.json` (SHA at commit time).
+
+| Metric | Value | Honest read |
+| --- | --- | --- |
+| Games played | 3 (`ar25`, `bp35`, `ls20`) | Official offline envs |
+| WIN terminals | **0** | No level cleared to WIN |
+| GAME_OVER events | 2 (`bp35`) | Terminal ≠ ownership |
+| Mean confidence | **0.882** | Up from 0.0 empty-frame bug |
+| High-confidence WIN | **0** | Submit still blocked |
+| `bp35` grammar | `C4_BOUND` / conf 1.0 | Reproduced productive moves; levels still 0/9 |
+| `ar25` / `ls20` | `PARTIAL_GRAMMAR` | Next class below |
+| Captures | 3 MP4 + PNG sequences | Landed under `affine_audit_logs/arc_agi3/` |
+| Public probe | **0.12** (ref 54875048) | Process probe only |
+
+**Root-cause closed:** prior `MISSING_GRAMMAR` was `FrameDataRaw.model_dump()`
+omitting numpy `frame` → empty grids → zero `compared_cells`. Fixed via attribute
+`tolist()` extraction.
+
+**Next grammar class:** `unreproduced_productive_delta` — cells change under
+ACTION1/2/3 but absolute deltas are state-dependent and `levels_completed` stays 0.
+Evidence pack:
+`reports/exam_reinjection/grammar/arc3/unreproduced_productive_delta/evidence.json`.
+Reinjection cycle 3 actioned `ar25` / `bp35` / `ls20` / `agi3-trajectory-gap`.
+
 ## 9. Format from top scores
 
 Typed artifact after the language-game state change (full detail:

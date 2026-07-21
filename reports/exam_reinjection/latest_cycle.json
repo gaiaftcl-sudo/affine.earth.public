@@ -1,0 +1,70 @@
+{
+  "aristotelian_closure_turns": 29,
+  "closed_tasks": 0,
+  "cycle": 3,
+  "dead_end_tasks": 0,
+  "dry_run": true,
+  "kaggle_submit": false,
+  "kind": "exam_miss_reinjection_cycle",
+  "mastery": {
+    "mode": "none",
+    "ran": false
+  },
+  "mastery_mode": "none",
+  "misses_actioned": 4,
+  "misses_loaded": 4,
+  "no_kaggle_submit_lock": true,
+  "open_tasks": 8,
+  "recorded_at_utc": "2026-07-21T13:25:26.359073+00:00",
+  "rows": [
+    {
+      "c4_invariant": "DRY_RUN",
+      "error": null,
+      "franklin_ok": true,
+      "gate": "FRANKLIN_OK",
+      "grammar_path": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/agi3-trajectory-gap.json",
+      "status": "HEALING",
+      "task_id": "agi3-trajectory-gap",
+      "track": "arc3",
+      "turn_count": 2
+    },
+    {
+      "c4_invariant": "DRY_RUN",
+      "error": null,
+      "franklin_ok": true,
+      "gate": "FRANKLIN_OK",
+      "grammar_path": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/ar25.json",
+      "status": "HEALING",
+      "task_id": "ar25",
+      "track": "arc3",
+      "turn_count": 1
+    },
+    {
+      "c4_invariant": "DRY_RUN",
+      "error": null,
+      "franklin_ok": true,
+      "gate": "FRANKLIN_OK",
+      "grammar_path": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/bp35.json",
+      "status": "HEALING",
+      "task_id": "bp35",
+      "track": "arc3",
+      "turn_count": 1
+    },
+    {
+      "c4_invariant": "DRY_RUN",
+      "error": null,
+      "franklin_ok": true,
+      "gate": "FRANKLIN_OK",
+      "grammar_path": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/ls20.json",
+      "status": "HEALING",
+      "task_id": "ls20",
+      "track": "arc3",
+      "turn_count": 1
+    }
+  ],
+  "state_dir": "reports/exam_reinjection",
+  "total_franklin_turns": 12,
+  "tracks": [
+    "arc3"
+  ]
+}

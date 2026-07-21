@@ -1,0 +1,98 @@
+{
+  "capture_mp4s": [
+    "affine_audit_logs/arc_agi3/ar25/20260721T132453Z/ar25.mp4",
+    "affine_audit_logs/arc_agi3/bp35/20260721T132459Z/bp35.mp4",
+    "affine_audit_logs/arc_agi3/ls20/20260721T132504Z/ls20.mp4"
+  ],
+  "diagnosis": {
+    "fixed": true,
+    "prior_bug": "FrameDataRaw.model_dump() omitted numpy frame \u2192 empty grids",
+    "remaining_gap": "Productive ACTION1/2/3 deltas are observed (cells change) but absolute changed_cells signatures are state-dependent; levels_completed stays 0; no WIN. Need state-conditioned object/motion grammar + ACTION6 target selection that raises levels_completed toward win_levels."
+  },
+  "episodes_path": "reports/arc_agi3_language_game_full_2/episodes.json",
+  "grammar_class": "unreproduced_productive_delta",
+  "local_metrics": {
+    "environment_terminals": 1,
+    "game_ids": [
+      "ar25",
+      "bp35",
+      "ls20"
+    ],
+    "game_over_events": 2,
+    "games": 3,
+    "high_confidence_terminals": 0,
+    "mean_confidence": 0.8816964285714285,
+    "next_grammar_class": "unreproduced_productive_delta",
+    "win_terminals": 0
+  },
+  "miss_clusters": {
+    "clusters": {
+      "reproduced_productive_transitions": 1,
+      "unreproduced_productive_delta": 2
+    },
+    "episode_ids": [
+      "ar25",
+      "bp35",
+      "ls20"
+    ],
+    "next_grammar_class": "unreproduced_productive_delta"
+  },
+  "per_game": [
+    {
+      "capture_dir": "affine_audit_logs/arc_agi3/ar25/20260721T132453Z",
+      "confidence": 0.7857142857142857,
+      "game_id": "ar25",
+      "game_over_count": 0,
+      "grammar_class": "unreproduced_productive_delta",
+      "grammar_status": "PARTIAL_GRAMMAR",
+      "levels": 0,
+      "mp4": "affine_audit_logs/arc_agi3/ar25/20260721T132453Z/ar25.mp4",
+      "productive_action_count": 2,
+      "score": 0,
+      "win_levels": 8,
+      "win_terminal": false
+    },
+    {
+      "capture_dir": "affine_audit_logs/arc_agi3/bp35/20260721T132459Z",
+      "confidence": 1.0,
+      "game_id": "bp35",
+      "game_over_count": 2,
+      "grammar_class": "reproduced_productive_transitions",
+      "grammar_status": "C4_BOUND",
+      "levels": 0,
+      "mp4": "affine_audit_logs/arc_agi3/bp35/20260721T132459Z/bp35.mp4",
+      "productive_action_count": 4,
+      "score": 0,
+      "win_levels": 9,
+      "win_terminal": false
+    },
+    {
+      "capture_dir": "affine_audit_logs/arc_agi3/ls20/20260721T132504Z",
+      "confidence": 0.859375,
+      "game_id": "ls20",
+      "game_over_count": 0,
+      "grammar_class": "unreproduced_productive_delta",
+      "grammar_status": "PARTIAL_GRAMMAR",
+      "levels": 0,
+      "mp4": "affine_audit_logs/arc_agi3/ls20/20260721T132504Z/ls20.mp4",
+      "productive_action_count": 2,
+      "score": 0,
+      "win_levels": 7,
+      "win_terminal": false
+    }
+  ],
+  "public_probe": {
+    "label": "PROCESS_PROBE",
+    "publicScore": 0.12,
+    "submission_ref": "54875048"
+  },
+  "recorded_at_utc": "2026-07-21T13:25:24.745989+00:00",
+  "s1_s4_c4_protocol": {
+    "C4": "WIN + state-conditioned after_sha reproduction + confidence 1.0",
+    "S1": "bind game_id + observation frame_sha + legal actions 0-7",
+    "S2": "probe each legal action; record environment-owned transition",
+    "S3": "retain Franklin wrapper turns with UUM-8D system prompt",
+    "S4": "cluster unreproduced productive deltas; require level gain for WIN path"
+  },
+  "submission_blocked": true
+}
