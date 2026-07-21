@@ -1,0 +1,24 @@
+{
+  "task_id": "2dee498d",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 1,
+  "engine": "s1_third_width_prefix_crop",
+  "module": "llm_llvm_bench/arc/s1_third_width_prefix_crop.py",
+  "observations": [
+    "Zoom grammar engine s1_third_width_prefix_crop",
+    "Train demonstration_replay 3/3"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "3/3",
+    "engine": "s1_third_width_prefix_crop"
+  },
+  "c4_invariant": "s1_third_width_prefix_crop",
+  "sealed_at_utc": "2026-07-21T21:59:07.138258+00:00"
+}

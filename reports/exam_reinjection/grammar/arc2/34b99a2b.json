@@ -1,0 +1,24 @@
+{
+  "task_id": "34b99a2b",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 4,
+  "test": 1,
+  "engine": "s1_sep_panel_mask_xor",
+  "module": "llm_llvm_bench/arc/s1_sep_panel_mask_xor.py",
+  "observations": [
+    "Zoom grammar engine s1_sep_panel_mask_xor",
+    "Train demonstration_replay 4/4"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "4/4",
+    "engine": "s1_sep_panel_mask_xor"
+  },
+  "c4_invariant": "s1_sep_panel_mask_xor",
+  "sealed_at_utc": "2026-07-21T21:59:07.139693+00:00"
+}

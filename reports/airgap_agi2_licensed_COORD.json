@@ -1,19 +1,21 @@
 {
-  "licensed": "107/259",
-  "licensed_pct": 41.31,
-  "identity": 152,
-  "submission_sha256": "3f6564951cec3cbe73862ea4dc53d64f29fccba1aaecd3621ba722038270ee03",
+  "licensed": "114/259",
+  "licensed_pct": 44.02,
+  "identity": 145,
+  "submission_sha256": "fc0a8dd623d688237aa5d2ec1328b9904fc369013c0bf9d299475531e483792b",
   "new_closes_this_turn": [
-    "12422b43\u2192s2_marker_col_period_tile (5/5)",
-    "27a28665\u2192s1_shape_fingerprint_singleton (7/7)",
-    "31d5ba1a\u2192s1_half_xor_crop (5/5)",
-    "239be575\u2192s1_blocks_bridged_by_color (6/6)"
+    "332efdb3\u2192s1_checker_frame_fill (3/3)",
+    "2685904e\u2192s2_marker_freq_column_project (6/6)",
+    "2a5f8217\u2192s2_ones_shape_template_recolor (3/3)",
+    "2dee498d\u2192s1_third_width_prefix_crop (3/3)",
+    "34b99a2b\u2192s1_sep_panel_mask_xor (4/4)",
+    "3428a4f5\u2192s1_sep_panel_mask_xor (4/4)"
   ],
-  "new_licensed_grids_this_turn": 8,
-  "commit_base": "241b961",
-  "crossed_100": true,
+  "new_licensed_grids_this_turn": 7,
+  "commit_base": "8ee486b",
+  "target": "150",
   "no_submit": true,
   "hle_left_alive": true,
   "exp_left_alive": true,
-  "recorded_at_utc": "2026-07-21T21:42:16.822184+00:00"
+  "recorded_at_utc": "2026-07-21T22:01:54.288651+00:00"
 }
