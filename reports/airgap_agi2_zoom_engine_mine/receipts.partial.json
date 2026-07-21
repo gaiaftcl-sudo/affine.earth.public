@@ -132,10 +132,10 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "17b866bd": {
-    "task_id": "17b866bd",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "ok": true,
+    "engine": "s2_diamond_hole_stamp",
+    "licensed_grids": 2,
+    "train_replay": "2/2"
   },
   "182e5d0f": {
     "task_id": "182e5d0f",
@@ -672,10 +672,10 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "3428a4f5": {
-    "task_id": "3428a4f5",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "zoom_in_crop"
+    "ok": true,
+    "engine": "s1_xor_across_sep_row",
+    "licensed_grids": 2,
+    "train_replay": "4/4"
   },
   "342ae2ed": {
     "task_id": "342ae2ed",
@@ -738,10 +738,10 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "37ce87bb": {
-    "task_id": "37ce87bb",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "ok": true,
+    "engine": "s1_bar_count_delta_column",
+    "licensed_grids": 1,
+    "train_replay": "3/3"
   },
   "396d80d7": {
     "task_id": "396d80d7",
@@ -780,10 +780,10 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "3b4c2228": {
-    "task_id": "3b4c2228",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "zoom_in_crop"
+    "ok": true,
+    "engine": "s1_count_2x2_diag_ones",
+    "licensed_grids": 2,
+    "train_replay": "5/5"
   },
   "3bd292e8": {
     "task_id": "3bd292e8",

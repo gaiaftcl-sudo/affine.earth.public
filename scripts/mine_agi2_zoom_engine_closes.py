@@ -56,6 +56,8 @@ ZOOM_STEMS = {
         "s1_odd_hole_count_tile",
         "s1_marker_band_crop",
         "s1_ncomp_staircase_project",
+        "s1_singleton_3x3_stamp",
+        "s1_line_color_sequence",
     ],
     "same_canvas_rewrite": [
         "s2_color_gate_rewrite",
@@ -70,6 +72,9 @@ ZOOM_STEMS = {
         "s2_seed_neighborhood_stamp",
         "s2_slide_touch_blocker",
         "s2_row_run_shift_left_fill",
+        "s2_enclosed_zero_rect_fill",
+        "s2_legend_row_recolor_or_stamp",
+        "s1_singleton_3x3_stamp",
     ],
 }
 

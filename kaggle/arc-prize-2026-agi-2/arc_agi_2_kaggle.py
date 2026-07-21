@@ -540,15 +540,45 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--input-root", default="/kaggle/input")
     parser.add_argument("--output", default="submission.json")
+    parser.add_argument(
+        "--consume-sealed",
+        action="store_true",
+        help="Copy package-local sealed submission.json instead of regenerating.",
+    )
+    parser.add_argument(
+        "--challenges-file",
+        default=None,
+        help="Optional direct path to arc-agi_*_challenges.json (local dry-run).",
+    )
     arguments = parser.parse_args()
 
+    output = Path(arguments.output)
+    if output.name != "submission.json":
+        raise SystemExit(
+            f"ARC-AGI-2 output filename must be exactly submission.json, got {output.name}."
+        )
+
+    package_dir = Path(__file__).resolve().parent
+    sealed = package_dir / "submission.json"
+    if arguments.consume_sealed:
+        if not sealed.is_file():
+            raise SystemExit(f"Sealed submission.json missing beside kernel: {sealed}")
+        output.write_text(sealed.read_text(encoding="utf-8"), encoding="utf-8")
+        print(f"Wrote {output} from sealed artifact {sealed}.")
+        return
+
+    if arguments.challenges_file:
+        challenges = json.loads(
+            Path(arguments.challenges_file).read_text(encoding="utf-8")
+        )
+    else:
+        challenges = find_challenges(Path(arguments.input_root))
+
     submission = {}
-    for task_id, task in find_challenges(Path(arguments.input_root)).items():
+    for task_id, task in challenges.items():
         submission[task_id] = [predictions(task, test["input"]) for test in task["test"]]
-    Path(arguments.output).write_text(
-        json.dumps(submission, separators=(",", ":")), encoding="utf-8"
-    )
-    print(f"Wrote {arguments.output} for {len(submission)} ARC-AGI-2 tasks.")
+    output.write_text(json.dumps(submission, separators=(",", ":")), encoding="utf-8")
+    print(f"Wrote {output} for {len(submission)} ARC-AGI-2 tasks.")
 
 
 if __name__ == "__main__":

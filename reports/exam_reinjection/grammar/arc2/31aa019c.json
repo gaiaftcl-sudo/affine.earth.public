@@ -1,0 +1,24 @@
+{
+  "task_id": "31aa019c",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 1,
+  "engine": "s1_singleton_3x3_stamp",
+  "module": "llm_llvm_bench/arc/s1_singleton_3x3_stamp.py",
+  "observations": [
+    "Zoom grammar engine s1_singleton_3x3_stamp",
+    "Train demonstration_replay 3/3"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "3/3",
+    "engine": "s1_singleton_3x3_stamp"
+  },
+  "c4_invariant": "s1_singleton_3x3_stamp",
+  "sealed_at_utc": "2026-07-21T23:11:17.982872+00:00"
+}

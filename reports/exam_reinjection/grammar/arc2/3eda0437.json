@@ -1,15 +1,15 @@
 {
-  "task_id": "3428a4f5",
+  "task_id": "3eda0437",
   "exam": "ARC-AGI-2",
   "language_game_class": "ZOOM_ENGINE_EXACT",
   "status": "CLOSED",
   "last_gate": "LOCKED",
   "train": 4,
-  "test": 2,
-  "engine": "s1_xor_across_sep_row",
-  "module": "llm_llvm_bench/arc/s1_xor_across_sep_row.py",
+  "test": 1,
+  "engine": "s2_enclosed_zero_rect_fill",
+  "module": "llm_llvm_bench/arc/s2_enclosed_zero_rect_fill.py",
   "observations": [
-    "Zoom grammar engine s1_xor_across_sep_row",
+    "Zoom grammar engine s2_enclosed_zero_rect_fill",
     "Train demonstration_replay 4/4"
   ],
   "validator": "demonstration_replay",
@@ -17,8 +17,8 @@
     "accepted": true,
     "detail": "train_replay_perfect",
     "train_replay": "4/4",
-    "engine": "s1_xor_across_sep_row"
+    "engine": "s2_enclosed_zero_rect_fill"
   },
-  "c4_invariant": "s1_xor_across_sep_row",
-  "sealed_at_utc": "2026-07-21T22:47:47.043955+00:00"
+  "c4_invariant": "s2_enclosed_zero_rect_fill",
+  "sealed_at_utc": "2026-07-21T23:10:52.379448+00:00"
 }
