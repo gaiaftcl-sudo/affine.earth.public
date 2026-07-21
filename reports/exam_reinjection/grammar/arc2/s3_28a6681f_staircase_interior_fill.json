@@ -1,0 +1,9 @@
+{
+  "task_id": "28a6681f",
+  "engine": "s3_staircase_interior_fill",
+  "status": "CLOSED",
+  "c4": "staircase interior Type A/B fill conserving blue count",
+  "train_replay": "3/3",
+  "labeled_eval": "1/1",
+  "module": "llm_llvm_bench/arc/s3_staircase_interior_fill.py"
+}

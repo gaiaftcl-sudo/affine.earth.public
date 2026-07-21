@@ -764,6 +764,27 @@ def solve_task(
         receipt["s3_box_slide_rail_fill_meta"] = box_replay
         return box_fragment, receipt
 
+    # 1b30) S3 staircase interior fill (28a6681f).
+    s3stair = _load_module(
+        arc_dir / "s3_staircase_interior_fill.py", "s3_staircase_interior_fill"
+    )
+    stair_replay = s3stair.train_replay(task)
+    stair_fragment = s3stair.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(stair_replay)
+    if (
+        stair_fragment is not None
+        and stair_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in stair_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_staircase_interior_fill"
+        receipt["train_replay"] = stair_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_staircase_interior_fill_meta"] = stair_replay
+        return stair_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

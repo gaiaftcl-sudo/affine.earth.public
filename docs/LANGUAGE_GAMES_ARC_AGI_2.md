@@ -343,3 +343,15 @@ Train **3/3**, eval **2/2** via `s2_axis_glyph_stamp`. Mastery **52/172**. No Ka
 ## 271d71e2 — box_slide_rail_fill (S3)
 
 C4: BG=6; 0-bordered boxes slide min(rail_gap, n_grey) along maroon rails; refill 7 then 5 by direction. Train 3/3, eval 1/1. Module `llm_llvm_bench/arc/s3_box_slide_rail_fill.py`. No Kaggle.
+
+## FoT: S3 staircase interior fill — `28a6681f`
+
+Train **3/3**, eval **1/1** via `s3_staircase_interior_fill`. Mastery **54/172**. No Kaggle.
+
+## 28a6681f — staircase_interior_fill (S3)
+
+C4: BG=0; blue(1) conserved; Type A same-color L/R gaps from floor; Type B open left extensions; fill A then B bottom-up to N. Train 3/3, eval 1/1. Module `llm_llvm_bench/arc/s3_staircase_interior_fill.py`. No Kaggle.
+
+## FoT: S3 staircase interior fill — `28a6681f`
+
+Train **3/3**, eval **1/1** via `s3_staircase_interior_fill`. Mastery **54/172**. No Kaggle.
