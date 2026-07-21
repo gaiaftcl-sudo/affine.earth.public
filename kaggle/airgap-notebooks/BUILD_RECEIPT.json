@@ -1,0 +1,53 @@
+{
+  "built_at_utc": "2026-07-21T17:46:54.544713+00:00",
+  "agi2": {
+    "track": "arc-agi-2",
+    "built_at_utc": "2026-07-21T17:46:53.989567+00:00",
+    "enable_internet": false,
+    "platform_submission": {
+      "path": "payload/submission.json",
+      "sha256": "d4ec97f781511f69ff7a401e3fc709ec19821685eab4847bb0a4a1e1b1c72524",
+      "tasks": 240,
+      "grids": 259
+    },
+    "fot_eval_mastery": {
+      "path": "payload/fot_eval_mastery_submission.json",
+      "sha256": "3e27792b45d4f186ca436d042841c7db5a7164e71a4a018da1b01a894719e082",
+      "source": "reports/arc_local_20260721T172649Z/agi2/submission.json",
+      "expected_sha256": "3e27792b45d4f186ca436d042841c7db5a7164e71a4a018da1b01a894719e082",
+      "tasks": 120,
+      "grids": 172
+    },
+    "competition": "arc-prize-2026-arc-agi-2",
+    "notes": [
+      "Competition accepts Notebooks only.",
+      "Daily submission allowance is 1 \u2014 wait for UTC reset before Submit.",
+      "Direct CLI competitions submit remains locked unless ALLOW_KAGGLE_SUBMIT=1."
+    ]
+  },
+  "agi3": {
+    "track": "arc-agi-3",
+    "built_at_utc": "2026-07-21T17:46:54.542016+00:00",
+    "enable_internet": false,
+    "fot_suite_mastery": {
+      "path": "payload/submission.parquet",
+      "sha256": "9ffc90cee088b086e5d2539abee76b77346191666a657dd63dbf3cf0de340c73",
+      "source": "reports/arc_local_20260721T171426Z/submission.parquet",
+      "expected_sha256": "9ffc90cee088b086e5d2539abee76b77346191666a657dd63dbf3cf0de340c73",
+      "rows": 3,
+      "scores": {
+        "bp35": 9,
+        "ar25": 8,
+        "ls20": 7
+      }
+    },
+    "competition": "arc-prize-2026-arc-agi-3",
+    "notes": [
+      "Competition accepts Notebooks only.",
+      "Daily submission allowance is 1 \u2014 wait for UTC reset before Submit.",
+      "Direct CLI competitions submit remains locked unless ALLOW_KAGGLE_SUBMIT=1."
+    ]
+  },
+  "lock": "configs/NO_KAGGLE_SUBMIT.lock kept",
+  "direct_cli": "blocked unless ALLOW_KAGGLE_SUBMIT=1"
+}

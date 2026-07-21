@@ -14,7 +14,7 @@ Agents run these via `bin/run-open-agi-harnesses.sh`. Deep harness manuals live 
 
 > **LOCAL mastery (pack `e848393`+):** AGI-2 labeled eval **172/172** (`reports/arc_local_20260721T172649Z/`); AGI-3 triad **WIN** bp35 9/9 · ar25 8/8 · ls20 7/7 (`reports/arc_local_20260721T171426Z/`). Schema validators **GREEN**. Steward unlock 2026-07-21T17:39Z → Kaggle **400** (daily allowance + Notebooks only); **direct CLI BLOCKED**; lock kept. Receipts: `reports/kaggle_submit_20260721T173500Z/`.
 
-> **Pre-submission gate:** [Language Games — Exam Invariants](Language-Games-Exam-Invariants). Next Kaggle path = air-gapped **notebook/kernel** (`kaggle/arc-prize-2026-agi-2/`, `kaggle/arc-prize-2026/`) after UTC daily reset (≈ **2026-07-21T23:57Z**). Keep `NO_KAGGLE_SUBMIT.lock`. Do **not** use `bin/kaggle-competitions-submit.sh`.
+> **Pre-submission gate:** [Language Games — Exam Invariants](Language-Games-Exam-Invariants). Next Kaggle path = air-gapped **notebooks** `kaggle/airgap-notebooks/arc-agi-2/` · `kaggle/airgap-notebooks/arc-agi-3/` after UTC daily reset (≈ **2026-07-21T23:57:04Z**). Steward: upload → Run All → Submit. Keep `NO_KAGGLE_SUBMIT.lock`. Do **not** use `bin/kaggle-competitions-submit.sh` for raw files. Guide: repo `docs/KAGGLE_ARC_NOTEBOOK_SUBMIT.md`.
 
 | Suite | Harness key | Affine status (this wiki) | What “score” would require |
 |:---|:---|:---|:---|

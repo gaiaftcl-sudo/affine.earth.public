@@ -21,7 +21,13 @@ Auth for this record: `export KAGGLE_API_TOKEN=…` only. No Keychain / `securit
 | Standing ref | **54875048** — publicScore **0.12** — `SubmissionStatus.COMPLETE` (process probe) |
 | Receipt | `reports/kaggle_submit_20260721T173500Z/agi3_submit.receipt.json` · `poll.receipt.json` |
 
-Next submit path: air-gapped kernel package `kaggle/arc-prize-2026/` → `ALLOW_KAGGLE_SUBMIT=1 bin/run-arc-prize-kaggle.sh --push-notebook` / Notebook UI **Submit** after UTC daily reset (≈ **2026-07-21T23:57Z**). Do **not** use `bin/kaggle-competitions-submit.sh`. Do not delete the lock. See `docs/ARC_LOCAL_100_SUBMIT_READY.md`.
+Next submit path: air-gapped notebook
+`kaggle/airgap-notebooks/arc-agi-3/affine-agi3-airgap-submit.ipynb`
+(embeds FoT suite parquet SHA `9ffc90ce…` bp35 9 / ar25 8 / ls20 7) →
+Run All → Submit after UTC daily reset ≈ **2026-07-21T23:57:04Z**.
+Checklist: `docs/KAGGLE_ARC_NOTEBOOK_SUBMIT.md`. Reminder:
+`bin/remind-kaggle-notebook-submit.sh`. Do **not** use
+`bin/kaggle-competitions-submit.sh` for raw files. Lock stays.
 
 ## LOCAL mastery gate (required before any future submit)
 

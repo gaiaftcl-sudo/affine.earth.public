@@ -9,10 +9,12 @@
 - [**Humanity’s Last Exam**](Humanitys-Last-Exam-Live)
   - Local drills **3/3** · `official_hle_accuracy=null` · `HF_TOKEN` absent · `hle_local_20260721T104720Z`
 - [**ARC Prize Kaggle Live**](ARC-Prize-Kaggle-Live)
-  - Format **GREEN** · probe **0.12** · submit **LOCKED** · `arc_local_20260721T105200Z`
+  - Local suite **WIN** · probe **0.12** · next = **notebook** after **23:57Z UTC** · `airgap-notebooks/arc-agi-3`
 - [**ARC Prize ARC-AGI-2 Live**](ARC-Prize-AGI-2-Kaggle-Live)
-  - Format **GREEN** · eval **1/172** · train **298/1076** · probe **0.00** · submit **LOCKED** · `arc_local_20260721T110813Z` (`db71c28`)
+  - Local eval **172/172** · probe **0.00** · next = **notebook** after **23:57Z UTC** · `airgap-notebooks/arc-agi-2`
 - [**Kaggle ARC top-score formats**](Kaggle-ARC-Top-Score-Formats)
+- [**Kaggle ARC notebook submit**](Kaggle-ARC-Notebook-Submit)
+  - Notebooks-only · wait ≈ **23:57Z UTC** · lock kept
 - [**Exam language-game invariants**](Language-Games-Exam-Invariants)
   - [Exam miss → reinject → closure](Exam-Miss-Reinjection-Loop)
   - [ARC-AGI-2 language game](Language-Games-ARC-AGI-2)

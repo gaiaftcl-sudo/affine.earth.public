@@ -193,3 +193,13 @@ python3 scripts/validate_arc_agi3_submission.py \
 ```
 
 Auth for any status pull: `export KAGGLE_API_TOKEN=…` only — no Keychain.
+
+---
+
+## Notebooks-only submit (2026-07-21 follow-up)
+
+Direct file upload → HTTP 400 (daily allowance + Notebooks only).
+Air-gap kernels: `kaggle/airgap-notebooks/`. Steward guide:
+[KAGGLE_ARC_NOTEBOOK_SUBMIT.md](KAGGLE_ARC_NOTEBOOK_SUBMIT.md).
+Quota retry ≈ **2026-07-21T23:57:04Z UTC**. Lock kept.
+

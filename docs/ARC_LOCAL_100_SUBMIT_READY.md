@@ -1,48 +1,82 @@
-# ARC local 100 — submit-ready (DO NOT submit)
+# ARC local 100 — submit-ready (DO NOT CLI-submit)
 
 Local mastery artifacts are schema-valid and independently scored.
 `configs/NO_KAGGLE_SUBMIT.lock` remains in force.
 
-**DO NOT submit to Kaggle until the steward explicitly says to unlock.**
-Agents must not remove the lock file. Env override only when steward orders it.
+**DO NOT** `kaggle competitions submit` until steward unlocks **and** UTC daily
+quota has reset **and** air-gapped kernels have been pushed + Submitted from
+the Notebook UI. Agents must not remove the lock file.
 
-## Verified scores
+## Official rule sources
+
+| Track | Platform | Rules / data |
+| --- | --- | --- |
+| ARC-AGI-2 | Kaggle `arc-prize-2026-arc-agi-2` | [Overview](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-2) · [Data](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-2/data) · local mirror `data/arc-prize-2026-agi-2/` |
+| ARC-AGI-3 | Kaggle `arc-prize-2026-arc-agi-3` | [Overview](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3) · [Data](https://www.kaggle.com/competitions/arc-prize-2026-arc-agi-3/data) · local mirror `data/arc-prize-2026/` |
+| HLE | HF `cais/hle` (not Kaggle) | [agi.safe.ai](https://agi.safe.ai/) · [CAIS evaluator](https://github.com/centerforaisafety/hle) · gated dataset |
+
+Platform proof (2026-07-21T17:39Z HTTP 400 body): **Notebooks only** + **daily Submission allowance (1)**.
+
+## RULE CHECKLIST (MUST-PASS)
+
+| # | Rule | AGI-2 | AGI-3 | HLE |
+| --- | --- | --- | --- | --- |
+| R1 | Submit path = Notebook / kernel UI (not CLI file upload) | ✅ proven (CLI → 400) | ✅ proven (CLI → 400) | ✅ N/A (HF judge) |
+| R2 | Internet disabled in kernel metadata | ✅ `enable_internet=false` | ✅ `enable_internet=false` | N/A |
+| R3 | Daily quota ≤ 1 submission / team / day (UTC) | ✅ blocked until ≈ **2026-07-21T23:57Z** | ✅ same | N/A |
+| R4 | Output filename exact | ✅ `submission.json` | ✅ `submission.parquet` | preds JSON + judge |
+| R5 | Schema | ✅ `{task_id:[{attempt_1,attempt_2}]}` grids ints 0–9, ≤30×30 | ✅ cols `row_id,game_id,end_of_game,score` | CAIS harness format |
+| R6 | Cover scored input set | ✅ dry-run vs **test** 240/259; sealed mastery is **eval** 120/172 | ✅ triad rows schema-valid | 2500 / 2500 preds then judge |
+| R7 | No junk-submit against exhausted quota | ✅ lock + no CLI | ✅ lock + no CLI | leave predict alive |
+| R8 | Team / late-submit | follow Kaggle competition rules page at submit time | same | HF terms + CAIS judge only |
+
+### Honest mastery ≠ Kaggle private score
+
+| Fact | Value |
+| --- | --- |
+| Local AGI-2 mastery | **172/172** vs `arc-agi_evaluation_*` (120 tasks) |
+| Competition-shaped AGI-2 input | `arc-agi_test_challenges.json` = **240 tasks / 259 grids** (disjoint from eval) |
+| Overlap eval ∩ test | **0** task IDs |
+| Conclusion | Local 172/172 does **not** auto-score 100% on Kaggle private test. Notebook must regenerate from mounted competition input (or a solver that covers private tasks). |
+
+## Verified local scores
 
 | Track | Metric | Result | Receipt |
 | --- | --- | --- | --- |
-| ARC-AGI-2 | labeled eval exact grids | **172/172** | `reports/arc_local_20260721T172649Z/VERIFY_RECEIPT.json` · `reports/exam_reinjection/agi2_172_verify.json` |
-| ARC-AGI-2 reinjection | grammar CLOSED | **120/120** | tip close-loop `95d7b89` |
-| ARC-AGI-3 | public suite levels / WIN | **bp35 9/9 · ar25 8/8 · ls20 7/7** (`win_terminals=3`) | `reports/arc_agi3_verify_20260721T171426Z/VERIFY_RECEIPT.json` · `reports/arc_local_20260721T171426Z/README.md` |
+| ARC-AGI-2 | labeled eval exact grids | **172/172** | `reports/arc_local_20260721T172649Z/VERIFY_RECEIPT.json` |
+| ARC-AGI-2 reinjection | grammar CLOSED | **120/120** | tip close-loop |
+| ARC-AGI-3 | public suite levels / WIN | **bp35 9/9 · ar25 8/8 · ls20 7/7** | `reports/arc_agi3_verify_20260721T171426Z/VERIFY_RECEIPT.json` |
 
-- AGI-2 scored against `data/arc-prize-2026-agi-2/arc-agi_evaluation_solutions.json` → **172/172**, `misses=[]`
-- AGI-2 schema: `scripts/validate_arc_prize_submission.py` vs evaluation challenges → **PASS** (120 tasks / 172 test inputs, two attempts each)
-- AGI-3 schema: `scripts/validate_arc_agi3_submission.py` → **PASS** (3 rows; scores 9/8/7; `end_of_game=true`)
+- AGI-2 schema vs evaluation challenges → **PASS** (120 / 172)
+- AGI-2 schema vs test challenges on dry-run regenerate → **PASS** (240 / 259)
+- AGI-3 schema → **PASS** (3 rows; scores 9/8/7; `end_of_game=true`)
 
 ## Artifact paths
 
 | Track | Artifact | SHA-256 |
 | --- | --- | --- |
-| ARC-AGI-2 `submission.json` | `reports/arc_local_20260721T172649Z/agi2/submission.json` | `3e27792b45d4f186ca436d042841c7db5a7164e71a4a018da1b01a894719e082` |
+| ARC-AGI-2 `submission.json` (eval mastery) | `reports/arc_local_20260721T172649Z/agi2/submission.json` | `3e27792b45d4f186ca436d042841c7db5a7164e71a4a018da1b01a894719e082` |
 | ARC-AGI-3 `submission.parquet` | `reports/arc_local_20260721T171426Z/submission.parquet` | `9ffc90cee088b086e5d2539abee76b77346191666a657dd63dbf3cf0de340c73` |
 | Lock | `configs/NO_KAGGLE_SUBMIT.lock` | `f22461e650b7dd6e112313df6806205462c1809d45b906d9711971c04785317f` |
 
-## Git SHAs
+## Notebook packages (air-gapped)
 
-| Role | SHA |
-| --- | --- |
-| Tip (this seal) | `682eaa1` |
-| Prior tip / readiness pack at follow-up start | `e848393` |
-| AGI-2 independent verify receipt | `6d3a705` (`reports/arc_local_20260721T172649Z/VERIFY_RECEIPT.json`) |
-| AGI-2 land (172/172 COMPLETE) | `21b2924` |
-| Reinjection CLOSED 120/120 + bp35 9/9 | `95d7b89` |
-| AGI-3 independent triad re-verify | `41f190d` |
-| AGI-3 FoT + steward unlock attempt | `6d3a705` |
+| Track | Package | Entry | Competition source |
+| --- | --- | --- | --- |
+| ARC-AGI-2 | `kaggle/arc-prize-2026-agi-2/` | `arc_agi_2_kaggle.py` + `kernel-metadata.json` | `arc-prize-2026-arc-agi-2` |
+| ARC-AGI-3 | `kaggle/arc-prize-2026/` | `arc_prize_kaggle.py` + `kernel-metadata.json` | `arc-prize-2026-arc-agi-3` |
+
+Local dry-run (no submit):
+
+```bash
+bin/prepare-kaggle-notebook-submit.sh --dry-run-only
+```
 
 ## Direct CLI submit — BLOCKED (Notebooks-only)
 
-**Do not use** `bin/kaggle-competitions-submit.sh` for these competitions.
+**Do not use** `bin/kaggle-competitions-submit.sh`.
 
-Steward unlock with `ALLOW_KAGGLE_SUBMIT=1` already proved (2026-07-21T17:39Z) that both tracks return Kaggle **HTTP 400**:
+Steward unlock with `ALLOW_KAGGLE_SUBMIT=1` (2026-07-21T17:39Z) proved both tracks return Kaggle **HTTP 400**:
 
 > Submission not allowed: Your team has used its daily Submission allowance (1) today… **This competition only accepts Submissions from Notebooks.**
 
@@ -52,52 +86,52 @@ Steward unlock with `ALLOW_KAGGLE_SUBMIT=1` already proved (2026-07-21T17:39Z) t
 | ARC-AGI-3 | `arc-prize-2026-arc-agi-3` | **BLOCKED** — Notebooks-only |
 
 Receipts: `reports/kaggle_submit_20260721T173500Z/`.
-Standing refs unchanged: AGI-2 **54875115** / **0.00**; AGI-3 **54875048** / **0.12**.
-Lock **kept**. No new Kaggle submit until notebook path is ready **and** daily quota resets.
+Standing refs (OLD probes, not mastery): AGI-2 **54875115** / **0.00**; AGI-3 **54875048** / **0.12**.
 
-### Quota note
+### Quota ETA
 
 - Attempt: **2026-07-21T17:39:04Z**
-- Platform: daily allowance **(1)** exhausted; retry **tomorrow UTC** (~**6.3h** from attempt ≈ **2026-07-21T23:57Z**)
-- **No new submit attempt** until after that UTC reset **and** air-gapped notebook is ready to score.
+- Reset ≈ **2026-07-21T23:57Z** UTC (~6.3h from attempt)
+- **No new submit** until after reset **and** dry-run GREEN **and** kernel push + Notebook UI Submit
 
-## Steward path — air-gapped notebook submit (only)
-
-Competition scoring accepts **Notebook / kernel** output only. Landed packages (internet disabled in metadata):
-
-| Track | Air-gapped package | Entry | Competition source |
-| --- | --- | --- | --- |
-| ARC-AGI-2 | `kaggle/arc-prize-2026-agi-2/` | `arc_agi_2_kaggle.py` + `kernel-metadata.json` | `arc-prize-2026-arc-agi-2` |
-| ARC-AGI-3 | `kaggle/arc-prize-2026/` | `arc_prize_kaggle.py` + `kernel-metadata.json` | `arc-prize-2026-arc-agi-3` |
-
-Local mastery artifacts above remain the FoT score sources; the Kaggle notebook must emit the competition contract (`submission.json` / `submission.parquet`) under `/kaggle/working` when the kernel runs.
-
-Steward-only push (after quota reset; lock stays; env override only — **do not** call `kaggle-competitions-submit.sh`):
+## Steward notebook submit steps (after quota reset)
 
 ```bash
-# AGI-3 package push (built-in helper)
-ALLOW_KAGGLE_SUBMIT=1 bin/run-arc-prize-kaggle.sh --push-notebook
+# 1) Local GREEN
+bin/prepare-kaggle-notebook-submit.sh --dry-run-only
 
-# AGI-2 package push
-ALLOW_KAGGLE_SUBMIT=1 kaggle kernels push -p kaggle/arc-prize-2026-agi-2
+# 2) Push kernels ONLY (not competitions submit)
+ALLOW_KAGGLE_SUBMIT=1 bin/prepare-kaggle-notebook-submit.sh --push-kernels
+
+# 3) Kaggle UI: Run All → verify working files → Submit from notebook
+#    AGI-2 → /kaggle/working/submission.json
+#    AGI-3 → /kaggle/working/submission.parquet
 ```
 
-Then **Submit** from the Kaggle Notebook UI (competition “Submit” from kernel output) — not CLI file upload.
+Without `ALLOW_KAGGLE_SUBMIT=1`, push exits 99. Lock stays.
 
-`notebooks/` submit pack: **not landed yet** (notebook-path agent may still be in flight). Until it lands, use `kaggle/arc-prize-2026-agi-2/` and `kaggle/arc-prize-2026/` above.
+## HLE — official judge path (orthogonal)
 
-Without `ALLOW_KAGGLE_SUBMIT=1`, `bin/kaggle-submit-guard.sh` / `--push-notebook` exits 99.
+| Step | Rule |
+| --- | --- |
+| Dataset | gated HF `cais/hle` — Agree + classic `HF_TOKEN` (session only) |
+| Predict | official CAIS `run_model_predictions.py` over **2500** test items |
+| Judge | CAIS judge → Accuracy / Calibration in receipt |
+| Live | `reports/hle_official_20260721T143509Z/` — leave running; `acc=null` until judge finishes |
 
-## Steward unlock attempt (2026-07-21T17:39Z) — closed as BLOCKED
+**Leave HLE running.** Do not stop for ARC notebook work. Not a Kaggle submit gate.
 
-`ALLOW_KAGGLE_SUBMIT=1` authorized; lock **kept**. Both tracks uploaded blob then got Kaggle **400**:
-daily Submission allowance (1) exhausted (~6.3h UTC) **and** competitions accept **Notebooks only**.
-No new refs. Standing: AGI-2 **54875115** / **0.00**; AGI-3 **54875048** / **0.12**.
-Receipts: `reports/kaggle_submit_20260721T173500Z/`.
+## Remaining gaps to true competition 100%
 
-## HLE (orthogonal; not a submit gate)
+| Gap | Status |
+| --- | --- |
+| AGI-2 private-test mastery | ❌ unknown; local 172/172 is public labeled eval only |
+| AGI-2 notebook solver quality on private test | ❌ DSL regenerate is schema-compliant; not guaranteed LB 100% |
+| AGI-3 private / scored games beyond public triad | ❌ sealed parquet is public-suite WIN; scored rerun may differ |
+| AGI-3 full agent binary in air-gapped package | ⚠️ schema path GREEN; full gateway agent wiring optional follow-up |
+| Daily quota | ❌ exhausted until ≈ 2026-07-21T23:57Z |
+| HLE judge complete | ❌ preds in flight (~700+/2500) |
 
-Official harness **still running**: `reports/hle_official_20260721T143509Z/`
-— live preds in flight (`harnesses/hle/hle_eval/hle_qwen3.6-35b-a3b.json`); `acc=null` until judge finishes.
-Accuracy written only when preds finish and `official_hle_accuracy.receipt.json` appears.
-**Leave HLE running** — do not stop for this doc/notebook work.
+## Git tip
+
+See `git rev-parse HEAD` after GaiaKey push. Prior readiness pack tip around `e848393` / `682eaa1`.

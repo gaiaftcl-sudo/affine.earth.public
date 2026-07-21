@@ -1,0 +1,23 @@
+{
+  "track": "arc-agi-3",
+  "built_at_utc": "2026-07-21T17:46:54.542016+00:00",
+  "enable_internet": false,
+  "fot_suite_mastery": {
+    "path": "payload/submission.parquet",
+    "sha256": "9ffc90cee088b086e5d2539abee76b77346191666a657dd63dbf3cf0de340c73",
+    "source": "reports/arc_local_20260721T171426Z/submission.parquet",
+    "expected_sha256": "9ffc90cee088b086e5d2539abee76b77346191666a657dd63dbf3cf0de340c73",
+    "rows": 3,
+    "scores": {
+      "bp35": 9,
+      "ar25": 8,
+      "ls20": 7
+    }
+  },
+  "competition": "arc-prize-2026-arc-agi-3",
+  "notes": [
+    "Competition accepts Notebooks only.",
+    "Daily submission allowance is 1 \u2014 wait for UTC reset before Submit.",
+    "Direct CLI competitions submit remains locked unless ALLOW_KAGGLE_SUBMIT=1."
+  ]
+}

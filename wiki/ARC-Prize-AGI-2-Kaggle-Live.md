@@ -17,7 +17,13 @@ Official competition: [ARC Prize 2026 — ARC-AGI-2](https://www.kaggle.com/comp
 | Standing ref | **54875115** — publicScore **0.00** — `SubmissionStatus.COMPLETE` (process probe) |
 | Receipt | `reports/kaggle_submit_20260721T173500Z/agi2_submit.receipt.json` · `poll.receipt.json` |
 
-Next submit path: air-gapped kernel package `kaggle/arc-prize-2026-agi-2/` → `kaggle kernels push` / Notebook UI **Submit** after UTC daily reset (≈ **2026-07-21T23:57Z**). Do **not** use `bin/kaggle-competitions-submit.sh`. Do not delete the lock; `ALLOW_KAGGLE_SUBMIT=1` only for intentional kernel push. See `docs/ARC_LOCAL_100_SUBMIT_READY.md`.
+Next submit path: air-gapped notebook
+`kaggle/airgap-notebooks/arc-agi-2/affine-agi2-airgap-submit.ipynb`
+(embeds FoT eval **120/172** SHA `3e27792b…` + platform **240/259** payload) →
+Run All → Submit after UTC daily reset ≈ **2026-07-21T23:57:04Z**.
+Checklist: `docs/KAGGLE_ARC_NOTEBOOK_SUBMIT.md`. Reminder:
+`bin/remind-kaggle-notebook-submit.sh`. Do **not** use
+`bin/kaggle-competitions-submit.sh` for raw files. Lock stays.
 
 ## LOCAL mastery gate (required before any future submit)
 

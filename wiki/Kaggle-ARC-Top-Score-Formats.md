@@ -91,8 +91,16 @@ Verified AGI-3 suite parquet (2026-07-21 re-verify; lock still present):
 `reports/arc_local_20260721T171426Z/submission.parquet` — scores 9/8/7.
 
 Direct CLI submit is **BLOCKED** (Notebooks-only; steward unlock → HTTP 400).
-Do **not** use `bin/kaggle-competitions-submit.sh`. Next path: air-gapped
-kernels `kaggle/arc-prize-2026/` / `kaggle/arc-prize-2026-agi-2/` after UTC
-quota reset — see `docs/ARC_LOCAL_100_SUBMIT_READY.md`. Lock stays.
+Do **not** use `bin/kaggle-competitions-submit.sh` for raw files.
+
+Air-gap submit notebooks (internet off; emit `/kaggle/working` artifacts):
+
+| Track | Notebook |
+| --- | --- |
+| AGI-2 | `kaggle/airgap-notebooks/arc-agi-2/affine-agi2-airgap-submit.ipynb` |
+| AGI-3 | `kaggle/airgap-notebooks/arc-agi-3/affine-agi3-airgap-submit.ipynb` |
+
+Quota retry ≈ **2026-07-21T23:57:04Z UTC**. Steward checklist in repo
+`docs/KAGGLE_ARC_NOTEBOOK_SUBMIT.md`. Lock stays.
 
 Auth for status pulls only: `export KAGGLE_API_TOKEN=…` — never Keychain.
