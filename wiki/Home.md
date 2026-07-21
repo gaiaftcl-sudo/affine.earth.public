@@ -37,6 +37,7 @@ Onboard → **all 12 LIVE Games** → Franklin replies in `#messageList` (Socrat
 | 2. Method | [How we tested](How-We-Tested) | MEASURED vs BASELINE, evidence pipeline, receipt paths |
 | 3. Demo | [In action](In-Action) | Full all-tests embed + chapter stills (Games suites live-answered) |
 | 4. Scores | [Results & Scores](Results-And-Scores) | What we ran, with provenance — AGI-executable suites front and center |
+| 4a. HLE live record | [Humanity’s Last Exam](Humanitys-Last-Exam-Live) | CAIS evaluator + `agi.safe.ai` record; measured access state and receipt bundle |
 | 5. Agents | [AGI agent execution](AGI-Agent-Execution) | Short commands (`bin/run-open-agi-harnesses.sh`); deep docs link upstream |
 | 6. Reproduce | [Create account (once)](Create-Account-Signup) | **Only** page with the signup / login walkthrough video |
 

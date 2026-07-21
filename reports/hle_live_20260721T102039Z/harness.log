@@ -1,0 +1,5 @@
+/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/harnesses/hle/hle_eval/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+FATAL: HLE dataset cais/hle typically requires Hugging Face auth.
+Accept terms at https://huggingface.co/datasets/cais/hle then set HF_TOKEN.
+Do not redistribute prompts/images/answers per dataset notice.

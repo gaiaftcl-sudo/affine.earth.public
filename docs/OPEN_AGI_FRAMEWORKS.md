@@ -65,7 +65,8 @@ Artifacts under `reports/third_party/open_agi/{gpqa,bbh,mmlu_pro,lm_eval_hard}/`
 
 ```bash
 git clone --depth 1 https://github.com/centerforaisafety/hle.git harnesses/hle
-python -m pip install -r harnesses/hle/requirements.txt
+python3 -m venv harnesses/hle/hle_eval/.venv
+harnesses/hle/hle_eval/.venv/bin/pip install -r harnesses/hle/requirements.txt
 # optional smoke: export HLE_MAX_SAMPLES=3
 ./bin/run-open-agi-harnesses.sh --harness hle
 # judge: export HLE_RUN_JUDGE=1
@@ -75,6 +76,11 @@ Dataset: Hugging Face `cais/hle` (accept terms). Site: https://lastexam.ai/
 
 If the checkout or `HF_TOKEN` is missing, the launcher exits non-zero and does
 **not** invent an accuracy percentage.
+
+The wrapper uses `hle_eval/.venv/bin/python`. It rejects `HLE_RUN_JUDGE=1`
+when `HLE_MAX_SAMPLES` is set because the upstream judge always divides by the
+full test-set size; run a full 2,500-question pass before publishing its
+Accuracy or Calibration.
 
 ### ARC-AGI / ARC-AGI-2
 
@@ -178,11 +184,12 @@ leaderboard or held-out evaluation. It documents no Affine result.
 
   ```bash
   git clone https://github.com/centerforaisafety/hle.git
+  python3 -m venv hle/hle_eval/.venv
+  hle/hle_eval/.venv/bin/pip install -r hle/requirements.txt
   cd hle/hle_eval
-  python -m pip install -r requirements.txt
-  python run_model_predictions.py --dataset cais/hle --model "$AFFINE_MODEL" \
+  .venv/bin/python run_model_predictions.py --dataset cais/hle --model "$AFFINE_MODEL" \
     --max_completion_tokens 8192 --num_workers 4 --max_samples 3
-  python run_judge_results.py --dataset cais/hle \
+  .venv/bin/python run_judge_results.py --dataset cais/hle \
     --predictions "hle_${AFFINE_MODEL}.json" --num_workers 4
   ```
 

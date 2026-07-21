@@ -1,0 +1,31 @@
+{
+  "id": "chatcmpl-06t13ln9n8vtvvzd0mz08x8",
+  "object": "chat.completion",
+  "created": 1784629239,
+  "model": "qwen/qwen3.6-35b-a3b",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "",
+        "reasoning_content": "Here's a thinking process:\n\n1.  **Analyze User Input",
+        "tool_calls": []
+      },
+      "logprobs": null,
+      "finish_reason": "length"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 17,
+    "completion_tokens": 16,
+    "total_tokens": 33,
+    "completion_tokens_details": {
+      "reasoning_tokens": 15
+    }
+  },
+  "stats": {},
+  "system_fingerprint": "qwen/qwen3.6-35b-a3b"
+}
+HTTP_STATUS=200
+CONTENT_TYPE=application/json; charset=utf-8

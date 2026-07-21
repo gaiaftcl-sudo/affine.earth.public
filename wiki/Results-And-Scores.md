@@ -10,7 +10,7 @@ Agents run these via `bin/run-open-agi-harnesses.sh`. Deep harness manuals live 
 
 | Suite | Harness key | Affine status (this wiki) | What “score” would require |
 |:---|:---|:---|:---|
-| Humanity's Last Exam | `hle` | **RUNNABLE** — no Affine Pass@k archived | HF gated data + HF_TOKEN + upstream artifacts under `reports/third_party/open_agi/hle/` |
+| Humanity's Last Exam | `hle` | **MEASURED BLOCKER** — evaluator/loopback verified; no score | [Live record](Humanitys-Last-Exam-Live): missing local HF authorization stopped the official runner before predictions; `reports/hle_live_20260721T102039Z/` |
 | ARC-AGI / ARC-AGI-2 | `arc-agi` / `arc-agi-2` | **RUNNABLE** — no sample-task substitution | Checkout + task data + official scorer output |
 | GPQA Diamond | `gpqa` / `inspect-gpqa` | **RUNNABLE** | lm-eval or Inspect artifact bundle |
 | BIG-Bench Hard / MMLU-Pro | `bbh` / `mmlu-pro` / `lm-eval-hard` | **RUNNABLE** | lm-eval JSON under `reports/third_party/open_agi/` |

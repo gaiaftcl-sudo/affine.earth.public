@@ -1,0 +1,5 @@
+run_id=hle_live_20260721T102039Z
+upstream_hle_commit=26dca2e253b405105b4c3d8c2f5af06f86f90c66
+base_url=http://127.0.0.1:8080/v1
+model=qwen/qwen3.6-35b-a3b
+hf_auth_env=absent

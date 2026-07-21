@@ -230,9 +230,20 @@ run_lm_eval_hard() {
 run_hle() {
     local dir="${HLE_HARNESS_DIR:-harnesses/hle}"
     require_directory "$dir" \
-        'git clone --depth 1 https://github.com/centerforaisafety/hle.git harnesses/hle && python -m pip install -r harnesses/hle/requirements.txt'
+        'git clone --depth 1 https://github.com/centerforaisafety/hle.git harnesses/hle && python3 -m venv harnesses/hle/hle_eval/.venv && harnesses/hle/hle_eval/.venv/bin/pip install -r harnesses/hle/requirements.txt'
     require_file "$dir/hle_eval/run_model_predictions.py" \
         'Ensure checkout is centerforaisafety/hle with hle_eval/ scripts'
+    local python_bin="${HLE_PYTHON_BIN:-$dir/hle_eval/.venv/bin/python}"
+    [[ -x "$python_bin" ]] || {
+        echo "FATAL: HLE virtual environment missing: $python_bin" >&2
+        echo "Install: python3 -m venv $dir/hle_eval/.venv && $dir/hle_eval/.venv/bin/pip install -r $dir/requirements.txt" >&2
+        exit 2
+    }
+    "$python_bin" -c 'import datasets, openai, numpy' || {
+        echo "FATAL: HLE dependencies are unavailable in $python_bin." >&2
+        echo "Install: $dir/hle_eval/.venv/bin/pip install -r $dir/requirements.txt" >&2
+        exit 2
+    }
     require_endpoint_and_model
     preflight_openai_json "$BASE_URL" "$OPENAI_API_KEY"
     if [[ -z "${HF_TOKEN:-${HUGGING_FACE_HUB_TOKEN:-}}" ]]; then
@@ -247,6 +258,11 @@ run_hle() {
     local max_tokens="${HLE_MAX_COMPLETION_TOKENS:-8192}"
     local workers="${HLE_NUM_WORKERS:-4}"
     local dataset="${HLE_DATASET:-cais/hle}"
+    if [[ -n "${HLE_MAX_SAMPLES:-}" && "${HLE_RUN_JUDGE:-0}" == "1" ]]; then
+        echo "FATAL: upstream HLE judge divides by the full test-set size and cannot emit a valid smoke-subset metric." >&2
+        echo "Run predictions with HLE_MAX_SAMPLES only, or omit it for a full 2,500-question judged run." >&2
+        exit 2
+    fi
     local pred_args=(
         --dataset "$dataset"
         --model "$MODEL"
@@ -258,12 +274,14 @@ run_hle() {
     fi
     (
         cd "$dir/hle_eval"
-        python3 run_model_predictions.py "${pred_args[@]}"
+        "$python_bin" run_model_predictions.py "${pred_args[@]}"
+        cp "hle_${MODEL}.json" "$ROOT_DIR/$out_dir/"
         if [[ "${HLE_RUN_JUDGE:-0}" == "1" ]]; then
-            python3 run_judge_results.py \
+            "$python_bin" run_judge_results.py \
                 --dataset "$dataset" \
                 --predictions "hle_${MODEL}.json" \
                 --num_workers "$workers"
+            cp "judged_hle_${MODEL}.json" "$ROOT_DIR/$out_dir/"
         else
             echo "HLE predictions finished under $dir/hle_eval/."
             echo "Judging not run (set HLE_RUN_JUDGE=1 to invoke run_judge_results.py)."

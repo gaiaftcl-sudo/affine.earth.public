@@ -6,6 +6,7 @@
 - [**How we tested**](How-We-Tested)
 - [**In action**](In-Action)
 - [**Results & Scores**](Results-And-Scores)
+- [**Humanity’s Last Exam**](Humanitys-Last-Exam-Live)
 - [**AGI agent execution**](AGI-Agent-Execution)
 - [**Create account (once)**](Create-Account-Signup)
 
