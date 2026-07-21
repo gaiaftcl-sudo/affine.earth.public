@@ -1,0 +1,11 @@
+{
+  "eval_exact_grids": "50/172",
+  "train_exact_grids": "298/1076",
+  "overlay_engine": "s2_marker_stripe_lattice",
+  "closed_task": "221dfab4",
+  "train_replay": "2/2",
+  "labeled_eval": "2/2",
+  "note": "overlay +marker_stripe_lattice 221dfab4; 21897d95 state CLOSED; train floor 298/1076",
+  "kaggle_submit": false,
+  "recorded_at_utc": "2026-07-21T16:16:30Z"
+}

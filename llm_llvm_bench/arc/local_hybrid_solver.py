@@ -701,6 +701,27 @@ def solve_task(
         receipt["s2_arrow_room_recolor_meta"] = ar_replay
         return ar_fragment, receipt
 
+    # 1b27) S2 marker-stripe lattice (221dfab4).
+    s2ms = _load_module(
+        arc_dir / "s2_marker_stripe_lattice.py", "s2_marker_stripe_lattice"
+    )
+    ms_replay = s2ms.train_replay(task)
+    ms_fragment = s2ms.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(ms_replay)
+    if (
+        ms_fragment is not None
+        and ms_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in ms_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s2_marker_stripe_lattice"
+        receipt["train_replay"] = ms_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s2_marker_stripe_lattice_meta"] = ms_replay
+        return ms_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

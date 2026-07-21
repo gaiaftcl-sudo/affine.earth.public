@@ -1,0 +1,9 @@
+{
+  "task_id": "221dfab4",
+  "engine": "s2_marker_stripe_lattice",
+  "status": "CLOSED",
+  "c4": "Color-4 marker stripe (H or V contiguous). Period-6 lattice by Chebyshev half-step distance from marker: even steps cycle paint [4,4,3]; odd steps clear marker-band cells to majority bg; on 3-steps also recolor all foreground cells on that row/col. V = transpose of H.",
+  "train_replay": "2/2",
+  "labeled_eval": "2/2",
+  "module": "llm_llvm_bench/arc/s2_marker_stripe_lattice.py"
+}

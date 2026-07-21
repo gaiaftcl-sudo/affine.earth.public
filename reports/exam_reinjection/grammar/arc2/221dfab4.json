@@ -1,0 +1,27 @@
+{
+  "task_id": "221dfab4",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S2_palette_rewrite",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 2,
+  "test": 2,
+  "engine": "s2_marker_stripe_lattice",
+  "observations": [
+    "Color-4 contiguous H/V marker stripe",
+    "Period-6 distance lattice: [4,4,3] on even half-steps; bg clear on odd",
+    "3-steps extend across foreground cells on the aligned row/col",
+    "Train 2/2 labeled eval 2/2"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_2_2_eval_2_2",
+    "train_replay": "2/2",
+    "labeled_eval": "2/2"
+  },
+  "mastery_eval": "50/172",
+  "mastery_train": "298/1076",
+  "recorded_at_utc": "2026-07-21T16:16:30Z",
+  "kaggle_submit": false
+}
