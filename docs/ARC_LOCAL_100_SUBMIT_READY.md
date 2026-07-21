@@ -30,7 +30,7 @@ Agents must not remove the lock file. Env override only when steward orders it.
 
 | Role | SHA |
 | --- | --- |
-| Tip (this seal) | `29b6918` |
+| Tip (this seal) | `7097a0e` |
 | AGI-2 land (172/172 COMPLETE) | `21b2924` |
 | Reinjection CLOSED 120/120 + bp35 9/9 | `95d7b89` |
 | AGI-3 independent triad re-verify | `41f190d` |
@@ -67,5 +67,5 @@ Without `ALLOW_KAGGLE_SUBMIT=1`, `bin/kaggle-submit-guard.sh` exits 99.
 ## HLE (orthogonal; not a submit gate)
 
 Official harness **still running**: `reports/hle_official_20260721T143509Z/`
-— babysit last: **658/2500** preds, `judged=0`, `acc=null` (2026-07-21T17:28:40Z).
+— live preds **671/2500** (`harnesses/hle/hle_eval/hle_qwen3.6-35b-a3b.json`); `acc=null` until judge finishes.
 Accuracy written only when preds finish and `official_hle_accuracy.receipt.json` appears.
