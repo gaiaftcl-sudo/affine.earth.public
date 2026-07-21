@@ -212,6 +212,18 @@ def load_s3_separator_gap_stack(root: Path) -> Any:
     return module
 
 
+def load_s1_panel_motif_projection(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s1_panel_motif_projection.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s1_panel_motif_projection", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s1_panel_motif_projection solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def merge_attempt_pair(
     dsl_pair: Dict[str, Grid],
     ice_pair: Dict[str, Grid],
@@ -634,6 +646,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s1_topo = load_s1_topology_schematic(root)
     s1_hollow = load_s1_hollow_accent_fill(root)
     s3_gap = load_s3_separator_gap_stack(root)
+    s1_panel_motif = load_s1_panel_motif_projection(root)
     cpt_proj = load_container_period_tiling(root)
     s3_ray = load_s3_separator_ray_fill(root)
     ice_depth = int(os.environ.get("ARC_ICECUBER_DEPTH", "2"))
@@ -712,6 +725,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s1_topo_hits = 0
     s1_hollow_hits = 0
     s3_gap_hits = 0
+    s1_panel_motif_hits = 0
     cpt_hits = 0
     s3_hits = 0
     for task_id in sorted(eval_challenges):
@@ -766,6 +780,10 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             hybrid_attempts = s3_gap.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 s3_gap_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s1_panel_motif.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s1_panel_motif_hits += 1
         if hybrid_attempts is None:
             hybrid_attempts = cpt_proj.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
@@ -934,6 +952,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s1_topology_schematic_licensed_tasks": s1_topo_hits,
             "s1_hollow_accent_fill_licensed_tasks": s1_hollow_hits,
             "s3_separator_gap_stack_licensed_tasks": s3_gap_hits,
+            "s1_panel_motif_projection_licensed_tasks": s1_panel_motif_hits,
             "container_period_tiling_licensed_tasks": cpt_hits,
             "s3_separator_ray_fill_licensed_tasks": s3_hits,
             "engine": "LOCAL_HYBRID_SOLVER_marker8_s1family_cpt_s3ray_icecuber_dsl",

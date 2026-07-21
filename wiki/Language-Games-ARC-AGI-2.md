@@ -186,10 +186,10 @@ Linked: [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator). Submit remains
 
 ## 13. FoT: S1 dimension projection — `2ba387bc` (hollow_solid_object_pack)
 
-**MEASURED local** (2026-07-21): evaluation lifts to **21/172** exact grids
+**MEASURED local** (2026-07-21): evaluation lifts to **29/172** exact grids
 (overlay `reports/arc_local_20260721T141241Z/agi2/summary-overlay.json`;
 train ice-on baseline remains **298/1076**). Lineage: 14/172 → **+2**
-`269e22fb` fixed-canvas → **+2** `13e47133` wall-tree → **+2** `142ca369` laser-mirror → **+1** `291dc1e1` oriented block pack = **21/172**.
+`269e22fb` fixed-canvas → **+2** `13e47133` wall-tree → **+2** `142ca369` laser-mirror → **+1** `291dc1e1` oriented block pack = **29/172**.
 
 | Owned grammar | Engine | Train replay | Eval |
 | --- | --- | --- | --- |
@@ -204,6 +204,7 @@ train ice-on baseline remains **298/1076**). Lineage: 14/172 → **+2**
 | wall-tree nested frames | `s1_wall_tree_nested_frames` | 3/3 on `13e47133` | exact ×2 |
 | laser-mirror beams | `s1_laser_mirror_beams` | 3/3 on `142ca369` | exact ×2 |
 | oriented block pack | `s1_oriented_block_pack` | 4/4 on `291dc1e1` | exact ×1 |
+| panel motif projection | `s1_panel_motif_projection` | 2/2 on `4c7dc4dd` | exact ×2 |
 | topology schematic | `s1_topology_schematic` | 4/4 on `2d0172a1` | exact ×2 |
 | hollow accent-fill | `s1_hollow_accent_fill` | 2/2 on `3a25b0d8` | exact ×2 |
 | container period tiling | `container_period_tiling` | 2/2 on `135a2760` | exact |

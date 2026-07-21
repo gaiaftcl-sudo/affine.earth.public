@@ -407,6 +407,27 @@ def solve_task(
         receipt["s3_gap_meta"] = gap_replay
         return gap_fragment, receipt
 
+    # 1b13) S1 panel-motif projection (4c7dc4dd).
+    s1panel = _load_module(
+        arc_dir / "s1_panel_motif_projection.py", "s1_panel_motif_projection"
+    )
+    panel_replay = s1panel.train_replay(task)
+    panel_fragment = s1panel.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(panel_replay)
+    if (
+        panel_fragment is not None
+        and panel_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in panel_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_panel_motif_projection"
+        receipt["train_replay"] = panel_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_panel_motif_meta"] = panel_replay
+        return panel_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

@@ -1,0 +1,23 @@
+{
+  "task_id": "4c7dc4dd",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S1_dimension_projection",
+  "engine": "s1_panel_motif_projection",
+  "primary_transform": "panel_motif_projection",
+  "status": "CLOSED",
+  "train_replay": "2/2",
+  "eval_grids": "2/2",
+  "c4": {
+    "S1": "four equal hollow rectangular frames (same interior size)",
+    "S2": "each frame interior is a motif panel (empty/mono/bichrome)",
+    "S3": "priority: recolor densest bichrome via template; else connect singleton anchor\u2192ink; else XOR mono panels with rarest color",
+    "S4": "output = projected panel grid",
+    "C4": "exact panel; train-replay gated"
+  },
+  "module": "llm_llvm_bench/arc/s1_panel_motif_projection.py",
+  "mastery_eval": "29/172",
+  "mastery_train": "298/1076",
+  "sealed_at_utc": "2026-07-21T14:45:13Z",
+  "kaggle_submit": false,
+  "overlay": "reports/arc_local_20260721T144500Z/agi2/summary-overlay.json"
+}
