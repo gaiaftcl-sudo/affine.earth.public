@@ -1,0 +1,11 @@
+{
+  "eval_exact_grids": "53/172",
+  "train_exact_grids": "298/1076",
+  "overlay_engine": "s3_box_slide_rail_fill",
+  "closed_task": "271d71e2",
+  "train_replay": "3/3",
+  "labeled_eval": "1/1",
+  "note": "overlay +box_slide_rail_fill 271d71e2; train floor 298/1076",
+  "kaggle_submit": false,
+  "recorded_at_utc": "2026-07-21T16:20:51Z"
+}

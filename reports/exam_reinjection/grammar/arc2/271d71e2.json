@@ -1,0 +1,26 @@
+{
+  "task_id": "271d71e2",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "S3_spatial_rewrite",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 1,
+  "engine": "s3_box_slide_rail_fill",
+  "observations": [
+    "0-bordered boxes slide along maroon rails",
+    "movement = min(rail_gap, n_grey); refill 7 then 5 by slide direction",
+    "Train 3/3 labeled eval 1/1"
+  ],
+  "validator": "demonstration_replay+labeled_eval",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_3_3_eval_1_1",
+    "train_replay": "3/3",
+    "labeled_eval": "1/1"
+  },
+  "mastery_eval": "53/172",
+  "mastery_train": "298/1076",
+  "recorded_at_utc": "2026-07-21T16:20:51Z",
+  "kaggle_submit": false
+}

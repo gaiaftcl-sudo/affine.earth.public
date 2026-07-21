@@ -282,6 +282,18 @@ def load_s2_axis_glyph_stamp(root: Path) -> Any:
     return module
 
 
+def load_s3_box_slide_rail_fill(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s3_box_slide_rail_fill.py"
+    spec = importlib.util.spec_from_file_location(
+        "arc_s3_box_slide_rail_fill", path
+    )
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s3_box_slide_rail_fill solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def load_s3_terrain_period_bounce(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s3_terrain_period_bounce.py"
     spec = importlib.util.spec_from_file_location(
@@ -873,6 +885,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s2_arrow = load_s2_arrow_room_recolor(root)
     s2_stripe = load_s2_marker_stripe_lattice(root)
     s2_glyph = load_s2_axis_glyph_stamp(root)
+    s3_box = load_s3_box_slide_rail_fill(root)
     s3_bounce = load_s3_terrain_period_bounce(root)
     ice_depth = int(os.environ.get("ARC_ICECUBER_DEPTH", "2"))
     ice_workers = int(os.environ.get("ARC_ICECUBER_WORKERS", "6"))
@@ -969,6 +982,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     s2_arrow_hits = 0
     s2_stripe_hits = 0
     s2_glyph_hits = 0
+    s3_box_hits = 0
     s3_bounce_hits = 0
     for task_id in sorted(eval_challenges):
         hybrid_attempts = marker8.solve_task(eval_challenges[task_id])
@@ -1098,6 +1112,10 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             hybrid_attempts = s2_glyph.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 s2_glyph_hits += 1
+        if hybrid_attempts is None:
+            hybrid_attempts = s3_box.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                s3_box_hits += 1
         if hybrid_attempts is None:
             hybrid_attempts = s3_bounce.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
@@ -1281,6 +1299,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s2_arrow_room_recolor_licensed_tasks": s2_arrow_hits,
             "s2_marker_stripe_lattice_licensed_tasks": s2_stripe_hits,
             "s2_axis_glyph_stamp_licensed_tasks": s2_glyph_hits,
+            "s3_box_slide_rail_fill_licensed_tasks": s3_box_hits,
             "s3_terrain_period_bounce_licensed_tasks": s3_bounce_hits,
             "engine": "LOCAL_HYBRID_SOLVER_marker8_s1family_cpt_s3ray_icecuber_dsl",
         },

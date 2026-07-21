@@ -16,6 +16,7 @@
     "arc2:221dfab4",
     "arc2:247ef758",
     "arc2:269e22fb",
+    "arc2:271d71e2",
     "arc2:291dc1e1",
     "arc2:2ba387bc",
     "arc2:2d0172a1",
@@ -39,14 +40,6 @@
   "next_apply_loop": [
     {
       "action": "train-replay-gated C4; Franklin S4 JSON-only \u226429 if needed",
-      "key": "arc2:271d71e2",
-      "last_gate": "OPEN_MISS",
-      "task_id": "271d71e2",
-      "track": "arc2",
-      "language_game_class": "S3_spatial_rewrite"
-    },
-    {
-      "action": "train-replay-gated C4; Franklin S4 JSON-only \u226429 if needed",
       "key": "arc2:28a6681f",
       "last_gate": "OPEN_MISS",
       "task_id": "28a6681f",
@@ -62,7 +55,5 @@
       "language_game_class": "S2_palette_rewrite"
     }
   ],
-  "note": "CLOSED 247ef758 (52/172). No Kaggle.",
-  "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T16:18:16Z"
+  "note": "CLOSED 271d71e2 (53/172). Next unsealed eval misses. No Kaggle."
 }

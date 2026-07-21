@@ -743,6 +743,27 @@ def solve_task(
         receipt["s2_axis_glyph_stamp_meta"] = ag_replay
         return ag_fragment, receipt
 
+    # 1b29) S3 box-slide rail-fill (271d71e2).
+    s3box = _load_module(
+        arc_dir / "s3_box_slide_rail_fill.py", "s3_box_slide_rail_fill"
+    )
+    box_replay = s3box.train_replay(task)
+    box_fragment = s3box.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(box_replay)
+    if (
+        box_fragment is not None
+        and box_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in box_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s3_box_slide_rail_fill"
+        receipt["train_replay"] = box_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s3_box_slide_rail_fill_meta"] = box_replay
+        return box_fragment, receipt
+
     # 1c) Container period tiling (135a2760; stacked panels / color-3 columns).
     cpt = _load_module(
         arc_dir / "container_period_tiling.py", "container_period_tiling"

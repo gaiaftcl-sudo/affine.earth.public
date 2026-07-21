@@ -339,3 +339,7 @@ Train **2/2**, eval **2/2** via `s2_marker_stripe_lattice`. Mastery **52/172**. 
 ## FoT: S2 axis-glyph stamp — `247ef758`
 
 Train **3/3**, eval **2/2** via `s2_axis_glyph_stamp`. Mastery **52/172**. No Kaggle.
+
+## 271d71e2 — box_slide_rail_fill (S3)
+
+C4: BG=6; 0-bordered boxes slide min(rail_gap, n_grey) along maroon rails; refill 7 then 5 by direction. Train 3/3, eval 1/1. Module `llm_llvm_bench/arc/s3_box_slide_rail_fill.py`. No Kaggle.

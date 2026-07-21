@@ -1,0 +1,9 @@
+{
+  "task_id": "271d71e2",
+  "engine": "s3_box_slide_rail_fill",
+  "status": "CLOSED",
+  "c4": "BG=6; 0-bordered boxes with interiors {0,5,7}; maroon(9) near/far rails define slide axis; slide min(rail_gap, n_grey) steps; refill by directional sweep with n_orange+steps as 7 else 5; reattach rails.",
+  "train_replay": "3/3",
+  "labeled_eval": "1/1",
+  "module": "llm_llvm_bench/arc/s3_box_slide_rail_fill.py"
+}
