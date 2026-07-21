@@ -1,0 +1,18 @@
+{
+  "kind": "agi2_eval_overlay",
+  "recorded_at_utc": "2026-07-21T17:00:37.360691+00:00",
+  "base_eval_exact_grids": "165/172",
+  "overlay_eval_exact_grids": "167/172",
+  "delta_grids": 2,
+  "closed_task": "f560132c",
+  "engine": "s1_g_f560132c",
+  "train_replay": "2/2",
+  "labeled_eval": "2/2",
+  "train_floor": "298/1076",
+  "remaining": [
+    "abc82100",
+    "faa9f03d"
+  ],
+  "note": "f560132c 4-quadrant tiling + 8-ring edge-flush search. No Kaggle",
+  "kaggle_submit": false
+}

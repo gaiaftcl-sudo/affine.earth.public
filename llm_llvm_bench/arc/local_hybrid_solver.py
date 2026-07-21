@@ -2494,6 +2494,28 @@ def solve_task(
 
 
 
+
+    # 1b98) s1_g_f560132c (f560132c).
+    f560eng = _load_module(
+        arc_dir / "s1_g_f560132c.py", "s1_g_f560132c"
+    )
+    f560_replay = f560eng.train_replay(task)
+    f560_fragment = f560eng.submission_fragment(task_id, task)
+    receipt["engines_tried"].append(f560_replay)
+    if (
+        f560_fragment is not None
+        and f560_replay.get("perfect")
+        and all(
+            _valid_grid(p["attempt_1"]) and _valid_grid(p["attempt_2"])
+            for p in f560_fragment[task_id]
+        )
+    ):
+        receipt["accepted_engine"] = "s1_g_f560132c"
+        receipt["train_replay"] = f560_replay["train_replay"]
+        receipt["ok"] = True
+        receipt["s1_g_f560132c_meta"] = f560_replay
+        return f560_fragment, receipt
+
     # 1b99) s2_g_d8e07eb2 (d8e07eb2).
     d8eng = _load_module(
         arc_dir / "s2_g_d8e07eb2.py", "s2_g_d8e07eb2"

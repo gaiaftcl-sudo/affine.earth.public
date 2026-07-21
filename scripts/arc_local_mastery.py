@@ -808,6 +808,16 @@ def load_s3_bbox_motif_stamp(root: Path) -> Any:
 
 
 
+
+def load_s1_g_f560132c(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/s1_g_f560132c.py"
+    spec = importlib.util.spec_from_file_location("arc_s1_g_f560132c", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load s1_g_f560132c solver at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
 def load_s2_g_d8e07eb2(root: Path) -> Any:
     path = root / "llm_llvm_bench/arc/s2_g_d8e07eb2.py"
     spec = importlib.util.spec_from_file_location("arc_s2_g_d8e07eb2", path)
@@ -1930,6 +1940,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     m_s3_g_8b9c3697 = load_s3_g_8b9c3697(root)
     m_s3_g_8e5c0c38 = load_s3_g_8e5c0c38(root)
     m_s2_g_d8e07eb2 = load_s2_g_d8e07eb2(root)
+    m_s1_g_f560132c = load_s1_g_f560132c(root)
     m_s3_g_8f215267 = load_s3_g_8f215267(root)
     m_s3_g_9bbf930d = load_s3_g_9bbf930d(root)
     m_s3_g_a251c730 = load_s3_g_a251c730(root)
@@ -2106,6 +2117,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     h_s3_bbox_motif_stamp = 0
     h_s3_g_80a900e0 = 0
     h_s2_g_d8e07eb2 = 0
+    h_s1_g_f560132c = 0
     h_s3_g_88bcf3b4 = 0
     h_s3_g_88e364bc = 0
     h_s3_g_8b7bacbf = 0
@@ -2617,6 +2629,10 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             if hybrid_attempts is not None:
                 h_s2_g_d8e07eb2 += 1
         if hybrid_attempts is None:
+            hybrid_attempts = m_s1_g_f560132c.solve_task(eval_challenges[task_id])
+            if hybrid_attempts is not None:
+                h_s1_g_f560132c += 1
+        if hybrid_attempts is None:
             hybrid_attempts = s2_black.solve_task(eval_challenges[task_id])
             if hybrid_attempts is not None:
                 s2_black_hits += 1
@@ -2844,6 +2860,7 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "s3_bbox_motif_stamp_licensed_tasks": h_s3_bbox_motif_stamp,
             "s3_g_80a900e0_licensed_tasks": h_s3_g_80a900e0,
             "s2_g_d8e07eb2_licensed_tasks": h_s2_g_d8e07eb2,
+            "s1_g_f560132c_licensed_tasks": h_s1_g_f560132c,
             "s3_g_88bcf3b4_licensed_tasks": h_s3_g_88bcf3b4,
             "s3_g_88e364bc_licensed_tasks": h_s3_g_88e364bc,
             "s3_g_8b7bacbf_licensed_tasks": h_s3_g_8b7bacbf,

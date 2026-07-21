@@ -115,6 +115,7 @@
     "arc2:e87109e9",
     "arc2:edb79dae",
     "arc2:eee78d87",
+    "arc2:f560132c",
     "arc2:f931b4a8",
     "arc2:fc7cae8d"
   ],
@@ -126,14 +127,6 @@
       "task_id": "abc82100",
       "track": "arc2",
       "language_game_class": "S2_palette_rewrite"
-    },
-    {
-      "action": "train-replay-gated C4; coordinate \u2014 do not clobber",
-      "key": "arc2:f560132c",
-      "last_gate": "OPEN_MISS",
-      "task_id": "f560132c",
-      "track": "arc2",
-      "language_game_class": "S1_dimension_projection"
     },
     {
       "action": "train-replay-gated C4; coordinate \u2014 do not clobber",
@@ -149,12 +142,11 @@
       "agent": "cursor-sync",
       "tasks": [
         "abc82100",
-        "f560132c",
         "faa9f03d"
       ],
       "goal": "close remaining to 172/172"
     }
   ],
-  "note": "CLOSED d8e07eb2 via s2_g_d8e07eb2 (165/172). Remaining: ['abc82100', 'f560132c', 'faa9f03d']. No Kaggle.",
-  "recorded_at_utc": "2026-07-21T16:55:12Z"
+  "note": "CLOSED f560132c via s1_g_f560132c (167/172). Remaining: ['abc82100', 'faa9f03d']. No Kaggle.",
+  "recorded_at_utc": "2026-07-21T17:00:37Z"
 }

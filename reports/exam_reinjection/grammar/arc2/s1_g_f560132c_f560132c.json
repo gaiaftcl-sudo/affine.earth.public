@@ -1,0 +1,8 @@
+{
+  "task_id": "f560132c",
+  "engine": "s1_g_f560132c",
+  "status": "CLOSED",
+  "train_replay": "2/2",
+  "labeled_eval": "2/2",
+  "module": "llm_llvm_bench/arc/s1_g_f560132c.py"
+}
