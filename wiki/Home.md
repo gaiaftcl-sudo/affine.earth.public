@@ -45,6 +45,8 @@ Onboard → **all 12 LIVE Games** → Franklin replies in `#messageList` (Socrat
 
 → **Start here to reproduce:** [Create account (once)](Create-Account-Signup)
 
+> **FoT:** AGI-2 MEASURED Kaggle publicScore **0.00** (COMPLETE) — [ARC Prize ARC-AGI-2 live record](ARC-Prize-AGI-2-Kaggle-Live)
+
 ---
 
 ## What is already MEASURED (local + live probe)

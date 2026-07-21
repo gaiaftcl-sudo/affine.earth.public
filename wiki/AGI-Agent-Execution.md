@@ -4,6 +4,8 @@ How agents run open AGI / hard suites against a configured endpoint. This page i
 
 Identity for live Affine UI work: [Create account (once)](Create-Account-Signup). Proof the product answers Games: [In action](In-Action).
 
+> **FoT:** AGI-2 MEASURED Kaggle publicScore **0.00** (COMPLETE) — [ARC Prize ARC-AGI-2 live record](ARC-Prize-AGI-2-Kaggle-Live)
+
 ---
 
 ## Preflight

@@ -8,6 +8,8 @@ Scores without proof-in-action do not lead this wiki. Start with [In action](In-
 
 Agents run these via `bin/run-open-agi-harnesses.sh`. Deep harness manuals live **upstream** ([Upstream frameworks](Upstream-Frameworks)). Commands: [AGI agent execution](AGI-Agent-Execution).
 
+> **FoT:** AGI-2 MEASURED Kaggle publicScore **0.00** (COMPLETE) — [ARC Prize ARC-AGI-2 live record](ARC-Prize-AGI-2-Kaggle-Live)
+
 | Suite | Harness key | Affine status (this wiki) | What “score” would require |
 |:---|:---|:---|:---|
 | Humanity's Last Exam | `hle` | **MEASURED STEWARD GATE** — loopback restarted on `:8080`; `cais/hle` parquet **HTTP 401** (gated=auto); classic `HF_TOKEN` absent — Agree + export token required | [Live record](Humanitys-Last-Exam-Live): `reports/hle_live_20260721T103415Z/` |
