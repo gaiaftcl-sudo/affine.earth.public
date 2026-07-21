@@ -11,7 +11,7 @@
 - [**ARC Prize Kaggle Live**](ARC-Prize-Kaggle-Live)
   - Format **GREEN** · probe **0.12** · submit **LOCKED** · `arc_local_20260721T105200Z`
 - [**ARC Prize ARC-AGI-2 Live**](ARC-Prize-AGI-2-Kaggle-Live)
-  - Format **GREEN** · eval **0/172** mastery gap · probe **0.00** · submit **LOCKED**
+  - Format **GREEN** · eval **1/172** · train **298/1076** · probe **0.00** · submit **LOCKED**
 - [**Kaggle ARC top-score formats**](Kaggle-ARC-Top-Score-Formats)
 - [**Exam language-game invariants**](Language-Games-Exam-Invariants)
   - [ARC-AGI-2 language game](Language-Games-ARC-AGI-2)

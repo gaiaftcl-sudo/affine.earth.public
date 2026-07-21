@@ -24,9 +24,14 @@ data/arc-prize-2026/
 data/arc-prize-2026-agi-2/
 kaggle/arc-prize-2026-agi-2/submission.json
 evidence/arc-prize-2026-agi-2/kernel-output/submission.json
+affine_audit_logs/*.mp4
+affine_audit_logs/*.json
+affine_audit_logs/.validation/
 
-# Cloned External Evaluation Harness Submodules
-harnesses/
+# Cloned External Evaluation Harness Submodules (keep arc-icecuber vendored)
+harnesses/*
+!harnesses/arc-icecuber/
+!harnesses/arc-icecuber/**
 
 # Local env files with endpoint/credentials (never commit)
 .env

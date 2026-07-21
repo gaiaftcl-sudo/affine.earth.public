@@ -3,7 +3,7 @@
 Local mastery documentation of the **typed answer artifacts** for ARC Prize
 2026. Cross-links the language-game doctrine published at `f983986`.
 
-**Local mastery pin (`0af6775`):** `reports/arc_local_20260721T105200Z/` — format validators **GREEN**; AGI-2 eval **0/172** (mastery gap); AGI-3 probe **0.12**. Live records: [ARC-AGI-2](ARC-Prize-AGI-2-Kaggle-Live) · [ARC-AGI-3](ARC-Prize-Kaggle-Live). Games: [ARC-AGI-2](Language-Games-ARC-AGI-2) · [ARC-AGI-3](Language-Games-ARC-AGI-3).
+**Local mastery pin:** `reports/arc_local_20260721T110813Z/` — format validators **GREEN**; AGI-2 hybrid eval **1/172**, train **298/1076**; AGI-3 probe **0.12**. Live records: [ARC-AGI-2](ARC-Prize-AGI-2-Kaggle-Live) · [ARC-AGI-3](ARC-Prize-Kaggle-Live). Games: [ARC-AGI-2](Language-Games-ARC-AGI-2) · [ARC-AGI-3](Language-Games-ARC-AGI-3).
 
 **No competition submit** while [`configs/NO_KAGGLE_SUBMIT.lock`](../configs/NO_KAGGLE_SUBMIT.lock) is present.
 

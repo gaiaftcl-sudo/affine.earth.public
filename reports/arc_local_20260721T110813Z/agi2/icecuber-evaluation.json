@@ -1,0 +1,15 @@
+{
+  "depth": 2,
+  "engine": "arc-icecuber",
+  "exact_grids": 1,
+  "exact_rate": 0.005813953488372093,
+  "license": "MIT",
+  "sample_count": 172,
+  "verdicts": {
+    "Candidate": 0,
+    "Correct": 1,
+    "Dimensions": 139,
+    "Nothing": 32,
+    "PARSE_FAIL": 0
+  }
+}

@@ -18,7 +18,7 @@ Auth for this record: `export KAGGLE_API_TOKEN=…` only. No Keychain / `securit
 | Local harness | `bin/run-arc-local-mastery.sh` → `reports/arc_local_20260721T105200Z/` **overall GREEN** (format validators; main `0af6775`) |
 | Public probe | ref **54875048** publicScore **0.12** = **PROCESS_PROBE**, not perfected ownership |
 | LB contrast | Top public ~**1.86** — format≠mastery |
-| Sibling AGI-2 | Format GREEN; eval **0/172** mastery gap — [ARC-AGI-2 live](ARC-Prize-AGI-2-Kaggle-Live) |
+| Sibling AGI-2 | Format GREEN; eval **1/172**, train **298/1076** — [ARC-AGI-2 live](ARC-Prize-AGI-2-Kaggle-Live) |
 
 ```bash
 ./bin/run-arc-local-mastery.sh

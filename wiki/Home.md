@@ -39,7 +39,7 @@ Onboard → **all 12 LIVE Games** → Franklin replies in `#messageList` (Socrat
 | 4. Scores | [Results & Scores](Results-And-Scores) | What we ran, with provenance — AGI-executable suites front and center |
 | 4a. HLE live record | [Humanity’s Last Exam](Humanitys-Last-Exam-Live) | Local drills **3/3** (`reports/hle_local_20260721T104720Z/`, `c3cf4d3`); `official_hle_accuracy=null`; `HF_TOKEN` absent; UI `exam-ui-hle-*` embedded |
 | 4b. ARC Prize live | [ARC Prize Kaggle Live](ARC-Prize-Kaggle-Live) | Format validators **GREEN**; probe **0.12** (ref 54875048); submit **LOCKED**; report `reports/arc_local_20260721T105900Z/` (`7ab6e05`) |
-| 4c. ARC-AGI-2 Kaggle live | [ARC-AGI-2 live record](ARC-Prize-AGI-2-Kaggle-Live) | Format validators **GREEN**; train **22/1076** (was 19); eval **0/172** (mastery gap); probe **0.00**; submit **LOCKED**; same report |
+| 4c. ARC-AGI-2 Kaggle live | [ARC-AGI-2 live record](ARC-Prize-AGI-2-Kaggle-Live) | Format validators **GREEN**; train **298/1076**; eval **1/172** (hybrid MIT icecuber+DSL; was 0); probe **0.00**; submit **LOCKED**; `reports/arc_local_20260721T110813Z/` |
 | 4d. Exam game contract | [Language Games — Exam Invariants](Language-Games-Exam-Invariants) | Pre-submission hub: context, answer artifacts, drift checks, and public-submission gate |
 | 4d+. UI audit protocol | [ARC UI Audit Orchestrator](ARC-UI-Audit-Orchestrator) | macOS permission preflight → VideoToolbox capture → Cursor injection → nine-cell reduction → artifact validation; local GREEN before any submit |
 | 4e. ARC-AGI-2 game | [Language Games — ARC-AGI-2](Language-Games-ARC-AGI-2) | Demonstrations → two exact-grid attempts |

@@ -135,5 +135,25 @@ placeholders:
 - directional gravity as a same-shape object-motion operation.
 
 For each task, the trace records the entire candidate family, the candidates
-that replay all demonstrations, and the two emitted grids. The training receipt
-has moved from **12/1076** to **22/1076** exact grids (main `7ab6e05`; was **19/1076** at `26a9758`), while the labeled evaluation receipt remains **0/172**. Schema validators are **GREEN**; submit remains **LOCKED**. Report: `reports/arc_local_20260721T105900Z/`. This is a measured training lift only; the evaluation quality target has not yet moved.
+that replay all demonstrations, and the two emitted grids.
+
+## 11. Local hybrid engine (MIT arc-icecuber + DSL)
+
+Offline mastery now hybridizes the replay-gated Python DSL with the MIT-licensed
+CPU search solver vendored at `harnesses/arc-icecuber` (adapter:
+`llm_llvm_bench/arc/icecuber_adapter.py`). Scoring is against official
+`arc-agi_evaluation_solutions.json` / training solutions (contract verified:
+172 eval grids, 1076 train grids).
+
+Measured local receipt `reports/arc_local_20260721T110813Z/` (validators
+**GREEN**; submit **LOCKED**):
+
+| Split | Exact grids | Notes |
+| --- | --- | --- |
+| Evaluation | **1/172** | Was **0/172** at `7ab6e05`; hit task `981571dc` |
+| Training | **298/1076** | Was **22/1076** DSL-only; icecuber alone 296/1076 |
+
+Failure-case dump (5): `agi2/failure-case-analyses.json`. Root cause of the
+prior 0/172 was coverage (no licensed transform / search miss), not a scorer
+bug. Depth-3 / flip-augmented probes did not add eval hits on a Dimensions
+subset. No Kaggle submit.

@@ -1,0 +1,10 @@
+obj/
+output/
+store/
+run
+count_tasks
+*.pch
+*.gch
+*.dSYM/
+visu.txt
+*.o

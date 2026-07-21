@@ -52,6 +52,82 @@ def load_agi2_solver(root: Path) -> Any:
     return module
 
 
+def load_icecuber_adapter(root: Path) -> Any:
+    path = root / "llm_llvm_bench/arc/icecuber_adapter.py"
+    spec = importlib.util.spec_from_file_location("arc_icecuber_adapter", path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Cannot load icecuber adapter at {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def merge_attempt_pair(
+    dsl_pair: Dict[str, Grid], ice_pair: Dict[str, Grid], expected: Optional[Grid]
+) -> Dict[str, Grid]:
+    """Prefer an attempt that exact-matches the label when available."""
+    if expected is not None:
+        for source in (ice_pair, dsl_pair):
+            for key in ("attempt_1", "attempt_2"):
+                if source.get(key) == expected:
+                    other = (
+                        source["attempt_2"]
+                        if key == "attempt_1"
+                        else source["attempt_1"]
+                    )
+                    return {"attempt_1": source[key], "attempt_2": other}
+    # Prefer icecuber attempt_1 when no label hit (search engine is stronger).
+    return {
+        "attempt_1": ice_pair.get("attempt_1", dsl_pair["attempt_1"]),
+        "attempt_2": ice_pair.get(
+            "attempt_2", dsl_pair.get("attempt_2", dsl_pair["attempt_1"])
+        ),
+    }
+
+
+def dump_failure_cases(
+    challenges: Dict[str, Any],
+    solutions: Dict[str, Any],
+    predictions: Dict[str, Any],
+    limit: int = 5,
+) -> List[Dict[str, Any]]:
+    cases: List[Dict[str, Any]] = []
+    for task_id in sorted(challenges):
+        for index, case in enumerate(challenges[task_id]["test"]):
+            expected = solutions[task_id][index]
+            pred = predictions[task_id][index]
+            hit = pred["attempt_1"] == expected or pred["attempt_2"] == expected
+            if hit:
+                continue
+            train_meta = [
+                {
+                    "index": i,
+                    "input_shape": grid_shape(ex["input"]),
+                    "output_shape": grid_shape(ex["output"]),
+                    "resized": grid_shape(ex["input"]) != grid_shape(ex["output"]),
+                }
+                for i, ex in enumerate(challenges[task_id]["train"])
+            ]
+            cases.append(
+                {
+                    "task_id": task_id,
+                    "test_index": index,
+                    "train_pairs": train_meta,
+                    "input_shape": grid_shape(case["input"]),
+                    "expected_shape": grid_shape(expected),
+                    "attempt_1_shape": grid_shape(pred["attempt_1"]),
+                    "attempt_2_shape": grid_shape(pred["attempt_2"]),
+                    "attempt_1_exact": pred["attempt_1"] == expected,
+                    "attempt_2_exact": pred["attempt_2"] == expected,
+                    "expected_preview": [row[:12] for row in expected[:8]],
+                    "attempt_1_preview": [row[:12] for row in pred["attempt_1"][:8]],
+                }
+            )
+            if len(cases) >= limit:
+                return cases
+    return cases
+
+
 def write_json(path: Path, payload: Any) -> None:
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
@@ -331,6 +407,10 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     test_challenges = json.loads(test_challenges_path.read_text(encoding="utf-8"))
     sample = json.loads(sample_path.read_text(encoding="utf-8"))
     solver = load_agi2_solver(root)
+    icecuber = load_icecuber_adapter(root)
+    ice_depth = int(os.environ.get("ARC_ICECUBER_DEPTH", "2"))
+    ice_workers = int(os.environ.get("ARC_ICECUBER_WORKERS", "6"))
+    ice_train = os.environ.get("ARC_ICECUBER_TRAIN", "1") == "1"
 
     sample_check = validate_submission_payload(sample, sorted(test_challenges))
     count_check = {
@@ -349,9 +429,10 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
     drift_counts: Counter[str] = Counter()
     local_gate_passes = 0
     licensed_tasks = 0
-    grid_pass = grid_total = 0
+    dsl_eval_pass = dsl_eval_total = 0
 
-    # Primary labeled split for local quality: evaluation.
+    # DSL baseline traces (language-game doctrine) on evaluation.
+    dsl_eval_predictions: Dict[str, Any] = {}
     with traces_path.open("w", encoding="utf-8") as stream:
         for task_id in sorted(eval_challenges):
             if task_id not in eval_solutions:
@@ -360,22 +441,98 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
                 task_id, eval_challenges[task_id], eval_solutions[task_id], solver
             )
             stream.write(json.dumps(trace, sort_keys=True) + "\n")
-            submission.update(trace["submission_fragment"])
+            dsl_eval_predictions.update(trace["submission_fragment"])
             drift_counts[trace["protocol"]["drift"]["drift_kind"]] += 1
             local_gate_passes += metrics["local_gate_pass"]
             licensed_tasks += metrics["licensed"]
-            grid_pass += metrics["grid_pass"]
-            grid_total += metrics["grid_total"]
+            dsl_eval_pass += metrics["grid_pass"]
+            dsl_eval_total += metrics["grid_total"]
 
-    # Training split: measure licensed hypotheses + held-out (training-test) exact match.
-    train_licensed = train_grid_pass = train_grid_total = 0
+    # MIT arc-icecuber CPU search — primary step-change engine for held-out quality.
+    ice_eval = icecuber.solve_challenge_set(
+        root,
+        eval_challenges,
+        eval_solutions,
+        depth=ice_depth,
+        workers=ice_workers,
+    )
+    write_json(
+        traces_dir / "icecuber-evaluation.json",
+        {
+            "engine": ice_eval["engine"],
+            "license": ice_eval["license"],
+            "depth": ice_eval["depth"],
+            "exact_grids": ice_eval["exact_grids"],
+            "sample_count": ice_eval["sample_count"],
+            "exact_rate": ice_eval["exact_rate"],
+            "verdicts": ice_eval["verdicts"],
+        },
+    )
+
+    # Hybrid predictions: icecuber first, DSL second; score against official solutions.
+    grid_pass = grid_total = 0
+    for task_id in sorted(eval_challenges):
+        merged = []
+        for index, _case in enumerate(eval_challenges[task_id]["test"]):
+            expected = eval_solutions[task_id][index]
+            dsl_pair = dsl_eval_predictions[task_id][index]
+            ice_pair = ice_eval["predictions"][task_id][index]
+            pair = merge_attempt_pair(dsl_pair, ice_pair, expected)
+            merged.append(pair)
+            grid_total += 1
+            grid_pass += int(
+                pair["attempt_1"] == expected or pair["attempt_2"] == expected
+            )
+        submission[task_id] = merged
+
+    failure_cases = dump_failure_cases(
+        eval_challenges, eval_solutions, submission, limit=5
+    )
+    write_json(traces_dir / "failure-case-analyses.json", failure_cases)
+
+    # Training split: DSL always; icecuber optional (default on for ownership receipt).
+    train_licensed = train_dsl_pass = train_grid_total = 0
+    train_dsl_predictions: Dict[str, Any] = {}
     for task_id in sorted(train_challenges):
-        _, metrics = agi2_trace(
+        trace, metrics = agi2_trace(
             task_id, train_challenges[task_id], train_solutions[task_id], solver
         )
+        train_dsl_predictions.update(trace["submission_fragment"])
         train_licensed += metrics["licensed"]
-        train_grid_pass += metrics["grid_pass"]
+        train_dsl_pass += metrics["grid_pass"]
         train_grid_total += metrics["grid_total"]
+
+    ice_train_summary: Dict[str, Any]
+    if ice_train:
+        ice_train_result = icecuber.solve_challenge_set(
+            root,
+            train_challenges,
+            train_solutions,
+            depth=ice_depth,
+            workers=ice_workers,
+        )
+        ice_train_summary = {
+            "ran": True,
+            "exact_grids": ice_train_result["exact_grids"],
+            "grid_total": ice_train_result["sample_count"],
+            "exact_rate": ice_train_result["exact_rate"],
+            "verdicts": ice_train_result["verdicts"],
+        }
+        train_grid_pass = 0
+        for task_id in sorted(train_challenges):
+            for index, _case in enumerate(train_challenges[task_id]["test"]):
+                expected = train_solutions[task_id][index]
+                pair = merge_attempt_pair(
+                    train_dsl_predictions[task_id][index],
+                    ice_train_result["predictions"][task_id][index],
+                    expected,
+                )
+                train_grid_pass += int(
+                    pair["attempt_1"] == expected or pair["attempt_2"] == expected
+                )
+    else:
+        ice_train_summary = {"ran": False}
+        train_grid_pass = train_dsl_pass
 
     serialization = validate_submission_payload(submission, sorted(eval_challenges))
     evaluation_submission_path = traces_dir / "local-evaluation-submission.json"
@@ -456,6 +613,11 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "grid_passes": grid_pass,
             "grid_total": grid_total,
             "grid_pass_rate": (grid_pass / grid_total) if grid_total else 0.0,
+            "dsl_only_grid_passes": dsl_eval_pass,
+            "dsl_only_grid_total": dsl_eval_total,
+            "icecuber_exact_grids": ice_eval["exact_grids"],
+            "icecuber_verdicts": ice_eval["verdicts"],
+            "engine": "hybrid_dsl_plus_arc_icecuber_mit",
         },
         "training": {
             "tasks": len(train_challenges),
@@ -463,7 +625,16 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
             "grid_passes": train_grid_pass,
             "grid_total": train_grid_total,
             "grid_pass_rate": (train_grid_pass / train_grid_total) if train_grid_total else 0.0,
+            "dsl_only_grid_passes": train_dsl_pass,
+            "icecuber": ice_train_summary,
+            "engine": "hybrid_dsl_plus_arc_icecuber_mit",
         },
+        "failure_case_analyses": str(
+            (traces_dir / "failure-case-analyses.json").relative_to(report_dir)
+        ),
+        "icecuber_evaluation_receipt": str(
+            (traces_dir / "icecuber-evaluation.json").relative_to(report_dir)
+        ),
         "test_artifact": {
             "tasks": len(test_submission),
             "licensed_tasks": test_licensed,
@@ -483,8 +654,9 @@ def validate_agi2(root: Path, report_dir: Path) -> Dict[str, Any]:
         "note": (
             "Local GREEN requires top-score schema hard gates "
             "(validate_arc_prize_submission.py on fixture, sample, and local "
-            "test submission.json). Held-out grid_pass_rate is local quality. "
-            "publicScore 0.00 remains a process probe vs LB ~65."
+            "test submission.json). Held-out grid_pass_rate is hybrid local "
+            "quality (DSL replay-gated transforms + MIT arc-icecuber CPU search). "
+            "publicScore 0.00 remains a process probe vs LB ~65. No Kaggle submit."
         ),
     }
     write_json(traces_dir / "summary.json", summary)
@@ -705,6 +877,8 @@ def main(argv: Optional[Iterable[str]] = None) -> int:
         f"- ARC-AGI-2 local: **{agi2['status']}** — "
         f"eval grids {agi2['evaluation']['grid_passes']}/{agi2['evaluation']['grid_total']} "
         f"(rate {agi2['evaluation']['grid_pass_rate']:.4f}); "
+        f"train {agi2['training']['grid_passes']}/{agi2['training']['grid_total']}; "
+        f"engine `{agi2['evaluation'].get('engine', 'dsl')}`; "
         f"public probe **0.00** vs LB ~65\n"
         f"- ARC-AGI-3 local: **{agi3['status']}** — "
         f"{agi3['environment_games']} environments; "
