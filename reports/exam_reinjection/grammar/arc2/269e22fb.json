@@ -1,0 +1,16 @@
+{
+  "task_id": "269e22fb",
+  "track": "arc2",
+  "class": "S1_dimension_projection",
+  "status": "CLOSED",
+  "s4_status": "CLOSED",
+  "closure_ready": true,
+  "engine": "s1_fixed_canvas_template",
+  "train_replay": "5/5",
+  "eval_exact": "2/2",
+  "c4_invariant": "20x20 binary template under D4+invert; input crop; recolor",
+  "protocol": "fot_language_game",
+  "recorded_at_utc": "2026-07-21T14:13:04Z",
+  "repair_kind": "solver_owned",
+  "grammar_update": "Seal s1_fixed_canvas_template into reinjection CLOSED (was missing from state)."
+}

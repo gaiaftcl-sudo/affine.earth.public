@@ -1,0 +1,16 @@
+{
+  "corrected_c4": "Laser-mirror diagonal beams: L-trominoes (2x2 minus one corner) are guns; other nonzero components are mirrors; emit from elbow along diagonal away from missing cell; paint empty cells; on 4-adjacent mirror flip axis velocity and recolor; stop at solids/borders; train-replay gated.",
+  "engine": "s1_laser_mirror_beams",
+  "eval_tick": true,
+  "kaggle_submit": "LOCKED",
+  "labeled_eval": "2/2",
+  "mastery_eval_exact_grids": "20/172",
+  "recorded_at_utc": "2026-07-21T14:11:38.744503+00:00",
+  "s4_status": "LOCKED",
+  "task_id": "142ca369",
+  "track": "arc2",
+  "train_replay": "3/3",
+  "hybrid_ok": true,
+  "accepted_engine": "s1_laser_mirror_beams",
+  "seal_note": "reinjection CLOSED sync after peer hybrid GREEN"
+}

@@ -4,39 +4,51 @@
     "arc2:135a2760",
     "arc2:136b0064",
     "arc2:13e47133",
+    "arc2:142ca369",
     "arc2:1ae2feb7",
     "arc2:20270e3b",
     "arc2:20a9e565",
+    "arc2:269e22fb",
     "arc2:2ba387bc",
     "arc2:38007db0",
     "arc3:agi3-trajectory-gap"
   ],
   "next_apply_loop": [
     {
-      "action": "Acquire live C4 via Franklin S4; named validator; no fake GREEN",
-      "key": "arc2:142ca369",
-      "last_c4": "",
+      "action": "Peer owns S1_dimension_projection \u2014 do not clobber",
+      "key": "arc2:291dc1e1",
+      "last_gate": "peer_in_flight",
+      "task_id": "291dc1e1",
+      "track": "arc2",
+      "language_game_class": "S1_dimension_projection"
+    },
+    {
+      "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
+      "key": "arc2:2d0172a1",
       "last_gate": "pending",
-      "task_id": "142ca369",
+      "task_id": "2d0172a1",
+      "track": "arc2",
+      "language_game_class": "S1_dimension_projection"
+    },
+    {
+      "action": "Acquire live C4; train-replay exact; labeled eval; seal CLOSED",
+      "key": "arc2:16b78196",
+      "last_gate": "pending",
+      "task_id": "16b78196",
       "track": "arc2",
       "language_game_class": "S3_spatial_rewrite"
     },
     {
-      "action": "Heal unreproduced_productive_delta; do not regress bp35 L1 PlatformerPolicy",
+      "action": "Heal unreproduced_productive_delta; do not regress bp35 L1",
       "key": "arc3:ar25",
       "last_gate": "S4_REINJECT",
       "task_id": "ar25",
       "track": "arc3"
-    },
-    {
-      "action": "Heal unreproduced_productive_delta; do not regress bp35 L1 PlatformerPolicy",
-      "key": "arc3:ls20",
-      "last_gate": "S4_REINJECT",
-      "task_id": "ls20",
-      "track": "arc3"
     }
   ],
-  "note": "arc2:13e47133 CLOSED S4_LOCKED wall_tree_nested_frames train 3/3 eval 2/2; mastery 16/172. Next Franklin open: arc2:142ca369 (S3). No Kaggle.",
-  "peer_in_flight": [],
-  "recorded_at_utc": "2026-07-21T14:07:32.862455+00:00"
+  "note": "Sealed reinjection CLOSED for 142ca369+269e22fb (hybrid GREEN). Mastery 20/172. Peer: 291dc1e1. Next owned: 2d0172a1. No Kaggle.",
+  "peer_in_flight": [
+    "arc2:291dc1e1"
+  ],
+  "recorded_at_utc": "2026-07-21T14:11:38.744503+00:00"
 }

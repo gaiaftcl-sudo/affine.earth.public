@@ -59,6 +59,14 @@ or private affine.earth OS source.
 
 C4: D4-canonicalize via 0/1 and 2/8 marker strips; split 2-row bands and column-blocks; ori-conditioned vertical flip; pad to max width with 8s; stack. Train **4/4**, eval **1/1** via `llm_llvm_bench/arc/s1_oriented_block_pack.py`. No Kaggle.
 
+
+## FoT note — reinjection state sync (2026-07-21)
+
+Hybrid GREEN tasks `269e22fb` / `142ca369` sealed **CLOSED** in
+`reports/exam_reinjection/state.json` (receipts under
+`reports/arc_local_20260721T140955Z/agi2/`). Mastery remains **20/172**.
+Peer owns `291dc1e1`; next open `2d0172a1`. No Kaggle submit.
+
 ## FoT note — 142ca369 laser-mirror beams (2026-07-21)
 
 C4 locked via `llm_llvm_bench/arc/s1_laser_mirror_beams.py`. Train **3/3**, labeled eval **2/2**. No Kaggle.

@@ -1,7 +1,7 @@
 {
   "aristotelian_closure_turns": 29,
-  "cycles": 8,
-  "last_cycle_at": "2026-07-21T14:04:35.735271+00:00",
+  "cycles": 9,
+  "last_cycle_at": "2026-07-21T14:11:03.662652+00:00",
   "tasks": {
     "arc2:0934a4d8": {
       "engine": "marker8_twin31",
@@ -19,7 +19,7 @@
       "task_id": "0934a4d8",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:07:32.990266+00:00"
+      "updated_at": "2026-07-21T14:11:38.775064+00:00"
     },
     "arc2:135a2760": {
       "engine": "container_period_tiling",
@@ -38,7 +38,7 @@
       "task_id": "135a2760",
       "track": "arc2",
       "turn_count": 5,
-      "updated_at": "2026-07-21T14:07:32.990305+00:00"
+      "updated_at": "2026-07-21T14:11:38.775093+00:00"
     },
     "arc2:136b0064": {
       "engine": "s1_digit_separator_snake",
@@ -57,7 +57,7 @@
       "task_id": "136b0064",
       "track": "arc2",
       "turn_count": 4,
-      "updated_at": "2026-07-21T14:07:32.990318+00:00"
+      "updated_at": "2026-07-21T14:11:38.775104+00:00"
     },
     "arc2:13e47133": {
       "engine": "s1_wall_tree_nested_frames",
@@ -65,37 +65,37 @@
       "last_gate": "S4_LOCKED",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc2/13e47133.json",
       "last_s4_status": "LOCKED",
-      "last_validator": "demonstration_replay+labeled_eval",
+      "last_validator": "demonstration_replay",
       "last_validator_result": {
         "accepted": true,
-        "detail": "local_solver_green",
+        "detail": "local_solver_green_skip",
         "labeled_eval": "2/2",
         "train_replay": "3/3"
       },
       "status": "CLOSED",
       "task_id": "13e47133",
       "track": "arc2",
-      "turn_count": 4,
-      "updated_at": "2026-07-21T14:07:32.862455+00:00"
+      "turn_count": 5,
+      "updated_at": "2026-07-21T14:11:38.775124+00:00"
     },
     "arc2:142ca369": {
-      "last_c4": "{\"grid\": [[0, 1, 0, 2, 0, 7, 0, 5, 0, 0, 2, 0, 0, 1, 0, 2, 0, 7], [1, 1, 2, 2, 7, 7, 5, 5, 0, 0, 1, 1, 2, 2, 7, 7, 5, 5], [0, 2, 1, 0, 2, 0, 7, 0, 5, 2, 0, 2, 1, 0, 2, 0, 7, 0], [2, 2, 0, 1, 0, 2, 0, 7, 2, 5, 2, 2, 0, 1, 0, 2, 0, 7], [0, 7, 2, 0, 1, 0, 2, 2, 7, 8, 0, 7, 2, 0, 1, 0, 2, 2], [7, 7, 0, 2, 0, 1, 2, 2, 8, 7, 7, 7, 0, 2, 0, 1, 2, 2], [0, 5, 7, 0, 2, 2, 1, 8, 2, 6, 0, 5, 7, 0, 2, 2, 1, 8], [5, 5, 0, 7, 2, 2, 8, 1, 6, 2, 5, 5, 0, 7, 2, 2, 8, 1], [0, 1, 0, 2, 0, 7, 0, 5, 0, 0, 2, 0, 0, 1, 0, 2, 0, 7], [1, 1, 2, 2, 7, 7, 5, 5, 0, 0, 1, 1, 2, 2, 7, 7, 5, 5], [0, 2, 1, 0, 2, 0, 7, 0, 5, 2, 0, 2, 1, 0, 2, 0, 7, 0], [2, 2, 0, 1, 0, 2, 0, 7, 2, 5, 2, 2, 0, 1, 0, 2, 0, 7], [0, 7, 2, 0, 1, 0, 2, 2, 7, 8, 0, 7, 2, 0, 1, 0, 2, 2], [7, 7, 0, 2, 0, 1, 2, 2, 8, 7, 7, 7, 0, 2, 0, 1, 2, 2], [0, 5, 7, 0, 2, 2, 1, 8, 2, 6, 0, 5, 7, 0, 2, 2, 1, 8], [5, 5, 0, 7, 2, 2, 8, 1, 6, 2, 5, 5, 0, 7, 2, 2, 8, 1], [0, 1, 0, 2, 0, 7, 0, 5, 0, 0, 2, 0, 0, 1, 0, 2, 0, 7], [1, 1, 2, 2, 7, 7, 5, 5, 0, 0, 1, 1, 2, 2, 7, 7, 5, 5]], \"shape\": [18, 18]}",
+      "engine": "s1_laser_mirror_beams",
+      "last_c4": "L-tromino laser guns emit diagonal beams; mirrors flip axis and recolor",
       "last_gate": "S4_LOCKED",
-      "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc2/142ca369.json",
+      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/142ca369.json",
       "last_s4_status": "LOCKED",
-      "last_validator": "demonstration_replay",
+      "last_validator": "demonstration_replay+labeled_eval",
       "last_validator_result": {
         "accepted": true,
-        "detail": "typed_grid_or_rule_pending_mastery",
-        "ran": true,
-        "status": "LOCKED",
-        "validator": "demonstration_replay"
+        "detail": "local_solver_green",
+        "train_replay": "3/3",
+        "labeled_eval": "2/2"
       },
-      "status": "HEALING",
+      "status": "CLOSED",
       "task_id": "142ca369",
       "track": "arc2",
-      "turn_count": 1,
-      "updated_at": "2026-07-21T14:04:35.734863+00:00"
+      "turn_count": 2,
+      "updated_at": "2026-07-21T14:13:04Z"
     },
     "arc2:1ae2feb7": {
       "engine": "s3_separator_ray_fill",
@@ -113,7 +113,7 @@
       "task_id": "1ae2feb7",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:07:32.990312+00:00"
+      "updated_at": "2026-07-21T14:11:38.775099+00:00"
     },
     "arc2:20270e3b": {
       "engine": "s1_seven_tab_merge",
@@ -131,7 +131,7 @@
       "task_id": "20270e3b",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:07:32.990324+00:00"
+      "updated_at": "2026-07-21T14:11:38.775109+00:00"
     },
     "arc2:20a9e565": {
       "engine": "s1_marker_frame_motif",
@@ -149,7 +149,26 @@
       "task_id": "20a9e565",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:07:32.990334+00:00"
+      "updated_at": "2026-07-21T14:11:38.775118+00:00"
+    },
+    "arc2:269e22fb": {
+      "engine": "s1_fixed_canvas_template",
+      "last_c4": "20x20 binary template under D4+invert; input crop; recolor",
+      "last_gate": "S4_LOCKED",
+      "last_grammar_sha": "reports/exam_reinjection/grammar/arc2/269e22fb.json",
+      "last_s4_status": "LOCKED",
+      "last_validator": "demonstration_replay+labeled_eval",
+      "last_validator_result": {
+        "accepted": true,
+        "detail": "local_solver_green",
+        "train_replay": "5/5",
+        "labeled_eval": "2/2"
+      },
+      "status": "CLOSED",
+      "task_id": "269e22fb",
+      "track": "arc2",
+      "turn_count": 0,
+      "updated_at": "2026-07-21T14:13:04Z"
     },
     "arc2:2ba387bc": {
       "engine": "s1_dimension_projection",
@@ -167,7 +186,7 @@
       "task_id": "2ba387bc",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:07:32.990288+00:00"
+      "updated_at": "2026-07-21T14:11:38.775086+00:00"
     },
     "arc2:38007db0": {
       "engine": "s1_panel_odd_one_out",
@@ -185,10 +204,10 @@
       "task_id": "38007db0",
       "track": "arc2",
       "turn_count": 0,
-      "updated_at": "2026-07-21T14:07:32.990329+00:00"
+      "updated_at": "2026-07-21T14:11:38.775113+00:00"
     },
     "arc3:agi3-trajectory-gap": {
-      "last_c4": "REINJECT:{\"action\": \"click\", \"x\": 10, \"y\": 10}",
+      "last_c4": "REINJECT:{\"action\": \"move\", \"target\": {\"x\": 10, \"y\": 10}}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/agi3-trajectory-gap.json",
       "last_s4_status": "REINJECT",
@@ -203,8 +222,8 @@
       "status": "HEALING",
       "task_id": "agi3-trajectory-gap",
       "track": "arc3",
-      "turn_count": 4,
-      "updated_at": "2026-07-21T14:04:35.734972+00:00"
+      "turn_count": 5,
+      "updated_at": "2026-07-21T14:11:03.662142+00:00"
     },
     "arc3:ar25": {
       "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"target\": \"empty_cell\", \"value\": \"background_color\"}",
@@ -236,7 +255,7 @@
       "updated_at": "2026-07-21T13:15:58.166509+00:00"
     },
     "arc3:bp35": {
-      "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"color\": 0, \"x\": 32, \"y\": 32}",
+      "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"params\": {\"color\": 0}}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/arc3/bp35.json",
       "last_s4_status": "REINJECT",
@@ -251,8 +270,8 @@
       "status": "HEALING",
       "task_id": "bp35",
       "track": "arc3",
-      "turn_count": 3,
-      "updated_at": "2026-07-21T14:04:35.735086+00:00"
+      "turn_count": 4,
+      "updated_at": "2026-07-21T14:11:03.662380+00:00"
     },
     "arc3:ls20": {
       "last_c4": "REINJECT:{\"action\": \"ACTION1\", \"grid\": \"background_fill_connected_components\"}",
@@ -274,7 +293,7 @@
       "updated_at": "2026-07-21T13:55:39.224291+00:00"
     },
     "hle:hle-official-gate-open": {
-      "last_c4": "REINJECT:{\"status\": \"REINJECT\", \"typed_candidate\": \"gate_open\", \"unresolved_alternatives\": [\"gate_closed\", \"official_judge_pending\"], \"validator\": \"exact_format_check\"}",
+      "last_c4": "REINJECT:{\"s4\": {\"status\": \"REINJECT\", \"typed_candidate\": \"REINJECT\", \"unresolved_alternatives\": [\"LOCKED\"], \"validator\": \"exact_format_check\"}}",
       "last_gate": "S4_REINJECT",
       "last_grammar_sha": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/reports/exam_reinjection/grammar/hle/hle-official-gate-open.json",
       "last_s4_status": "REINJECT",
@@ -289,9 +308,9 @@
       "status": "HEALING",
       "task_id": "hle-official-gate-open",
       "track": "hle",
-      "turn_count": 3,
-      "updated_at": "2026-07-21T14:04:35.735183+00:00"
+      "turn_count": 4,
+      "updated_at": "2026-07-21T14:11:03.662532+00:00"
     }
   },
-  "total_franklin_turns": 26
+  "total_franklin_turns": 31
 }

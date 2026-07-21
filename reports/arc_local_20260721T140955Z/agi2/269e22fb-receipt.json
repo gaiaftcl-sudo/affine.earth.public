@@ -1,0 +1,16 @@
+{
+  "corrected_c4": "20x20 binary template under D4+invert; input crop; recolor",
+  "engine": "s1_fixed_canvas_template",
+  "eval_tick": true,
+  "kaggle_submit": "LOCKED",
+  "labeled_eval": "2/2",
+  "mastery_eval_exact_grids": "20/172",
+  "recorded_at_utc": "2026-07-21T14:11:38.744503+00:00",
+  "s4_status": "LOCKED",
+  "task_id": "269e22fb",
+  "track": "arc2",
+  "train_replay": "5/5",
+  "hybrid_ok": true,
+  "accepted_engine": "s1_fixed_canvas_template",
+  "seal_note": "reinjection CLOSED sync after peer hybrid GREEN"
+}
