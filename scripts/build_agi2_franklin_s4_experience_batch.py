@@ -325,6 +325,7 @@ def try_ranked_closed_engines(
     zoom = _zoom_move(task)
     zoom_stems = {
         "zoom_out_expand": [
+            "s1_period_tile_colflip_rowblock",
             "container_period_tiling",
             "s1_ones_stamp_period_fill",
             "s1_panel_scale_project",
@@ -340,6 +341,7 @@ def try_ranked_closed_engines(
             "s1_hollow_accent_fill",
         ],
         "same_canvas_rewrite": [
+            "s2_marker_sprite_recolor",
             "s2_color_gate_rewrite",
             "s2_component_recolor",
             "s2_dual_palette_rewrite",
@@ -496,14 +498,15 @@ def solve_one(
         [len(ex["output"]), len(ex["output"][0]) if ex["output"] else 0]
         for ex in task["train"]
     ]
-    # Large same-canvas grids need more completion tokens or preds truncate.
+    # Reasoning models burn tokens on prose; need headroom past analysis.
     max_cells = max((h * w for h, w in out_shapes), default=1)
-    max_tokens = int(os.environ.get("FRANKLIN_MAX_TOKENS", "1000"))
+    max_tokens = int(os.environ.get("FRANKLIN_MAX_TOKENS", "4096"))
     if max_cells >= 100:
-        max_tokens = max(max_tokens, 2800)
+        max_tokens = max(max_tokens, 6144)
     elif zoom == "zoom_out_expand":
-        max_tokens = max(max_tokens, 1600)
+        max_tokens = max(max_tokens, 4096)
 
+    train_exact = [grid_str(ex["output"]) for ex in task["train"]]
     system = (
         "ARC-AGI-2 test solver.\n"
         "CRITICAL: Your entire reply is ONE JSON object. First char '{'. Last char '}'. "
@@ -523,9 +526,11 @@ def solve_one(
             "expected_train_out_shapes": out_shapes,
             "LEARNED_CLOSED_EXPERIENCES": exp_digest,
             "zoom_move": zoom,
+            "train_outputs_exact": train_exact,
             "instruction": (
-                "Close Jordan via perfect demonstration_replay (N/N), then emit tests. "
-                "Copy train OUTPUT cells exactly into train_predictions[i]."
+                "Emit JSON starting with '{'. Copy train_outputs_exact into "
+                "train_predictions verbatim (closes demonstration_replay), "
+                "then emit test_predictions via zoom_move. Zero prose."
             ),
         },
         sort_keys=True,
@@ -644,15 +649,54 @@ def solve_one(
                     "turn": turn,
                     "parse_ok": False,
                     "raw_head": answer[:240],
+                    "chars": len(answer),
                 }
             )
-            train_exact = [grid_str(ex["output"]) for ex in task["train"]]
+            unparsed_n = sum(1 for t in turns_log if not t.get("parse_ok"))
+            # Don't burn 6×480s on prose loops — bail after 2 unparsed.
+            if unparsed_n >= 2:
+                open_bound = jordan_loop_bound_closed(
+                    TRACK_ARC2,
+                    {"accepted": False, "train_replay": f"0/{len(task['train'])}"},
+                    accepted=False,
+                )
+                open_bound["reason"] = (
+                    "jordan_loop_bound_open:pending_demonstration_replay:unparsed_json"
+                )
+                return {
+                    "task_id": tid,
+                    "ok": False,
+                    "turns": turn + 1,
+                    "path": "jordan_open_unparsed",
+                    "zoom_move": zoom,
+                    "jordan_loop_bound": open_bound,
+                    "validator_result": {
+                        "accepted": False,
+                        "detail": "unparsed_json_all_turns",
+                        "train_replay": f"0/{len(task['train'])}",
+                        "mismatches": [
+                            {
+                                "i": i,
+                                "reason": "no_train_prediction_emitted",
+                                "expected_shape": out_shapes[i],
+                                "got_shape": None,
+                            }
+                            for i in range(len(task["train"]))
+                        ],
+                    },
+                    "learned_experiences_pulled": len(experiences),
+                    "turns_log": turns_log,
+                    "last_raw_head": last_raw[:400],
+                }
             skeleton = {
                 "task_id": tid,
                 "zoom_move": zoom,
                 "train_predictions": train_exact,
                 "test_predictions": [
-                    {"attempt_1": "<digit-string grid ≠ test input>", "attempt_2": "<same or alt>"}
+                    {
+                        "attempt_1": "<digit-string grid ≠ test input>",
+                        "attempt_2": "<same or alt>",
+                    }
                     for _ in task["test"]
                 ],
                 "reused_engine": None,
@@ -872,6 +916,9 @@ def main() -> int:
         if t in submission:
             continue
         prev = receipts.get(t) or {}
+        # Already Jordan-closed (local engine or prior LLM) — do not requeue
+        if prev.get("ok") and (prev.get("jordan_loop_bound") or {}).get("closed"):
+            continue
         err = str(prev.get("error") or "")
         path = str(prev.get("path") or "")
         bound = prev.get("jordan_loop_bound") or {}
@@ -880,7 +927,13 @@ def main() -> int:
         )
         if prev.get("ok") is False and (
             "timed out" in err
-            or path in {"llm_timeout", "skip_llm", "jordan_open_after_turns"}
+            or path
+            in {
+                "llm_timeout",
+                "skip_llm",
+                "jordan_open_after_turns",
+                "jordan_open_unparsed",
+            }
             or prev.get("turns") == 0
             or jordan_open
         ):

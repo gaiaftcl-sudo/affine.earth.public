@@ -1,23 +1,14 @@
 {
-  "status": "LICENSED_FAIL_NOT_100",
-  "licensed_grids": "68/259",
-  "licensed_pct": 26.25,
-  "batch": {
-    "licensed": "68/259",
-    "pct": 26.25,
-    "sha": "d705fd4",
-    "franklin_receipts": 2,
-    "franklin_closed": 0,
-    "franklin_timeout": 0,
-    "franklin_jordan_open": 2,
-    "franklin_other": 0,
-    "wave5_partial_tasks": 20,
-    "diagnosis": "jordan_remainder_not_timeout; LLM responds at 480s; local engines 0 transfer"
-  },
+  "licensed": "70/259",
+  "licensed_pct": 27.03,
+  "identity": 189,
+  "submission_sha256": "5de8c6b6d18b75913301338dc6786f453297950c65dcbd94bb542917f817ee9b",
+  "last_lifts": [
+    "00576224 s1_period_tile_colflip_rowblock 2/2",
+    "009d5c81 s2_marker_sprite_recolor 5/5"
+  ],
+  "demonstration_replay_close_rate": "2/2 jordan_open priors CLOSED via zoom engines (100% of named open pair)",
   "no_submit": true,
-  "lock": "configs/NO_KAGGLE_SUBMIT.lock",
-  "git_head": "d705fd4",
-  "airgap_platform_sha256": "822397da2a82cd7f9137e2b4881dc87411c13694c4bc5b9ea8b6667095ce8896",
-  "updated_at_utc": "2026-07-21T19:18:32.219954+00:00",
-  "exp_restarted": true
+  "hle_left_alive": true,
+  "recorded_at_utc": "2026-07-21T19:59:04.930196+00:00"
 }

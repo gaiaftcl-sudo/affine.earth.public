@@ -74,6 +74,8 @@ def main() -> int:
         "airgap_agi2_grammar_apply_*",
         "airgap_agi2_grammar_map*",
         "airgap_agi2_grammar*",
+        "airgap_agi2_period_*",
+        "airgap_agi2_marker_*",
         "airgap_agi2_shards_*/shard_*",
     ):
         for d in sorted((root / "reports").glob(pattern)):
