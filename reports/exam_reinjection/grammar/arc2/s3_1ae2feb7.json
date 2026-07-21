@@ -1,0 +1,19 @@
+{
+  "task_id": "1ae2feb7",
+  "class": "S3_spatial_rewrite",
+  "status": "CLOSED",
+  "grammar": "separator_ray_fill",
+  "engine": "s3_separator_ray_fill",
+  "observed": "vertical separator column of uniform color; content-side motifs ray-fill the empty side; leftward fill uses reversed rightward buffer",
+  "C4": {
+    "single_color": "period = count; place color every period cells (rest 0)",
+    "near_count_1": "solid near (suffix singleton)",
+    "far_count_1": "reverse(collapsed nonzero groups) tiled",
+    "both_counts_gt_1": "B0 templates: near>far → B,0,A,B,A,0; far>near → B,0,B,A,B,0"
+  },
+  "train_replay": "3/3",
+  "eval_exact": "3/3",
+  "module": "llm_llvm_bench/arc/s3_separator_ray_fill.py",
+  "overlay": "reports/arc_local_20260721T135000Z/agi2/summary-overlay.json",
+  "kaggle_submit": false
+}
