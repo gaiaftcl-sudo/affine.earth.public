@@ -8,6 +8,7 @@
 - [**Results & Scores**](Results-And-Scores)
 - [**Humanity’s Last Exam**](Humanitys-Last-Exam-Live)
 - [**ARC Prize Kaggle Live**](ARC-Prize-Kaggle-Live)
+- [**ARC Prize ARC-AGI-2 Live**](ARC-Prize-AGI-2-Kaggle-Live)
 - [**AGI agent execution**](AGI-Agent-Execution)
 - [**Create account (once)**](Create-Account-Signup)
 

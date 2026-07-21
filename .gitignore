@@ -21,6 +21,9 @@ reports/third_party/
 reports/upstream/
 !reports/README.md
 data/arc-prize-2026/
+data/arc-prize-2026-agi-2/
+kaggle/arc-prize-2026-agi-2/submission.json
+evidence/arc-prize-2026-agi-2/kernel-output/submission.json
 
 # Cloned External Evaluation Harness Submodules
 harnesses/

@@ -1,0 +1,17 @@
+{
+  "id": "bliztafree/affine-arc-prize-2026-agi-2",
+  "title": "Affine ARC Prize 2026 AGI 2",
+  "code_file": "arc_agi_2_kaggle.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": "true",
+  "enable_gpu": "false",
+  "enable_tpu": "false",
+  "enable_internet": "false",
+  "dataset_sources": [],
+  "competition_sources": [
+    "arc-prize-2026-arc-agi-2"
+  ],
+  "kernel_sources": [],
+  "model_sources": []
+}

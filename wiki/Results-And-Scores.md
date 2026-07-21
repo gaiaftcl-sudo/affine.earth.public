@@ -12,7 +12,7 @@ Agents run these via `bin/run-open-agi-harnesses.sh`. Deep harness manuals live 
 |:---|:---|:---|:---|
 | Humanity's Last Exam | `hle` | **MEASURED STEWARD GATE** — loopback up; Hub user `rpg67` OAuth found; `cais/hle` parquet still 403 until terms accepted | [Live record](Humanitys-Last-Exam-Live): `reports/hle_live_20260721T102858Z/` (+ prior `reports/hle_live_20260721T102039Z/`) |
 | ARC Prize 2026 ARC-AGI-3 (Kaggle) | official starter → `submission.parquet` | **MEASURED — score PENDING** — entered; kernel COMPLETE; submit ref 54875048 | [Live record](ARC-Prize-Kaggle-Live): agent track (not attempt_1/attempt_2 JSON); publicScore empty until Phase B finishes |
-| ARC Prize 2026 ARC-AGI-2 (Kaggle) | `kaggle/arc-prize-2026-agi-2/` | **MEASURED SUBMISSION BLOCKER** — entered; official data downloaded; network-disabled notebook v1 completed | [Live record](ARC-Prize-AGI-2-Kaggle-Live): schema-valid artifact returned; Kaggle submission API HTTP 400; no score |
+| ARC Prize 2026 ARC-AGI-2 (Kaggle) | `kaggle/arc-prize-2026-agi-2/` | **MEASURED** — publicScore **0.00** (COMPLETE, 2026-07-21) | [Live record](ARC-Prize-AGI-2-Kaggle-Live): kernel v1 submitted; `evidence/arc-prize-2026-agi-2/kaggle-submissions.csv` |
 | ARC-AGI / ARC-AGI-2 | `arc-agi` / `arc-agi-2` | **RUNNABLE** — no sample-task substitution | Checkout + task data + official scorer output |
 | GPQA Diamond | `gpqa` / `inspect-gpqa` | **RUNNABLE** | lm-eval or Inspect artifact bundle |
 | BIG-Bench Hard / MMLU-Pro | `bbh` / `mmlu-pro` / `lm-eval-hard` | **RUNNABLE** | lm-eval JSON under `reports/third_party/open_agi/` |
