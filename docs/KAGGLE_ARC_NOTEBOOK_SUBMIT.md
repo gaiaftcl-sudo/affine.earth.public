@@ -1,7 +1,7 @@
 # Kaggle ARC — notebooks-only submit (air-gap)
 
 
-**Live licensed fill:** `33/259` (12.74%) · identity `226` · merge `reports/airgap_agi2_test_20260721T175400Z/` · NOT submit-ready until ≥95%+.
+**Live licensed fill:** `46/259` (17.76%) · identity `213` · merge `reports/airgap_agi2_test_20260721T175400Z/` · NOT submit-ready until ≥95%+.
 Direct `kaggle competitions submit` for both ARC Prize 2026 tracks returns
 **HTTP 400**: daily allowance (1) **and** **Notebooks only**.
 
@@ -44,7 +44,7 @@ python3 scripts/build_arc_airgap_kaggle_notebooks.py --root . \
 | Metric | Meaning | Gate | MEASURED |
 | --- | --- | --- | --- |
 | Shape | 240 tasks · 259 grids · two attempts | schema validator PASS | ✅ 259/259 shape |
-| Licensed `N/259` | grids where `attempt_1 ≠ test input` | **must be 259/259** before claiming 100% | ❌ **6/259** |
+| Licensed `N/259` | grids where `attempt_1 ≠ test input` | **must be 259/259** before claiming 100% | ❌ **46/259 (17.76%)** |
 | Identity fill | `attempt_1 == test input` | **FAIL for 100% claim** | ❌ 253/259 |
 
 Do **not** read “240/259” as a score. That string is shape (tasks/grids).

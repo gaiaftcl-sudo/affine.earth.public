@@ -1,7 +1,7 @@
 # ARC local 100 — submit-ready (DO NOT CLI-submit)
 
 
-**Live licensed fill:** `33/259` (12.74%) · identity `226` · merge `reports/airgap_agi2_test_20260721T175400Z/` · NOT submit-ready until ≥95%+.
+**Live licensed fill:** `46/259` (17.76%) · identity `213` · merge `reports/airgap_agi2_test_20260721T175400Z/` · NOT submit-ready until ≥95%+.
 Local mastery artifacts are schema-valid and independently scored.
 `configs/NO_KAGGLE_SUBMIT.lock` remains in force.
 
@@ -28,7 +28,7 @@ Platform proof (2026-07-21T17:39Z HTTP 400 body): **Notebooks only** + **daily S
 | R3 | Daily quota ≤ 1 submission / team / day (UTC) | ✅ blocked until ≈ **2026-07-21T23:57Z** | ✅ same | N/A |
 | R4 | Output filename exact | ✅ `submission.json` | ✅ `submission.parquet` | preds JSON + judge |
 | R5 | Schema / shape | ✅ **240/240** tasks · **259/259** grids · `attempt_1`/`attempt_2` | ✅ cols `row_id,game_id,end_of_game,score` | CAIS harness format |
-| R6 | **Licensed fill** `attempt_1 ≠ test input` | ❌ **6/259** — identity fill on 253 grids = **FAIL for 100% claim** | ✅ triad WIN scores (public suite) | preds in flight |
+| R6 | **Licensed fill** `attempt_1 ≠ test input` | ❌ **46/259 (17.76%)** — identity fill on 213 grids = **FAIL for 100% claim** | ✅ triad WIN scores (public suite) | preds in flight |
 | R7 | No junk-submit against exhausted quota | ✅ lock + no CLI | ✅ lock + no CLI | leave predict alive |
 | R8 | Team / late-submit | follow Kaggle competition rules page at submit time | same | HF terms + CAIS judge only |
 | R9 | Identity fill ≠ mastery | ❌ **FAIL** — copying test input into `attempt_1` is schema-legal but **not** a 100% license | N/A | N/A |
@@ -38,8 +38,8 @@ Platform proof (2026-07-21T17:39Z HTTP 400 body): **Notebooks only** + **daily S
 | Metric | Value | Verdict |
 | --- | --- | --- |
 | Shape | 240 tasks / 259 grids | ✅ schema PASS |
-| Licensed (`attempt_1 ≠ test input`) | **6/259** | ❌ FAIL for 100% |
-| Identity `attempt_1` | **253/259** | ❌ not mastery |
+| Licensed (`attempt_1 ≠ test input`) | **46/259 (17.76%)** | ❌ FAIL for 100% |
+| Identity `attempt_1` | **213/259** | ❌ not mastery |
 | FoT labeled-eval (disjoint) | **172/172** | ✅ local only — not private test |
 | Hybrid licensed-fill | `reports/airgap_agi2_test_20260721T175400Z/` (parallel, ice timeout 45s) | in flight — **no submit** |
 

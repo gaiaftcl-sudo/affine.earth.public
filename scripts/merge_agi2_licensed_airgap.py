@@ -64,10 +64,17 @@ def main() -> int:
     for d in sorted((root / "reports").glob("airgap_agi2_test_*")):
         for name in ("submission.json", "submission.partial.json"):
             sources.append(d / name)
-    # shard dirs
-    for d in sorted((root / "reports").glob("airgap_agi2_shard_*")):
-        for name in ("submission.json", "submission.partial.json"):
-            sources.append(d / name)
+    # shard dirs (wave1 + wave2 + nested shard_N)
+    for pattern in (
+        "airgap_agi2_shard_*",
+        "airgap_agi2_wave*_shard_*",
+        "airgap_agi2_shards_*/shard_*",
+    ):
+        for d in sorted((root / "reports").glob(pattern)):
+            if not d.is_dir():
+                continue
+            for name in ("submission.json", "submission.partial.json"):
+                sources.append(d / name)
     sources.append(root / "kaggle/airgap-notebooks/arc-agi-2/payload/submission.json")
 
     union: Dict[str, Any] = {}
