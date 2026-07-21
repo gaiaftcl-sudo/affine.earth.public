@@ -6,10 +6,10 @@
   "last_gate": "LOCKED",
   "train": 4,
   "test": 2,
-  "engine": "s1_sep_panel_mask_xor",
-  "module": "llm_llvm_bench/arc/s1_sep_panel_mask_xor.py",
+  "engine": "s1_xor_across_sep_row",
+  "module": "llm_llvm_bench/arc/s1_xor_across_sep_row.py",
   "observations": [
-    "Zoom grammar engine s1_sep_panel_mask_xor",
+    "Zoom grammar engine s1_xor_across_sep_row",
     "Train demonstration_replay 4/4"
   ],
   "validator": "demonstration_replay",
@@ -17,8 +17,8 @@
     "accepted": true,
     "detail": "train_replay_perfect",
     "train_replay": "4/4",
-    "engine": "s1_sep_panel_mask_xor"
+    "engine": "s1_xor_across_sep_row"
   },
-  "c4_invariant": "s1_sep_panel_mask_xor",
-  "sealed_at_utc": "2026-07-21T21:59:07.149745+00:00"
+  "c4_invariant": "s1_xor_across_sep_row",
+  "sealed_at_utc": "2026-07-21T22:03:48.851630+00:00"
 }
