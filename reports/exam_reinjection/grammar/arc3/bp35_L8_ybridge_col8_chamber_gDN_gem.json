@@ -1,0 +1,41 @@
+{
+  "task_id": "bp35",
+  "track": "arc3",
+  "grammar_id": "bp35_L8_ybridge_col8_chamber_gDN_gem",
+  "s4_status": "LOCKED",
+  "closure_ready": true,
+  "levels_completed_after": 8,
+  "protocol": "franklin_s4_projection",
+  "recorded_at_utc": "2026-07-21T16:00:00+00:00",
+  "c4_invariant": {
+    "level": 8,
+    "grid": "grid8",
+    "spawn": [3, 32],
+    "gem": [9, 19],
+    "grav": [5, 2],
+    "clear_sequence": [
+      "Y-bridge row29 only through col6 (stop before filling col8 shaft)",
+      "S2 on (8,22)(9,22)(8,18)(7,25)",
+      "R into gap → (7,30) Y catch → R col8 UP fall → (8,25)",
+      "L L through soft2 door → chamber (6,23)",
+      "R R → (8,21)",
+      "Expand Y from (3,18) toward (8,17)",
+      "L to col6; climb by deleting underfoot Y (gUP)",
+      "Stand on (7,17); clear (8,17) (blocks Y refill onto stand cell); R → (8,17)",
+      "G(5,2) DN through soft2 (8,18) → (8,19) → R gem (9,19)"
+    ],
+    "failure_modes": [
+      "Y ping-pong (7,17)/(8,17) if cleared without standing on neighbor",
+      "Over-filling Y on y28/30 lets gUP crawl under col8 floor",
+      "Y in (8,29)/(8,30) blocks R into col8"
+    ]
+  },
+  "module": "llm_llvm_bench/arc/agi3_platformer_policy.py",
+  "implementation": "_choose_l8 phase machine (not fixed op tape)",
+  "validator": "environment_step",
+  "validator_result": {
+    "accepted": true,
+    "levels_completed": 8,
+    "detail": "PlatformerPolicy L1–L8 replay reaches levels_completed=8"
+  }
+}
