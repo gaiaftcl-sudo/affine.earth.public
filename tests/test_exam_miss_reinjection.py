@@ -15,9 +15,11 @@ from llm_llvm_bench.arc.franklin_s4_projection import (
 from llm_llvm_bench.exam.miss_reinjection import (
     ARISTOTELIAN_CLOSURE_TURNS,
     TRACK_ARC2,
+    TRACK_ARC3,
     TRACK_HLE,
     LoopState,
     MissRecord,
+    _agi3_trajectory_gap_owned,
     acquire_writer_lock,
     apply_local_s4_validator,
     discover_owned_hybrid_green,
@@ -242,3 +244,12 @@ def test_load_arc2_skips_owned_green_and_dedupes() -> None:
     assert "136b0064" not in ids
     assert "135a2760" not in ids
     assert len(ids) == len(set(ids))
+
+
+def test_agi3_trajectory_gap_owned_skips_meta_miss() -> None:
+    assert _agi3_trajectory_gap_owned(ROOT)
+    misses = load_fail_receipts(ROOT, tracks=(TRACK_ARC3,), per_track_limit=8)
+    ids = [m.task_id for m in misses]
+    assert "agi3-trajectory-gap" not in ids
+    # Per-game unreproduced deltas still drain.
+    assert {"bp35", "ar25", "ls20"} & set(ids)

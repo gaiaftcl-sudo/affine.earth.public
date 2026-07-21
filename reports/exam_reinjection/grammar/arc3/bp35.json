@@ -1,16 +1,35 @@
 {
-  "c4_invariant": "DRY_RUN",
+  "c4_invariant": "{\"grammar\":\"level_clear_motion_click_grammar\",\"engine\":\"PlatformerPolicy\",\"actions\":{\"3\":\"relative_avatar_move_left\",\"4\":\"relative_avatar_move_right\",\"6_block\":\"click_qclfkhjnaac_remove_block\",\"6_gravity\":\"click_lrpkmzabbfa_toggle_gravity\",\"gem\":\"land_fjlzdjxhant_level_clear\"},\"terminals\":{\"level_clear\":\"nkuphphdgrp\u2192next_level\",\"lose\":\"spike_or_budget\u2192GAME_OVER\u2192RESET_continue\"},\"validator\":\"environment_step+motion_replay\",\"bp35\":\"C4_BOUND 1/9 replay_verified\",\"unresolved\":[\"bp35_L2plus_spikes\",\"ar25_unreproduced_productive_delta\",\"ls20_unreproduced_productive_delta\"],\"kaggle_submit\":false}",
   "closure_ready": false,
-  "grammar_update": "dry-run placeholder \u2014 no Franklin call",
-  "recorded_at_utc": "2026-07-21T13:25:26.349150+00:00",
+  "grammar_update": "C4_BOUND level_clear_motion_click_grammar L1; L2+ spikes still HEALING",
+  "protocol": "franklin_s4_projection",
+  "recorded_at_utc": "2026-07-21T14:02:11.852+00:00",
   "repair_kind": "grammar",
-  "research_note": null,
-  "s1": "DRY_RUN",
-  "s2": "DRY_RUN",
-  "s3": "DRY_RUN",
-  "s4": "DRY_RUN",
-  "source_miss": "reports/arc_local_20260721T132400Z/agi3/episode-language-games.jsonl",
+  "research_note": "Franklin MOVE_RIGHT\u2192exit REINJECT discarded. L1 owned via PlatformerPolicy (motion+block click+gem). Remaining: L2+ spike shafts. No Kaggle.",
+  "s1": "{\"answer_contract\": \"ACTION1..ACTION7 sequence to clear level\", \"ingestion\": \"miss_receipt\", \"modality\": \"grid\", \"task_id\": \"bp35\", \"track\": \"arc3\"}",
+  "s2": "{\"rule_candidates\": [\"1. Fill empty space with color X. 2. Move player to exit. 3. Click to place object. 4. Clear obstacles.\"]}",
+  "s3": "{\"discriminator\": \"environment_step\", \"next_probe\": \"Submit candidate: [ACTION1: MOVE_RIGHT, ACTION2: CLICK] to test grammar acceptance.\"}",
+  "s4": "{\"status\": \"REINJECT\", \"typed_candidate\": {\"action\": \"MOVE_RIGHT\", \"target\": \"exit\"}, \"unresolved_alternatives\": [\"Fill empty space\", \"Click to place\"], \"validator\": \"environment_step\", \"validator_result\": {\"accepted\": false, \"detail\": \"franklin_reinject_with_action\", \"ran\": true, \"status\": \"REINJECT\", \"validator\": \"environment_step\"}}",
+  "s4_status": "LOCKED",
+  "source_miss": "reports/arc_local_20260721T134200Z/agi3/episode-language-games.jsonl",
   "task_id": "bp35",
   "track": "arc3",
-  "turn_index": 1
+  "turn_index": 2,
+  "typed_candidate": {
+    "engine": "PlatformerPolicy",
+    "grammar": "level_clear_motion_click_grammar",
+    "levels_cleared": "1/9"
+  },
+  "unresolved_alternatives": [
+    "Fill empty space",
+    "Click to place"
+  ],
+  "validator": "environment_step+motion_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "l1_owned_remaining_l2plus",
+    "ran": true,
+    "status": "LOCKED",
+    "validator": "environment_step+motion_replay"
+  }
 }

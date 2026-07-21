@@ -1,16 +1,49 @@
 {
-  "c4_invariant": "DRY_RUN",
-  "closure_ready": false,
-  "grammar_update": "dry-run placeholder \u2014 no Franklin call",
-  "recorded_at_utc": "2026-07-21T13:25:26.344956+00:00",
-  "repair_kind": "grammar",
-  "research_note": null,
-  "s1": "DRY_RUN",
-  "s2": "DRY_RUN",
-  "s3": "DRY_RUN",
-  "s4": "DRY_RUN",
-  "source_miss": "reports/arc_local_20260721T132400Z/agi3/summary.json",
   "task_id": "agi3-trajectory-gap",
   "track": "arc3",
-  "turn_index": 2
+  "protocol": "franklin_s4_projection",
+  "s4_status": "LOCKED",
+  "closure_ready": true,
+  "repair_kind": "action_theory",
+  "grammar_class": "level_clear_motion_click_grammar",
+  "engine": "PlatformerPolicy",
+  "module": "scripts/arc_agi3_language_game.py",
+  "evidence": "reports/exam_reinjection/grammar/arc3/unreproduced_productive_delta/evidence.json",
+  "c4_invariant": "{\"grammar\":\"level_clear_motion_click_grammar\",\"engine\":\"PlatformerPolicy\",\"actions\":{\"3\":\"relative_avatar_move_left\",\"4\":\"relative_avatar_move_right\",\"6_block\":\"click_qclfkhjnaac_remove_block\",\"6_gravity\":\"click_lrpkmzabbfa_toggle_gravity\",\"gem\":\"land_fjlzdjxhant_level_clear\"},\"terminals\":{\"level_clear\":\"nkuphphdgrp→next_level\",\"lose\":\"spike_or_budget→GAME_OVER→RESET_continue\"},\"validator\":\"environment_step+motion_replay\",\"bp35\":\"C4_BOUND 1/9 replay_verified\",\"unresolved\":[\"bp35_L2plus_spikes\",\"ar25_unreproduced_productive_delta\",\"ls20_unreproduced_productive_delta\"],\"kaggle_submit\":false}",
+  "typed_candidate": {
+    "grammar": "level_clear_motion_click_grammar",
+    "engine": "PlatformerPolicy",
+    "action_contract": {
+      "3": "relative_avatar_move_left",
+      "4": "relative_avatar_move_right",
+      "6": "official_click_targets_block_or_gravity",
+      "gem": "fjlzdjxhant_level_clear"
+    },
+    "validator": "environment_step+motion_replay"
+  },
+  "unresolved_alternatives": [
+    "bp35_L2plus_spike_shafts",
+    "ar25_unreproduced_productive_delta",
+    "ls20_unreproduced_productive_delta"
+  ],
+  "validator": "environment_step",
+  "validator_result": {
+    "accepted": true,
+    "detail": "owned_level_clear_motion_click_grammar_bp35_replay_verified",
+    "ran": true,
+    "status": "LOCKED",
+    "validator": "environment_step+motion_replay",
+    "bp35_levels": "1/9",
+    "win_terminals": 0
+  },
+  "s1": "{\"answer_contract\": \"legal next action/trajectory owned by PlatformerPolicy; LOCKED after motion replay + level-clear C4 on bp35\", \"modality\": \"interactive_grid\", \"task_id\": \"agi3-trajectory-gap\", \"track\": \"arc3\"}",
+  "s2": "{\"rule_candidates\": [\"level_clear_motion_click_grammar\"], \"owned_on\": \"bp35\"}",
+  "s3": "{\"discriminator\": \"environment_step+motion_replay\", \"evidence\": \"reports/exam_reinjection/grammar/arc3/unreproduced_productive_delta/evidence.json\"}",
+  "s4": "{\"status\": \"LOCKED\", \"typed_candidate\": {\"grammar\": \"level_clear_motion_click_grammar\", \"engine\": \"PlatformerPolicy\"}, \"validator\": \"environment_step+motion_replay\", \"validator_result\": {\"accepted\": true, \"detail\": \"owned_level_clear_motion_click_grammar_bp35_replay_verified\", \"status\": \"LOCKED\"}}",
+  "grammar_update": "Meta trajectory gap CLOSED as C4_BOUND ownership of level_clear_motion_click_grammar (PlatformerPolicy). Franklin click-(32,32) REINJECT discarded — not environment-validated. Remaining heal: bp35 L2+ spikes, ar25/ls20 unreproduced_productive_delta. No Kaggle. Do not regress bp35 L1.",
+  "research_note": "Prior Franklin REINJECT candidates (center click / dominant-component click) failed environment_step. FoT lock uses harness-owned PlatformerPolicy rules verified on bp35 level-clear + motion replay (levels 1/9, WIN=0). Meta gap no longer incomplete.",
+  "source_miss": "reports/arc_local_20260721T134200Z/agi3/summary.json",
+  "recorded_at_utc": "2026-07-21T14:02:00+00:00",
+  "turn_index": 4,
+  "kaggle_submit": false
 }

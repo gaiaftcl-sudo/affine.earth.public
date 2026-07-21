@@ -140,6 +140,16 @@ Evidence:
 `reports/exam_reinjection/grammar/arc3/unreproduced_productive_delta/evidence.json`.
 Reinjection consumes `reports/arc_local_20260721T134200Z/agi3/`.
 
+### FoT note — agi3-trajectory-gap CLOSED (2026-07-21)
+
+Meta miss `arc3:agi3-trajectory-gap` sealed **CLOSED / C4_BOUND_OWNED**. Franklin
+center-click / dominant-component REINJECT candidates discarded (failed
+`environment_step`). Locked C4 = harness `PlatformerPolicy` /
+`level_clear_motion_click_grammar` (bp35 L1 motion replay verified, **1/9**,
+WIN=0). Remaining heal under game ids: bp35 L2+ spikes, ar25/ls20
+`unreproduced_productive_delta`. Loader skips re-queue of the meta gap while
+evidence status is `OWNED_ON_BP35`. No Kaggle submit.
+
 ## 9. Format from top scores
 
 Typed artifact after the language-game state change (full detail:

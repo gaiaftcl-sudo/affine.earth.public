@@ -180,6 +180,14 @@ mean_confidence≈0.888, bp35 `C4_BOUND` /
 remain `unreproduced_productive_delta`. Public probe 0.12 process-only.
 `NO_KAGGLE_SUBMIT.lock` required.
 
+### FoT — agi3-trajectory-gap CLOSED (2026-07-21)
+
+Meta miss `arc3:agi3-trajectory-gap` sealed **CLOSED / C4_BOUND_OWNED**. Locked
+C4 = `PlatformerPolicy` / `level_clear_motion_click_grammar` (bp35 L1 replay
+verified). Franklin fake center-click REINJECT discarded. Remaining heal:
+bp35 L2+, ar25/ls20. Loader skips meta-gap re-queue while evidence is
+`OWNED_ON_BP35`. No Kaggle.
+
 ## 9. Format from top scores
 
 After the trajectory state change above, the typed artifact is

@@ -1,0 +1,17 @@
+{
+  "task_id": "agi3-trajectory-gap",
+  "class": "level_clear_motion_click_grammar",
+  "status": "CLOSED",
+  "grammar": "level_clear_motion_click_grammar",
+  "engine": "PlatformerPolicy",
+  "module": "scripts/arc_agi3_language_game.py",
+  "bp35": "C4_BOUND 1/9 motion_replay_verified",
+  "win_terminals": 0,
+  "remaining": [
+    "bp35_L2plus_spikes",
+    "ar25_unreproduced_productive_delta",
+    "ls20_unreproduced_productive_delta"
+  ],
+  "evidence": "reports/exam_reinjection/grammar/arc3/unreproduced_productive_delta/evidence.json",
+  "kaggle_submit": false
+}

@@ -385,6 +385,42 @@ def load_arc2_fails(root: Path, limit: int) -> List[MissRecord]:
     return misses[:limit]
 
 
+def _agi3_trajectory_gap_owned(root: Path) -> bool:
+    """True when bp35 level_clear_motion_click_grammar is FoT-owned.
+
+    Meta task ``agi3-trajectory-gap`` then must not re-queue as incomplete —
+    remaining ar25/ls20/bp35-L2+ heal under their own game_ids.
+    """
+    evidence = (
+        root
+        / "reports"
+        / "exam_reinjection"
+        / "grammar"
+        / "arc3"
+        / "unreproduced_productive_delta"
+        / "evidence.json"
+    )
+    if not evidence.is_file():
+        return False
+    try:
+        payload = json.loads(evidence.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return False
+    if str(payload.get("owned_as") or "") != "level_clear_motion_click_grammar":
+        return False
+    if str(payload.get("status") or "") != "OWNED_ON_BP35":
+        return False
+    for game in payload.get("per_game") or []:
+        if (
+            str(game.get("game_id") or "") == "bp35"
+            and str(game.get("grammar_class") or "")
+            == "level_clear_motion_click_grammar"
+            and bool(game.get("replay_verified"))
+        ):
+            return True
+    return False
+
+
 def load_arc3_fails(root: Path, limit: int) -> List[MissRecord]:
     # Prefer newest report that actually contains an AGI-3 slice (latest
     # arc_local_* may be AGI-2-only from a focused mastery run).
@@ -403,7 +439,12 @@ def load_arc3_fails(root: Path, limit: int) -> List[MissRecord]:
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
         traj = str(summary.get("trajectory_replay") or "")
         public = summary.get("public_probe") or {}
-        if "NOT_RUN" in traj or float(public.get("publicScore") or 0) < 1.0:
+        # Skip meta gap once PlatformerPolicy / level_clear_motion_click_grammar
+        # is FoT-owned; do not invent WIN=1.0 GREEN.
+        if (
+            not _agi3_trajectory_gap_owned(root)
+            and ("NOT_RUN" in traj or float(public.get("publicScore") or 0) < 1.0)
+        ):
             misses.append(
                 MissRecord(
                     track=TRACK_ARC3,
