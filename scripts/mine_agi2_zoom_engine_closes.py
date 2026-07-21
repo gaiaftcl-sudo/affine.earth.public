@@ -1,69 +1,206 @@
 #!/usr/bin/env python3
-"""Timeout-guarded local zoom-engine Jordan closes on AGI-2 identity residue.
+"""Per-engine timeout zoom Jordan closer on AGI-2 identity residue.
 
-Does not touch :8080. Safe to run beside Franklin LLM + HLE.
-Writes reports/airgap_agi2_zoom_engine_mine/ and CLOSED grammar seals.
+Parent stays warm (loads challenges once). Each engine try runs in a spawn
+child with a short timeout so one hung engine cannot stall the residue sweep.
+No :8080. Safe beside Franklin LLM + HLE.
 """
 
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import multiprocessing as mp
-import os
 import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Sequence, Tuple
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
+ZOOM_STEMS = {
+    "zoom_out_expand": [
+        "s1_period_tile_colflip_rowblock",
+        "s1_period_tile_dihedral2",
+        "s1_nw_wrap_mark_period_tile",
+        "s1_plus_sig_quad_expand",
+        "container_period_tiling",
+        "s1_ones_stamp_period_fill",
+        "s1_panel_scale_project",
+        "s1_oriented_block_pack",
+        "s1_motif_stamp_jigsaw",
+        "s1_fixed_canvas_template",
+        "s1_canvas_hole_sprite_fill",
+        "s1_diagonal_mod3_period_fill",
+        "s1_seed_period_stripe_fill",
+    ],
+    "zoom_in_crop": [
+        "s1_anchor_crop_expand",
+        "s1_frame_extract_project",
+        "s1_solid_motif_carve",
+        "s1_hollow_accent_fill",
+    ],
+    "same_canvas_rewrite": [
+        "s2_color_gate_rewrite",
+        "s2_component_recolor",
+        "s2_dual_palette_rewrite",
+        "s1_header_bracket_fill",
+        "s2_bbox_fourfold_mirror_complete",
+        "s2_seed_neighborhood_stamp",
+        "s2_slide_touch_blocker",
+    ],
+}
 
-def _worker(payload: Tuple[str, str, int]) -> Dict[str, Any]:
-    """Child: try ranked CLOSED/zoom engines for one task."""
-    root_s, tid, exp_limit = payload
+
+def _zoom_move(task: Dict[str, Any]) -> str:
+    zooms = []
+    for ex in task["train"]:
+        ih, iw = len(ex["input"]), len(ex["input"][0])
+        oh, ow = len(ex["output"]), len(ex["output"][0])
+        area_in, area_out = ih * iw, oh * ow
+        if area_out < area_in:
+            zooms.append("zoom_in_crop")
+        elif area_out > area_in:
+            zooms.append("zoom_out_expand")
+        else:
+            zooms.append("same_canvas_rewrite")
+    return max(set(zooms), key=zooms.count) if zooms else "same_canvas_rewrite"
+
+
+def _engine_worker(payload: Tuple[str, str, str, Dict[str, Any]]) -> Dict[str, Any]:
+    """Child: try one engine on one task (task JSON passed in — no big reload)."""
+    root_s, tid, eng, task = payload
     root = Path(root_s)
-    import importlib.util
-
-    from llm_llvm_bench.exam.miss_reinjection import TRACK_ARC2, load_learned_experiences
-
-    spec = importlib.util.spec_from_file_location(
-        "batch", str(root / "scripts/build_agi2_franklin_s4_experience_batch.py")
-    )
+    path = root / "llm_llvm_bench" / "arc" / f"{eng}.py"
+    if not path.is_file():
+        return {"ok": False, "reason": "missing"}
+    spec = importlib.util.spec_from_file_location(f"eng_{eng}", path)
+    if spec is None or spec.loader is None:
+        return {"ok": False, "reason": "import"}
     mod = importlib.util.module_from_spec(spec)
-    assert spec.loader is not None
     spec.loader.exec_module(mod)
-
-    ch = json.loads(
-        (root / "data/arc-prize-2026-agi-2/arc-agi_test_challenges.json").read_text()
+    if not hasattr(mod, "train_replay") or not hasattr(mod, "submission_fragment"):
+        return {"ok": False, "reason": "api"}
+    if hasattr(mod, "applies"):
+        try:
+            if not mod.applies(task):
+                return {"ok": False, "reason": "applies_false"}
+        except Exception as exc:  # noqa: BLE001
+            return {"ok": False, "reason": f"applies_err:{exc}"[:80]}
+    try:
+        replay = mod.train_replay(task)
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": False, "reason": f"replay_err:{exc}"[:80]}
+    if not (isinstance(replay, dict) and replay.get("perfect")):
+        return {"ok": False, "reason": "imperfect"}
+    try:
+        frag = mod.submission_fragment(tid, task)
+    except Exception as exc:  # noqa: BLE001
+        return {"ok": False, "reason": f"frag_err:{exc}"[:80]}
+    if not frag or tid not in frag:
+        return {"ok": False, "reason": "no_frag"}
+    preds = frag[tid]
+    if len(preds) != len(task["test"]):
+        return {"ok": False, "reason": "pred_len"}
+    licensed = sum(
+        1
+        for i, p in enumerate(preds)
+        if isinstance(p.get("attempt_1"), list)
+        and p["attempt_1"] != task["test"][i]["input"]
     )
-    ev = json.loads(
-        (
-            root / "data/arc-prize-2026-agi-2/arc-agi_evaluation_challenges.json"
-        ).read_text()
-    )
-    task = ch[tid]
-    exps = load_learned_experiences(
-        root / "reports/exam_reinjection", track=TRACK_ARC2, limit=exp_limit
-    )
-    ranked = mod.rank_experiences(task, exps, ev, limit=12)
-    local = mod.try_ranked_closed_engines(root, tid, task, ranked)
-    if not local or not local.get("ok"):
-        return {"task_id": tid, "ok": False}
+    if licensed <= 0:
+        return {"ok": False, "reason": "identity"}
     return {
-        "task_id": tid,
         "ok": True,
-        "predictions": local["predictions"],
-        "licensed_grids": local.get("licensed_grids"),
-        "engine": local.get("engine"),
-        "path": local.get("path"),
-        "validator_result": local.get("validator_result"),
-        "jordan_loop_bound": local.get("jordan_loop_bound"),
+        "task_id": tid,
+        "engine": eng,
+        "predictions": preds,
+        "licensed_grids": licensed,
         "train_n": len(task["train"]),
         "test_n": len(task["test"]),
+        "train_replay": f"{len(task['train'])}/{len(task['train'])}",
     }
+
+
+def try_engine_inplace(root: Path, tid: str, task: Dict[str, Any], eng: str) -> Optional[Dict[str, Any]]:
+    """In-process try for trusted zoom stems (milliseconds when applies=False)."""
+    path = root / "llm_llvm_bench" / "arc" / f"{eng}.py"
+    if not path.is_file():
+        return None
+    try:
+        spec = importlib.util.spec_from_file_location(f"eng_{eng}", path)
+        if spec is None or spec.loader is None:
+            return None
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        if not hasattr(mod, "train_replay") or not hasattr(mod, "submission_fragment"):
+            return None
+        if hasattr(mod, "applies") and not mod.applies(task):
+            return None
+        replay = mod.train_replay(task)
+        if not (isinstance(replay, dict) and replay.get("perfect")):
+            return None
+        frag = mod.submission_fragment(tid, task)
+        if not frag or tid not in frag:
+            return None
+        preds = frag[tid]
+        if len(preds) != len(task["test"]):
+            return None
+        licensed = sum(
+            1
+            for i, p in enumerate(preds)
+            if isinstance(p.get("attempt_1"), list)
+            and p["attempt_1"] != task["test"][i]["input"]
+        )
+        if licensed <= 0:
+            return None
+        return {
+            "ok": True,
+            "task_id": tid,
+            "engine": eng,
+            "predictions": preds,
+            "licensed_grids": licensed,
+            "train_n": len(task["train"]),
+            "test_n": len(task["test"]),
+            "train_replay": f"{len(task['train'])}/{len(task['train'])}",
+        }
+    except Exception:
+        return None
+
+
+def try_engines(
+    root: Path,
+    tid: str,
+    task: Dict[str, Any],
+    zoom_engines: Sequence[str],
+    exp_engines: Sequence[str],
+    *,
+    engine_timeout: float,
+    ctx: mp.context.BaseContext,
+) -> Optional[Dict[str, Any]]:
+    for eng in zoom_engines:
+        row = try_engine_inplace(root, tid, task, eng)
+        if row and row.get("ok"):
+            return row
+    # Experience engines may hang — isolate with spawn timeout
+    for eng in exp_engines:
+        if eng in zoom_engines:
+            continue
+        with ctx.Pool(1) as pool:
+            async_r = pool.apply_async(
+                _engine_worker, ((str(root), tid, eng, task),)
+            )
+            try:
+                row = async_r.get(timeout=engine_timeout)
+            except Exception:
+                pool.terminate()
+                continue
+        if row.get("ok"):
+            return row
+    return None
 
 
 def seal_closed(root: Path, row: Dict[str, Any]) -> Path:
@@ -71,8 +208,8 @@ def seal_closed(root: Path, row: Dict[str, Any]) -> Path:
     eng = row.get("engine") or "unknown"
     gdir = root / "reports/exam_reinjection/grammar/arc2"
     gdir.mkdir(parents=True, exist_ok=True)
-    vr = row.get("validator_result") or {}
     train_n = int(row.get("train_n") or 0)
+    replay = row.get("train_replay") or f"{train_n}/{train_n}"
     seal = {
         "task_id": tid,
         "exam": "ARC-AGI-2",
@@ -85,13 +222,13 @@ def seal_closed(root: Path, row: Dict[str, Any]) -> Path:
         "module": f"llm_llvm_bench/arc/{eng}.py",
         "observations": [
             f"Zoom grammar engine {eng}",
-            f"Train demonstration_replay {vr.get('train_replay') or f'{train_n}/{train_n}'}",
+            f"Train demonstration_replay {replay}",
         ],
         "validator": "demonstration_replay",
         "validator_result": {
             "accepted": True,
             "detail": "train_replay_perfect",
-            "train_replay": vr.get("train_replay") or f"{train_n}/{train_n}",
+            "train_replay": replay,
             "engine": eng,
         },
         "c4_invariant": eng,
@@ -120,6 +257,28 @@ def identity_residue(root: Path) -> List[str]:
     return out
 
 
+def experience_engines(root: Path, limit: int = 80) -> List[str]:
+    from llm_llvm_bench.exam.miss_reinjection import TRACK_ARC2, load_learned_experiences
+
+    arc = root / "llm_llvm_bench" / "arc"
+    exps = load_learned_experiences(
+        root / "reports/exam_reinjection", track=TRACK_ARC2, limit=limit
+    )
+    seen: List[str] = []
+    for ex in exps:
+        for key in ("engine",):
+            name = str(ex.get(key) or "").strip()
+            if name and (arc / f"{name}.py").is_file() and name not in seen:
+                seen.append(name)
+        eid = str(ex.get("task_id") or "")
+        if eid:
+            for pref in ("s3_g_", "s2_g_", "s1_g_", ""):
+                name = f"{pref}{eid}" if pref else eid
+                if (arc / f"{name}.py").is_file() and name not in seen:
+                    seen.append(name)
+    return seen
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--root", type=Path, default=ROOT)
@@ -128,14 +287,22 @@ def main() -> int:
         type=Path,
         default=ROOT / "reports/airgap_agi2_zoom_engine_mine",
     )
-    ap.add_argument("--task-timeout", type=float, default=20.0)
+    ap.add_argument("--engine-timeout", type=float, default=4.0)
     ap.add_argument("--experience-limit", type=int, default=80)
+    ap.add_argument(
+        "--with-experience",
+        action="store_true",
+        help="Also try CLOSED experience engines (spawn-isolated; slower)",
+    )
     ap.add_argument("--limit", type=int, default=0)
     args = ap.parse_args()
     root = args.root.resolve()
     out = args.out_dir.resolve()
     out.mkdir(parents=True, exist_ok=True)
 
+    ch = json.loads(
+        (root / "data/arc-prize-2026-agi-2/arc-agi_test_challenges.json").read_text()
+    )
     ids = identity_residue(root)
     if args.limit > 0:
         ids = ids[: args.limit]
@@ -150,56 +317,66 @@ def main() -> int:
         receipts = json.loads(rec_path.read_text())
 
     pending = [t for t in ids if t not in submission]
+    exp_engs = (
+        experience_engines(root, args.experience_limit) if args.with_experience else []
+    )
     print(
         f"START zoom_engine_mine residue={len(ids)} pending={len(pending)} "
-        f"stored={len(submission)} timeout={args.task_timeout}s",
+        f"stored={len(submission)} eng_timeout={args.engine_timeout}s "
+        f"exp_engines={len(exp_engs)} zoom_only={not args.with_experience}",
         flush=True,
     )
 
-    new_closes = 0
-    timeouts = 0
-    t0 = time.time()
     ctx = mp.get_context("spawn")
+    new_closes = 0
+    t0 = time.time()
     for i, tid in enumerate(pending):
-        payload = (str(root), tid, args.experience_limit)
-        with ctx.Pool(1) as pool:
-            async_r = pool.apply_async(_worker, (payload,))
-            try:
-                row = async_r.get(timeout=args.task_timeout)
-            except Exception as exc:  # noqa: BLE001
-                timeouts += 1
-                receipts[tid] = {
-                    "task_id": tid,
-                    "ok": False,
-                    "path": "engine_timeout_or_error",
-                    "error": str(exc)[:200],
-                }
-                pool.terminate()
-                if (i + 1) % 10 == 0:
-                    print(
-                        f"progress {i+1}/{len(pending)} new={new_closes} "
-                        f"timeouts={timeouts}",
-                        flush=True,
-                    )
-                continue
-        if row.get("ok"):
+        task = ch[tid]
+        zoom = _zoom_move(task)
+        row = try_engines(
+            root,
+            tid,
+            task,
+            ZOOM_STEMS.get(zoom, []),
+            exp_engs,
+            engine_timeout=args.engine_timeout,
+            ctx=ctx,
+        )
+        if row and row.get("ok"):
             submission[tid] = row["predictions"]
-            receipts[tid] = {k: v for k, v in row.items() if k != "predictions"}
+            receipts[tid] = {
+                "task_id": tid,
+                "ok": True,
+                "path": "zoom_engine_experience",
+                "engine": row.get("engine"),
+                "licensed_grids": row.get("licensed_grids"),
+                "validator_result": {
+                    "accepted": True,
+                    "train_replay": row.get("train_replay"),
+                    "detail": "train_replay_perfect",
+                },
+                "jordan_loop_bound": {"closed": True, "reason": "LOCKED"},
+            }
             seal_closed(root, row)
             new_closes += 1
             print(
                 f"CLOSE {tid} eng={row.get('engine')} "
-                f"licensed={row.get('licensed_grids')}",
+                f"licensed={row.get('licensed_grids')} zoom={zoom}",
                 flush=True,
             )
         else:
-            receipts[tid] = row
-        if (i + 1) % 10 == 0 or row.get("ok"):
+            receipts[tid] = {
+                "task_id": tid,
+                "ok": False,
+                "path": "no_engine",
+                "zoom_move": zoom,
+            }
+        if (i + 1) % 10 == 0 or (row and row.get("ok")):
             sub_path.write_text(json.dumps(submission))
             rec_path.write_text(json.dumps(receipts, indent=2))
             print(
                 f"progress {i+1}/{len(pending)} new={new_closes} "
-                f"timeouts={timeouts} stored={len(submission)}",
+                f"stored={len(submission)}",
                 flush=True,
             )
 
@@ -207,7 +384,6 @@ def main() -> int:
     rec_path.write_text(json.dumps(receipts, indent=2))
     summary = {
         "new_closes": new_closes,
-        "timeouts": timeouts,
         "stored": len(submission),
         "pending_seen": len(pending),
         "elapsed_s": round(time.time() - t0, 1),
@@ -220,6 +396,5 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    # Avoid fork+Metal issues on macOS
     mp.set_start_method("spawn", force=True)
     raise SystemExit(main())
