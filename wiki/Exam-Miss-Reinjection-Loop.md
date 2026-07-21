@@ -2,7 +2,10 @@
 
 Permanent local loop for **ARC-AGI-2**, **ARC-AGI-3**, and **HLE**. A miss means
 the S-state is incomplete — not that compute failed. Franklin repairs **S1–S4**
-and locks **C4** within a **29-turn Aristotelian** budget. **No Kaggle submit.**
+and locks **C4** within a **29-turn Aristotelian** budget. Every play pulls
+prior CLOSED grammar seals (`load_learned_experiences`). `LOCKED` requires a
+closed **Jordan loop bound** (named validator zero remainder) — candidate
+presence alone is demoted. **No Kaggle submit.**
 
 Canonical doc: [`docs/EXAM_MISS_REINJECTION_LOOP.md`](../docs/EXAM_MISS_REINJECTION_LOOP.md)
 
