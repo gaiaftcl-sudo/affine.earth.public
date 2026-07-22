@@ -70,6 +70,7 @@ ZOOM_STEMS = {
         "s1_merge_5_centered_3x3",
         "s1_triple_panel_largest_shift",
         "s2_line_len_concentric_frames",
+        "s2_color_square_d4_compose",
     ],
     "same_canvas_rewrite": [
         "s2_color_gate_rewrite",

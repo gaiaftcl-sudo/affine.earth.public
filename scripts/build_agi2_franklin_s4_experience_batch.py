@@ -449,6 +449,7 @@ def try_ranked_closed_engines(
             "s2_template_period_outward_stamp",
             "s2_marker_cheb_seat_match",
             "s2_line_len_concentric_frames",
+            "s2_color_square_d4_compose",
             "s2_marker_sprite_recolor",
             "s2_marker_col_period_tile",
             "s1_diagonal_mod3_period_fill",
