@@ -164,6 +164,7 @@ ZOOM_STEMS = {
         "s2_sprite_magnet_reseat",
         "s2_template_h_motif_recolor",
         "s2_oddcol_max8_pack9",
+        "s2_border_color_dock_edge_extend",
     ],
 }
 

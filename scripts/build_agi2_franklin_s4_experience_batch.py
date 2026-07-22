@@ -460,6 +460,7 @@ def try_ranked_closed_engines(
             "s2_sprite_magnet_reseat",
             "s2_template_h_motif_recolor",
             "s2_oddcol_max8_pack9",
+            "s2_border_color_dock_edge_extend",
             "s2_most_plus5_comp_crop",
             "s2_host_accent_align_twos",
             "s2_line_len_concentric_frames",

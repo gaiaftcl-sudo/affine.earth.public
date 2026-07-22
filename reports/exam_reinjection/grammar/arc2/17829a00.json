@@ -1,0 +1,18 @@
+{
+  "task_id": "17829a00",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "train_replay_perfect",
+  "train": 2,
+  "test": 1,
+  "engine": "s2_border_color_dock_edge_extend",
+  "module": "llm_llvm_bench/arc/s2_border_color_dock_edge_extend.py",
+  "observations": [
+    "border_color_dock_edge_extend"
+  ],
+  "validator": "train_replay",
+  "validator_result": "2/2",
+  "c4_invariant": "exact_train_replay",
+  "sealed_at_utc": "2026-07-22T12:02:02.532748+00:00"
+}
