@@ -146,6 +146,7 @@ ZOOM_STEMS = {
         "s2_marker_2x2_meta_tile_mask",
         "s2_period_zero_gap_fill",
         "s2_template_period_outward_stamp",
+        "s2_marker_cheb_seat_match",
     ],
 }
 

@@ -447,6 +447,7 @@ def try_ranked_closed_engines(
             "s2_marker_2x2_meta_tile_mask",
             "s2_period_zero_gap_fill",
             "s2_template_period_outward_stamp",
+            "s2_marker_cheb_seat_match",
             "s2_marker_sprite_recolor",
             "s2_marker_col_period_tile",
             "s1_diagonal_mod3_period_fill",

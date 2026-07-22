@@ -1,20 +1,20 @@
 {
-  "licensed": "220/259",
-  "licensed_pct": 84.94,
-  "identity": "39/259",
-  "submission_sha256": "9c5e9e5f6c0366c67d9b7e386da805a51e24fbfc55cce81d60238157ddca93e8",
+  "licensed": "221/259",
+  "licensed_pct": 85.33,
+  "identity": "38/259",
+  "submission_sha256": "974e80cd14f921b64b9803305a8af2a231683425ce8eabbacff66821669f7f19",
   "new_closes_this_turn": [
-    "045e512c"
+    "1b8318e3"
   ],
   "new_licensed_grids_this_turn": 1,
-  "commit_base": "f7c3347",
+  "commit_base": "9d8d43d",
   "engines": {
-    "15113be4": "s2_marker_2x2_meta_tile_mask",
+    "1b8318e3": "s2_marker_cheb_seat_match",
     "045e512c": "s2_template_period_outward_stamp"
   },
   "target": "259",
   "no_submit": true,
   "hle_left_alive": true,
   "exp_left_alive": true,
-  "recorded_at_utc": "2026-07-22T10:01:16.709453+00:00"
+  "recorded_at_utc": "2026-07-22T10:22:43.943950+00:00"
 }
