@@ -1,0 +1,11 @@
+{
+  "20fb2937": {
+    "task_id": "20fb2937",
+    "ok": true,
+    "engine": "s2_sep6_legend_stamp3",
+    "train_n": 2,
+    "test_n": 1,
+    "train_replay": "2/2",
+    "path": "zoom_engine_exact"
+  }
+}
