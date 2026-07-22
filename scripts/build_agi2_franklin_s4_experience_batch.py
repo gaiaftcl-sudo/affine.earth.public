@@ -410,6 +410,7 @@ def try_ranked_closed_engines(
             "s2_ones_in_eights_bbox_recolor",
             "s2_frame_flange_k_expand",
             "s2_bicolor_8conn_motif_swap",
+            "s2_marker_count_expand_fives",
             "s2_shear_left_bottom_anchor",
             "s2_marker_sprite_recolor",
             "s2_marker_col_period_tile",
