@@ -342,9 +342,9 @@
   },
   "230f2e48": {
     "task_id": "230f2e48",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_tower_hole_drain_bridge",
+    "licensed_grids": 1,
+    "train_replay": "3/3"
   },
   "234bbc79": {
     "task_id": "234bbc79",
@@ -545,9 +545,19 @@
   },
   "2f0c5170": {
     "task_id": "2f0c5170",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "zoom_in_crop"
+    "ok": true,
+    "path": "zoom_engine_experience",
+    "engine": "s1_marker_hole_align_crop",
+    "licensed_grids": 1,
+    "validator_result": {
+      "accepted": true,
+      "train_replay": "3/3",
+      "detail": "train_replay_perfect"
+    },
+    "jordan_loop_bound": {
+      "closed": true,
+      "reason": "LOCKED"
+    }
   },
   "2f767503": {
     "task_id": "2f767503",
@@ -785,9 +795,9 @@
   },
   "3bd292e8": {
     "task_id": "3bd292e8",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_wall_seed_bipartite_recolor",
+    "licensed_grids": 1,
+    "train_replay": "3/3"
   },
   "3bd67248": {
     "task_id": "3bd67248",
