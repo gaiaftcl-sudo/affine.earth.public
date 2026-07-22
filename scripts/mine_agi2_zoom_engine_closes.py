@@ -161,6 +161,7 @@ ZOOM_STEMS = {
         "s2_marker6_rank_row_bar",
         "s2_marker_col_template_bands",
         "s2_sprite_magnet_reseat",
+        "s2_template_h_motif_recolor",
     ],
 }
 
