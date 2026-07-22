@@ -1,0 +1,24 @@
+{
+  "task_id": "137eaa0f",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 1,
+  "engine": "s1_merge_5_centered_3x3",
+  "module": "llm_llvm_bench/arc/s1_merge_5_centered_3x3.py",
+  "observations": [
+    "Zoom grammar engine s1_merge_5_centered_3x3",
+    "Train demonstration_replay 3/3"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "3/3",
+    "engine": "s1_merge_5_centered_3x3"
+  },
+  "c4_invariant": "s1_merge_5_centered_3x3",
+  "sealed_at_utc": "2026-07-22T04:21:32.290056+00:00"
+}

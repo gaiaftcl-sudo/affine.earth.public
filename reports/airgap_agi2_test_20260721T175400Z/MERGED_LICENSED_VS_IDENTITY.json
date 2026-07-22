@@ -1,9 +1,9 @@
 {
   "kind": "agi2_merged_licensed_receipt",
-  "licensed_grids": 164,
-  "identity_grids": 95,
+  "licensed_grids": 166,
+  "identity_grids": 93,
   "total_grids": 259,
-  "licensed_pct": 63.32,
+  "licensed_pct": 64.09,
   "tasks": 240,
   "identity_fill_tasks": 0,
   "identity_task_ids": [
@@ -17,7 +17,6 @@
     "11dc524f",
     "12eac192",
     "13713586",
-    "137eaa0f",
     "13f06aa5",
     "14754a24",
     "1478ab18",
@@ -31,7 +30,6 @@
     "182e5d0f",
     "18447a8d",
     "184a9768",
-    "1990f7a8",
     "1a244afd",
     "1a6449f1",
     "1b59e163",
@@ -140,7 +138,7 @@
     "11dc524f": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "12eac192": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "13713586": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
-    "137eaa0f": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
+    "137eaa0f": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "12997ef3": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "137f0df0": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "13f06aa5": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
@@ -162,7 +160,7 @@
     "18447a8d": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "18419cfa": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "195ba7dc": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
-    "1990f7a8": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
+    "1990f7a8": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "06df4c85": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "070dd51e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "09629e4f": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -341,5 +339,5 @@
     "4290ef0e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "42918530": "reports/airgap_agi2_test_20260721T175400Z/submission.json"
   },
-  "submission_sha256": "3e7a0f6a74d5b2e7170a68e4ea00406cd0eecd11b27aeaa45e70ae31fbeb0d11"
+  "submission_sha256": "6a56681c3e1c7141fd4a3e8cb261e595d9ee86cdbb8a11c4dcc4153905eb8516"
 }

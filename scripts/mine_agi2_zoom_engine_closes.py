@@ -66,6 +66,8 @@ ZOOM_STEMS = {
         "s1_frame_accent_composite",
         "s1_marker_hole_align_crop",
         "s1_dense_blob_color_grid",
+        "s1_quad_3x3_motif_pack",
+        "s1_merge_5_centered_3x3",
     ],
     "same_canvas_rewrite": [
         "s2_color_gate_rewrite",
