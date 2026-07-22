@@ -1,16 +1,15 @@
 {
   "kind": "agi2_merged_licensed_receipt",
-  "licensed_grids": 253,
-  "identity_grids": 6,
+  "licensed_grids": 254,
+  "identity_grids": 5,
   "total_grids": 259,
-  "licensed_pct": 97.68,
+  "licensed_pct": 98.07,
   "tasks": 240,
   "identity_fill_tasks": 0,
   "identity_task_ids": [
     "0607ce86",
     "09c534e7",
     "1190bc91",
-    "184a9768",
     "212895b5",
     "256b0a75"
   ],
@@ -85,7 +84,7 @@
     "103eff5b": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "15113be4": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "17b80ad2": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "184a9768": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
+    "184a9768": "reports/airgap_agi2_zoom_engine_184a9768/submission.partial.json",
     "19bb5feb": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "1a07d186": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "1a244afd": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -123,7 +122,7 @@
     "2072aba6": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "20818e16": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "20981f0e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "20fb2937": "reports/airgap_agi2_zoom_engine_20fb2937/submission.partial.json",
+    "20fb2937": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "212895b5": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "21f83797": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "2204b7a8": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -256,5 +255,5 @@
     "4290ef0e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "42918530": "reports/airgap_agi2_test_20260721T175400Z/submission.json"
   },
-  "submission_sha256": "35d88c0da384beb31554d60a897b85949b6b49efd0c2461d65b4c0748729c162"
+  "submission_sha256": "e1248195336ef03d6ed45bfcc88a404fe3fd03bacadc296f8d840ea72c4de4a9"
 }

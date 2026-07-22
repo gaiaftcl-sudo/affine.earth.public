@@ -1,8 +1,15 @@
 {
-  "licensed": "253/259",
-  "licensed_grids": 253,
-  "identity_grids": 6,
-  "identity_tasks": 6,
+  "licensed": "254/259",
+  "licensed_grids": 254,
+  "identity_grids": 5,
+  "identity_tasks": 5,
+  "identity_task_ids": [
+    "0607ce86",
+    "09c534e7",
+    "1190bc91",
+    "212895b5",
+    "256b0a75"
+  ],
   "canonical_submission": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
   "recent_closes": {
     "20fb2937": "s2_sep6_legend_stamp3"
@@ -13,6 +20,7 @@
   "new_closes_this_turn": [
     "20fb2937"
   ],
-  "updated_at_utc": "2026-07-22T13:10:46.449677+00:00",
+  "new_licensed_grids_this_turn": 1,
+  "updated_at_utc": "2026-07-22T13:17:24.937615+00:00",
   "no_submit": true
 }
