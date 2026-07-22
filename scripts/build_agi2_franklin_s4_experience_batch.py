@@ -451,6 +451,7 @@ def try_ranked_closed_engines(
             "s2_wall5_zero_square_fill",
             "s2_dual_band_longest_path_corridors",
             "s2_most_plus5_comp_crop",
+            "s2_host_accent_align_twos",
             "s2_line_len_concentric_frames",
             "s2_color_square_d4_compose",
             "s2_lattice_hub_halo_stamp",
