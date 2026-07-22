@@ -158,10 +158,12 @@ ZOOM_STEMS = {
         "s2_dual_band_longest_path_corridors",
         "s2_wall_marker_extend",
         "s2_small_comp_recolor3",
+        "s2_solid_rect_erase4",
         "s2_marker6_rank_row_bar",
         "s2_marker_col_template_bands",
         "s2_sprite_magnet_reseat",
         "s2_template_h_motif_recolor",
+        "s2_oddcol_max8_pack9",
     ],
 }
 
