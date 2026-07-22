@@ -1,0 +1,11 @@
+{
+  "305b1341": {
+    "task_id": "305b1341",
+    "ok": true,
+    "engine": "s2_legend_inflated_bbox_fill",
+    "train_n": 3,
+    "test_n": 1,
+    "train_replay": "3/3",
+    "path": "zoom_engine_exact"
+  }
+}
