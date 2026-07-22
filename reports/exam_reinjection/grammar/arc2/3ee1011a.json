@@ -1,0 +1,18 @@
+{
+  "task_id": "3ee1011a",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "train_replay_perfect",
+  "train": 3,
+  "test": 1,
+  "engine": "s2_line_len_concentric_frames",
+  "module": "llm_llvm_bench/arc/s2_line_len_concentric_frames.py",
+  "observations": [
+    "line_len_concentric_frames"
+  ],
+  "validator": "train_replay",
+  "validator_result": "3/3",
+  "c4_invariant": "exact_train_replay",
+  "sealed_at_utc": "2026-07-22T10:24:51.569236+00:00"
+}
