@@ -38,6 +38,7 @@ ZOOM_STEMS = {
         "s1_seed_period_stripe_fill",
         "s1_ncomp_staircase_project",
         "s1_crop_hstack_dup",
+        "s1_oddcol_slot_band_expand",
     ],
     "zoom_in_crop": [
         "s1_anchor_crop_expand",
@@ -90,6 +91,7 @@ ZOOM_STEMS = {
         "s2_magnet_to_full_line",
         "s2_tower_hole_drain_bridge",
         "s2_wall_seed_bipartite_recolor",
+        "s2_open_rect_bay_pour",
     ],
 }
 

@@ -444,9 +444,19 @@
   },
   "292dd178": {
     "task_id": "292dd178",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "ok": true,
+    "path": "zoom_engine_experience",
+    "engine": "s2_open_rect_bay_pour",
+    "licensed_grids": 1,
+    "validator_result": {
+      "accepted": true,
+      "train_replay": "3/3",
+      "detail": "train_replay_perfect"
+    },
+    "jordan_loop_bound": {
+      "closed": true,
+      "reason": "LOCKED"
+    }
   },
   "29700607": {
     "task_id": "29700607",
