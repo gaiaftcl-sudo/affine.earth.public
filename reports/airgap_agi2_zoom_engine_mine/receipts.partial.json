@@ -515,10 +515,9 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "2bcee788": {
-    "task_id": "2bcee788",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_hinge2_mirror_fold",
+    "train_replay": "4/4",
+    "licensed_grids": 1
   },
   "2bee17df": {
     "task_id": "2bee17df",
@@ -655,10 +654,9 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "32597951": {
-    "task_id": "32597951",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_ones_in_eights_bbox_recolor",
+    "train_replay": "3/3",
+    "licensed_grids": 1
   },
   "32e9702f": {
     "task_id": "32e9702f",
@@ -697,10 +695,9 @@
     "zoom_move": "zoom_in_crop"
   },
   "3391f8c0": {
-    "task_id": "3391f8c0",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_bicolor_8conn_motif_swap",
+    "train_replay": "4/4",
+    "licensed_grids": 1
   },
   "33b52de3": {
     "task_id": "33b52de3",
@@ -835,16 +832,14 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "3bdb4ada": {
-    "task_id": "3bdb4ada",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_rect3_middle_checker_punch",
+    "train_replay": "2/2",
+    "licensed_grids": 1
   },
   "3befdf3e": {
-    "task_id": "3befdf3e",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_frame_flange_k_expand",
+    "train_replay": "3/3",
+    "licensed_grids": 1
   },
   "3d31c5b3": {
     "task_id": "3d31c5b3",
@@ -937,10 +932,9 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "423a55dc": {
-    "task_id": "423a55dc",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_shear_left_bottom_anchor",
+    "train_replay": "5/5",
+    "licensed_grids": 1
   },
   "4290ef0e": {
     "task_id": "4290ef0e",

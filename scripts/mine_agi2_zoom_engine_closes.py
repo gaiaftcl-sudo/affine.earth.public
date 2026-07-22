@@ -108,6 +108,7 @@ ZOOM_STEMS = {
         "s2_hinge2_mirror_fold",
         "s2_ones_in_eights_bbox_recolor",
         "s2_frame_flange_k_expand",
+        "s2_bicolor_8conn_motif_swap",
         "s2_shear_left_bottom_anchor",
     ],
 }
