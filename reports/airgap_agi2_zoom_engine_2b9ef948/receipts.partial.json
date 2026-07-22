@@ -1,0 +1,11 @@
+{
+  "2b9ef948": {
+    "task_id": "2b9ef948",
+    "ok": true,
+    "engine": "s2_motif4_arrow_translate_diag_x",
+    "train_n": 3,
+    "test_n": 2,
+    "train_replay": "3/3",
+    "path": "zoom_engine_exact"
+  }
+}

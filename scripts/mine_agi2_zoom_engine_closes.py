@@ -170,6 +170,7 @@ ZOOM_STEMS = {
         "s2_border_color_dock_edge_extend",
         "s2_wall_room_period2_motif_stamp",
         "s2_eight_channel_fill",
+        "s2_motif4_arrow_translate_diag_x",
     ],
 }
 
