@@ -1,0 +1,665 @@
+START engine_first mine=31 target=200 seed_engines=10 tracked=197
+round=1 lic=150/259 HLE=1490 residue=105 mine=31 session_closes=0
+dirty_engines=10 head=['s1_frame_accent_composite', 's2_magnet_to_full_line', 's2_slide_to_touch_blocks', 's2_pair_horizontal_fill', 's1_crop_hstack_dup', 's2_hbar_pillar_region_fill', 's2_key_ray_extend', 's2_marker_column_recolor']
+round=2 lic=150/259 HLE=1501 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=3 lic=150/259 HLE=652 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=4 lic=150/259 HLE=1506 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=5 lic=150/259 HLE=1509 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=6 lic=150/259 HLE=1193 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=7 lic=150/259 HLE=1514 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=8 lic=150/259 HLE=1517 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=9 lic=150/259 HLE=1517 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=10 lic=150/259 HLE=1519 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=11 lic=150/259 HLE=1522 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=12 lic=150/259 HLE=1524 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=13 lic=150/259 HLE=1526 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=14 lic=150/259 HLE=79 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=15 lic=150/259 HLE=1532 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=16 lic=150/259 HLE=1534 residue=105 mine=31 session_closes=0
+no_new_engines sleep
+round=17 lic=150/259 HLE=1537 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=18 lic=150/259 HLE=1540 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=19 lic=150/259 HLE=1543 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=20 lic=150/259 HLE=1006 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=21 lic=150/259 HLE=1547 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=22 lic=150/259 HLE=856 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=23 lic=150/259 HLE=1552 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=24 lic=150/259 HLE=1555 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=25 lic=150/259 HLE=1558 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=26 lic=150/259 HLE=1561 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=27 lic=150/259 HLE=1563 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=28 lic=150/259 HLE=1566 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=29 lic=150/259 HLE=1569 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=30 lic=150/259 HLE=1571 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=31 lic=150/259 HLE=1574 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=32 lic=150/259 HLE=1577 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=33 lic=150/259 HLE=1579 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=34 lic=150/259 HLE=1478 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=35 lic=150/259 HLE=1584 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=36 lic=150/259 HLE=1587 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=37 lic=150/259 HLE=1590 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=38 lic=150/259 HLE=1592 residue=105 mine=35 session_closes=0
+no_new_engines sleep
+round=39 lic=150/259 HLE=1595 residue=105 mine=35 session_closes=0
+dirty_engines=1 head=['s2_tower_hole_drain_bridge']
+CLOSE 230f2e48 eng=s2_tower_hole_drain_bridge lic_grids=1
+post_merge lic=151/259 new=1 mine=36
+round=40 lic=151/259 HLE=1602 residue=104 mine=36 session_closes=1
+no_new_engines sleep
+round=41 lic=151/259 HLE=1008 residue=104 mine=36 session_closes=1
+no_new_engines sleep
+round=42 lic=151/259 HLE=1311 residue=104 mine=36 session_closes=1
+no_new_engines sleep
+round=43 lic=151/259 HLE=1610 residue=104 mine=36 session_closes=1
+no_new_engines sleep
+round=44 lic=151/259 HLE=1613 residue=104 mine=36 session_closes=1
+dirty_engines=1 head=['s1_marker_hole_align_crop']
+CLOSE 2f0c5170 eng=s1_marker_hole_align_crop lic_grids=1
+post_merge lic=152/259 new=1 mine=37
+round=45 lic=152/259 HLE=1376 residue=103 mine=37 session_closes=2
+no_new_engines sleep
+round=46 lic=152/259 HLE=1621 residue=103 mine=37 session_closes=2
+no_new_engines sleep
+round=47 lic=152/259 HLE=1403 residue=103 mine=37 session_closes=2
+no_new_engines sleep
+round=48 lic=152/259 HLE=1625 residue=103 mine=37 session_closes=2
+no_new_engines sleep
+round=49 lic=152/259 HLE=1629 residue=103 mine=37 session_closes=2
+dirty_engines=1 head=['s2_wall_seed_bipartite_recolor']
+CLOSE 3bd292e8 eng=s2_wall_seed_bipartite_recolor lic_grids=1
+post_merge lic=153/259 new=1 mine=38
+round=50 lic=153/259 HLE=1632 residue=102 mine=38 session_closes=3
+no_new_engines sleep
+round=51 lic=153/259 HLE=1562 residue=102 mine=38 session_closes=3
+no_new_engines sleep
+round=52 lic=153/259 HLE=1637 residue=102 mine=38 session_closes=3
+no_new_engines sleep
+round=53 lic=153/259 HLE=1614 residue=102 mine=38 session_closes=3
+no_new_engines sleep
+round=54 lic=153/259 HLE=1642 residue=102 mine=38 session_closes=3
+no_new_engines sleep
+round=55 lic=153/259 HLE=1644 residue=102 mine=38 session_closes=3
+dirty_engines=1 head=['s2_open_rect_bay_pour']
+CLOSE 292dd178 eng=s2_open_rect_bay_pour lic_grids=1
+post_merge lic=153/259 new=1 mine=39
+round=56 lic=153/259 HLE=1648 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=57 lic=153/259 HLE=1651 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=58 lic=153/259 HLE=1653 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=59 lic=153/259 HLE=1655 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=60 lic=153/259 HLE=1658 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=61 lic=153/259 HLE=1661 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=62 lic=154/259 HLE=1664 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=63 lic=154/259 HLE=1667 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=64 lic=154/259 HLE=456 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=65 lic=154/259 HLE=1671 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=66 lic=154/259 HLE=756 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=67 lic=154/259 HLE=1676 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=68 lic=154/259 HLE=577 residue=101 mine=39 session_closes=4
+no_new_engines sleep
+round=69 lic=154/259 HLE=1681 residue=101 mine=39 session_closes=4
+dirty_engines=1 head=['s1_oddcol_slot_band_expand']
+CLOSE 33067df9 eng=s1_oddcol_slot_band_expand lic_grids=1
+post_merge lic=155/259 new=1 mine=40
+round=70 lic=155/259 HLE=1685 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=71 lic=155/259 HLE=1687 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=72 lic=155/259 HLE=1689 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=73 lic=155/259 HLE=1692 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=74 lic=155/259 HLE=316 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=75 lic=155/259 HLE=1697 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=76 lic=155/259 HLE=1700 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=77 lic=155/259 HLE=1702 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=78 lic=155/259 HLE=1112 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=79 lic=155/259 HLE=1707 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=80 lic=155/259 HLE=1710 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=81 lic=155/259 HLE=1577 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=82 lic=155/259 HLE=1715 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=83 lic=155/259 HLE=1524 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=84 lic=155/259 HLE=1719 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=85 lic=155/259 HLE=1721 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=86 lic=155/259 HLE=1723 residue=100 mine=40 session_closes=5
+no_new_engines sleep
+round=87 lic=155/259 HLE=1726 residue=100 mine=40 session_closes=5
+dirty_engines=1 head=['s1_motif_cardinal_dihedral']
+CLOSE 2697da3f eng=s1_motif_cardinal_dihedral lic_grids=1
+post_merge lic=156/259 new=1 mine=41
+round=88 lic=156/259 HLE=1731 residue=99 mine=41 session_closes=6
+no_new_engines sleep
+round=89 lic=156/259 HLE=1734 residue=99 mine=41 session_closes=6
+dirty_engines=1 head=['s1_ccw_frame_double_stack']
+CLOSE 412b6263 eng=s1_ccw_frame_double_stack lic_grids=1
+post_merge lic=157/259 new=1 mine=42
+round=90 lic=157/259 HLE=1657 residue=98 mine=42 session_closes=7
+no_new_engines sleep
+round=91 lic=157/259 HLE=1739 residue=98 mine=42 session_closes=7
+no_new_engines sleep
+round=92 lic=157/259 HLE=1742 residue=98 mine=42 session_closes=7
+no_new_engines sleep
+round=93 lic=157/259 HLE=1745 residue=98 mine=42 session_closes=7
+no_new_engines sleep
+round=94 lic=157/259 HLE=756 residue=98 mine=42 session_closes=7
+no_new_engines sleep
+round=95 lic=157/259 HLE=1750 residue=98 mine=42 session_closes=7
+no_new_engines sleep
+round=96 lic=157/259 HLE=423 residue=98 mine=42 session_closes=7
+no_new_engines sleep
+round=97 lic=157/259 HLE=1755 residue=98 mine=42 session_closes=7
+no_new_engines sleep
+round=98 lic=157/259 HLE=1758 residue=98 mine=42 session_closes=7
+no_new_engines sleep
+round=99 lic=157/259 HLE=1761 residue=98 mine=42 session_closes=7
+dirty_engines=1 head=['s2_corner_marks_hole_objects']
+CLOSE 14b8e18c eng=s2_corner_marks_hole_objects lic_grids=1
+post_merge lic=158/259 new=1 mine=43
+round=100 lic=158/259 HLE=1766 residue=97 mine=43 session_closes=8
+no_new_engines sleep
+DONE {"licensed": 158, "hle": 1768, "mine_stored": 43, "session_closes": ["230f2e48", "2f0c5170", "3bd292e8", "292dd178", "33067df9", "2697da3f", "412b6263", "14b8e18c"], "session_close_n": 8, "sha": "662f429", "recorded_at_utc": "2026-07-22T03:06:27.506721+00:00"}
+START engine_first mine=42 target=200 seed_engines=9 tracked=206
+round=1 lic=159/259 HLE=1783 residue=96 mine=43 session_closes=0
+dirty_engines=9 head=['s2_mod3_component_recolor', 's2_corner_marks_hole_objects', 's1_ccw_frame_double_stack', 's1_motif_cardinal_dihedral', 's1_oddcol_slot_band_expand', 's2_open_rect_bay_pour', 's2_wall_seed_bipartite_recolor', 's1_marker_hole_align_crop']
+round=2 lic=159/259 HLE=1786 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=3 lic=159/259 HLE=1789 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=4 lic=159/259 HLE=959 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=5 lic=159/259 HLE=316 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=6 lic=159/259 HLE=1795 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=7 lic=159/259 HLE=1490 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=8 lic=159/259 HLE=1800 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=9 lic=159/259 HLE=1802 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=10 lic=159/259 HLE=1805 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=11 lic=159/259 HLE=1808 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=12 lic=159/259 HLE=1810 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=13 lic=159/259 HLE=498 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=14 lic=159/259 HLE=1195 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=15 lic=159/259 HLE=1817 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=16 lic=159/259 HLE=1819 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=17 lic=159/259 HLE=1822 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=18 lic=159/259 HLE=1825 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=19 lic=159/259 HLE=1828 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=20 lic=159/259 HLE=1830 residue=96 mine=43 session_closes=0
+no_new_engines sleep
+round=21 lic=159/259 HLE=1832 residue=96 mine=43 session_closes=0
+dirty_engines=1 head=['s1_dense_blob_color_grid']
+round=22 lic=160/259 HLE=1837 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=23 lic=160/259 HLE=1840 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=24 lic=160/259 HLE=1843 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=25 lic=160/259 HLE=1846 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=26 lic=160/259 HLE=1848 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=27 lic=160/259 HLE=756 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=28 lic=160/259 HLE=1853 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=29 lic=160/259 HLE=647 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=30 lic=160/259 HLE=1857 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=31 lic=160/259 HLE=1860 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=32 lic=160/259 HLE=1861 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=33 lic=160/259 HLE=1863 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=34 lic=160/259 HLE=1866 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=35 lic=160/259 HLE=1028 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=36 lic=160/259 HLE=1870 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=37 lic=160/259 HLE=1872 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=38 lic=160/259 HLE=1875 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=39 lic=160/259 HLE=1877 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=40 lic=160/259 HLE=1878 residue=95 mine=44 session_closes=0
+no_new_engines sleep
+round=41 lic=161/259 HLE=1882 residue=94 mine=45 session_closes=0
+dirty_engines=3 head=['s2_marker_ray_to_rect', 's2_color_directed_translate', 's2_clockwise_gap_spiral']
+CLOSE 2c608aff eng=s2_marker_ray_to_rect lic_grids=1
+CLOSE 342dd610 eng=s2_color_directed_translate lic_grids=1
+post_merge lic=163/259 new=2 mine=47
+round=42 lic=163/259 HLE=1887 residue=92 mine=47 session_closes=2
+dirty_engines=2 head=['s2_stamp_motif_to_singleton5', 's2_marker_ray_to_rect']
+CLOSE 2c737e39 eng=s2_stamp_motif_to_singleton5 lic_grids=1
+post_merge lic=164/259 new=1 mine=48
+round=43 lic=164/259 HLE=1892 residue=91 mine=48 session_closes=3
+no_new_engines sleep
+round=44 lic=164/259 HLE=1291 residue=91 mine=48 session_closes=3
+no_new_engines sleep
+round=45 lic=164/259 HLE=51 residue=91 mine=48 session_closes=3
+no_new_engines sleep
+round=46 lic=164/259 HLE=1900 residue=91 mine=48 session_closes=3
+no_new_engines sleep
+round=47 lic=164/259 HLE=780 residue=91 mine=48 session_closes=3
+no_new_engines sleep
+round=48 lic=164/259 HLE=1905 residue=91 mine=48 session_closes=3
+no_new_engines sleep
+round=49 lic=164/259 HLE=1908 residue=91 mine=48 session_closes=3
+dirty_engines=1 head=['s1_merge_5_centered_3x3']
+CLOSE 137eaa0f eng=s1_merge_5_centered_3x3 lic_grids=1
+post_merge lic=165/259 new=1 mine=49
+round=50 lic=165/259 HLE=1911 residue=90 mine=49 session_closes=4
+no_new_engines sleep
+round=51 lic=165/259 HLE=1914 residue=90 mine=49 session_closes=4
+no_new_engines sleep
+round=52 lic=165/259 HLE=1917 residue=90 mine=49 session_closes=4
+no_new_engines sleep
+round=53 lic=165/259 HLE=1919 residue=90 mine=49 session_closes=4
+no_new_engines sleep
+round=54 lic=166/259 HLE=1922 residue=89 mine=50 session_closes=4
+dirty_engines=1 head=['s1_quad_3x3_motif_pack']
+round=55 lic=166/259 HLE=1925 residue=89 mine=50 session_closes=4
+no_new_engines sleep
+round=56 lic=166/259 HLE=1926 residue=89 mine=50 session_closes=4
+no_new_engines sleep
+round=57 lic=166/259 HLE=79 residue=89 mine=50 session_closes=4
+no_new_engines sleep
+round=58 lic=166/259 HLE=1930 residue=89 mine=50 session_closes=4
+no_new_engines sleep
+round=59 lic=166/259 HLE=1700 residue=89 mine=50 session_closes=4
+dirty_engines=1 head=['s2_nine_step_to_six']
+CLOSE 18286ef8 eng=s2_nine_step_to_six lic_grids=1
+post_merge lic=167/259 new=1 mine=51
+round=60 lic=167/259 HLE=1938 residue=85 mine=54 session_closes=5
+dirty_engines=4 head=['s2_ones_in_eights_bbox_recolor', 's2_hinge2_mirror_fold', 's2_rect3_middle_checker_punch', 's2_nine_step_to_six']
+round=61 lic=170/259 HLE=1295 residue=85 mine=54 session_closes=5
+no_new_engines sleep
+round=62 lic=170/259 HLE=1945 residue=85 mine=54 session_closes=5
+no_new_engines sleep
+round=63 lic=170/259 HLE=1949 residue=85 mine=54 session_closes=5
+no_new_engines sleep
+round=64 lic=170/259 HLE=1951 residue=85 mine=54 session_closes=5
+no_new_engines sleep
+round=65 lic=170/259 HLE=1955 residue=85 mine=54 session_closes=5
+dirty_engines=2 head=['s2_diag_pair_knight8', 's2_legend_key_delete']
+CLOSE 1e81d6f9 eng=s2_legend_key_delete lic_grids=1
+post_merge lic=171/259 new=1 mine=55
+round=66 lic=171/259 HLE=1959 residue=84 mine=55 session_closes=6
+no_new_engines sleep
+round=67 lic=171/259 HLE=944 residue=84 mine=55 session_closes=6
+dirty_engines=1 head=['s2_diag_pair_knight8']
+round=68 lic=171/259 HLE=1963 residue=84 mine=55 session_closes=6
+no_new_engines sleep
+round=69 lic=171/259 HLE=1967 residue=84 mine=55 session_closes=6
+dirty_engines=1 head=['s2_diag_pair_knight8']
+round=70 lic=171/259 HLE=1967 residue=84 mine=93 session_closes=6
+dirty_engines=1 head=['s2_diag_pair_knight8']
+round=71 lic=171/259 HLE=1971 residue=84 mine=93 session_closes=6
+no_new_engines sleep
+round=72 lic=172/259 HLE=1975 residue=83 mine=94 session_closes=6
+dirty_engines=4 head=['s2_frame_flange_k_expand', 's2_shear_left_bottom_anchor', 's2_diag_pair_knight8', 's2_seven_divider_pack_or_rotate']
+CLOSE 3befdf3e eng=s2_frame_flange_k_expand lic_grids=1
+CLOSE 423a55dc eng=s2_shear_left_bottom_anchor lic_grids=1
+CLOSE 22233c11 eng=s2_diag_pair_knight8 lic_grids=1
+post_merge lic=175/259 new=3 mine=97
+round=73 lic=175/259 HLE=1979 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=74 lic=175/259 HLE=1028 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=75 lic=175/259 HLE=1983 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=76 lic=175/259 HLE=1987 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=77 lic=175/259 HLE=1987 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=78 lic=175/259 HLE=1991 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=79 lic=175/259 HLE=1183 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=80 lic=175/259 HLE=1995 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=81 lic=175/259 HLE=1998 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=82 lic=175/259 HLE=1621 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=83 lic=175/259 HLE=473 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=84 lic=175/259 HLE=2003 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=85 lic=175/259 HLE=2005 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=86 lic=175/259 HLE=2008 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=87 lic=175/259 HLE=2010 residue=80 mine=97 session_closes=9
+no_new_engines sleep
+round=88 lic=175/259 HLE=1209 residue=80 mine=97 session_closes=9
+dirty_engines=1 head=['s2_bicolor_8conn_motif_swap']
+CLOSE 3391f8c0 eng=s2_bicolor_8conn_motif_swap lic_grids=1
+post_merge lic=176/259 new=1 mine=98
+round=89 lic=176/259 HLE=1309 residue=79 mine=98 session_closes=10
+dirty_engines=1 head=['s2_marker_count_expand_fives']
+CLOSE 4093f84a eng=s2_marker_count_expand_fives lic_grids=1
+post_merge lic=177/259 new=1 mine=99
+round=90 lic=177/259 HLE=2020 residue=78 mine=99 session_closes=11
+no_new_engines sleep
+round=91 lic=177/259 HLE=2021 residue=78 mine=99 session_closes=11
+no_new_engines sleep
+round=92 lic=177/259 HLE=1623 residue=78 mine=99 session_closes=11
+no_new_engines sleep
+round=93 lic=177/259 HLE=471 residue=78 mine=99 session_closes=11
+no_new_engines sleep
+round=94 lic=177/259 HLE=2027 residue=78 mine=99 session_closes=11
+no_new_engines sleep
+round=95 lic=177/259 HLE=2029 residue=78 mine=99 session_closes=11
+no_new_engines sleep
+round=96 lic=177/259 HLE=2031 residue=78 mine=99 session_closes=11
+no_new_engines sleep
+round=97 lic=177/259 HLE=2033 residue=78 mine=99 session_closes=11
+no_new_engines sleep
+round=98 lic=177/259 HLE=2034 residue=78 mine=99 session_closes=11
+no_new_engines sleep
+round=99 lic=177/259 HLE=845 residue=78 mine=99 session_closes=11
+no_new_engines sleep
+round=100 lic=177/259 HLE=1775 residue=78 mine=99 session_closes=11
+no_new_engines sleep
+round=101 lic=177/259 HLE=2041 residue=78 mine=99 session_closes=11
+dirty_engines=1 head=['s2_mirror_across_full_sep']
+CLOSE 2b01abd0 eng=s2_mirror_across_full_sep lic_grids=1
+post_merge lic=178/259 new=1 mine=100
+round=102 lic=178/259 HLE=2044 residue=77 mine=100 session_closes=12
+no_new_engines sleep
+round=103 lic=178/259 HLE=873 residue=77 mine=100 session_closes=12
+no_new_engines sleep
+round=104 lic=178/259 HLE=1271 residue=77 mine=100 session_closes=12
+dirty_engines=1 head=['s2_mirror_across_full_sep']
+round=105 lic=178/259 HLE=2051 residue=77 mine=100 session_closes=12
+dirty_engines=1 head=['s2_mirror_across_full_sep']
+round=106 lic=178/259 HLE=1522 residue=77 mine=100 session_closes=12
+no_new_engines sleep
+round=107 lic=178/259 HLE=1730 residue=77 mine=100 session_closes=12
+no_new_engines sleep
+round=108 lic=178/259 HLE=2056 residue=77 mine=100 session_closes=12
+no_new_engines sleep
+round=109 lic=178/259 HLE=660 residue=77 mine=100 session_closes=12
+no_new_engines sleep
+round=110 lic=178/259 HLE=2061 residue=77 mine=100 session_closes=12
+no_new_engines sleep
+round=111 lic=178/259 HLE=2062 residue=77 mine=100 session_closes=12
+no_new_engines sleep
+round=112 lic=178/259 HLE=1264 residue=77 mine=100 session_closes=12
+no_new_engines sleep
+round=113 lic=178/259 HLE=2065 residue=77 mine=100 session_closes=12
+no_new_engines sleep
+round=114 lic=178/259 HLE=2067 residue=77 mine=100 session_closes=12
+dirty_engines=2 head=['s1_triple_panel_largest_shift', 's2_col_anchor5_upfill']
+CLOSE 337b420f eng=s1_triple_panel_largest_shift lic_grids=2
+CLOSE 17b80ad2 eng=s2_col_anchor5_upfill lic_grids=1
+post_merge lic=181/259 new=2 mine=102
+round=115 lic=181/259 HLE=714 residue=75 mine=102 session_closes=14
+no_new_engines sleep
+round=116 lic=181/259 HLE=2073 residue=75 mine=102 session_closes=14
+no_new_engines sleep
+round=117 lic=181/259 HLE=2075 residue=75 mine=102 session_closes=14
+no_new_engines sleep
+round=118 lic=181/259 HLE=2078 residue=75 mine=102 session_closes=14
+no_new_engines sleep
+round=119 lic=181/259 HLE=2079 residue=75 mine=102 session_closes=14
+no_new_engines sleep
+round=120 lic=181/259 HLE=2082 residue=75 mine=102 session_closes=14
+dirty_engines=1 head=['s2_stamp_unique_color_dihedral']
+CLOSE 3e980e27 eng=s2_stamp_unique_color_dihedral lic_grids=1
+post_merge lic=182/259 new=1 mine=103
+round=121 lic=182/259 HLE=2086 residue=74 mine=103 session_closes=15
+dirty_engines=1 head=['s2_stamp_unique_color_dihedral']
+round=122 lic=182/259 HLE=1287 residue=74 mine=103 session_closes=15
+dirty_engines=1 head=['s2_stamp_unique_color_dihedral']
+round=123 lic=182/259 HLE=2091 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=124 lic=182/259 HLE=2093 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=125 lic=182/259 HLE=2095 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=126 lic=182/259 HLE=2097 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=127 lic=182/259 HLE=2099 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=128 lic=182/259 HLE=2102 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=129 lic=182/259 HLE=1438 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=130 lic=182/259 HLE=558 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=131 lic=182/259 HLE=2108 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=132 lic=182/259 HLE=2110 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=133 lic=182/259 HLE=2113 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=134 lic=182/259 HLE=2115 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=135 lic=182/259 HLE=135 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=136 lic=182/259 HLE=2119 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=137 lic=182/259 HLE=2122 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=138 lic=182/259 HLE=2124 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=139 lic=182/259 HLE=2126 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=140 lic=182/259 HLE=1062 residue=74 mine=103 session_closes=15
+no_new_engines sleep
+round=141 lic=182/259 HLE=2129 residue=74 mine=103 session_closes=15
+dirty_engines=1 head=['s2_bbox_corner_diag_edges']
+CLOSE 1478ab18 eng=s2_bbox_corner_diag_edges lic_grids=1
+post_merge lic=183/259 new=1 mine=104
+round=142 lic=183/259 HLE=1313 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=143 lic=183/259 HLE=1587 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=144 lic=183/259 HLE=1702 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=145 lic=183/259 HLE=1998 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=146 lic=183/259 HLE=2142 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=147 lic=183/259 HLE=2145 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=148 lic=183/259 HLE=2148 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=149 lic=183/259 HLE=915 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=150 lic=183/259 HLE=2154 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=151 lic=183/259 HLE=2158 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=152 lic=183/259 HLE=476 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=153 lic=183/259 HLE=2162 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=154 lic=183/259 HLE=2166 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=155 lic=183/259 HLE=2166 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=156 lic=183/259 HLE=2170 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=157 lic=183/259 HLE=2174 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=158 lic=183/259 HLE=2174 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=159 lic=183/259 HLE=2178 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=160 lic=183/259 HLE=2178 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=161 lic=183/259 HLE=2182 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=162 lic=183/259 HLE=2182 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=163 lic=183/259 HLE=2186 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=164 lic=183/259 HLE=2190 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=165 lic=183/259 HLE=2190 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=166 lic=183/259 HLE=2194 residue=73 mine=104 session_closes=16
+no_new_engines sleep
+round=167 lic=183/259 HLE=2194 residue=73 mine=104 session_closes=16
+dirty_engines=2 head=['s2_marker5_path3_slide', 's2_six_cut_separate_nines']
+CLOSE 182e5d0f eng=s2_marker5_path3_slide lic_grids=1
+CLOSE 2faf500b eng=s2_six_cut_separate_nines lic_grids=1
+post_merge lic=185/259 new=2 mine=106
+round=168 lic=185/259 HLE=2198 residue=71 mine=106 session_closes=18
+dirty_engines=1 head=['s2_max_gap_frame_cross']
+CLOSE 2bee17df eng=s2_max_gap_frame_cross lic_grids=1
+post_merge lic=186/259 new=1 mine=107
+round=169 lic=186/259 HLE=2202 residue=70 mine=107 session_closes=19
+no_new_engines sleep
+round=170 lic=186/259 HLE=2206 residue=70 mine=107 session_closes=19
+no_new_engines sleep
+round=171 lic=186/259 HLE=1795 residue=70 mine=107 session_closes=19
+no_new_engines sleep
+round=172 lic=186/259 HLE=2210 residue=70 mine=107 session_closes=19
+no_new_engines sleep
+round=173 lic=186/259 HLE=2214 residue=70 mine=107 session_closes=19
+no_new_engines sleep
+round=174 lic=186/259 HLE=530 residue=70 mine=107 session_closes=19
+dirty_engines=1 head=['s2_slide_touch_corner_zip']
+CLOSE 11dc524f eng=s2_slide_touch_corner_zip lic_grids=1
+post_merge lic=187/259 new=1 mine=108
+round=175 lic=187/259 HLE=2218 residue=69 mine=108 session_closes=20
+no_new_engines sleep
+round=176 lic=187/259 HLE=2222 residue=69 mine=108 session_closes=20
+no_new_engines sleep
+round=177 lic=187/259 HLE=2226 residue=69 mine=108 session_closes=20
+no_new_engines sleep
+round=178 lic=187/259 HLE=2226 residue=69 mine=108 session_closes=20
+no_new_engines sleep
+round=179 lic=187/259 HLE=2230 residue=69 mine=108 session_closes=20
+dirty_engines=1 head=['s2_mask5_template_row_select']
+CLOSE 278e5215 eng=s2_mask5_template_row_select lic_grids=1
+post_merge lic=188/259 new=1 mine=109
+round=180 lic=188/259 HLE=2234 residue=68 mine=109 session_closes=21
+no_new_engines sleep
+round=181 lic=188/259 HLE=2234 residue=68 mine=109 session_closes=21
+no_new_engines sleep
+round=182 lic=188/259 HLE=2238 residue=68 mine=109 session_closes=21
+no_new_engines sleep
+round=183 lic=188/259 HLE=2242 residue=68 mine=109 session_closes=21
+no_new_engines sleep
+round=184 lic=188/259 HLE=2242 residue=68 mine=109 session_closes=21
+dirty_engines=1 head=['s2_six_perp_mark_ones']
+CLOSE 1a244afd eng=s2_six_perp_mark_ones lic_grids=1
+post_merge lic=189/259 new=1 mine=110
+round=185 lic=189/259 HLE=2246 residue=67 mine=110 session_closes=22
+no_new_engines sleep
+round=186 lic=189/259 HLE=2250 residue=67 mine=110 session_closes=22
+no_new_engines sleep
+round=187 lic=189/259 HLE=2250 residue=67 mine=110 session_closes=22
+no_new_engines sleep
+round=188 lic=189/259 HLE=2254 residue=67 mine=110 session_closes=22
+no_new_engines sleep
+round=189 lic=189/259 HLE=2258 residue=67 mine=110 session_closes=22
+no_new_engines sleep
+round=190 lic=189/259 HLE=2258 residue=67 mine=110 session_closes=22
+no_new_engines sleep
+round=191 lic=189/259 HLE=2262 residue=67 mine=110 session_closes=22
+no_new_engines sleep
+round=192 lic=189/259 HLE=18 residue=67 mine=110 session_closes=22
+no_new_engines sleep
+round=193 lic=189/259 HLE=2266 residue=67 mine=110 session_closes=22
+no_new_engines sleep
+round=194 lic=189/259 HLE=2270 residue=67 mine=110 session_closes=22
+dirty_engines=2 head=['s2_four_comp_dihedral_transfer', 's2_five_pack_tromino2']
+CLOSE 36d67576 eng=s2_four_comp_dihedral_transfer lic_grids=1
+post_merge lic=190/259 new=1 mine=111
+round=195 lic=190/259 HLE=2274 residue=66 mine=111 session_closes=23
+dirty_engines=1 head=['s2_hollow_rect_center_cross']
+CLOSE 41e4d17e eng=s2_hollow_rect_center_cross lic_grids=1
+post_merge lic=191/259 new=1 mine=112
+round=196 lic=192/259 HLE=2278 residue=64 mine=113 session_closes=24
+dirty_engines=3 head=['s2_marker_corner_rect_paint', 's2_four_comp_dihedral_transfer', 's2_five_pack_tromino2']
+round=197 lic=192/259 HLE=1742 residue=64 mine=113 session_closes=24
+dirty_engines=1 head=['s2_marker_corner_rect_paint']
+CLOSE 1c02dbbe eng=s2_marker_corner_rect_paint lic_grids=1
+post_merge lic=193/259 new=1 mine=114
+round=198 lic=193/259 HLE=316 residue=63 mine=114 session_closes=25
+no_new_engines sleep
+round=199 lic=193/259 HLE=2287 residue=63 mine=114 session_closes=25
+no_new_engines sleep
+round=200 lic=193/259 HLE=2287 residue=63 mine=114 session_closes=25
+no_new_engines sleep
+DONE {"licensed": 193, "hle": 2291, "mine_stored": 114, "session_closes": ["2c608aff", "342dd610", "2c737e39", "137eaa0f", "18286ef8", "1e81d6f9", "3befdf3e", "423a55dc", "22233c11", "3391f8c0", "4093f84a", "2b01abd0", "337b420f", "17b80ad2", "3e980e27", "1478ab18", "182e5d0f", "2faf500b", "2bee17df", "11dc524f", "278e5215", "1a244afd", "36d67576", "41e4d17e", "1c02dbbe"], "session_close_n": 25, "sha": "a253304", "recorded_at_utc": "2026-07-22T07:37:53.023225+00:00"}

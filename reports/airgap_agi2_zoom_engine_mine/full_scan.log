@@ -1,0 +1,6 @@
+START engines=197 residue=105 mine=35
+Traceback (most recent call last):
+  File "<stdin>", line 42, in <module>
+  File "<stdin>", line 36, in try_one
+  File "<stdin>", line 15, in _a
+__main__.Timeout

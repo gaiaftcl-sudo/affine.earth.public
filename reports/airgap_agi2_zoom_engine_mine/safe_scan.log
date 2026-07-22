@@ -1,0 +1,10 @@
+SAFE engines=175 hang_skip=22 residue=105 mine=35
+progress 20/175 new=0 residue=105 t=238s
+progress 40/175 new=0 residue=105 t=403s
+progress 60/175 new=0 residue=105 t=585s
+progress 80/175 new=0 residue=105 t=841s
+progress 100/175 new=0 residue=105 t=1040s
+progress 120/175 new=0 residue=105 t=1243s
+progress 140/175 new=0 residue=105 t=1474s
+progress 160/175 new=0 residue=105 t=1757s
+DONE new=0 mine=35 residue=105 elapsed=1952.7
