@@ -1,0 +1,18 @@
+{
+  "task_id": "2c0b0aff",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "train_replay_perfect",
+  "train": 4,
+  "test": 1,
+  "engine": "s2_most_plus5_comp_crop",
+  "module": "llm_llvm_bench/arc/s2_most_plus5_comp_crop.py",
+  "observations": [
+    "most_plus5_comp_crop"
+  ],
+  "validator": "train_replay",
+  "validator_result": "4/4",
+  "c4_invariant": "exact_train_replay",
+  "sealed_at_utc": "2026-07-22T10:44:48.166767+00:00"
+}

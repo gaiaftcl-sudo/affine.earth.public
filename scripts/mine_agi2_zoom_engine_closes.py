@@ -71,6 +71,7 @@ ZOOM_STEMS = {
         "s1_triple_panel_largest_shift",
         "s2_line_len_concentric_frames",
         "s2_color_square_d4_compose",
+        "s2_most_plus5_comp_crop",
     ],
     "same_canvas_rewrite": [
         "s2_color_gate_rewrite",
@@ -150,6 +151,7 @@ ZOOM_STEMS = {
         "s2_template_period_outward_stamp",
         "s2_marker_cheb_seat_match",
         "s2_wall5_zero_square_fill",
+        "s2_lattice_hub_halo_stamp",
     ],
 }
 
