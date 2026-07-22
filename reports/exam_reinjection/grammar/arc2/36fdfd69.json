@@ -1,0 +1,19 @@
+{
+  "task_id": "36fdfd69",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "train_replay_perfect",
+  "train": 3,
+  "test": 1,
+  "engine": "s2_twos_gap2_bbox_maj4",
+  "module": "llm_llvm_bench/arc/s2_twos_gap2_bbox_maj4.py",
+  "observations": [
+    "twos_gap2_bbox_maj4"
+  ],
+  "validator": "train_replay",
+  "validator_result": "3/3",
+  "c4_invariant": "exact_train_replay",
+  "jordan": "3/3",
+  "sealed_at_utc": "2026-07-22T08:22:15.278253+00:00"
+}

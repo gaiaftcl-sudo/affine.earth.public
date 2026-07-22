@@ -124,10 +124,16 @@ ZOOM_STEMS = {
         "s2_t_marker_axis_erase4",
         "s2_marker_pure_diag_border",
         "s2_lattice_chamber_motif_stamp",
+        "s2_sprite_dihedral_to_markers",
         "s2_six_perp_mark_ones",
         "s2_four_comp_dihedral_transfer",
         "s2_zero_rect_attract5_edge6",
         "s2_col_marks_bottom_pyramid",
+        "s2_twos_gap2_bbox_maj4",
+        "s2_border_mark_period_stamp",
+        "s2_panel5_copy_template",
+        "s2_pillar_chamber_center1",
+        "s2_same_color_diag_bridge",
     ],
 }
 

@@ -1,19 +1,23 @@
 {
-  "licensed": "201/259",
-  "licensed_pct": 77.61,
-  "identity": "58/259",
-  "submission_sha256": "fe06fbb4bd5a14c702ad8cb2650b7f607f8bf5d28d36cc7e7efbb8440ca3d1a7",
+  "licensed": "206/259",
+  "licensed_pct": 79.54,
+  "identity": "53/259",
+  "submission_sha256": "f5a0e7da29e81f3f8fbd484dba8a5fda7c467507e9b27597603d65c6e3f38800",
   "new_closes_this_turn": [
-    "1e32b0e9"
+    "0e206a2e",
+    "30f42897",
+    "36fdfd69"
   ],
-  "new_licensed_grids_this_turn": 8,
-  "commit_base": "a253304",
+  "new_licensed_grids_this_turn": 3,
+  "commit_base": "862e346",
   "engines": {
-    "1e32b0e9": "s2_lattice_chamber_motif_stamp"
+    "0e206a2e": "s2_sprite_dihedral_to_markers",
+    "30f42897": "s2_border_mark_period_stamp",
+    "36fdfd69": "s2_twos_gap2_bbox_maj4"
   },
   "target": "259",
   "no_submit": true,
   "hle_left_alive": true,
   "exp_left_alive": true,
-  "recorded_at_utc": "2026-07-22T08:01:58.333123+00:00"
+  "recorded_at_utc": "2026-07-22T08:22:12.193570+00:00"
 }

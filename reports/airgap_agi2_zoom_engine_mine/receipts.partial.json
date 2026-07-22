@@ -608,9 +608,19 @@
   },
   "30f42897": {
     "task_id": "30f42897",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "ok": true,
+    "path": "zoom_engine_experience",
+    "engine": "s2_border_mark_period_stamp",
+    "licensed_grids": 1,
+    "validator_result": {
+      "accepted": true,
+      "train_replay": "3/3",
+      "detail": "train_replay_perfect"
+    },
+    "jordan_loop_bound": {
+      "closed": true,
+      "reason": "LOCKED"
+    }
   },
   "3194b014": {
     "task_id": "3194b014",
@@ -779,9 +789,19 @@
   },
   "36fdfd69": {
     "task_id": "36fdfd69",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "ok": true,
+    "path": "zoom_engine_experience",
+    "engine": "s2_twos_gap2_bbox_maj4",
+    "licensed_grids": 1,
+    "validator_result": {
+      "accepted": true,
+      "train_replay": "3/3",
+      "detail": "train_replay_perfect"
+    },
+    "jordan_loop_bound": {
+      "closed": true,
+      "reason": "LOCKED"
+    }
   },
   "37ce87bb": {
     "ok": true,
@@ -861,15 +881,35 @@
   },
   "3d588dc9": {
     "task_id": "3d588dc9",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "ok": true,
+    "path": "zoom_engine_experience",
+    "engine": "s2_zero_rect_attract5_edge6",
+    "licensed_grids": 1,
+    "validator_result": {
+      "accepted": true,
+      "train_replay": "2/2",
+      "detail": "train_replay_perfect"
+    },
+    "jordan_loop_bound": {
+      "closed": true,
+      "reason": "LOCKED"
+    }
   },
   "3d6c6e23": {
     "task_id": "3d6c6e23",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "ok": true,
+    "path": "zoom_engine_experience",
+    "engine": "s2_col_marks_bottom_pyramid",
+    "licensed_grids": 1,
+    "validator_result": {
+      "accepted": true,
+      "train_replay": "3/3",
+      "detail": "train_replay_perfect"
+    },
+    "jordan_loop_bound": {
+      "closed": true,
+      "reason": "LOCKED"
+    }
   },
   "3de23699": {
     "task_id": "3de23699",
