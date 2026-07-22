@@ -1,16 +1,15 @@
 {
   "kind": "agi2_merged_licensed_receipt",
-  "licensed_grids": 228,
-  "identity_grids": 31,
+  "licensed_grids": 230,
+  "identity_grids": 29,
   "total_grids": 259,
-  "licensed_pct": 88.03,
+  "licensed_pct": 88.8,
   "tasks": 240,
   "identity_fill_tasks": 0,
   "identity_task_ids": [
     "0607ce86",
     "09c534e7",
     "1190bc91",
-    "12eac192",
     "13713586",
     "15660dd6",
     "17829a00",
@@ -24,7 +23,6 @@
     "25094a63",
     "256b0a75",
     "264363fd",
-    "2a28add5",
     "2b9ef948",
     "2e65ae53",
     "305b1341",
@@ -75,7 +73,7 @@
     "1190e5a7": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "11e1fe23": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "11dc524f": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "12eac192": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
+    "12eac192": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "13713586": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "137eaa0f": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "12997ef3": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
@@ -270,7 +268,7 @@
     "4093f84a": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "40f6cd08": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "412b6263": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "414297c0": "reports/airgap_agi2_zoom_engine_414297c0/submission.partial.json",
+    "414297c0": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "41ace6b5": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "41e4d17e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "423a55dc": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -278,5 +276,5 @@
     "4290ef0e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "42918530": "reports/airgap_agi2_test_20260721T175400Z/submission.json"
   },
-  "submission_sha256": "b88e733a199dc09481324259e6cb48412989a5b793f4b02a959b367fbdb458b0"
+  "submission_sha256": "9453afa78f6fc44e5362d31df077a17fbfcc5a01f264a3623eddbfd8fc7aab82"
 }

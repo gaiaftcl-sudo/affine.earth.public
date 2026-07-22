@@ -450,6 +450,8 @@ def try_ranked_closed_engines(
             "s2_marker_cheb_seat_match",
             "s2_wall5_zero_square_fill",
             "s2_dual_band_longest_path_corridors",
+            "s2_small_comp_recolor3",
+            "s2_marker6_rank_row_bar",
             "s2_most_plus5_comp_crop",
             "s2_host_accent_align_twos",
             "s2_line_len_concentric_frames",
