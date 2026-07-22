@@ -336,9 +336,19 @@
   },
   "22a4bbc2": {
     "task_id": "22a4bbc2",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "ok": true,
+    "path": "zoom_engine_experience",
+    "engine": "s2_mod3_component_recolor",
+    "licensed_grids": 1,
+    "validator_result": {
+      "accepted": true,
+      "train_replay": "4/4",
+      "detail": "train_replay_perfect"
+    },
+    "jordan_loop_bound": {
+      "closed": true,
+      "reason": "LOCKED"
+    }
   },
   "230f2e48": {
     "task_id": "230f2e48",

@@ -94,6 +94,8 @@ ZOOM_STEMS = {
         "s2_tower_hole_drain_bridge",
         "s2_wall_seed_bipartite_recolor",
         "s2_open_rect_bay_pour",
+        "s2_corner_marks_hole_objects",
+        "s2_mod3_component_recolor",
     ],
 }
 
