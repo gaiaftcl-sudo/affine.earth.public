@@ -1,0 +1,18 @@
+{
+  "task_id": "234bbc79",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "train_replay_perfect",
+  "train": 4,
+  "test": 1,
+  "engine": "s2_hinge5_nearest_comp_pack",
+  "module": "llm_llvm_bench/arc/s2_hinge5_nearest_comp_pack.py",
+  "observations": [
+    "hinge5_nearest_comp_pack"
+  ],
+  "validator": "train_replay",
+  "validator_result": "4/4",
+  "c4_invariant": "exact_train_replay",
+  "sealed_at_utc": "2026-07-22T11:32:59.395352+00:00"
+}

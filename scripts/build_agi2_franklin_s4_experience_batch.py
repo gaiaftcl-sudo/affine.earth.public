@@ -383,6 +383,7 @@ def try_ranked_closed_engines(
             "s1_quad_3x3_motif_pack",
             "s1_merge_5_centered_3x3",
             "s1_triple_panel_largest_shift",
+            "s2_hinge5_nearest_comp_pack",
         ],
         "same_canvas_rewrite": [
             "s2_row_run_shift_left_fill",

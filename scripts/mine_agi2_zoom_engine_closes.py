@@ -73,6 +73,7 @@ ZOOM_STEMS = {
         "s2_color_square_d4_compose",
         "s2_most_plus5_comp_crop",
         "s2_host_accent_align_twos",
+        "s2_hinge5_nearest_comp_pack",
     ],
     "same_canvas_rewrite": [
         "s2_color_gate_rewrite",
