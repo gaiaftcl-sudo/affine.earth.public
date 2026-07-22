@@ -100,6 +100,10 @@ ZOOM_STEMS = {
         "s2_corner_marks_hole_objects",
         "s2_mod3_component_recolor",
         "s2_clockwise_gap_spiral",
+        "s2_nine_step_to_six",
+        "s2_rect3_middle_checker_punch",
+        "s2_hinge2_mirror_fold",
+        "s2_ones_in_eights_bbox_recolor",
     ],
 }
 
