@@ -1,32 +1,31 @@
 {
-  "licensed": "256/259",
-  "licensed_grids": 256,
-  "identity_grids": 3,
-  "identity_tasks": 3,
+  "licensed": "257/259",
+  "licensed_grids": 257,
+  "identity_grids": 2,
+  "identity_tasks": 2,
   "identity_task_ids": [
-    "0607ce86",
     "09c534e7",
     "1190bc91"
   ],
   "canonical_submission": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-  "notebook_licensed_grids": 256,
-  "tip_sha": "4838776",
+  "notebook_licensed_grids": 257,
   "recent_closes": {
-    "212895b5": "s2_eight_block_diag2_thick4",
-    "256b0a75": "s2_eight_frame_cross_outward"
+    "0607ce86": "s2_panel_bar_lattice_restamp"
   },
   "engines": [
-    "s2_eight_block_diag2_thick4",
-    "s2_eight_frame_cross_outward"
+    "s2_panel_bar_lattice_restamp"
   ],
+  "new_closes_this_turn": [
+    "0607ce86"
+  ],
+  "new_licensed_grids_this_turn": 1,
+  "updated_at_utc": "2026-07-22T18:46:49.213110+00:00",
+  "no_submit": true,
+  "impact_applied": true,
   "franklin_phase_b_impact": {
     "applied": true,
     "stamp": "reports/exam_reinjection/franklin_phase_b_impact.constraint.json",
     "phase_b_exam_efficiency_gain_established": false,
-    "jordan_bound": "train_replay_only",
-    "source": "/Users/richardgillespie/Documents/AppleGaiaFTCL/evidence/affine-earth-os-noheap-gap-20260722/FRANKLIN_AGI_LANGUAGE_GAME_IMPACT.md"
-  },
-  "updated_at_utc": "2026-07-22T17:33:02.868381+00:00",
-  "no_submit": true,
-  "impact_applied": true
+    "jordan_bound": "train_replay_only"
+  }
 }

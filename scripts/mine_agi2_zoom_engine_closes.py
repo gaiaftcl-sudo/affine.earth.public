@@ -178,6 +178,7 @@ ZOOM_STEMS = {
         "s2_legend_pair_bbox_fill",
         "s2_eight_frame_cross_outward",
         "s2_eight_block_diag2_thick4",
+        "s2_panel_bar_lattice_restamp",
         "s2_sep6_legend_stamp3",
         "s2_host_hole_rigid_tile",
     ],
