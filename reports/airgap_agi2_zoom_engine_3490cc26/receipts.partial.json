@@ -1,0 +1,11 @@
+{
+  "3490cc26": {
+    "task_id": "3490cc26",
+    "ok": true,
+    "engine": "s2_dual_band_longest_path_corridors",
+    "train_n": 4,
+    "test_n": 1,
+    "train_replay": "4/4",
+    "path": "zoom_engine_exact"
+  }
+}

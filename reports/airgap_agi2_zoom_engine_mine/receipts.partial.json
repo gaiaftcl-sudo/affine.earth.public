@@ -12,11 +12,10 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "045e512c": {
-    "ok": true,
-    "engine": "s2_template_period_outward_stamp",
-    "train_replay": "3/3",
-    "path": "zoom_engine_exact",
-    "sealed_at_utc": "2026-07-22T09:50:22.847164+00:00"
+    "task_id": "045e512c",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
   },
   "0607ce86": {
     "task_id": "0607ce86",
@@ -240,11 +239,10 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "1b8318e3": {
-    "ok": true,
-    "engine": "s2_marker_cheb_seat_match",
-    "train_replay": "3/3",
-    "path": "zoom_engine_exact",
-    "sealed_at_utc": "2026-07-22T10:20:16.688673+00:00"
+    "task_id": "1b8318e3",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
   },
   "1be83260": {
     "engine": "s1_marker_pair_recolor_stack",

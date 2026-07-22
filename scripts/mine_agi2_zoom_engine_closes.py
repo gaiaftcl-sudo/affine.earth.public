@@ -152,6 +152,7 @@ ZOOM_STEMS = {
         "s2_marker_cheb_seat_match",
         "s2_wall5_zero_square_fill",
         "s2_lattice_hub_halo_stamp",
+        "s2_dual_band_longest_path_corridors",
     ],
 }
 
