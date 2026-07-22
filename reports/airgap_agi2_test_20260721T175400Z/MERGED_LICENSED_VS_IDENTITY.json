@@ -1,9 +1,9 @@
 {
   "kind": "agi2_merged_licensed_receipt",
-  "licensed_grids": 182,
-  "identity_grids": 77,
+  "licensed_grids": 183,
+  "identity_grids": 76,
   "total_grids": 259,
-  "licensed_pct": 70.27,
+  "licensed_pct": 70.66,
   "tasks": 240,
   "identity_fill_tasks": 0,
   "identity_task_ids": [
@@ -19,7 +19,6 @@
     "13713586",
     "13f06aa5",
     "14754a24",
-    "1478ab18",
     "150deff5",
     "15113be4",
     "15660dd6",
@@ -128,7 +127,7 @@
     "137f0df0": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "13f06aa5": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "12422b43": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "1478ab18": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
+    "1478ab18": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "150deff5": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "14b8e18c": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "140c817e": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
@@ -324,5 +323,5 @@
     "4290ef0e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "42918530": "reports/airgap_agi2_test_20260721T175400Z/submission.json"
   },
-  "submission_sha256": "beaeb1fb6202791528e652d26b0ee9350dcf4a57c22104897d01243306aa7e42"
+  "submission_sha256": "2121c44607f6c50e35b8e2e329fc79f563d6c623d25514a20bf9750c065100f8"
 }
