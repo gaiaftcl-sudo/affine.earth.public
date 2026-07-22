@@ -1,15 +1,15 @@
 {
-  "task_id": "17b866bd",
+  "task_id": "1be83260",
   "exam": "ARC-AGI-2",
   "language_game_class": "ZOOM_ENGINE_EXACT",
   "status": "CLOSED",
   "last_gate": "LOCKED",
   "train": 2,
   "test": 2,
-  "engine": "s2_diamond_hole_stamp",
-  "module": "llm_llvm_bench/arc/s2_diamond_hole_stamp.py",
+  "engine": "s1_marker_pair_recolor_stack",
+  "module": "llm_llvm_bench/arc/s1_marker_pair_recolor_stack.py",
   "observations": [
-    "Zoom grammar engine s2_diamond_hole_stamp",
+    "Zoom grammar engine s1_marker_pair_recolor_stack",
     "Train demonstration_replay 2/2"
   ],
   "validator": "demonstration_replay",
@@ -17,8 +17,8 @@
     "accepted": true,
     "detail": "train_replay_perfect",
     "train_replay": "2/2",
-    "engine": "s2_diamond_hole_stamp"
+    "engine": "s1_marker_pair_recolor_stack"
   },
-  "c4_invariant": "s2_diamond_hole_stamp",
-  "sealed_at_utc": "2026-07-21T22:59:02.628896+00:00"
+  "c4_invariant": "s1_marker_pair_recolor_stack",
+  "sealed_at_utc": "2026-07-22T00:00:58.621408+00:00"
 }

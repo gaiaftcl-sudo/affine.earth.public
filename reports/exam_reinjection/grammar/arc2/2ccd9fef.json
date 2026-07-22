@@ -1,0 +1,24 @@
+{
+  "task_id": "2ccd9fef",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 2,
+  "test": 2,
+  "engine": "s1_triplet_panel_grow_extrapolate",
+  "module": "llm_llvm_bench/arc/s1_triplet_panel_grow_extrapolate.py",
+  "observations": [
+    "Zoom grammar engine s1_triplet_panel_grow_extrapolate",
+    "Train demonstration_replay 2/2"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "2/2",
+    "engine": "s1_triplet_panel_grow_extrapolate"
+  },
+  "c4_invariant": "s1_triplet_panel_grow_extrapolate",
+  "sealed_at_utc": "2026-07-22T00:00:57.814031+00:00"
+}

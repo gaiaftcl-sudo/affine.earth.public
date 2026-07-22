@@ -234,10 +234,9 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "1be83260": {
-    "task_id": "1be83260",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "zoom_in_crop"
+    "engine": "s1_marker_pair_recolor_stack",
+    "train_replay": "2/2",
+    "licensed_grids": 2
   },
   "1c02dbbe": {
     "task_id": "1c02dbbe",
@@ -384,10 +383,10 @@
     "zoom_move": "zoom_in_crop"
   },
   "2601afb7": {
-    "task_id": "2601afb7",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_bar_height_color_rotate",
+    "train_replay": "3/3",
+    "licensed_grids": 1,
+    "sealed_at_utc": "2026-07-21T23:09:59.523481+00:00"
   },
   "264363fd": {
     "task_id": "264363fd",
@@ -516,10 +515,9 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "2ccd9fef": {
-    "task_id": "2ccd9fef",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "zoom_in_crop"
+    "engine": "s1_triplet_panel_grow_extrapolate",
+    "train_replay": "2/2",
+    "licensed_grids": 2
   },
   "2dd70a9a": {
     "task_id": "2dd70a9a",
@@ -916,5 +914,10 @@
     "ok": false,
     "path": "no_engine",
     "zoom_move": "same_canvas_rewrite"
+  },
+  "25ff71a9": {
+    "engine": "s1_shift_nonbg_down",
+    "train_replay": "4/4",
+    "licensed_grids": 2
   }
 }
