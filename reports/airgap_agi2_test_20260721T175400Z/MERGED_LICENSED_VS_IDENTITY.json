@@ -1,9 +1,9 @@
 {
   "kind": "agi2_merged_licensed_receipt",
-  "licensed_grids": 207,
-  "identity_grids": 52,
+  "licensed_grids": 208,
+  "identity_grids": 51,
   "total_grids": 259,
-  "licensed_pct": 79.92,
+  "licensed_pct": 80.31,
   "tasks": 240,
   "identity_fill_tasks": 0,
   "identity_task_ids": [
@@ -37,7 +37,6 @@
     "2a28add5",
     "2b9ef948",
     "2c0b0aff",
-    "2dd70a9a",
     "2e65ae53",
     "305b1341",
     "319f2597",
@@ -101,7 +100,7 @@
     "137eaa0f": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "12997ef3": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "137f0df0": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
-    "13f06aa5": "reports/airgap_agi2_zoom_engine_mine/submission.partial.json",
+    "13f06aa5": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "12422b43": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "1478ab18": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "150deff5": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -222,7 +221,7 @@
     "2c737e39": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "2ccd9fef": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "2dc579da": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "2dd70a9a": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
+    "2dd70a9a": "reports/airgap_agi2_zoom_engine_2dd70a9a/submission.partial.json",
     "2de01db2": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "2dee498d": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "2e65ae53": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -299,5 +298,5 @@
     "4290ef0e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "42918530": "reports/airgap_agi2_test_20260721T175400Z/submission.json"
   },
-  "submission_sha256": "64b15c1721428d373f561c3d45e150b4aacbc317b280346fd6c342b33486e526"
+  "submission_sha256": "37fba24f3a664e7b1dfe03f0e8040712db49ff2016cae2b0ed79adde061fe2d8"
 }
