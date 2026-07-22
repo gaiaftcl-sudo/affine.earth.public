@@ -149,6 +149,7 @@ ZOOM_STEMS = {
         "s2_period_zero_gap_fill",
         "s2_template_period_outward_stamp",
         "s2_marker_cheb_seat_match",
+        "s2_wall5_zero_square_fill",
     ],
 }
 
