@@ -467,6 +467,7 @@ def try_ranked_closed_engines(
             "s2_wall_room_period2_motif_stamp",
             "s2_eight_channel_fill",
             "s2_motif4_arrow_translate_diag_x",
+            "s2_unique_band_slot_composite",
             "s2_most_plus5_comp_crop",
             "s2_host_accent_align_twos",
             "s2_line_len_concentric_frames",

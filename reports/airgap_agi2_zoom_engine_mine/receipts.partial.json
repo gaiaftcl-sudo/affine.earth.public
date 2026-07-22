@@ -112,9 +112,12 @@
   },
   "15660dd6": {
     "task_id": "15660dd6",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "zoom_in_crop"
+    "ok": true,
+    "engine": "s2_unique_band_slot_composite",
+    "train_n": 2,
+    "test_n": 1,
+    "train_replay": "2/2",
+    "path": "zoom_engine_exact"
   },
   "14754a24": {
     "task_id": "14754a24",
