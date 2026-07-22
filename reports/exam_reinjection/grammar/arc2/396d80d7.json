@@ -1,0 +1,18 @@
+{
+  "task_id": "396d80d7",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "train_replay_perfect",
+  "train": 2,
+  "test": 1,
+  "engine": "s2_marker_pure_diag_border",
+  "module": "llm_llvm_bench/arc/s2_marker_pure_diag_border.py",
+  "observations": [
+    "pure_diag_border_not_ortho"
+  ],
+  "validator": "train_replay",
+  "validator_result": "2/2",
+  "c4_invariant": "exact_train_replay",
+  "sealed_at_utc": "2026-07-22T07:46:22.852796+00:00"
+}
