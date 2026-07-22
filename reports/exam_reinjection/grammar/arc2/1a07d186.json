@@ -1,0 +1,24 @@
+{
+  "task_id": "1a07d186",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 3,
+  "test": 1,
+  "engine": "s2_magnet_to_full_line",
+  "module": "llm_llvm_bench/arc/s2_magnet_to_full_line.py",
+  "observations": [
+    "Zoom grammar engine s2_magnet_to_full_line",
+    "Train demonstration_replay 3/3"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "3/3",
+    "engine": "s2_magnet_to_full_line"
+  },
+  "c4_invariant": "s2_magnet_to_full_line",
+  "sealed_at_utc": "2026-07-22T00:33:52.144060+00:00"
+}
