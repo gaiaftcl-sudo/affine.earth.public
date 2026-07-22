@@ -368,6 +368,35 @@ def seal_closed(root: Path, row: Dict[str, Any]) -> Path:
     return out
 
 
+def load_phase_b_impact_constraint(root: Path) -> Dict[str, Any]:
+    """FRANKLIN_AGI_LANGUAGE_GAME_IMPACT.md — Phase B noheap unwired into exam turns."""
+    stamp = root / "reports/exam_reinjection/franklin_phase_b_impact.constraint.json"
+    abs_src = (
+        "/Users/richardgillespie/Documents/AppleGaiaFTCL/evidence/"
+        "affine-earth-os-noheap-gap-20260722/FRANKLIN_AGI_LANGUAGE_GAME_IMPACT.md"
+    )
+    payload: Dict[str, Any] = {
+        "source": abs_src,
+        "phase_b_franklin_arc_hle_turn_wired": False,
+        "phase_b_exam_efficiency_gain_established": False,
+        "jordan_bound": True,
+        "experience_pull": True,
+        "noheap_unwired": True,
+        "kaggle_submit": False,
+    }
+    if stamp.is_file():
+        try:
+            data = json.loads(stamp.read_text(encoding="utf-8"))
+            if isinstance(data, dict):
+                payload.update(data)
+        except (OSError, json.JSONDecodeError):
+            payload["stamp_error"] = "unreadable"
+    payload["phase_b_franklin_arc_hle_turn_wired"] = False
+    payload["phase_b_exam_efficiency_gain_established"] = False
+    payload["kaggle_submit"] = False
+    return payload
+
+
 def identity_residue(root: Path) -> List[str]:
     sub = json.loads(
         (root / "reports/airgap_agi2_test_20260721T175400Z/submission.json").read_text()
@@ -446,13 +475,18 @@ def main() -> int:
         receipts = json.loads(rec_path.read_text())
 
     pending = [t for t in ids if t not in submission]
-    exp_engs = (
-        experience_engines(root, args.experience_limit) if args.with_experience else []
-    )
+    phase_b = load_phase_b_impact_constraint(root)
+    # Experience pull is mandatory under IMPACT doctrine (Jordan + sealed reuse).
+    exp_engs = experience_engines(root, args.experience_limit)
+    if not args.with_experience:
+        # Still pull CLOSED experience engines; spawn-isolate via try_engines.
+        args.with_experience = True
     print(
         f"START zoom_engine_mine residue={len(ids)} pending={len(pending)} "
         f"stored={len(submission)} eng_timeout={args.engine_timeout}s "
-        f"exp_engines={len(exp_engs)} zoom_only={not args.with_experience}",
+        f"exp_engines={len(exp_engs)} zoom_only={not args.with_experience} "
+        f"phase_b_wired={phase_b.get('phase_b_franklin_arc_hle_turn_wired')} "
+        f"phase_b_gain={phase_b.get('phase_b_exam_efficiency_gain_established')}",
         flush=True,
     )
 
@@ -518,8 +552,21 @@ def main() -> int:
         "elapsed_s": round(time.time() - t0, 1),
         "closed_ids": sorted(submission),
         "recorded_at_utc": datetime.now(timezone.utc).isoformat(),
+        "kaggle_submit": False,
+        "franklin_phase_b_impact": {
+            "source": phase_b.get("source"),
+            "phase_b_franklin_arc_hle_turn_wired": False,
+            "phase_b_exam_efficiency_gain_established": False,
+            "jordan_bound": True,
+            "experience_pull": True,
+            "noheap_unwired": True,
+        },
+        "identity_residue_at_start": ids,
     }
     (out / "MINE_SUMMARY.json").write_text(json.dumps(summary, indent=2) + "\n")
+    (out / "franklin_phase_b_impact.constraint.json").write_text(
+        json.dumps(phase_b, indent=2, sort_keys=True) + "\n"
+    )
     print(f"DONE {json.dumps(summary)}", flush=True)
     return 0
 

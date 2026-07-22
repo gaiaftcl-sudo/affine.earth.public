@@ -96,6 +96,25 @@ def main() -> int:
                 }
             )
 
+    notes = [
+        "Accuracy = 100 * correct / n with n=full test-set size (CAIS convention).",
+        "Judge model recorded for FoT; CAIS default is o3-mini when available.",
+        "Never invent Accuracy; value derived from judged JSON / harness.log.",
+    ]
+    # Honor FRANKLIN_AGI_LANGUAGE_GAME_IMPACT.md: Phase B capacity is unwired
+    # into Franklin HLE turns — do not claim exam-efficiency gain from Phase B.
+    phase_b = None
+    phase_b_path = run_dir / "franklin_phase_b_impact.constraint.json"
+    if phase_b_path.exists():
+        try:
+            phase_b = json.loads(phase_b_path.read_text())
+            notes.append(
+                "Phase B Franklin HLE turn path unwired; "
+                "phase_b_exam_efficiency_gain_established=false."
+            )
+        except json.JSONDecodeError:
+            phase_b = {"error": "constraint_unreadable", "path": str(phase_b_path)}
+
     receipt = {
         "kind": "hle_official_judged_receipt",
         "dataset": "cais/hle",
@@ -111,11 +130,8 @@ def main() -> int:
         "judged_path": str(judged_path),
         "predictions_path": args.predictions or None,
         "stamp_utc": datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ"),
-        "notes": [
-            "Accuracy = 100 * correct / n with n=full test-set size (CAIS convention).",
-            "Judge model recorded for FoT; CAIS default is o3-mini when available.",
-            "Never invent Accuracy; value derived from judged JSON / harness.log.",
-        ],
+        "franklin_phase_b_impact": phase_b,
+        "notes": notes,
     }
     (run_dir / "official_hle_accuracy.receipt.json").write_text(
         json.dumps(receipt, indent=2) + "\n"

@@ -46,10 +46,17 @@ MISS_QUEUE_FILENAME = "miss_queue.jsonl"
 CYCLE_SUMMARY_FILENAME = "latest_cycle.json"
 DAEMON_LOCK_FILENAME = "daemon.lock"
 RAW_RESPONSE_FILENAME = "last_franklin_raw.json"
+PHASE_B_IMPACT_CONSTRAINT_FILENAME = "franklin_phase_b_impact.constraint.json"
 
 TRACK_ARC2 = "arc2"
 TRACK_ARC3 = "arc3"
 TRACK_HLE = "hle"
+
+# Absolute steward path (outside this tree) + in-repo stamp under exam_reinjection.
+_PHASE_B_IMPACT_ABS = Path(
+    "/Users/richardgillespie/Documents/AppleGaiaFTCL/evidence/"
+    "affine-earth-os-noheap-gap-20260722/FRANKLIN_AGI_LANGUAGE_GAME_IMPACT.md"
+)
 
 DEFAULT_BASE_URL = "http://127.0.0.1:8080/v1"
 DEFAULT_FALLBACK_BASE_URL = "http://127.0.0.1:1234/v1"
@@ -152,6 +159,56 @@ def assert_no_kaggle_submit(root: Path) -> None:
     if os.environ.get("ALLOW_KAGGLE_SUBMIT") == "1":
         # Loop itself never submits; warn only.
         print("WARN: ALLOW_KAGGLE_SUBMIT=1 set, but exam reinjection loop never submits.")
+
+
+def load_phase_b_impact_constraint(state_dir: Path) -> Dict[str, Any]:
+    """Load FRANKLIN_AGI_LANGUAGE_GAME_IMPACT doctrine stamp (noheap unwired).
+
+    Absolute steward IMPACT.md is the source of truth; the in-repo JSON under
+    exam_reinjection is the play-loop stamp. Never claim exam-efficiency gain
+    from Phase B until the absent arena→turn→Jordan chain is wired.
+    """
+    stamp = state_dir / PHASE_B_IMPACT_CONSTRAINT_FILENAME
+    payload: Dict[str, Any] = {
+        "source": str(_PHASE_B_IMPACT_ABS),
+        "phase_b_franklin_arc_hle_turn_wired": False,
+        "phase_b_exam_efficiency_gain_established": False,
+        "phase_b_observer_independent_jordan_seal_wired": False,
+        "jordan_bound": True,
+        "experience_pull": True,
+        "noheap_unwired": True,
+        "kaggle_submit": False,
+    }
+    if stamp.is_file():
+        try:
+            data = json.loads(stamp.read_text(encoding="utf-8"))
+            if isinstance(data, dict):
+                payload.update(data)
+        except (OSError, json.JSONDecodeError):
+            payload["stamp_error"] = "unreadable"
+    payload["impact_md_present"] = _PHASE_B_IMPACT_ABS.is_file()
+    # Hard fail-closed: Phase B never silently upgrades to "wired/gain".
+    payload["phase_b_franklin_arc_hle_turn_wired"] = False
+    payload["phase_b_exam_efficiency_gain_established"] = False
+    payload["phase_b_observer_independent_jordan_seal_wired"] = False
+    payload["kaggle_submit"] = False
+    return payload
+
+
+def phase_b_play_constraint_digest(constraint: Mapping[str, Any]) -> str:
+    """Compact system-prompt binding for Franklin ARC/HLE turns."""
+    return (
+        "PHASE_B_NOHEAP_IMPACT (doctrine — enabled capacity, UNWIRED into turns):\n"
+        f"source={constraint.get('source')}\n"
+        "phase_b_franklin_arc_hle_turn_wired=false\n"
+        "phase_b_exam_efficiency_gain_established=false\n"
+        "phase_b_observer_independent_jordan_seal_wired=false\n"
+        "PLAY: Jordan LOCKED only via named zero-remainder validator; "
+        "pull LEARNED_CLOSED experiences every turn; "
+        "do not treat VM size / SubstrateMemory / arena bind as exam seal.\n"
+        "ABSENT_CHAIN: guest arena|VM size → Franklin turn → multi-aspect "
+        "reconciliation → observer-independent Jordan → exam seal.\n"
+    )
 
 
 def _latest_dir(pattern_glob: str, root: Path) -> Optional[Path]:
@@ -1077,8 +1134,16 @@ def build_franklin_messages(
     else:
         experiences = []
 
+    phase_b = (
+        load_phase_b_impact_constraint(state_dir)
+        if state_dir is not None
+        else load_phase_b_impact_constraint(Path("reports/exam_reinjection"))
+    )
+
     system = projection_system_prompt(
         f"{digest}\n\n"
+        "---\n"
+        f"{phase_b_play_constraint_digest(phase_b)}"
         "---\n"
         "EXAM REINJECTION = Franklin S¹–S⁴ projection language game.\n"
         f"Aristotelian turn {prior_turns + 1}/{ARISTOTELIAN_CLOSURE_TURNS}.\n"
@@ -1903,6 +1968,7 @@ def run_reinjection_cycle(
         if not stamped_dry_run and any(row.get("dry_run") for row in cycle_rows):
             raise RuntimeError("live cycle produced dry_run row — refuse stamp")
 
+        phase_b = load_phase_b_impact_constraint(state_dir)
         summary = {
             "kind": "exam_miss_reinjection_cycle",
             "recorded_at_utc": state.last_cycle_at,
@@ -1941,6 +2007,16 @@ def run_reinjection_cycle(
                 1 for t in state.tasks.values() if t.get("status") == "DEAD_END"
             ),
             "state_dir": _rel(root, state_dir),
+            "franklin_phase_b_impact": {
+                "source": phase_b.get("source"),
+                "impact_md_present": phase_b.get("impact_md_present"),
+                "phase_b_franklin_arc_hle_turn_wired": False,
+                "phase_b_exam_efficiency_gain_established": False,
+                "phase_b_observer_independent_jordan_seal_wired": False,
+                "jordan_bound": True,
+                "experience_pull": True,
+                "noheap_unwired": True,
+            },
         }
         write_json(state_dir / CYCLE_SUMMARY_FILENAME, summary)
         write_json(

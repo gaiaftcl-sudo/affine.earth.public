@@ -19,6 +19,14 @@ def main() -> int:
     if not misses_path.is_file():
         raise SystemExit(f"missing {misses_path}")
     misses = json.loads(misses_path.read_text())[: args.limit]
+    # Honor FRANKLIN_AGI_LANGUAGE_GAME_IMPACT.md: Phase B unwired into HLE turns.
+    phase_b = None
+    phase_b_path = run_dir / "franklin_phase_b_impact.constraint.json"
+    if phase_b_path.is_file():
+        try:
+            phase_b = json.loads(phase_b_path.read_text())
+        except json.JSONDecodeError:
+            phase_b = None
     out_dir = root / "reports" / "exam_reinjection"
     out_dir.mkdir(parents=True, exist_ok=True)
     queue_path = out_dir / "hle_official_miss_queue.jsonl"
@@ -36,6 +44,12 @@ def main() -> int:
                 "queued_utc": stamp,
                 "s_state": "incomplete",
                 "drift_kind": "understanding drift",
+                "phase_b_franklin_hle_turn_wired": False
+                if phase_b is not None
+                else None,
+                "phase_b_exam_efficiency_gain_established": False
+                if phase_b is not None
+                else None,
             }
             fh.write(json.dumps(row) + "\n")
     meta = {
@@ -43,6 +57,7 @@ def main() -> int:
         "queued": len(misses),
         "queue_path": str(queue_path.relative_to(root)),
         "stamp_utc": stamp,
+        "franklin_phase_b_impact": phase_b,
     }
     (run_dir / "reinject_queue.receipt.json").write_text(json.dumps(meta, indent=2) + "\n")
     print(json.dumps(meta))
