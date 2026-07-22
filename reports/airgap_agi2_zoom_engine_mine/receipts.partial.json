@@ -139,9 +139,10 @@
   },
   "182e5d0f": {
     "task_id": "182e5d0f",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_marker5_path3_slide",
+    "licensed_grids": 1,
+    "train_replay": "3/3",
+    "status": "CLOSED"
   },
   "18286ef8": {
     "task_id": "18286ef8",
@@ -197,9 +198,10 @@
   },
   "17b80ad2": {
     "task_id": "17b80ad2",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_col_anchor5_upfill",
+    "licensed_grids": 1,
+    "train_replay": "4/4",
+    "status": "CLOSED"
   },
   "184a9768": {
     "task_id": "184a9768",
@@ -595,9 +597,10 @@
   },
   "2faf500b": {
     "task_id": "2faf500b",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_six_cut_separate_nines",
+    "licensed_grids": 1,
+    "train_replay": "3/3",
+    "status": "CLOSED"
   },
   "305b1341": {
     "task_id": "305b1341",
@@ -690,9 +693,10 @@
   },
   "337b420f": {
     "task_id": "337b420f",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "zoom_in_crop"
+    "engine": "s1_triple_panel_largest_shift",
+    "licensed_grids": 2,
+    "train_replay": "4/4",
+    "status": "CLOSED"
   },
   "3391f8c0": {
     "engine": "s2_bicolor_8conn_motif_swap",

@@ -115,6 +115,9 @@ ZOOM_STEMS = {
         "s2_shear_left_bottom_anchor",
         "s2_col_anchor5_upfill",
         "s2_stamp_unique_color_dihedral",
+        "s2_max_gap_frame_cross",
+        "s2_six_cut_separate_nines",
+        "s2_marker5_path3_slide",
     ],
 }
 
