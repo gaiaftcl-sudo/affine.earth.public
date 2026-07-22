@@ -415,6 +415,7 @@ def try_ranked_closed_engines(
             "s2_mirror_across_full_sep",
             "s2_shear_left_bottom_anchor",
             "s2_col_anchor5_upfill",
+            "s2_stamp_unique_color_dihedral",
             "s2_marker_sprite_recolor",
             "s2_marker_col_period_tile",
             "s1_diagonal_mod3_period_fill",

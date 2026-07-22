@@ -114,6 +114,7 @@ ZOOM_STEMS = {
         "s2_mirror_across_full_sep",
         "s2_shear_left_bottom_anchor",
         "s2_col_anchor5_upfill",
+        "s2_stamp_unique_color_dihedral",
     ],
 }
 
