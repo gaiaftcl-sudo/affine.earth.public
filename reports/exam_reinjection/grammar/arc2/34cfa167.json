@@ -6,13 +6,13 @@
   "last_gate": "train_replay_perfect",
   "train": 2,
   "test": 2,
-  "engine": "s2_dual_ones_motif_frame",
-  "module": "llm_llvm_bench/arc/s2_dual_ones_motif_frame.py",
+  "engine": "s2_dual_anchor_pingpong_frame",
+  "module": "llm_llvm_bench/arc/s2_dual_anchor_pingpong_frame.py",
   "observations": [
-    "dual_ones_motif_frame"
+    "dual_anchor_pingpong_frame"
   ],
   "validator": "train_replay",
   "validator_result": "2/2",
   "c4_invariant": "exact_train_replay",
-  "sealed_at_utc": "2026-07-22T12:45:37.442230+00:00"
+  "sealed_at_utc": "2026-07-22T12:49:08.773692+00:00"
 }
