@@ -1,21 +1,29 @@
 {
-  "licensed": "190/259",
-  "licensed_pct": 73.36,
-  "identity": 69,
-  "submission_sha256": "e4e91e91cd8ed75185420dc2a2188223d11c929a576781c558e454b9908736b7",
+  "licensed": "193/259",
+  "licensed_pct": 74.52,
+  "identity": 66,
+  "submission_sha256": "35c01e0a38fd1c8fc3545b922e3fb130870ed3c1609a9d127a604be23c4e5f3a",
   "new_closes_this_turn": [
+    "150deff5",
     "1a244afd",
-    "36d67576"
+    "1c02dbbe",
+    "278e5215",
+    "36d67576",
+    "41e4d17e"
   ],
-  "new_licensed_grids_this_turn": 2,
-  "commit_base": "c0a6063",
+  "new_licensed_grids_this_turn": 6,
+  "commit_base": "c43c09e",
   "engines": {
+    "150deff5": "s2_five_pack_tromino2",
     "1a244afd": "s2_six_perp_mark_ones",
-    "36d67576": "s2_four_comp_dihedral_transfer"
+    "1c02dbbe": "s2_marker_corner_rect_paint",
+    "278e5215": "s2_mask5_template_row_select",
+    "36d67576": "s2_four_comp_dihedral_transfer",
+    "41e4d17e": "s2_hollow_rect_center_cross"
   },
   "target": 200,
   "no_submit": true,
   "hle_left_alive": true,
   "exp_left_alive": true,
-  "recorded_at_utc": "2026-07-22T07:30:26.707476+00:00"
+  "recorded_at_utc": "2026-07-22T07:33:37.427347+00:00"
 }
