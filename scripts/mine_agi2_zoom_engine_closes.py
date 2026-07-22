@@ -154,8 +154,10 @@ ZOOM_STEMS = {
         "s2_wall5_zero_square_fill",
         "s2_lattice_hub_halo_stamp",
         "s2_dual_band_longest_path_corridors",
+        "s2_wall_marker_extend",
         "s2_small_comp_recolor3",
         "s2_marker6_rank_row_bar",
+        "s2_marker_col_template_bands",
     ],
 }
 

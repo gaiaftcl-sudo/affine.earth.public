@@ -1,0 +1,11 @@
+{
+  "12eac192": {
+    "task_id": "12eac192",
+    "ok": true,
+    "engine": "s2_small_comp_recolor3",
+    "train_n": 4,
+    "test_n": 1,
+    "train_replay": "4/4",
+    "path": "zoom_engine_exact"
+  }
+}
