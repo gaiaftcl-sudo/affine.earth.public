@@ -340,6 +340,7 @@ def try_ranked_closed_engines(
             "s1_canvas_hole_sprite_fill",
             "s1_ncomp_staircase_project",
             "s1_crop_hstack_dup",
+            "s1_oddcol_slot_band_expand",
         ],
         "zoom_in_crop": [
             "s1_cross_sep_quadrant_pack",
@@ -392,7 +393,7 @@ def try_ranked_closed_engines(
             "s2_magnet_to_full_line",
             "s2_tower_hole_drain_bridge",
             "s2_wall_seed_bipartite_recolor",
-        "s2_open_rect_bay_pour",
+            "s2_open_rect_bay_pour",
             "s2_marker_sprite_recolor",
             "s2_marker_col_period_tile",
             "s1_diagonal_mod3_period_fill",

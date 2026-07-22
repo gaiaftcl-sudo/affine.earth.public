@@ -444,19 +444,9 @@
   },
   "292dd178": {
     "task_id": "292dd178",
-    "ok": true,
-    "path": "zoom_engine_experience",
     "engine": "s2_open_rect_bay_pour",
     "licensed_grids": 1,
-    "validator_result": {
-      "accepted": true,
-      "train_replay": "3/3",
-      "detail": "train_replay_perfect"
-    },
-    "jordan_loop_bound": {
-      "closed": true,
-      "reason": "LOCKED"
-    }
+    "train_replay": "3/3"
   },
   "29700607": {
     "task_id": "29700607",
@@ -649,9 +639,9 @@
   },
   "33067df9": {
     "task_id": "33067df9",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "zoom_out_expand"
+    "engine": "s1_oddcol_slot_band_expand",
+    "licensed_grids": 1,
+    "train_replay": "4/4"
   },
   "332202d5": {
     "task_id": "332202d5",

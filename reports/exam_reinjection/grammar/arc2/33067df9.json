@@ -1,0 +1,24 @@
+{
+  "task_id": "33067df9",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 4,
+  "test": 1,
+  "engine": "s1_oddcol_slot_band_expand",
+  "module": "llm_llvm_bench/arc/s1_oddcol_slot_band_expand.py",
+  "observations": [
+    "Zoom grammar engine s1_oddcol_slot_band_expand",
+    "Train demonstration_replay 4/4"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "4/4",
+    "engine": "s1_oddcol_slot_band_expand"
+  },
+  "c4_invariant": "s1_oddcol_slot_band_expand",
+  "sealed_at_utc": "2026-07-22T02:23:07.587076+00:00"
+}
