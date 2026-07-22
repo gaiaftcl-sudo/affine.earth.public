@@ -1,26 +1,28 @@
 {
-  "licensed": "255/259",
-  "licensed_grids": 255,
-  "identity_grids": 4,
-  "identity_tasks": 4,
+  "licensed": "256/259",
+  "licensed_grids": 256,
+  "identity_grids": 3,
+  "identity_tasks": 3,
   "identity_task_ids": [
     "0607ce86",
     "09c534e7",
-    "1190bc91",
-    "212895b5"
+    "1190bc91"
   ],
   "canonical_submission": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-  "notebook_licensed_grids": 255,
+  "notebook_licensed_grids": 256,
   "recent_closes": {
-    "256b0a75": "s2_eight_frame_cross_outward"
+    "212895b5": "s2_eight_block_diag2_thick4"
   },
   "engines": [
-    "s2_eight_frame_cross_outward"
+    "s2_eight_block_diag2_thick4"
   ],
   "new_closes_this_turn": [
-    "256b0a75"
+    "212895b5"
   ],
   "new_licensed_grids_this_turn": 1,
-  "updated_at_utc": "2026-07-22T14:42:27.238808+00:00",
-  "no_submit": true
+  "updated_at_utc": "2026-07-22T16:39:36.489473+00:00",
+  "no_submit": true,
+  "impact_applied": true,
+  "impact_doc": "/Users/richardgillespie/Documents/AppleGaiaFTCL/evidence/affine-earth-os-noheap-gap-20260722/FRANKLIN_AGI_LANGUAGE_GAME_IMPACT.md",
+  "impact_constraint": "Phase B arena NOT wired into Franklin ARC/HLE; continue train-replay zoom-engine seals only; no exam-efficiency claim from Phase B"
 }

@@ -1,0 +1,19 @@
+{
+  "212895b5": {
+    "task_id": "212895b5",
+    "ok": true,
+    "path": "zoom_engine_experience",
+    "engine": "s2_eight_block_diag2_thick4",
+    "licensed_grids": 1,
+    "train_replay": "3/3",
+    "validator_result": {
+      "accepted": true,
+      "train_replay": "3/3",
+      "detail": "train_replay_perfect"
+    },
+    "jordan_loop_bound": {
+      "closed": true,
+      "reason": "LOCKED"
+    }
+  }
+}
