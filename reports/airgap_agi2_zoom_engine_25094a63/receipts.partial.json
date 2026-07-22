@@ -1,0 +1,11 @@
+{
+  "25094a63": {
+    "task_id": "25094a63",
+    "ok": true,
+    "engine": "s2_solid_rect_erase4",
+    "train_n": 2,
+    "test_n": 1,
+    "train_replay": "2/2",
+    "path": "zoom_engine_exact"
+  }
+}
