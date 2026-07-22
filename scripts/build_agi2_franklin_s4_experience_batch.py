@@ -437,6 +437,8 @@ def try_ranked_closed_engines(
             "s2_panel5_copy_template",
             "s2_pillar_chamber_center1",
             "s2_same_color_diag_bridge",
+            "s2_host_vsym_bbox_complete",
+            "s2_bar_cross_attach_swap",
             "s2_marker_sprite_recolor",
             "s2_marker_col_period_tile",
             "s1_diagonal_mod3_period_fill",

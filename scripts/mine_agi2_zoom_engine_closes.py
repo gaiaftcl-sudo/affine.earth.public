@@ -136,6 +136,8 @@ ZOOM_STEMS = {
         "s2_panel5_copy_template",
         "s2_pillar_chamber_center1",
         "s2_same_color_diag_bridge",
+        "s2_host_vsym_bbox_complete",
+        "s2_bar_cross_attach_swap",
     ],
 }
 

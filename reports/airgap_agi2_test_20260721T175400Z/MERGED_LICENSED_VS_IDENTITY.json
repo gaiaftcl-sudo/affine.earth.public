@@ -1,9 +1,9 @@
 {
   "kind": "agi2_merged_licensed_receipt",
-  "licensed_grids": 208,
-  "identity_grids": 51,
+  "licensed_grids": 210,
+  "identity_grids": 49,
   "total_grids": 259,
-  "licensed_pct": 80.31,
+  "licensed_pct": 81.08,
   "tasks": 240,
   "identity_fill_tasks": 0,
   "identity_task_ids": [
@@ -25,7 +25,6 @@
     "1b59e163",
     "1b8318e3",
     "1d0a4b61",
-    "1efba499",
     "2037f2c7",
     "20fb2937",
     "212895b5",
@@ -43,7 +42,6 @@
     "31adaf00",
     "320afe60",
     "332202d5",
-    "3345333e",
     "33b52de3",
     "3490cc26",
     "34cfa167",
@@ -154,7 +152,7 @@
     "1e32b0e9": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "1e5d6875": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "1e81d6f9": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "1efba499": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
+    "1efba499": "reports/airgap_agi2_zoom_engine_1efba499/submission.partial.json",
     "1f0c79e5": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "1f642eb9": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "1f85a75f": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -221,7 +219,7 @@
     "2c737e39": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "2ccd9fef": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "2dc579da": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "2dd70a9a": "reports/airgap_agi2_zoom_engine_2dd70a9a/submission.partial.json",
+    "2dd70a9a": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "2de01db2": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "2dee498d": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "2e65ae53": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -298,5 +296,5 @@
     "4290ef0e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "42918530": "reports/airgap_agi2_test_20260721T175400Z/submission.json"
   },
-  "submission_sha256": "37fba24f3a664e7b1dfe03f0e8040712db49ff2016cae2b0ed79adde061fe2d8"
+  "submission_sha256": "be7faf9eb7a3d05fd853728d5426b0a2a408310d78b0e34db3dd0676f04a4d1b"
 }
