@@ -121,8 +121,13 @@ ZOOM_STEMS = {
         "s2_slide_touch_corner_zip",
         "s2_hollow_rect_center_cross",
         "s2_marker_corner_rect_paint",
+        "s2_t_marker_axis_erase4",
+        "s2_marker_pure_diag_border",
+        "s2_lattice_chamber_motif_stamp",
         "s2_six_perp_mark_ones",
         "s2_four_comp_dihedral_transfer",
+        "s2_zero_rect_attract5_edge6",
+        "s2_col_marks_bottom_pyramid",
     ],
 }
 
