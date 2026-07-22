@@ -1,0 +1,11 @@
+{
+  "320afe60": {
+    "task_id": "320afe60",
+    "ok": true,
+    "engine": "s2_ink_sealed_open_side_dock",
+    "train_n": 3,
+    "test_n": 2,
+    "train_replay": "3/3",
+    "path": "zoom_engine_exact"
+  }
+}

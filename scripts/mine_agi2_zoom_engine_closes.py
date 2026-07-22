@@ -161,6 +161,7 @@ ZOOM_STEMS = {
         "s2_solid_rect_erase4",
         "s2_host_block_nested_frame_stamp",
         "s2_host_cross_template_stamp",
+        "s2_ink_sealed_open_side_dock",
         "s2_marker6_rank_row_bar",
         "s2_marker_col_template_bands",
         "s2_sprite_magnet_reseat",
@@ -168,6 +169,7 @@ ZOOM_STEMS = {
         "s2_oddcol_max8_pack9",
         "s2_border_color_dock_edge_extend",
         "s2_wall_room_period2_motif_stamp",
+        "s2_eight_channel_fill",
     ],
 }
 

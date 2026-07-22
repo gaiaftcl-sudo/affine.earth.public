@@ -1,0 +1,18 @@
+{
+  "task_id": "320afe60",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "train_replay_perfect",
+  "train": 3,
+  "test": 2,
+  "engine": "s2_ink_sealed_open_side_dock",
+  "module": "llm_llvm_bench/arc/s2_ink_sealed_open_side_dock.py",
+  "observations": [
+    "ink_sealed_open_side_dock"
+  ],
+  "validator": "train_replay",
+  "validator_result": "3/3",
+  "c4_invariant": "exact_train_replay",
+  "sealed_at_utc": "2026-07-22T12:28:19.685304+00:00"
+}
