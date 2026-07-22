@@ -1,0 +1,39 @@
+{
+  "09c534e7": {
+    "task_id": "09c534e7",
+    "engine": "s2_marker_rect_interior_paint",
+    "train_replay": "3/3",
+    "status": "CLOSED",
+    "jordan": "LOCKED",
+    "sealed_at": "2026-07-22T21:05:37.765264+00:00",
+    "phase_b_impact": {
+      "source": "/Users/richardgillespie/Documents/AppleGaiaFTCL/evidence/affine-earth-os-noheap-gap-20260722/FRANKLIN_AGI_LANGUAGE_GAME_IMPACT.md",
+      "phase_b_franklin_arc_hle_turn_wired": false,
+      "phase_b_exam_efficiency_gain_established": false,
+      "jordan_bound": true,
+      "experience_pull": true,
+      "noheap_unwired": true,
+      "kaggle_submit": false,
+      "brief_id": "affine-noheap-franklin-agi-impact-20260722",
+      "stamped_at": "2026-07-22T19:13:30Z",
+      "phase_b_multi_aspect_observers_wired": false,
+      "phase_b_zoom_from_vm_size_wired": false,
+      "phase_b_observer_independent_jordan_seal_wired": false,
+      "play_constraints": {
+        "jordan_bound": "LOCKED only via named train-replay / demonstration validator with zero remainder \u2014 not via arena or VM sizing",
+        "experience_pull": "load sealed CLOSED experiences every Franklin turn before inventing a candidate",
+        "noheap": "Phase B SubstrateMemory/GlobalMemoryController capacity is ENABLED but UNWIRED into ARC/HLE turns; do not claim exam-efficiency gain from noheap OS update",
+        "absent_chain": "guest arena or VM size \u2192 Franklin ARC/HLE turn \u2192 multi-aspect reconciliation \u2192 observer-independent Jordan bond \u2192 exam seal"
+      },
+      "agi2_tip": {
+        "sha": "f443fbc",
+        "licensed": "257/259",
+        "identity_residue": [
+          "09c534e7",
+          "1190bc91"
+        ]
+      },
+      "note": "Doctrine-only wiring for exam reinjection / zoom mine. Phase B improves allocation capacity; AGI exam climb continues via Jordan-bound engines + experience pull only."
+    }
+  }
+}

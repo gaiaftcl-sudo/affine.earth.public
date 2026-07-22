@@ -1,31 +1,19 @@
 {
-  "licensed": "257/259",
-  "licensed_grids": 257,
-  "identity_grids": 2,
-  "identity_tasks": 2,
-  "identity_task_ids": [
-    "09c534e7",
-    "1190bc91"
+  "licensed": "240/259",
+  "licensed_n": 240,
+  "total": 259,
+  "residue": [],
+  "closes": [
+    {
+      "task_id": "09c534e7",
+      "engine": "s2_marker_rect_interior_paint"
+    },
+    {
+      "task_id": "1190bc91",
+      "engine": "s2_singleton_diag_pair_triangle"
+    }
   ],
-  "canonical_submission": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-  "notebook_licensed_grids": 257,
-  "recent_closes": {
-    "0607ce86": "s2_panel_bar_lattice_restamp"
-  },
-  "engines": [
-    "s2_panel_bar_lattice_restamp"
-  ],
-  "new_closes_this_turn": [
-    "0607ce86"
-  ],
-  "new_licensed_grids_this_turn": 1,
-  "updated_at_utc": "2026-07-22T18:46:49.213110+00:00",
-  "no_submit": true,
-  "impact_applied": true,
-  "franklin_phase_b_impact": {
-    "applied": true,
-    "stamp": "reports/exam_reinjection/franklin_phase_b_impact.constraint.json",
-    "phase_b_exam_efficiency_gain_established": false,
-    "jordan_bound": "train_replay_only"
-  }
+  "canonical_dir": "reports/airgap_agi2_test_20260721T175400Z",
+  "updated_at_utc": "2026-07-22T21:11:03.778080+00:00",
+  "no_kaggle_submit": true
 }

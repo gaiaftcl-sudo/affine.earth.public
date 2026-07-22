@@ -179,6 +179,8 @@ ZOOM_STEMS = {
         "s2_eight_frame_cross_outward",
         "s2_eight_block_diag2_thick4",
         "s2_panel_bar_lattice_restamp",
+        "s2_marker_rect_interior_paint",
+        "s2_singleton_diag_pair_triangle",
         "s2_sep6_legend_stamp3",
         "s2_host_hole_rigid_tile",
     ],
