@@ -1,18 +1,18 @@
 {
-  "licensed": "240/259",
-  "licensed_pct": 92.66,
-  "identity": 19,
-  "submission_sha256": "97f944eb016db5fc4aca50de2135550a7c0c9337359c0a76b2641641ade3a9cf",
+  "licensed": "241/259",
+  "licensed_pct": 93.05,
+  "identity": 18,
+  "submission_sha256": "99459892c7c9d6636533974267f8bb76eaf78d9e6c238305f5641800c74ad475",
   "new_closes_this_turn": [
-    "40f6cd08"
+    "2e65ae53"
   ],
   "new_licensed_grids_this_turn": 1,
-  "engines": [
-    "s2_host_block_nested_frame_stamp"
-  ],
+  "engines": {
+    "2e65ae53": "s2_wall_room_period2_motif_stamp"
+  },
   "target": "259/259",
   "no_submit": true,
   "hle_left_alive": true,
   "exp_left_alive": true,
-  "recorded_at_utc": "2026-07-22T12:08:33.427394+00:00"
+  "recorded_at_utc": "2026-07-22T12:19:30.744613+00:00"
 }
