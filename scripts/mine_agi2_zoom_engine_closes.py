@@ -141,6 +141,8 @@ ZOOM_STEMS = {
         "s2_four_motif_five_to_two",
         "s2_sep7_panel_accent_repack",
         "s2_zero_seed_cross_preserve2",
+        "s2_minority_pad_frame_fill",
+        "s2_corner_majority_inward_shift",
     ],
 }
 

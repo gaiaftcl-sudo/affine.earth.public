@@ -806,10 +806,9 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "3a301edc": {
-    "task_id": "3a301edc",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_minority_pad_frame_fill",
+    "train_replay": "5/5",
+    "perfect": true
   },
   "3ac3eb23": {
     "task_id": "3ac3eb23",
