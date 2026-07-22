@@ -1,0 +1,9 @@
+{
+  "045e512c": {
+    "ok": true,
+    "engine": "s2_template_period_outward_stamp",
+    "train_replay": "3/3",
+    "path": "zoom_engine_exact",
+    "sealed_at_utc": "2026-07-22T09:50:22.847164+00:00"
+  }
+}

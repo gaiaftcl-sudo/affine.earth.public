@@ -12,10 +12,11 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "045e512c": {
-    "task_id": "045e512c",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "ok": true,
+    "engine": "s2_template_period_outward_stamp",
+    "train_replay": "3/3",
+    "path": "zoom_engine_exact",
+    "sealed_at_utc": "2026-07-22T09:50:22.847164+00:00"
   },
   "0607ce86": {
     "task_id": "0607ce86",
@@ -280,9 +281,10 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "1efba499": {
-    "engine": "s2_bar_cross_attach_swap",
-    "train_replay": "3/3",
-    "perfect": true
+    "task_id": "1efba499",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
   },
   "1f642eb9": {
     "task_id": "1f642eb9",
@@ -549,19 +551,9 @@
   },
   "2dd70a9a": {
     "task_id": "2dd70a9a",
-    "ok": true,
-    "path": "zoom_engine_experience",
-    "engine": "s2_three_two_clear_row_bridge",
-    "licensed_grids": 1,
-    "validator_result": {
-      "accepted": true,
-      "train_replay": "3/3",
-      "detail": "train_replay_perfect"
-    },
-    "jordan_loop_bound": {
-      "closed": true,
-      "reason": "LOCKED"
-    }
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
   },
   "2de01db2": {
     "task_id": "2de01db2",
@@ -693,9 +685,10 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "3345333e": {
-    "engine": "s2_host_vsym_bbox_complete",
-    "train_replay": "2/2",
-    "perfect": true
+    "task_id": "3345333e",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
   },
   "337b420f": {
     "task_id": "337b420f",
@@ -806,9 +799,10 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "3a301edc": {
-    "engine": "s2_minority_pad_frame_fill",
-    "train_replay": "5/5",
-    "perfect": true
+    "task_id": "3a301edc",
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
   },
   "3ac3eb23": {
     "task_id": "3ac3eb23",
