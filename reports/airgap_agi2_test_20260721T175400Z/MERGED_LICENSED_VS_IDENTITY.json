@@ -1,9 +1,9 @@
 {
   "kind": "agi2_merged_licensed_receipt",
-  "licensed_grids": 239,
-  "identity_grids": 20,
+  "licensed_grids": 240,
+  "identity_grids": 19,
   "total_grids": 259,
-  "licensed_pct": 92.28,
+  "licensed_pct": 92.66,
   "tasks": 240,
   "identity_fill_tasks": 0,
   "identity_task_ids": [
@@ -22,8 +22,7 @@
     "305b1341",
     "320afe60",
     "34cfa167",
-    "3ad05f52",
-    "40f6cd08"
+    "3ad05f52"
   ],
   "provenance": {
     "00576224": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -79,7 +78,7 @@
     "15660dd6": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "15696249": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "14754a24": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "17829a00": "reports/airgap_agi2_zoom_engine_17829a00/submission.partial.json",
+    "17829a00": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "178fcbfb": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "17cae0c1": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "17b866bd": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -257,7 +256,7 @@
     "3f23242b": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "3f7978a0": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "4093f84a": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "40f6cd08": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
+    "40f6cd08": "reports/airgap_agi2_zoom_engine_40f6cd08/submission.partial.json",
     "412b6263": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "414297c0": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "41ace6b5": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -267,5 +266,5 @@
     "4290ef0e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "42918530": "reports/airgap_agi2_test_20260721T175400Z/submission.json"
   },
-  "submission_sha256": "ba19dae6d1f1a481d82165b426d5a7f252f8a8832cf1b53589647f38ae7dae43"
+  "submission_sha256": "97f944eb016db5fc4aca50de2135550a7c0c9337359c0a76b2641641ade3a9cf"
 }

@@ -911,9 +911,12 @@
   },
   "40f6cd08": {
     "task_id": "40f6cd08",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "ok": true,
+    "engine": "s2_host_block_nested_frame_stamp",
+    "train_n": 3,
+    "test_n": 1,
+    "train_replay": "3/3",
+    "path": "zoom_engine_exact"
   },
   "412b6263": {
     "task_id": "412b6263",

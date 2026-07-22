@@ -1,0 +1,11 @@
+{
+  "40f6cd08": {
+    "task_id": "40f6cd08",
+    "ok": true,
+    "engine": "s2_host_block_nested_frame_stamp",
+    "train_n": 3,
+    "test_n": 1,
+    "train_replay": "3/3",
+    "path": "zoom_engine_exact"
+  }
+}

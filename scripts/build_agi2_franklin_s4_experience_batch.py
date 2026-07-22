@@ -455,6 +455,7 @@ def try_ranked_closed_engines(
             "s2_wall_marker_extend",
             "s2_small_comp_recolor3",
             "s2_solid_rect_erase4",
+            "s2_host_block_nested_frame_stamp",
             "s2_marker6_rank_row_bar",
             "s2_marker_col_template_bands",
             "s2_sprite_magnet_reseat",
