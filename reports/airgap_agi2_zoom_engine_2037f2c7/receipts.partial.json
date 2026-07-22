@@ -1,0 +1,11 @@
+{
+  "2037f2c7": {
+    "task_id": "2037f2c7",
+    "ok": true,
+    "engine": "s2_dual_sprite_presence_xor",
+    "train_n": 3,
+    "test_n": 1,
+    "train_replay": "3/3",
+    "path": "zoom_engine_exact"
+  }
+}

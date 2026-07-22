@@ -1,0 +1,18 @@
+{
+  "task_id": "2037f2c7",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "train_replay_perfect",
+  "train": 3,
+  "test": 1,
+  "engine": "s2_dual_sprite_presence_xor",
+  "module": "llm_llvm_bench/arc/s2_dual_sprite_presence_xor.py",
+  "observations": [
+    "dual_sprite_presence_xor"
+  ],
+  "validator": "train_replay",
+  "validator_result": "3/3",
+  "c4_invariant": "exact_train_replay",
+  "sealed_at_utc": "2026-07-22T13:01:10.781414+00:00"
+}
