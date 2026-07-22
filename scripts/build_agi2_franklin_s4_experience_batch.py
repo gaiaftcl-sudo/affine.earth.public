@@ -469,6 +469,8 @@ def try_ranked_closed_engines(
             "s2_motif4_arrow_translate_diag_x",
             "s2_unique_band_slot_composite",
             "s2_dual_anchor_pingpong_frame",
+            "s2_legend_inflated_bbox_fill",
+            "s2_legend_pair_bbox_fill",
             "s2_most_plus5_comp_crop",
             "s2_host_accent_align_twos",
             "s2_line_len_concentric_frames",
