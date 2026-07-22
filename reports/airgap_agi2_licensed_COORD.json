@@ -1,17 +1,17 @@
 {
   "licensed": "245/259",
-  "licensed_grids": 245,
-  "identity_grids": 14,
-  "identity_tasks": 12,
-  "canonical_submission": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-  "recent_closes": {
-    "264363fd": "s2_host_cross_template_stamp",
-    "320afe60": "s2_ink_sealed_open_side_dock"
-  },
-  "engines": [
-    "s2_host_cross_template_stamp",
-    "s2_ink_sealed_open_side_dock"
+  "licensed_pct": 94.59,
+  "identity": 14,
+  "submission_sha256": "7603af9482ba7ac7dc45a3dcf42ad9492b565e50d1165c0794746e736712472b",
+  "new_closes_this_turn": [
+    "3ad05f52"
   ],
-  "updated_at_utc": "2026-07-22T12:29:31.683543+00:00",
-  "no_submit": true
+  "new_licensed_grids_this_turn": 1,
+  "engines": {
+    "3ad05f52": "s2_eight_channel_fill"
+  },
+  "target": "259/259",
+  "no_submit": true,
+  "hle_left_alive": true,
+  "recorded_at_utc": "2026-07-22T12:31:27.970603+00:00"
 }
