@@ -143,6 +143,9 @@ ZOOM_STEMS = {
         "s2_zero_seed_cross_preserve2",
         "s2_minority_pad_frame_fill",
         "s2_corner_majority_inward_shift",
+        "s2_marker_2x2_meta_tile_mask",
+        "s2_period_zero_gap_fill",
+        "s2_template_period_outward_stamp",
     ],
 }
 

@@ -1,19 +1,17 @@
 {
   "kind": "agi2_merged_licensed_receipt",
-  "licensed_grids": 218,
-  "identity_grids": 41,
+  "licensed_grids": 220,
+  "identity_grids": 39,
   "total_grids": 259,
-  "licensed_pct": 84.17,
+  "licensed_pct": 84.94,
   "tasks": 240,
   "identity_fill_tasks": 0,
   "identity_task_ids": [
-    "045e512c",
     "0607ce86",
     "09c534e7",
     "1190bc91",
     "12eac192",
     "13713586",
-    "15113be4",
     "15660dd6",
     "17829a00",
     "184a9768",
@@ -55,7 +53,7 @@
     "017c7c7b": "reports/airgap_agi2_test_20260721T174500Z/submission.partial.json",
     "025d127b": "reports/airgap_agi2_test_20260721T174500Z/submission.partial.json",
     "03560426": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "045e512c": "reports/airgap_agi2_test_20260721T174500Z/submission.partial.json",
+    "045e512c": "reports/airgap_agi2_zoom_engine_045e512c/submission.partial.json",
     "0520fde7": "reports/airgap_agi2_test_20260721T174500Z/submission.partial.json",
     "05269061": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "05a7bcf2": "reports/airgap_agi2_test_20260721T174500Z/submission.partial.json",
@@ -114,7 +112,7 @@
     "070dd51e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "09629e4f": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "0a1d4ef5": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "103eff5b": "reports/airgap_agi2_zoom_engine_mine/submission.partial.json",
+    "103eff5b": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "15113be4": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "17b80ad2": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "184a9768": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -288,5 +286,5 @@
     "4290ef0e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "42918530": "reports/airgap_agi2_test_20260721T175400Z/submission.json"
   },
-  "submission_sha256": "f0dbf6623cdbdaf6518f76a9465201385102fc6343e6782897832cd428827028"
+  "submission_sha256": "9c5e9e5f6c0366c67d9b7e386da805a51e24fbfc55cce81d60238157ddca93e8"
 }
