@@ -402,9 +402,9 @@
   },
   "2697da3f": {
     "task_id": "2697da3f",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "zoom_out_expand"
+    "engine": "s1_motif_cardinal_dihedral",
+    "licensed_grids": 1,
+    "train_replay": "4/4"
   },
   "272f95fa": {
     "task_id": "272f95fa",
@@ -885,9 +885,9 @@
   },
   "412b6263": {
     "task_id": "412b6263",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "zoom_out_expand"
+    "engine": "s1_ccw_frame_double_stack",
+    "licensed_grids": 1,
+    "train_replay": "3/3"
   },
   "414297c0": {
     "task_id": "414297c0",

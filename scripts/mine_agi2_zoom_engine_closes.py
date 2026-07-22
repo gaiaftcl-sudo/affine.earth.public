@@ -39,6 +39,8 @@ ZOOM_STEMS = {
         "s1_ncomp_staircase_project",
         "s1_crop_hstack_dup",
         "s1_oddcol_slot_band_expand",
+        "s1_ccw_frame_double_stack",
+        "s1_motif_cardinal_dihedral",
     ],
     "zoom_in_crop": [
         "s1_anchor_crop_expand",

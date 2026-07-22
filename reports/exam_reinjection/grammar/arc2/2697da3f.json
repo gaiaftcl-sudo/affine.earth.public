@@ -1,0 +1,24 @@
+{
+  "task_id": "2697da3f",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 4,
+  "test": 1,
+  "engine": "s1_motif_cardinal_dihedral",
+  "module": "llm_llvm_bench/arc/s1_motif_cardinal_dihedral.py",
+  "observations": [
+    "Zoom grammar engine s1_motif_cardinal_dihedral",
+    "Train demonstration_replay 4/4"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "4/4",
+    "engine": "s1_motif_cardinal_dihedral"
+  },
+  "c4_invariant": "s1_motif_cardinal_dihedral",
+  "sealed_at_utc": "2026-07-22T02:47:08.515427+00:00"
+}
