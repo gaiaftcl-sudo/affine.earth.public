@@ -68,6 +68,7 @@ ZOOM_STEMS = {
         "s1_dense_blob_color_grid",
         "s1_quad_3x3_motif_pack",
         "s1_merge_5_centered_3x3",
+        "s1_triple_panel_largest_shift",
     ],
     "same_canvas_rewrite": [
         "s2_color_gate_rewrite",
@@ -112,6 +113,7 @@ ZOOM_STEMS = {
         "s2_marker_count_expand_fives",
         "s2_mirror_across_full_sep",
         "s2_shear_left_bottom_anchor",
+        "s2_col_anchor5_upfill",
     ],
 }
 

@@ -1,0 +1,24 @@
+{
+  "task_id": "337b420f",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "LOCKED",
+  "train": 4,
+  "test": 2,
+  "engine": "s1_triple_panel_largest_shift",
+  "module": "llm_llvm_bench/arc/s1_triple_panel_largest_shift.py",
+  "observations": [
+    "Zoom grammar engine s1_triple_panel_largest_shift",
+    "Train demonstration_replay 4/4"
+  ],
+  "validator": "demonstration_replay",
+  "validator_result": {
+    "accepted": true,
+    "detail": "train_replay_perfect",
+    "train_replay": "4/4",
+    "engine": "s1_triple_panel_largest_shift"
+  },
+  "c4_invariant": "s1_triple_panel_largest_shift",
+  "sealed_at_utc": "2026-07-22T05:48:06.392268+00:00"
+}

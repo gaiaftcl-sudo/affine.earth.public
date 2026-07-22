@@ -382,6 +382,7 @@ def try_ranked_closed_engines(
             "s1_dense_blob_color_grid",
             "s1_quad_3x3_motif_pack",
             "s1_merge_5_centered_3x3",
+            "s1_triple_panel_largest_shift",
         ],
         "same_canvas_rewrite": [
             "s2_row_run_shift_left_fill",
@@ -413,6 +414,7 @@ def try_ranked_closed_engines(
             "s2_marker_count_expand_fives",
             "s2_mirror_across_full_sep",
             "s2_shear_left_bottom_anchor",
+            "s2_col_anchor5_upfill",
             "s2_marker_sprite_recolor",
             "s2_marker_col_period_tile",
             "s1_diagonal_mod3_period_fill",
