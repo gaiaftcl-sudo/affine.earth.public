@@ -139,10 +139,9 @@
   },
   "182e5d0f": {
     "task_id": "182e5d0f",
-    "engine": "s2_marker5_path3_slide",
-    "licensed_grids": 1,
-    "train_replay": "3/3",
-    "status": "CLOSED"
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
   },
   "18286ef8": {
     "task_id": "18286ef8",
@@ -223,19 +222,9 @@
   },
   "1a244afd": {
     "task_id": "1a244afd",
-    "ok": true,
-    "path": "zoom_engine_experience",
-    "engine": "s2_six_perp_mark_ones",
-    "licensed_grids": 1,
-    "validator_result": {
-      "accepted": true,
-      "train_replay": "3/3",
-      "detail": "train_replay_perfect"
-    },
-    "jordan_loop_bound": {
-      "closed": true,
-      "reason": "LOCKED"
-    }
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
   },
   "1a6449f1": {
     "task_id": "1a6449f1",
@@ -607,10 +596,9 @@
   },
   "2faf500b": {
     "task_id": "2faf500b",
-    "engine": "s2_six_cut_separate_nines",
-    "licensed_grids": 1,
-    "train_replay": "3/3",
-    "status": "CLOSED"
+    "ok": false,
+    "path": "no_engine",
+    "zoom_move": "same_canvas_rewrite"
   },
   "305b1341": {
     "task_id": "305b1341",
@@ -775,9 +763,19 @@
   },
   "36d67576": {
     "task_id": "36d67576",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "ok": true,
+    "path": "zoom_engine_experience",
+    "engine": "s2_four_comp_dihedral_transfer",
+    "licensed_grids": 1,
+    "validator_result": {
+      "accepted": true,
+      "train_replay": "3/3",
+      "detail": "train_replay_perfect"
+    },
+    "jordan_loop_bound": {
+      "closed": true,
+      "reason": "LOCKED"
+    }
   },
   "36fdfd69": {
     "task_id": "36fdfd69",

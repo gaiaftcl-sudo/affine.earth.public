@@ -118,6 +118,11 @@ ZOOM_STEMS = {
         "s2_max_gap_frame_cross",
         "s2_six_cut_separate_nines",
         "s2_marker5_path3_slide",
+        "s2_slide_touch_corner_zip",
+        "s2_hollow_rect_center_cross",
+        "s2_marker_corner_rect_paint",
+        "s2_six_perp_mark_ones",
+        "s2_four_comp_dihedral_transfer",
     ],
 }
 
