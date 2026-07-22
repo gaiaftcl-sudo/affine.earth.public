@@ -458,9 +458,19 @@
   },
   "28e73c20": {
     "task_id": "28e73c20",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "ok": true,
+    "path": "zoom_engine_experience",
+    "engine": "s2_clockwise_gap_spiral",
+    "licensed_grids": 1,
+    "validator_result": {
+      "accepted": true,
+      "train_replay": "5/5",
+      "detail": "train_replay_perfect"
+    },
+    "jordan_loop_bound": {
+      "closed": true,
+      "reason": "LOCKED"
+    }
   },
   "292dd178": {
     "task_id": "292dd178",
@@ -529,10 +539,9 @@
     "zoom_move": "same_canvas_rewrite"
   },
   "2c737e39": {
-    "task_id": "2c737e39",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "same_canvas_rewrite"
+    "engine": "s2_stamp_motif_to_singleton5",
+    "lic": 1,
+    "sealed_at": "2026-07-22T04:10:13.385340+00:00"
   },
   "2ccd9fef": {
     "engine": "s1_triplet_panel_grow_extrapolate",

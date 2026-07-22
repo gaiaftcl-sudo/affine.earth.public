@@ -399,6 +399,7 @@ def try_ranked_closed_engines(
             "s2_open_rect_bay_pour",
         "s2_corner_marks_hole_objects",
         "s2_mod3_component_recolor",
+            "s2_clockwise_gap_spiral",
             "s2_marker_sprite_recolor",
             "s2_marker_col_period_tile",
             "s1_diagonal_mod3_period_fill",

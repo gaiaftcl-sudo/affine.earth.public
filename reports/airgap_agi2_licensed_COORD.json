@@ -1,16 +1,20 @@
 {
-  "licensed": "160/259",
-  "licensed_pct": 61.78,
-  "identity": 99,
-  "submission_sha256": "1d2f4ac8f0929718e2716968f21836ccd813d9f4deed1bce1406db5eed5fd0e7",
+  "licensed": "164/259",
+  "licensed_pct": 63.32,
+  "identity": 95,
+  "submission_sha256": "3e7a0f6a74d5b2e7170a68e4ea00406cd0eecd11b27aeaa45e70ae31fbeb0d11",
   "new_closes_this_turn": [
-    "0a1d4ef5"
+    "0a1d4ef5",
+    "28e73c20",
+    "2c608aff",
+    "2c737e39",
+    "342dd610"
   ],
-  "new_licensed_grids_this_turn": 1,
+  "new_licensed_grids_this_turn": 5,
   "commit_base": "0bcd642",
   "target": 200,
   "no_submit": true,
   "hle_left_alive": true,
   "exp_left_alive": true,
-  "recorded_at_utc": "2026-07-22T03:50:51.662001+00:00"
+  "recorded_at_utc": "2026-07-22T04:14:26.690444+00:00"
 }

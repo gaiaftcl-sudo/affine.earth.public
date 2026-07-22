@@ -97,6 +97,7 @@ ZOOM_STEMS = {
         "s2_open_rect_bay_pour",
         "s2_corner_marks_hole_objects",
         "s2_mod3_component_recolor",
+        "s2_clockwise_gap_spiral",
     ],
 }
 
