@@ -1,9 +1,9 @@
 {
   "kind": "agi2_merged_licensed_receipt",
-  "licensed_grids": 210,
-  "identity_grids": 49,
+  "licensed_grids": 211,
+  "identity_grids": 48,
   "total_grids": 259,
-  "licensed_pct": 81.08,
+  "licensed_pct": 81.47,
   "tasks": 240,
   "identity_fill_tasks": 0,
   "identity_task_ids": [
@@ -15,7 +15,6 @@
     "1190bc91",
     "12eac192",
     "13713586",
-    "14754a24",
     "15113be4",
     "15660dd6",
     "17829a00",
@@ -107,7 +106,7 @@
     "15663ba9": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "15660dd6": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "15696249": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
-    "14754a24": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
+    "14754a24": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "17829a00": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "178fcbfb": "reports/airgap_agi2_test_20260721T175200Z/submission.partial.json",
     "17cae0c1": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -152,7 +151,7 @@
     "1e32b0e9": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "1e5d6875": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "1e81d6f9": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
-    "1efba499": "reports/airgap_agi2_zoom_engine_1efba499/submission.partial.json",
+    "1efba499": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "1f0c79e5": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "1f642eb9": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "1f85a75f": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
@@ -296,5 +295,5 @@
     "4290ef0e": "reports/airgap_agi2_test_20260721T175400Z/submission.json",
     "42918530": "reports/airgap_agi2_test_20260721T175400Z/submission.json"
   },
-  "submission_sha256": "be7faf9eb7a3d05fd853728d5426b0a2a408310d78b0e34db3dd0676f04a4d1b"
+  "submission_sha256": "507ce721a0130066ec8714ca757145b45bfb3afaffc18875d65319fa8df105f7"
 }
