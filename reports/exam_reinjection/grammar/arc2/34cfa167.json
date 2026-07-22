@@ -1,0 +1,18 @@
+{
+  "task_id": "34cfa167",
+  "exam": "ARC-AGI-2",
+  "language_game_class": "ZOOM_ENGINE_EXACT",
+  "status": "CLOSED",
+  "last_gate": "train_replay_perfect",
+  "train": 2,
+  "test": 2,
+  "engine": "s2_dual_ones_motif_frame",
+  "module": "llm_llvm_bench/arc/s2_dual_ones_motif_frame.py",
+  "observations": [
+    "dual_ones_motif_frame"
+  ],
+  "validator": "train_replay",
+  "validator_result": "2/2",
+  "c4_invariant": "exact_train_replay",
+  "sealed_at_utc": "2026-07-22T12:45:37.442230+00:00"
+}

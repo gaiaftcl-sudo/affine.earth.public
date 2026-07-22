@@ -1,0 +1,11 @@
+{
+  "34cfa167": {
+    "task_id": "34cfa167",
+    "ok": true,
+    "engine": "s2_dual_ones_motif_frame",
+    "train_n": 2,
+    "test_n": 2,
+    "train_replay": "2/2",
+    "path": "zoom_engine_exact"
+  }
+}
