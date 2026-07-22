@@ -74,6 +74,7 @@ ZOOM_STEMS = {
         "s2_most_plus5_comp_crop",
         "s2_host_accent_align_twos",
         "s2_hinge5_nearest_comp_pack",
+        "s2_largest_host_frame_interior",
     ],
     "same_canvas_rewrite": [
         "s2_color_gate_rewrite",
@@ -159,6 +160,7 @@ ZOOM_STEMS = {
         "s2_small_comp_recolor3",
         "s2_marker6_rank_row_bar",
         "s2_marker_col_template_bands",
+        "s2_sprite_magnet_reseat",
     ],
 }
 

@@ -384,6 +384,7 @@ def try_ranked_closed_engines(
             "s1_merge_5_centered_3x3",
             "s1_triple_panel_largest_shift",
             "s2_hinge5_nearest_comp_pack",
+            "s2_largest_host_frame_interior",
         ],
         "same_canvas_rewrite": [
             "s2_row_run_shift_left_fill",
@@ -455,6 +456,7 @@ def try_ranked_closed_engines(
             "s2_small_comp_recolor3",
             "s2_marker6_rank_row_bar",
             "s2_marker_col_template_bands",
+            "s2_sprite_magnet_reseat",
             "s2_most_plus5_comp_crop",
             "s2_host_accent_align_twos",
             "s2_line_len_concentric_frames",
