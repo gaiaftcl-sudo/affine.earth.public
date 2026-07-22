@@ -169,9 +169,19 @@
   },
   "0a1d4ef5": {
     "task_id": "0a1d4ef5",
-    "ok": false,
-    "path": "no_engine",
-    "zoom_move": "zoom_in_crop"
+    "ok": true,
+    "path": "zoom_engine_experience",
+    "engine": "s1_dense_blob_color_grid",
+    "licensed_grids": 1,
+    "validator_result": {
+      "accepted": true,
+      "train_replay": "3/3",
+      "detail": "train_replay_perfect"
+    },
+    "jordan_loop_bound": {
+      "closed": true,
+      "reason": "LOCKED"
+    }
   },
   "103eff5b": {
     "task_id": "103eff5b",
