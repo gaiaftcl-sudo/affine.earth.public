@@ -28,11 +28,18 @@ class AffineClient:
 
     def __init__(self, config: Optional[AffineConfig] = None) -> None:
         self.config = config or AffineConfig.from_env()
+        # Bounded keepalives avoid macOS Errno 49 (Can't assign requested address)
+        # after long /v1 chat → /v1 responses chains on a recycled socket.
         self._client = httpx.Client(
             base_url=self.config.base_url,
-            timeout=self.config.timeout_s,
+            timeout=httpx.Timeout(self.config.timeout_s, connect=30.0),
             headers={"User-Agent": "affine-earth-developer-suite/0.1"},
             follow_redirects=True,
+            limits=httpx.Limits(
+                max_keepalive_connections=5,
+                max_connections=10,
+                keepalive_expiry=5.0,
+            ),
         )
 
     def close(self) -> None:

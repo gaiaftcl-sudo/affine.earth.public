@@ -1,7 +1,6 @@
 """Language-game HTTP — inject, game-turn, catalog, ingest/project."""
 from __future__ import annotations
 
-import hashlib
 from typing import Any, Optional
 
 from .client import AffineClient
@@ -45,24 +44,19 @@ class LanguageGamesClient:
         entity_id: str = "anon",
         bond_status: str = "UNKNOWN",
         user_vqbit: Optional[str] = None,
+        generative: int = 0,
     ) -> dict[str, Any]:
+        # entity_id is local seed only — apex REJECTED_ELEPHANT forbids it on wire.
         scf = scf_hex or sha256_hex32(f"dev-suite|{entity_id}|{intent}")
         user = user_vqbit or user_vqbit_hash(entity_id, scf)
-        # game-turn seal is intent|scf|user (no genesis epoch) — matches helper
         sig = game_turn_signature(intent, scf, user)
-        # Some cells also accept vqbit_signature == sha256(intent|scf|user)[:32]
-        # Prefer that exact form used by deploy-language-game-ui probe:
-        sig = hashlib.sha256(
-            f"{intent.upper()}|{scf.lower()}|{user.lower()}".encode()
-        ).hexdigest()[:32]
         body = {
-            "entity_id": entity_id,
             "scf_hex": scf.lower(),
             "intent": intent.upper(),
             "user_vqbit_hash": user.lower(),
             "vqbit_signature": sig,
             "bond_status": bond_status,
-            "generative": 0,
+            "generative": int(generative),
         }
         r = self.client.post(
             "/language-invariant/game-turn",
