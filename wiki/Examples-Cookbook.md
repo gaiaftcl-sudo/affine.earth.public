@@ -450,7 +450,7 @@ cd harnesses/FastChat
 pip install -e ".[eval]"
 export OPENAI_API_KEY="uum8d-hle-verifier"
 python3 -m fastchat.llm_judge.gen_api_answer \
-  --model affine-uum8d-s4 \
+  --model franklin-membrane \
   --bench-name mt_bench \
   --openai-api-base "https://affine.earth/v1"
 ```
