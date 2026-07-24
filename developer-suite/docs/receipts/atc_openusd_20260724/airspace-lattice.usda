@@ -1,0 +1,48 @@
+#usda 1.0
+(
+    defaultPrim = "AffineEarthAirspace"
+    doc = "Affine.Earth OS airspace lattice — OpenUSD live timeSamples for RealityPro video-like strobe (not GaiaFTCLApp)"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "AffineEarthAirspace" (
+    kind = "component"
+)
+{
+    custom string gaia:schema = "gaia.airspace_lattice.v1"
+    custom int gaia:affine_cell_id = 0
+    custom string gaia:live_endpoint = "out.adsb.lol:1365"
+    custom string gaia:posix = "FORBIDDEN"
+    custom string gaia:product_surface = "Affine.Earth OS"
+    custom string gaia:nats_subject = "gaiaftcl.reality.manifold.realitypro.apex"
+    custom string gaia:strobe = "live"
+
+    double3 xformOp:translate.timeSamples = {
+        0: (0, 0, 0),
+        1: (1.2, 0.4, 0),
+        2: (0, 0.8, 1.2),
+        3: (-1.2, 0.4, 0),
+        4: (0, 0, 0),
+    }
+    uniform token[] xformOpOrder = ["xformOp:translate"]
+
+    def Xform "Cell_hel_00" {
+        custom string gaia:node_id = "hel-00"
+    }
+    def Xform "Cell_hel_01" {
+        custom string gaia:node_id = "hel-01"
+    }
+    def Xform "Cell_hel_02" {
+        custom string gaia:node_id = "hel-02"
+    }
+    def Xform "Cell_nbg_00" {
+        custom string gaia:node_id = "nbg-00"
+    }
+    def Mesh "MembraneProjectTick" {
+        custom string gaia:role = "membrane_strobe"
+        custom string gaia:projection_subject = "gaiaftcl.game.[user_vqbit_hash].projection.[scf_hash]"
+    }
+}
+
+HTTP:200

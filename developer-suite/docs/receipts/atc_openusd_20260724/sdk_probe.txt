@@ -1,0 +1,11 @@
+health_ok True cloud_openai 0
+game_count 12 aviation_atc_status LIVE nats gaiaftcl.aviation.flow
+teach_ingest CALORIE_GAME_INGEST CALORIE_ATC_SECTOR_FLOW concept_ids ['56cd1939da396c26', '8ff3765fd8bb5c80', '7093e2cc4470a0cc']
+teach_project_kinds {'ATC_CLEARANCE': 'ATC_CLEARANCE@en', 'ATC_SECTOR': 'ATC_SECTOR@en', 'AVIATION_ATC': 'AVIATION_ATC@en'} primitive GYROID
+rich_ingest CALORIE_GAME_INGEST CALORIE_ATC_SECTOR_FLOW session sdk-atc-rich-20260724b
+rich_project_kinds {'ATC_CLEARANCE': 'ATC_CLEARANCE@en', 'ATC_SECTOR': 'ATC_SECTOR@en', 'AVIATION_ATC': 'AVIATION_ATC@en'}
+context_agent ATCContextAgent prior_turns 4
+usda {'bytes': 1423, 'lines': 47, 'def_count': 6, 'def_names_sample': ['AffineEarthAirspace', 'Cell_hel_00', 'Cell_hel_01', 'Cell_hel_02', 'Cell_nbg_00', 'MembraneProjectTick'], 'has_upAxis': True, 'path': '/language-game/airspace-lattice.usda'}
+airspace_html_ok True
+nats_seed gaiaftcl.aviation.flow.apex
+SDK_ATC_PASS

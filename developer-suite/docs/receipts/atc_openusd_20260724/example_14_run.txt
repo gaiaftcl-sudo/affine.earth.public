@@ -1,0 +1,151 @@
+Ingest ATC sector/callsign/clearance (not chat); project sector-flow Concept_IDs.
+=== healthz ===
+{
+  "cloud_openai": 0,
+  "mcp": true,
+  "ok": true
+}
+
+=== aviation_atc catalog entry ===
+{
+  "concept_kinds": [
+    "AVIATION_ATC",
+    "ATC_SECTOR",
+    "ATC_CLEARANCE"
+  ],
+  "game_count": 12,
+  "http": {
+    "context": "/language-invariant/game/aviation_atc/context",
+    "ingest": "/language-invariant/game/aviation_atc/ingest",
+    "project": "/language-invariant/game/aviation_atc/project"
+  },
+  "nats_subject_prefix": "gaiaftcl.aviation.flow",
+  "status": "LIVE"
+}
+
+=== teaching seed ===
+{
+  "amplitudes": [
+    "3/5",
+    "4/5"
+  ],
+  "callsign": "GAIA001",
+  "clearance_kind": "CLIMB",
+  "locale": "en",
+  "node_id": "apex",
+  "sector_id": "ZNY-42",
+  "session_id": "ex14-aviation_atc",
+  "tau_height": 0,
+  "title": "ATC sector flow teaching clearance"
+}
+
+=== ingest teaching ===
+{
+  "calorie": "CALORIE_ATC_SECTOR_FLOW",
+  "concept_ids": [
+    "56cd1939da396c26",
+    "8ff3765fd8bb5c80",
+    "7093e2cc4470a0cc"
+  ],
+  "nats_subject": "gaiaftcl.aviation.flow.apex",
+  "sector_session": "ex14-aviation_atc",
+  "status": "CALORIE_GAME_INGEST"
+}
+
+=== project teaching ===
+{
+  "concept_ids": [
+    "56cd1939da396c26",
+    "8ff3765fd8bb5c80",
+    "7093e2cc4470a0cc"
+  ],
+  "game_id": "aviation_atc",
+  "primitive": "GYROID",
+  "projected_kinds": {
+    "ATC_CLEARANCE": "ATC_CLEARANCE@en",
+    "ATC_SECTOR": "ATC_SECTOR@en",
+    "AVIATION_ATC": "AVIATION_ATC@en"
+  },
+  "zero_shear": 1
+}
+
+=== richer clearance seed ===
+{
+  "altitude_ft": 24000,
+  "amplitudes": [
+    "3/5",
+    "4/5"
+  ],
+  "callsign": "UAL772",
+  "clearance_kind": "VECTOR",
+  "locale": "en",
+  "node_id": "apex",
+  "route": "EWR..BOS",
+  "sector_id": "ZNY-42",
+  "session_id": "ex14-atc-rich",
+  "statement": "Vector UAL772 heading 070 maintain FL240 sector ZNY-42",
+  "tau_height": 0,
+  "title": "ATC richer VECTOR clearance UAL772"
+}
+
+=== ingest richer ===
+{
+  "calorie": "CALORIE_ATC_SECTOR_FLOW",
+  "concept_ids": [
+    "56cd1939da396c26",
+    "8ff3765fd8bb5c80",
+    "7093e2cc4470a0cc"
+  ],
+  "status": "CALORIE_GAME_INGEST",
+  "title": "ATC richer VECTOR clearance UAL772"
+}
+
+=== project richer ===
+{
+  "concept_ids": [
+    "56cd1939da396c26",
+    "8ff3765fd8bb5c80",
+    "7093e2cc4470a0cc"
+  ],
+  "primitive": "GYROID",
+  "projected_kinds": {
+    "ATC_CLEARANCE": "ATC_CLEARANCE@en",
+    "ATC_SECTOR": "ATC_SECTOR@en",
+    "AVIATION_ATC": "AVIATION_ATC@en"
+  }
+}
+
+=== context ===
+{
+  "context_agent": "ATCContextAgent",
+  "display_kind": "ATC_SECTOR_FLOW",
+  "game_id": "aviation_atc",
+  "payload_shape": "sector_id,callsign,clearance_kind,node_id,tau_height",
+  "prior_turn_count": 8
+}
+
+=== OpenUSD airspace-lattice.usda ===
+{
+  "bytes": 1423,
+  "def_count": 6,
+  "def_names_sample": [
+    "AffineEarthAirspace",
+    "Cell_hel_00",
+    "Cell_hel_01",
+    "Cell_hel_02",
+    "Cell_nbg_00",
+    "MembraneProjectTick"
+  ],
+  "has_upAxis": true,
+  "lines": 47,
+  "path": "/language-game/airspace-lattice.usda"
+}
+
+airspace.html OK: True
+
+Open RealityPro ATC scene:
+  https://affine.earth/language-game/realitypro/
+  1) USDA path = /language-game/airspace-lattice.usda → Load USDA → Preview
+  2) Game select = aviation_atc → Ingest → Project (membrane ticks pulse lattice)
+  3) NATS-shaped subjects: gaiaftcl.aviation.flow.* + gaiaftcl.reality.manifold.realitypro.apex
+ATC_INGEST_PROJECT_OPENUSD_PASS

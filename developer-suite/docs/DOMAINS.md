@@ -8,7 +8,7 @@ Affine.Earth language games expose multiple domains through one HTTPS membrane.
 | **OpenAI /v1** | models, chat completions, responses, api-keys |
 | **Coding / LLVM narrative** | UMC `domain=coding` + game ingest/project; local LLVM via `llm_llvm_bench` |
 | **Cinema** | UMC + `game/cinema/ingest\|project` |
-| **Aviation / ATC** | UMC + `game/aviation*` ingest/project + airspace USDA |
+| **Aviation / ATC** | UMC + `game/aviation*` ingest/project + airspace USDA — full ATC recipe: [ATC_INGEST_PROJECT.md](ATC_INGEST_PROJECT.md) · `examples/14_atc_ingest_project_openusd.py` |
 | **Gaming** | UMC + `game/gaming` |
 | **OpenUSD / Reality** | `/language-game/*.usda`, RealityPro player, observer-demo |
 | **Core turns** | inject, game-turn (geometry only — no chat elephant) |

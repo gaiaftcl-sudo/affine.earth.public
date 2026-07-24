@@ -19,6 +19,12 @@ Evidence folder: [`docs/receipts/realitypro_live_3d_20260724/`](receipts/reality
 | SDK defaults `AFFINE_BASE_URL` + `uum8d-hle-verifier` + live `/v1/models` | **PASS** | `.env.example`, `examples/03_*` measured chat HTTP 200 (`sdk_03_chat.txt`) |
 | Binary-free developer surface | **PASS** | `docs/NO_BINARIES.md`, `scripts/check_no_binaries.py` |
 | Published wiki synced | see publish step | `affine.earth.public.wiki` |
+| ATC `aviation_atc` ingest → project → context (CALORIE) | **PASS** | `receipts/atc_openusd_20260724/` · `CALORIE_ATC_SECTOR_FLOW` · concept_ids · `docs/ATC_INGEST_PROJECT.md` |
+| ATC richer clearance seed accepted | **PASS** | UAL772 VECTOR / AAL100 DESCENT ingest HTTP 200 |
+| OpenUSD airspace lattice for ATC scene | **PASS** | `airspace-lattice.usda` timeSamples + `gaia:strobe=live` (no ATC-specific USDA — 404) |
+| RealityPro ATC membrane ticks (live 3D) | **PASS** | Playwright strobe 256→952, membrane 1→8 (`cdp_live_state.json`) |
+| Public HTTPS ADS-B / tracks REST dump | **NOT_EXPOSED** | `/adsb`, `/tracks.json` → 404; cell ADS-B agents are mesh-side (out of SDK teaching scope) |
+| SDK example 14 ATC recipe | **PASS** | `examples/14_atc_ingest_project_openusd.py` → `ATC_INGEST_PROJECT_OPENUSD_PASS` |
 
 ## RealityPro live-3D details (measured)
 

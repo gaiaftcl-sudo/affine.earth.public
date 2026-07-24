@@ -1,0 +1,27 @@
+{
+  "url": "https://affine.earth/language-game/realitypro/?apex=https://affine.earth",
+  "s1": {
+    "text": "strobe=231 clock=3850ms membrane=1 samples=5 orbitY=1.498",
+    "strobe": "256",
+    "clock": "4667",
+    "membrane": "1",
+    "samples": null,
+    "canvas": true
+  },
+  "s2": {
+    "text": "strobe=920 clock=15383ms membrane=8 samples=5 orbitY=6.584",
+    "strobe": "952",
+    "clock": "15984",
+    "membrane": "8",
+    "samples": null,
+    "canvas": true
+  },
+  "final": {
+    "strobe": "1092",
+    "clock": "18250",
+    "membrane": "9",
+    "samples": null,
+    "canvas": true,
+    "title": "Affine.Earth RealityPro \u2014 UUM8D language games"
+  }
+}

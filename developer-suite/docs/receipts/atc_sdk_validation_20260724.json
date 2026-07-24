@@ -1,0 +1,136 @@
+{
+  "date": "2026-07-24",
+  "apex": "https://affine.earth",
+  "cloud_openai": 0,
+  "doctrine": "Affine.Earth OS membrane only \u2014 no Anthropic/OpenAI cloud",
+  "evidence_dir": "developer-suite/docs/receipts/atc_openusd_20260724/",
+  "docs": [
+    "developer-suite/docs/ATC_INGEST_PROJECT.md",
+    "developer-suite/examples/14_atc_ingest_project_openusd.py"
+  ],
+  "probes": {
+    "healthz": {
+      "http": 200,
+      "ok": true,
+      "result": "PASS"
+    },
+    "games_aviation_atc": {
+      "http": 200,
+      "status": "LIVE",
+      "context_agent": "ATCContextAgent",
+      "nats_subject_prefix": "gaiaftcl.aviation.flow",
+      "concept_kinds": [
+        "AVIATION_ATC",
+        "ATC_SECTOR",
+        "ATC_CLEARANCE"
+      ],
+      "result": "PASS"
+    },
+    "ingest_teach": {
+      "http": 200,
+      "status": "CALORIE_GAME_INGEST",
+      "calorie": "CALORIE_ATC_SECTOR_FLOW",
+      "concept_ids": [
+        "56cd1939da396c26",
+        "8ff3765fd8bb5c80",
+        "7093e2cc4470a0cc"
+      ],
+      "nats_subject": "gaiaftcl.aviation.flow.apex",
+      "result": "PASS"
+    },
+    "project_teach": {
+      "http": 200,
+      "primitive": "GYROID",
+      "projected_kinds": {
+        "ATC_CLEARANCE": "ATC_CLEARANCE@en",
+        "ATC_SECTOR": "ATC_SECTOR@en",
+        "AVIATION_ATC": "AVIATION_ATC@en"
+      },
+      "result": "PASS"
+    },
+    "ingest_rich_clearance": {
+      "http": 200,
+      "callsign": "UAL772",
+      "clearance_kind": "VECTOR",
+      "calorie": "CALORIE_ATC_SECTOR_FLOW",
+      "result": "PASS"
+    },
+    "context": {
+      "http": 200,
+      "context_agent": "ATCContextAgent",
+      "result": "PASS"
+    },
+    "openusd_airspace_lattice": {
+      "http": 200,
+      "bytes": 1423,
+      "def_count": 6,
+      "timeSamples": true,
+      "gaia_strobe": "live",
+      "gaia_live_endpoint": "out.adsb.lol:1365",
+      "gaia_nats_subject": "gaiaftcl.reality.manifold.realitypro.apex",
+      "result": "PASS"
+    },
+    "atc_specific_usda": {
+      "paths_tried": [
+        "atc.usda",
+        "aviation_atc.usda",
+        "aviation-atc.usda",
+        "airspace-atc.usda"
+      ],
+      "http": 404,
+      "result": "ABSENT_USE_AIRSPACE_LATTICE"
+    },
+    "public_adsb_rest": {
+      "paths_tried": [
+        "/language-invariant/adsb",
+        "/language-game/adsb.json",
+        "/language-game/tracks.json",
+        "/language-invariant/game/aviation_atc/tracks"
+      ],
+      "http": 404,
+      "result": "NOT_EXPOSED_ON_PUBLIC_HTTPS"
+    },
+    "realitypro": {
+      "url": "https://affine.earth/language-game/realitypro/",
+      "http": 200,
+      "title": "Affine.Earth RealityPro \u2014 UUM8D language games",
+      "playwright": {
+        "s1": {
+          "strobe": "256",
+          "clock_ms": "4667",
+          "membrane": "1",
+          "canvas": true
+        },
+        "s2": {
+          "strobe": "952",
+          "clock_ms": "15984",
+          "membrane": "8",
+          "canvas": true
+        }
+      },
+      "result": "PASS"
+    },
+    "observer_demo": {
+      "http": 200,
+      "blocked": [
+        "BLOCKED_USDKIT_NOT_LINKED_LINUX_CELL"
+      ],
+      "proven": [
+        "PROVEN_SWIFT_SCHEMA_APPLY",
+        "PROVEN_REALITYKIT_USDA_LOAD_PATH"
+      ],
+      "result": "PASS_WITH_USDKIT_BLOCK_NOTED"
+    },
+    "sdk_example_14": {
+      "command": "python3 examples/14_atc_ingest_project_openusd.py",
+      "result": "PASS",
+      "marker": "ATC_INGEST_PROJECT_OPENUSD_PASS"
+    }
+  },
+  "summary": {
+    "atc_language_game_calorie_path": "PASS",
+    "openusd_airspace_projection": "PASS",
+    "public_live_track_rest": "NOT_EXPOSED",
+    "wan_mesh_adsb_agent_fleet": "OUT_OF_SCOPE_ALREADY_SEALED_CELLS"
+  }
+}

@@ -1,0 +1,42 @@
+{
+    "blocked": [
+        "BLOCKED_USDKIT_NOT_LINKED_LINUX_CELL"
+    ],
+    "command": "language-invariant observer-demo",
+    "demo": "Norwich CT 41.5243N 72.0759W \u2192 microdegrees \u2192 SCF entityID",
+    "entityID_hex": "e99ed5ca76f67c7fdd388fe21a2c02ae",
+    "lat_microdegrees": 41524300,
+    "lon_microdegrees": -72075900,
+    "observer": {
+        "bindMode": "geographic",
+        "cryptoSignature": "",
+        "entityID": "e99ed5ca76f67c7fdd388fe21a2c02ae",
+        "geographicAnchorPresent": 1,
+        "lat_microdegrees": 41524300,
+        "lon_microdegrees": -72075900,
+        "stamped_at_iso": "2026-07-24T16:10:46Z",
+        "usdPrimPath": "/GaiaFTCL/Observers/Entity_e99ed5ca76f67c7fdd388fe21a2c02ae"
+    },
+    "pq": "ML-DSA-87 DilithiumRef linked \u2014 use identity-bind with verified package",
+    "proven": [
+        "entityID_from_int64_microdegrees",
+        "language.sqlite upsert",
+        "USDA text bind",
+        "PROVEN_SWIFT_SCHEMA_APPLY"
+    ],
+    "usd_bind": {
+        "message": "GaiaFTCLObserverAPI applied via Swift schema (usdGenSchema C++ absent)",
+        "prim_path": "/GaiaFTCL/Observers/Entity_e99ed5ca76f67c7fdd388fe21a2c02ae",
+        "schema_apply": "PROVEN_SWIFT_SCHEMA_APPLY",
+        "sidecar_path": "/root/.gaiaftcl/language/usd/observers/Entity_e99ed5ca76f67c7fdd388fe21a2c02ae.observer.json",
+        "status": "PROVEN_REALITYKIT_USDA_LOAD_PATH",
+        "usda_path": "/root/.gaiaftcl/language/usd/observers/Entity_e99ed5ca76f67c7fdd388fe21a2c02ae.usda",
+        "usdGenSchema": "BLOCKED_USDGENSCHEMA_CPP",
+        "usdGenSchema_note": "C++ toolchain absent; Swift GaiaFTCLObserverSchemaApply is PROVEN",
+        "usdKit": "BLOCKED_USDKIT_NOT_LINKED_LINUX_CELL"
+    },
+    "usdGenSchema": {
+        "cpp": "BLOCKED_USDGENSCHEMA_CPP",
+        "swift_apply": "PROVEN_SWIFT_SCHEMA_APPLY"
+    }
+}

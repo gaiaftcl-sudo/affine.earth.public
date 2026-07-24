@@ -14,6 +14,12 @@ curl -sS https://affine.earth/language-game/airspace-lattice.usda | head
 
 Scenes live under `/language-game/*.usda`. Language-game ingest/project drives membrane ticks that pulse the lattice.
 
+### ATC / airspace binding
+
+ATC sector-flow uses game `aviation_atc` (ingest/project/context). There is **no** separate `atc.usda` on the apex (404 measured 2026-07-24). Project ATC clearances, then load **`/language-game/airspace-lattice.usda`** in RealityPro and select game `aviation_atc` so membrane ticks pulse the airspace lattice.
+
+Full third-party recipe: [ATC_INGEST_PROJECT.md](ATC_INGEST_PROJECT.md) · example `examples/14_atc_ingest_project_openusd.py` · receipt [`receipts/atc_openusd_20260724/`](receipts/atc_openusd_20260724/).
+
 ## RealityPro player
 
 `realitypro-player/` is a **binary-free** HTML/JS shell:

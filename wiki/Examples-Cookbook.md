@@ -33,12 +33,36 @@ AFFINE_LIVE=1 pytest tests/test_live_smoke.py -v -m live
 | All 12 games ingest → project → context | `examples/11_*.py` · `examples/13_*.py` · `examples/games/*.py` |
 | Cinema / aviation / gaming UMC | `examples/09_*.py` |
 | OpenUSD airspace | `examples/10_openusd_airspace_fetch.py` |
+| **ATC ingest → project → OpenUSD** | `examples/14_atc_ingest_project_openusd.py` · [ATC_INGEST_PROJECT.md](https://github.com/gaiaftcl-sudo/affine.earth.public/blob/main/developer-suite/docs/ATC_INGEST_PROJECT.md) |
 | Full membrane tour | `examples/12_domain_tour.py` |
 | RealityPro player | `realitypro-player/` → live `https://affine.earth/language-game/realitypro/` |
 
 Measured teaching receipt: [`developer-suite/docs/LANGUAGE_GAMES_TEACHING.md`](https://github.com/gaiaftcl-sudo/affine.earth.public/blob/main/developer-suite/docs/LANGUAGE_GAMES_TEACHING.md) (12/12 PASS on apex).
 
-Docs: `developer-suite/README.md` · `docs/LANGUAGE_GAMES_TEACHING.md` · `docs/MCP.md` · `docs/OPENAI_V1.md` · `docs/OPENUSD_AND_REALITYPRO.md` · `docs/NO_BINARIES.md`.
+Docs: `developer-suite/README.md` · `docs/LANGUAGE_GAMES_TEACHING.md` · `docs/ATC_INGEST_PROJECT.md` · `docs/MCP.md` · `docs/OPENAI_V1.md` · `docs/OPENUSD_AND_REALITYPRO.md` · `docs/NO_BINARIES.md`.
+
+### 0 — ATC recipe (measured 2026-07-24)
+
+Public membrane ATC contract for solution builders (Affine.Earth OS only):
+
+```bash
+cd affine.earth.public/developer-suite
+source .venv/bin/activate   # after pip install -e ".[dev]"
+python3 examples/14_atc_ingest_project_openusd.py
+# → ATC_INGEST_PROJECT_OPENUSD_PASS
+```
+
+| Step | Measured |
+|:---|:---|
+| `GET .../healthz` | HTTP 200 · `ok:true` · `cloud_openai:0` |
+| `aviation_atc` catalog | **LIVE** · `ATCContextAgent` · NATS `gaiaftcl.aviation.flow` |
+| Teaching ingest | `CALORIE_GAME_INGEST` · `CALORIE_ATC_SECTOR_FLOW` · concept_ids |
+| Project | `GYROID` · `ATC_SECTOR` / `ATC_CLEARANCE` / `AVIATION_ATC` |
+| Richer clearance | UAL772 VECTOR accepted (HTTP 200) |
+| OpenUSD | `/language-game/airspace-lattice.usda` · `timeSamples` · `gaia:strobe=live` |
+| RealityPro | strobe/membrane advanced (Playwright); open `https://affine.earth/language-game/realitypro/` → game `aviation_atc` |
+
+**Honest:** no public `/adsb` or `/tracks.json` REST on the apex (404). Cell ADS-B agents are mesh-side. No ATC-specific USDA — bind ATC project ticks to the airspace lattice. Receipt: [`developer-suite/docs/receipts/atc_openusd_20260724/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/developer-suite/docs/receipts/atc_openusd_20260724).
 
 Full HLE/ARC harness CLIs remain under `scripts/*openai*exam*.py` (not re-implemented in the developer suite).
 
