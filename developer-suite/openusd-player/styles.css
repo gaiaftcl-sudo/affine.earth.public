@@ -190,6 +190,103 @@ button:disabled {
   margin-top: 2px;
 }
 
+.map-band {
+  margin-top: 6px;
+  display: inline-block;
+  font: 650 10px/1.3 var(--mono);
+  letter-spacing: 0.04em;
+  color: #0a1018;
+  background: var(--accent);
+  padding: 2px 7px;
+  border-radius: 3px;
+  text-shadow: none;
+}
+
+.band-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem 0.5rem;
+  margin: 0.45rem 0 0.35rem;
+  font: 10px/1.3 var(--mono);
+  color: var(--muted);
+}
+
+.band-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.band-dot.hemi { background: #3a6a8a; }
+.band-dot.reg { background: #5a9ab0; }
+.band-dot.metro { background: #7ec8a0; }
+.band-dot.walk { background: #f5c518; }
+
+#viewport[data-walk-mode="1"] {
+  box-shadow: inset 0 0 0 1px rgba(245, 197, 24, 0.35);
+}
+
+.warn-panel {
+  position: absolute;
+  top: 10px;
+  right: 56px;
+  z-index: 5;
+  width: min(320px, 42vw);
+  max-height: 42%;
+  overflow: auto;
+  background: rgba(10, 16, 24, 0.9);
+  border: 1px solid #2a3a44;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font: 11px/1.35 var(--mono);
+  color: #c8d0d6;
+  pointer-events: auto;
+}
+
+.warn-panel-title {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #e8eef2;
+  margin-bottom: 4px;
+}
+
+.warn-badge {
+  display: inline-block;
+  min-width: 1.4em;
+  text-align: center;
+  background: #243240;
+  color: #e8eef2;
+  border-radius: 3px;
+  padding: 0 5px;
+  margin-left: 4px;
+}
+.warn-badge.sev-critical { background: #ff3344; color: #fff; }
+.warn-badge.sev-high { background: #ff7a2e; color: #1a1000; }
+.warn-badge.sev-med { background: #e0a35c; color: #1a1000; }
+
+.warn-panel-meta {
+  color: #8aa0ad;
+  font-size: 10px;
+  margin-bottom: 6px;
+}
+
+.warn-row {
+  border-left: 2px solid #3a4a58;
+  padding: 3px 0 3px 6px;
+  margin-bottom: 4px;
+  color: #b8c8d4;
+}
+.warn-row .sev {
+  font-weight: 700;
+  margin-right: 4px;
+}
+.warn-row.sev-critical { border-color: #ff3344; color: #ffc8ce; }
+.warn-row.sev-high { border-color: #ff7a2e; color: #ffd2b0; }
+.warn-row.sev-medium { border-color: #e0a35c; color: #f0d8b0; }
+.warn-row.sev-low { border-color: #8aa0ad; }
+
 .zoom-stack {
   position: absolute;
   right: 12px;

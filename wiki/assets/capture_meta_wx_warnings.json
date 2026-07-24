@@ -1,0 +1,45 @@
+{
+  "url": "https://affine.earth/language-game/openusd/",
+  "brand": "Affine.Earth OpenUSD",
+  "prove_mode": "2d_overlay_unit_canvas + TRAFFIC_WARNINGS_SEPARATION_PASS (WebGL headless blocked in CI host)",
+  "solar": {
+    "elevationDeg": 58.664088799165704,
+    "declinationDeg": 19.821090394929335,
+    "subsolarLat": 19.821090394929335,
+    "subsolarLon": -101.26249999999999,
+    "hourUTC": 18.750833333333333,
+    "dayOfYear": 205,
+    "isDay": true,
+    "twilight": false
+  },
+  "weatherStatus": "BLOCKED_NOAA_WEATHER_FEED",
+  "separation_demo_warnings": 1,
+  "warn_top": {
+    "kind": "SEPARATION",
+    "severity": "CRITICAL",
+    "a": "WX1",
+    "b": "WX2",
+    "icaoA": "aa0001",
+    "icaoB": "bb0002",
+    "latA": 40.6413,
+    "lonA": -73.7781,
+    "latB": 40.646,
+    "lonB": -73.768,
+    "lateralNm": 0.54,
+    "verticalFt": 200,
+    "closingKt": 375,
+    "minima": {
+      "lateralNm": 3,
+      "verticalFt": 1000,
+      "label": "terminal"
+    },
+    "message": "WX1 \u2194 WX2 lat=0.54nm (<3) \u0394alt=200ft (<1000) close=375kt [terminal]"
+  },
+  "data_sources": {
+    "solar": "computed UTC+lat/lon terminator (always)",
+    "weather_radar": "membrane economics-config live_feeds (absent on apex \u2192 BLOCKED_NOAA_WEATHER_FEED)",
+    "aircraft": "live ADS-B on deployed player",
+    "warnings": "TrafficWarnings.evaluate"
+  },
+  "timestamp": "2026-07-24T18:45:38Z"
+}

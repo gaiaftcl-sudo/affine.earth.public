@@ -1,0 +1,49 @@
+/* Affine.Earth OpenUSD — AIRPORT WALK band skin (diagram-quality) */
+:root {
+  --ae-ocean: #0e1418;
+  --ae-land: #222c28;
+  --ae-grid: rgba(90, 110, 100, 0.35);
+  --ae-label: #e0e8ec;
+  --ae-accent: #f5c518;
+  --ae-panel: rgba(12, 16, 20, 0.95);
+  --ae-band: #f5c518;
+  --ae-runway: #3a4048;
+  --ae-taxi: #2a3238;
+}
+
+body.skin-map-airport,
+body.skin-map-airport #viewport {
+  background: #10161a;
+  cursor: grab;
+}
+
+body.skin-map-airport.band-airport_walk #viewport.walk-mode,
+body.skin-map-airport #viewport[data-walk-mode="1"] {
+  cursor: grab;
+}
+
+body.skin-map-airport header,
+body.skin-map-airport footer {
+  background: #0c1014;
+  border-color: #2a3438;
+}
+
+body.skin-map-airport .panel {
+  background: var(--ae-panel);
+}
+
+body.skin-map-airport button:not(.secondary) {
+  background: var(--ae-accent);
+  color: #1a1400;
+}
+
+body.skin-map-airport .map-title::after {
+  content: " · AIRPORT WALK";
+  color: var(--ae-band);
+  font-weight: 650;
+  font-size: 11px;
+}
+
+body.skin-map-airport .map-sub {
+  color: #d0d8dc;
+}

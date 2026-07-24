@@ -1,0 +1,37 @@
+/* Affine.Earth OpenUSD — REGIONAL / corridor band skin */
+:root {
+  --ae-ocean: #0a1828;
+  --ae-land: #1c3024;
+  --ae-grid: rgba(70, 110, 130, 0.26);
+  --ae-label: #c0d0d8;
+  --ae-accent: #f5c518;
+  --ae-panel: rgba(12, 18, 26, 0.94);
+  --ae-band: #5a9ab0;
+}
+
+body.skin-map-regional,
+body.skin-map-regional #viewport {
+  background: linear-gradient(180deg, #0a1828 0%, #0e2018 100%);
+}
+
+body.skin-map-regional header,
+body.skin-map-regional footer {
+  background: #0a1018;
+  border-color: #243440;
+}
+
+body.skin-map-regional .panel {
+  background: var(--ae-panel);
+}
+
+body.skin-map-regional button:not(.secondary) {
+  background: var(--ae-accent);
+  color: #1a1400;
+}
+
+body.skin-map-regional .map-title::after {
+  content: " · REGIONAL";
+  color: var(--ae-band);
+  font-weight: 500;
+  font-size: 11px;
+}

@@ -3,27 +3,37 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Affine.Earth OpenUSD — live ATC map</title>
+  <title>Affine.Earth OpenUSD — UUM8D manifold ATC</title>
   <link rel="stylesheet" href="styles.css" id="baseSkin" />
-  <link rel="stylesheet" href="assets/skins/map-dark.css" id="mapSkin" />
+  <link rel="stylesheet" href="assets/skins/map-hemisphere.css" id="mapSkin" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 </head>
-<body class="skin-map-dark">
+<body class="skin-map-hemisphere band-hemisphere">
   <div class="shell">
     <header>
-      <h1>Affine.Earth OpenUSD <span class="brand-yellow">ATC LIVE</span> <span class="tag">UUM8D · OpenUSD · FR24-class map</span></h1>
+      <h1>Affine.Earth OpenUSD <span class="brand-yellow">ATC LIVE</span> <span class="tag">UUM8D manifold · lossless zoom · OpenUSD</span></h1>
       <div class="tag" id="apexLabel">apex: …</div>
     </header>
     <main>
       <aside class="panel">
         <h2>Live map</h2>
-        <p class="hint" id="liveHint">Dark map + yellow heading SVGs. Live ADS-B via Affine.Earth OS (<code>/language-invariant/adsb/tracks</code>). No canned aircraft loops.</p>
-        <p class="hint nav-hint"><strong>Navigate:</strong> scroll / pinch zoom · drag or space-drag pan · double-click zoom in · shift-double-click zoom out</p>
-        <label for="skinSelect">Map skin</label>
+        <p class="hint" id="liveHint">UUM8D observer fiber: hemisphere → regional → metro → airport walk. Live ADS-B LOD by band. Solar terminator (computed). Weather membrane status honest when NOAA blocked. Separation warnings from live snapshots.</p>
+        <p class="hint nav-hint"><strong>Navigate:</strong> scroll / pinch zoom across manifold bands · drag pan (airport walk = surface feel) · ◎ hemisphere · ⌖ airport walk · watch WARNINGS panel</p>
+        <label for="skinSelect">Map skin (manual override)</label>
         <select id="skinSelect">
-          <option value="map-dark" selected>Dark (FR24-class)</option>
+          <option value="map-hemisphere" selected>Hemisphere / planetary</option>
+          <option value="map-regional">Regional / corridor</option>
+          <option value="map-metro">Metro / TMA</option>
+          <option value="map-airport">Airport walk</option>
+          <option value="map-dark">Dark classic</option>
           <option value="map-terrain">Terrain accent</option>
         </select>
+        <div class="band-legend" id="bandLegend">
+          <div><span class="band-dot hemi"></span> HEMISPHERE</div>
+          <div><span class="band-dot reg"></span> REGIONAL</div>
+          <div><span class="band-dot metro"></span> METRO</div>
+          <div><span class="band-dot walk"></span> AIRPORT_WALK</div>
+        </div>
         <label>Zoom airport</label>
         <div class="airport-grid" id="airportGrid">
           <button type="button" data-icao="KJFK" class="active-airport">KJFK</button>
@@ -82,11 +92,14 @@
       <section id="viewport" aria-label="OpenUSD lattice preview"></section>
     </main>
     <footer>
-      Affine.Earth OpenUSD · binary-free player · Three.js CDN · live Affine.Earth HTTPS · scroll/pinch/drag map nav
+      Affine.Earth OpenUSD · UUM8D manifold staging · binary-free · Three.js CDN · live ADS-B LOD
     </footer>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="manifold-stage.js"></script>
+  <script src="solar-weather.js"></script>
+  <script src="traffic-warnings.js"></script>
   <script src="player.js"></script>
   <script src="uum8d-shell.js"></script>
   <script src="teaching-seeds.js"></script>
@@ -186,12 +199,17 @@ def Xform "AffineEarthAirspace" {
           window.THREE,
           { icao: focusIcao, forceAtc: text.indexOf("airspace_atc") >= 0 || text.indexOf("focus_icao") >= 0 }
         );
-        if (mounted.setAirport) mounted.setAirport(focusIcao);
+        // Boot stays on HEMISPHERE manifold band (UUM8D stage start). Airport buttons jump focus.
+        var st = mounted.getLiveState ? mounted.getLiveState() : {};
         log(
           "Preview mode=" +
             (mounted.sceneMode || "?") +
-            " airport=" +
+            " focus=" +
             focusIcao +
+            " band=" +
+            (st.manifoldBand || "?") +
+            " zoom=" +
+            (st.zoom != null ? Number(st.zoom).toFixed(2) : "?") +
             " animating=1",
           "ok"
         );

@@ -1,12 +1,13 @@
 /**
- * Affine.Earth OpenUSD — OpenUSD lattice + FR24-class live ATC map.
- * Three.js CDN only; no Pixar libusd.
+ * Affine.Earth OpenUSD — OpenUSD lattice + UUM8D manifold ATC map.
+ * Three.js CDN only; no Pixar libusd. No RealityPro naming.
  *
  * ATC map contract:
- * - Dark geographic basemap (top-down)
+ * - Observer zoom = UUM8D manifold staging bands (not CSS bitmap scale)
+ * - Bands: HEMISPHERE → REGIONAL → METRO → AIRPORT_WALK (LOD + skin swap)
  * - Bright yellow plane silhouettes rotated by live heading
  * - Positions from GET /language-invariant/adsb/tracks (live) — no authored loops
- * - Airport zoom (KJFK / EGLL / EHAM / LFPG / …)
+ * - Airport focus (KJFK / EGLL / EHAM / LFPG / …) + airport-walk pan
  */
 (function (global) {
   "use strict";
@@ -181,22 +182,24 @@
     return { ocean: ocean, land: land, label: label, accent: accent };
   }
 
-  /** Dark geographic basemap canvas (ocean + land blobs + labels) — skin-aware. */
-  function makeBasemapTexture(THREE, centerLat, centerLon, spanDeg) {
+  /**
+   * Manifold-band basemap (Affine branded SVG/CSS palette — not third-party tiles).
+   * Detail level follows band: hemisphere continents → regional → metro → airport diagram.
+   */
+  function makeBasemapTexture(THREE, centerLat, centerLon, spanDeg, bandId) {
     var pal = skinPalette();
+    var band = (bandId || "METRO").toUpperCase();
     var W = 1024;
     var H = 1024;
     var c = document.createElement("canvas");
     c.width = W;
     c.height = H;
     var g = c.getContext("2d");
-    // ocean
     g.fillStyle = pal.ocean;
     g.fillRect(0, 0, W, H);
-    // subtle gradient
-    var grd = g.createRadialGradient(W * 0.5, H * 0.45, 40, W * 0.5, H * 0.5, W * 0.7);
+    var grd = g.createRadialGradient(W * 0.5, H * 0.45, 40, W * 0.5, H * 0.5, W * 0.75);
     grd.addColorStop(0, pal.ocean);
-    grd.addColorStop(1, "#071018");
+    grd.addColorStop(1, band === "HEMISPHERE" ? "#03080e" : "#071018");
     g.fillStyle = grd;
     g.fillRect(0, 0, W, H);
 
@@ -206,27 +209,7 @@
       return { x: x, y: y };
     }
 
-    // Coarse land polygons (approximate continents / regions) — visual feel only
-    var lands = [
-      // Europe
-      [
-        [71, -10], [70, 30], [60, 40], [55, 40], [45, 30], [36, 28],
-        [36, -9], [43, -10], [51, -11], [59, -8], [71, -10],
-      ],
-      // UK / Ireland
-      [[60, -8], [59, 2], [50, 2], [50, -6], [52, -11], [55, -8], [60, -8]],
-      // N Africa strip
-      [[36, -10], [36, 35], [30, 35], [28, -10], [36, -10]],
-      // Eastern US / Canada slice when KJFK
-      [[48, -85], [47, -65], [40, -70], [38, -78], [42, -85], [48, -85]],
-      // Western Europe denser blob
-      [[55, -5], [54, 12], [48, 12], [44, 5], [43, -2], [48, -6], [55, -5]],
-    ];
-
-    g.fillStyle = pal.land;
-    g.strokeStyle = "#2a3a34";
-    g.lineWidth = 1.2;
-    lands.forEach(function (poly) {
+    function fillPoly(poly, fill, stroke) {
       g.beginPath();
       poly.forEach(function (ll, i) {
         var p = project(ll[0], ll[1]);
@@ -234,15 +217,51 @@
         else g.lineTo(p.x, p.y);
       });
       g.closePath();
+      g.fillStyle = fill;
       g.fill();
-      g.stroke();
+      if (stroke) {
+        g.strokeStyle = stroke;
+        g.lineWidth = 1.1;
+        g.stroke();
+      }
+    }
+
+    // World-scale land (always drawn; clipped by span)
+    var lands = [
+      [[72, -170], [70, -50], [55, -65], [30, -80], [25, -97], [15, -90], [8, -78], [50, -55], [72, -50], [72, -170]],
+      [[55, -10], [71, -10], [70, 40], [55, 40], [36, 28], [36, -9], [55, -10]],
+      [[60, -8], [59, 2], [50, 2], [50, -6], [55, -8], [60, -8]],
+      [[36, -10], [36, 35], [5, 40], [-5, 10], [5, -17], [36, -10]],
+      [[55, 60], [70, 180], [45, 145], [20, 120], [10, 100], [25, 60], [55, 60]],
+      [[-10, 110], [-45, 145], [-35, 175], [-15, 150], [-10, 110]],
+      [[12, -80], [-55, -70], [-55, -40], [5, -35], [12, -80]],
+    ];
+    g.fillStyle = pal.land;
+    lands.forEach(function (poly) {
+      fillPoly(poly, pal.land, "#2a3a34");
     });
 
-    // Lat/lon grid
-    g.strokeStyle = "rgba(70,100,120,0.28)";
+    // Regional denser blobs near focus
+    if (band === "REGIONAL" || band === "METRO" || band === "AIRPORT_WALK") {
+      fillPoly(
+        [
+          [centerLat + 8, centerLon - 10],
+          [centerLat + 6, centerLon + 8],
+          [centerLat - 4, centerLon + 6],
+          [centerLat - 6, centerLon - 8],
+          [centerLat + 8, centerLon - 10],
+        ],
+        pal.land,
+        "#2e4438"
+      );
+    }
+
+    // Grid density by band
+    var gridAlpha = band === "HEMISPHERE" ? 0.14 : band === "REGIONAL" ? 0.22 : band === "METRO" ? 0.3 : 0.38;
+    g.strokeStyle = "rgba(70,100,120," + gridAlpha + ")";
     g.lineWidth = 1;
-    var step = spanDeg > 25 ? 5 : spanDeg > 12 ? 2 : 1;
-    for (var lat = Math.floor(centerLat - spanDeg / 2); lat <= centerLat + spanDeg / 2; lat += step) {
+    var step = spanDeg > 60 ? 15 : spanDeg > 25 ? 5 : spanDeg > 10 ? 2 : spanDeg > 4 ? 1 : 0.5;
+    for (var lat = Math.floor((centerLat - spanDeg / 2) / step) * step; lat <= centerLat + spanDeg / 2; lat += step) {
       var a = project(lat, centerLon - spanDeg / 2);
       var b = project(lat, centerLon + spanDeg / 2);
       g.beginPath();
@@ -250,7 +269,7 @@
       g.lineTo(b.x, b.y);
       g.stroke();
     }
-    for (var lon = Math.floor(centerLon - spanDeg / 2); lon <= centerLon + spanDeg / 2; lon += step) {
+    for (var lon = Math.floor((centerLon - spanDeg / 2) / step) * step; lon <= centerLon + spanDeg / 2; lon += step) {
       var c1 = project(centerLat + spanDeg / 2, lon);
       var c2 = project(centerLat - spanDeg / 2, lon);
       g.beginPath();
@@ -259,19 +278,63 @@
       g.stroke();
     }
 
-    // City / airport labels near center airports
-    g.font = "600 14px sans-serif";
+    // Airport diagram overlay (runway/taxi feel) — AIRPORT_WALK band
+    if (band === "AIRPORT_WALK" || band === "METRO") {
+      var cx = W * 0.5;
+      var cy = H * 0.5;
+      var rw = band === "AIRPORT_WALK" ? W * 0.42 : W * 0.18;
+      var rh = band === "AIRPORT_WALK" ? 14 : 6;
+      g.save();
+      g.translate(cx, cy);
+      g.rotate((-32 * Math.PI) / 180);
+      g.fillStyle = band === "AIRPORT_WALK" ? "#3a4048" : "rgba(58,64,72,0.55)";
+      g.fillRect(-rw / 2, -rh / 2, rw, rh);
+      g.fillRect(-rw * 0.35, -rh * 2.2, rw * 0.7, rh * 0.7);
+      if (band === "AIRPORT_WALK") {
+        g.strokeStyle = "#f5c518";
+        g.lineWidth = 1.5;
+        g.setLineDash([8, 10]);
+        g.beginPath();
+        g.moveTo(-rw / 2 + 4, 0);
+        g.lineTo(rw / 2 - 4, 0);
+        g.stroke();
+        g.setLineDash([]);
+        // Taxi / apron blocks
+        g.fillStyle = "#2a3238";
+        g.fillRect(-rw * 0.2, rh * 1.2, rw * 0.45, rh * 3.5);
+        g.fillRect(rw * 0.15, -rh * 4.5, rw * 0.22, rh * 3);
+        g.fillStyle = pal.accent;
+        g.font = "600 13px sans-serif";
+        g.fillText("RWY", -18, -rh - 6);
+      }
+      g.restore();
+    }
+
+    // Labels — density follows band
+    var labelEvery = band === "HEMISPHERE" ? 2 : 1;
+    var li = 0;
+    g.font = band === "HEMISPHERE" ? "600 12px sans-serif" : "600 14px sans-serif";
     Object.keys(AIRPORTS).forEach(function (icao) {
       var ap = AIRPORTS[icao];
       if (Math.abs(ap.lat - centerLat) > spanDeg * 0.55) return;
       if (Math.abs(ap.lon - centerLon) > spanDeg * 0.55) return;
+      if (band === "HEMISPHERE" && (li++ % labelEvery) !== 0 && icao !== Object.keys(AIRPORTS)[0]) {
+        // still mark major hubs
+        if (["KJFK", "EGLL", "RJTT", "OMDB", "YSSY"].indexOf(icao) < 0) return;
+      }
       var p = project(ap.lat, ap.lon);
       g.beginPath();
       g.fillStyle = pal.accent;
-      g.arc(p.x, p.y, 3.5, 0, Math.PI * 2);
+      g.arc(p.x, p.y, band === "AIRPORT_WALK" ? 5 : 3.5, 0, Math.PI * 2);
       g.fill();
       g.fillStyle = pal.label;
-      g.fillText(ap.name.split(" ")[0], p.x + 6, p.y - 4);
+      var label =
+        band === "HEMISPHERE"
+          ? icao
+          : band === "AIRPORT_WALK"
+            ? ap.name
+            : ap.name.split(" ")[0];
+      g.fillText(label, p.x + 6, p.y - 4);
     });
 
     var tex = new THREE.CanvasTexture(c);
@@ -412,21 +475,29 @@
     camera.position.set(0, 80, 0);
     camera.up.set(0, 0, -1);
     camera.lookAt(0, 0, 0);
-    // Smooth zoom + pan (trackpad/mouse first-class)
-    var zoomLevel = 1; // display / HUD
-    var targetZoom = 1;
+    // UUM8D manifold zoom — continuous lerp; discrete band LOD at thresholds
+    var MS = global.ManifoldStage || null;
+    var ZOOM_MIN = MS ? MS.ZOOM_MIN : 0.08;
+    var ZOOM_MAX = MS ? MS.ZOOM_MAX : 14;
+    var zoomLevel = MS ? MS.BOOT_ZOOM : 0.22;
+    var targetZoom = zoomLevel;
     var panX = 0;
     var panZ = 0;
     var targetPanX = 0;
     var targetPanZ = 0;
-    var ZOOM_MIN = 0.35;
-    var ZOOM_MAX = 12;
+    var currentBand = MS ? MS.bandForZoom(zoomLevel) : { id: "HEMISPHERE", label: "Hemisphere / planetary", skin: "map-hemisphere", fetchDistNm: 900, panSense: 1, walkMode: false, spriteScale: 1.5 };
+    var manifoldStageId = currentBand.id;
+    var skinCrossfade = 1;
+    var pendingSkin = null;
     var dragging = false;
     var spaceDown = false;
     var lastPtr = null;
     var lastTapMs = 0;
     var lastTapX = 0;
     var lastTapY = 0;
+    var lodTrackCount = 0;
+    var lastFetchDist = currentBand.fetchDistNm || 100;
+    var rawTrackCache = [];
 
     var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
     renderer.setSize(w, h);
@@ -435,20 +506,28 @@
     container.appendChild(renderer.domElement);
     renderer.domElement.style.cursor = "grab";
     renderer.domElement.style.touchAction = "none";
+    container.setAttribute("data-manifold-band", manifoldStageId);
+    container.setAttribute("data-walk-mode", currentBand.walkMode ? "1" : "0");
 
     var hud = makeHud(container);
     hud.setAttribute("data-scene-mode", "atc-map");
     hud.setAttribute("data-focus-icao", focusIcao);
     hud.setAttribute("data-track-source", "adsb.lol_https_v2");
+    hud.setAttribute("data-manifold-band", manifoldStageId);
 
     // Title chrome
     var chrome = document.createElement("div");
     chrome.className = "map-chrome top-left";
     chrome.innerHTML =
       '<div class="map-title">Affine.Earth OpenUSD · LIVE ATC map</div>' +
-      '<div class="map-sub" id="mapSubTitle">zoom ' +
+      '<div class="map-sub" id="mapSubTitle">manifold ' +
+      currentBand.label +
+      " · " +
       focusIcao +
-      " · SVG sprites · live ADS-B</div>";
+      " · live ADS-B</div>" +
+      '<div class="map-band" id="mapBandHud">' +
+      currentBand.id +
+      "</div>";
     container.appendChild(chrome);
 
     // Zoom controls
@@ -457,19 +536,103 @@
     zoomStack.innerHTML =
       '<button type="button" id="btnZoomIn" title="Zoom in">+</button>' +
       '<button type="button" id="btnZoomOut" title="Zoom out">−</button>' +
-      '<button type="button" id="btnZoomAirport" title="Fit airport">⌖</button>';
+      '<button type="button" id="btnZoomAirport" title="Airport walk">⌖</button>' +
+      '<button type="button" id="btnZoomHemi" title="Hemisphere">◎</button>';
     container.appendChild(zoomStack);
 
-    // Basemap
-    var basemapTex = makeBasemapTexture(THREE, centerLat, centerLon, viewSpanDeg * 1.35);
-    var mapSize = viewSpanDeg * mapScale;
-    var mapMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(mapSize, mapSize),
-      new THREE.MeshBasicMaterial({ map: basemapTex })
-    );
-    mapMesh.rotation.x = -Math.PI / 2;
-    mapMesh.position.y = -0.1;
+    function bandSpanDeg(band) {
+      var mul = band && band.spanMul != null ? band.spanMul : 1.6;
+      return Math.max(2.5, viewSpanDeg * mul);
+    }
+
+    function buildMapMesh(band) {
+      var span = bandSpanDeg(band);
+      var tex = makeBasemapTexture(THREE, centerLat, centerLon, span, band.id);
+      var size = Math.max(viewSpanDeg * 1.35, span) * mapScale;
+      var mesh = new THREE.Mesh(
+        new THREE.PlaneGeometry(size, size),
+        new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 1 })
+      );
+      mesh.rotation.x = -Math.PI / 2;
+      mesh.position.y = -0.1;
+      mesh.userData.bandId = band.id;
+      return mesh;
+    }
+
+    if (MS && MS.applySkin) MS.applySkin(currentBand.skin);
+    var mapMesh = buildMapMesh(currentBand);
+    var mapMeshPrev = null;
     scene.add(mapMesh);
+
+    // Solar + weather overlay (band LOD) — above basemap, below aircraft
+    var SW = global.SolarWeather || null;
+    var TW = global.TrafficWarnings || null;
+    var wxOverlayMesh = null;
+    var wxMeta = null;
+    var wxStatus = "UNKNOWN";
+    var lastWxRebuildMs = 0;
+    var warningState = { warnings: [], minima: null, pairCount: 0 };
+    var warnLineGroup = new THREE.Group();
+    scene.add(warnLineGroup);
+
+    function rebuildWxOverlay() {
+      if (!SW || !SW.makeOverlayTexture) return;
+      try {
+        var span = bandSpanDeg(currentBand);
+        var built = SW.makeOverlayTexture(
+          THREE,
+          centerLat,
+          centerLon,
+          span,
+          currentBand.id,
+          new Date()
+        );
+        wxMeta = built.meta;
+        wxStatus = (built.meta && built.meta.weatherStatus) || wxStatus;
+        var size = Math.max(viewSpanDeg * 1.35, span) * mapScale;
+        if (wxOverlayMesh) disposeMapMesh(wxOverlayMesh);
+        wxOverlayMesh = new THREE.Mesh(
+          new THREE.PlaneGeometry(size, size),
+          new THREE.MeshBasicMaterial({
+            map: built.texture,
+            transparent: true,
+            opacity: 0.92,
+            depthWrite: false,
+          })
+        );
+        wxOverlayMesh.rotation.x = -Math.PI / 2;
+        wxOverlayMesh.position.y = -0.02;
+        scene.add(wxOverlayMesh);
+        hud.setAttribute("data-wx-status", wxStatus);
+        hud.setAttribute(
+          "data-solar-elev",
+          built.meta && built.meta.solar ? built.meta.solar.elevationDeg.toFixed(1) : ""
+        );
+        container.setAttribute("data-wx-status", wxStatus);
+      } catch (e) {
+        wxStatus = "OVERLAY_SOFT_FAIL";
+        hud.setAttribute("data-wx-status", wxStatus);
+        hud.setAttribute("data-wx-error", String(e).slice(0, 80));
+      }
+    }
+
+    if (SW && SW.refreshFeedStatus) {
+      SW.refreshFeedStatus().then(function () {
+        wxStatus = (SW.feedStatus() || {}).noaa || wxStatus;
+        rebuildWxOverlay();
+      });
+    }
+    rebuildWxOverlay();
+
+    // Warning list panel
+    var warnPanel = document.createElement("div");
+    warnPanel.id = "openusd-warn-panel";
+    warnPanel.className = "warn-panel";
+    warnPanel.innerHTML =
+      '<div class="warn-panel-title">WARNINGS <span id="warnBadge" class="warn-badge">0</span></div>' +
+      '<div class="warn-panel-meta" id="warnMeta">minima —</div>' +
+      '<div class="warn-panel-list" id="warnList">awaiting live tracks…</div>';
+    container.appendChild(warnPanel);
 
     // Airport ring
     var ring = new THREE.Mesh(
@@ -569,6 +732,48 @@
       targetPanZ = before.z + ndcY * half;
     }
 
+    function disposeMapMesh(mesh) {
+      if (!mesh) return;
+      scene.remove(mesh);
+      if (mesh.material && mesh.material.map) mesh.material.map.dispose();
+      if (mesh.material) mesh.material.dispose();
+      if (mesh.geometry) mesh.geometry.dispose();
+    }
+
+    function transitionManifoldBand(nextBand) {
+      if (!nextBand || nextBand.id === manifoldStageId) return;
+      currentBand = nextBand;
+      manifoldStageId = nextBand.id;
+      pendingSkin = nextBand.skin;
+      if (MS && MS.applySkin) MS.applySkin(nextBand.skin);
+      // Crossfade: keep previous map, fade in new LOD skin
+      disposeMapMesh(mapMeshPrev);
+      mapMeshPrev = mapMesh;
+      if (mapMeshPrev && mapMeshPrev.material) mapMeshPrev.material.opacity = 1;
+      mapMesh = buildMapMesh(nextBand);
+      mapMesh.material.opacity = 0;
+      mapMesh.position.y = -0.08;
+      scene.add(mapMesh);
+      skinCrossfade = 0;
+      container.setAttribute("data-manifold-band", manifoldStageId);
+      container.setAttribute("data-walk-mode", nextBand.walkMode ? "1" : "0");
+      hud.setAttribute("data-manifold-band", manifoldStageId);
+      hud.setAttribute("data-walk-mode", nextBand.walkMode ? "1" : "0");
+      var bandEl = document.getElementById("mapBandHud");
+      if (bandEl) bandEl.textContent = nextBand.id + " · " + nextBand.label;
+      // Re-filter cached live tracks at new LOD; refetch if dist band changed
+      rebuildWxOverlay();
+      if (rawTrackCache.length) upsertAircraft(rawTrackCache);
+      var needDist = nextBand.fetchDistNm || 100;
+      if (Math.abs(needDist - lastFetchDist) > 40) refreshTracks(true);
+    }
+
+    function syncManifoldFromZoom() {
+      if (!MS) return;
+      var next = MS.bandForZoom(zoomLevel);
+      if (next.id !== manifoldStageId) transitionManifoldBand(next);
+    }
+
     function setAirport(icao) {
       icao = (icao || "KJFK").toUpperCase();
       if (!AIRPORTS[icao]) return;
@@ -578,38 +783,138 @@
       centerLon = ap.lon;
       viewSpanDeg = ap.zoom;
       orthoHalf = (viewSpanDeg * mapScale) / 2.4;
-      targetZoom = 1.4;
-      zoomLevel = 1.4;
+      // Re-enter at METRO for airport focus (user can zoom out to hemisphere)
+      targetZoom = 1.45;
+      zoomLevel = 1.45;
       targetPanX = 0;
       targetPanZ = 0;
       panX = 0;
       panZ = 0;
-      // rebuild basemap
-      scene.remove(mapMesh);
-      if (mapMesh.material.map) mapMesh.material.map.dispose();
-      mapMesh.material.dispose();
-      mapMesh.geometry.dispose();
-      basemapTex = makeBasemapTexture(THREE, centerLat, centerLon, viewSpanDeg * 1.35);
-      mapSize = viewSpanDeg * mapScale;
-      mapMesh = new THREE.Mesh(
-        new THREE.PlaneGeometry(mapSize, mapSize),
-        new THREE.MeshBasicMaterial({ map: basemapTex })
-      );
-      mapMesh.rotation.x = -Math.PI / 2;
-      mapMesh.position.y = -0.1;
+      var band = MS ? MS.bandForZoom(zoomLevel) : currentBand;
+      disposeMapMesh(mapMeshPrev);
+      mapMeshPrev = null;
+      disposeMapMesh(mapMesh);
+      currentBand = band;
+      manifoldStageId = band.id;
+      if (MS && MS.applySkin) MS.applySkin(band.skin);
+      mapMesh = buildMapMesh(band);
       scene.add(mapMesh);
+      skinCrossfade = 1;
+      rebuildWxOverlay();
       applyOrtho();
       hud.setAttribute("data-focus-icao", focusIcao);
+      hud.setAttribute("data-manifold-band", manifoldStageId);
+      container.setAttribute("data-manifold-band", manifoldStageId);
       var sub = document.getElementById("mapSubTitle");
       if (sub)
         sub.textContent =
-          "zoom " + focusIcao + " · " + ap.name + " · live ADS-B · scroll/pinch/drag";
+          band.label + " · " + focusIcao + " · " + ap.name + " · live ADS-B";
+      var bandEl = document.getElementById("mapBandHud");
+      if (bandEl) bandEl.textContent = band.id + " · " + band.label;
       refreshTracks(true);
     }
 
+    function clearWarnLines() {
+      while (warnLineGroup.children.length) {
+        var ln = warnLineGroup.children[0];
+        warnLineGroup.remove(ln);
+        if (ln.geometry) ln.geometry.dispose();
+        if (ln.material) ln.material.dispose();
+      }
+    }
+
+    function severityColor(sev) {
+      if (sev === "CRITICAL") return 0xff3344;
+      if (sev === "HIGH") return 0xff7a2e;
+      if (sev === "MEDIUM") return 0xe0a35c;
+      return 0x8aa0ad;
+    }
+
+    function renderWarnings(filteredRows) {
+      if (!TW || !TW.evaluate) {
+        warningState = { warnings: [], minima: null, pairCount: 0 };
+        return;
+      }
+      warningState = TW.evaluate(filteredRows, manifoldStageId, { maxWarnings: 30 });
+      clearWarnLines();
+      (warningState.warnings || []).forEach(function (w) {
+        if (w.kind !== "SEPARATION" || w.latB == null) return;
+        var a = lonLatToWorld(w.latA, w.lonA, centerLat, centerLon, mapScale);
+        var b = lonLatToWorld(w.latB, w.lonB, centerLat, centerLon, mapScale);
+        var geo = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(a.x, 0.35, a.z),
+          new THREE.Vector3(b.x, 0.35, b.z),
+        ]);
+        var mat = new THREE.LineBasicMaterial({
+          color: severityColor(w.severity),
+          transparent: true,
+          opacity: w.severity === "CRITICAL" ? 0.95 : 0.75,
+        });
+        warnLineGroup.add(new THREE.Line(geo, mat));
+      });
+      var listEl = document.getElementById("warnList");
+      var badge = document.getElementById("warnBadge");
+      var meta = document.getElementById("warnMeta");
+      var n = (warningState.warnings || []).length;
+      if (badge) {
+        badge.textContent = String(n);
+        badge.className =
+          "warn-badge" +
+          (n === 0
+            ? ""
+            : warningState.warnings[0].severity === "CRITICAL"
+              ? " sev-critical"
+              : warningState.warnings[0].severity === "HIGH"
+                ? " sev-high"
+                : " sev-med");
+      }
+      if (meta && warningState.minima) {
+        meta.textContent =
+          manifoldStageId +
+          " minima lat≥" +
+          warningState.minima.lateralNm +
+          "nm vert≥" +
+          warningState.minima.verticalFt +
+          "ft · " +
+          warningState.minima.label;
+      }
+      if (listEl) {
+        if (!n) {
+          listEl.textContent = "no separation breaches at this LOD";
+        } else {
+          listEl.innerHTML = warningState.warnings
+            .slice(0, 12)
+            .map(function (w) {
+              return (
+                '<div class="warn-row sev-' +
+                String(w.severity || "LOW").toLowerCase() +
+                '"><span class="sev">' +
+                w.severity +
+                "</span> " +
+                (w.message || w.kind) +
+                "</div>"
+              );
+            })
+            .join("");
+        }
+      }
+      hud.setAttribute("data-warn-count", String(n));
+      hud.setAttribute(
+        "data-warn-top",
+        n ? warningState.warnings[0].severity + ":" + warningState.warnings[0].kind : ""
+      );
+      container.setAttribute("data-warn-count", String(n));
+    }
+
     function upsertAircraft(rows) {
+      rawTrackCache = rows || [];
       var seen = {};
-      var list = (rows || []).slice(0, MAX_AC);
+      var filtered = MS
+        ? MS.filterTracksForBand(rawTrackCache, currentBand, centerLat, centerLon)
+        : (rawTrackCache || []).slice(0, MAX_AC);
+      lodTrackCount = filtered.length;
+      var list = filtered.slice(0, MAX_AC);
+      var spriteMul = currentBand.spriteScale != null ? currentBand.spriteScale : 1;
       list.forEach(function (a) {
         var icao = String(a.icao || "").toLowerCase();
         if (!icao || a.lat == null || a.lon == null) return;
@@ -646,18 +951,16 @@
         mesh.position.x += (ll.x - mesh.position.x) * alpha;
         mesh.position.z += (ll.z - mesh.position.z) * alpha;
         mesh.position.y = 0.2;
-        // Sprite material rotation (radians) — heading from north clockwise
         var track = Number(a.track_deg) || 0;
         mesh.material.rotation = (-track * Math.PI) / 180;
         mesh.userData.callsign = a.callsign || icao;
         mesh.userData.alt = a.alt_baro_ft || 0;
         mesh.userData.gs = a.gs_kt || 0;
         mesh.userData.track = track;
-        // Size by altitude + inverse-ish zoom so dense traffic stays readable
         var alt = Number(a.alt_baro_ft) || 0;
         var sc = alt < 100 ? 0.95 : alt < 10000 ? 1.05 : 1.2;
         var zf = 1 / Math.sqrt(Math.max(0.5, zoomLevel));
-        sc *= 0.85 + 0.55 * zf;
+        sc *= (0.85 + 0.55 * zf) * spriteMul;
         mesh.userData.baseScale = sc;
         mesh.scale.set(sc, sc, 1);
       });
@@ -669,6 +972,7 @@
         }
       });
       aircraftCount = Object.keys(meshByIcao).length;
+      renderWarnings(list);
     }
 
     async function refreshTracks(force) {
@@ -678,27 +982,17 @@
         return;
       }
       try {
+        var dist = currentBand.fetchDistNm || 100;
+        lastFetchDist = dist;
         var payload = await global.UUM8DShell.fetchLiveTracks({
           icao: focusIcao,
-          dist: force ? 120 : 100,
+          dist: dist,
           force: !!force,
         });
         liveRefreshTicks += 1;
         trackError = payload.error || "";
         upsertAircraft(payload.aircraft || []);
         hud.setAttribute("data-track-source", payload.source || "adsb.lol_https_v2");
-        var sub = document.getElementById("mapSubTitle");
-        if (sub) {
-          sub.textContent =
-            focusIcao +
-            " · ac=" +
-            aircraftCount +
-            " · liveRefresh=" +
-            liveRefreshTicks +
-            " · " +
-            (payload.source || "adsb.lol_https_v2") +
-            (trackError ? " · " + String(trackError).slice(0, 40) : "");
-        }
       } catch (e) {
         trackError = String(e);
       }
@@ -708,59 +1002,96 @@
       if (elapsedMs - lastHudMs < 80 && strobeTick % 6 !== 0) return;
       lastHudMs = elapsedMs;
       var clockMs = Math.floor(elapsedMs);
+      var zr = MS && MS.zoomRational ? MS.zoomRational(zoomLevel) : { text: zoomLevel.toFixed(2) };
       hud.setAttribute("data-strobe-tick", String(strobeTick));
       hud.setAttribute("data-clock-ms", String(clockMs));
       hud.setAttribute("data-membrane-ticks", String(membraneTicks));
       hud.setAttribute("data-live-refresh", String(liveRefreshTicks));
       hud.setAttribute("data-aircraft", String(aircraftCount));
+      hud.setAttribute("data-lod-tracks", String(lodTrackCount));
       hud.setAttribute("data-scene-mode", "atc-map");
       hud.setAttribute("data-focus-icao", focusIcao);
-      hud.setAttribute("data-zoom", zoomLevel.toFixed(2));
+      hud.setAttribute("data-zoom", zoomLevel.toFixed(3));
+      hud.setAttribute("data-zoom-rational", zr.text || "");
+      hud.setAttribute("data-manifold-band", manifoldStageId);
+      hud.setAttribute("data-walk-mode", currentBand.walkMode ? "1" : "0");
+      hud.setAttribute("data-wx-status", wxStatus);
+      hud.setAttribute(
+        "data-warn-count",
+        String((warningState.warnings || []).length)
+      );
+      if (wxMeta && wxMeta.solar) {
+        hud.setAttribute("data-solar-elev", wxMeta.solar.elevationDeg.toFixed(1));
+        hud.setAttribute(
+          "data-solar-phase",
+          wxMeta.solar.isDay ? "DAY" : wxMeta.solar.twilight ? "TWILIGHT" : "NIGHT"
+        );
+      }
       if (trackError) hud.setAttribute("data-track-error", trackError);
       else hud.removeAttribute("data-track-error");
+      var wn = (warningState.warnings || []).length;
       hud.textContent =
-        "mode=atc-map " +
+        "band=" +
+        manifoldStageId +
+        " (" +
+        currentBand.label +
+        ") focus=" +
         focusIcao +
+        " zoom=" +
+        zoomLevel.toFixed(3) +
+        " (" +
+        (zr.text || "") +
+        ") lod_ac=" +
+        lodTrackCount +
+        " shown=" +
+        aircraftCount +
+        " warn=" +
+        wn +
+        " wx=" +
+        wxStatus +
+        " solar=" +
+        (wxMeta && wxMeta.solar ? wxMeta.solar.elevationDeg.toFixed(1) + "°" : "?") +
         " strobe=" +
         strobeTick +
-        " clock=" +
-        clockMs +
-        "ms membrane=" +
-        membraneTicks +
         " liveRefresh=" +
         liveRefreshTicks +
-        " ac=" +
-        aircraftCount +
-        " zoom=" +
-        zoomLevel.toFixed(2) +
-        " src=adsb.lol_https_v2" +
+        (currentBand.walkMode ? " walk=1" : "") +
         (trackError ? " err=" + trackError.slice(0, 36) : "");
       var sub = document.getElementById("mapSubTitle");
       if (sub) {
         sub.textContent =
-          "zoom " +
-          focusIcao +
+          currentBand.label +
           " · " +
+          focusIcao +
+          " · zoom " +
           zoomLevel.toFixed(2) +
-          "× · ac=" +
-          aircraftCount +
-          " · SVG sprites · live ADS-B";
+          " · lod_ac=" +
+          lodTrackCount +
+          " · warn=" +
+          wn +
+          " · " +
+          wxStatus;
       }
+      var bandEl = document.getElementById("mapBandHud");
+      if (bandEl) bandEl.textContent = manifoldStageId + " · " + currentBand.label;
       container.setAttribute("data-strobe-tick", String(strobeTick));
       container.setAttribute("data-clock-ms", String(clockMs));
       container.setAttribute("data-membrane-ticks", String(membraneTicks));
       container.setAttribute("data-live-refresh", String(liveRefreshTicks));
       container.setAttribute("data-aircraft", String(aircraftCount));
+      container.setAttribute("data-lod-tracks", String(lodTrackCount));
       container.setAttribute("data-openusd-animating", strobeTick > 0 ? "1" : "0");
       container.setAttribute("data-scene-mode", "atc-map");
       container.setAttribute("data-focus-icao", focusIcao);
+      container.setAttribute("data-manifold-band", manifoldStageId);
+      container.setAttribute("data-zoom", zoomLevel.toFixed(3));
     }
 
     function tick() {
       if (disposed) return;
       strobeTick += 1;
       var elapsedMs = performance.now() - t0;
-      // Smooth lerp zoom + pan (pro map feel)
+      // Smooth lerp zoom + pan (lossless continuum; band LOD swaps at thresholds)
       zoomLevel += (targetZoom - zoomLevel) * 0.18;
       panX += (targetPanX - panX) * 0.22;
       panZ += (targetPanZ - panZ) * 0.22;
@@ -768,13 +1099,31 @@
       if (Math.abs(targetPanX - panX) < 0.001) panX = targetPanX;
       if (Math.abs(targetPanZ - panZ) < 0.001) panZ = targetPanZ;
       applyOrtho();
+      syncManifoldFromZoom();
+
+      // Skin / map LOD crossfade
+      if (skinCrossfade < 1) {
+        skinCrossfade = Math.min(1, skinCrossfade + 0.07);
+        if (mapMesh && mapMesh.material) mapMesh.material.opacity = skinCrossfade;
+        if (mapMeshPrev && mapMeshPrev.material) {
+          mapMeshPrev.material.opacity = 1 - skinCrossfade;
+          if (skinCrossfade >= 1) {
+            disposeMapMesh(mapMeshPrev);
+            mapMeshPrev = null;
+          }
+        }
+      }
 
       if (elapsedMs - lastFetchMs >= POLL_MS || liveRefreshTicks === 0) {
         lastFetchMs = elapsedMs;
         refreshTracks(false);
       }
-      // Pulse airport ring
-      var pulse = 1 + 0.08 * Math.sin(elapsedMs * 0.004);
+      // Solar terminator drifts slowly — rebuild overlay every 60s
+      if (elapsedMs - lastWxRebuildMs > 60000) {
+        lastWxRebuildMs = elapsedMs;
+        rebuildWxOverlay();
+      }
+      var pulse = (1 + 0.08 * Math.sin(elapsedMs * 0.004)) * (currentBand.walkMode ? 1.2 : 1);
       ring.scale.set(pulse, pulse, pulse);
       updateHud(elapsedMs);
       renderer.render(scene, camera);
@@ -784,18 +1133,24 @@
     var canvas = renderer.domElement;
     var skipDragUntilUp = false;
 
+    function panSense() {
+      return currentBand.panSense != null ? currentBand.panSense : 1;
+    }
+
     function onWheel(ev) {
       ev.preventDefault();
       // Scroll-wheel zoom toward cursor. Pinch on trackpad = ctrlKey + wheel.
       // Shift+wheel (or dominant deltaX) = pan — two-finger horizontal trackpad feel.
+      // Airport walk: higher pan sensitivity (surface walk).
       if (ev.shiftKey || (!ev.ctrlKey && Math.abs(ev.deltaX) > Math.abs(ev.deltaY) * 1.15)) {
         var rect = canvas.getBoundingClientRect();
         var half = orthoHalf / zoomLevel;
         var aspect = rect.width / (rect.height || 1);
         var sx = ev.shiftKey ? ev.deltaY : ev.deltaX;
         var sy = ev.shiftKey ? 0 : ev.deltaY;
-        targetPanX += (sx / Math.max(1, rect.width)) * (2 * half * aspect);
-        targetPanZ += (sy / Math.max(1, rect.height)) * (2 * half);
+        var ps = panSense();
+        targetPanX += (sx / Math.max(1, rect.width)) * (2 * half * aspect) * ps;
+        targetPanZ += (sy / Math.max(1, rect.height)) * (2 * half) * ps;
         return;
       }
       var intensity = ev.ctrlKey ? 0.014 : 0.0022;
@@ -865,9 +1220,10 @@
       var aspect = rect.width / (rect.height || 1);
       var dx = ev.clientX - lastPtr.x;
       var dy = ev.clientY - lastPtr.y;
-      // Click-drag / space-drag / touch-drag → pan
-      targetPanX -= (dx / rect.width) * (2 * half * aspect);
-      targetPanZ -= (dy / rect.height) * (2 * half);
+      var ps = panSense();
+      // Click-drag / space-drag / touch-drag → pan (airport walk uses higher sense)
+      targetPanX -= (dx / rect.width) * (2 * half * aspect) * ps;
+      targetPanZ -= (dy / rect.height) * (2 * half) * ps;
       lastPtr = { x: ev.clientX, y: ev.clientY };
     }
 
@@ -907,13 +1263,24 @@
       zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, 1 / 1.35);
     };
     document.getElementById("btnZoomAirport").onclick = function () {
-      targetZoom = 1.6;
+      // Jump to airport-walk staging band
+      targetZoom = 4.2;
       targetPanX = 0;
       targetPanZ = 0;
       refreshTracks(true);
     };
+    var btnHemi = document.getElementById("btnZoomHemi");
+    if (btnHemi) {
+      btnHemi.onclick = function () {
+        targetZoom = MS ? MS.BOOT_ZOOM : 0.22;
+        targetPanX = 0;
+        targetPanZ = 0;
+        refreshTracks(true);
+      };
+    }
 
     applyOrtho();
+    syncManifoldFromZoom();
     tick();
 
     function onResize() {
@@ -942,11 +1309,19 @@
         if (hud.parentNode) hud.parentNode.removeChild(hud);
         if (chrome.parentNode) chrome.parentNode.removeChild(chrome);
         if (zoomStack.parentNode) zoomStack.parentNode.removeChild(zoomStack);
+        if (warnPanel.parentNode) warnPanel.parentNode.removeChild(warnPanel);
+        clearWarnLines();
+        disposeMapMesh(mapMeshPrev);
+        disposeMapMesh(mapMesh);
+        disposeMapMesh(wxOverlayMesh);
       },
       hintCount: hints.length,
       timeSampleCount: 0,
       sceneMode: "atc-map",
       setAirport: setAirport,
+      setManifoldZoom: function (z) {
+        targetZoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, Number(z) || targetZoom));
+      },
       zoomBy: function (factor) {
         var rect = canvas.getBoundingClientRect();
         zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, factor);
@@ -958,17 +1333,32 @@
         refreshTracks(false);
       },
       getLiveState: function () {
+        var zr = MS && MS.zoomRational ? MS.zoomRational(zoomLevel) : { text: "" };
         return {
           strobeTick: strobeTick,
           clockMs: Math.floor(performance.now() - t0),
           membraneTicks: membraneTicks,
           liveRefreshTicks: liveRefreshTicks,
           aircraftCount: aircraftCount,
+          lodTrackCount: lodTrackCount,
           sceneMode: "atc-map",
           focusIcao: focusIcao,
           trackSource: "adsb.lol_https_v2",
           trackError: trackError,
           zoom: zoomLevel,
+          zoomRational: zr.text || "",
+          manifoldBand: manifoldStageId,
+          manifoldLabel: currentBand.label,
+          walkMode: !!currentBand.walkMode,
+          wxStatus: wxStatus,
+          solarElev:
+            wxMeta && wxMeta.solar ? wxMeta.solar.elevationDeg : null,
+          warnCount: (warningState.warnings || []).length,
+          warnTop:
+            warningState.warnings && warningState.warnings[0]
+              ? warningState.warnings[0]
+              : null,
+          minima: warningState.minima,
           panX: panX,
           panZ: panZ,
         };
@@ -991,6 +1381,7 @@
     parseUsdHints: parseUsdHints,
     parseTranslateTimeSamples: parseTranslateTimeSamples,
     AIRPORTS: AIRPORTS,
+    ManifoldStage: global.ManifoldStage || null,
     mount: function (container, usdaText, THREE, opts) {
       if (!THREE) throw new Error("THREE.js not loaded");
       var hints = parseUsdHints(usdaText);

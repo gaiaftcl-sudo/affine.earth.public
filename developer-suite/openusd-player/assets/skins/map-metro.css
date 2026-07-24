@@ -1,0 +1,37 @@
+/* Affine.Earth OpenUSD — METRO / TMA band skin */
+:root {
+  --ae-ocean: #0a1628;
+  --ae-land: #1a2820;
+  --ae-grid: rgba(70, 100, 120, 0.32);
+  --ae-label: #c8d0d6;
+  --ae-accent: #f5c518;
+  --ae-panel: rgba(14, 20, 28, 0.92);
+  --ae-band: #7ec8a0;
+}
+
+body.skin-map-metro,
+body.skin-map-metro #viewport {
+  background: var(--ae-ocean);
+}
+
+body.skin-map-metro header,
+body.skin-map-metro footer {
+  background: #0a1018;
+  border-color: #243240;
+}
+
+body.skin-map-metro .panel {
+  background: var(--ae-panel);
+}
+
+body.skin-map-metro button:not(.secondary) {
+  background: var(--ae-accent);
+  color: #1a1400;
+}
+
+body.skin-map-metro .map-title::after {
+  content: " · METRO / TMA";
+  color: var(--ae-band);
+  font-weight: 500;
+  font-size: 11px;
+}
