@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Affine.Earth OpenUSD — live ATC map</title>
+  <link rel="stylesheet" href="styles.css" id="baseSkin" />
+  <link rel="stylesheet" href="assets/skins/map-dark.css" id="mapSkin" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+</head>
+<body class="skin-map-dark">
+  <div class="shell">
+    <header>
+      <h1>Affine.Earth OpenUSD <span class="brand-yellow">ATC LIVE</span> <span class="tag">UUM8D · OpenUSD · FR24-class map</span></h1>
+      <div class="tag" id="apexLabel">apex: …</div>
+    </header>
+    <main>
+      <aside class="panel">
+        <h2>Live map</h2>
+        <p class="hint" id="liveHint">Dark map + yellow heading SVGs. Live ADS-B via Affine.Earth OS (<code>/language-invariant/adsb/tracks</code>). No canned aircraft loops.</p>
+        <p class="hint nav-hint"><strong>Navigate:</strong> scroll / pinch zoom · drag or space-drag pan · double-click zoom in · shift-double-click zoom out</p>
+        <label for="skinSelect">Map skin</label>
+        <select id="skinSelect">
+          <option value="map-dark" selected>Dark (FR24-class)</option>
+          <option value="map-terrain">Terrain accent</option>
+        </select>
+        <label>Zoom airport</label>
+        <div class="airport-grid" id="airportGrid">
+          <button type="button" data-icao="KJFK" class="active-airport">KJFK</button>
+          <button type="button" data-icao="EGLL">EGLL</button>
+          <button type="button" data-icao="EHAM">EHAM</button>
+          <button type="button" data-icao="LFPG">LFPG</button>
+          <button type="button" data-icao="EDDF">EDDF</button>
+          <button type="button" data-icao="KLAX">KLAX</button>
+          <button type="button" data-icao="RJTT">RJTT</button>
+          <button type="button" data-icao="OMDB">OMDB</button>
+        </div>
+        <div class="row">
+          <button id="btnZoomInPanel" class="secondary" type="button">Zoom +</button>
+          <button id="btnZoomOutPanel" class="secondary" type="button">Zoom −</button>
+        </div>
+
+        <h2>Scene</h2>
+        <label for="usdaPath">USDA path</label>
+        <input id="usdaPath" value="/language-game/airspace-atc-world.usda" />
+        <div class="row">
+          <button id="btnLoadUsda" type="button">Load USDA</button>
+          <button id="btnPreview" class="secondary" type="button">Preview</button>
+        </div>
+        <div class="row">
+          <button id="btnAtcUsda" type="button">ATC map scene</button>
+          <button id="btnLiveUsda" class="secondary" type="button">Load lattice</button>
+        </div>
+        <div class="row">
+          <button id="btnAutoStrobe" class="secondary" type="button">Auto strobe ON</button>
+        </div>
+        <label for="usdaPaste">Or paste USDA text</label>
+        <textarea id="usdaPaste" placeholder="#usda 1.0 …"></textarea>
+
+        <h2>Language games</h2>
+        <label for="gameSelect">Game</label>
+        <select id="gameSelect"><option value="">(load catalog)</option></select>
+        <div class="row">
+          <button id="btnGames" class="secondary" type="button">Refresh games</button>
+        </div>
+        <div class="row">
+          <button id="btnIngest" type="button">Ingest</button>
+          <button id="btnProject" type="button">Project</button>
+        </div>
+        <div class="row">
+          <button id="btnTeachAll" class="secondary" type="button">Teach all 12</button>
+        </div>
+        <p class="hint">Ingest/Project use domain teaching seeds (same as Python SDK).</p>
+
+        <h2>Membrane</h2>
+        <div class="row">
+          <button id="btnMcp" class="secondary" type="button">MCP tools</button>
+          <button id="btnUmc" class="secondary" type="button">UMC coding</button>
+        </div>
+        <div class="log" id="log">Ready.</div>
+      </aside>
+      <section id="viewport" aria-label="OpenUSD lattice preview"></section>
+    </main>
+    <footer>
+      Affine.Earth OpenUSD · binary-free player · Three.js CDN · live Affine.Earth HTTPS · scroll/pinch/drag map nav
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="player.js"></script>
+  <script src="uum8d-shell.js"></script>
+  <script src="teaching-seeds.js"></script>
+  <div id="boot"></div>
+  <script>
+    (function () {
+      const logEl = document.getElementById("log");
+      const apexLabel = document.getElementById("apexLabel");
+      let mounted = null;
+      let lastUsda = "";
+      let autoStrobe = true;
+      let autoTimer = null;
+      let focusIcao = "KJFK";
+
+      // Embedded lattice USDA — fallback when apex static file has no samples yet
+      const LIVE_USDA_FALLBACK = `#usda 1.0
+(
+    defaultPrim = "AffineEarthAirspace"
+    doc = "Affine.Earth OS airspace lattice — live timeSamples for Affine.Earth OpenUSD strobe"
+)
+def Xform "AffineEarthAirspace" {
+    custom string gaia:schema = "gaia.airspace_lattice.v1"
+    custom string gaia:nats_subject = "gaiaftcl.reality.manifold.openusd.apex"
+    custom string gaia:surface = "Affine.Earth OpenUSD"
+    double3 xformOp:translate.timeSamples = {
+        0: (0, 0, 0),
+        1: (1.2, 0.4, 0),
+        2: (0, 0.8, 1.2),
+        3: (-1.2, 0.4, 0),
+        4: (0, 0, 0),
+    }
+    def Xform "Cell_hel_00" {}
+    def Xform "Cell_hel_01" {}
+    def Xform "Cell_hel_02" {}
+    def Xform "Cell_nbg_00" {}
+    def Mesh "MembraneProjectTick" {}
+}
+`;
+
+      function loadAtcUsdaPath() {
+        document.getElementById("usdaPath").value = "/language-game/airspace-atc-world.usda";
+        return loadUsda();
+      }
+
+      function log(msg, cls) {
+        const line = document.createElement("div");
+        if (cls) line.className = cls;
+        line.textContent = msg;
+        logEl.prepend(line);
+      }
+
+      apexLabel.textContent = "apex: " + UUM8DShell.apexBase();
+
+      function membraneTick(info) {
+        if (mounted && mounted.applyMembraneTick) {
+          mounted.applyMembraneTick(info || {});
+          const st = mounted.getLiveState ? mounted.getLiveState() : {};
+          log(
+            "membrane-tick game=" +
+              (info && info.gameId ? info.gameId : "?") +
+              " strobe=" +
+              (st.strobeTick || 0) +
+              " clock=" +
+              (st.clockMs || 0) +
+              "ms subject=" +
+              (st.natsSubject || ""),
+            "ok"
+          );
+        }
+      }
+
+      async function loadUsda() {
+        const path = document.getElementById("usdaPath").value.trim();
+        lastUsda = await UUM8DShell.fetchUsda(path);
+        document.getElementById("usdaPaste").value = lastUsda.slice(0, 12000);
+        log("USDA loaded " + lastUsda.length + " chars from " + path, "ok");
+        preview();
+      }
+
+      function loadLiveUsda() {
+        lastUsda = LIVE_USDA_FALLBACK;
+        document.getElementById("usdaPaste").value = lastUsda;
+        log("Live USDA (timeSamples) loaded locally for video-like strobe", "ok");
+        preview();
+      }
+
+      function preview() {
+        const text = document.getElementById("usdaPaste").value || lastUsda;
+        if (!text) {
+          log("No USDA text", "err");
+          return;
+        }
+        if (mounted && mounted.dispose) mounted.dispose();
+        mounted = OpenUSDPlayer.mount(
+          document.getElementById("viewport"),
+          text,
+          window.THREE,
+          { icao: focusIcao, forceAtc: text.indexOf("airspace_atc") >= 0 || text.indexOf("focus_icao") >= 0 }
+        );
+        if (mounted.setAirport) mounted.setAirport(focusIcao);
+        log(
+          "Preview mode=" +
+            (mounted.sceneMode || "?") +
+            " airport=" +
+            focusIcao +
+            " animating=1",
+          "ok"
+        );
+      }
+
+      function selectAirport(icao) {
+        focusIcao = (icao || "KJFK").toUpperCase();
+        document.querySelectorAll("#airportGrid button").forEach(function (b) {
+          b.classList.toggle("active-airport", b.getAttribute("data-icao") === focusIcao);
+        });
+        if (mounted && mounted.setAirport) {
+          mounted.setAirport(focusIcao);
+          log("Airport zoom → " + focusIcao + " (live tracks)", "ok");
+        } else {
+          preview();
+        }
+      }
+
+      function setAutoStrobe(on) {
+        autoStrobe = !!on;
+        const btn = document.getElementById("btnAutoStrobe");
+        if (btn) btn.textContent = autoStrobe ? "Auto strobe ON" : "Auto strobe OFF";
+        if (autoTimer) {
+          clearInterval(autoTimer);
+          autoTimer = null;
+        }
+        if (autoStrobe) {
+          autoTimer = setInterval(function () {
+            const sel = document.getElementById("gameSelect");
+            const gid = (sel && sel.value) || "coding";
+            UUM8DShell.project(gid, TeachingSeeds.teachingSeed(gid, "openusd-strobe"))
+              .then(function (o) {
+                membraneTick({ gameId: gid, kind: "auto-project", body: o });
+              })
+              .catch(function (e) {
+                // Still advance local live state if membrane briefly fails
+                membraneTick({ gameId: gid, kind: "auto-local", err: String(e) });
+                log("auto-strobe project soft-fail " + e, "err");
+              });
+          }, 2500);
+          log("Auto strobe: project every 2.5s → live 3D pulse", "ok");
+        }
+      }
+
+      async function refreshGames() {
+        const cat = await UUM8DShell.loadGames();
+        const games = cat.games || cat.entries || [];
+        const sel = document.getElementById("gameSelect");
+        sel.innerHTML = "";
+        games.forEach(function (g) {
+          const id = g.game_id || g.id || g.name;
+          if (!id) return;
+          const opt = document.createElement("option");
+          opt.value = id;
+          opt.textContent = id;
+          sel.appendChild(opt);
+        });
+        log("Games: " + sel.options.length, "ok");
+      }
+
+      function seed() {
+        const gid = document.getElementById("gameSelect").value || "coding";
+        return TeachingSeeds.teachingSeed(gid, "openusd");
+      }
+
+      async function teachAll() {
+        const sel = document.getElementById("gameSelect");
+        const ids = [];
+        for (let i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].value) ids.push(sel.options[i].value);
+        }
+        let ok = 0;
+        const fail = [];
+        for (let i = 0; i < ids.length; i++) {
+          const gid = ids[i];
+          const body = TeachingSeeds.teachingSeed(gid, "openusd-all");
+          try {
+            await UUM8DShell.ingest(gid, body);
+            await UUM8DShell.project(gid, body);
+            ok += 1;
+            log("teach PASS " + gid, "ok");
+          } catch (e) {
+            fail.push(gid);
+            log("teach FAIL " + gid + " " + e, "err");
+          }
+        }
+        log("teach-all done pass=" + ok + "/" + ids.length + " fail=" + fail.join(","), fail.length ? "err" : "ok");
+      }
+
+      document.getElementById("btnLoadUsda").onclick = function () {
+        loadUsda().catch(function (e) { log(String(e), "err"); });
+      };
+      document.getElementById("btnAtcUsda").onclick = function () {
+        loadAtcUsdaPath().catch(function (e) {
+          log(String(e), "err");
+          log("ATC USDA fetch failed — paste fixtures/openusd/airspace-atc-world.usda", "err");
+        });
+      };
+      document.querySelectorAll("#airportGrid button").forEach(function (b) {
+        b.onclick = function () {
+          selectAirport(b.getAttribute("data-icao"));
+        };
+      });
+      document.getElementById("btnZoomInPanel").onclick = function () {
+        if (mounted && mounted.zoomBy) mounted.zoomBy(1.35);
+      };
+      document.getElementById("btnZoomOutPanel").onclick = function () {
+        if (mounted && mounted.zoomBy) mounted.zoomBy(1 / 1.35);
+      };
+      document.getElementById("skinSelect").onchange = function () {
+        var skin = document.getElementById("skinSelect").value || "map-dark";
+        var link = document.getElementById("mapSkin");
+        if (link) link.href = "assets/skins/" + skin + ".css";
+        document.body.className = "skin-" + skin;
+        log("skin → " + skin, "ok");
+      };
+      document.getElementById("btnLiveUsda").onclick = function () {
+        try {
+          document.getElementById("usdaPath").value = "/language-game/airspace-lattice.usda";
+          loadUsda().catch(function () { loadLiveUsda(); });
+        } catch (e) { log(String(e), "err"); }
+      };
+      document.getElementById("btnAutoStrobe").onclick = function () {
+        setAutoStrobe(!autoStrobe);
+      };
+      document.getElementById("btnPreview").onclick = function () {
+        try { preview(); } catch (e) { log(String(e), "err"); }
+      };
+      document.getElementById("btnGames").onclick = function () {
+        refreshGames().catch(function (e) { log(String(e), "err"); });
+      };
+      document.getElementById("btnIngest").onclick = function () {
+        const gid = document.getElementById("gameSelect").value;
+        UUM8DShell.ingest(gid, seed())
+          .then(function (o) {
+            log("ingest " + gid + " " + JSON.stringify(o).slice(0, 180), "ok");
+            membraneTick({ gameId: gid, kind: "ingest" });
+          })
+          .catch(function (e) { log(String(e), "err"); });
+      };
+      document.getElementById("btnProject").onclick = function () {
+        const gid = document.getElementById("gameSelect").value;
+        UUM8DShell.project(gid, seed())
+          .then(function (o) {
+            log("project " + gid + " " + JSON.stringify(o).slice(0, 180), "ok");
+            membraneTick({ gameId: gid, kind: "project" });
+          })
+          .catch(function (e) { log(String(e), "err"); });
+      };
+      document.getElementById("btnTeachAll").onclick = function () {
+        teachAll().catch(function (e) { log(String(e), "err"); });
+      };
+      document.getElementById("btnMcp").onclick = function () {
+        UUM8DShell.mcpTools()
+          .then(function (o) {
+            const tools = ((o.result || {}).tools) || [];
+            log("MCP tools: " + tools.map(function (t) { return t.name; }).join(", "), "ok");
+            membraneTick({ gameId: "mcp", kind: "tools" });
+          })
+          .catch(function (e) { log(String(e), "err"); });
+      };
+      document.getElementById("btnUmc").onclick = function () {
+        UUM8DShell.umcDirect("coding")
+          .then(function (o) {
+            log("UMC coding " + JSON.stringify(o).slice(0, 200), "ok");
+            membraneTick({ gameId: "umc-coding", kind: "umc" });
+          })
+          .catch(function (e) { log(String(e), "err"); });
+      };
+
+      // Boot: ATC KJFK world scene (airport zoom + aircraft). Fall back to lattice.
+      refreshGames()
+        .then(function () {
+          const sel = document.getElementById("gameSelect");
+          if (sel) {
+            for (let i = 0; i < sel.options.length; i++) {
+              if (sel.options[i].value === "aviation_atc") {
+                sel.selectedIndex = i;
+                break;
+              }
+            }
+          }
+        })
+        .catch(function (e) { log(String(e), "err"); });
+      loadUsda()
+        .then(function () {
+          const text = document.getElementById("usdaPaste").value || "";
+          if (text.indexOf("timeSamples") < 0) {
+            log("Apex USDA has no timeSamples — switching to lattice fallback", "ok");
+            loadLiveUsda();
+          } else if (text.indexOf("airspace_atc") >= 0 || text.indexOf("focus_icao") >= 0) {
+            log("ATC world USDA loaded — camera zoom + aircraft motion", "ok");
+          }
+          setAutoStrobe(true);
+        })
+        .catch(function (e) {
+          log(String(e), "err");
+          document.getElementById("usdaPath").value = "/language-game/airspace-lattice.usda";
+          loadUsda()
+            .catch(function () { loadLiveUsda(); })
+            .then(function () { setAutoStrobe(true); });
+        });
+    })();
+  </script>
+</body>
+</html>

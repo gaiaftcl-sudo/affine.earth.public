@@ -1,0 +1,124 @@
+#usda 1.0
+(
+    defaultPrim = "AffineEarthATCWorld"
+    doc = """Affine.Earth OpenUSD ATC stage — KJFK airport framing + worldwide markers.
+Aircraft motion is NOT authored timeSamples. Live tracks come from Affine.Earth OS:
+  GET /language-invariant/adsb/tracks  (adsb.lol HTTPS v2 → gaia.airspace_tracks.v1)
+  static mirrors: /language-game/tracks.json · lattice-snapshot.json
+Beast TCP out.adsb.lol:1365 remains FOLLOW_ON until WAN VirtIO bridge.
+Membrane aviation_atc ingest/project seals CALORIE alongside live tracks.
+Player: https://affine.earth/language-game/openusd/
+No Pixar libusd. No simulated ADS-B generator."""
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "AffineEarthATCWorld" (
+    kind = "component"
+)
+{
+    custom string gaia:schema = "gaia.airspace_atc_world.v1"
+    custom string gaia:focus_icao = "KJFK"
+    custom string gaia:focus_name = "John F. Kennedy International Airport"
+    custom string gaia:focus_lat = "40.6413"
+    custom string gaia:focus_lon = "-73.7781"
+    custom string gaia:product_surface = "Affine.Earth OS"
+    custom string gaia:posix = "FORBIDDEN"
+    custom string gaia:strobe = "live_tracks"
+    custom string gaia:nats_subject = "gaiaftcl.aviation.adsb.tracks"
+    custom string gaia:aviation_nats = "gaiaftcl.aviation.flow"
+    custom string gaia:live_endpoint = "out.adsb.lol:1365"
+    custom string gaia:live_https = "https://api.adsb.lol/v2"
+    custom string gaia:tracks_path = "/language-invariant/adsb/tracks"
+    custom string gaia:track_source = "adsb.lol_https_v2"
+    custom string gaia:beast_tcp_status = "FOLLOW_ON_WAN_NOT_BRIDGED"
+    custom string gaia:membrane_live = "aviation_atc_ingest_project_calorie"
+    custom string gaia:adsb_public_https = "EXPOSED_VIA_ADS_B_TRACKS"
+    custom int gaia:affine_cell_id = 0
+
+    def Xform "Camera_KJFK_Frame" {
+        custom string gaia:role = "camera"
+        custom string gaia:focus_icao = "KJFK"
+        custom string gaia:motion = "live_framed_airport_zoom"
+        # Initial eye only — OpenUSD player drives zoom/pan from live scene, not a canned loop
+        double3 xformOp:translate = (0, 14, 18)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+        custom float3 gaia:lookAt = (0, 0, 0)
+    }
+
+    def Xform "Airport_KJFK" {
+        custom string gaia:role = "airport"
+        custom string gaia:icao = "KJFK"
+        custom string gaia:name = "John F. Kennedy International"
+        custom string gaia:region = "NYC"
+        double3 xformOp:translate = (0, 0, 0)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+
+        def Mesh "Runway_13L_31R" {
+            custom string gaia:role = "runway"
+            custom string gaia:runway_id = "13L/31R"
+        }
+        def Mesh "Runway_04L_22R" {
+            custom string gaia:role = "runway"
+            custom string gaia:runway_id = "04L/22R"
+        }
+        def Mesh "Terminal_Complex" {
+            custom string gaia:role = "terminal"
+        }
+    }
+
+    # Worldwide airport markers (static context — not traffic)
+    def Xform "World_KLAX" {
+        custom string gaia:role = "airport_marker"
+        custom string gaia:icao = "KLAX"
+        double3 xformOp:translate = (-14, 0.2, -4)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Xform "World_EGLL" {
+        custom string gaia:role = "airport_marker"
+        custom string gaia:icao = "EGLL"
+        double3 xformOp:translate = (10, 0.2, 12)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Xform "World_LFPG" {
+        custom string gaia:role = "airport_marker"
+        custom string gaia:icao = "LFPG"
+        double3 xformOp:translate = (12, 0.2, 9)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Xform "World_EDDF" {
+        custom string gaia:role = "airport_marker"
+        custom string gaia:icao = "EDDF"
+        double3 xformOp:translate = (13, 0.2, 7)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Xform "World_RJTT" {
+        custom string gaia:role = "airport_marker"
+        custom string gaia:icao = "RJTT"
+        double3 xformOp:translate = (-6, 0.2, -14)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Xform "World_YSSY" {
+        custom string gaia:role = "airport_marker"
+        custom string gaia:icao = "YSSY"
+        double3 xformOp:translate = (-2, 0.2, -16)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Xform "World_OMDB" {
+        custom string gaia:role = "airport_marker"
+        custom string gaia:icao = "OMDB"
+        double3 xformOp:translate = (8, 0.2, -10)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+    def Xform "World_SBGR" {
+        custom string gaia:role = "airport_marker"
+        custom string gaia:icao = "SBGR"
+        double3 xformOp:translate = (6, 0.2, -14)
+        uniform token[] xformOpOrder = ["xformOp:translate"]
+    }
+
+    def Mesh "MembraneProjectTick" {
+        custom string gaia:role = "membrane_strobe"
+        custom string gaia:projection_subject = "gaiaftcl.game.aviation_atc.projection"
+    }
+}

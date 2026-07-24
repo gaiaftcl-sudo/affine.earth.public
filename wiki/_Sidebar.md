@@ -33,6 +33,10 @@
 - [Live Leaderboard](Live-Leaderboard) *(baseline demoted)*
 - [Upstream frameworks](Upstream-Frameworks)
 
+### ATC / OpenUSD
+- [**ATC live map (FR24-class)**](ATC-OpenUSD-Airport-App)
+  - Dark map · yellow heading sprites · live ADS-B · KJFK/EGLL zoom
+
 ### Deprecated / slim
 - [Capabilities → OS page](Capabilities)
 - [Open AGI Frameworks → Agents](Open-AGI-Frameworks)

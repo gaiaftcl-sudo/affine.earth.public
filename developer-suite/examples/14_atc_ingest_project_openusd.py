@@ -113,12 +113,43 @@ def main() -> int:
         summary = usd.summary()
         show("OpenUSD airspace-lattice.usda", summary)
         print("airspace.html OK:", usd.airspace_html_ok())
+
+        # Live ADS-B tracks (adsb.lol HTTPS via Affine.Earth OS helper — not authored loops)
+        tr = c.get("/language-invariant/adsb/tracks", params={"icao": "KJFK", "dist": "80"})
+        tr.raise_for_status()
+        tracks = tr.json()
+        show(
+            "live ADS-B tracks",
+            {
+                "aircraft_count": tracks.get("aircraft_count"),
+                "source": tracks.get("source"),
+                "focus_icao": tracks.get("focus_icao"),
+                "beast_tcp_status": tracks.get("beast_tcp_status"),
+                "error": tracks.get("error"),
+                "sample_callsign": ((tracks.get("aircraft") or [{}])[0] or {}).get("callsign"),
+            },
+        )
+        ur = c.get("/language-game/airspace-atc-world.usda")
+        ur.raise_for_status()
+        atc_usda = ur.text
+        show(
+            "OpenUSD airspace-atc-world.usda",
+            {
+                "bytes": len(atc_usda or ""),
+                "has_focus_kjfk": "KJFK" in (atc_usda or ""),
+                "has_tracks_path": "adsb/tracks" in (atc_usda or ""),
+            },
+        )
+
         print()
-        print("Open RealityPro ATC scene:")
-        print("  https://affine.earth/language-game/realitypro/")
-        print("  1) USDA path = /language-game/airspace-lattice.usda → Load USDA → Preview")
-        print("  2) Game select = aviation_atc → Ingest → Project (membrane ticks pulse lattice)")
-        print("  3) NATS-shaped subjects: gaiaftcl.aviation.flow.* + gaiaftcl.reality.manifold.realitypro.apex")
+        print("Open Affine.Earth OpenUSD ATC LIVE scene:")
+        print("  https://affine.earth/language-game/openusd/")
+        print("  1) USDA path = /language-game/airspace-atc-world.usda → Load USDA / ATC map scene")
+        print("  2) Aircraft from GET /language-invariant/adsb/tracks (live) — not authored timeSamples")
+        print("  3) Scroll/pinch zoom · drag pan · airport quick-zoom")
+        print("  4) Game select = aviation_atc → Ingest → Project (membrane CALORIE)")
+        print("  5) Video evidence: docs/receipts/atc_airport_video_20260724/")
+        print("  6) Wiki: https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/ATC-OpenUSD-Airport-App")
 
         if ing.get("status") != "CALORIE_GAME_INGEST" or ing.get("calorie") != "CALORIE_ATC_SECTOR_FLOW":
             raise SystemExit("ATC_INGEST_CALORIE_FAIL")
@@ -126,6 +157,12 @@ def main() -> int:
             raise SystemExit("ATC_PROJECT_KINDS_FAIL")
         if summary.get("def_count", 0) < 1:
             raise SystemExit("USDA_EMPTY")
+        if int(tracks.get("aircraft_count") or 0) < 1 and not tracks.get("error"):
+            raise SystemExit("LIVE_TRACKS_EMPTY")
+        if int(tracks.get("aircraft_count") or 0) < 1 and tracks.get("error"):
+            print("HONEST_EMPTY_OR_RATE_LIMIT", tracks.get("error"))
+        if "KJFK" not in (atc_usda or ""):
+            raise SystemExit("ATC_USDA_MISSING")
 
     print("ATC_INGEST_PROJECT_OPENUSD_PASS")
     return 0

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Heavy / widebody  slightly broader wing -->
+  <g fill="#ffb000" stroke="#ffd666" stroke-width="0.8" stroke-linejoin="round">
+    <path d="M32 4 L37.5 32 L35 52 L29 52 L26.5 32 Z"/>
+    <path d="M4 28 L60 28 L54 36 L10 36 Z"/>
+    <path d="M22 42 L42 42 L39 52 L25 52 Z"/>
+    <path d="M30 50 L34 50 L33 58 L31 58 Z"/>
+  </g>
+</svg>

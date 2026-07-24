@@ -1,0 +1,54 @@
+{
+  "url": "https://affine.earth/language-game/realitypro/",
+  "usda": "/language-game/airspace-atc-world.usda",
+  "focus_icao": "KJFK",
+  "track_source": "adsb.lol_https_v2",
+  "tracks_path": "/language-invariant/adsb/tracks",
+  "beast_tcp_status": "FOLLOW_ON_WAN_NOT_BRIDGED",
+  "motion": "live_track_snapshot_refresh",
+  "authored_aircraft_loop": false,
+  "duration_ms": 22000,
+  "states": [
+    {
+      "t": "start",
+      "hud": "mode=atc-live KJFK strobe=668 clock=5531ms membrane=2 liveRefresh=20 ac=120 camY=5.51 src=adsb.lol_https_v2",
+      "strobe": "668",
+      "clock": "5531",
+      "membrane": "2",
+      "liveRefresh": "20",
+      "mode": "atc-live",
+      "focus": "KJFK",
+      "track": "adsb.lol_https_v2",
+      "aircraft": "120",
+      "canvas": true,
+      "title": "Affine.Earth RealityPro \u2014 UUM8D language games"
+    },
+    {
+      "t": "end",
+      "hud": "mode=atc-live KJFK strobe=3592 clock=29873ms membrane=12 liveRefresh=36 ac=120 camY=3.20 src=adsb.lol_https_v2",
+      "strobe": "3592",
+      "clock": "29873",
+      "membrane": "12",
+      "liveRefresh": "36",
+      "mode": "atc-live",
+      "focus": "KJFK",
+      "track": "adsb.lol_https_v2",
+      "aircraft": "120",
+      "canvas": true,
+      "title": "Affine.Earth RealityPro \u2014 UUM8D language games"
+    }
+  ],
+  "aircraft_start": 120,
+  "aircraft_end": 120,
+  "live_refresh_start": 20,
+  "live_refresh_end": 36,
+  "webm_bytes": 2890906,
+  "mp4_bytes": 2395186,
+  "paths": {
+    "receipt_webm": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/developer-suite/docs/receipts/atc_airport_video_20260724/atc-kjfk-live-tracks.webm",
+    "receipt_mp4": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/developer-suite/docs/receipts/atc_airport_video_20260724/atc-kjfk-live-tracks.mp4",
+    "wiki_webm": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/wiki/assets/videos/atc-kjfk-live-tracks.webm",
+    "wiki_mp4": "/Users/richardgillespie/Documents/AppleGaiaFTCL/llm-llvm-benchmark-suite/wiki/assets/videos/atc-kjfk-live-tracks.mp4"
+  },
+  "timestamp": "2026-07-24T17:03:11Z"
+}

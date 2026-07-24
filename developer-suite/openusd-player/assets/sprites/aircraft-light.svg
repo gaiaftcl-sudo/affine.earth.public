@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Light GA  smaller planform -->
+  <g fill="#ffd24a" stroke="#fff0a0" stroke-width="0.7" stroke-linejoin="round">
+    <path d="M32 12 L35 36 L33.5 46 L30.5 46 L29 36 Z"/>
+    <path d="M16 32 L48 32 L45 37 L19 37 Z"/>
+    <path d="M26 42 L38 42 L36 48 L28 48 Z"/>
+  </g>
+</svg>

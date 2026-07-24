@@ -1,0 +1,58 @@
+{
+  "url": "https://affine.earth/language-game/openusd/",
+  "brand": "Affine.Earth OpenUSD",
+  "states": [
+    {
+      "t": "boot",
+      "title": "Affine.Earth OpenUSD \u2014 live ATC map",
+      "hud": "mode=atc-map KJFK strobe=300 clock=4961ms membrane=2 liveRefresh=13 ac=400 zoom=1.40 src=adsb.lol_https_v2",
+      "aircraft": "400",
+      "zoom": "1.40",
+      "focus": "KJFK",
+      "liveRefresh": "13",
+      "banned": false,
+      "canvas": true
+    },
+    {
+      "t": "wheel_zoom_in",
+      "title": "Affine.Earth OpenUSD \u2014 live ATC map",
+      "hud": "mode=atc-map KJFK strobe=624 clock=10361ms membrane=4 liveRefresh=16 ac=400 zoom=12.00 src=adsb.lol_https_v2",
+      "aircraft": "400",
+      "zoom": "12.00",
+      "focus": "KJFK",
+      "liveRefresh": "16",
+      "banned": false,
+      "canvas": true
+    },
+    {
+      "t": "pan",
+      "title": "Affine.Earth OpenUSD \u2014 live ATC map",
+      "hud": "mode=atc-map KJFK strobe=816 clock=13561ms membrane=5 liveRefresh=18 ac=400 zoom=12.00 src=adsb.lol_https_v2",
+      "aircraft": "400",
+      "zoom": "12.00",
+      "focus": "KJFK",
+      "liveRefresh": "18",
+      "banned": false,
+      "canvas": true
+    },
+    {
+      "t": "dblclick",
+      "title": "Affine.Earth OpenUSD \u2014 live ATC map",
+      "hud": "mode=atc-map KJFK strobe=894 clock=14861ms membrane=6 liveRefresh=20 ac=400 zoom=12.00 src=adsb.lol_https_v2",
+      "aircraft": "400",
+      "zoom": "12.00",
+      "focus": "KJFK",
+      "liveRefresh": "20",
+      "banned": false,
+      "canvas": true
+    }
+  ],
+  "zoom_boot": 1.4,
+  "zoom_after_wheel": 12.0,
+  "zoom_after_dblclick": 12.0,
+  "zoom_increased": true,
+  "aircraft_max": 400,
+  "realitypro_banned_text_found": false,
+  "webm_bytes": 2621440,
+  "timestamp": "2026-07-24T17:35:15Z"
+}

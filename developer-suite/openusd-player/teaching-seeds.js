@@ -1,6 +1,6 @@
 /**
  * Teaching seeds for all 12 LIVE games — mirrors affine_earth_sdk/game_seeds.py
- * Used by RealityPro ingest/project so the player exercises real domain payloads.
+ * Used by Affine.Earth OpenUSD ingest/project so the player exercises real domain payloads.
  */
 (function (global) {
   "use strict";
@@ -11,7 +11,7 @@
 
   function teachingSeed(gameId, sessionSuffix) {
     const gid = String(gameId || "coding").toLowerCase();
-    const s = (sessionSuffix || "realitypro") + "-" + gid;
+    const s = (sessionSuffix || "openusd") + "-" + gid;
     const table = {
       cinema: {
         film_id: "affine-horizon",
@@ -146,7 +146,7 @@
     return table[gid] || {
       node_id: "apex",
       session_id: s,
-      title: "realitypro-" + gid,
+      title: "openusd-" + gid,
       tau_height: 0,
       amplitudes: amps(),
     };

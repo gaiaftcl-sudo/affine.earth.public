@@ -1,0 +1,33 @@
+/* Affine.Earth OpenUSD — dark geographic map skin (not third-party art) */
+:root {
+  --ae-ocean: #0a1628;
+  --ae-land: #1a2820;
+  --ae-grid: rgba(70, 100, 120, 0.28);
+  --ae-label: #c8d0d6;
+  --ae-accent: #f5c518;
+  --ae-panel: rgba(14, 20, 28, 0.92);
+}
+
+body.skin-map-dark,
+body.skin-map-dark #viewport {
+  background: var(--ae-ocean);
+}
+
+body.skin-map-dark header,
+body.skin-map-dark footer {
+  background: #0a1018;
+  border-color: #243240;
+}
+
+body.skin-map-dark .panel {
+  background: var(--ae-panel);
+}
+
+body.skin-map-dark button:not(.secondary) {
+  background: var(--ae-accent);
+  color: #1a1400;
+}
+
+body.skin-map-dark .brand-accent {
+  color: var(--ae-accent);
+}

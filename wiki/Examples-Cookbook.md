@@ -6,9 +6,9 @@ The public git root **is** this evidence rig (clone `affine.earth.public` → wo
 
 ---
 
-## 0. Developer suite (MCP · OpenAI `/v1` · OpenUSD · RealityPro · 12 games)
+## 0. Developer suite (MCP · OpenAI `/v1` · OpenUSD · 12 games)
 
-Binary-free Python SDK + domain examples + RealityPro UUM8D web player live under **[`developer-suite/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/developer-suite)**. No GaiaFTCLCLI / GGUF / `.app` in that tree.
+Binary-free Python SDK + domain examples + Affine.Earth OpenUSD web player live under **[`developer-suite/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/developer-suite)**. No GaiaFTCLCLI / GGUF / `.app` in that tree.
 
 ```bash
 git clone https://github.com/gaiaftcl-sudo/affine.earth.public.git
@@ -35,7 +35,7 @@ AFFINE_LIVE=1 pytest tests/test_live_smoke.py -v -m live
 | OpenUSD airspace | `examples/10_openusd_airspace_fetch.py` |
 | **ATC ingest → project → OpenUSD** | `examples/14_atc_ingest_project_openusd.py` · [ATC_INGEST_PROJECT.md](https://github.com/gaiaftcl-sudo/affine.earth.public/blob/main/developer-suite/docs/ATC_INGEST_PROJECT.md) |
 | Full membrane tour | `examples/12_domain_tour.py` |
-| RealityPro player | `realitypro-player/` → live `https://affine.earth/language-game/realitypro/` |
+| OpenUSD player | `openusd-player/` → live `https://affine.earth/language-game/openusd/` |
 
 Measured teaching receipt: [`developer-suite/docs/LANGUAGE_GAMES_TEACHING.md`](https://github.com/gaiaftcl-sudo/affine.earth.public/blob/main/developer-suite/docs/LANGUAGE_GAMES_TEACHING.md) (12/12 PASS on apex).
 
@@ -60,9 +60,9 @@ python3 examples/14_atc_ingest_project_openusd.py
 | Project | `GYROID` · `ATC_SECTOR` / `ATC_CLEARANCE` / `AVIATION_ATC` |
 | Richer clearance | UAL772 VECTOR accepted (HTTP 200) |
 | OpenUSD | `/language-game/airspace-lattice.usda` · `timeSamples` · `gaia:strobe=live` |
-| RealityPro | strobe/membrane advanced (Playwright); open `https://affine.earth/language-game/realitypro/` → game `aviation_atc` |
+| OpenUSD ATC map | wheel/pinch/pan + live tracks (Playwright); open `https://affine.earth/language-game/openusd/` → game `aviation_atc` |
 
-**Honest:** no public `/adsb` or `/tracks.json` REST on the apex (404). Cell ADS-B agents are mesh-side. No ATC-specific USDA — bind ATC project ticks to the airspace lattice. Receipt: [`developer-suite/docs/receipts/atc_openusd_20260724/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/developer-suite/docs/receipts/atc_openusd_20260724).
+**Live map (2026-07-24):** [`ATC OpenUSD Airport App`](ATC-OpenUSD-Airport-App) — Flightradar24-class dark map + yellow heading sprites from `GET /language-invariant/adsb/tracks` + `/language-game/tracks.json`. USDA stage `/language-game/airspace-atc-world.usda`. Beast TCP 1365 still FOLLOW_ON. Receipt: [`atc_airport_video_20260724/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/developer-suite/docs/receipts/atc_airport_video_20260724).
 
 Full HLE/ARC harness CLIs remain under `scripts/*openai*exam*.py` (not re-implemented in the developer suite).
 

@@ -1,0 +1,37 @@
+/* Affine.Earth OpenUSD — terrain-tint map skin (Affine branded, not FR24 art) */
+:root {
+  --ae-ocean: #0c1e2e;
+  --ae-land: #243828;
+  --ae-grid: rgba(90, 120, 90, 0.22);
+  --ae-label: #d4e0c8;
+  --ae-accent: #ff9f1a;
+  --ae-panel: rgba(16, 24, 18, 0.94);
+}
+
+body.skin-map-terrain,
+body.skin-map-terrain #viewport {
+  background: linear-gradient(180deg, #0c1e2e 0%, #142818 100%);
+}
+
+body.skin-map-terrain header,
+body.skin-map-terrain footer {
+  background: #101810;
+  border-color: #2a3a28;
+}
+
+body.skin-map-terrain .panel {
+  background: var(--ae-panel);
+}
+
+body.skin-map-terrain button:not(.secondary) {
+  background: var(--ae-accent);
+  color: #1a1000;
+}
+
+body.skin-map-terrain .brand-accent {
+  color: var(--ae-accent);
+}
+
+body.skin-map-terrain .map-title {
+  color: #eef6e4;
+}
