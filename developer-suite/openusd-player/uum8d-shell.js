@@ -110,6 +110,26 @@
     return jget(path);
   }
 
+  /**
+   * Swift OS UUM8D zoom projection — source of truth for band + tracks + warnings.
+   * Browser remains a thin viewport; do not recompute separation here when this lands.
+   */
+  async function fetchUUM8DZoomProjection(opts) {
+    const o = opts || {};
+    const icao = o.icao || "KJFK";
+    const zoom = Number(o.zoom);
+    const zoomMilli =
+      o.zoom_milli != null
+        ? intOr(o.zoom_milli, 220)
+        : Math.round((isNaN(zoom) ? 0.22 : zoom) * 1000);
+    const path =
+      "/language-invariant/airspace/uum8d-zoom?zoom_milli=" +
+      encodeURIComponent(String(zoomMilli)) +
+      "&icao=" +
+      encodeURIComponent(icao);
+    return jget(path);
+  }
+
   function intOr(v, d) {
     const n = parseInt(v, 10);
     return isNaN(n) ? d : n;
@@ -124,5 +144,6 @@
     umcDirect: umcDirect,
     fetchUsda: fetchUsda,
     fetchLiveTracks: fetchLiveTracks,
+    fetchUUM8DZoomProjection: fetchUUM8DZoomProjection,
   };
 })(typeof window !== "undefined" ? window : globalThis);

@@ -831,11 +831,14 @@
     }
 
     function renderWarnings(filteredRows) {
-      if (!TW || !TW.evaluate) {
-        warningState = { warnings: [], minima: null, pairCount: 0 };
-        return;
+      // Prefer Swift OS projection warnings when already stamped this refresh.
+      if (!(warningState && warningState.source === "SWIFT_UUM8D_ZOOM")) {
+        if (!TW || !TW.evaluate) {
+          warningState = { warnings: [], minima: null, pairCount: 0 };
+        } else {
+          warningState = TW.evaluate(filteredRows, manifoldStageId, { maxWarnings: 30 });
+        }
       }
-      warningState = TW.evaluate(filteredRows, manifoldStageId, { maxWarnings: 30 });
       clearWarnLines();
       (warningState.warnings || []).forEach(function (w) {
         if (w.kind !== "SEPARATION" || w.latB == null) return;
@@ -975,13 +978,90 @@
       renderWarnings(list);
     }
 
+    function rowsFromSwiftZoomPacket(pkt) {
+      var rows = pkt && pkt.viewport_aircraft ? pkt.viewport_aircraft : [];
+      return rows.map(function (a) {
+        return {
+          icao: a.icao,
+          callsign: a.callsign,
+          lat: Number(a.lat_milli_deg) / 1000,
+          lon: Number(a.lon_milli_deg) / 1000,
+          alt_baro_ft: Number(a.alt_baro_ft) || 0,
+          track_deg: Number(a.track_deg_milli) / 1000,
+          gs_kt: Number(a.gs_kt_milli) / 1000,
+        };
+      });
+    }
+
+    function warningsFromSwiftZoomPacket(pkt) {
+      var list = (pkt && pkt.warnings) || [];
+      return {
+        warnings: list.map(function (w) {
+          return {
+            severity: w.severity || "LOW",
+            kind: w.lateral_breach && w.vertical_breach ? "SEPARATION" : "NEAR",
+            icao_a: w.icao_a,
+            icao_b: w.icao_b,
+            callsign_a: w.callsign_a,
+            callsign_b: w.callsign_b,
+            lateral_nm: (Number(w.lateral_milli_nm) || 0) / 1000,
+            vertical_ft: Number(w.vertical_ft) || 0,
+            message:
+              (w.severity || "?") +
+              " " +
+              (w.callsign_a || w.icao_a) +
+              "↔" +
+              (w.callsign_b || w.icao_b),
+          };
+        }),
+        minima: pkt.minima || null,
+        pairCount: list.length,
+        source: "SWIFT_UUM8D_ZOOM",
+      };
+    }
+
     async function refreshTracks(force) {
       if (disposed) return;
-      if (!global.UUM8DShell || !global.UUM8DShell.fetchLiveTracks) {
-        trackError = "fetchLiveTracks missing";
+      if (!global.UUM8DShell) {
+        trackError = "UUM8DShell missing";
         return;
       }
       try {
+        // Prefer Swift OS projection (band + tracks + warnings). Fallback: static tracks.json.
+        if (global.UUM8DShell.fetchUUM8DZoomProjection) {
+          try {
+            var zoomPkt = await global.UUM8DShell.fetchUUM8DZoomProjection({
+              icao: focusIcao,
+              zoom: zoomLevel,
+            });
+            if (
+              zoomPkt &&
+              zoomPkt.proven === "AIRSPACE_UUM8D_ZOOM_PROJECTION_PROVEN" &&
+              (zoomPkt.viewport_aircraft || zoomPkt.aircraft)
+            ) {
+              liveRefreshTicks += 1;
+              trackError = "";
+              if (zoomPkt.manifold_band) {
+                manifoldStageId = String(zoomPkt.manifold_band);
+                hud.setAttribute("data-manifold-band", manifoldStageId);
+              }
+              warningState = warningsFromSwiftZoomPacket(zoomPkt);
+              upsertAircraft(rowsFromSwiftZoomPacket(zoomPkt));
+              hud.setAttribute(
+                "data-track-source",
+                "swift_uum8d_zoom lat_ns=" + String(zoomPkt.latency_ns || 0)
+              );
+              hud.setAttribute("data-projection-source", "SWIFT_UUM8D_ZOOM");
+              return;
+            }
+          } catch (_) {
+            /* fall through — apex may still be Python helper without zoom path */
+          }
+        }
+        if (!global.UUM8DShell.fetchLiveTracks) {
+          trackError = "fetchLiveTracks missing";
+          return;
+        }
         var dist = currentBand.fetchDistNm || 100;
         lastFetchDist = dist;
         var payload = await global.UUM8DShell.fetchLiveTracks({
@@ -993,6 +1073,7 @@
         trackError = payload.error || "";
         upsertAircraft(payload.aircraft || []);
         hud.setAttribute("data-track-source", payload.source || "adsb.lol_https_v2");
+        hud.setAttribute("data-projection-source", "FALLBACK_TRACKS_JSON");
       } catch (e) {
         trackError = String(e);
       }
