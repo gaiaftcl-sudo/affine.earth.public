@@ -1,5 +1,8 @@
 # Live Leaderboard & Comparative Scoreboard
 
+> **HISTORICAL RECEIPT (non-runnable archive)** — Comparative frontier columns (GPT-4o / Claude / Gemini / etc.) are **published baseline aggregates**, not Affine.Earth OS membrane recipes. Do **not** call Anthropic, OpenAI cloud, Gemini cloud, Groq, or Together. The only runnable membrane is **Affine.Earth OS** via `https://affine.earth/v1` (OpenAI-*compatible wire shape* → OS engine) and `https://affine.earth/language-invariant/mcp`.
+
+
 **Canonical scores page:** [Results & Scores](Results-And-Scores) (AGI-executable suites front and center).  
 **Proof in action:** [In action](In-Action) · [Home](Home).
 

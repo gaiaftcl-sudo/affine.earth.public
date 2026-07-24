@@ -1,5 +1,8 @@
 # Benchmark Inventory
 
+> **HISTORICAL RECEIPT (non-runnable archive)** — Comparative frontier columns (GPT-4o / Claude / Gemini / etc.) are **published baseline aggregates**, not Affine.Earth OS membrane recipes. Do **not** call Anthropic, OpenAI cloud, Gemini cloud, Groq, or Together. The only runnable membrane is **Affine.Earth OS** via `https://affine.earth/v1` (OpenAI-*compatible wire shape* → OS engine) and `https://affine.earth/language-invariant/mcp`.
+
+
 Canonical inventory for every test/benchmark surface in this repository, with **RUNNABLE / NEEDS_UPSTREAM / BASELINE_TABLE_ONLY** status.
 
 **Full detail + absolute paths:** see repo file [`docs/BENCHMARK_INVENTORY.md`](../docs/BENCHMARK_INVENTORY.md)  

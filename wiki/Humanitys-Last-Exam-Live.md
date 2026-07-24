@@ -10,7 +10,8 @@ Doctrine: [`docs/LANGUAGE_GAMES_HLE.md`](../docs/LANGUAGE_GAMES_HLE.md) (SHA `f9
 
 ```bash
 export OPENAI_BASE_URL="http://127.0.0.1:8080/v1"
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
 ./bin/run-local-hle-mastery.sh
 ```
 
@@ -74,7 +75,8 @@ This is a measured **steward gate**, not an HLE score. Accuracy/Calibration can 
    ```
 5. Confirm parquet access (expect HTTP 200 / `PAR1` magic), then run:
    ```bash
-   export OPENAI_API_KEY="uum8d-hle-verifier"
+   export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
    export OPENAI_BASE_URL="http://127.0.0.1:8080/v1"
    export AFFINE_HARNESS_ENDPOINT="$OPENAI_BASE_URL"
    export AFFINE_HARNESS_MODEL="qwen/qwen3.6-35b-a3b"

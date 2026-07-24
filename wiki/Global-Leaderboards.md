@@ -1,5 +1,8 @@
 # Global Leaderboard Submissions & Reproduction
 
+> **HISTORICAL RECEIPT (non-runnable archive)** — Comparative frontier columns (GPT-4o / Claude / Gemini / etc.) are **published baseline aggregates**, not Affine.Earth OS membrane recipes. Do **not** call Anthropic, OpenAI cloud, Gemini cloud, Groq, or Together. The only runnable membrane is **Affine.Earth OS** via `https://affine.earth/v1` (OpenAI-*compatible wire shape* → OS engine) and `https://affine.earth/language-invariant/mcp`.
+
+
 **Specification:** [`docs/GLOBAL_LEADERBOARD_SUBMISSIONS.md`](../docs/GLOBAL_LEADERBOARD_SUBMISSIONS.md)  
 **Target Wire Endpoint:** `https://affine.earth/v1` (measured 2026-07-24)  
 **API Key:** `uum8d-hle-verifier`  

@@ -1,0 +1,19 @@
+{
+  "s1": {
+    "hud": "strobe=272 clock=4855ms membrane=1 samples=5 orbitY=1.850",
+    "strobe": "272",
+    "clock": "4855",
+    "membrane": "1",
+    "samples": "5",
+    "canvas": true,
+    "webglError": null
+  },
+  "s2": {
+    "hud": "strobe=419 clock=7307ms membrane=2 samples=5 orbitY=2.858",
+    "strobe": "419",
+    "clock": "7307",
+    "membrane": "2",
+    "samples": "5",
+    "orbit": "2.8577"
+  }
+}

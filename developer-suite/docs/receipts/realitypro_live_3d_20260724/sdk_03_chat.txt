@@ -1,0 +1,61 @@
+=== models ===
+{
+  "data": [
+    {
+      "created": 0,
+      "id": "gaiaftcl-os",
+      "object": "model",
+      "owned_by": "affine.earth"
+    },
+    {
+      "created": 0,
+      "id": "affine-earth-os-mcp",
+      "object": "model",
+      "owned_by": "affine.earth"
+    },
+    {
+      "created": 0,
+      "id": "franklin-membrane",
+      "object": "model",
+      "owned_by": "affine.earth"
+    },
+    {
+      "created": 0,
+      "id": "franklin-membrane-exam",
+      "object": "model",
+      "owned_by": "affine.earth"
+    }
+  ],
+  "object": "list"
+}
+
+=== chat.completions ===
+{
+  "affine_earth_os": {
+    "cloud_openai": 0,
+    "exam_mode": false,
+    "exam_upstream_configured": true,
+    "mcp_endpoint": "POST /language-invariant/mcp",
+    "membrane": "openai_compatible"
+  },
+  "choices": [
+    {
+      "finish_reason": "stop",
+      "index": 0,
+      "message": {
+        "content": "I don't have a sealed take on \u201cSay hello from Affine.Earth developer suite.\u201d yet. Want to drop a source, or rephrase what we're figuring out?",
+        "role": "assistant"
+      }
+    }
+  ],
+  "created": 1784908747,
+  "id": "chatcmpl-affine-09671e1bbd876fd81206c5ed",
+  "model": "franklin-membrane",
+  "object": "chat.completion",
+  "usage": {
+    "completion_tokens": 0,
+    "prompt_tokens": 0,
+    "total_tokens": 0
+  }
+}
+

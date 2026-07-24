@@ -181,7 +181,7 @@ Wiki tables should cite those or a re-run. See [Benchmarks](Benchmarks).
 
 ### Q. What API key does the public verifier use?
 
-**A.** Measured bootstrap for the Affine.Earth OS membrane (**2026-07-24**): `OPENAI_BASE_URL=https://affine.earth/v1`, `OPENAI_API_KEY=uum8d-hle-verifier`. `GET /v1/models` returned HTTP 200 JSON (`gaiaftcl-os`, `affine-earth-os-mcp`, `franklin-membrane`, `franklin-membrane-exam`); `POST /v1/chat/completions` returned HTTP 200 (`franklin-membrane`). Receipt: `reports/wiki_membrane_probe_20260724/receipt.json`. Prefer `developer-suite/examples/03_openai_models_and_chat.py` / `docs/OPENAI_V1.md`. Signup does **not** mint keys in the UI.
+**A.** Measured bootstrap for the Affine.Earth OS membrane (**2026-07-24**): `AFFINE_BASE_URL=https://affine.earth`, `AFFINE_API_KEY=uum8d-hle-verifier` (wire aliases `OPENAI_BASE_URL=https://affine.earth/v1`, `OPENAI_API_KEY` — NOT api.openai.com). `GET /v1/models` returned HTTP 200 JSON (`gaiaftcl-os`, `affine-earth-os-mcp`, `franklin-membrane`, `franklin-membrane-exam`); `POST /v1/chat/completions` returned HTTP 200 (`franklin-membrane`). Receipt: `reports/wiki_membrane_probe_20260724/receipt.json`. Prefer `developer-suite/examples/03_openai_models_and_chat.py` / `docs/OPENAI_V1.md`. Signup does **not** mint keys in the UI.
 
 ### Q. What is the local interceptor?
 

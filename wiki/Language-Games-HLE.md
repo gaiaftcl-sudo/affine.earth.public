@@ -15,9 +15,13 @@ Canonical doctrine: [`docs/LANGUAGE_GAMES_HLE.md`](../docs/LANGUAGE_GAMES_HLE.md
 HLE is an exact-answer game over official, multi-domain question records. The
 harness loads one question and its answer contract; the model consumes its
 complete context and supported modality payload, emits one normalized final
-answer, and the CAIS judge evaluates the complete prediction artifact. The win
-condition is the official judge's result, never a plausible explanation or
-partial sample run.
+answer, and the CAIS judge evaluates the complete prediction artifact.
+
+**Win condition (steward):** evaluable OpenAI-compatible endpoint + harness
+reproducibility + email package to evaluators (`agibenchmark@safe.ai`,
+`seal@scale.com`) — not Kaggle auto-submit. Official Accuracy/Calibration still
+come only from the CAIS judge after an authorized rerun. Scaffold:
+`reports/hle_eval_email_package/`.
 
 ## 2. Input/output state
 
@@ -109,11 +113,12 @@ They are not CAIS judge output. Signup/login walkthrough video is **only** on
 Capture: `python3 scripts/capture_hle_exam_ui.py --record-video`. Live embeds also on
 [Humanity’s Last Exam — live](Humanitys-Last-Exam-Live).
 
-## 8. Public-submission gate
+## 8. Evaluation gate (email — not Kaggle)
 
-**No public HLE submission or score statement until authorized data access,
-schema validation, complete coverage, context capture, answer-format checks,
-artifact validation, and a successful official CAIS judge receipt are green.**
+**No HLE Kaggle / auto-submit.** Public path = email evaluators an evaluable
+OpenAI-compatible system + harness config (`reports/hle_eval_email_package/`).
+No Accuracy/Calibration claim until the official CAIS judge emits them. Local
+`reports/hle_official_*` artifacts are corroboration only.
 
 ## 9. Local ownership drills (pre-`cais/hle`)
 
@@ -123,7 +128,8 @@ types. Local evidence is labeled local (shared invariant 5).
 
 ```bash
 export OPENAI_BASE_URL="http://127.0.0.1:8080/v1"
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
 ./bin/run-local-hle-mastery.sh
 ```
 

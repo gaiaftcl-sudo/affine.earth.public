@@ -1,6 +1,9 @@
 # Expanded Frontier Coding Suite (SWE-bench, LiveCodeBench, MultiPL-E)
 
-This page documents the largest coding benchmarks used by OpenAI, Anthropic, DeepSeek, Google, and Alibaba to evaluate frontier coding capabilities.
+> **HISTORICAL RECEIPT (non-runnable archive)** — Comparative frontier columns (GPT-4o / Claude / Gemini / etc.) are **published baseline aggregates**, not Affine.Earth OS membrane recipes. Do **not** call Anthropic, OpenAI cloud, Gemini cloud, Groq, or Together. The only runnable membrane is **Affine.Earth OS** via `https://affine.earth/v1` (OpenAI-*compatible wire shape* → OS engine) and `https://affine.earth/language-invariant/mcp`.
+
+
+This page is a **HISTORICAL RECEIPT** of published coding-benchmark aggregates used externally by various vendors. It is **not** a runnable recipe against those vendors. Runnable evaluation uses Affine.Earth OS only (`https://affine.earth/v1`).
 
 > **Provenance:** Numbers below are the **BASELINE TABLE** from `llm_llvm_bench/forks/expanded_frontier_baselines.py` (frontier rows cite published model-card / report sources in that file). This repository’s `reports/` directory currently emphasizes Clang/rational/healthz receipts and domain comparative MD/JSON — not full SWE-bench Verified run logs for every model. For measured local compiler/rational results, see [Benchmarks](Benchmarks) and [Live Leaderboard](Live-Leaderboard).
 

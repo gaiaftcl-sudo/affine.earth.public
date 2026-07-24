@@ -53,7 +53,7 @@ uint64_t constant_time_compare_32(const uint8_t *a, const uint8_t *b, size_t len
 
 ### 🔬 Human Audit Criteria
 - **Pass (100% Constant-Time):** Loop executes all 32 bytes unconditionally. Execution time is identical regardless of where mismatch occurs.
-- **Fail (Early-Exit Leakage):** `if (a[i] != b[i]) return 0;` (Found in standard LLM outputs for Kimi 2.7, GPT-4o).
+- **Fail (Early-Exit Leakage):** `if (a[i] != b[i]) return 0;` (Found historically in published frontier LLM outputs — not an Affine.Earth OS runnable recipe).
 
 ---
 

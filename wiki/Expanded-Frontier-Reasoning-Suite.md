@@ -1,5 +1,8 @@
 # Expanded Frontier Reasoning Suite (MATH/AIME 2025, ARC-AGI, CruxEval)
 
+> **HISTORICAL RECEIPT (non-runnable archive)** — Comparative frontier columns (GPT-4o / Claude / Gemini / etc.) are **published baseline aggregates**, not Affine.Earth OS membrane recipes. Do **not** call Anthropic, OpenAI cloud, Gemini cloud, Groq, or Together. The only runnable membrane is **Affine.Earth OS** via `https://affine.earth/v1` (OpenAI-*compatible wire shape* → OS engine) and `https://affine.earth/language-invariant/mcp`.
+
+
 This page documents the advanced mathematical and topological reasoning benchmarks used to evaluate frontier reasoning LLMs.
 
 > **Provenance:** Numbers below are the **BASELINE TABLE** from `llm_llvm_bench/forks/expanded_frontier_baselines.py`. Pair with MEASURED rational/`float_drift=0.0` receipts in `reports/real_verification_proof.json` when discussing exact arithmetic. See [FAQ](FAQ) for citation guidance.

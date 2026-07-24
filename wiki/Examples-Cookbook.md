@@ -226,8 +226,9 @@ Example meaning: `-O0` matmul shows many loads/stores/branches; optimized builds
 ## 7. LLM mock provider smoke (offline)
 
 ```bash
+# Offline wiring smoke ONLY (not a cloud model recipe). Names are local stubs.
 python3 -m llm_llvm_bench.cli.main llm run \
-  --models mock-gpt-4o,mock-claude \
+  --models mock-offline \
   --provider mock \
   --suites code,reasoning,affine_domain \
   --out reports/llm_mock_smoke.json
@@ -247,8 +248,8 @@ PY
 ## 8–9. LLM against Affine.Earth OS `/v1` (measured)
 
 Affine.Earth OS exposes an OpenAI-compatible membrane. Do **not** point this
-suite at `api.openai.com`. Prefer the developer-suite examples that already
-call the live membrane:
+suite at cloud OpenAI (`api.openai.com`) — that is a category error. Prefer the developer-suite examples that already
+call the live Affine.Earth OS membrane:
 
 - `developer-suite/examples/03_openai_models_and_chat.py`
 - `developer-suite/docs/OPENAI_V1.md`
@@ -257,15 +258,17 @@ call the live membrane:
 Probe + env measured **2026-07-24** (`GET /v1/models` HTTP 200, `POST /v1/chat/completions` HTTP 200, receipt `reports/wiki_membrane_probe_20260724/receipt.json`):
 
 ```bash
-export OPENAI_BASE_URL="https://affine.earth/v1"
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_BASE_URL="https://affine.earth"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_BASE_URL="${AFFINE_BASE_URL}/v1"   # wire alias — Affine.Earth OS, NOT api.openai.com
+export OPENAI_API_KEY="${AFFINE_API_KEY}"
 export MODEL_ID="franklin-membrane"
 
 # Live model ids from GET /v1/models (same session):
 # gaiaftcl-os | affine-earth-os-mcp | franklin-membrane | franklin-membrane-exam
 
 curl --fail --show-error --silent \
-  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Authorization: Bearer $AFFINE_API_KEY" \
   -H "Accept: application/json" \
   "$OPENAI_BASE_URL/models" | tee reports/provider_models.json | python3 -m json.tool
 
@@ -274,7 +277,7 @@ python3 -m llm_llvm_bench.cli.main llm run \
   --provider openai \
   --suites affine_domain,code \
   --endpoint "$OPENAI_BASE_URL/chat/completions" \
-  --api-key "$OPENAI_API_KEY" \
+  --api-key "$AFFINE_API_KEY" \
   --out reports/llm_affine_v1.json
 ```
 
@@ -293,7 +296,8 @@ python3 llm_llvm_bench/server/affine_v1_interceptor.py 8000
 Terminal B:
 
 ```bash
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
 export OPENAI_BASE_URL="http://127.0.0.1:8000/v1"
 curl -sS "$OPENAI_BASE_URL/models" | python3 -m json.tool | head
 ```
@@ -306,15 +310,15 @@ Then run any `llm run --provider openai` pointed at that base URL.
 
 ```bash
 # Coding only
-python3 -m llm_llvm_bench.cli.main llm run --models mock-gpt-4o --provider mock \
+python3 -m llm_llvm_bench.cli.main llm run --models mock-offline --provider mock \
   --suites code --out reports/only_code.json
 
 # Reasoning only
-python3 -m llm_llvm_bench.cli.main llm run --models mock-gpt-4o --provider mock \
+python3 -m llm_llvm_bench.cli.main llm run --models mock-offline --provider mock \
   --suites reasoning --out reports/only_reasoning.json
 
 # Affine domain only
-python3 -m llm_llvm_bench.cli.main llm run --models mock-gpt-4o --provider mock \
+python3 -m llm_llvm_bench.cli.main llm run --models mock-offline --provider mock \
   --suites affine_domain --out reports/only_affine.json
 ```
 
@@ -410,7 +414,8 @@ python3 -m json.tool reports/affine-mt-bench-results.json
 ```bash
 cd harnesses/lm-evaluation-harness
 pip install -e .
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
 export OPENAI_BASE_URL="https://affine.earth/v1"
 lm_eval --model openai-chat-completions \
   --model_args model=franklin-membrane,base_url=https://affine.earth/v1 \
@@ -427,7 +432,8 @@ Start with `gsm8k` alone before `mmlu` (MMLU is large).
 ```bash
 cd harnesses/bigcode-evaluation-harness
 pip install -e .
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
 export OPENAI_BASE_URL="https://affine.earth/v1"
 python main.py \
   --model openai-chat-completions \
@@ -448,7 +454,8 @@ python main.py \
 ```bash
 cd harnesses/FastChat
 pip install -e ".[eval]"
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
 python3 -m fastchat.llm_judge.gen_api_answer \
   --model franklin-membrane \
   --bench-name mt_bench \
@@ -653,7 +660,8 @@ curl -sS https://affine.earth/language-invariant/healthz | python3 -m json.tool 
 
 # 5) (optional) Affine membrane → affine_domain
 # export OPENAI_BASE_URL="https://affine.earth/v1"
-# export OPENAI_API_KEY="uum8d-hle-verifier"
+# export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
 # export MODEL_ID="franklin-membrane"
 # python3 -m llm_llvm_bench.cli.main llm run --models "$MODEL_ID" --provider openai \
 #   --endpoint "$OPENAI_BASE_URL/chat/completions" --api-key "$OPENAI_API_KEY" \
@@ -714,7 +722,8 @@ model inventory, or benchmark score.
 
 ```bash
 export OPENAI_BASE_URL="https://affine.earth/v1"
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
 
 curl --fail --show-error --silent \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
@@ -734,7 +743,8 @@ Save `reports/provider_models.json` beside the run report. SDK path:
 
 ```bash
 export OPENAI_BASE_URL="https://affine.earth/v1"
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
 export MODEL_ID="franklin-membrane"
 
 python3 -m llm_llvm_bench.cli.main llm run \
@@ -788,7 +798,7 @@ auth, schema, and code-extraction behavior before a broader evaluation.
 
 ---
 
-## 37. _(removed)_ Cloud Anthropic recipe deleted
+## 37. _(removed)_ Cloud Anthropic / OpenAI / Gemini recipes deleted
 
 This wiki documents the Affine.Earth OS membrane only. Cloud Anthropic / OpenAI
 API recipes are not published here. Use §8–9 / `developer-suite/examples/03_*.py`.
@@ -863,7 +873,8 @@ GAIA. Env values below were measured **2026-07-24** against the live membrane
 
 ```bash
 export OPENAI_BASE_URL="https://affine.earth/v1"
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
 export MODEL_ID="franklin-membrane"
 export SUITE="gpqa_diamond"
 export RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)"

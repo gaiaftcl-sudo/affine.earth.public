@@ -99,14 +99,16 @@ Registered in `LIST_OF_SUITES`:
 ```bash
 # Offline wiring (mock provider)
 python3 -m llm_llvm_bench.cli.main llm run \
-  --models mock-gpt-4o \
+  --models franklin-membrane \
+  # offline-only alternate: --provider mock --models mock-offline \
   --provider mock \
   --suites code,reasoning,affine_domain \
   --out reports/llm_mock.json
 
 # Affine.Earth OS membrane (measured 2026-07-24)
 export OPENAI_BASE_URL="https://affine.earth/v1"
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire alias → Affine.Earth OS
 export MODEL_ID="franklin-membrane"
 python3 -m llm_llvm_bench.cli.main llm run \
   --models "$MODEL_ID" \

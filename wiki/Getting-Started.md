@@ -127,7 +127,8 @@ For OpenAI-compatible providers or Affine `/v1` routing:
 ```bash
 # Measured 2026-07-24 — Affine.Earth OS membrane
 export OPENAI_BASE_URL="https://affine.earth/v1"
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire alias → Affine.Earth OS
 export MODEL_ID="franklin-membrane"
 # Live ids: gaiaftcl-os | affine-earth-os-mcp | franklin-membrane | franklin-membrane-exam
 # Local interceptor (optional): http://127.0.0.1:8000/v1 — see Examples-Cookbook §10
@@ -155,7 +156,8 @@ The official harness wrapper sets `OPENAI_BASE_URL=http://127.0.0.1:8000/v1` aut
 
 ```bash
 python3 -m llm_llvm_bench.cli.main llm run \
-  --models mock-gpt-4o \
+  --models franklin-membrane \
+  # offline-only alternate: --provider mock --models mock-offline \
   --provider mock \
   --suites code,reasoning,affine_domain \
   --out reports/llm_mock_smoke.json

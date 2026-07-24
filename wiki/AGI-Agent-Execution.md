@@ -19,7 +19,8 @@ pip install -e ".[dev,harnesses]"   # as needed for lm-eval / Inspect
 cp configs/third-party-harnesses.env.example .env.third-party-harnesses
 # Measured membrane (2026-07-24):
 export OPENAI_BASE_URL="https://affine.earth/v1"
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
 export MODEL_ID="franklin-membrane"
 export AFFINE_HARNESS_ENDPOINT="$OPENAI_BASE_URL"
 export AFFINE_HARNESS_MODEL="$MODEL_ID"

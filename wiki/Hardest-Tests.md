@@ -82,7 +82,8 @@ Create a public evaluation identity through [Create Account / Signup](Create-Acc
 ```bash
 # Measured 2026-07-24 — Affine.Earth OS membrane
 export OPENAI_BASE_URL="https://affine.earth/v1"
-export OPENAI_API_KEY="uum8d-hle-verifier"
+export AFFINE_API_KEY="uum8d-hle-verifier"
+export OPENAI_API_KEY="$AFFINE_API_KEY"  # wire → Affine.Earth OS
 export MODEL_ID="franklin-membrane"
 curl --fail --show-error --silent \
   -H "Authorization: Bearer $OPENAI_API_KEY" \

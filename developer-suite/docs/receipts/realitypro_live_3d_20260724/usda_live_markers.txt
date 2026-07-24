@@ -1,0 +1,4 @@
+4:    doc = "Affine.Earth OS airspace lattice — OpenUSD live timeSamples for RealityPro video-like strobe (not GaiaFTCLApp)"
+18:    custom string gaia:nats_subject = "gaiaftcl.reality.manifold.realitypro.apex"
+19:    custom string gaia:strobe = "live"
+21:    double3 xformOp:translate.timeSamples = {

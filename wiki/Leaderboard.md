@@ -1,5 +1,8 @@
 # Frontier Model & Affine.Earth Leaderboard
 
+> **HISTORICAL RECEIPT (non-runnable archive)** — Comparative frontier columns (GPT-4o / Claude / Gemini / etc.) are **published baseline aggregates**, not Affine.Earth OS membrane recipes. Do **not** call Anthropic, OpenAI cloud, Gemini cloud, Groq, or Together. The only runnable membrane is **Affine.Earth OS** via `https://affine.earth/v1` (OpenAI-*compatible wire shape* → OS engine) and `https://affine.earth/language-invariant/mcp`.
+
+
 **Target Endpoint:** `https://affine.earth/language-invariant/healthz`  
 **Metric:** Delta comparison (\(\Delta = \text{Score}_{\text{Affine.Earth}} - \text{Score}_{\text{Model}}\))
 
