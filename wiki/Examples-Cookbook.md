@@ -2,7 +2,38 @@
 
 Concrete, copy-paste recipes for the Affine.Earth public benchmark suite. Outputs shown as **measured** were captured on **2026-07-20** on macOS with system `clang` and Python 3.9.6. Re-runs will differ slightly in timings.
 
-Assume your shell is inside `llm-llvm-benchmark-suite/` after `pip install -e .`.
+The public git root **is** this evidence rig (clone `affine.earth.public` → work at repo root). Older notes that said `cd affine.earth.public/llm-llvm-benchmark-suite` are path drift — ignore them.
+
+---
+
+## 0. Developer suite (MCP · OpenAI `/v1` · OpenUSD · RealityPro)
+
+Binary-free Python SDK + domain examples + RealityPro UUM8D web player live under **[`developer-suite/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/developer-suite)**. No GaiaFTCLCLI / GGUF / `.app` in that tree.
+
+```bash
+git clone https://github.com/gaiaftcl-sudo/affine.earth.public.git
+cd affine.earth.public/developer-suite
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e ".[dev]"
+cp .env.example .env
+python3 scripts/check_no_binaries.py
+python3 examples/12_domain_tour.py
+AFFINE_LIVE=1 pytest tests/test_live_smoke.py -v -m live
+```
+
+| Surface | Example |
+|:---|:---|
+| MCP `tools/list` + `execute_transition` | `examples/01_*.py`, `02_*.py` |
+| OpenAI chat + Responses | `examples/03_*.py`, `04_*.py` |
+| HLE exam smoke | `examples/05_exam_hle_smoke.py` |
+| Coding / LLVM narrative (UMC) | `examples/08_umc_coding_llvm_narrative.py` |
+| Cinema / aviation / gaming | `examples/09_*.py`, `11_*.py` |
+| OpenUSD airspace | `examples/10_openusd_airspace_fetch.py` |
+| RealityPro player | `realitypro-player/` → live `https://affine.earth/language-game/realitypro/` |
+
+Docs: `developer-suite/README.md` · `docs/MCP.md` · `docs/OPENAI_V1.md` · `docs/OPENUSD_AND_REALITYPRO.md` · `docs/NO_BINARIES.md`.
+
+Full HLE/ARC harness CLIs remain under `scripts/*openai*exam*.py` (not re-implemented in the developer suite).
 
 ---
 

@@ -8,6 +8,8 @@
 
 **Live product:** [https://affine.earth](https://affine.earth) · **Wiki story:** [Home](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/Home)
 
+**Developer suite (MCP · OpenAI `/v1` · OpenUSD · RealityPro):** [`developer-suite/`](developer-suite/) — binary-free Python examples for third parties. See [developer-suite/README.md](developer-suite/README.md) and wiki [Examples-Cookbook](https://github.com/gaiaftcl-sudo/affine.earth.public/wiki/Examples-Cookbook).
+
 ---
 
 ## Proof in action — UI all-tests

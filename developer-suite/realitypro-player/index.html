@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Affine.Earth RealityPro — UUM8D language games</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <h1>RealityPro <span class="tag">UUM8D · OpenUSD · MCP</span></h1>
+      <div class="tag" id="apexLabel">apex: …</div>
+    </header>
+    <main>
+      <aside class="panel">
+        <h2>Scene</h2>
+        <label for="usdaPath">USDA path</label>
+        <input id="usdaPath" value="/language-game/airspace-lattice.usda" />
+        <div class="row">
+          <button id="btnLoadUsda" type="button">Load USDA</button>
+          <button id="btnPreview" class="secondary" type="button">Preview</button>
+        </div>
+        <label for="usdaPaste">Or paste USDA text</label>
+        <textarea id="usdaPaste" placeholder="#usda 1.0 …"></textarea>
+
+        <h2>Language games</h2>
+        <label for="gameSelect">Game</label>
+        <select id="gameSelect"><option value="">(load catalog)</option></select>
+        <div class="row">
+          <button id="btnGames" class="secondary" type="button">Refresh games</button>
+        </div>
+        <div class="row">
+          <button id="btnIngest" type="button">Ingest</button>
+          <button id="btnProject" type="button">Project</button>
+        </div>
+
+        <h2>Membrane</h2>
+        <div class="row">
+          <button id="btnMcp" class="secondary" type="button">MCP tools</button>
+          <button id="btnUmc" class="secondary" type="button">UMC coding</button>
+        </div>
+        <div class="log" id="log">Ready.</div>
+      </aside>
+      <section id="viewport" aria-label="OpenUSD lattice preview"></section>
+    </main>
+    <footer>
+      Binary-free developer player · Three.js CDN · calls live Affine.Earth HTTPS · no GaiaFTCLCLI
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="player.js"></script>
+  <script src="uum8d-shell.js"></script>
+  <div id="boot"></div>
+  <script>
+    (function () {
+      const logEl = document.getElementById("log");
+      const apexLabel = document.getElementById("apexLabel");
+      let mounted = null;
+      let lastUsda = "";
+
+      function log(msg, cls) {
+        const line = document.createElement("div");
+        if (cls) line.className = cls;
+        line.textContent = msg;
+        logEl.prepend(line);
+      }
+
+      apexLabel.textContent = "apex: " + UUM8DShell.apexBase();
+
+      async function loadUsda() {
+        const path = document.getElementById("usdaPath").value.trim();
+        lastUsda = await UUM8DShell.fetchUsda(path);
+        document.getElementById("usdaPaste").value = lastUsda.slice(0, 12000);
+        log("USDA loaded " + lastUsda.length + " chars from " + path, "ok");
+        preview();
+      }
+
+      function preview() {
+        const text = document.getElementById("usdaPaste").value || lastUsda;
+        if (!text) {
+          log("No USDA text", "err");
+          return;
+        }
+        if (mounted && mounted.dispose) mounted.dispose();
+        mounted = RealityProPlayer.mount(
+          document.getElementById("viewport"),
+          text,
+          window.THREE
+        );
+        log("Preview nodes=" + mounted.hintCount, "ok");
+      }
+
+      async function refreshGames() {
+        const cat = await UUM8DShell.loadGames();
+        const games = cat.games || cat.entries || [];
+        const sel = document.getElementById("gameSelect");
+        sel.innerHTML = "";
+        games.forEach(function (g) {
+          const id = g.game_id || g.id || g.name;
+          if (!id) return;
+          const opt = document.createElement("option");
+          opt.value = id;
+          opt.textContent = id;
+          sel.appendChild(opt);
+        });
+        log("Games: " + sel.options.length, "ok");
+      }
+
+      function seed() {
+        const gid = document.getElementById("gameSelect").value || "coding";
+        return {
+          node_id: "apex",
+          session_id: "realitypro",
+          title: "realitypro-" + gid,
+          tau_height: 0,
+          amplitudes: ["3/5", "4/5"],
+        };
+      }
+
+      document.getElementById("btnLoadUsda").onclick = function () {
+        loadUsda().catch(function (e) { log(String(e), "err"); });
+      };
+      document.getElementById("btnPreview").onclick = function () {
+        try { preview(); } catch (e) { log(String(e), "err"); }
+      };
+      document.getElementById("btnGames").onclick = function () {
+        refreshGames().catch(function (e) { log(String(e), "err"); });
+      };
+      document.getElementById("btnIngest").onclick = function () {
+        const gid = document.getElementById("gameSelect").value;
+        UUM8DShell.ingest(gid, seed())
+          .then(function (o) { log("ingest " + gid + " " + JSON.stringify(o).slice(0, 180), "ok"); })
+          .catch(function (e) { log(String(e), "err"); });
+      };
+      document.getElementById("btnProject").onclick = function () {
+        const gid = document.getElementById("gameSelect").value;
+        UUM8DShell.project(gid, seed())
+          .then(function (o) { log("project " + gid + " " + JSON.stringify(o).slice(0, 180), "ok"); })
+          .catch(function (e) { log(String(e), "err"); });
+      };
+      document.getElementById("btnMcp").onclick = function () {
+        UUM8DShell.mcpTools()
+          .then(function (o) {
+            const tools = ((o.result || {}).tools) || [];
+            log("MCP tools: " + tools.map(function (t) { return t.name; }).join(", "), "ok");
+          })
+          .catch(function (e) { log(String(e), "err"); });
+      };
+      document.getElementById("btnUmc").onclick = function () {
+        UUM8DShell.umcDirect("coding")
+          .then(function (o) { log("UMC coding " + JSON.stringify(o).slice(0, 200), "ok"); })
+          .catch(function (e) { log(String(e), "err"); });
+      };
+
+      // Boot
+      refreshGames().catch(function (e) { log(String(e), "err"); });
+      loadUsda().catch(function (e) { log(String(e), "err"); });
+    })();
+  </script>
+</body>
+</html>

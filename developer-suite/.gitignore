@@ -1,0 +1,45 @@
+# Environments
+.venv/
+venv/
+ENV/
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Affine.Earth OS binaries — NEVER commit
+GaiaFTCL*
+*.app
+*.gguf
+*.ggml
+*.bin
+*.dylib
+*.so
+*.a
+*.o
+*.wasm
+*.metallib
+tmp-gaiaftcl*
+*.dmg
+*.iso
+
+# Large / media
+*.mp4
+*.webm
+*.mov
+*.zip
+*.tar
+*.tar.gz
+
+# Local receipts
+/out/
+/tmp/
