@@ -181,7 +181,7 @@ Wiki tables should cite those or a re-run. See [Benchmarks](Benchmarks).
 
 ### Q. What API key does the public verifier use?
 
-**A.** Docs/scripts mention `uum8d-public-verifier` with `OPENAI_BASE_URL` pointing at Affine `/v1` or the local interceptor. Signup does **not** mint that key in the UI. On 2026-07-20, Bearer that key against `https://affine.earth/v1/models` still returned the HTML SPA — do not treat it as proven OpenAI API access. Rotate/replace when your deployment actually issues credentials.
+**A.** Measured bootstrap for the Affine.Earth OS membrane (**2026-07-24**): `OPENAI_BASE_URL=https://affine.earth/v1`, `OPENAI_API_KEY=uum8d-hle-verifier`. `GET /v1/models` returned HTTP 200 JSON (`gaiaftcl-os`, `affine-earth-os-mcp`, `franklin-membrane`, `franklin-membrane-exam`); `POST /v1/chat/completions` returned HTTP 200 (`franklin-membrane`). Receipt: `reports/wiki_membrane_probe_20260724/receipt.json`. Prefer `developer-suite/examples/03_openai_models_and_chat.py` / `docs/OPENAI_V1.md`. Signup does **not** mint keys in the UI.
 
 ### Q. What is the local interceptor?
 

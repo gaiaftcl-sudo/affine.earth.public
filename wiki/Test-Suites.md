@@ -104,14 +104,17 @@ python3 -m llm_llvm_bench.cli.main llm run \
   --suites code,reasoning,affine_domain \
   --out reports/llm_mock.json
 
-# OpenAI-compatible remote
-export OPENAI_API_KEY="…"
-export OPENAI_BASE_URL="https://api.openai.com/v1"   # or http://affine.earth/v1
+# Affine.Earth OS membrane (measured 2026-07-24)
+export OPENAI_BASE_URL="https://affine.earth/v1"
+export OPENAI_API_KEY="uum8d-hle-verifier"
+export MODEL_ID="franklin-membrane"
 python3 -m llm_llvm_bench.cli.main llm run \
-  --models gpt-4o-mini \
+  --models "$MODEL_ID" \
   --provider openai \
+  --endpoint "$OPENAI_BASE_URL/chat/completions" \
+  --api-key "$OPENAI_API_KEY" \
   --suites code,affine_domain \
-  --out reports/llm_openai.json
+  --out reports/llm_affine_v1.json
 ```
 
 ### Expected outcomes

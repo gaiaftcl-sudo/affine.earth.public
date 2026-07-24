@@ -244,51 +244,44 @@ PY
 
 ---
 
-## 8. LLM against OpenAI-compatible API
+## 8–9. LLM against Affine.Earth OS `/v1` (measured)
+
+Affine.Earth OS exposes an OpenAI-compatible membrane. Do **not** point this
+suite at `api.openai.com`. Prefer the developer-suite examples that already
+call the live membrane:
+
+- `developer-suite/examples/03_openai_models_and_chat.py`
+- `developer-suite/docs/OPENAI_V1.md`
+- Examples-Cookbook §0
+
+Probe + env measured **2026-07-24** (`GET /v1/models` HTTP 200, `POST /v1/chat/completions` HTTP 200, receipt `reports/wiki_membrane_probe_20260724/receipt.json`):
 
 ```bash
-export OPENAI_API_KEY="sk-…"          # your key
-export OPENAI_BASE_URL="https://api.openai.com/v1"
+export OPENAI_BASE_URL="https://affine.earth/v1"
+export OPENAI_API_KEY="uum8d-hle-verifier"
+export MODEL_ID="franklin-membrane"
+
+# Live model ids from GET /v1/models (same session):
+# gaiaftcl-os | affine-earth-os-mcp | franklin-membrane | franklin-membrane-exam
+
+curl --fail --show-error --silent \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Accept: application/json" \
+  "$OPENAI_BASE_URL/models" | tee reports/provider_models.json | python3 -m json.tool
 
 python3 -m llm_llvm_bench.cli.main llm run \
-  --models gpt-4o-mini \
-  --provider openai \
-  --suites code,affine_domain \
-  --out reports/llm_openai_mini.json
-```
-
-Alternate: LM Studio / vLLM / Ollama OpenAI shim:
-
-```bash
-export OPENAI_API_KEY="local"
-export OPENAI_BASE_URL="http://127.0.0.1:1234/v1"
-
-python3 -m llm_llvm_bench.cli.main llm run \
-  --models my-local-model \
-  --provider openai \
-  --suites code \
-  --out reports/llm_local.json
-```
-
----
-
-## 9. LLM against Affine `/v1`
-
-```bash
-export OPENAI_API_KEY="uum8d-public-verifier"
-export OPENAI_BASE_URL="http://affine.earth/v1"
-
-python3 -m llm_llvm_bench.cli.main llm run \
-  --models affine-uum8d-s4 \
+  --models "$MODEL_ID" \
   --provider openai \
   --suites affine_domain,code \
-  --endpoint "$OPENAI_BASE_URL" \
+  --endpoint "$OPENAI_BASE_URL/chat/completions" \
   --api-key "$OPENAI_API_KEY" \
   --out reports/llm_affine_v1.json
 ```
 
----
+For exam profile (`franklin-membrane-exam` + `X-Affine-Exam: hle`), use
+`developer-suite/examples/05_exam_hle_smoke.py` / `docs/OPENAI_V1.md`.
 
+---
 ## 10. Local `/v1` interceptor + client
 
 Terminal A:
@@ -300,7 +293,7 @@ python3 llm_llvm_bench/server/affine_v1_interceptor.py 8000
 Terminal B:
 
 ```bash
-export OPENAI_API_KEY="uum8d-public-verifier"
+export OPENAI_API_KEY="uum8d-hle-verifier"
 export OPENAI_BASE_URL="http://127.0.0.1:8000/v1"
 curl -sS "$OPENAI_BASE_URL/models" | python3 -m json.tool | head
 ```
@@ -417,10 +410,10 @@ python3 -m json.tool reports/affine-mt-bench-results.json
 ```bash
 cd harnesses/lm-evaluation-harness
 pip install -e .
-export OPENAI_API_KEY="uum8d-public-verifier"
-export OPENAI_BASE_URL="http://affine.earth/v1"
+export OPENAI_API_KEY="uum8d-hle-verifier"
+export OPENAI_BASE_URL="https://affine.earth/v1"
 lm_eval --model openai-chat-completions \
-  --model_args model=affine-uum8d-s4,base_url=http://affine.earth/v1 \
+  --model_args model=affine-uum8d-s4,base_url=https://affine.earth/v1 \
   --tasks gsm8k --num_fewshot 0 --batch_size 1 \
   --output_path ../../reports/affine-results/
 ```
@@ -434,11 +427,11 @@ Start with `gsm8k` alone before `mmlu` (MMLU is large).
 ```bash
 cd harnesses/bigcode-evaluation-harness
 pip install -e .
-export OPENAI_API_KEY="uum8d-public-verifier"
-export OPENAI_BASE_URL="http://affine.earth/v1"
+export OPENAI_API_KEY="uum8d-hle-verifier"
+export OPENAI_BASE_URL="https://affine.earth/v1"
 python main.py \
   --model openai-chat-completions \
-  --model_args base_url=http://affine.earth/v1 \
+  --model_args base_url=https://affine.earth/v1 \
   --tasks humaneval \
   --temperature 0.0 \
   --n_samples 1 \
@@ -455,11 +448,11 @@ python main.py \
 ```bash
 cd harnesses/FastChat
 pip install -e ".[eval]"
-export OPENAI_API_KEY="uum8d-public-verifier"
+export OPENAI_API_KEY="uum8d-hle-verifier"
 python3 -m fastchat.llm_judge.gen_api_answer \
   --model affine-uum8d-s4 \
   --bench-name mt_bench \
-  --openai-api-base "http://affine.earth/v1"
+  --openai-api-base "https://affine.earth/v1"
 ```
 
 Judging is a separate FastChat step (`gen_judgment` / `show_result` depending on FastChat version).
@@ -658,9 +651,13 @@ python3 -m llm_llvm_bench.cli.main llvm run --opt-levels -O0,-O2,-O3,-Os --compi
 # 4) live endpoint
 curl -sS https://affine.earth/language-invariant/healthz | python3 -m json.tool >/tmp/healthz.json
 
-# 5) (optional) point a real model at affine_domain
-# export OPENAI_API_KEY=… ; export OPENAI_BASE_URL=…
-# python3 -m llm_llvm_bench.cli.main llm run --models … --provider openai --suites affine_domain --out reports/llm_live.json
+# 5) (optional) Affine membrane → affine_domain
+# export OPENAI_BASE_URL="https://affine.earth/v1"
+# export OPENAI_API_KEY="uum8d-hle-verifier"
+# export MODEL_ID="franklin-membrane"
+# python3 -m llm_llvm_bench.cli.main llm run --models "$MODEL_ID" --provider openai \
+#   --endpoint "$OPENAI_BASE_URL/chat/completions" --api-key "$OPENAI_API_KEY" \
+#   --suites affine_domain --out reports/llm_live.json
 
 # 6) archive
 tar czf /tmp/affine-bench-receipts-$(date -u +%Y%m%dT%H%M%SZ).tgz reports/
@@ -713,28 +710,33 @@ model inventory, or benchmark score.
 
 ---
 
-## 33. Confirm an OpenAI-compatible target before an LLM run
+## 33. Confirm Affine `/v1` before an LLM run (measured)
 
 ```bash
-export OPENAI_BASE_URL="https://your-host/v1"
-export OPENAI_API_KEY="..."
+export OPENAI_BASE_URL="https://affine.earth/v1"
+export OPENAI_API_KEY="uum8d-hle-verifier"
 
 curl --fail --show-error --silent \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Accept: application/json" \
   "$OPENAI_BASE_URL/models" \
   | tee reports/provider_models.json \
   | python3 -m json.tool
 ```
 
-Save this output alongside the run report so a reader can identify the target
-that accepted the request.
+Measured 2026-07-24: HTTP 200 JSON list with
+`gaiaftcl-os`, `affine-earth-os-mcp`, `franklin-membrane`, `franklin-membrane-exam`.
+Save `reports/provider_models.json` beside the run report. SDK path:
+`developer-suite/examples/03_openai_models_and_chat.py`.
 
 ---
-
-## 34. Run all built-in domain suites against a compatible model
+## 34. Run all built-in domain suites against Franklin membrane
 
 ```bash
-export MODEL_ID="your-model-id"
+export OPENAI_BASE_URL="https://affine.earth/v1"
+export OPENAI_API_KEY="uum8d-hle-verifier"
+export MODEL_ID="franklin-membrane"
+
 python3 -m llm_llvm_bench.cli.main llm run \
   --models "$MODEL_ID" \
   --provider openai \
@@ -744,12 +746,10 @@ python3 -m llm_llvm_bench.cli.main llm run \
   --out reports/llm_provider_run.json
 ```
 
-The code currently expects the full chat-completions URL in `--endpoint`.
-Inspect the resulting JSON before citing `accuracy_pct`; it represents only
-the small bundled suite and the returned responses for this run.
+`--endpoint` must be the full chat-completions URL. Inspect the JSON before
+citing `accuracy_pct` — this is the small bundled suite only.
 
 ---
-
 ## 35. Review generated LLM answers and evaluator decisions
 
 ```bash
@@ -788,24 +788,12 @@ auth, schema, and code-extraction behavior before a broader evaluation.
 
 ---
 
-## 37. Exercise the Anthropic provider path
+## 37. _(removed)_ Cloud Anthropic recipe deleted
 
-```bash
-export ANTHROPIC_API_KEY="..."
-python3 -m llm_llvm_bench.cli.main llm run \
-  --models claude-model-id \
-  --provider anthropic \
-  --api-key "$ANTHROPIC_API_KEY" \
-  --suites code,reasoning \
-  --out reports/llm_anthropic.json
-```
-
-The package calls Anthropic's Messages API directly for this provider. Retain
-the model ID and generated report; do not compare timing with a different
-provider unless the request conditions are documented.
+This wiki documents the Affine.Earth OS membrane only. Cloud Anthropic / OpenAI
+API recipes are not published here. Use §8–9 / `developer-suite/examples/03_*.py`.
 
 ---
-
 ## 38. Start and check the local dashboard
 
 Terminal A:
@@ -866,16 +854,18 @@ those files with manually produced receipt JSON.
 
 ---
 
-## 41. Hardest-suite preflight: validate target and create provenance bundle
+## 41. Hardest-suite preflight: Affine membrane + provenance bundle
 
-Run this before any HLE, ARC-AGI, GPQA Diamond, FrontierMath, SWE-bench,
-LiveCodeBench, or GAIA evaluation:
+Run this before HLE / ARC-AGI / GPQA / FrontierMath / SWE-bench / LiveCodeBench /
+GAIA. Env values below were measured **2026-07-24** against the live membrane
+(`reports/wiki_membrane_probe_20260724/receipt.json`). Harness launchers:
+`./bin/run-open-agi-harnesses.sh` (see [Hardest Tests](Hardest-Tests)).
 
 ```bash
-export OPENAI_BASE_URL="https://your-compatible-host/v1"
-export OPENAI_API_KEY="..."
-export MODEL_ID="your-model-id"
-export SUITE="gpqa_diamond"  # change for the suite you are running
+export OPENAI_BASE_URL="https://affine.earth/v1"
+export OPENAI_API_KEY="uum8d-hle-verifier"
+export MODEL_ID="franklin-membrane"
+export SUITE="gpqa_diamond"
 export RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)"
 export OUT="reports/third_party/$SUITE/$RUN_ID"
 
@@ -884,16 +874,16 @@ git rev-parse HEAD > "$OUT/affine_harness_commit.txt"
 python3 --version > "$OUT/python_version.txt"
 curl --fail --show-error --silent \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Accept: application/json" \
   "$OPENAI_BASE_URL/models" | tee "$OUT/provider_models.json"
 printf 'model=%s\nendpoint=%s\nsuite=%s\nstarted=%s\n' \
   "$MODEL_ID" "$OPENAI_BASE_URL" "$SUITE" "$RUN_ID" > "$OUT/run_manifest.txt"
 ```
 
-Do not continue if the endpoint probe returns HTML or another non-model JSON
-payload. That is a readiness failure, not a benchmark score.
+Do not continue if the probe returns HTML or non-model JSON. SDK / docs:
+`developer-suite/examples/03_openai_models_and_chat.py` · `docs/OPENAI_V1.md`.
 
 ---
-
 ## 42. SWE-bench Verified evidence recipe
 
 ```bash

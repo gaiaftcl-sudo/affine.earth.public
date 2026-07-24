@@ -1,0 +1,12 @@
+HTTP/2 200 
+access-control-allow-headers: Authorization, Content-Type, X-Affine-Exam, X-Affine-Exam-Id, X-Affine-Exam-Mode, X-Exam-Mode, X-Affine-Mode, X-Request-Id
+access-control-allow-methods: GET,POST,DELETE,OPTIONS
+access-control-allow-origin: *
+access-control-expose-headers: X-Affine-Exam, X-Request-Id
+alt-svc: h3=":443"; ma=2592000
+content-type: application/json
+date: Fri, 24 Jul 2026 15:29:18 GMT
+server: BaseHTTP/0.6 Python/3.12.13
+via: 1.0 Caddy
+content-length: 627
+

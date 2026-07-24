@@ -125,9 +125,15 @@ This script:
 For OpenAI-compatible providers or Affine `/v1` routing:
 
 ```bash
-export OPENAI_API_KEY="uum8d-public-verifier"   # or your provider key
-export OPENAI_BASE_URL="http://affine.earth/v1" # or http://127.0.0.1:8000/v1 for local interceptor
+# Measured 2026-07-24 — Affine.Earth OS membrane
+export OPENAI_BASE_URL="https://affine.earth/v1"
+export OPENAI_API_KEY="uum8d-hle-verifier"
+export MODEL_ID="franklin-membrane"
+# Live ids: gaiaftcl-os | affine-earth-os-mcp | franklin-membrane | franklin-membrane-exam
+# Local interceptor (optional): http://127.0.0.1:8000/v1 — see Examples-Cookbook §10
 ```
+
+SDK: `developer-suite/examples/03_openai_models_and_chat.py` · `docs/OPENAI_V1.md`.
 
 The local wire-frame interceptor can be started with:
 

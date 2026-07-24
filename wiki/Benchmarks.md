@@ -60,11 +60,12 @@ python3 -m llm_llvm_bench.cli.main llm run \
 See dedicated pages for EleutherAI, BigCode, FastChat. Example lm-eval:
 
 ```bash
-export OPENAI_API_KEY="uum8d-public-verifier"
-export OPENAI_BASE_URL="http://affine.earth/v1"
+export OPENAI_BASE_URL="https://affine.earth/v1"
+export OPENAI_API_KEY="uum8d-hle-verifier"
+export MODEL_ID="franklin-membrane"
 cd harnesses/lm-evaluation-harness
 lm_eval --model openai-chat-completions \
-  --model_args model=affine-uum8d-s4,base_url=http://affine.earth/v1 \
+  --model_args "model=$MODEL_ID,base_url=$OPENAI_BASE_URL" \
   --tasks mmlu,gsm8k --num_fewshot 0 --batch_size 1 \
   --output_path ../../reports/affine-results/
 ```

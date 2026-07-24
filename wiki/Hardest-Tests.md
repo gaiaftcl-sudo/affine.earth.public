@@ -80,12 +80,19 @@ Full outsider commands: [AGI agent execution](AGI-Agent-Execution) ·
 Create a public evaluation identity through [Create Account / Signup](Create-Account-Signup), then preserve the model identifier and endpoint response. The current public `/v1` readiness boundary is explicit: healthz is observed live, while `/v1/models` must return JSON before an OpenAI-compatible harness run can be recorded.
 
 ```bash
-export OPENAI_BASE_URL="https://your-compatible-host/v1"
-export OPENAI_API_KEY="..."
+# Measured 2026-07-24 — Affine.Earth OS membrane
+export OPENAI_BASE_URL="https://affine.earth/v1"
+export OPENAI_API_KEY="uum8d-hle-verifier"
+export MODEL_ID="franklin-membrane"
 curl --fail --show-error --silent \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Accept: application/json" \
   "$OPENAI_BASE_URL/models" | tee reports/provider_models.json
 ```
+
+Live model ids (same probe): `gaiaftcl-os`, `affine-earth-os-mcp`,
+`franklin-membrane`, `franklin-membrane-exam`. Prefer
+`developer-suite/examples/03_openai_models_and_chat.py` / `docs/OPENAI_V1.md`.
 
 ### 2. Pin the benchmark and capture the whole run
 

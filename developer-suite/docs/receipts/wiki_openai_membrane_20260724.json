@@ -1,0 +1,35 @@
+{
+  "probe_utc": "2026-07-24T15:30:51Z",
+  "commands": [
+    {
+      "cmd": "curl -sS -H 'Authorization: Bearer uum8d-hle-verifier' https://affine.earth/v1/models",
+      "http_status": 200,
+      "exit": 0
+    },
+    {
+      "cmd": "curl -sS -H 'Authorization: Bearer uum8d-hle-verifier' -H 'Content-Type: application/json' -d '{...}' https://affine.earth/v1/chat/completions",
+      "http_status": 200,
+      "exit": 0
+    },
+    {
+      "cmd": "curl -sS https://affine.earth/healthz",
+      "http_status": 200,
+      "exit": 0
+    }
+  ],
+  "env_block_measured": {
+    "OPENAI_BASE_URL": "https://affine.earth/v1",
+    "OPENAI_API_KEY": "uum8d-hle-verifier",
+    "MODEL_ID": "franklin-membrane"
+  },
+  "model_ids": [
+    "gaiaftcl-os",
+    "affine-earth-os-mcp",
+    "franklin-membrane",
+    "franklin-membrane-exam"
+  ],
+  "chat_completion_id": "chatcmpl-affine-43d4254a71481ef47976bccb",
+  "chat_model": "franklin-membrane",
+  "developer_suite_pointer": "developer-suite/examples/03_openai_models_and_chat.py",
+  "docs_pointer": "developer-suite/docs/OPENAI_V1.md"
+}

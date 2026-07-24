@@ -17,10 +17,15 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,harnesses]"   # as needed for lm-eval / Inspect
 
 cp configs/third-party-harnesses.env.example .env.third-party-harnesses
-# Set AFFINE_HARNESS_ENDPOINT + AFFINE_HARNESS_MODEL to a JSON /v1 host.
-# https://affine.earth/v1 may still return HTML SPA — do not leave that until /models is JSON.
+# Measured membrane (2026-07-24):
+export OPENAI_BASE_URL="https://affine.earth/v1"
+export OPENAI_API_KEY="uum8d-hle-verifier"
+export MODEL_ID="franklin-membrane"
+export AFFINE_HARNESS_ENDPOINT="$OPENAI_BASE_URL"
+export AFFINE_HARNESS_MODEL="$MODEL_ID"
 
 curl --fail -sS -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Accept: application/json" \
   "${AFFINE_HARNESS_ENDPOINT%/}/models" | tee reports/provider_models.json
 ```
 

@@ -37,7 +37,7 @@ python3 -m llm_llvm_bench.cli.main llvm run \
     cd harnesses/lm-evaluation-harness
     pip install -e .
     lm_eval --model openai-chat-completions \
-      --model_args model=affine-uum8d-s4,base_url=http://affine.earth/v1 \
+      --model_args model=franklin-membrane,base_url=https://affine.earth/v1 \
       --tasks mmlu,gsm8k \
       --num_fewshot 0 \
       --batch_size 1 \
@@ -55,7 +55,7 @@ python3 -m llm_llvm_bench.cli.main llvm run \
     pip install -e .
     python main.py \
       --model openai-chat-completions \
-      --model_args base_url=http://affine.earth/v1 \
+      --model_args base_url=https://affine.earth/v1 \
       --tasks humaneval,mbpp \
       --temperature 0.0 \
       --n_samples 1 \
@@ -77,7 +77,7 @@ python3 -m llm_llvm_bench.cli.main llvm run \
     python3 -m fastchat.llm_judge.gen_api_answer \
         --model affine-uum8d-s4 \
         --bench-name mt_bench \
-        --openai-api-base "http://affine.earth/v1"
+        --openai-api-base "https://affine.earth/v1"
     ```
 *   **Verification:** Answer generation is not a score. Run the pinned
     FastChat judge and preserve answer files, judge configuration, and result

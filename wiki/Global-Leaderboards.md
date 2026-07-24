@@ -1,8 +1,9 @@
 # Global Leaderboard Submissions & Reproduction
 
 **Specification:** [`docs/GLOBAL_LEADERBOARD_SUBMISSIONS.md`](../docs/GLOBAL_LEADERBOARD_SUBMISSIONS.md)  
-**Target Wire Endpoint:** `http://affine.earth/v1` / `https://affine.earth/v1`  
-**API Key:** `uum8d-public-verifier`
+**Target Wire Endpoint:** `https://affine.earth/v1` (measured 2026-07-24)  
+**API Key:** `uum8d-hle-verifier`  
+**Model ID:** `franklin-membrane` (also listed: `gaiaftcl-os`, `affine-earth-os-mcp`, `franklin-membrane-exam`)
 
 ---
 
