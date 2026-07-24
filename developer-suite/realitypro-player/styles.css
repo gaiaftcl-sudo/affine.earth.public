@@ -158,3 +158,10 @@ footer {
 
 .ok { color: var(--accent); }
 .err { color: var(--warn); }
+
+.hint {
+  margin: 0.35rem 0 0.75rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.35;
+}

@@ -35,6 +35,10 @@
           <button id="btnIngest" type="button">Ingest</button>
           <button id="btnProject" type="button">Project</button>
         </div>
+        <div class="row">
+          <button id="btnTeachAll" class="secondary" type="button">Teach all 12</button>
+        </div>
+        <p class="hint">Ingest/Project use domain teaching seeds (same as Python SDK).</p>
 
         <h2>Membrane</h2>
         <div class="row">
@@ -53,6 +57,7 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <script src="player.js"></script>
   <script src="uum8d-shell.js"></script>
+  <script src="teaching-seeds.js"></script>
   <div id="boot"></div>
   <script>
     (function () {
@@ -111,13 +116,31 @@
 
       function seed() {
         const gid = document.getElementById("gameSelect").value || "coding";
-        return {
-          node_id: "apex",
-          session_id: "realitypro",
-          title: "realitypro-" + gid,
-          tau_height: 0,
-          amplitudes: ["3/5", "4/5"],
-        };
+        return TeachingSeeds.teachingSeed(gid, "realitypro");
+      }
+
+      async function teachAll() {
+        const sel = document.getElementById("gameSelect");
+        const ids = [];
+        for (let i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].value) ids.push(sel.options[i].value);
+        }
+        let ok = 0;
+        const fail = [];
+        for (let i = 0; i < ids.length; i++) {
+          const gid = ids[i];
+          const body = TeachingSeeds.teachingSeed(gid, "realitypro-all");
+          try {
+            await UUM8DShell.ingest(gid, body);
+            await UUM8DShell.project(gid, body);
+            ok += 1;
+            log("teach PASS " + gid, "ok");
+          } catch (e) {
+            fail.push(gid);
+            log("teach FAIL " + gid + " " + e, "err");
+          }
+        }
+        log("teach-all done pass=" + ok + "/" + ids.length + " fail=" + fail.join(","), fail.length ? "err" : "ok");
       }
 
       document.getElementById("btnLoadUsda").onclick = function () {
@@ -140,6 +163,9 @@
         UUM8DShell.project(gid, seed())
           .then(function (o) { log("project " + gid + " " + JSON.stringify(o).slice(0, 180), "ok"); })
           .catch(function (e) { log(String(e), "err"); });
+      };
+      document.getElementById("btnTeachAll").onclick = function () {
+        teachAll().catch(function (e) { log(String(e), "err"); });
       };
       document.getElementById("btnMcp").onclick = function () {
         UUM8DShell.mcpTools()
