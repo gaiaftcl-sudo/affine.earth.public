@@ -1,0 +1,10 @@
+{
+  "app_id": "affine_add_app",
+  "title": "AffineAddApp",
+  "language_game": "coding",
+  "entry": "main.py",
+  "c_twin": "addlib.c",
+  "teaching_invariant": "2+2→4",
+  "workspace_hint": "fixtures/coding/affine_add_app",
+  "binary_free": true
+}

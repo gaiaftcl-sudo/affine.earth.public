@@ -6,7 +6,7 @@ The public git root **is** this evidence rig (clone `affine.earth.public` → wo
 
 ---
 
-## 0. Developer suite (MCP · OpenAI `/v1` · OpenUSD · RealityPro)
+## 0. Developer suite (MCP · OpenAI `/v1` · OpenUSD · RealityPro · 12 games)
 
 Binary-free Python SDK + domain examples + RealityPro UUM8D web player live under **[`developer-suite/`](https://github.com/gaiaftcl-sudo/affine.earth.public/tree/main/developer-suite)**. No GaiaFTCLCLI / GGUF / `.app` in that tree.
 
@@ -17,6 +17,9 @@ python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
 cp .env.example .env
 python3 scripts/check_no_binaries.py
+python3 fixtures/coding/affine_add_app/main.py
+python3 examples/13_all_language_games_teaching.py   # measured ingest→project→context
+python3 examples/games/run_all.py                    # one teaching script per LIVE game
 python3 examples/12_domain_tour.py
 AFFINE_LIVE=1 pytest tests/test_live_smoke.py -v -m live
 ```
@@ -26,12 +29,16 @@ AFFINE_LIVE=1 pytest tests/test_live_smoke.py -v -m live
 | MCP `tools/list` + `execute_transition` | `examples/01_*.py`, `02_*.py` |
 | OpenAI chat + Responses | `examples/03_*.py`, `04_*.py` |
 | HLE exam smoke | `examples/05_exam_hle_smoke.py` |
-| Coding / LLVM narrative (UMC) | `examples/08_umc_coding_llvm_narrative.py` |
-| Cinema / aviation / gaming | `examples/09_*.py`, `11_*.py` |
+| Coding app (AffineAddApp) + UMC | `fixtures/coding/affine_add_app/` · `examples/08_*.py` |
+| All 12 games ingest → project → context | `examples/11_*.py` · `examples/13_*.py` · `examples/games/*.py` |
+| Cinema / aviation / gaming UMC | `examples/09_*.py` |
 | OpenUSD airspace | `examples/10_openusd_airspace_fetch.py` |
+| Full membrane tour | `examples/12_domain_tour.py` |
 | RealityPro player | `realitypro-player/` → live `https://affine.earth/language-game/realitypro/` |
 
-Docs: `developer-suite/README.md` · `docs/MCP.md` · `docs/OPENAI_V1.md` · `docs/OPENUSD_AND_REALITYPRO.md` · `docs/NO_BINARIES.md`.
+Measured teaching receipt: [`developer-suite/docs/LANGUAGE_GAMES_TEACHING.md`](https://github.com/gaiaftcl-sudo/affine.earth.public/blob/main/developer-suite/docs/LANGUAGE_GAMES_TEACHING.md) (12/12 PASS on apex).
+
+Docs: `developer-suite/README.md` · `docs/LANGUAGE_GAMES_TEACHING.md` · `docs/MCP.md` · `docs/OPENAI_V1.md` · `docs/OPENUSD_AND_REALITYPRO.md` · `docs/NO_BINARIES.md`.
 
 Full HLE/ARC harness CLIs remain under `scripts/*openai*exam*.py` (not re-implemented in the developer suite).
 

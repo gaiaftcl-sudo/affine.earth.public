@@ -30,3 +30,14 @@ def test_user_and_preview():
     assert len(scf) == 32
     u = user_vqbit_hash("entity", scf)
     assert len(u) == 32
+
+
+def test_teaching_seeds_cover_all_games():
+    from affine_earth_sdk.game_seeds import ALL_GAME_IDS, teaching_lesson, teaching_seed
+
+    assert len(ALL_GAME_IDS) == 12
+    for gid in ALL_GAME_IDS:
+        seed = teaching_seed(gid)
+        assert "session_id" in seed
+        assert "amplitudes" in seed
+        assert teaching_lesson(gid)

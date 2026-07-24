@@ -13,4 +13,13 @@ Affine.Earth language games expose multiple domains through one HTTPS membrane.
 | **OpenUSD / Reality** | `/language-game/*.usda`, RealityPro player, observer-demo |
 | **Core turns** | inject, game-turn (geometry only — no chat elephant) |
 
-See examples `08`–`12` and the RealityPro player for end-to-end walks.
+All **12 LIVE** games (cinema, aviation, aviation_atc, gaming, coding, reality,
+topological_sandbox, formal_manifold, wallet_qfot, linguistic_membrane, umc_gav,
+torsion_dialogue) have teaching seeds in `affine_earth_sdk/game_seeds.py` and
+per-game scripts under `examples/games/`.
+
+Measured ingest → project → context run: [LANGUAGE_GAMES_TEACHING.md](LANGUAGE_GAMES_TEACHING.md).
+
+Coding teaching app: `fixtures/coding/affine_add_app/` (wired by examples `08` + `games/coding.py`).
+
+See examples `08`–`13`, `examples/games/run_all.py`, and the RealityPro player.

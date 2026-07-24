@@ -1,0 +1,1672 @@
+{
+  "apex": "https://affine.earth",
+  "coding_app_local": {
+    "app_path": "fixtures/coding/affine_add_app",
+    "exit_code": 0,
+    "stderr": "",
+    "stdout": "AffineAddApp: 2 + 2 = 4\nstatus=CALORIE_TEACHING_ADD"
+  },
+  "finished_at": "2026-07-24T14:51:12.086548+00:00",
+  "games_fail": [],
+  "games_pass": 12,
+  "games_total": 12,
+  "overall": "PASS",
+  "rows": [
+    {
+      "context_http": 200,
+      "context_summary": {
+        "keys": [
+          "context_agent",
+          "entry",
+          "game_id",
+          "next_move"
+        ]
+      },
+      "game_id": "cinema",
+      "ingest": {
+        "amplitudes": [
+          "3/5",
+          "4/5"
+        ],
+        "calorie": "CALORIE_NARRATIVE_MANIFOLD",
+        "concept_ids": [
+          "824aea9362844f53",
+          "70a3c6eb3664dbd8",
+          "3fbf648971233ed7"
+        ],
+        "context_agent": "CinemaContextAgent",
+        "game_id": "cinema",
+        "manifold_seed": {
+          "amplitudes": [
+            "3/5",
+            "4/5"
+          ],
+          "domain": "cinema",
+          "game_id": "cinema",
+          "nats_subject": "gaiaftcl.cinema.manifold.apex",
+          "node_id": "apex",
+          "session_id": "teach-run-cinema",
+          "statement_digest": "1ff7c66f1ccf8cfef3a2c732cc206beb00a122ca1f1d4b29de5cb9e1675f80fa",
+          "tau_height": 0,
+          "title": "Affine Horizon \u2014 teaching reel"
+        },
+        "next_move": {
+          "context_agent": "CinemaContextAgent",
+          "game_id": "cinema",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 1,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "824aea9362844f53",
+                "70a3c6eb3664dbd8",
+                "3fbf648971233ed7"
+              ],
+              "statement_digest": "1ff7c66f1ccf8cfef3a2c732cc206beb00a122ca1f1d4b29de5cb9e1675f80fa",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "statement_digest": "1ff7c66f1ccf8cfef3a2c732cc206beb00a122ca1f1d4b29de5cb9e1675f80fa",
+        "status": "CALORIE_GAME_INGEST",
+        "torsion": "0/1",
+        "torsion_den": 1,
+        "torsion_num": 0
+      },
+      "ingest_http": 200,
+      "lesson": "Ingest a NarrativeManifoldSeed (film + characters); project locale Concept_IDs onto the cinema Gyroid.",
+      "project": {
+        "concept_ids": [
+          "824aea9362844f53",
+          "70a3c6eb3664dbd8",
+          "3fbf648971233ed7"
+        ],
+        "context_agent": "CinemaContextAgent",
+        "game_id": "cinema",
+        "locale": "en",
+        "next_move": {
+          "context_agent": "CinemaContextAgent",
+          "game_id": "cinema",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 2,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "824aea9362844f53",
+                "70a3c6eb3664dbd8",
+                "3fbf648971233ed7"
+              ],
+              "statement_digest": "1ff7c66f1ccf8cfef3a2c732cc206beb00a122ca1f1d4b29de5cb9e1675f80fa",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "824aea9362844f53",
+                "70a3c6eb3664dbd8",
+                "3fbf648971233ed7"
+              ],
+              "statement_digest": "cinema|en|0/1",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "PROJECT"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "primitive": "GYROID",
+        "projected_kinds": {
+          "CHARACTER_BASIS": "CHARACTER_BASIS@en",
+          "FEATURE_LENGTH_CINEMA": "FEATURE_LENGTH_CINEMA@en",
+          "NARRATIVE_MANIFOLD": "NARRATIVE_MANIFOLD@en"
+        },
+        "torsion": "0/1",
+        "zero_shear": 1
+      },
+      "project_http": 200,
+      "seed_keys": [
+        "H_end",
+        "H_start",
+        "amplitudes",
+        "characters",
+        "film_id",
+        "locale",
+        "node_id",
+        "session_id",
+        "statement",
+        "structural_bound",
+        "tau_height",
+        "title"
+      ],
+      "status": "PASS"
+    },
+    {
+      "context_http": 200,
+      "context_summary": {
+        "keys": [
+          "context_agent",
+          "entry",
+          "game_id",
+          "next_move"
+        ]
+      },
+      "game_id": "aviation",
+      "ingest": {
+        "amplitudes": [
+          "3/5",
+          "4/5"
+        ],
+        "calorie": "CALORIE_AVIATION_ROLE_MATRIX",
+        "concept_ids": [
+          "9943df7ecec47d08",
+          "0e58c7bfa1d464aa",
+          "56cd1939da396c26",
+          "b77e484f47001626",
+          "c1c14a27e7dfc0d2",
+          "2e532312da3bfaf2"
+        ],
+        "context_agent": "AviationContextAgent",
+        "game_id": "aviation",
+        "manifold_seed": {
+          "amplitudes": [
+            "3/5",
+            "4/5"
+          ],
+          "domain": "aviation",
+          "game_id": "aviation",
+          "nats_subject": "gaiaftcl.aviation.apex",
+          "node_id": "apex",
+          "session_id": "teach-run-aviation",
+          "statement_digest": "2be0641f2d5a19b3ac063d134264ec72c6f76eace9e7a30418f03c5b98b23d9e",
+          "tau_height": 0,
+          "title": "Pilot role matrix teaching flight"
+        },
+        "next_move": {
+          "context_agent": "AviationContextAgent",
+          "game_id": "aviation",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 1,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "9943df7ecec47d08",
+                "0e58c7bfa1d464aa",
+                "56cd1939da396c26",
+                "b77e484f47001626",
+                "c1c14a27e7dfc0d2",
+                "2e532312da3bfaf2"
+              ],
+              "statement_digest": "2be0641f2d5a19b3ac063d134264ec72c6f76eace9e7a30418f03c5b98b23d9e",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "statement_digest": "2be0641f2d5a19b3ac063d134264ec72c6f76eace9e7a30418f03c5b98b23d9e",
+        "status": "CALORIE_GAME_INGEST",
+        "torsion": "0/1",
+        "torsion_den": 1,
+        "torsion_num": 0
+      },
+      "ingest_http": 200,
+      "lesson": "Ingest an AviationRole + flight_id; project role/telemetry Concept_IDs for the aviation manifold.",
+      "project": {
+        "concept_ids": [
+          "9943df7ecec47d08",
+          "0e58c7bfa1d464aa",
+          "56cd1939da396c26",
+          "b77e484f47001626",
+          "c1c14a27e7dfc0d2",
+          "2e532312da3bfaf2"
+        ],
+        "context_agent": "AviationContextAgent",
+        "game_id": "aviation",
+        "locale": "en",
+        "next_move": {
+          "context_agent": "AviationContextAgent",
+          "game_id": "aviation",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 2,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "9943df7ecec47d08",
+                "0e58c7bfa1d464aa",
+                "56cd1939da396c26",
+                "b77e484f47001626",
+                "c1c14a27e7dfc0d2",
+                "2e532312da3bfaf2"
+              ],
+              "statement_digest": "2be0641f2d5a19b3ac063d134264ec72c6f76eace9e7a30418f03c5b98b23d9e",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "9943df7ecec47d08",
+                "0e58c7bfa1d464aa",
+                "56cd1939da396c26",
+                "b77e484f47001626",
+                "c1c14a27e7dfc0d2",
+                "2e532312da3bfaf2"
+              ],
+              "statement_digest": "aviation|en|0/1",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "PROJECT"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "primitive": "GYROID",
+        "projected_kinds": {
+          "AVIATION_ATC": "AVIATION_ATC@en",
+          "AVIATION_LAND_CREW": "AVIATION_LAND_CREW@en",
+          "AVIATION_PILOT": "AVIATION_PILOT@en",
+          "AVIATION_SOLAR": "AVIATION_SOLAR@en",
+          "AVIATION_TRAVELER": "AVIATION_TRAVELER@en",
+          "AVIATION_WEATHER": "AVIATION_WEATHER@en"
+        },
+        "torsion": "0/1",
+        "zero_shear": 1
+      },
+      "project_http": 200,
+      "seed_keys": [
+        "amplitudes",
+        "flight_id",
+        "locale",
+        "node_id",
+        "role",
+        "session_id",
+        "tau_height",
+        "title"
+      ],
+      "status": "PASS"
+    },
+    {
+      "context_http": 200,
+      "context_summary": {
+        "keys": [
+          "context_agent",
+          "entry",
+          "game_id",
+          "next_move"
+        ]
+      },
+      "game_id": "aviation_atc",
+      "ingest": {
+        "amplitudes": [
+          "3/5",
+          "4/5"
+        ],
+        "calorie": "CALORIE_ATC_SECTOR_FLOW",
+        "concept_ids": [
+          "56cd1939da396c26",
+          "8ff3765fd8bb5c80",
+          "7093e2cc4470a0cc"
+        ],
+        "context_agent": "ATCContextAgent",
+        "game_id": "aviation_atc",
+        "manifold_seed": {
+          "amplitudes": [
+            "3/5",
+            "4/5"
+          ],
+          "domain": "aviation",
+          "game_id": "aviation_atc",
+          "nats_subject": "gaiaftcl.aviation.flow.apex",
+          "node_id": "apex",
+          "session_id": "teach-run-aviation_atc",
+          "statement_digest": "75052d043193bfe8f372608be49c156efe30620309f43176d831e482565ae39a",
+          "tau_height": 0,
+          "title": "ATC sector flow teaching clearance"
+        },
+        "next_move": {
+          "context_agent": "ATCContextAgent",
+          "game_id": "aviation_atc",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 1,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "56cd1939da396c26",
+                "8ff3765fd8bb5c80",
+                "7093e2cc4470a0cc"
+              ],
+              "statement_digest": "75052d043193bfe8f372608be49c156efe30620309f43176d831e482565ae39a",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "statement_digest": "75052d043193bfe8f372608be49c156efe30620309f43176d831e482565ae39a",
+        "status": "CALORIE_GAME_INGEST",
+        "torsion": "0/1",
+        "torsion_den": 1,
+        "torsion_num": 0
+      },
+      "ingest_http": 200,
+      "lesson": "Ingest ATC sector/callsign/clearance (not chat); project sector-flow Concept_IDs.",
+      "project": {
+        "concept_ids": [
+          "56cd1939da396c26",
+          "8ff3765fd8bb5c80",
+          "7093e2cc4470a0cc"
+        ],
+        "context_agent": "ATCContextAgent",
+        "game_id": "aviation_atc",
+        "locale": "en",
+        "next_move": {
+          "context_agent": "ATCContextAgent",
+          "game_id": "aviation_atc",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 2,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "56cd1939da396c26",
+                "8ff3765fd8bb5c80",
+                "7093e2cc4470a0cc"
+              ],
+              "statement_digest": "75052d043193bfe8f372608be49c156efe30620309f43176d831e482565ae39a",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "56cd1939da396c26",
+                "8ff3765fd8bb5c80",
+                "7093e2cc4470a0cc"
+              ],
+              "statement_digest": "aviation_atc|en|0/1",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "PROJECT"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "primitive": "GYROID",
+        "projected_kinds": {
+          "ATC_CLEARANCE": "ATC_CLEARANCE@en",
+          "ATC_SECTOR": "ATC_SECTOR@en",
+          "AVIATION_ATC": "AVIATION_ATC@en"
+        },
+        "torsion": "0/1",
+        "zero_shear": 1
+      },
+      "project_http": 200,
+      "seed_keys": [
+        "amplitudes",
+        "callsign",
+        "clearance_kind",
+        "locale",
+        "node_id",
+        "sector_id",
+        "session_id",
+        "tau_height",
+        "title"
+      ],
+      "status": "PASS"
+    },
+    {
+      "context_http": 200,
+      "context_summary": {
+        "keys": [
+          "context_agent",
+          "entry",
+          "game_id",
+          "next_move"
+        ]
+      },
+      "game_id": "gaming",
+      "ingest": {
+        "amplitudes": [
+          "3/5",
+          "4/5"
+        ],
+        "calorie": "CALORIE_GAMING_RULE_DESYNC",
+        "concept_ids": [
+          "0266ddfbb49ffffe",
+          "69e4c7cdcbeea15e",
+          "581e78cf438ad42f"
+        ],
+        "context_agent": "GamingContextAgent",
+        "game_id": "gaming",
+        "manifold_seed": {
+          "amplitudes": [
+            "3/5",
+            "4/5"
+          ],
+          "domain": "gaming",
+          "game_id": "gaming",
+          "nats_subject": "gaiaftcl.umc.state.gaming.apex",
+          "node_id": "apex",
+          "session_id": "teach-run-gaming",
+          "statement_digest": "794de72fb825c6701f459a58f5019ba2c759d1c9b7e106f15e08ed6d4e38a324",
+          "tau_height": 0,
+          "title": "rule-desync teaching match"
+        },
+        "next_move": {
+          "context_agent": "GamingContextAgent",
+          "game_id": "gaming",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 1,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "0266ddfbb49ffffe",
+                "69e4c7cdcbeea15e",
+                "581e78cf438ad42f"
+              ],
+              "statement_digest": "794de72fb825c6701f459a58f5019ba2c759d1c9b7e106f15e08ed6d4e38a324",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "statement_digest": "794de72fb825c6701f459a58f5019ba2c759d1c9b7e106f15e08ed6d4e38a324",
+        "status": "CALORIE_GAME_INGEST",
+        "torsion": "0/1",
+        "torsion_den": 1,
+        "torsion_num": 0
+      },
+      "ingest_http": 200,
+      "lesson": "Ingest rule/desync labels for a session; project Gyroid/Shatter for gaming UMC state.",
+      "project": {
+        "concept_ids": [
+          "0266ddfbb49ffffe",
+          "69e4c7cdcbeea15e",
+          "581e78cf438ad42f"
+        ],
+        "context_agent": "GamingContextAgent",
+        "game_id": "gaming",
+        "locale": "en",
+        "next_move": {
+          "context_agent": "GamingContextAgent",
+          "game_id": "gaming",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 2,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "0266ddfbb49ffffe",
+                "69e4c7cdcbeea15e",
+                "581e78cf438ad42f"
+              ],
+              "statement_digest": "794de72fb825c6701f459a58f5019ba2c759d1c9b7e106f15e08ed6d4e38a324",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "0266ddfbb49ffffe",
+                "69e4c7cdcbeea15e",
+                "581e78cf438ad42f"
+              ],
+              "statement_digest": "gaming|en|0/1",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "PROJECT"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "primitive": "GYROID",
+        "projected_kinds": {
+          "DESYNC": "DESYNC@en",
+          "GAMING_SIMULATION": "GAMING_SIMULATION@en",
+          "RULE_VIOLATION": "RULE_VIOLATION@en"
+        },
+        "torsion": "0/1",
+        "zero_shear": 1
+      },
+      "project_http": 200,
+      "seed_keys": [
+        "amplitudes",
+        "layer_labels",
+        "locale",
+        "node_id",
+        "session_id",
+        "tau_height",
+        "title"
+      ],
+      "status": "PASS"
+    },
+    {
+      "context_http": 200,
+      "context_summary": {
+        "keys": [
+          "context_agent",
+          "entry",
+          "game_id",
+          "next_move"
+        ]
+      },
+      "game_id": "coding",
+      "ingest": {
+        "amplitudes": [
+          "3/5",
+          "4/5"
+        ],
+        "calorie": "CALORIE_GAV_CODING_LONG_PLAY",
+        "concept_ids": [
+          "fe4256fae2b8793b",
+          "04dfd703a75a7837",
+          "f6b6f420c70dd8dc"
+        ],
+        "context_agent": "CodingContextAgent",
+        "game_id": "coding",
+        "manifold_seed": {
+          "amplitudes": [
+            "3/5",
+            "4/5"
+          ],
+          "domain": "coding",
+          "game_id": "coding",
+          "nats_subject": "gaiaftcl.umc.state.coding.apex",
+          "node_id": "apex",
+          "session_id": "teach-run-coding",
+          "statement_digest": "b8fa705f48b69d6d7fd95f05e035198c3d451f563cf407ba1b8cbfc03e6548a1",
+          "tau_height": 0,
+          "title": "affine_add_app \u2014 teaching coding application"
+        },
+        "next_move": {
+          "context_agent": "CodingContextAgent",
+          "game_id": "coding",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 2,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "fe4256fae2b8793b",
+                "04dfd703a75a7837",
+                "f6b6f420c70dd8dc"
+              ],
+              "statement_digest": "a6084875f2574373616c26c3334fbe0f06bcfeb57ae293f36abca84e19a65966",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "fe4256fae2b8793b",
+                "04dfd703a75a7837",
+                "f6b6f420c70dd8dc"
+              ],
+              "statement_digest": "b8fa705f48b69d6d7fd95f05e035198c3d451f563cf407ba1b8cbfc03e6548a1",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "INGEST"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "statement_digest": "b8fa705f48b69d6d7fd95f05e035198c3d451f563cf407ba1b8cbfc03e6548a1",
+        "status": "CALORIE_GAME_INGEST",
+        "torsion": "0/1",
+        "torsion_den": 1,
+        "torsion_num": 0
+      },
+      "ingest_http": 200,
+      "lesson": "Ingest a coding workspace (affine_add_app); project MCP/compile narrative via CodingContextAgent.",
+      "project": {
+        "concept_ids": [
+          "fe4256fae2b8793b",
+          "04dfd703a75a7837",
+          "f6b6f420c70dd8dc"
+        ],
+        "context_agent": "CodingContextAgent",
+        "game_id": "coding",
+        "locale": "en",
+        "next_move": {
+          "context_agent": "CodingContextAgent",
+          "game_id": "coding",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 3,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "fe4256fae2b8793b",
+                "04dfd703a75a7837",
+                "f6b6f420c70dd8dc"
+              ],
+              "statement_digest": "a6084875f2574373616c26c3334fbe0f06bcfeb57ae293f36abca84e19a65966",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "fe4256fae2b8793b",
+                "04dfd703a75a7837",
+                "f6b6f420c70dd8dc"
+              ],
+              "statement_digest": "b8fa705f48b69d6d7fd95f05e035198c3d451f563cf407ba1b8cbfc03e6548a1",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "fe4256fae2b8793b",
+                "04dfd703a75a7837",
+                "f6b6f420c70dd8dc"
+              ],
+              "statement_digest": "coding|en|0/1",
+              "torsion": "0/1",
+              "turn_index": 2,
+              "turn_kind": "PROJECT"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "primitive": "GYROID",
+        "projected_kinds": {
+          "CODING_MCP": "CODING_MCP@en",
+          "GAV_LONG_PLAY": "GAV_LONG_PLAY@en",
+          "RECURSIVE_CODING": "RECURSIVE_CODING@en"
+        },
+        "torsion": "0/1",
+        "zero_shear": 1
+      },
+      "project_http": 200,
+      "seed_keys": [
+        "amplitudes",
+        "locale",
+        "node_id",
+        "session_id",
+        "statement",
+        "tau_height",
+        "title",
+        "workspace_hint"
+      ],
+      "status": "PASS"
+    },
+    {
+      "context_http": 200,
+      "context_summary": {
+        "keys": [
+          "context_agent",
+          "entry",
+          "game_id",
+          "next_move"
+        ]
+      },
+      "game_id": "reality",
+      "ingest": {
+        "amplitudes": [
+          "3/5",
+          "4/5"
+        ],
+        "calorie": "CALORIE_REALITY_IMMERSION",
+        "concept_ids": [
+          "099b4e6d5c45df12",
+          "60ccb64fab7b9efc",
+          "cd6aba251b6ac907"
+        ],
+        "context_agent": "RealityContextAgent",
+        "game_id": "reality",
+        "manifold_seed": {
+          "amplitudes": [
+            "3/5",
+            "4/5"
+          ],
+          "domain": null,
+          "game_id": "reality",
+          "nats_subject": "gaiaftcl.reality.manifold.apex",
+          "node_id": "apex",
+          "session_id": "teach-run-reality",
+          "statement_digest": "537fcf916bb6a5f4c53da21411d86fc85b2ef41fb2d9131d997f5a4f7d0ac1fc",
+          "tau_height": 0,
+          "title": "Reality immersion teaching room"
+        },
+        "next_move": {
+          "context_agent": "RealityContextAgent",
+          "game_id": "reality",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 1,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "099b4e6d5c45df12",
+                "60ccb64fab7b9efc",
+                "cd6aba251b6ac907"
+              ],
+              "statement_digest": "537fcf916bb6a5f4c53da21411d86fc85b2ef41fb2d9131d997f5a4f7d0ac1fc",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "statement_digest": "537fcf916bb6a5f4c53da21411d86fc85b2ef41fb2d9131d997f5a4f7d0ac1fc",
+        "status": "CALORIE_GAME_INGEST",
+        "torsion": "0/1",
+        "torsion_den": 1,
+        "torsion_num": 0
+      },
+      "ingest_http": 200,
+      "lesson": "Ingest RealityRoom presence OperatorTensor; project room.manifold Gyroid fuse.",
+      "project": {
+        "concept_ids": [
+          "099b4e6d5c45df12",
+          "60ccb64fab7b9efc",
+          "cd6aba251b6ac907"
+        ],
+        "context_agent": "RealityContextAgent",
+        "game_id": "reality",
+        "locale": "en",
+        "next_move": {
+          "context_agent": "RealityContextAgent",
+          "game_id": "reality",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 2,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "099b4e6d5c45df12",
+                "60ccb64fab7b9efc",
+                "cd6aba251b6ac907"
+              ],
+              "statement_digest": "537fcf916bb6a5f4c53da21411d86fc85b2ef41fb2d9131d997f5a4f7d0ac1fc",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "099b4e6d5c45df12",
+                "60ccb64fab7b9efc",
+                "cd6aba251b6ac907"
+              ],
+              "statement_digest": "reality|en|0/1",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "PROJECT"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "primitive": "GYROID",
+        "projected_kinds": {
+          "PRESENCE_TENSOR": "PRESENCE_TENSOR@en",
+          "REALITY_IMMERSION": "REALITY_IMMERSION@en",
+          "ROOM_WORKSPACE": "ROOM_WORKSPACE@en"
+        },
+        "torsion": "0/1",
+        "zero_shear": 1
+      },
+      "project_http": 200,
+      "seed_keys": [
+        "amplitudes",
+        "locale",
+        "node_id",
+        "presence_id",
+        "room_id",
+        "session_id",
+        "title",
+        "torsion_den",
+        "torsion_num"
+      ],
+      "status": "PASS"
+    },
+    {
+      "context_http": 200,
+      "context_summary": {
+        "keys": [
+          "context_agent",
+          "entry",
+          "game_id",
+          "next_move"
+        ]
+      },
+      "game_id": "topological_sandbox",
+      "ingest": {
+        "amplitudes": [
+          "3/5",
+          "4/5"
+        ],
+        "calorie": "CALORIE_TOPOLOGICAL_SANDBOX",
+        "concept_ids": [
+          "9402c2a4a158b5c6",
+          "d5056978223a3b6f",
+          "2bbab986d0d9df02"
+        ],
+        "context_agent": "SandboxContextAgent",
+        "game_id": "topological_sandbox",
+        "manifold_seed": {
+          "amplitudes": [
+            "3/5",
+            "4/5"
+          ],
+          "domain": null,
+          "game_id": "topological_sandbox",
+          "nats_subject": "gaiaftcl.sandbox.manifold.apex",
+          "node_id": "apex",
+          "session_id": "teach-run-topological_sandbox",
+          "statement_digest": "60624bde615ea4092081bf40e389cb61a769e24fa72b4b51547d51c61b193365",
+          "tau_height": 0,
+          "title": "Sandbox heal teaching stroke"
+        },
+        "next_move": {
+          "context_agent": "SandboxContextAgent",
+          "game_id": "topological_sandbox",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 1,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "9402c2a4a158b5c6",
+                "d5056978223a3b6f",
+                "2bbab986d0d9df02"
+              ],
+              "statement_digest": "60624bde615ea4092081bf40e389cb61a769e24fa72b4b51547d51c61b193365",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "statement_digest": "60624bde615ea4092081bf40e389cb61a769e24fa72b4b51547d51c61b193365",
+        "status": "CALORIE_GAME_INGEST",
+        "torsion": "0/1",
+        "torsion_den": 1,
+        "torsion_num": 0
+      },
+      "ingest_http": 200,
+      "lesson": "Ingest heal|shatter OperatorTensor; project Mirror Manifold WebGL primitives.",
+      "project": {
+        "concept_ids": [
+          "9402c2a4a158b5c6",
+          "d5056978223a3b6f",
+          "2bbab986d0d9df02"
+        ],
+        "context_agent": "SandboxContextAgent",
+        "game_id": "topological_sandbox",
+        "locale": "en",
+        "next_move": {
+          "context_agent": "SandboxContextAgent",
+          "game_id": "topological_sandbox",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 2,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "9402c2a4a158b5c6",
+                "d5056978223a3b6f",
+                "2bbab986d0d9df02"
+              ],
+              "statement_digest": "60624bde615ea4092081bf40e389cb61a769e24fa72b4b51547d51c61b193365",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "9402c2a4a158b5c6",
+                "d5056978223a3b6f",
+                "2bbab986d0d9df02"
+              ],
+              "statement_digest": "topological_sandbox|en|0/1",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "PROJECT"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "primitive": "GYROID",
+        "projected_kinds": {
+          "MIRROR_MANIFOLD": "MIRROR_MANIFOLD@en",
+          "OPERATOR_TENSOR": "OPERATOR_TENSOR@en",
+          "TOPOLOGICAL_SANDBOX": "TOPOLOGICAL_SANDBOX@en"
+        },
+        "torsion": "0/1",
+        "zero_shear": 1
+      },
+      "project_http": 200,
+      "seed_keys": [
+        "action",
+        "amplitudes",
+        "locale",
+        "node_id",
+        "session_id",
+        "title",
+        "torsion_den",
+        "torsion_num"
+      ],
+      "status": "PASS"
+    },
+    {
+      "context_http": 200,
+      "context_summary": {
+        "keys": [
+          "context_agent",
+          "entry",
+          "game_id",
+          "next_move"
+        ]
+      },
+      "game_id": "formal_manifold",
+      "ingest": {
+        "amplitudes": [
+          "3/5",
+          "4/5"
+        ],
+        "calorie": "CALORIE_MANIFOLD_OBSERVER",
+        "concept_ids": [
+          "95285df40ebeb17c",
+          "bc01fd0e568c5a1b",
+          "83b97c2b5bf77b61"
+        ],
+        "context_agent": "FormalManifoldContextAgent",
+        "game_id": "formal_manifold",
+        "manifold_seed": {
+          "amplitudes": [
+            "3/5",
+            "4/5"
+          ],
+          "domain": null,
+          "game_id": "formal_manifold",
+          "nats_subject": "gaiaftcl.formal.manifold.apex",
+          "node_id": "apex",
+          "session_id": "teach-run-formal_manifold",
+          "statement_digest": "50304dfb6b435aacee7f6a114c88207f6913366292604b491ce7fc6f175a9b2c",
+          "tau_height": 0,
+          "title": "Formal observer teaching collapse"
+        },
+        "next_move": {
+          "context_agent": "FormalManifoldContextAgent",
+          "game_id": "formal_manifold",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 1,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "95285df40ebeb17c",
+                "bc01fd0e568c5a1b",
+                "83b97c2b5bf77b61"
+              ],
+              "statement_digest": "50304dfb6b435aacee7f6a114c88207f6913366292604b491ce7fc6f175a9b2c",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "statement_digest": "50304dfb6b435aacee7f6a114c88207f6913366292604b491ce7fc6f175a9b2c",
+        "status": "CALORIE_GAME_INGEST",
+        "torsion": "0/1",
+        "torsion_den": 1,
+        "torsion_num": 0
+      },
+      "ingest_http": 200,
+      "lesson": "Ingest LogicalAmplitudeTensor (statement + amplitudes); project COLLAPSE/DIVERGENCE.",
+      "project": {
+        "concept_ids": [
+          "95285df40ebeb17c",
+          "bc01fd0e568c5a1b",
+          "83b97c2b5bf77b61"
+        ],
+        "context_agent": "FormalManifoldContextAgent",
+        "game_id": "formal_manifold",
+        "locale": "en",
+        "next_move": {
+          "context_agent": "FormalManifoldContextAgent",
+          "game_id": "formal_manifold",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 2,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "95285df40ebeb17c",
+                "bc01fd0e568c5a1b",
+                "83b97c2b5bf77b61"
+              ],
+              "statement_digest": "50304dfb6b435aacee7f6a114c88207f6913366292604b491ce7fc6f175a9b2c",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "95285df40ebeb17c",
+                "bc01fd0e568c5a1b",
+                "83b97c2b5bf77b61"
+              ],
+              "statement_digest": "formal_manifold|en|0/1",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "PROJECT"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "primitive": "GYROID",
+        "projected_kinds": {
+          "COLLAPSE_0x20": "COLLAPSE_0x20@en",
+          "LOGICAL_AMPLITUDE": "LOGICAL_AMPLITUDE@en",
+          "MANIFOLD_OBSERVER": "MANIFOLD_OBSERVER@en"
+        },
+        "torsion": "0/1",
+        "zero_shear": 1
+      },
+      "project_http": 200,
+      "seed_keys": [
+        "amplitudes",
+        "domain",
+        "locale",
+        "node_id",
+        "session_id",
+        "statement",
+        "tau_height",
+        "title"
+      ],
+      "status": "PASS"
+    },
+    {
+      "context_http": 200,
+      "context_summary": {
+        "keys": [
+          "context_agent",
+          "entry",
+          "game_id",
+          "next_move"
+        ]
+      },
+      "game_id": "wallet_qfot",
+      "ingest": {
+        "amplitudes": [
+          "1/1",
+          "0/1"
+        ],
+        "calorie": "CALORIE_WALLET_QFOT",
+        "concept_ids": [
+          "facaf13ad227efce",
+          "7bc6aba4cc74fc72",
+          "b015b7af58661c01",
+          "f75b3ea0d84a0f04"
+        ],
+        "context_agent": "WalletQFOTContextAgent",
+        "game_id": "wallet_qfot",
+        "manifold_seed": {
+          "amplitudes": [
+            "1/1",
+            "0/1"
+          ],
+          "domain": null,
+          "game_id": "wallet_qfot",
+          "nats_subject": "gaiaftcl.wallet.apex",
+          "node_id": "apex",
+          "session_id": "teach-run-wallet_qfot",
+          "statement_digest": "3ace1deff8ea760903c6a7ca3fc978b284751230ce2d31d9ebaee34e6895800c",
+          "tau_height": 0,
+          "title": "Wallet/QFOT teaching bind (zero transfer)"
+        },
+        "next_move": {
+          "context_agent": "WalletQFOTContextAgent",
+          "game_id": "wallet_qfot",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 1,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "facaf13ad227efce",
+                "7bc6aba4cc74fc72",
+                "b015b7af58661c01",
+                "f75b3ea0d84a0f04"
+              ],
+              "statement_digest": "3ace1deff8ea760903c6a7ca3fc978b284751230ce2d31d9ebaee34e6895800c",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "statement_digest": "3ace1deff8ea760903c6a7ca3fc978b284751230ce2d31d9ebaee34e6895800c",
+        "status": "CALORIE_GAME_INGEST",
+        "torsion": "0/1",
+        "torsion_den": 1,
+        "torsion_num": 0
+      },
+      "ingest_http": 200,
+      "lesson": "Ingest wallet bind / zero QFOT transfer (Rational); project profile + economics subjects.",
+      "project": {
+        "concept_ids": [
+          "facaf13ad227efce",
+          "7bc6aba4cc74fc72",
+          "b015b7af58661c01",
+          "f75b3ea0d84a0f04"
+        ],
+        "context_agent": "WalletQFOTContextAgent",
+        "game_id": "wallet_qfot",
+        "locale": "en",
+        "next_move": {
+          "context_agent": "WalletQFOTContextAgent",
+          "game_id": "wallet_qfot",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 2,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "facaf13ad227efce",
+                "7bc6aba4cc74fc72",
+                "b015b7af58661c01",
+                "f75b3ea0d84a0f04"
+              ],
+              "statement_digest": "3ace1deff8ea760903c6a7ca3fc978b284751230ce2d31d9ebaee34e6895800c",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "facaf13ad227efce",
+                "7bc6aba4cc74fc72",
+                "b015b7af58661c01",
+                "f75b3ea0d84a0f04"
+              ],
+              "statement_digest": "wallet_qfot|en|0/1",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "PROJECT"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "primitive": "GYROID",
+        "projected_kinds": {
+          "PROFILE_GAME_USE": "PROFILE_GAME_USE@en",
+          "QFOT_PAY": "QFOT_PAY@en",
+          "QFOT_TREASURY": "QFOT_TREASURY@en",
+          "WALLET_LOCATION_BIND": "WALLET_LOCATION_BIND@en"
+        },
+        "torsion": "0/1",
+        "zero_shear": 1
+      },
+      "project_http": 200,
+      "seed_keys": [
+        "address",
+        "amount_den",
+        "amount_num",
+        "amplitudes",
+        "domain",
+        "lat_micro",
+        "locale",
+        "lon_micro",
+        "node_id",
+        "session_id",
+        "title"
+      ],
+      "status": "PASS"
+    },
+    {
+      "context_http": 200,
+      "context_summary": {
+        "keys": [
+          "context_agent",
+          "entry",
+          "game_id",
+          "next_move"
+        ]
+      },
+      "game_id": "linguistic_membrane",
+      "ingest": {
+        "amplitudes": [
+          "3/5",
+          "4/5"
+        ],
+        "calorie": "CALORIE_LINGUISTIC_MEMBRANE",
+        "concept_ids": [
+          "28b36bc27e46a7d5",
+          "9cbd7caeba6bf833",
+          "5f9fe001f4d872a0",
+          "14167018b8765bef",
+          "60fce50ccd1818c7",
+          "52ca8ad6af671810"
+        ],
+        "context_agent": "LinguisticMembraneContextAgent",
+        "game_id": "linguistic_membrane",
+        "manifold_seed": {
+          "amplitudes": [
+            "3/5",
+            "4/5"
+          ],
+          "domain": null,
+          "game_id": "linguistic_membrane",
+          "nats_subject": "gaiaftcl.game.apex",
+          "node_id": "apex",
+          "session_id": "teach-run-linguistic_membrane",
+          "statement_digest": "ddb4d718a9f380c72176f20e405f0480eb638720c42a8a47977c84ff6af5e659",
+          "tau_height": 0,
+          "title": "Linguistic membrane teaching turn envelope"
+        },
+        "next_move": {
+          "context_agent": "LinguisticMembraneContextAgent",
+          "game_id": "linguistic_membrane",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 1,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "28b36bc27e46a7d5",
+                "9cbd7caeba6bf833",
+                "5f9fe001f4d872a0",
+                "14167018b8765bef",
+                "60fce50ccd1818c7",
+                "52ca8ad6af671810"
+              ],
+              "statement_digest": "ddb4d718a9f380c72176f20e405f0480eb638720c42a8a47977c84ff6af5e659",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "statement_digest": "ddb4d718a9f380c72176f20e405f0480eb638720c42a8a47977c84ff6af5e659",
+        "status": "CALORIE_GAME_INGEST",
+        "torsion": "0/1",
+        "torsion_den": 1,
+        "torsion_num": 0
+      },
+      "ingest_http": 200,
+      "lesson": "Ingest intent+SCF+signature envelope; project sovereign linguistic kinds (no elephant text).",
+      "project": {
+        "concept_ids": [
+          "28b36bc27e46a7d5",
+          "9cbd7caeba6bf833",
+          "5f9fe001f4d872a0",
+          "14167018b8765bef",
+          "60fce50ccd1818c7",
+          "52ca8ad6af671810"
+        ],
+        "context_agent": "LinguisticMembraneContextAgent",
+        "game_id": "linguistic_membrane",
+        "locale": "en",
+        "next_move": {
+          "context_agent": "LinguisticMembraneContextAgent",
+          "game_id": "linguistic_membrane",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 2,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "28b36bc27e46a7d5",
+                "9cbd7caeba6bf833",
+                "5f9fe001f4d872a0",
+                "14167018b8765bef",
+                "60fce50ccd1818c7",
+                "52ca8ad6af671810"
+              ],
+              "statement_digest": "ddb4d718a9f380c72176f20e405f0480eb638720c42a8a47977c84ff6af5e659",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "28b36bc27e46a7d5",
+                "9cbd7caeba6bf833",
+                "5f9fe001f4d872a0",
+                "14167018b8765bef",
+                "60fce50ccd1818c7",
+                "52ca8ad6af671810"
+              ],
+              "statement_digest": "linguistic_membrane|en|0/1",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "PROJECT"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "primitive": "GYROID",
+        "projected_kinds": {
+          "ARISTOTELIAN": "ARISTOTELIAN@en",
+          "GUIDE_PUBLIC_FLOURISHING_ALL": "GUIDE_PUBLIC_FLOURISHING_ALL@en",
+          "INGEST": "INGEST@en",
+          "JORDAN_CLOSED": "JORDAN_CLOSED@en",
+          "OPEN_CURVE": "OPEN_CURVE@en",
+          "PUBLIC_VERNACULAR_FOR_ALL": "PUBLIC_VERNACULAR_FOR_ALL@en"
+        },
+        "torsion": "0/1",
+        "zero_shear": 1
+      },
+      "project_http": 200,
+      "seed_keys": [
+        "amplitudes",
+        "intent",
+        "locale",
+        "node_id",
+        "scf_hash",
+        "session_id",
+        "title",
+        "user_vqbit_hash",
+        "vqbit_signature"
+      ],
+      "status": "PASS"
+    },
+    {
+      "context_http": 200,
+      "context_summary": {
+        "keys": [
+          "context_agent",
+          "entry",
+          "game_id",
+          "next_move"
+        ]
+      },
+      "game_id": "umc_gav",
+      "ingest": {
+        "amplitudes": [
+          "3/5",
+          "4/5"
+        ],
+        "calorie": "CALORIE_UNIVERSAL_MANIFOLD_CONTROLLER",
+        "concept_ids": [
+          "694ef7ef63c7b1a3",
+          "fe4256fae2b8793b",
+          "428681f8f1c590ea"
+        ],
+        "context_agent": "UMCGAVContextAgent",
+        "game_id": "umc_gav",
+        "manifold_seed": {
+          "amplitudes": [
+            "3/5",
+            "4/5"
+          ],
+          "domain": "coding",
+          "game_id": "umc_gav",
+          "nats_subject": "gaiaftcl.umc.state.apex",
+          "node_id": "apex",
+          "session_id": "teach-run-umc_gav",
+          "statement_digest": "0f4a6f48e22f46a722a166639dc376e0091cd089551bf063dc3c39f566668cc2",
+          "tau_height": 0,
+          "title": "UMC GAV teaching long play"
+        },
+        "next_move": {
+          "context_agent": "UMCGAVContextAgent",
+          "game_id": "umc_gav",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 2,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "694ef7ef63c7b1a3",
+                "fe4256fae2b8793b",
+                "428681f8f1c590ea"
+              ],
+              "statement_digest": "905925d56d43d6d73b90cac27df9b185fe7e0f11feef1a3632c89851166a1cd4",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "694ef7ef63c7b1a3",
+                "fe4256fae2b8793b",
+                "428681f8f1c590ea"
+              ],
+              "statement_digest": "0f4a6f48e22f46a722a166639dc376e0091cd089551bf063dc3c39f566668cc2",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "INGEST"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "statement_digest": "0f4a6f48e22f46a722a166639dc376e0091cd089551bf063dc3c39f566668cc2",
+        "status": "CALORIE_GAME_INGEST",
+        "torsion": "0/1",
+        "torsion_den": 1,
+        "torsion_num": 0
+      },
+      "ingest_http": 200,
+      "lesson": "Ingest UMC Director ManifoldSeed; project Long Play viewport subjects.",
+      "project": {
+        "concept_ids": [
+          "694ef7ef63c7b1a3",
+          "fe4256fae2b8793b",
+          "428681f8f1c590ea"
+        ],
+        "context_agent": "UMCGAVContextAgent",
+        "game_id": "umc_gav",
+        "locale": "en",
+        "next_move": {
+          "context_agent": "UMCGAVContextAgent",
+          "game_id": "umc_gav",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 3,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "694ef7ef63c7b1a3",
+                "fe4256fae2b8793b",
+                "428681f8f1c590ea"
+              ],
+              "statement_digest": "905925d56d43d6d73b90cac27df9b185fe7e0f11feef1a3632c89851166a1cd4",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "694ef7ef63c7b1a3",
+                "fe4256fae2b8793b",
+                "428681f8f1c590ea"
+              ],
+              "statement_digest": "0f4a6f48e22f46a722a166639dc376e0091cd089551bf063dc3c39f566668cc2",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "694ef7ef63c7b1a3",
+                "fe4256fae2b8793b",
+                "428681f8f1c590ea"
+              ],
+              "statement_digest": "umc_gav|en|0/1",
+              "torsion": "0/1",
+              "turn_index": 2,
+              "turn_kind": "PROJECT"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "primitive": "GYROID",
+        "projected_kinds": {
+          "GAV_LONG_PLAY": "GAV_LONG_PLAY@en",
+          "GOAL_INVARIANT": "GOAL_INVARIANT@en",
+          "UNIVERSAL_MANIFOLD_CONTROLLER": "UNIVERSAL_MANIFOLD_CONTROLLER@en"
+        },
+        "torsion": "0/1",
+        "zero_shear": 1
+      },
+      "project_http": 200,
+      "seed_keys": [
+        "amplitudes",
+        "domain",
+        "locale",
+        "max_turns",
+        "node_id",
+        "session_id",
+        "tau_height",
+        "title"
+      ],
+      "status": "PASS"
+    },
+    {
+      "context_http": 200,
+      "context_summary": {
+        "keys": [
+          "context_agent",
+          "entry",
+          "game_id",
+          "next_move"
+        ]
+      },
+      "game_id": "torsion_dialogue",
+      "ingest": {
+        "amplitudes": [
+          "3/5",
+          "4/5"
+        ],
+        "calorie": "CALORIE_TORSION_DIALOGUE",
+        "concept_ids": [
+          "22963a7b198206b7",
+          "c08d1af0a7fb7898",
+          "df41bf04ddc85d4b"
+        ],
+        "context_agent": "TorsionDialogueContextAgent",
+        "game_id": "torsion_dialogue",
+        "manifold_seed": {
+          "amplitudes": [
+            "3/5",
+            "4/5"
+          ],
+          "domain": null,
+          "game_id": "torsion_dialogue",
+          "nats_subject": "gaiaftcl.reality.manifold.apex",
+          "node_id": "apex",
+          "session_id": "teach-run-torsion_dialogue",
+          "statement_digest": "7b4aa028ee607c1935a58f84150b029ac62c7b62dfc2e0ea023be870b27148c8",
+          "tau_height": 0,
+          "title": "Torsion dialogue agreement fuse"
+        },
+        "next_move": {
+          "context_agent": "TorsionDialogueContextAgent",
+          "game_id": "torsion_dialogue",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 1,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "22963a7b198206b7",
+                "c08d1af0a7fb7898",
+                "df41bf04ddc85d4b"
+              ],
+              "statement_digest": "7b4aa028ee607c1935a58f84150b029ac62c7b62dfc2e0ea023be870b27148c8",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "statement_digest": "7b4aa028ee607c1935a58f84150b029ac62c7b62dfc2e0ea023be870b27148c8",
+        "status": "CALORIE_GAME_INGEST",
+        "torsion": "0/1",
+        "torsion_den": 1,
+        "torsion_num": 0
+      },
+      "ingest_http": 200,
+      "lesson": "Ingest collaborative agreement OperatorTensor; project \u03c4\u21920 fuse / local Shatter.",
+      "project": {
+        "concept_ids": [
+          "22963a7b198206b7",
+          "c08d1af0a7fb7898",
+          "df41bf04ddc85d4b"
+        ],
+        "context_agent": "TorsionDialogueContextAgent",
+        "game_id": "torsion_dialogue",
+        "locale": "en",
+        "next_move": {
+          "context_agent": "TorsionDialogueContextAgent",
+          "game_id": "torsion_dialogue",
+          "language_game_section": "0.16",
+          "next_turn_kind": "PROPOSE",
+          "prior_turn_count": 2,
+          "prior_turns": [
+            {
+              "concept_ids": [
+                "22963a7b198206b7",
+                "c08d1af0a7fb7898",
+                "df41bf04ddc85d4b"
+              ],
+              "statement_digest": "7b4aa028ee607c1935a58f84150b029ac62c7b62dfc2e0ea023be870b27148c8",
+              "torsion": "0/1",
+              "turn_index": 0,
+              "turn_kind": "INGEST"
+            },
+            {
+              "concept_ids": [
+                "22963a7b198206b7",
+                "c08d1af0a7fb7898",
+                "df41bf04ddc85d4b"
+              ],
+              "statement_digest": "torsion_dialogue|en|0/1",
+              "torsion": "0/1",
+              "turn_index": 1,
+              "turn_kind": "PROJECT"
+            }
+          ],
+          "tip_torsion": "0/1"
+        },
+        "primitive": "GYROID",
+        "projected_kinds": {
+          "AGREEMENT_FUSE": "AGREEMENT_FUSE@en",
+          "DISAGREEMENT_SHATTER": "DISAGREEMENT_SHATTER@en",
+          "TORSION_DIALOGUE": "TORSION_DIALOGUE@en"
+        },
+        "torsion": "0/1",
+        "zero_shear": 1
+      },
+      "project_http": 200,
+      "seed_keys": [
+        "agreement",
+        "amplitudes",
+        "locale",
+        "node_id",
+        "operator_tensor",
+        "room_id",
+        "session_id",
+        "title"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "started_at": "2026-07-24T14:51:06.590040+00:00"
+}

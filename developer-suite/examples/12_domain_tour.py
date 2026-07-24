@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""One-shot tour: health → MCP → OpenAI → game-turn → UMC coding → OpenUSD."""
+"""One-shot tour: health → MCP → OpenAI → game-turn → all 12 games → UMC → OpenUSD."""
 from _common import client, show
 from affine_earth_sdk import (
     LanguageGamesClient,
@@ -8,6 +8,7 @@ from affine_earth_sdk import (
     OpenUSDClient,
     UMCClient,
 )
+from affine_earth_sdk.game_seeds import ALL_GAME_IDS, teaching_seed
 
 with client() as c:
     steps = []
@@ -42,9 +43,26 @@ with client() as c:
     except Exception as e:
         steps.append(("game-turn", False, str(e)))
 
+    # Teaching path: real ingest → project for every LIVE game
+    game_fails: list[str] = []
+    for gid in ALL_GAME_IDS:
+        seed = teaching_seed(gid, session_suffix="tour")
+        try:
+            lg.game_ingest(gid, seed)
+            lg.game_project(gid, seed)
+        except Exception as e:
+            game_fails.append(f"{gid}:{type(e).__name__}")
+    steps.append(
+        (
+            "games.ingest_project_12",
+            not game_fails,
+            {"pass": len(ALL_GAME_IDS) - len(game_fails), "fail": game_fails},
+        )
+    )
+
     umc = UMCClient(c)
     try:
-        d = umc.direct("coding", session_id="tour", title="tour")
+        d = umc.direct("coding", session_id="tour-affine-add", title="affine_add_app")
         steps.append(("umc.coding", True, d.get("status") or d.get("goal_satisfied")))
     except Exception as e:
         steps.append(("umc.coding", False, str(e)))
