@@ -1,13 +1,13 @@
 /**
- * Affine.Earth OpenUSD — OpenUSD lattice + UUM8D manifold ATC map.
+ * Affine.Earth OpenUSD — UUM8D manifold ATC viewer (FR24-class map + yellow sprites).
  * Three.js CDN only; no Pixar libusd. No RealityPro naming.
  *
  * ATC map contract:
- * - Observer zoom = UUM8D manifold staging bands (not CSS bitmap scale)
- * - Bands: HEMISPHERE → REGIONAL → METRO → AIRPORT_WALK (LOD + skin swap)
- * - Bright yellow plane silhouettes rotated by live heading
- * - Positions from GET /language-invariant/adsb/tracks (live) — no authored loops
- * - Airport focus (KJFK / EGLL / EHAM / LFPG / …) + airport-walk pan
+ * - Geographic basemap PRIMARY (land/ocean/airport diagram); c₄ grid secondary overlay
+ * - Yellow heading-rotated aircraft sprites sized to view (readable at every band)
+ * - Stream c₄ / uum8d-zoom / tracks — NOT video rasters
+ * - Observer zoom = UUM8D manifold staging; JS is thin viewport
+ * - Prefer GET /language-invariant/airspace/uum8d-zoom → c4-constraints → tracks fallback
  */
 (function (global) {
   "use strict";
@@ -176,15 +176,16 @@
   function skinPalette() {
     var root = getComputedStyle(document.body);
     var ocean = (root.getPropertyValue("--ae-ocean") || "").trim() || "#0a1628";
-    var land = (root.getPropertyValue("--ae-land") || "").trim() || "#1a2820";
-    var label = (root.getPropertyValue("--ae-label") || "").trim() || "#c8d0d6";
+    // Land must read against ocean at HEMISPHERE (FR24-class geographic context).
+    var land = (root.getPropertyValue("--ae-land") || "").trim() || "#2a3a30";
+    var label = (root.getPropertyValue("--ae-label") || "").trim() || "#d0d8de";
     var accent = (root.getPropertyValue("--ae-accent") || "").trim() || "#f5c518";
     return { ocean: ocean, land: land, label: label, accent: accent };
   }
 
   /**
-   * Manifold-band basemap (Affine branded SVG/CSS palette — not third-party tiles).
-   * Detail level follows band: hemisphere continents → regional → metro → airport diagram.
+   * ATC basemap — geographic land / ocean / airport diagram (CanvasTexture).
+   * Product path: this texture is PRIMARY. Procedural c₄ grid is a secondary overlay.
    */
   function makeBasemapTexture(THREE, centerLat, centerLon, spanDeg, bandId) {
     var pal = skinPalette();
@@ -221,7 +222,7 @@
       g.fill();
       if (stroke) {
         g.strokeStyle = stroke;
-        g.lineWidth = 1.1;
+        g.lineWidth = band === "HEMISPHERE" ? 1.6 : 1.1;
         g.stroke();
       }
     }
@@ -236,9 +237,10 @@
       [[-10, 110], [-45, 145], [-35, 175], [-15, 150], [-10, 110]],
       [[12, -80], [-55, -70], [-55, -40], [5, -35], [12, -80]],
     ];
-    g.fillStyle = pal.land;
+    var landFill = band === "HEMISPHERE" ? "#334840" : pal.land;
+    var landStroke = band === "HEMISPHERE" ? "#4a6a58" : "#2a3a34";
     lands.forEach(function (poly) {
-      fillPoly(poly, pal.land, "#2a3a34");
+      fillPoly(poly, landFill, landStroke);
     });
 
     // Regional denser blobs near focus
@@ -347,6 +349,90 @@
     var x = (lon - centerLon) * Math.cos((centerLat * Math.PI) / 180) * scale;
     var z = -(lat - centerLat) * scale;
     return { x: x, z: z };
+  }
+
+  /**
+   * Procedural manifold grid from band + zoom_depth — scale-invariant lines.
+   * No CanvasTexture stretch; LOD via line density (constraint depth), not mipmaps.
+   */
+  function makeProceduralManifoldGrid(THREE, spanWorld, bandId, zoomDepth) {
+    var pal = skinPalette();
+    var band = (bandId || "METRO").toUpperCase();
+    var depth = Math.max(0, zoomDepth | 0);
+    var divisions =
+      band === "HEMISPHERE"
+        ? 8 + depth
+        : band === "REGIONAL"
+          ? 16 + depth * 2
+          : band === "METRO"
+            ? 28 + depth * 3
+            : 40 + depth * 4;
+    var half = spanWorld / 2;
+    var step = spanWorld / Math.max(2, divisions);
+    var positions = [];
+    for (var i = 0; i <= divisions; i++) {
+      var t = -half + i * step;
+      positions.push(-half, 0, t, half, 0, t);
+      positions.push(t, 0, -half, t, 0, half);
+    }
+    // Crosshair at camera origin (Euclidean re-root stay near 0,0,0)
+    var cross = half * 0.08;
+    positions.push(-cross, 0.01, 0, cross, 0.01, 0);
+    positions.push(0, 0.01, -cross, 0, 0.01, cross);
+    var geo = new THREE.BufferGeometry();
+    geo.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
+    var color =
+      band === "AIRPORT_WALK"
+        ? 0xf5c518
+        : band === "METRO"
+          ? 0x6a8a9a
+          : band === "REGIONAL"
+            ? 0x4a6a7a
+            : 0x2a4a5a;
+    var mat = new THREE.LineBasicMaterial({
+      color: color,
+      transparent: true,
+      opacity: band === "AIRPORT_WALK" ? 0.85 : 0.65,
+    });
+    var lines = new THREE.LineSegments(geo, mat);
+    lines.userData.bandId = band;
+    lines.userData.procedural = true;
+    lines.userData.zoomDepth = depth;
+    // Flat ocean plane (solid color — not a video/radar texture)
+    var ocean = new THREE.Mesh(
+      new THREE.PlaneGeometry(spanWorld, spanWorld),
+      new THREE.MeshBasicMaterial({ color: pal.ocean || 0x0a1628 })
+    );
+    ocean.rotation.x = -Math.PI / 2;
+    ocean.position.y = -0.12;
+    var group = new THREE.Group();
+    group.add(ocean);
+    group.add(lines);
+    // Origin crosshair (Euclidean re-root stay) — bright yellow
+    var originGeo = new THREE.BufferGeometry();
+    var oc = spanWorld * 0.04;
+    originGeo.setAttribute(
+      "position",
+      new THREE.Float32BufferAttribute(
+        [-oc, 0.02, 0, oc, 0.02, 0, 0, 0.02, -oc, 0, 0.02, oc],
+        3
+      )
+    );
+    group.add(
+      new THREE.LineSegments(
+        originGeo,
+        new THREE.LineBasicMaterial({ color: 0xf5c518, opacity: 0.95, transparent: true })
+      )
+    );
+    group.userData.bandId = band;
+    group.userData.procedural = true;
+    group.userData.dispose = function () {
+      geo.dispose();
+      mat.dispose();
+      ocean.geometry.dispose();
+      ocean.material.dispose();
+    };
+    return group;
   }
 
   function buildLatticeScene(THREE, container, hints, usdaText) {
@@ -499,7 +585,11 @@
     var lastFetchDist = currentBand.fetchDistNm || 100;
     var rawTrackCache = [];
 
-    var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    var renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: false,
+      preserveDrawingBuffer: true, // evidence / screenshot path
+    });
     renderer.setSize(w, h);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     container.innerHTML = "";
@@ -545,24 +635,64 @@
       return Math.max(2.5, viewSpanDeg * mul);
     }
 
+    var rerootState = { active: false, zoomDepth: 0 };
+    var useLocalC4 = false;
+
     function buildMapMesh(band) {
       var span = bandSpanDeg(band);
+      var cosLat = Math.cos((centerLat * Math.PI) / 180);
+      var sizeX = Math.max(viewSpanDeg * 1.35, span) * mapScale * cosLat;
+      var sizeZ = Math.max(viewSpanDeg * 1.35, span) * mapScale;
       var tex = makeBasemapTexture(THREE, centerLat, centerLon, span, band.id);
-      var size = Math.max(viewSpanDeg * 1.35, span) * mapScale;
-      var mesh = new THREE.Mesh(
-        new THREE.PlaneGeometry(size, size),
-        new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 1 })
+      var geo = new THREE.PlaneGeometry(sizeX, sizeZ);
+      var mat = new THREE.MeshBasicMaterial({
+        map: tex,
+        depthWrite: true,
+      });
+      var base = new THREE.Mesh(geo, mat);
+      base.rotation.x = -Math.PI / 2;
+      base.position.y = -0.1;
+      // Secondary: faint c₄ LOD grid + origin crosshair (Study09 / manifold cue)
+      var grid = makeProceduralManifoldGrid(
+        THREE,
+        Math.max(sizeX, sizeZ),
+        band.id,
+        rerootState.zoomDepth || 0
       );
-      mesh.rotation.x = -Math.PI / 2;
-      mesh.position.y = -0.1;
-      mesh.userData.bandId = band.id;
-      return mesh;
+      // Hide solid ocean from procedural group — basemap already paints geography
+      grid.children.forEach(function (ch) {
+        if (ch.isMesh && ch.material && !ch.material.map) {
+          ch.visible = false;
+        }
+        if (ch.isLineSegments && ch.material) {
+          ch.material.opacity = band.id === "AIRPORT_WALK" ? 0.35 : 0.18;
+          ch.material.transparent = true;
+        }
+      });
+      grid.position.y = 0.01;
+      var group = new THREE.Group();
+      group.add(base);
+      group.add(grid);
+      group.userData.bandId = band.id;
+      group.userData.geographic = true;
+      group.userData.dispose = function () {
+        if (tex) tex.dispose();
+        geo.dispose();
+        mat.dispose();
+        if (grid.userData && typeof grid.userData.dispose === "function") {
+          grid.userData.dispose();
+        }
+      };
+      return group;
     }
 
     if (MS && MS.applySkin) MS.applySkin(currentBand.skin);
     var mapMesh = buildMapMesh(currentBand);
     var mapMeshPrev = null;
     scene.add(mapMesh);
+    container.setAttribute("data-procedural-c4", "1");
+    container.setAttribute("data-no-raster-video", "1");
+    document.body.classList.add("manifold-viewer");
 
     // Solar + weather overlay (band LOD) — above basemap, below aircraft
     var SW = global.SolarWeather || null;
@@ -591,17 +721,18 @@
         wxStatus = (built.meta && built.meta.weatherStatus) || wxStatus;
         var size = Math.max(viewSpanDeg * 1.35, span) * mapScale;
         if (wxOverlayMesh) disposeMapMesh(wxOverlayMesh);
+        var cosLatWx = Math.cos((centerLat * Math.PI) / 180);
         wxOverlayMesh = new THREE.Mesh(
-          new THREE.PlaneGeometry(size, size),
+          new THREE.PlaneGeometry(size * cosLatWx, size),
           new THREE.MeshBasicMaterial({
             map: built.texture,
             transparent: true,
-            opacity: 0.92,
+            opacity: currentBand.id === "HEMISPHERE" ? 0.38 : 0.48,
             depthWrite: false,
           })
         );
         wxOverlayMesh.rotation.x = -Math.PI / 2;
-        wxOverlayMesh.position.y = -0.02;
+        wxOverlayMesh.position.y = -0.03;
         scene.add(wxOverlayMesh);
         hud.setAttribute("data-wx-status", wxStatus);
         hud.setAttribute(
@@ -735,6 +866,10 @@
     function disposeMapMesh(mesh) {
       if (!mesh) return;
       scene.remove(mesh);
+      if (mesh.userData && typeof mesh.userData.dispose === "function") {
+        mesh.userData.dispose();
+        return;
+      }
       if (mesh.material && mesh.material.map) mesh.material.map.dispose();
       if (mesh.material) mesh.material.dispose();
       if (mesh.geometry) mesh.geometry.dispose();
@@ -746,22 +881,20 @@
       manifoldStageId = nextBand.id;
       pendingSkin = nextBand.skin;
       if (MS && MS.applySkin) MS.applySkin(nextBand.skin);
-      // Crossfade: keep previous map, fade in new LOD skin
+      // Swap procedural LOD grid (depth/LOD on constraints — not texture mipmaps)
       disposeMapMesh(mapMeshPrev);
-      mapMeshPrev = mapMesh;
-      if (mapMeshPrev && mapMeshPrev.material) mapMeshPrev.material.opacity = 1;
+      mapMeshPrev = null;
+      disposeMapMesh(mapMesh);
       mapMesh = buildMapMesh(nextBand);
-      mapMesh.material.opacity = 0;
-      mapMesh.position.y = -0.08;
       scene.add(mapMesh);
-      skinCrossfade = 0;
+      skinCrossfade = 1;
       container.setAttribute("data-manifold-band", manifoldStageId);
       container.setAttribute("data-walk-mode", nextBand.walkMode ? "1" : "0");
+      container.setAttribute("data-procedural-c4", "1");
       hud.setAttribute("data-manifold-band", manifoldStageId);
       hud.setAttribute("data-walk-mode", nextBand.walkMode ? "1" : "0");
       var bandEl = document.getElementById("mapBandHud");
       if (bandEl) bandEl.textContent = nextBand.id + " · " + nextBand.label;
-      // Re-filter cached live tracks at new LOD; refetch if dist band changed
       rebuildWxOverlay();
       if (rawTrackCache.length) upsertAircraft(rawTrackCache);
       var needDist = nextBand.fetchDistNm || 100;
@@ -871,15 +1004,27 @@
                 ? " sev-high"
                 : " sev-med");
       }
-      if (meta && warningState.minima) {
-        meta.textContent =
-          manifoldStageId +
-          " minima lat≥" +
-          warningState.minima.lateralNm +
-          "nm vert≥" +
-          warningState.minima.verticalFt +
-          "ft · " +
-          warningState.minima.label;
+      if (meta) {
+        if (warningState.minima && warningState.minima.lateralNm != null) {
+          meta.textContent =
+            manifoldStageId +
+            " minima lat≥" +
+            warningState.minima.lateralNm +
+            "nm vert≥" +
+            warningState.minima.verticalFt +
+            "ft · " +
+            (warningState.minima.label || "enroute");
+        } else if (TW && TW.minimaForBand) {
+          var jm = TW.minimaForBand(manifoldStageId);
+          meta.textContent =
+            manifoldStageId +
+            " minima lat≥" +
+            jm.lateralNm +
+            "nm vert≥" +
+            jm.verticalFt +
+            "ft · " +
+            (jm.label || "enroute");
+        }
       }
       if (listEl) {
         if (!n) {
@@ -909,63 +1054,138 @@
       container.setAttribute("data-warn-count", String(n));
     }
 
+    function viewHalfWorld() {
+      return orthoHalf / Math.max(ZOOM_MIN, zoomLevel);
+    }
+
+    function aircraftWorldScale(altFt, variant) {
+      // FR24-class: sprites must remain readable at every manifold band.
+      // Prior bug: fixed ~1.5 world units → ~2px at HEMISPHERE (invisible).
+      var vh = viewHalfWorld();
+      var hPx = container.clientHeight || h || 900;
+      var worldPerPx = (2 * vh) / Math.max(1, hPx);
+      var targetPx =
+        currentBand.id === "HEMISPHERE"
+          ? 18
+          : currentBand.id === "REGIONAL"
+            ? 20
+            : currentBand.id === "METRO"
+              ? 24
+              : 28;
+      var spriteMul = currentBand.spriteScale != null ? currentBand.spriteScale : 1;
+      var alt = Number(altFt) || 0;
+      var altMul = alt < 100 ? 0.92 : alt < 10000 ? 1.0 : 1.12;
+      var varMul = variant === "heavy" ? 1.15 : variant === "light" ? 0.88 : 1;
+      var sc = worldPerPx * targetPx * spriteMul * altMul * varMul;
+      var lo = vh * 0.014;
+      var hi = vh * 0.06;
+      if (sc < lo) sc = lo;
+      if (sc > hi) sc = hi;
+      return sc;
+    }
+
     function upsertAircraft(rows) {
       rawTrackCache = rows || [];
       var seen = {};
-      var filtered = MS
-        ? MS.filterTracksForBand(rawTrackCache, currentBand, centerLat, centerLon)
-        : (rawTrackCache || []).slice(0, MAX_AC);
+      // When Swift already thinned + re-rooted, do not re-filter in JS.
+      var filtered =
+        useLocalC4 || (rawTrackCache[0] && rawTrackCache[0]._swiftProjected)
+          ? (rawTrackCache || []).slice(0, MAX_AC)
+          : MS
+            ? MS.filterTracksForBand(rawTrackCache, currentBand, centerLat, centerLon)
+            : (rawTrackCache || []).slice(0, MAX_AC);
       lodTrackCount = filtered.length;
       var list = filtered.slice(0, MAX_AC);
-      var spriteMul = currentBand.spriteScale != null ? currentBand.spriteScale : 1;
+      // Local milli → world: relative re-root only (never absolute milli-deg as world).
+      var localScale = mapScale / 1000;
       list.forEach(function (a) {
         var icao = String(a.icao || "").toLowerCase();
-        if (!icao || a.lat == null || a.lon == null) return;
+        if (!icao) return;
+        var hasLL = a.lat != null && a.lon != null && isFinite(Number(a.lat)) && isFinite(Number(a.lon));
+        if (!hasLL && !(useLocalC4 && a.local_x_milli != null && a.local_z_milli != null)) return;
         seen[icao] = true;
-        var ll = lonLatToWorld(a.lat, a.lon, centerLat, centerLon, mapScale);
-        var mesh = meshByIcao[icao];
-        if (!mesh) {
-          var alt0 = Number(a.alt_baro_ft) || 0;
-          var gs0 = Number(a.gs_kt) || 0;
-          var variant = "jet";
-          var map = planeTex;
-          if (alt0 < 80 && gs0 < 80) {
-            variant = "light";
-            map = planeTexLight || planeTex;
-          } else if (alt0 > 28000 || gs0 > 420) {
-            variant = "heavy";
-            map = planeTexHeavy || planeTex;
+        var ll;
+        // Prefer lat/lon always — local_* from membrane are often absolute milli-deg
+        // (lon_milli / lat_milli), which placed aircraft thousands of units off-screen.
+        if (hasLL) {
+          ll = lonLatToWorld(Number(a.lat), Number(a.lon), centerLat, centerLon, mapScale);
+        } else {
+          var lx = Number(a.local_x_milli);
+          var lz = Number(a.local_z_milli);
+          // Absolute milli-deg heuristic: |coord| > 5° from origin → treat as lon/lat milli
+          if (Math.abs(lx) > 5000 || Math.abs(lz) > 5000) {
+            ll = lonLatToWorld(lz / 1000, lx / 1000, centerLat, centerLon, mapScale);
+          } else {
+            ll = { x: lx * localScale, z: -lz * localScale };
           }
-          var mat = new THREE.SpriteMaterial({
-            map: map,
-            transparent: true,
-            depthWrite: false,
-            color: 0xffffff,
-          });
-          mesh = new THREE.Sprite(mat);
-          mesh.scale.set(1.15, 1.15, 1);
+        }
+        var mesh = meshByIcao[icao];
+        var alt0 = Number(a.alt_baro_ft) || 0;
+        var gs0 = Number(a.gs_kt) || 0;
+        var variant = "jet";
+        if (alt0 < 80 && gs0 < 80) variant = "light";
+        else if (alt0 > 28000 || gs0 > 420) variant = "heavy";
+        if (!mesh) {
+          var map =
+            variant === "light"
+              ? planeTexLight || planeTex
+              : variant === "heavy"
+                ? planeTexHeavy || planeTex
+                : planeTex;
+          // Yellow heading sprite (Sprite) — Cone fallback if texture missing.
+          if (!map) {
+            var cone = new THREE.ConeGeometry(0.35, 1.1, 3);
+            var cmat = new THREE.MeshBasicMaterial({ color: 0xf5c518 });
+            mesh = new THREE.Mesh(cone, cmat);
+            mesh.rotation.x = Math.PI / 2;
+          } else {
+            var mat = new THREE.SpriteMaterial({
+              map: map,
+              transparent: true,
+              depthWrite: false,
+              depthTest: true,
+              color: 0xffffff,
+              sizeAttenuation: true,
+            });
+            mesh = new THREE.Sprite(mat);
+            mesh.center.set(0.5, 0.5);
+          }
           mesh.userData.icao = icao;
           mesh.userData.variant = variant;
+          mesh.renderOrder = 10;
           acGroup.add(mesh);
           meshByIcao[icao] = mesh;
+        } else if (mesh.userData.variant !== variant && mesh.material && mesh.material.map) {
+          mesh.userData.variant = variant;
+          mesh.material.map =
+            variant === "light"
+              ? planeTexLight || planeTex
+              : variant === "heavy"
+                ? planeTexHeavy || planeTex
+                : planeTex;
+          mesh.material.needsUpdate = true;
         }
         var alpha = mesh.userData.seeded ? 0.45 : 1;
         mesh.userData.seeded = true;
         mesh.position.x += (ll.x - mesh.position.x) * alpha;
         mesh.position.z += (ll.z - mesh.position.z) * alpha;
-        mesh.position.y = 0.2;
+        mesh.position.y = 0.35 + (Number(a.zoom_depth) || 0) * 0.02;
         var track = Number(a.track_deg) || 0;
-        mesh.material.rotation = (-track * Math.PI) / 180;
+        if (mesh.material && mesh.material.rotation != null) {
+          mesh.material.rotation = (-track * Math.PI) / 180;
+        } else {
+          mesh.rotation.z = (-track * Math.PI) / 180;
+        }
         mesh.userData.callsign = a.callsign || icao;
         mesh.userData.alt = a.alt_baro_ft || 0;
         mesh.userData.gs = a.gs_kt || 0;
         mesh.userData.track = track;
-        var alt = Number(a.alt_baro_ft) || 0;
-        var sc = alt < 100 ? 0.95 : alt < 10000 ? 1.05 : 1.2;
-        var zf = 1 / Math.sqrt(Math.max(0.5, zoomLevel));
-        sc *= (0.85 + 0.55 * zf) * spriteMul;
+        mesh.userData.density = a.density_milli || 0;
+        mesh.userData.zoomDepth = a.zoom_depth || 0;
+        var sc = aircraftWorldScale(alt0, variant);
         mesh.userData.baseScale = sc;
-        mesh.scale.set(sc, sc, 1);
+        if (mesh.isSprite) mesh.scale.set(sc, sc, 1);
+        else mesh.scale.set(sc * 0.55, sc * 0.55, sc * 0.55);
       });
       Object.keys(meshByIcao).forEach(function (icao) {
         if (!seen[icao]) {
@@ -987,8 +1207,14 @@
           lat: Number(a.lat_milli_deg) / 1000,
           lon: Number(a.lon_milli_deg) / 1000,
           alt_baro_ft: Number(a.alt_baro_ft) || 0,
-          track_deg: Number(a.track_deg_milli) / 1000,
-          gs_kt: Number(a.gs_kt_milli) / 1000,
+          track_deg: Number(a.track_deg_milli || a.heading_milli_deg) / 1000,
+          gs_kt: Number(a.gs_kt_milli || a.velocity_milli_kt) / 1000,
+          density_milli: Number(a.density_milli) || 0,
+          zoom_depth: Number(a.zoom_depth) || 0,
+          local_x_milli: a.local_x_milli,
+          local_y_milli: a.local_y_milli,
+          local_z_milli: a.local_z_milli,
+          _swiftProjected: true,
         };
       });
     }
@@ -997,6 +1223,25 @@
       var list = (pkt && pkt.warnings) || [];
       return {
         warnings: list.map(function (w) {
+          if (w.kind === "TERRAIN_INTERSECT" || w.elevation_limit_ft != null) {
+            return {
+              severity: w.severity || "MEDIUM",
+              kind: "TERRAIN_INTERSECT",
+              icao_a: w.icao,
+              callsign_a: w.callsign,
+              vertical_ft: Number(w.alt_baro_ft) || 0,
+              floor_ft: Number(w.elevation_limit_ft) || 0,
+              message:
+                (w.severity || "?") +
+                " TERRAIN " +
+                (w.callsign || w.icao) +
+                " alt=" +
+                (w.alt_baro_ft || "?") +
+                "ft floor=" +
+                (w.elevation_limit_ft || "?") +
+                "ft",
+            };
+          }
           return {
             severity: w.severity || "LOW",
             kind: w.lateral_breach && w.vertical_breach ? "SEPARATION" : "NEAR",
@@ -1014,10 +1259,263 @@
               (w.callsign_b || w.icao_b),
           };
         }),
-        minima: pkt.minima || null,
+        minima: (function () {
+          var m = pkt.minima || {};
+          var latNm =
+            m.lateralNm != null
+              ? Number(m.lateralNm)
+              : m.lateral_milli_nm != null
+                ? Number(m.lateral_milli_nm) / 1000
+                : null;
+          var vert =
+            m.verticalFt != null
+              ? Number(m.verticalFt)
+              : m.vertical_ft != null
+                ? Number(m.vertical_ft)
+                : null;
+          if (latNm == null && vert == null) return null;
+          return {
+            lateralNm: latNm != null ? latNm : 5,
+            verticalFt: vert != null ? vert : 1000,
+            label: m.label || m.band || "enroute",
+            band: m.band || null,
+          };
+        })(),
         pairCount: list.length,
         source: "SWIFT_UUM8D_ZOOM",
+        boundaryCount: (pkt.globe_constraints && pkt.globe_constraints.boundary_count) || pkt.boundary_count || 0,
+        terrainHitCount: (pkt.globe_constraints && pkt.globe_constraints.terrain_hit_count) || pkt.terrain_hit_count || 0,
       };
+    }
+
+    var boundaryGroup = new THREE.Group();
+    boundaryGroup.name = "uum8d-structural-boundaries";
+    scene.add(boundaryGroup);
+    var elevFloorMesh = null;
+    var convectiveGroup = new THREE.Group();
+    convectiveGroup.name = "study09-convective-bond";
+    scene.add(convectiveGroup);
+    var confidenceHorizonMesh = null;
+
+    function clearBoundaryGroup() {
+      while (boundaryGroup.children.length) {
+        var ch = boundaryGroup.children[0];
+        boundaryGroup.remove(ch);
+        if (ch.geometry) ch.geometry.dispose();
+        if (ch.material) ch.material.dispose();
+      }
+      if (elevFloorMesh) {
+        scene.remove(elevFloorMesh);
+        if (elevFloorMesh.geometry) elevFloorMesh.geometry.dispose();
+        if (elevFloorMesh.material) elevFloorMesh.material.dispose();
+        elevFloorMesh = null;
+      }
+    }
+
+    function clearConvectiveGroup() {
+      while (convectiveGroup.children.length) {
+        var ch = convectiveGroup.children[0];
+        convectiveGroup.remove(ch);
+        if (ch.geometry) ch.geometry.dispose();
+        if (ch.material) ch.material.dispose();
+      }
+      if (confidenceHorizonMesh) {
+        scene.remove(confidenceHorizonMesh);
+        if (confidenceHorizonMesh.geometry) confidenceHorizonMesh.geometry.dispose();
+        if (confidenceHorizonMesh.material) confidenceHorizonMesh.material.dispose();
+        confidenceHorizonMesh = null;
+      }
+    }
+
+    function latLonToWorld(lat, lon) {
+      // Same equirectangular local frame as aircraft (mapScale) — not nm.
+      return lonLatToWorld(lat, lon, centerLat, centerLon, mapScale);
+    }
+
+    function applyGlobeConstraints(pkt) {
+      var globe = pkt && pkt.globe_constraints;
+      if (!globe || !globe.boundaries) {
+        container.setAttribute("data-globe-boundaries", "0");
+        return;
+      }
+      clearBoundaryGroup();
+      var colors = {
+        fir: 0x3d7ea6,
+        airport: 0xf5c518,
+        runway: 0xffe08a,
+        coastline: 0x2f6f6a,
+        airspace: 0x6b8cae,
+      };
+      (globe.boundaries || []).forEach(function (b) {
+        var curve = b.curve_milli || [];
+        if (curve.length < 2) {
+          // box from AABB
+          curve = [
+            [b.min_lat_milli, b.min_lon_milli],
+            [b.min_lat_milli, b.max_lon_milli],
+            [b.max_lat_milli, b.max_lon_milli],
+            [b.max_lat_milli, b.min_lon_milli],
+            [b.min_lat_milli, b.min_lon_milli],
+          ];
+        }
+        var pts = [];
+        for (var i = 0; i < curve.length; i++) {
+          var lat = Number(curve[i][0]) / 1000;
+          var lon = Number(curve[i][1]) / 1000;
+          var w = latLonToWorld(lat, lon);
+          pts.push(new THREE.Vector3(w.x, 0.05, w.z));
+        }
+        if (pts.length < 2) return;
+        var geom = new THREE.BufferGeometry().setFromPoints(pts);
+        var mat = new THREE.LineBasicMaterial({
+          color: colors[b.kind] || 0x88aacc,
+          transparent: true,
+          opacity: b.kind === "runway" || b.kind === "airport" ? 0.95 : 0.55,
+        });
+        var line = new THREE.Line(geom, mat);
+        line.userData.structural = true;
+        line.userData.kind = b.kind;
+        boundaryGroup.add(line);
+      });
+      // Elevation floor cue — procedural plane tinted by queried floor (not JPEG).
+      var elevFt =
+        globe.elevation_query_ft != null
+          ? Number(globe.elevation_query_ft)
+          : null;
+      if (elevFt != null && isFinite(elevFt)) {
+        var elevY = Math.max(0.02, elevFt / 12000);
+        var plane = new THREE.Mesh(
+          new THREE.PlaneGeometry(18, 18),
+          new THREE.MeshBasicMaterial({
+            color: elevFt <= 20 ? 0x1a3a38 : 0x2a4030,
+            transparent: true,
+            opacity: 0.22,
+            side: THREE.DoubleSide,
+            depthWrite: false,
+          })
+        );
+        plane.rotation.x = -Math.PI / 2;
+        plane.position.y = elevY;
+        plane.userData.elevationFloor = true;
+        scene.add(plane);
+        elevFloorMesh = plane;
+        container.setAttribute("data-elevation-floor-ft", String(elevFt));
+      }
+      container.setAttribute("data-globe-boundaries", String(globe.boundary_count || globe.boundaries.length));
+      container.setAttribute("data-structural-skins", "1");
+      hud.setAttribute("data-boundary-count", String(globe.boundary_count || globe.boundaries.length));
+      hud.setAttribute("data-terrain-hits", String(globe.terrain_hit_count || 0));
+    }
+
+    /** Study 09 — fourth globe layer. REFUSED ≠ clear sky. Never paint void as calm. */
+    function applyConvectiveBond(pkt) {
+      var bond = pkt && pkt.convective_bond;
+      clearConvectiveGroup();
+      if (!bond || !bond.cells) {
+        container.setAttribute("data-study09", "0");
+        return;
+      }
+      var termColors = {
+        CALORIE: 0x3ecf8e,
+        CURE: 0xe0a35c,
+        REFUSED: 0x8b3a5c, // distinct void — never calm ocean blue
+      };
+      var lead = String(bond.lead_band || "");
+      var allowCells =
+        lead.indexOf("0_90") >= 0 || lead === "LEAD_0_90_MIN_CELLS";
+      var allowMeso =
+        allowCells ||
+        lead.indexOf("90M_6H") >= 0 ||
+        lead === "LEAD_90M_6H_MESO";
+      (bond.cells || []).forEach(function (c) {
+        var cls = String(c.object_class || "");
+        if (cls === "TRAFFIC_PROBE_CELL" && !allowCells) return;
+        if (cls === "TRAFFIC_PROBE_MESO" && !allowMeso) return;
+        var lat = Number(c.lat_milli) / 1000;
+        var lon = Number(c.lon_milli) / 1000;
+        if (!isFinite(lat) || !isFinite(lon)) return;
+        var w = latLonToWorld(lat, lon);
+        var term = String(c.terminal || "CALORIE");
+        var color = termColors[term] || 0x88aacc;
+        if (cls === "CONFIDENCE_HORIZON") {
+          var r = Math.max(2, Number(bond.confidence_horizon_min || 90) / 45);
+          var ring = new THREE.Mesh(
+            new THREE.RingGeometry(r * 0.92, r, 48),
+            new THREE.MeshBasicMaterial({
+              color: 0xf5c518,
+              transparent: true,
+              opacity: 0.35,
+              side: THREE.DoubleSide,
+              depthWrite: false,
+            })
+          );
+          ring.rotation.x = -Math.PI / 2;
+          ring.position.set(w.x, 0.12, w.z);
+          ring.userData.confidenceHorizon = true;
+          scene.add(ring);
+          confidenceHorizonMesh = ring;
+          return;
+        }
+        if (term === "REFUSED" || c.radar_void || c.geo_refused_polar) {
+          // Observation void hatch — must not read as clear/calm land.
+          var voidMesh = new THREE.Mesh(
+            new THREE.PlaneGeometry(1.6, 1.6),
+            new THREE.MeshBasicMaterial({
+              color: termColors.REFUSED,
+              transparent: true,
+              opacity: 0.45,
+              side: THREE.DoubleSide,
+              depthWrite: false,
+            })
+          );
+          voidMesh.rotation.x = -Math.PI / 2;
+          voidMesh.position.set(w.x, 0.08, w.z);
+          voidMesh.userData.study09 = true;
+          voidMesh.userData.terminal = "REFUSED";
+          convectiveGroup.add(voidMesh);
+          return;
+        }
+        var marker = new THREE.Mesh(
+          new THREE.SphereGeometry(0.22, 10, 10),
+          new THREE.MeshBasicMaterial({
+            color: color,
+            transparent: true,
+            opacity: cls.indexOf("PROBE") >= 0 ? 0.85 : 0.55,
+          })
+        );
+        marker.position.set(w.x, 0.35, w.z);
+        marker.userData.study09 = true;
+        marker.userData.terminal = term;
+        marker.userData.objectClass = cls;
+        convectiveGroup.add(marker);
+      });
+      // Solar heating cue on HUD (integer milli from Swift — no float seal).
+      var solarMilli = bond.solar_heating_cue_milli;
+      if (solarMilli != null) {
+        hud.setAttribute("data-solar-heating-milli", String(solarMilli));
+        container.style.setProperty(
+          "--study09-solar-heat",
+          String(Math.max(0, Math.min(100, (Number(solarMilli) + 1000) / 20))) + "%"
+        );
+      }
+      var counts = bond.terminal_counts || {};
+      container.setAttribute("data-study09", "1");
+      container.setAttribute("data-lead-band", lead);
+      container.setAttribute(
+        "data-confidence-horizon-min",
+        String(bond.confidence_horizon_min || 0)
+      );
+      container.setAttribute("data-refused-count", String(counts.REFUSED || bond.refused_count || 0));
+      hud.setAttribute("data-study09", "1");
+      hud.setAttribute("data-lead-band", lead);
+      hud.setAttribute(
+        "data-convective-refused",
+        String(counts.REFUSED || bond.refused_count || 0)
+      );
+      hud.setAttribute(
+        "data-traffic-probes",
+        String(bond.traffic_probe_count || 0)
+      );
     }
 
     async function refreshTracks(force) {
@@ -1027,7 +1525,7 @@
         return;
       }
       try {
-        // Prefer Swift OS projection (band + tracks + warnings). Fallback: static tracks.json.
+        // 1) Swift UUM8D zoom — embeds c₄ + globe structural skins + terrain
         if (global.UUM8DShell.fetchUUM8DZoomProjection) {
           try {
             var zoomPkt = await global.UUM8DShell.fetchUUM8DZoomProjection({
@@ -1045,8 +1543,17 @@
                 manifoldStageId = String(zoomPkt.manifold_band);
                 hud.setAttribute("data-manifold-band", manifoldStageId);
               }
+              if (zoomPkt.reroot) {
+                rerootState.active = !!zoomPkt.reroot.active;
+                rerootState.zoomDepth = Number(zoomPkt.reroot.zoom_depth) || 0;
+                useLocalC4 = rerootState.active;
+                hud.setAttribute("data-reroot", rerootState.active ? "1" : "0");
+                hud.setAttribute("data-zoom-depth", String(rerootState.zoomDepth));
+              }
               warningState = warningsFromSwiftZoomPacket(zoomPkt);
               upsertAircraft(rowsFromSwiftZoomPacket(zoomPkt));
+              applyGlobeConstraints(zoomPkt);
+              applyConvectiveBond(zoomPkt);
               hud.setAttribute(
                 "data-track-source",
                 "swift_uum8d_zoom lat_ns=" + String(zoomPkt.latency_ns || 0)
@@ -1055,9 +1562,49 @@
               return;
             }
           } catch (_) {
-            /* fall through — apex may still be Python helper without zoom path */
+            /* fall through */
           }
         }
+        // 2) c₄ constraint firehose (Primvar injector)
+        if (global.UUM8DShell.fetchC4Constraints) {
+          try {
+            var c4 = await global.UUM8DShell.fetchC4Constraints({
+              icao: focusIcao,
+              zoom: zoomLevel,
+            });
+            if (
+              c4 &&
+              c4.proven === "ATC_C4_CONSTRAINT_STREAM_PROVEN" &&
+              (c4.viewport_aircraft || c4.constraints)
+            ) {
+              liveRefreshTicks += 1;
+              trackError = "";
+              if (c4.manifold_band) {
+                manifoldStageId = String(c4.manifold_band);
+                hud.setAttribute("data-manifold-band", manifoldStageId);
+              }
+              if (c4.reroot) {
+                rerootState.active = !!c4.reroot.active;
+                rerootState.zoomDepth = Number(c4.reroot.zoom_depth) || 0;
+                useLocalC4 = rerootState.active;
+                hud.setAttribute("data-reroot", rerootState.active ? "1" : "0");
+                hud.setAttribute("data-zoom-depth", String(rerootState.zoomDepth));
+                container.setAttribute("data-reroot", rerootState.active ? "1" : "0");
+              }
+              warningState = { warnings: [], minima: null, pairCount: 0, source: "C4" };
+              upsertAircraft(rowsFromSwiftZoomPacket(c4));
+              hud.setAttribute(
+                "data-track-source",
+                "swift_c4_constraints lat_ns=" + String(c4.latency_ns || 0)
+              );
+              hud.setAttribute("data-projection-source", "SWIFT_C4_CONSTRAINTS");
+              return;
+            }
+          } catch (_) {
+            /* fall through */
+          }
+        }
+        useLocalC4 = false;
         if (!global.UUM8DShell.fetchLiveTracks) {
           trackError = "fetchLiveTracks missing";
           return;
@@ -1182,16 +1729,12 @@
       applyOrtho();
       syncManifoldFromZoom();
 
-      // Skin / map LOD crossfade
+      // Procedural LOD swap — no texture opacity crossfade
       if (skinCrossfade < 1) {
-        skinCrossfade = Math.min(1, skinCrossfade + 0.07);
-        if (mapMesh && mapMesh.material) mapMesh.material.opacity = skinCrossfade;
-        if (mapMeshPrev && mapMeshPrev.material) {
-          mapMeshPrev.material.opacity = 1 - skinCrossfade;
-          if (skinCrossfade >= 1) {
-            disposeMapMesh(mapMeshPrev);
-            mapMeshPrev = null;
-          }
+        skinCrossfade = 1;
+        if (mapMeshPrev) {
+          disposeMapMesh(mapMeshPrev);
+          mapMeshPrev = null;
         }
       }
 
@@ -1204,8 +1747,22 @@
         lastWxRebuildMs = elapsedMs;
         rebuildWxOverlay();
       }
+      // Airport focus ring — readable fraction of current view (not fixed 0.5 world units)
+      var vh = viewHalfWorld();
+      var ringBase = Math.max(0.8, vh * 0.028);
       var pulse = (1 + 0.08 * Math.sin(elapsedMs * 0.004)) * (currentBand.walkMode ? 1.2 : 1);
-      ring.scale.set(pulse, pulse, pulse);
+      ring.scale.set(ringBase * pulse, ringBase * pulse, ringBase * pulse);
+      // Keep sprites FR24-readable while zoom lerps between polls
+      if (strobeTick % 3 === 0) {
+        Object.keys(meshByIcao).forEach(function (k) {
+          var m = meshByIcao[k];
+          if (!m) return;
+          var sc = aircraftWorldScale(m.userData.alt, m.userData.variant || "jet");
+          m.userData.baseScale = sc;
+          if (m.isSprite) m.scale.set(sc, sc, 1);
+          else m.scale.set(sc * 0.55, sc * 0.55, sc * 0.55);
+        });
+      }
       updateHud(elapsedMs);
       renderer.render(scene, camera);
       raf = requestAnimationFrame(tick);
@@ -1365,12 +1922,20 @@
     tick();
 
     function onResize() {
-      var nw = container.clientWidth || 640;
-      var nh = container.clientHeight || 420;
+      var rect = container.getBoundingClientRect();
+      var nw = Math.max(container.clientWidth || 0, Math.floor(rect.width) || 0) || 640;
+      var nh = Math.max(container.clientHeight || 0, Math.floor(rect.height) || 0) || 420;
       renderer.setSize(nw, nh);
       applyOrtho();
     }
     window.addEventListener("resize", onResize);
+    // Re-measure after CSS grid settles (zero-width column bug leaves clientWidth=0 at first paint)
+    requestAnimationFrame(function () {
+      onResize();
+      requestAnimationFrame(onResize);
+    });
+    setTimeout(onResize, 100);
+    setTimeout(onResize, 500);
 
     return {
       dispose: function () {
@@ -1402,6 +1967,20 @@
       setAirport: setAirport,
       setManifoldZoom: function (z) {
         targetZoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, Number(z) || targetZoom));
+      },
+      getZoom: function () {
+        return zoomLevel;
+      },
+      zoomToBand: function (bandId) {
+        var id = String(bandId || "").toUpperCase();
+        if (id === "AIRPORT_WALK" || id === "AIRPORT") {
+          targetZoom = 4.2;
+        } else {
+          targetZoom = MS ? MS.BOOT_ZOOM : 0.22;
+        }
+        targetPanX = 0;
+        targetPanZ = 0;
+        refreshTracks(true);
       },
       zoomBy: function (factor) {
         var rect = canvas.getBoundingClientRect();
@@ -1466,7 +2045,34 @@
     mount: function (container, usdaText, THREE, opts) {
       if (!THREE) throw new Error("THREE.js not loaded");
       var hints = parseUsdHints(usdaText);
-      return buildScene(THREE, container, hints, usdaText, opts || {});
+      try {
+        return buildScene(THREE, container, hints, usdaText, opts || {});
+      } catch (err) {
+        // Never leave a void page: body-level + in-viewport 2D HUD when WebGL fails.
+        var msg = String(err && err.message ? err.message : err);
+        container.innerHTML = "";
+        container.style.cssText =
+          (container.style.cssText || "") +
+          ";display:flex;align-items:center;justify-content:center;background:#0a1628;color:#e8eef2;padding:24px;";
+        var box = document.createElement("div");
+        box.style.cssText =
+          "max-width:520px;font:14px/1.45 ui-sans-serif,system-ui,sans-serif;border:1px solid #f5c518;padding:16px 18px;background:rgba(10,16,24,0.95);";
+        box.innerHTML =
+          "<div style='font-weight:700;color:#f5c518;margin-bottom:8px'>Affine.Earth OpenUSD — WebGL unavailable</div>" +
+          "<div style='font:12px/1.4 ui-monospace,monospace;color:#c8d0d6;white-space:pre-wrap'></div>";
+        box.lastChild.textContent = msg;
+        container.appendChild(box);
+        var boot = document.getElementById("openusdBootStatus");
+        if (boot) boot.textContent = "WEBGL_FAIL: " + msg.slice(0, 120);
+        return {
+          dispose: function () {},
+          sceneMode: "webgl-fallback",
+          applyMembraneTick: function () {},
+          getLiveState: function () {
+            return { sceneMode: "webgl-fallback", trackError: msg };
+          },
+        };
+      }
     },
   };
 })(typeof window !== "undefined" ? window : globalThis);
