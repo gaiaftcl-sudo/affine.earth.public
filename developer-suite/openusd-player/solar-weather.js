@@ -14,6 +14,52 @@
     checkedAt: 0,
   };
 
+  /** Live METAR from Swift uum8d-zoom weather JSON (not stylized placeholder). */
+  var METAR_LIVE = {
+    icao: "",
+    raw: "",
+    status: "",
+    source: "",
+    shearRisk: "",
+    windDirDeg: null,
+    windKt: null,
+    goesStatus: "",
+  };
+
+  function parseMetarWind(raw) {
+    var m = /\b(\d{3}|VRB)(\d{2,3})(G\d{2,3})?KT\b/.exec(raw || "");
+    if (!m) return { windDirDeg: null, windKt: null };
+    return {
+      windDirDeg: m[1] === "VRB" ? null : parseInt(m[1], 10),
+      windKt: parseInt(m[2], 10),
+    };
+  }
+
+  /** Stamp METAR from Swift zoom packet; GOES may still be FOLLOW_ON. */
+  function setMetarFromPacket(wx, goesHint) {
+    wx = wx || {};
+    var wind = parseMetarWind(wx.raw || "");
+    METAR_LIVE.icao = wx.icao || "";
+    METAR_LIVE.raw = wx.raw || "";
+    METAR_LIVE.status = wx.status || "";
+    METAR_LIVE.source = wx.source || "";
+    METAR_LIVE.shearRisk = wx.shear_risk || wx.shearRisk || "";
+    METAR_LIVE.windDirDeg = wind.windDirDeg;
+    METAR_LIVE.windKt = wind.windKt;
+    if (goesHint) METAR_LIVE.goesStatus = String(goesHint);
+    if (METAR_LIVE.status) {
+      // Prefer live METAR status for HUD; keep GOES honesty separate.
+      FEED_STATUS.noaa = METAR_LIVE.status;
+      FEED_STATUS.note = "swift_uum8d_zoom.weather";
+      FEED_STATUS.checkedAt = Date.now();
+    }
+    return METAR_LIVE;
+  }
+
+  function metarLive() {
+    return METAR_LIVE;
+  }
+
   /** Approximate solar elevation (deg) + terminator longitude for UTC date. */
   function solarState(date, latDeg, lonDeg) {
     var d = date instanceof Date ? date : new Date();
@@ -62,14 +108,24 @@
       if (!r.ok) throw new Error("HTTP " + r.status);
       var body = await r.json();
       var feeds = body.live_feeds || {};
-      FEED_STATUS.noaa = feeds.noaa_weather || feeds.noaa_goes_r || "BLOCKED_NOAA_WEATHER_FEED";
-      FEED_STATUS.note = "membrane live_feeds";
+      var goes = feeds.noaa_goes_r || feeds.goes_r || "";
+      METAR_LIVE.goesStatus = goes || METAR_LIVE.goesStatus || "FOLLOW_ON_GOES_R_NOT_ON_ATC_PATH";
+      // Do not overwrite CALORIE_METAR with GOES follow-on — radar lane is separate.
+      if (!METAR_LIVE.status || !/^CALORIE/i.test(METAR_LIVE.status)) {
+        FEED_STATUS.noaa =
+          feeds.noaa_weather || goes || "FOLLOW_ON_GOES_R_NOT_ON_ATC_PATH";
+      }
+      FEED_STATUS.note = "membrane live_feeds + metar lane";
       FEED_STATUS.checkedAt = Date.now();
       FEED_STATUS.raw = feeds;
+      FEED_STATUS.goes = METAR_LIVE.goesStatus;
     } catch (e) {
-      FEED_STATUS.noaa = "BLOCKED_FOLLOW_ON";
+      if (!METAR_LIVE.status) {
+        FEED_STATUS.noaa = "FOLLOW_ON_GOES_R_NOT_ON_ATC_PATH";
+      }
       FEED_STATUS.note = String(e).slice(0, 80);
       FEED_STATUS.checkedAt = Date.now();
+      METAR_LIVE.goesStatus = METAR_LIVE.goesStatus || "FOLLOW_ON_GOES_R_NOT_ON_ATC_PATH";
     }
     return FEED_STATUS;
   }
@@ -134,8 +190,10 @@
     var bandId = opts.bandId || "METRO";
     var lod = bandWeatherLod(bandId);
     var solar = solarState(opts.date || new Date(), centerLat, centerLon);
-    var status = FEED_STATUS.noaa || "UNKNOWN";
-    var blocked = /BLOCKED/i.test(status);
+    var status = METAR_LIVE.status || FEED_STATUS.noaa || "UNKNOWN";
+    var goes = METAR_LIVE.goesStatus || FEED_STATUS.goes || "";
+    var blocked = /BLOCKED|FOLLOW_ON|REFUSED|UNKNOWN/i.test(status) && !METAR_LIVE.raw;
+    var radarFollowOn = /FOLLOW_ON|BLOCKED|GOES/i.test(goes || status);
 
     function project(lat, lon) {
       var x = ((lon - (centerLon - spanDeg / 2)) / spanDeg) * W;
@@ -243,66 +301,91 @@
       g.globalAlpha = 1;
     }
 
-    // Local METAR / wind barb cue (airport & metro) — honest when NOAA blocked
-    if (lod.showLocalMetar || lod.showWindBarb) {
+    // Local METAR / wind barb — always when METAR raw present; else LOD gates
+    if (lod.showLocalMetar || lod.showWindBarb || METAR_LIVE.raw) {
       var px = W * 0.5;
       var py = H * 0.5;
-      g.fillStyle = "rgba(14, 20, 28, 0.72)";
-      g.strokeStyle = blocked ? "rgba(224, 163, 92, 0.9)" : "rgba(62, 207, 142, 0.9)";
+      g.fillStyle = "rgba(14, 20, 28, 0.78)";
+      g.strokeStyle = METAR_LIVE.raw
+        ? "rgba(62, 207, 142, 0.95)"
+        : blocked
+          ? "rgba(224, 163, 92, 0.9)"
+          : "rgba(62, 207, 142, 0.9)";
       g.lineWidth = 1.2;
-      var boxY = py + H * 0.28;
-      var boxH = blocked ? 44 : 36;
-      g.fillRect(px - 92, boxY, 184, boxH);
-      g.strokeRect(px - 92, boxY, 184, boxH);
+      var boxY = py + H * 0.26;
+      var boxH = METAR_LIVE.raw ? 52 : blocked ? 44 : 36;
+      g.fillRect(px - 120, boxY, 240, boxH);
+      g.strokeRect(px - 120, boxY, 240, boxH);
       g.fillStyle = "#c8d0d6";
       g.font = "600 11px ui-monospace, monospace";
-      g.fillText(
-        blocked ? "METAR: " + status.slice(0, 28) : "METAR: membrane live",
-        px - 84,
-        py + H * 0.28 + 16
-      );
+      var metarLine = METAR_LIVE.raw
+        ? (METAR_LIVE.icao || "") + " " + METAR_LIVE.raw.slice(0, 42)
+        : blocked
+          ? "METAR: " + status.slice(0, 28)
+          : "METAR: membrane live";
+      g.fillText(metarLine, px - 112, boxY + 16);
       g.font = "10px ui-monospace, monospace";
       g.fillStyle = "#8aa0ad";
-      g.fillText(
-        "solar elev " + solar.elevationDeg.toFixed(1) + "° · Affine stylized wx",
-        px - 84,
-        py + H * 0.28 + 30
-      );
+      var windLine =
+        METAR_LIVE.windKt != null
+          ? "wind " +
+            (METAR_LIVE.windDirDeg != null ? METAR_LIVE.windDirDeg + "°/" : "VRB/") +
+            METAR_LIVE.windKt +
+            "kt shear=" +
+            (METAR_LIVE.shearRisk || "?")
+          : "solar elev " + solar.elevationDeg.toFixed(1) + "°";
+      g.fillText(windLine, px - 112, boxY + 30);
+      if (radarFollowOn) {
+        g.fillStyle = "#e0a35c";
+        g.fillText(
+          "radar " + (goes || "FOLLOW_ON_GOES_R_NOT_ON_ATC_PATH").slice(0, 36),
+          px - 112,
+          boxY + 44
+        );
+      }
 
-      if (lod.showWindBarb) {
-        // Stylized wind barb from solar azimuth proxy when METAR blocked
-        // (honest cue — labeled "computed cue", not METAR wind)
-        var az = ((solar.subsolarLon - centerLon) * Math.PI) / 180;
+      if (lod.showWindBarb || METAR_LIVE.windKt != null) {
+        var az =
+          METAR_LIVE.windDirDeg != null
+            ? (METAR_LIVE.windDirDeg * Math.PI) / 180
+            : ((solar.subsolarLon - centerLon) * Math.PI) / 180;
+        var barbLen = 18 + Math.min(24, (METAR_LIVE.windKt || 8) * 0.9);
         g.save();
-        g.translate(px + 70, py - 40);
+        g.translate(px + 90, py - 50);
         g.rotate(az);
         g.strokeStyle = "#f5c518";
-        g.lineWidth = 2;
+        g.lineWidth = 2.2;
         g.beginPath();
-        g.moveTo(0, 18);
-        g.lineTo(0, -22);
+        g.moveTo(0, barbLen * 0.55);
+        g.lineTo(0, -barbLen * 0.7);
         g.stroke();
         g.beginPath();
-        g.moveTo(0, -22);
-        g.lineTo(8, -12);
+        g.moveTo(0, -barbLen * 0.7);
+        g.lineTo(9, -barbLen * 0.35);
         g.stroke();
-        g.beginPath();
-        g.moveTo(0, -14);
-        g.lineTo(10, -14);
-        g.stroke();
+        if ((METAR_LIVE.windKt || 0) >= 10) {
+          g.beginPath();
+          g.moveTo(0, -barbLen * 0.45);
+          g.lineTo(11, -barbLen * 0.45);
+          g.stroke();
+        }
         g.restore();
         g.fillStyle = "#a8b8c4";
         g.font = "9px ui-monospace, monospace";
-        g.fillText(blocked ? "wind cue (computed)" : "wind", px + 48, py - 58);
+        g.fillText(
+          METAR_LIVE.windKt != null ? "METAR wind" : "wind cue (computed)",
+          px + 58,
+          py - 72
+        );
       }
     }
 
     // Corner status chip
     g.fillStyle = "rgba(10, 16, 24, 0.78)";
-    g.fillRect(8, 8, 280, 34);
-    g.fillStyle = blocked ? "#e0a35c" : "#3ecf8e";
+    g.fillRect(8, 8, 300, 48);
+    g.fillStyle = METAR_LIVE.raw ? "#3ecf8e" : blocked ? "#e0a35c" : "#3ecf8e";
     g.font = "600 10px ui-monospace, monospace";
-    g.fillText("WX " + status, 14, 22);
+    g.fillText("WX " + status.slice(0, 34), 14, 22);
     g.fillStyle = "#9ab0bc";
     g.font = "10px ui-monospace, monospace";
     g.fillText(
@@ -315,8 +398,26 @@
       14,
       36
     );
+    if (radarFollowOn) {
+      g.fillStyle = "#e0a35c";
+      g.fillText(
+        "GOES " + (goes || "FOLLOW_ON_GOES_R_NOT_ON_ATC_PATH").slice(0, 40),
+        14,
+        48
+      );
+    }
 
-    return { solar: solar, weatherStatus: status, lod: lod, blocked: blocked };
+    return {
+      solar: solar,
+      weatherStatus: status,
+      goesStatus: goes || "FOLLOW_ON_GOES_R_NOT_ON_ATC_PATH",
+      metar: METAR_LIVE.raw || "",
+      windKt: METAR_LIVE.windKt,
+      windDirDeg: METAR_LIVE.windDirDeg,
+      lod: lod,
+      blocked: blocked,
+      radarFollowOn: radarFollowOn,
+    };
   }
 
   /** Build THREE texture from overlay paint. */
@@ -343,6 +444,9 @@
     solarState: solarState,
     refreshFeedStatus: refreshFeedStatus,
     feedStatus: feedStatus,
+    setMetarFromPacket: setMetarFromPacket,
+    metarLive: metarLive,
+    parseMetarWind: parseMetarWind,
     bandWeatherLod: bandWeatherLod,
     paintOverlay: paintOverlay,
     makeOverlayTexture: makeOverlayTexture,

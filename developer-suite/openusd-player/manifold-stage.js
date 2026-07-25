@@ -109,6 +109,30 @@
     return 0;
   }
 
+  /** Mid-band zoom that drives Swift uum8d-zoom / c₄ zoom_milli (not CSS scale). */
+  function zoomForBand(id) {
+    var key = String(id || "").toUpperCase();
+    if (key === "AIRPORT" || key === "WALK") key = "AIRPORT_WALK";
+    for (var i = 0; i < BANDS.length; i++) {
+      if (BANDS[i].id === key) {
+        var b = BANDS[i];
+        var lo = Math.max(ZOOM_MIN, b.zoomMin);
+        var hi = Math.min(ZOOM_MAX, b.zoomMax >= 99 ? 8 : b.zoomMax);
+        return (lo + hi) / 2;
+      }
+    }
+    return BOOT_ZOOM;
+  }
+
+  function bandById(id) {
+    var key = String(id || "").toUpperCase();
+    if (key === "AIRPORT" || key === "WALK") key = "AIRPORT_WALK";
+    for (var i = 0; i < BANDS.length; i++) {
+      if (BANDS[i].id === key) return BANDS[i];
+    }
+    return BANDS[0];
+  }
+
   /** Haversine nm between two lat/lon. */
   function distNm(lat1, lon1, lat2, lon2) {
     var R = 3440.065; // Earth radius nm
@@ -193,6 +217,8 @@
     BOOT_ZOOM: BOOT_ZOOM,
     bandForZoom: bandForZoom,
     bandIndex: bandIndex,
+    bandById: bandById,
+    zoomForBand: zoomForBand,
     distNm: distNm,
     filterTracksForBand: filterTracksForBand,
     applySkin: applySkin,

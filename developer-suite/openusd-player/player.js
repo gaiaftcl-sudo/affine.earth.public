@@ -25,6 +25,101 @@
     OMDB: { lat: 25.2532, lon: 55.3657, name: "Dubai", zoom: 6.6 },
   };
 
+  var ICAO_ORDER = ["KJFK", "EGLL", "EHAM", "LFPG", "EDDF", "KLAX", "RJTT", "OMDB"];
+
+  /**
+   * UUM-8D surface twin stubs (coast / FIR / airport / runway) when membrane
+   * globe-constraints empty for focus ICAO. Encoded as milli-deg c₄ curves —
+   * not subterranean, not orbital/satellite chrome.
+   */
+  function surfaceTwinStub(icao) {
+    var ap = AIRPORTS[icao];
+    if (!ap) return null;
+    var latM = Math.round(ap.lat * 1000);
+    var lonM = Math.round(ap.lon * 1000);
+    var dAp = 40;
+    var dFir = 2500;
+    var dCoast = 180;
+    return {
+      focus_icao: icao,
+      boundary_count: 4,
+      proven: "UUM8D_SURFACE_TWIN_STUB",
+      schema: "affine.earth.uum8d.globe_constraints.v1",
+      elevation_query_ft: 20,
+      terrain_hit_count: 0,
+      no_google_maps: true,
+      structural_skins: true,
+      boundaries: [
+        {
+          id: 1,
+          kind: "airport",
+          name: ap.name,
+          icao: icao,
+          elev_floor_ft: 20,
+          min_lat_milli: latM - dAp,
+          max_lat_milli: latM + dAp,
+          min_lon_milli: lonM - dAp,
+          max_lon_milli: lonM + dAp,
+          curve_milli: [
+            [latM - dAp, lonM - dAp],
+            [latM - dAp, lonM + dAp],
+            [latM + dAp, lonM + dAp],
+            [latM + dAp, lonM - dAp],
+            [latM - dAp, lonM - dAp],
+          ],
+        },
+        {
+          id: 2,
+          kind: "runway",
+          name: icao + " RWY",
+          icao: icao,
+          elev_floor_ft: 20,
+          min_lat_milli: latM - 20,
+          max_lat_milli: latM + 20,
+          min_lon_milli: lonM - 35,
+          max_lon_milli: lonM + 35,
+          curve_milli: [
+            [latM - 12, lonM - 30],
+            [latM + 12, lonM + 30],
+          ],
+        },
+        {
+          id: 3,
+          kind: "fir",
+          name: icao + " FIR/ARTCC stub",
+          min_lat_milli: latM - dFir,
+          max_lat_milli: latM + dFir,
+          min_lon_milli: lonM - dFir,
+          max_lon_milli: lonM + dFir,
+          curve_milli: [
+            [latM - dFir, lonM - dFir],
+            [latM + dFir, lonM - dFir],
+            [latM + dFir, lonM + dFir],
+            [latM - dFir, lonM + dFir],
+            [latM - dFir, lonM - dFir],
+          ],
+        },
+        {
+          id: 4,
+          kind: "coastline",
+          name: icao + " coast floor cue",
+          elev_floor_ft: 0,
+          min_lat_milli: latM - dCoast,
+          max_lat_milli: latM + dCoast,
+          min_lon_milli: lonM - dCoast * 2,
+          max_lon_milli: lonM + dCoast * 2,
+          curve_milli: [
+            [latM - dCoast, lonM - dCoast * 2],
+            [latM - dCoast * 0.3, lonM - dCoast],
+            [latM + dCoast * 0.2, lonM],
+            [latM - dCoast * 0.4, lonM + dCoast],
+            [latM - dCoast, lonM + dCoast * 2],
+          ],
+        },
+      ],
+    };
+  }
+
   function parseUsdHints(usda) {
     var names = [];
     var re = /\bdef\s+(\w+)\s+"([^"]+)"/g;
@@ -227,7 +322,7 @@
       }
     }
 
-    // World-scale land (always drawn; clipped by span)
+    // World-scale land (always drawn; clipped by span) — surface twin, not orbital
     var lands = [
       [[72, -170], [70, -50], [55, -65], [30, -80], [25, -97], [15, -90], [8, -78], [50, -55], [72, -50], [72, -170]],
       [[55, -10], [71, -10], [70, 40], [55, 40], [36, 28], [36, -9], [55, -10]],
@@ -238,10 +333,33 @@
       [[12, -80], [-55, -70], [-55, -40], [5, -35], [12, -80]],
     ];
     var landFill = band === "HEMISPHERE" ? "#334840" : pal.land;
-    var landStroke = band === "HEMISPHERE" ? "#4a6a58" : "#2a3a34";
+    var landStroke = band === "HEMISPHERE" ? "#6a9a78" : "#3a5548";
     lands.forEach(function (poly) {
       fillPoly(poly, landFill, landStroke);
     });
+    // Coast emphasis stroke (surface floor cue — distinct from abstract fill)
+    g.lineWidth = band === "HEMISPHERE" ? 2.2 : 1.6;
+    g.strokeStyle = "rgba(90, 160, 140, 0.75)";
+    lands.forEach(function (poly) {
+      g.beginPath();
+      poly.forEach(function (ll, i) {
+        var p = project(ll[0], ll[1]);
+        if (i === 0) g.moveTo(p.x, p.y);
+        else g.lineTo(p.x, p.y);
+      });
+      g.closePath();
+      g.stroke();
+    });
+    // Doctrine chip on basemap (dead-cat refuse)
+    g.fillStyle = "rgba(10,16,24,0.72)";
+    g.fillRect(8, H - 36, 420, 28);
+    g.fillStyle = "#e0a35c";
+    g.font = "600 10px ui-monospace, monospace";
+    g.fillText(
+      "UUM-8D surface twin · DEAD_CAT_REFUSED: subterranean · orbital/satellite-about",
+      14,
+      H - 18
+    );
 
     // Regional denser blobs near focus
     if (band === "REGIONAL" || band === "METRO" || band === "AIRPORT_WALK") {
@@ -617,18 +735,159 @@
       " · live ADS-B</div>" +
       '<div class="map-band" id="mapBandHud">' +
       currentBand.id +
-      "</div>";
+      " · UUM-8D</div>";
     container.appendChild(chrome);
+
+    // Always-visible ATC twin chrome: airport + UUM-8D views + wx + dead-cat doctrine
+    var twin = document.createElement("div");
+    twin.id = "atc-twin-chrome";
+    twin.className = "atc-twin-chrome";
+    twin.setAttribute("data-uum8d-twin", "1");
+    twin.setAttribute("role", "toolbar");
+    twin.setAttribute("aria-label", "UUM-8D ATC twin controls");
+    var apBtns = ICAO_ORDER.map(function (icao) {
+      return (
+        '<button type="button" class="twin-icao' +
+        (icao === focusIcao ? " active" : "") +
+        '" data-icao="' +
+        icao +
+        '" title="' +
+        (AIRPORTS[icao] ? AIRPORTS[icao].name : icao) +
+        '">' +
+        icao +
+        "</button>"
+      );
+    }).join("");
+    var viewIds = ["HEMISPHERE", "REGIONAL", "METRO", "AIRPORT_WALK"];
+    var viewBtns = viewIds
+      .map(function (id) {
+        return (
+          '<button type="button" class="twin-view' +
+          (id === manifoldStageId ? " active" : "") +
+          '" data-band="' +
+          id +
+          '" title="UUM-8D manifold view ' +
+          id +
+          '">' +
+          id +
+          "</button>"
+        );
+      })
+      .join("");
+    twin.innerHTML =
+      '<div class="twin-label">Airport focus</div>' +
+      '<div class="twin-airports" id="twinAirportGrid">' +
+      apBtns +
+      "</div>" +
+      '<div class="twin-label">UUM-8D manifold view <span class="twin-c4" id="twinC4Meta">c₄ zoom↔band</span></div>' +
+      '<div class="twin-views" id="twinViewGrid">' +
+      viewBtns +
+      "</div>" +
+      '<div class="twin-wx" id="twinWxPanel" data-wx-panel="1">WX · loading METAR / wind…</div>' +
+      '<div class="twin-doctrine" id="twinDoctrine">' +
+      "DEAD_CAT_REFUSED: subterranean · satellite-about/orbital as primary scene · " +
+      "surface twin only (coast/FIR/terrain floors)</div>";
+    container.appendChild(twin);
 
     // Zoom controls
     var zoomStack = document.createElement("div");
     zoomStack.className = "zoom-stack";
     zoomStack.innerHTML =
-      '<button type="button" id="btnZoomIn" title="Zoom in">+</button>' +
-      '<button type="button" id="btnZoomOut" title="Zoom out">−</button>' +
-      '<button type="button" id="btnZoomAirport" title="Airport walk">⌖</button>' +
-      '<button type="button" id="btnZoomHemi" title="Hemisphere">◎</button>';
+      '<button type="button" id="btnZoomIn" title="Zoom in (drives c₄ zoom_milli)">+</button>' +
+      '<button type="button" id="btnZoomOut" title="Zoom out (drives c₄ zoom_milli)">−</button>' +
+      '<button type="button" id="btnZoomAirport" title="AIRPORT_WALK band">⌖</button>' +
+      '<button type="button" id="btnZoomMetro" title="METRO band">▣</button>' +
+      '<button type="button" id="btnZoomRegional" title="REGIONAL band">▦</button>' +
+      '<button type="button" id="btnZoomHemi" title="HEMISPHERE band">◎</button>';
     container.appendChild(zoomStack);
+
+    var lastWeatherPkt = null;
+    var lastGlobePkt = null;
+    var lastC4ZoomDepth = 0;
+
+    function syncUrlState() {
+      try {
+        var u = new URL(location.href);
+        u.searchParams.set("icao", focusIcao);
+        u.searchParams.set("band", manifoldStageId);
+        u.searchParams.set(
+          "zoom_milli",
+          String(Math.round(zoomLevel * 1000))
+        );
+        history.replaceState(null, "", u.pathname + u.search + u.hash);
+      } catch (_) {}
+    }
+
+    function syncTwinChrome() {
+      twin.querySelectorAll(".twin-icao").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-icao") === focusIcao);
+      });
+      twin.querySelectorAll(".twin-view").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-band") === manifoldStageId);
+      });
+      var c4El = document.getElementById("twinC4Meta");
+      if (c4El) {
+        c4El.textContent =
+          "c₄ zoom_milli=" +
+          Math.round(zoomLevel * 1000) +
+          " depth=" +
+          lastC4ZoomDepth +
+          " band=" +
+          manifoldStageId;
+      }
+      document.querySelectorAll("#airportGrid button").forEach(function (b) {
+        b.classList.toggle(
+          "active-airport",
+          b.getAttribute("data-icao") === focusIcao
+        );
+      });
+      var skinSel = document.getElementById("skinSelect");
+      if (skinSel && currentBand && currentBand.skin) {
+        var want = currentBand.skin;
+        if (skinSel.value !== want) {
+          for (var i = 0; i < skinSel.options.length; i++) {
+            if (skinSel.options[i].value === want) {
+              skinSel.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
+      syncUrlState();
+    }
+
+    function updateTwinWxPanel() {
+      var el = document.getElementById("twinWxPanel");
+      if (!el) return;
+      var live = SW && SW.metarLive ? SW.metarLive() : null;
+      var wx = lastWeatherPkt || live || {};
+      var raw = wx.raw || (live && live.raw) || "";
+      var status = wx.status || (live && live.status) || wxStatus || "UNKNOWN";
+      var goes =
+        (live && live.goesStatus) ||
+        "FOLLOW_ON_GOES_R_NOT_ON_ATC_PATH";
+      var windKt = wx.windKt != null ? wx.windKt : live && live.windKt;
+      var windDir = wx.windDirDeg != null ? wx.windDirDeg : live && live.windDirDeg;
+      var windTxt =
+        windKt != null
+          ? "wind " + (windDir != null ? windDir + "°/" : "VRB/") + windKt + "kt"
+          : "wind —";
+      el.setAttribute("data-wx-status", status);
+      el.setAttribute("data-goes", goes);
+      el.innerHTML =
+        '<span class="wx-status">' +
+        status +
+        "</span> · " +
+        windTxt +
+        (wx.shearRisk || (live && live.shearRisk)
+          ? " · shear=" + (wx.shearRisk || live.shearRisk)
+          : "") +
+        "<br/><span class=\"wx-metar\">" +
+        (raw ? raw.slice(0, 96) : "METAR pending / observation void") +
+        '</span><br/><span class="wx-goes">radar ' +
+        goes +
+        "</span>";
+    }
 
     function bandSpanDeg(band) {
       var mul = band && band.spanMul != null ? band.spanMul : 1.6;
@@ -786,7 +1045,18 @@
     scene.add(acGroup);
     var meshByIcao = {};
     var MAX_AC = 400;
-    var POLL_MS = 3500;
+    // Strobe-class membrane poll — c₄/uum8d packets are cheap; paint must stay hot.
+    // 700ms balances ADS-B cell load vs lightning scene reproject. Override: ?poll_ms=
+    var POLL_MS = (function () {
+      try {
+        var q = new URLSearchParams(location.search).get("poll_ms");
+        if (q != null && q !== "") {
+          var n = parseInt(q, 10);
+          if (isFinite(n) && n >= 200 && n <= 15000) return n;
+        }
+      } catch (_) {}
+      return 700;
+    })();
 
     // Hot-load Affine SVG sprites (assets/sprites/*.svg)
     loadSpriteTexture(THREE, "assets/sprites/aircraft.svg", makePlaneTextureFallback).then(
@@ -899,12 +1169,38 @@
       if (rawTrackCache.length) upsertAircraft(rawTrackCache);
       var needDist = nextBand.fetchDistNm || 100;
       if (Math.abs(needDist - lastFetchDist) > 40) refreshTracks(true);
+      syncTwinChrome();
     }
 
     function syncManifoldFromZoom() {
       if (!MS) return;
       var next = MS.bandForZoom(zoomLevel);
       if (next.id !== manifoldStageId) transitionManifoldBand(next);
+      else syncTwinChrome();
+    }
+
+    function setManifoldView(bandId, opts) {
+      opts = opts || {};
+      var id = String(bandId || "").toUpperCase();
+      if (id === "AIRPORT" || id === "WALK") id = "AIRPORT_WALK";
+      var z =
+        MS && MS.zoomForBand
+          ? MS.zoomForBand(id)
+          : id === "AIRPORT_WALK"
+            ? 4.2
+            : id === "METRO"
+              ? 2.0
+              : id === "REGIONAL"
+                ? 0.75
+                : 0.22;
+      targetZoom = z;
+      if (opts.snap) zoomLevel = z;
+      targetPanX = 0;
+      targetPanZ = 0;
+      var next = MS && MS.bandById ? MS.bandById(id) : MS ? MS.bandForZoom(z) : null;
+      if (next) transitionManifoldBand(next);
+      syncTwinChrome();
+      refreshTracks(true);
     }
 
     function setAirport(icao) {
@@ -916,7 +1212,7 @@
       centerLon = ap.lon;
       viewSpanDeg = ap.zoom;
       orthoHalf = (viewSpanDeg * mapScale) / 2.4;
-      // Re-enter at METRO for airport focus (user can zoom out to hemisphere)
+      // Re-enter at METRO for airport focus (user can change UUM-8D view)
       targetZoom = 1.45;
       zoomLevel = 1.45;
       targetPanX = 0;
@@ -938,12 +1234,14 @@
       hud.setAttribute("data-focus-icao", focusIcao);
       hud.setAttribute("data-manifold-band", manifoldStageId);
       container.setAttribute("data-manifold-band", manifoldStageId);
+      container.setAttribute("data-focus-icao", focusIcao);
       var sub = document.getElementById("mapSubTitle");
       if (sub)
         sub.textContent =
           band.label + " · " + focusIcao + " · " + ap.name + " · live ADS-B";
       var bandEl = document.getElementById("mapBandHud");
-      if (bandEl) bandEl.textContent = band.id + " · " + band.label;
+      if (bandEl) bandEl.textContent = band.id + " · " + band.label + " · UUM-8D";
+      syncTwinChrome();
       refreshTracks(true);
     }
 
@@ -1334,17 +1632,37 @@
 
     function applyGlobeConstraints(pkt) {
       var globe = pkt && pkt.globe_constraints;
+      if ((!globe || !globe.boundaries || !globe.boundaries.length) && pkt && pkt.boundaries) {
+        globe = pkt;
+      }
+      if (!globe || !globe.boundaries || !globe.boundaries.length) {
+        globe = surfaceTwinStub(focusIcao);
+        container.setAttribute("data-globe-source", "SURFACE_TWIN_STUB");
+      } else {
+        container.setAttribute(
+          "data-globe-source",
+          globe.proven || "SWIFT_UUM8D_BOUNDARY_ENGINE"
+        );
+      }
       if (!globe || !globe.boundaries) {
         container.setAttribute("data-globe-boundaries", "0");
         return;
       }
+      lastGlobePkt = globe;
       clearBoundaryGroup();
       var colors = {
         fir: 0x3d7ea6,
         airport: 0xf5c518,
         runway: 0xffe08a,
-        coastline: 0x2f6f6a,
+        coastline: 0x4ecfbf,
         airspace: 0x6b8cae,
+      };
+      var yLift = {
+        fir: 0.04,
+        coastline: 0.06,
+        airspace: 0.05,
+        airport: 0.08,
+        runway: 0.1,
       };
       (globe.boundaries || []).forEach(function (b) {
         var curve = b.curve_milli || [];
@@ -1363,14 +1681,22 @@
           var lat = Number(curve[i][0]) / 1000;
           var lon = Number(curve[i][1]) / 1000;
           var w = latLonToWorld(lat, lon);
-          pts.push(new THREE.Vector3(w.x, 0.05, w.z));
+          pts.push(new THREE.Vector3(w.x, yLift[b.kind] || 0.05, w.z));
         }
         if (pts.length < 2) return;
         var geom = new THREE.BufferGeometry().setFromPoints(pts);
         var mat = new THREE.LineBasicMaterial({
           color: colors[b.kind] || 0x88aacc,
           transparent: true,
-          opacity: b.kind === "runway" || b.kind === "airport" ? 0.95 : 0.55,
+          opacity:
+            b.kind === "runway" || b.kind === "airport"
+              ? 0.98
+              : b.kind === "coastline"
+                ? 0.85
+                : b.kind === "fir"
+                  ? 0.7
+                  : 0.55,
+          linewidth: 1,
         });
         var line = new THREE.Line(geom, mat);
         line.userData.structural = true;
@@ -1518,12 +1844,32 @@
       );
     }
 
+    var lastPacketToPaintMs = 0;
+    var lastFetchMsWall = 0;
+    var lastSwiftGenMs = 0;
+
+    function markPacketPaint(fetchStartMs, stitchStartMs, pkt) {
+      // fetchMs = HTTPS RTT; stitchMs = pure scene reproject after packet body in hand.
+      var now = performance.now();
+      lastFetchMsWall = stitchStartMs - fetchStartMs;
+      lastPacketToPaintMs = now - stitchStartMs;
+      lastSwiftGenMs = Number(pkt && pkt.latency_ns ? pkt.latency_ns : 0) / 1e6;
+      hud.setAttribute("data-c4-fetch-ms", lastFetchMsWall.toFixed(1));
+      hud.setAttribute("data-c4-paint-ms", lastPacketToPaintMs.toFixed(1));
+      hud.setAttribute("data-swift-gen-ms", lastSwiftGenMs.toFixed(1));
+      container.setAttribute("data-c4-fetch-ms", lastFetchMsWall.toFixed(1));
+      container.setAttribute("data-c4-paint-ms", lastPacketToPaintMs.toFixed(1));
+      container.setAttribute("data-swift-gen-ms", lastSwiftGenMs.toFixed(1));
+      container.setAttribute("data-c4-stitch", "1");
+    }
+
     async function refreshTracks(force) {
       if (disposed) return;
       if (!global.UUM8DShell) {
         trackError = "UUM8DShell missing";
         return;
       }
+      var fetchStartMs = performance.now();
       try {
         // 1) Swift UUM8D zoom — embeds c₄ + globe structural skins + terrain
         if (global.UUM8DShell.fetchUUM8DZoomProjection) {
@@ -1551,14 +1897,47 @@
                 hud.setAttribute("data-zoom-depth", String(rerootState.zoomDepth));
               }
               warningState = warningsFromSwiftZoomPacket(zoomPkt);
+              if (zoomPkt.weather && SW && SW.setMetarFromPacket) {
+                lastWeatherPkt = SW.setMetarFromPacket(
+                  zoomPkt.weather,
+                  (SW.feedStatus() || {}).goes ||
+                    "FOLLOW_ON_GOES_R_NOT_ON_ATC_PATH"
+                );
+                wxStatus = lastWeatherPkt.status || wxStatus;
+                rebuildWxOverlay();
+                updateTwinWxPanel();
+              }
+              if (zoomPkt.reroot) {
+                lastC4ZoomDepth = Number(zoomPkt.reroot.zoom_depth) || 0;
+              }
+              if (zoomPkt.manifold_band) {
+                // Swift band from same zoom_milli — HUD reflects c₄ coupling
+                hud.setAttribute("data-swift-band", String(zoomPkt.manifold_band));
+                container.setAttribute(
+                  "data-swift-band",
+                  String(zoomPkt.manifold_band)
+                );
+                hud.setAttribute(
+                  "data-c4-zoom-milli",
+                  String(
+                    (zoomPkt.reroot && zoomPkt.reroot.zoom_milli) ||
+                      Math.round(zoomLevel * 1000)
+                  )
+                );
+              }
+              // Scene stitch = C⁴ reproject — apply aircraft + structural skins immediately.
+              var stitch0 = performance.now();
               upsertAircraft(rowsFromSwiftZoomPacket(zoomPkt));
               applyGlobeConstraints(zoomPkt);
               applyConvectiveBond(zoomPkt);
+              markPacketPaint(fetchStartMs, stitch0, zoomPkt);
               hud.setAttribute(
                 "data-track-source",
                 "swift_uum8d_zoom lat_ns=" + String(zoomPkt.latency_ns || 0)
               );
               hud.setAttribute("data-projection-source", "SWIFT_UUM8D_ZOOM");
+              syncTwinChrome();
+              updateTwinWxPanel();
               return;
             }
           } catch (_) {
@@ -1592,7 +1971,9 @@
                 container.setAttribute("data-reroot", rerootState.active ? "1" : "0");
               }
               warningState = { warnings: [], minima: null, pairCount: 0, source: "C4" };
+              var stitch1 = performance.now();
               upsertAircraft(rowsFromSwiftZoomPacket(c4));
+              markPacketPaint(fetchStartMs, stitch1, c4);
               hud.setAttribute(
                 "data-track-source",
                 "swift_c4_constraints lat_ns=" + String(c4.latency_ns || 0)
@@ -1683,6 +2064,12 @@
         strobeTick +
         " liveRefresh=" +
         liveRefreshTicks +
+        " c4fetch=" +
+        (lastFetchMsWall ? lastFetchMsWall.toFixed(0) + "ms" : "—") +
+        " c4stitch=" +
+        (lastPacketToPaintMs ? lastPacketToPaintMs.toFixed(1) + "ms" : "—") +
+        " swiftGen=" +
+        (lastSwiftGenMs ? lastSwiftGenMs.toFixed(0) + "ms" : "—") +
         (currentBand.walkMode ? " walk=1" : "") +
         (trackError ? " err=" + trackError.slice(0, 36) : "");
       var sub = document.getElementById("mapSubTitle");
@@ -1901,24 +2288,58 @@
       zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, 1 / 1.35);
     };
     document.getElementById("btnZoomAirport").onclick = function () {
-      // Jump to airport-walk staging band
-      targetZoom = 4.2;
-      targetPanX = 0;
-      targetPanZ = 0;
-      refreshTracks(true);
+      setManifoldView("AIRPORT_WALK");
     };
+    var btnMetro = document.getElementById("btnZoomMetro");
+    if (btnMetro) {
+      btnMetro.onclick = function () {
+        setManifoldView("METRO");
+      };
+    }
+    var btnRegional = document.getElementById("btnZoomRegional");
+    if (btnRegional) {
+      btnRegional.onclick = function () {
+        setManifoldView("REGIONAL");
+      };
+    }
     var btnHemi = document.getElementById("btnZoomHemi");
     if (btnHemi) {
       btnHemi.onclick = function () {
-        targetZoom = MS ? MS.BOOT_ZOOM : 0.22;
-        targetPanX = 0;
-        targetPanZ = 0;
-        refreshTracks(true);
+        setManifoldView("HEMISPHERE");
       };
     }
+    twin.querySelectorAll(".twin-icao").forEach(function (b) {
+      b.onclick = function () {
+        setAirport(b.getAttribute("data-icao"));
+      };
+    });
+    twin.querySelectorAll(".twin-view").forEach(function (b) {
+      b.onclick = function () {
+        setManifoldView(b.getAttribute("data-band"));
+      };
+    });
+
+    // Boot from ?icao=&band=&zoom_milli=
+    try {
+      var bootQs = new URLSearchParams(location.search);
+      var bootIcao = (bootQs.get("icao") || "").toUpperCase();
+      var bootBand = (bootQs.get("band") || "").toUpperCase();
+      var bootZm = parseInt(bootQs.get("zoom_milli") || "", 10);
+      if (bootIcao && AIRPORTS[bootIcao] && bootIcao !== focusIcao) {
+        setAirport(bootIcao);
+      }
+      if (bootBand && ["HEMISPHERE", "REGIONAL", "METRO", "AIRPORT_WALK"].indexOf(bootBand) >= 0) {
+        setManifoldView(bootBand, { snap: true });
+      } else if (isFinite(bootZm) && bootZm > 0) {
+        targetZoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, bootZm / 1000));
+        zoomLevel = targetZoom;
+      }
+    } catch (_) {}
 
     applyOrtho();
     syncManifoldFromZoom();
+    syncTwinChrome();
+    updateTwinWxPanel();
     tick();
 
     function onResize() {
@@ -1954,6 +2375,7 @@
         renderer.dispose();
         if (hud.parentNode) hud.parentNode.removeChild(hud);
         if (chrome.parentNode) chrome.parentNode.removeChild(chrome);
+        if (twin.parentNode) twin.parentNode.removeChild(twin);
         if (zoomStack.parentNode) zoomStack.parentNode.removeChild(zoomStack);
         if (warnPanel.parentNode) warnPanel.parentNode.removeChild(warnPanel);
         clearWarnLines();
@@ -1971,17 +2393,13 @@
       getZoom: function () {
         return zoomLevel;
       },
-      zoomToBand: function (bandId) {
-        var id = String(bandId || "").toUpperCase();
-        if (id === "AIRPORT_WALK" || id === "AIRPORT") {
-          targetZoom = 4.2;
-        } else {
-          targetZoom = MS ? MS.BOOT_ZOOM : 0.22;
-        }
-        targetPanX = 0;
-        targetPanZ = 0;
-        refreshTracks(true);
+      forceRefresh: function () {
+        return refreshTracks(true);
       },
+      zoomToBand: function (bandId) {
+        setManifoldView(bandId, { snap: false });
+      },
+      setManifoldView: setManifoldView,
       zoomBy: function (factor) {
         var rect = canvas.getBoundingClientRect();
         zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, factor);
@@ -2003,7 +2421,8 @@
           lodTrackCount: lodTrackCount,
           sceneMode: "atc-map",
           focusIcao: focusIcao,
-          trackSource: "adsb.lol_https_v2",
+          trackSource: hud.getAttribute("data-track-source") || "swift_uum8d_zoom",
+          projectionSource: hud.getAttribute("data-projection-source") || "",
           trackError: trackError,
           zoom: zoomLevel,
           zoomRational: zr.text || "",
@@ -2021,6 +2440,10 @@
           minima: warningState.minima,
           panX: panX,
           panZ: panZ,
+          packetToPaintMs: lastPacketToPaintMs,
+          swiftGenMs: lastSwiftGenMs,
+          pollMs: POLL_MS,
+          c4Stitch: true,
         };
       },
     };

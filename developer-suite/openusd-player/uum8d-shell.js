@@ -130,6 +130,43 @@
     return jget(path);
   }
 
+  /**
+   * Swift c₄ constraint firehose — Primvars / procedural redraw source.
+   * No raster video. Prefer this over adsb/tracks.json chrome.
+   */
+  async function fetchC4Constraints(opts) {
+    const o = opts || {};
+    const icao = o.icao || "KJFK";
+    const zoom = Number(o.zoom);
+    const zoomMilli =
+      o.zoom_milli != null
+        ? intOr(o.zoom_milli, 220)
+        : Math.round((isNaN(zoom) ? 0.22 : zoom) * 1000);
+    const path =
+      "/language-invariant/airspace/c4-constraints?zoom_milli=" +
+      encodeURIComponent(String(zoomMilli)) +
+      "&icao=" +
+      encodeURIComponent(icao);
+    return jget(path);
+  }
+
+  async function fetchNATSMapping() {
+    return jget("/language-invariant/airspace/nats-c4-mapping");
+  }
+
+  /**
+   * Swift UUM-8D globe surface constraints — coast / FIR / runway / terrain floors.
+   * Continuous digital twin toward Earth's surface (no subterranean / orbital chrome).
+   */
+  async function fetchGlobeConstraints(opts) {
+    const o = opts || {};
+    const icao = o.icao || "KJFK";
+    const path =
+      "/language-invariant/airspace/globe-constraints?icao=" +
+      encodeURIComponent(icao);
+    return jget(path);
+  }
+
   function intOr(v, d) {
     const n = parseInt(v, 10);
     return isNaN(n) ? d : n;
@@ -145,5 +182,8 @@
     fetchUsda: fetchUsda,
     fetchLiveTracks: fetchLiveTracks,
     fetchUUM8DZoomProjection: fetchUUM8DZoomProjection,
+    fetchC4Constraints: fetchC4Constraints,
+    fetchGlobeConstraints: fetchGlobeConstraints,
+    fetchNATSMapping: fetchNATSMapping,
   };
 })(typeof window !== "undefined" ? window : globalThis);

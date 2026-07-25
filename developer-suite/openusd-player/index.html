@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Affine.Earth OpenUSD — UUM8D manifold ATC</title>
+  <title>Affine.Earth OpenUSD — UUM8D c₄ ATC</title>
   <link rel="stylesheet" href="styles.css" id="baseSkin" />
   <link rel="stylesheet" href="assets/skins/map-hemisphere.css" id="mapSkin" />
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 </head>
-<body class="skin-map-hemisphere band-hemisphere">
+<body class="skin-map-hemisphere band-hemisphere fullscreen-manifold">
   <div class="shell">
     <header>
-      <h1>Affine.Earth OpenUSD <span class="brand-yellow">ATC LIVE</span> <span class="tag">UUM8D manifold · lossless zoom · OpenUSD</span></h1>
+      <h1>Affine.Earth OpenUSD <span class="brand-yellow">ATC LIVE</span> <span class="tag">c₄ Primvars · Euclidean re-root · no raster video</span></h1>
       <div class="tag" id="apexLabel">apex: …</div>
     </header>
     <main>
@@ -92,8 +92,21 @@
       <section id="viewport" aria-label="OpenUSD lattice preview"></section>
     </main>
     <footer>
-      Affine.Earth OpenUSD · UUM8D manifold staging · binary-free · Three.js CDN · live ADS-B LOD
+      Affine.Earth OpenUSD · c₄ constraint stream · procedural viewer · no libusd · no RealityPro
     </footer>
+  </div>
+
+  <!-- Body-level chrome: always painted even if #viewport layout collapses -->
+  <div id="openusd-surface-chrome" role="status">
+    <div class="surface-title">Affine.Earth OpenUSD · LIVE ATC · UUM-8D twin</div>
+    <div class="surface-status" id="openusdBootStatus">Booting manifold…</div>
+    <div class="surface-actions">
+      <button type="button" id="btnToggleChrome" title="Toggle side panel">☰ Panel</button>
+      <button type="button" id="btnSurfaceHemi" title="UUM-8D HEMISPHERE">◎ HEMI</button>
+      <button type="button" id="btnSurfaceRegional" title="UUM-8D REGIONAL">▦ REG</button>
+      <button type="button" id="btnSurfaceMetro" title="UUM-8D METRO">▣ METRO</button>
+      <button type="button" id="btnSurfaceAirport" title="UUM-8D AIRPORT_WALK">⌖ WALK</button>
+    </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
@@ -106,9 +119,52 @@
   <div id="boot"></div>
   <script>
     (function () {
+      // ?chrome=1 restores side panel; default = full-screen manifold viewport
+      const qs = new URLSearchParams(location.search);
+      const bootStatus = document.getElementById("openusdBootStatus");
+      function setBootStatus(msg) {
+        if (bootStatus) bootStatus.textContent = msg;
+      }
+      if (qs.get("chrome") === "1") {
+        document.body.classList.add("show-chrome");
+      }
+      const btnToggleChrome = document.getElementById("btnToggleChrome");
+      if (btnToggleChrome) {
+        btnToggleChrome.addEventListener("click", function () {
+          document.body.classList.toggle("show-chrome");
+          window.dispatchEvent(new Event("resize"));
+        });
+      }
+      // Layout watchdog: blank-black root cause was #viewport width 0 under
+      // grid-template-columns: 0 1fr + panel display:none. Surface never stays void.
+      function assertViewportLayout() {
+        var vp = document.getElementById("viewport");
+        if (!vp) return;
+        var w = vp.getBoundingClientRect().width;
+        if (w < 8) {
+          document.body.classList.add("show-chrome");
+          setBootStatus("LAYOUT_SHEAR: viewport width=" + Math.round(w) + " — panel restored");
+          window.dispatchEvent(new Event("resize"));
+        }
+      }
+      window.addEventListener("load", function () {
+        requestAnimationFrame(assertViewportLayout);
+        setTimeout(assertViewportLayout, 250);
+        setTimeout(assertViewportLayout, 1500);
+      });
       const logEl = document.getElementById("log");
       const apexLabel = document.getElementById("apexLabel");
       let mounted = null;
+      /** Prove / membrane hook — thin viewport controller (Swift remains SoT). */
+      function bindMounted(m) {
+        mounted = m;
+        window.__affineOpenUSDMounted = m;
+        setBootStatus("Manifold live — scroll/pinch zoom · drag pan · ☰ Panel");
+        requestAnimationFrame(assertViewportLayout);
+        setTimeout(function () {
+          window.dispatchEvent(new Event("resize"));
+        }, 0);
+      }
       let lastUsda = "";
       let autoStrobe = true;
       let autoTimer = null;
@@ -193,11 +249,13 @@ def Xform "AffineEarthAirspace" {
           return;
         }
         if (mounted && mounted.dispose) mounted.dispose();
-        mounted = OpenUSDPlayer.mount(
-          document.getElementById("viewport"),
-          text,
-          window.THREE,
-          { icao: focusIcao, forceAtc: text.indexOf("airspace_atc") >= 0 || text.indexOf("focus_icao") >= 0 }
+        bindMounted(
+          OpenUSDPlayer.mount(
+            document.getElementById("viewport"),
+            text,
+            window.THREE,
+            { icao: focusIcao, forceAtc: text.indexOf("airspace_atc") >= 0 || text.indexOf("focus_icao") >= 0 }
+          )
         );
         // Boot stays on HEMISPHERE manifold band (UUM8D stage start). Airport buttons jump focus.
         var st = mounted.getLiveState ? mounted.getLiveState() : {};
@@ -319,6 +377,31 @@ def Xform "AffineEarthAirspace" {
       document.getElementById("btnZoomOutPanel").onclick = function () {
         if (mounted && mounted.zoomBy) mounted.zoomBy(1 / 1.35);
       };
+      function surfaceBand(id) {
+        if (mounted && mounted.setManifoldView) mounted.setManifoldView(id);
+        else if (mounted && mounted.zoomToBand) mounted.zoomToBand(id);
+      }
+      var btnSurfaceHemi = document.getElementById("btnSurfaceHemi");
+      if (btnSurfaceHemi) {
+        btnSurfaceHemi.onclick = function () { surfaceBand("HEMISPHERE"); };
+      }
+      var btnSurfaceRegional = document.getElementById("btnSurfaceRegional");
+      if (btnSurfaceRegional) {
+        btnSurfaceRegional.onclick = function () { surfaceBand("REGIONAL"); };
+      }
+      var btnSurfaceMetro = document.getElementById("btnSurfaceMetro");
+      if (btnSurfaceMetro) {
+        btnSurfaceMetro.onclick = function () { surfaceBand("METRO"); };
+      }
+      var btnSurfaceAirport = document.getElementById("btnSurfaceAirport");
+      if (btnSurfaceAirport) {
+        btnSurfaceAirport.onclick = function () { surfaceBand("AIRPORT_WALK"); };
+      }
+      // Boot focus from ?icao=
+      try {
+        var bootIcao = (qs.get("icao") || "").toUpperCase();
+        if (bootIcao) focusIcao = bootIcao;
+      } catch (_) {}
       document.getElementById("skinSelect").onchange = function () {
         var skin = document.getElementById("skinSelect").value || "map-dark";
         var link = document.getElementById("mapSkin");
@@ -394,23 +477,36 @@ def Xform "AffineEarthAirspace" {
           }
         })
         .catch(function (e) { log(String(e), "err"); });
+      // Product boot: always mount ATC procedural manifold (c₄ viewer). USDA optional.
+      function bootAtcManifold(usdaText) {
+        var text =
+          usdaText ||
+          '#usda 1.0\n(\n    defaultPrim = "AffineEarthATCWorld"\n)\ndef Xform "AffineEarthATCWorld" {\n    custom string gaia:schema = "gaia.airspace_atc_world.v1"\n    custom string gaia:focus_icao = "KJFK"\n}\n';
+        document.getElementById("usdaPaste").value = text.slice(0, 12000);
+        lastUsda = text;
+        if (mounted && mounted.dispose) mounted.dispose();
+        bindMounted(
+          OpenUSDPlayer.mount(
+            document.getElementById("viewport"),
+            text,
+            window.THREE,
+            { icao: focusIcao, forceAtc: true }
+          )
+        );
+        log("ATC procedural c4 manifold mounted (forceAtc)", "ok");
+        setAutoStrobe(true);
+      }
       loadUsda()
         .then(function () {
           const text = document.getElementById("usdaPaste").value || "";
-          if (text.indexOf("timeSamples") < 0) {
-            log("Apex USDA has no timeSamples — switching to lattice fallback", "ok");
-            loadLiveUsda();
-          } else if (text.indexOf("airspace_atc") >= 0 || text.indexOf("focus_icao") >= 0) {
-            log("ATC world USDA loaded — camera zoom + aircraft motion", "ok");
+          bootAtcManifold(text);
+          if (text.indexOf("airspace_atc") >= 0 || text.indexOf("focus_icao") >= 0) {
+            log("ATC world USDA loaded — Primvar / c4 path", "ok");
           }
-          setAutoStrobe(true);
         })
         .catch(function (e) {
           log(String(e), "err");
-          document.getElementById("usdaPath").value = "/language-game/airspace-lattice.usda";
-          loadUsda()
-            .catch(function () { loadLiveUsda(); })
-            .then(function () { setAutoStrobe(true); });
+          bootAtcManifold(null);
         });
     })();
   </script>
