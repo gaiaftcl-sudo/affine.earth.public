@@ -12,6 +12,33 @@
 
 ---
 
+## Live Public Wire Endpoints (`https://affine.earth`) & Zero-Weight Leaderboard Proofs
+
+- **OpenAI-Compatible Model Discovery:** [`https://affine.earth/v1/models`](https://affine.earth/v1/models) (`"id": "Affine.Earth"`)
+- **OpenAI-Compatible Chat Completions:** [`https://affine.earth/v1/chat/completions`](https://affine.earth/v1/chat/completions) (`"model": "Affine.Earth"`)
+- **Streamable HTTP MCP Server (10 Tools):** [`https://affine.earth/v1/mcp`](https://affine.earth/v1/mcp)
+- **Public MCP Discovery Manifest:** [`https://affine.earth/.well-known/mcp.json`](https://affine.earth/.well-known/mcp.json) · [`.well-known/mcp.json`](.well-known/mcp.json) · [`mcp.json`](mcp.json)
+- **Formal Meta-Math (`set.mm` / `miniF2F` / `GSM-Symbolic`) Court:** [`https://affine.earth/v1/shield/1/metamath?theorem=MM-THM-ALL`](https://affine.earth/v1/shield/1/metamath?theorem=MM-THM-ALL)
+- **Live Interactive Leaderboard Console:** [`https://affine.earth/leaderboard.html`](https://affine.earth/leaderboard.html)
+- **Signed Zero-Weight Benchmark Bundles:** [`benchmarks/`](benchmarks/) (`Affine.Earth-GAIA.jsonl`, `Affine.Earth-SWE-Bench-Verified.jsonl`, `Affine.Earth-MetaMath-Formal.jsonl`, `Affine.Earth-AllSouls-500.json`, `Affine.Earth-FrontierPhysics-168.json`, `affine-earth-harness-lens.json`)
+- **Stateless `stdio -> HTTPS` Swift 6.4 MCP Forwarder:** [`Package.swift`](Package.swift) · [`Sources/AffineEarthClientCLI/main.swift`](Sources/AffineEarthClientCLI/main.swift)
+- **Two-Tier Sovereign Airgap Audit:** `./verify_public_client_airgap.sh`
+
+```bash
+# 1. Verify OpenAI /v1/models discovery
+curl -sS https://affine.earth/v1/models | jq .
+
+# 2. Verify Streamable HTTP MCP 10-Tool Catalog (tools/list)
+curl -sS -X POST https://affine.earth/v1/mcp \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"tools/list"}' | jq '.result.tools | map(.name)'
+
+# 3. Verify Formal Meta-Math Court (MP + SUB + DET -> BornRes=0 in 34 Flicks)
+curl -sS "https://affine.earth/v1/shield/1/metamath?theorem=MM-THM-ALL" | jq .
+```
+
+---
+
 ## Proof in action — UI all-tests
 
 Onboard → **all 12 LIVE Games** → Franklin answers in the membrane. Captured 2026-07-20 on live Affine.Earth.
