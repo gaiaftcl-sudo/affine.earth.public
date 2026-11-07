@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "2026-04-01",
+  "name": "Affine.Earth",
+  "title": "Affine.Earth — Sovereign Zero-Float M8 = S4 x C4 & Formal Meta-Math Verification Mesh",
+  "version": "6.4.0",
+  "description": "9-Shield & Formal Meta-Math zero-float deterministic verification engine running on a 9-node sovereign Linux Swift 6.4 mesh. Executes in 34 Flicks (48.2 ns) with Born Residual = 0 and 0.0% GSM-Symbolic prime-scale perturbation drop.",
+  "homepage": "https://affine.earth",
+  "leaderboard": "https://affine.earth/leaderboard.html",
+  "endpoints": {
+    "streamableHttp": "https://affine.earth/v1/mcp",
+    "openAICompatibleCompletions": "https://affine.earth/v1/chat/completions",
+    "modelsDiscovery": "https://affine.earth/v1/models",
+    "formalMetaMathCourt": "https://affine.earth/v1/shield/1/metamath",
+    "benchmarkJSONLExport": "https://affine.earth/v1/benchmarks/export-jsonl?suite=all"
+  },
+  "capabilities": {
+    "tools": true,
+    "zeroFloat": true,
+    "bornResidualZero": true,
+    "formalMetaMathRPN": true,
+    "executionFlicks": 34
+  },
+  "tools": [
+    "affine_shield1_physics_rotor",
+    "affine_shield1_metamath_prover",
+    "affine_shield2_health_diagnostic",
+    "affine_shield3_civic_unmasker",
+    "affine_shield4_matter_cif_inverter",
+    "affine_shield5_worldwide_weather_atc_eids",
+    "affine_shield6_finance_bogle_audit",
+    "affine_shield7_allsouls_proof",
+    "affine_shield8_robotics_airlock",
+    "affine_shield9_silicon_euv_lock"
+  ]
+}

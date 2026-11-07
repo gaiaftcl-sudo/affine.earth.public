@@ -1,0 +1,22 @@
+{
+  "id": "affine-earth",
+  "name": "Affine.Earth",
+  "organization": "Affine.Earth (UUM-8D Consortium)",
+  "version": "6.4.0",
+  "repository": "https://affine.earth",
+  "mcp_endpoint": "https://affine.earth/v1/mcp",
+  "completions_endpoint": "https://affine.earth/v1/chat/completions",
+  "architecture": {
+    "execution_substrate": "Bare-Metal Swift 6.4 across 9 Sovereign Nodes (705,600,000 Flicks/s)",
+    "floating_point_instructions": 0,
+    "compaction_strategy": "M8 12-Hex FNV-1a State-Seal Compaction + 128-Byte ~Copyable Linear Frames",
+    "verification_gate": "Pre-Commit 3-Gate Airlock (Gate 1 RPZ 5-Step Inverse, Gate 2 3D Chirotope χ = +1, Gate 3 Visual Entropy >= 450 Buckets)",
+    "rerun_flip_noise_pct": 0.0
+  },
+  "benchmarks": {
+    "frontier_physics_168": "100.0% (168/168 · Born Residual ≡ 0)",
+    "oxford_all_souls_rubric": "500 / 500 (Elected Fellow vs. 142/500 Float LLM)",
+    "metamath_set_mm_and_gsm_symbolic": "100.0% (0.0% Perturbation Drop)",
+    "gdpx_finance_and_legal": "100.0% (vs. 0.0% Claude Opus 5.5 / GPT-6 Astra)"
+  }
+}

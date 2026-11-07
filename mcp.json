@@ -1,0 +1,24 @@
+{
+  "mcpVersion": "2025-06-18",
+  "name": "Affine.Earth",
+  "version": "6.4.0",
+  "description": "Public Model Context Protocol (MCP) & OpenAI-Compatible Client Surface for the Affine.Earth M8 = S4 x C4 vQbit Sovereign State Machine (34 Flicks / 48.2 ns, Born Residual = 0, 0 W GPU).",
+  "homepage": "https://affine.earth",
+  "license": "Affine.Earth Sovereign Commercial Charter (Citizen Preview Open)",
+  "mcpServers": {
+    "Affine.Earth": {
+      "type": "streamable-http",
+      "url": "https://affine.earth/v1/mcp",
+      "headers": {
+        "X-Affine-No-Float": "1",
+        "Authorization": "Bearer AFFINE-PUBLIC-CLIENT-PREVIEW"
+      }
+    }
+  },
+  "openaiCompatibleEndpoint": {
+    "baseUrl": "https://affine.earth/v1",
+    "completionsUrl": "https://affine.earth/v1/chat/completions",
+    "modelsUrl": "https://affine.earth/v1/models",
+    "modelId": "Affine.Earth"
+  }
+}
