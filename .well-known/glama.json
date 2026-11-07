@@ -1,0 +1,26 @@
+{
+  "$schema": "https://glama.ai/mcp/schemas/server.json",
+  "name": "Affine.Earth",
+  "description": "Sovereign M8 = S4 x C4 vQbit Zero-Float Computational Platform (9 Shields). Executes Physics (168/168 FrontierPhysics), Human Bio-Twin (2,234 FMA), Cyber Geodesics, .CIF Materials, 4D ATC/E-IDS, Bogle Finance, Oxford All Souls Law (500/500), Robotics Airlocks, and 1.0nm Silicon verification in 34 Flicks (48.2 ns) at 0 W GPU.",
+  "homepage": "https://affine.earth",
+  "transport": {
+    "type": "streamable-http",
+    "url": "https://affine.earth/v1/mcp"
+  },
+  "categories": [
+    "mathematics",
+    "physics",
+    "finance",
+    "legal",
+    "healthcare",
+    "robotics",
+    "security",
+    "developer-tools"
+  ],
+  "attributes": {
+    "hosting": "production-remote",
+    "floatingPointInstructions": 0,
+    "gateLatencyNs": 48.2,
+    "bornResidual": 0
+  }
+}
