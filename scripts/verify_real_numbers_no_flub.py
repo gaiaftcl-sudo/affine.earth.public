@@ -1,3 +1,6 @@
+import sys
+if hasattr(sys, "set_int_max_str_digits"):
+    sys.set_int_max_str_digits(0)
 """Measure local compiler and exact-integer checks, optionally probing a live URL."""
 
 import argparse
