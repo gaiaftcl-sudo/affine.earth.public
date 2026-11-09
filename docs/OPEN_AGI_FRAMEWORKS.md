@@ -36,10 +36,11 @@ scores for these frameworks.
 
 ## Gate 0 — endpoint reality
 
-Same as third-party harnesses: `https://affine.earth/v1` currently returns an
-HTML SPA, not OpenAI JSON. Point harnesses at a real OpenAI-compatible `/v1`
-that answers `GET …/models` with JSON. Local interceptor is wiring only, not a
-public AGI score claim.
+Canonical DNS (`https://affine.earth/v1`) serves the live OpenAI-compatible JSON
+API (`GET https://affine.earth/v1/models` and `POST https://affine.earth/v1/chat/completions`)
+and JSON-RPC 2.0 MCP server (`POST https://affine.earth/v1/mcp`) directly from the
+bare-metal Swift 6.4 zero-float 9-cell fleet (`affine-uum8d-s4`), authenticated with
+`Authorization: Bearer affine-public-eval-2026`.
 
 ```bash
 cp configs/third-party-harnesses.env.example .env.third-party-harnesses

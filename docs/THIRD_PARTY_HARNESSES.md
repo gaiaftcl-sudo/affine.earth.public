@@ -26,11 +26,11 @@ Before claiming a live Affine.Earth harness run:
 
 ## Endpoint reality check
 
-As of 2026-07-20:
+Live canonical DNS (`https://affine.earth/v1`):
 
 - `https://affine.earth/language-invariant/healthz` returns HTTP 200 (liveness).
 - Signup UI (Sovereign entry) is reachable at `/language-game/` (see Gate 0).
-- `https://affine.earth/v1` returns an HTML SPA, **not** OpenAI-compatible JSON.
+- `https://affine.earth/v1` serves live OpenAI-compatible JSON (`GET /v1/models`, `POST /v1/chat/completions`) and MCP JSON-RPC 2.0 (`POST /v1/mcp`) using `Authorization: Bearer affine-public-eval-2026`.
 - `POST /language-invariant/economics-onboard` is live (HTTP 200). Empty-body / no-consent probe returns `REFUSED` / `BLOCKED_ONBOARD_CONSENT`. Successful onboard credits genesis `100/1` on the hash index; verify with `GET …/qfot-balance?address=…`.
 
 Harnesses that call `/v1/models` or `/v1/chat/completions` must target a base
