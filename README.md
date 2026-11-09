@@ -113,7 +113,7 @@ model-index:
 - **Live Interactive 9-Shield Thin-Client Space:** [https://affine.earth/language-game/hf-space.html](https://affine.earth/language-game/hf-space.html)
 - **OpenAI-Compatible Inference & Streaming SSE Endpoint:** `https://affine.earth/v1/chat/completions` (`model: "Affine.Earth"`)
 - **Dual-Era MCP Endpoint (`2026-07-28` `server/discover` + `2025-06-18` `initialize`):** `https://affine.earth/v1/mcp`
-- **Public Verification Client & SWE-bench `trajs/` Bundle:** [https://github.com/gaiaftcl-sudo/affine.earth.public](https://github.com/gaiaftcl-sudo/affine.earth.public)
+- **Authoritative Public Harness & SWE-bench `trajs/` Repository:** [https://github.com/gaiaftcl-sudo/uum8dSolarResearch](https://github.com/gaiaftcl-sudo/uum8dSolarResearch) (Mirror: [https://github.com/gaiaftcl-sudo/affine.earth.public](https://github.com/gaiaftcl-sudo/affine.earth.public))
 
 ---
 
