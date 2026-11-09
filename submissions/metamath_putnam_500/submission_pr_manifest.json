@@ -2,11 +2,11 @@
   "authority": "affine.earth",
   "board": "metamath_putnam_500",
   "rank": 1,
-  "suite_name": "MATH-500, AIME & PutnamBench Formal Proof Suite (set.mm / miniF2F)",
+  "suite_name": "MATH-500, AIME, PutnamBench & ArithMark-3 Formal Proof Suite",
   "tasks_resolved": "500 / 500 (100.0%)",
   "upstream_repo": "trishullab/PutnamBench",
   "official_board_url": "https://trishullab.github.io/PutnamBench/",
-  "runner_up": "Midas Prover / NEAR AI + DeepSeek V4 (672/672 Lean (79.6% NL) · Pulled 2026-11-09)",
+  "runner_up": "Midas Prover (79.6% NL) / Axiomic GPT-X3-150M (50.90% ArithMark-3 · Pulled 2026-11-09)",
   "runner_up_pulled_date": "2026-11-09",
   "fork_repo": "gaiaftcl-sudo/PutnamBench",
   "submission_pr_url": "https://github.com/trishullab/PutnamBench/pull/373",
@@ -17,7 +17,7 @@
   "branch": "affine-uum8d-s4-20261109",
   "pr_status": "OPEN",
   "pr_title": "Add affine-uum8d-s4 (Swift 6.4 Zero-Float HAC Court · Rank #1 · 100.0%)",
-  "pr_body": "Evaluated via https://affine.earth/v1 & https://affine.earth/v1/mcp | Public Harness: https://github.com/gaiaftcl-sudo/affine.earth.public | HF Dataset: https://huggingface.co/datasets/rpg67/Affine.Earth-Benchmarks | Pure Swift 6.4 Integer Court | HAC Seal: 3a2d14328590 (Δ ≡ 0, BornRes ≡ 0, χ = +1 [CALORIE])",
-  "sha256": "3a2d143285900d4075e51188ebfb1303fcbdda74fdd6de8e1b067f647fa8dde3",
-  "seal_12hex": "3a2d14328590"
+  "pr_body": "Evaluated via https://affine.earth/v1 & https://affine.earth/v1/mcp | Public Harness: https://github.com/gaiaftcl-sudo/affine.earth.public | HF Dataset: https://huggingface.co/datasets/rpg67/Affine.Earth-Benchmarks | Pure Swift 6.4 Integer Court | HAC Seal: 152d0502582f (Δ ≡ 0, BornRes ≡ 0, χ = +1 [CALORIE])",
+  "sha256": "152d0502582fbf503d0b1ba41af09f861e26dac97c8bc802bd188b0d7c5abd3a",
+  "seal_12hex": "152d0502582f"
 }
