@@ -28,16 +28,16 @@ def Xform "AffineEarthAirspace" (
     uniform token[] xformOpOrder = ["xformOp:translate"]
 
     def Xform "Cell_hel_00" {
-        custom string gaia:node_id = "hel-00"
+        custom string gaia:node_id = "affine-edge"
     }
     def Xform "Cell_hel_01" {
-        custom string gaia:node_id = "hel-01"
+        custom string gaia:node_id = "affine-edge"
     }
     def Xform "Cell_hel_02" {
-        custom string gaia:node_id = "hel-02"
+        custom string gaia:node_id = "affine-edge"
     }
     def Xform "Cell_nbg_00" {
-        custom string gaia:node_id = "nbg-00"
+        custom string gaia:node_id = "affine-edge"
     }
     def Mesh "MembraneProjectTick" {
         custom string gaia:role = "membrane_strobe"

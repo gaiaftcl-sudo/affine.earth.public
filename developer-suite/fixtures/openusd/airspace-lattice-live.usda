@@ -31,22 +31,22 @@ def Xform "AffineEarthAirspace" (
     def Xform "Cell_hel_00" {
         double3 xformOp:translate = (1.6, 0, 0)
         uniform token[] xformOpOrder = ["xformOp:translate"]
-        custom string gaia:node_id = "hel-00"
+        custom string gaia:node_id = "affine-edge"
     }
     def Xform "Cell_hel_01" {
         double3 xformOp:translate = (1.1, 0.5, 1.1)
         uniform token[] xformOpOrder = ["xformOp:translate"]
-        custom string gaia:node_id = "hel-01"
+        custom string gaia:node_id = "affine-edge"
     }
     def Xform "Cell_hel_02" {
         double3 xformOp:translate = (0, 0.8, 1.6)
         uniform token[] xformOpOrder = ["xformOp:translate"]
-        custom string gaia:node_id = "hel-02"
+        custom string gaia:node_id = "affine-edge"
     }
     def Xform "Cell_nbg_00" {
         double3 xformOp:translate = (-1.1, 0.5, 1.1)
         uniform token[] xformOpOrder = ["xformOp:translate"]
-        custom string gaia:node_id = "nbg-00"
+        custom string gaia:node_id = "affine-edge"
     }
     def Mesh "MembraneProjectTick" {
         custom string gaia:role = "membrane_strobe"
