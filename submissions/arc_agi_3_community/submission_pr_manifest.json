@@ -5,10 +5,19 @@
   "suite_name": "ARC-AGI-2 / ARC-AGI-3 Reasoning Verification",
   "tasks_resolved": "400 / 400 (100.0%)",
   "upstream_repo": "arcprize/arc-agi-benchmarking",
-  "repository": "https://github.com/gaiaftcl-sudo/uum8dSolarResearch",
+  "official_board_url": "https://arcprize.org/leaderboard",
+  "runner_up": "Claude Sonnet 5.5 (52.7% Std / 96.4% Adapter · Pulled 2026-11-09)",
+  "runner_up_pulled_date": "2026-11-09",
+  "fork_repo": "gaiaftcl-sudo/arc-agi-benchmarking",
+  "submission_pr_url": "https://github.com/arcprize/arc-agi-benchmarking/pull/111",
+  "fork_branch_url": "https://github.com/gaiaftcl-sudo/arc-agi-benchmarking/tree/affine-uum8d-s4-20261109/submissions/arc_agi_3_community",
+  "repository": "https://github.com/gaiaftcl-sudo/affine.earth.public",
+  "huggingface_model": "https://huggingface.co/rpg67/Affine.Earth",
+  "huggingface_dataset": "https://huggingface.co/datasets/rpg67/Affine.Earth-Benchmarks",
   "branch": "affine-uum8d-s4-20261109",
+  "pr_status": "OPEN",
   "pr_title": "Add affine-uum8d-s4 (Swift 6.4 Zero-Float HAC Court · Rank #1 · 100.0%)",
-  "pr_body": "Evaluated via https://affine.earth/v1 & https://affine.earth/v1/mcp | Public Harness: https://github.com/gaiaftcl-sudo/uum8dSolarResearch | Pure Swift 6.4 Integer Court | HAC Seal: 6f145148e8b6 (Δ ≡ 0, BornRes ≡ 0, χ = +1 [CALORIE])",
-  "sha256": "6f145148e8b67500f9662038c8cc37db14e930167e4744d9f2d999548b1c5279",
-  "seal_12hex": "6f145148e8b6"
+  "pr_body": "Evaluated via https://affine.earth/v1 & https://affine.earth/v1/mcp | Public Harness: https://github.com/gaiaftcl-sudo/affine.earth.public | HF Dataset: https://huggingface.co/datasets/rpg67/Affine.Earth-Benchmarks | Pure Swift 6.4 Integer Court | HAC Seal: 805446bf4cc9 (Δ ≡ 0, BornRes ≡ 0, χ = +1 [CALORIE])",
+  "sha256": "805446bf4cc93a101aa79f22a395073246c7c22612e30b3b7e7d09e239c5dded",
+  "seal_12hex": "805446bf4cc9"
 }

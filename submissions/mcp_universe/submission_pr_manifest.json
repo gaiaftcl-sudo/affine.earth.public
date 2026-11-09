@@ -5,10 +5,19 @@
   "suite_name": "Salesforce MCP-Universe & Scale MCP-Atlas",
   "tasks_resolved": "480 / 480 (100.0%)",
   "upstream_repo": "SalesforceAIResearch/MCP-Universe",
-  "repository": "https://github.com/gaiaftcl-sudo/uum8dSolarResearch",
+  "official_board_url": "https://mcp-universe.github.io/",
+  "runner_up": "GPT-5-High (44.16% · Pulled 2026-11-09)",
+  "runner_up_pulled_date": "2026-11-09",
+  "fork_repo": "gaiaftcl-sudo/MCP-Universe",
+  "submission_pr_url": "https://github.com/SalesforceAIResearch/MCP-Universe/pull/80",
+  "fork_branch_url": "https://github.com/gaiaftcl-sudo/MCP-Universe/tree/affine-uum8d-s4-20261109/submissions/mcp_universe",
+  "repository": "https://github.com/gaiaftcl-sudo/affine.earth.public",
+  "huggingface_model": "https://huggingface.co/rpg67/Affine.Earth",
+  "huggingface_dataset": "https://huggingface.co/datasets/rpg67/Affine.Earth-Benchmarks",
   "branch": "affine-uum8d-s4-20261109",
+  "pr_status": "OPEN",
   "pr_title": "Add affine-uum8d-s4 (Swift 6.4 Zero-Float HAC Court · Rank #1 · 100.0%)",
-  "pr_body": "Evaluated via https://affine.earth/v1 & https://affine.earth/v1/mcp | Public Harness: https://github.com/gaiaftcl-sudo/uum8dSolarResearch | Pure Swift 6.4 Integer Court | HAC Seal: d03161fea7bf (Δ ≡ 0, BornRes ≡ 0, χ = +1 [CALORIE])",
-  "sha256": "d03161fea7bf88c9e61a11103e0ac07522998a5cbf749453698f13c339290d54",
-  "seal_12hex": "d03161fea7bf"
+  "pr_body": "Evaluated via https://affine.earth/v1 & https://affine.earth/v1/mcp | Public Harness: https://github.com/gaiaftcl-sudo/affine.earth.public | HF Dataset: https://huggingface.co/datasets/rpg67/Affine.Earth-Benchmarks | Pure Swift 6.4 Integer Court | HAC Seal: 2d14b997c123 (Δ ≡ 0, BornRes ≡ 0, χ = +1 [CALORIE])",
+  "sha256": "2d14b997c12352efc5e37e86c4d332fdb62f6bd8be18575032cdace078d5b8bb",
+  "seal_12hex": "2d14b997c123"
 }
