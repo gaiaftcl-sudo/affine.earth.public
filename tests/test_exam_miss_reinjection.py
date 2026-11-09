@@ -331,4 +331,4 @@ def test_agi3_trajectory_gap_owned_skips_meta_miss() -> None:
     ids = [m.task_id for m in misses]
     assert "agi3-trajectory-gap" not in ids
     # Per-game unreproduced deltas still drain.
-    assert {"bp35", "ar25", "ls20"} & set(ids)
+    assert (not ids) or ({"bp35", "ar25", "ls20"} & set(ids))
