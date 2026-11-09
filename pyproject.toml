@@ -30,3 +30,6 @@ llm-llvm-bench = "llm_llvm_bench.cli.main:cli"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
+
+[tool.setuptools.packages.find]
+include = ["llm_llvm_bench*"]
