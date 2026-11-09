@@ -303,4 +303,10 @@ curl -s -X POST https://affine.earth/v1/mcp \
 
 # 3. Shield 6 Tokenized Equity Over-Total (>100% Float) & 10,240-Wallet 13F Sybil Unmasking
 curl -s https://affine.earth/v1/shield/6/tokenized-equity-audit | jq .
+
+# 4. Shield 6 & Shield 3 NYSE Pillar ATS + Avalanche 24/7 Clearing Ledger Shenanigan Sentinel (6 Transfer Agents · 10,240-Wallet Sybil)
+curl -s https://affine.earth/v1/shield/6/nyse-avalanche-audit | jq .
+
+# 5. 6 Mined Hugging Face Discrete Integer Codebooks (LFM3 29.4k Flicks · ViQ FSQ · RFD4 100pm)
+curl -s https://affine.earth/v1/benchmarks/hf-mined-invariants | jq .
 ```
