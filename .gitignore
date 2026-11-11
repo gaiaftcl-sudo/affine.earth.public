@@ -42,3 +42,6 @@ harnesses/*
 .env.affine-earth
 .env.providers
 .env.suites
+
+.build/
+.pytest_cache/
