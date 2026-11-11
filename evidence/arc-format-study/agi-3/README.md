@@ -134,4 +134,4 @@ For more information on tests, please see the [tests documentation](https://thre
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is source-available under The Affine.Earth Sovereign Humanitarian, Commons & Commercial Settlement License (v1.0). See [`LICENSE`](../../../LICENSE) for details.

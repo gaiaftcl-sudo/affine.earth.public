@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "A unified, real-world domain benchmark testing suite for AI LLMs and LLVM compiler infrastructures."
 readme = "README.md"
 authors = [{ name = "GaiaFTCL Engineering", email = "richard@affine.earth" }]
-license = "MIT"
+license = "LicenseRef-Affine-Earth-Sovereign-1.0"
 license-files = ["LICENSE"]
 requires-python = ">=3.9"
 dependencies = [
