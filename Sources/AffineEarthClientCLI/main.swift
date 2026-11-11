@@ -1,6 +1,6 @@
 // Sources/AffineEarthClientCLI/main.swift
 // Public Thin Client Bridge for Affine.Earth (Contains ZERO Private Cell IP)
-// Forwards stdio MCP JSON-RPC 2.0 or CLI prompts over HTTPS to https://affine.earth/v1/mcp
+// Forwards stdio MCP JSON-RPC 2.0 over HTTPS to https://affine.earth/language-invariant/mcp
 
 import Foundation
 #if canImport(FoundationNetworking)
@@ -9,7 +9,11 @@ import FoundationNetworking
 
 @main
 struct AffineEarthPublicClient {
-    static let endpoint = URL(string: "https://affine.earth/v1/mcp")!
+    static var endpoint: URL {
+        let raw = ProcessInfo.processInfo.environment["AFFINE_MCP_URL"]
+            ?? "https://affine.earth/language-invariant/mcp"
+        return URL(string: raw)!
+    }
 
     static func main() async throws {
         while let line = readLine(strippingNewline: true) {
