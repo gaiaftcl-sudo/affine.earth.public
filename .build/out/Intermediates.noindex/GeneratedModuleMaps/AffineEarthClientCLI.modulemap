@@ -1,0 +1,4 @@
+module AffineEarthClientCLI {
+header "AffineEarthClientCLI-Swift.h"
+export *
+}

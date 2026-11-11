@@ -38,9 +38,9 @@ scores for these frameworks.
 
 Canonical DNS (`https://affine.earth/v1`) serves the live OpenAI-compatible JSON
 API (`GET https://affine.earth/v1/models` and `POST https://affine.earth/v1/chat/completions`)
-and JSON-RPC 2.0 MCP server (`POST https://affine.earth/v1/mcp`) directly from the
+and JSON-RPC 2.0 MCP server (`POST https://affine.earth/language-invariant/mcp`) directly from the
 bare-metal Swift 6.4 zero-float 9-cell fleet (`affine-uum8d-s4`), authenticated with
-`Authorization: Bearer affine-public-eval-2026`.
+`Authorization: Bearer $AFFINE_API_KEY`.
 
 ```bash
 cp configs/third-party-harnesses.env.example .env.third-party-harnesses

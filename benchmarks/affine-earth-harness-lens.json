@@ -4,7 +4,7 @@
   "organization": "Affine.Earth (UUM-8D Consortium)",
   "version": "6.4.0",
   "repository": "https://affine.earth",
-  "mcp_endpoint": "https://affine.earth/v1/mcp",
+  "mcp_endpoint": "https://affine.earth/language-invariant/mcp",
   "completions_endpoint": "https://affine.earth/v1/chat/completions",
   "architecture": {
     "execution_substrate": "Bare-Metal Swift 6.4 across 9 Sovereign Nodes (705,600,000 Flicks/s)",
