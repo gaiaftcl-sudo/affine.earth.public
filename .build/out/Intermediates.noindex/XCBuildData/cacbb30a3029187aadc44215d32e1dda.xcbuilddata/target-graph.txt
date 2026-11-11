@@ -1,6 +1,0 @@
-Target dependency graph (3 targets)
-Target 'AllExcludingTests' in project 'Aggregate'
-➜ Explicit dependency on target 'affine-earth-client-product' in project 'AffineEarthClient'
-➜ Explicit dependency on target 'AffineEarthClientCLI' in project 'AffineEarthClient'
-Target 'AffineEarthClientCLI' in project 'AffineEarthClient' (no dependencies)
-Target 'affine-earth-client-product' in project 'AffineEarthClient' (no dependencies)
